@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sanchez.sanchez.sergio.masom_app">
 
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".AndroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

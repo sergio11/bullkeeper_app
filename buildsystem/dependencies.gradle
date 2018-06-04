@@ -29,6 +29,10 @@ ext {
     okHttpVersion = '2.5.0'
     androidAnnotationsVersion = '21.0.3'
     arrowVersion = '1.0.0'
+    dexterVersion = '4.1.0'
+    calligraphyVersion = '2.3.0'
+    timberVersion = '4.5.1'
+    icePickVersion = '3.1.0'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -52,7 +56,13 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appcompatv7:        "com.android.support:appcompat-v7:${supportVersion}",
-            supportV4:          "com.android.support:support-v4:${supportVersion}"
+            supportV4:          "com.android.support:support-v4:${supportVersion}",
+            dexter:             "com.karumi:dexter:${dexterVersion}",
+            calligraphy:        "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
+            timber:             "com.jakewharton.timber:timber:${timberVersion}",
+            icepick:            "frankiesardo:icepick:${icePickVersion}",
+            icepickProcessor:   "frankiesardo:icepick-processor:${icePickVersion}"
+
     ]
 
     presentationTestDependencies = [

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map name="permissions" linked="true">
+    <entry key="android.permission.CAMERA" type="permissions_key">
+        <map name="permissions_text" linked="true">
+            <entry key="title">test</entry>
+            <entry key="text">test</entry>
+        </map>
+    </entry>
+</map>

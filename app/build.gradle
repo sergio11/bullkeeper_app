@@ -63,6 +63,8 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
+    // Compile Utils Module
+    implementation project(':utils')
     // Compile Domain
     implementation project(':domain')
     // Data Module
@@ -79,6 +81,11 @@ dependencies {
     compileOnly presentationDependencies.javaxAnnotation
     implementation presentationDependencies.appcompatv7
     implementation presentationDependencies.supportV4
+    implementation presentationDependencies.dexter
+    implementation presentationDependencies.calligraphy
+    implementation presentationDependencies.icepick
+    annotationProcessor presentationDependencies.icepickProcessor
+    implementation presentationDependencies.timber
 
 
     androidTestImplementation presentationTestDependencies.mockito
