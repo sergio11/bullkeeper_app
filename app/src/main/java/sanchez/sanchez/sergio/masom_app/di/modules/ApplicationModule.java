@@ -11,6 +11,9 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.masom_app.AndroidApplication;
 import sanchez.sanchez.sergio.masom_app.UIThread;
+import sanchez.sanchez.sergio.masom_app.navigation.Navigator;
+import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
+import sanchez.sanchez.sergio.masom_app.notification.local.impl.LocalSystemNotificationImpl;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -53,5 +56,25 @@ public class ApplicationModule {
     @Provides @Singleton
     IPostExecutionThread providePostExecutionThread(final UIThread uiThread) {
         return uiThread;
+    }
+
+    /**
+     * Provide Navigator
+     * @param context
+     * @return
+     */
+    @Provides @Singleton
+    public Navigator provideNavigator(final Context context) {
+        return new Navigator(context);
+    }
+
+    /**
+     * Provide Local System Notification Aware
+     * @param context
+     * @return
+     */
+    @Provides @Singleton
+    public ILocalSystemNotification provideLocalSystemNotificationAware(final Context context) {
+        return new LocalSystemNotificationImpl(context);
     }
 }

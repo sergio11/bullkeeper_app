@@ -57,6 +57,7 @@ ext {
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appcompatv7:        "com.android.support:appcompat-v7:${supportVersion}",
             supportV4:          "com.android.support:support-v4:${supportVersion}",
+            supportDesign:      "com.android.support:design:${supportVersion}",
             dexter:             "com.karumi:dexter:${dexterVersion}",
             calligraphy:        "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
             timber:             "com.jakewharton.timber:timber:${timberVersion}",

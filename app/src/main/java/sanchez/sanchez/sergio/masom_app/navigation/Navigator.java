@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.masom_app.navigation;
 
+import android.content.Context;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -9,9 +11,11 @@ import javax.inject.Singleton;
 @Singleton
 public class Navigator {
 
+    private final Context context;
+
     @Inject
-    public Navigator() {
-        //empty
+    public Navigator(final Context context) {
+        this.context = context;
     }
 
 }

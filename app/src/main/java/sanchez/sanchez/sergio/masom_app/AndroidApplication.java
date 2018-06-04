@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.masom_app;
 import android.app.Application;
 
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
+import sanchez.sanchez.sergio.masom_app.di.components.DaggerApplicationComponent;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 
 /**

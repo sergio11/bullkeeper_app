@@ -25,6 +25,7 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.masom_app.navigation.Navigator;
+import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.utils.ResourceUtils;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -36,6 +37,9 @@ public abstract class SupportActivity extends AppCompatActivity implements IBasi
 
     @Inject
     protected Navigator navigator;
+
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
 
     /**
      * Permissions Resource

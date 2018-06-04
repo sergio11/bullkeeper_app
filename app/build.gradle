@@ -81,6 +81,7 @@ dependencies {
     compileOnly presentationDependencies.javaxAnnotation
     implementation presentationDependencies.appcompatv7
     implementation presentationDependencies.supportV4
+    implementation presentationDependencies.supportDesign
     implementation presentationDependencies.dexter
     implementation presentationDependencies.calligraphy
     implementation presentationDependencies.icepick
