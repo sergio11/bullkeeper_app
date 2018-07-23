@@ -88,6 +88,8 @@ dependencies {
     annotationProcessor presentationDependencies.icepickProcessor
     implementation presentationDependencies.timber
 
+    implementation 'com.fernandocejas:arrow:1.0.0'
+
 
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
