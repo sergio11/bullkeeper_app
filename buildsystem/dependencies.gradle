@@ -30,9 +30,12 @@ ext {
     androidAnnotationsVersion = '21.0.3'
     arrowVersion = '1.0.0'
     dexterVersion = '4.1.0'
-    calligraphyVersion = '2.3.0'
+    calligraphyVersion = '3.0.0'
+    viewpumpVersion = '1.0.0'
     timberVersion = '4.5.1'
     icePickVersion = '3.1.0'
+    iconicsCore = '3.0.4'
+    fontawesome = '5.0.13.0'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -59,11 +62,13 @@ ext {
             supportV4:          "com.android.support:support-v4:${supportVersion}",
             supportDesign:      "com.android.support:design:${supportVersion}",
             dexter:             "com.karumi:dexter:${dexterVersion}",
-            calligraphy:        "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
+            calligraphy:        "io.github.inflationx:calligraphy3:${calligraphyVersion}",
+            viewpump:           "io.github.inflationx:viewpump:${viewpumpVersion}",
             timber:             "com.jakewharton.timber:timber:${timberVersion}",
             icepick:            "frankiesardo:icepick:${icePickVersion}",
-            icepickProcessor:   "frankiesardo:icepick-processor:${icePickVersion}"
-
+            icepickProcessor:   "frankiesardo:icepick-processor:${icePickVersion}",
+            iconicsCore:        "com.mikepenz:iconics-core:${iconicsCore}@aar",
+            fontawesome:        "com.mikepenz:fontawesome-typeface:${fontawesome}@aar"
     ]
 
     presentationTestDependencies = [

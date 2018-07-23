@@ -2,6 +2,17 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="colorPrimary">@color/cyanBrilliant</item>
+        <item name="colorPrimaryDark">@color/darkModerateBlue</item>
+        <item name="colorAccent">@color/softOrange</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+    </style>
+
+
+    <style name="AppTheme.Widget"/>
+
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">fonts/HelveticaNeueLTStd-Roman.otf</item>
     </style>
 
     <style name="AppTheme.ProgressBar">

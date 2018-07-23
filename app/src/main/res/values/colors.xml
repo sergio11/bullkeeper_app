@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Cyan Brilliant -->
+    <color name="cyanBrilliant">#5db4df</color>
+    <!-- Soft Orange -->
+    <color name="softOrange">#e7b15f</color>
+    <!-- Moderate Red -->
+    <color name="moderateRed">#ce5d43</color>
+    <!-- Dark Moderate Blue -->
+    <color name="darkModerateBlue">#3b64ab</color>
+    <!-- Slightly Desaturated Magenta -->
+    <color name="slightlyDesaturatedMagenta">#b379ab</color>
+    <!-- Dark Moderate Cyan -->
+    <color name="darkModerateCyan">#39a185</color>
 </resources>

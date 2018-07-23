@@ -2,14 +2,23 @@ package sanchez.sanchez.sergio.masom_app.ui.support;
 
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import com.mikepenz.iconics.context.IconicsContextWrapper;
+
 import javax.inject.Inject;
 import icepick.Icepick;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import sanchez.sanchez.sergio.masom_app.AndroidApplication;
+import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.masom_app.navigation.Navigator;
@@ -19,7 +28,6 @@ import sanchez.sanchez.sergio.masom_app.notification.model.impl.BasicNotificatio
 import sanchez.sanchez.sergio.masom_app.permission.IPermissionManager;
 import sanchez.sanchez.sergio.masom_app.permission.impl.PermissionManagerImpl;
 import timber.log.Timber;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Support Activity
@@ -51,6 +59,15 @@ public abstract class SupportActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
         super.onCreate(savedInstanceState);
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/HelveticaNeueLTStd-Roman.otf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
+
         Icepick.restoreInstanceState(this, savedInstanceState);
         this.getApplicationComponent().inject(this);
     }
@@ -79,7 +96,8 @@ public abstract class SupportActivity extends AppCompatActivity
      */
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        final ContextWrapper contextWrapper = IconicsContextWrapper.wrap(newBase);
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(contextWrapper));
     }
 
 

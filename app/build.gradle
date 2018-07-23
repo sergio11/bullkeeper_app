@@ -84,9 +84,11 @@ dependencies {
     implementation presentationDependencies.supportDesign
     implementation presentationDependencies.dexter
     implementation presentationDependencies.calligraphy
+    implementation presentationDependencies.viewpump
     implementation presentationDependencies.icepick
     annotationProcessor presentationDependencies.icepickProcessor
     implementation presentationDependencies.timber
+    implementation presentationDependencies.iconicsCore
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 
