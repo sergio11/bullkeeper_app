@@ -6,12 +6,14 @@ import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import com.mikepenz.iconics.context.IconicsContextWrapper;
-
+import net.grandcentrix.thirtyinch.TiActivity;
+import net.grandcentrix.thirtyinch.TiPresenter;
+import net.grandcentrix.thirtyinch.TiView;
 import javax.inject.Inject;
+
+import butterknife.ButterKnife;
 import icepick.Icepick;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
@@ -21,26 +23,26 @@ import sanchez.sanchez.sergio.masom_app.AndroidApplication;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
-import sanchez.sanchez.sergio.masom_app.navigation.Navigator;
+import sanchez.sanchez.sergio.masom_app.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotificationVisitor;
 import sanchez.sanchez.sergio.masom_app.notification.model.impl.BasicNotification;
-import sanchez.sanchez.sergio.masom_app.permission.IPermissionManager;
 import sanchez.sanchez.sergio.masom_app.permission.impl.PermissionManagerImpl;
 import timber.log.Timber;
 
 /**
  * Support Activity
  */
-public abstract class SupportActivity extends AppCompatActivity
+public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView>
+        extends TiActivity<T, E>
         implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
         ILocalSystemNotificationVisitor {
 
     /**
-     * Navigator
+     * NavigatorImpl
      */
     @Inject
-    protected Navigator navigator;
+    protected NavigatorImpl navigatorImpl;
 
     /**
      * Local System Notification
@@ -48,17 +50,13 @@ public abstract class SupportActivity extends AppCompatActivity
     @Inject
     protected ILocalSystemNotification localSystemNotification;
 
-    /**
-     * Permission Manager
-     */
-    @Inject
-    protected IPermissionManager permissionManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
 
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
@@ -69,7 +67,6 @@ public abstract class SupportActivity extends AppCompatActivity
                 .build());
 
         Icepick.restoreInstanceState(this, savedInstanceState);
-        this.getApplicationComponent().inject(this);
     }
 
     @Override
@@ -134,6 +131,15 @@ public abstract class SupportActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+
+    /**
+     * Replace Fragment
+     * @param containerViewId
+     * @param fragment
+     * @param tag
+     * @param enterAnim
+     * @param exitAnim
+     */
     protected void replaceFragment(int containerViewId, Fragment fragment, String tag, int enterAnim, int exitAnim) {
         final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(enterAnim, exitAnim);
@@ -142,6 +148,12 @@ public abstract class SupportActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * Get Fragment By Tag
+     * @param tag
+     * @param <T>
+     * @return
+     */
     protected <T> T getFragmentByTag(String tag){
         return (T) this.getSupportFragmentManager().findFragmentByTag(tag);
     }

@@ -10,8 +10,8 @@ ext {
     //Android
     androidBuildToolsVersion = "27.0.3"
     androidMinSdkVersion = 19
-    androidTargetSdkVersion = 27
-    androidCompileSdkVersion = 27
+    androidTargetSdkVersion = 28
+    androidCompileSdkVersion = 28
 
     //Support
     supportVersion = "27.1.1"
@@ -36,6 +36,8 @@ ext {
     icePickVersion = '3.1.0'
     iconicsCore = '3.0.4'
     fontawesome = '5.0.13.0'
+    thirtyInchVersion = '0.8.5'
+    constraintLayoutVersion = '1.0.2'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -68,7 +70,9 @@ ext {
             icepick:            "frankiesardo:icepick:${icePickVersion}",
             icepickProcessor:   "frankiesardo:icepick-processor:${icePickVersion}",
             iconicsCore:        "com.mikepenz:iconics-core:${iconicsCore}@aar",
-            fontawesome:        "com.mikepenz:fontawesome-typeface:${fontawesome}@aar"
+            fontawesome:        "com.mikepenz:fontawesome-typeface:${fontawesome}@aar",
+            thirtyinch:         "net.grandcentrix.thirtyinch:thirtyinch:${thirtyInchVersion}",
+            constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
     ]
 
     presentationTestDependencies = [
