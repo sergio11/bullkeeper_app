@@ -5,6 +5,8 @@ import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.masom_app.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.activity.splash.SplashScreenActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.splash.SplashScreenPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragment;
@@ -17,6 +19,12 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragmentPresent
         dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class })
 public interface IntroComponent extends ActivityComponent {
+
+    /**
+     * Inject into Splash Screen Activity
+     * @param splashScreenActivity
+     */
+    void inject(final SplashScreenActivity splashScreenActivity);
 
     /**
      * Inject into Intro Activity
@@ -47,4 +55,5 @@ public interface IntroComponent extends ActivityComponent {
     IntroFragmentPresenter introFragmentPresenter();
     SigninFragmentPresenter signinFragmentPresenter();
     SignupFragmentPresenter signupFragmentPresenter();
+    SplashScreenPresenter splashScreenPresenter();
 }

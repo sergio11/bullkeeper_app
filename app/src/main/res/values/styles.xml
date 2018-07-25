@@ -8,6 +8,11 @@
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
     </style>
 
+    <!-- The launcher theme. -->
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
 
     <style name="AppTheme.Widget"/>
 
