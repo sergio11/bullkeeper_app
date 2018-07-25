@@ -8,6 +8,21 @@
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
     </style>
 
+    <!-- AppTheme No Action Bar -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- AppCompat No Action Bar Full Screen -->
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen"
+        parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <!-- The launcher theme. -->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/splash_screen</item>
