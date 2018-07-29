@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
@@ -16,7 +15,8 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
  * Intro Fragment
  */
 public class SigninFragment extends
-        SupportFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler> {
+        SupportFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler>
+implements ISigninView {
 
     public static String TAG = "INTRO_FRAGMENT";
 
@@ -24,8 +24,6 @@ public class SigninFragment extends
     private IntroComponent introComponent;
 
     public SigninFragment() {
-        // Required empty public constructor
-        setRetainInstance(Boolean.TRUE);
     }
 
     /**
@@ -37,13 +35,9 @@ public class SigninFragment extends
         return fragment;
     }
 
-    /**
-     * On Create
-     * @param savedInstanceState
-     */
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initializeInjector() {
         introComponent = IntroComponent.class
                 .cast(((HasComponent<IntroComponent>) getActivity())
                         .getComponent());

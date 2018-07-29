@@ -1,14 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.fragment.intro.IntroFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/introText"
+        style="@style/CommonStrongText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/intro_text"
+        android:textColor="@color/commonWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+    <!-- Show Tutorial Button -->
+    <Button
+        android:id="@+id/showTutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        style="@style/CommonStrongText.AllCaps"
+        android:textColor="@color/commonWhite"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        android:drawablePadding="5dp"
+        android:drawableEnd="@drawable/arrow_alt_circle_right_regular_52"
+        android:text="@string/show_tutorial"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="start|center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/introText" />
+
+
+
+
+
+    <!-- Actions Buttons -->
+    <Button
+        android:id="@+id/signinButton"
+        style="@style/CommonActionButton"
+        android:layout_width="130dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/sign_in_btn"
+        app:layout_constraintBottom_toTopOf="@+id/signupButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/signupButton"
+        style="@style/CommonActionButton"
+        android:layout_width="130dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/sign_up_btn"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+    <!-- Intro Footer -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cyanBrilliant"
+        android:gravity="center"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Instagram -->
+        <ImageButton
+            android:id="@+id/instagramButton"
+            style="@style/AppSocialIcon"
+            android:src="@drawable/instagram_brands" />
+
+
+        <!-- Twitter -->
+        <ImageButton
+            android:id="@+id/twitterButton"
+            style="@style/AppSocialIcon"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:src="@drawable/twitter_brands" />
+
+
+        <!-- Facebook -->
+        <ImageView
+            android:id="@+id/facebookButton"
+            style="@style/AppSocialIcon"
+            android:src="@drawable/facebook_square_brands" />
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

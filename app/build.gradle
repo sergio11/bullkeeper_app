@@ -89,9 +89,10 @@ dependencies {
     implementation presentationDependencies.icepick
     annotationProcessor presentationDependencies.icepickProcessor
     implementation presentationDependencies.timber
-    implementation presentationDependencies.iconicsCore
+    implementation presentationDependencies.androidIconifyFontawesome
     implementation presentationDependencies.thirtyinch
     implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.customactivityoncrash
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 

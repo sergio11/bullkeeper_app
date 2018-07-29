@@ -1,31 +1,32 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.intro;
 
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
+
 /**
  * Intro Fragment
  */
 public class IntroFragment extends
-        SupportFragment<IntroFragmentPresenter, IIntroView, IIntroActivityHandler> {
+        SupportFragment<IntroFragmentPresenter, IIntroView, IIntroActivityHandler>
+implements IIntroView {
 
     public static String TAG = "INTRO_FRAGMENT";
 
 
     private IntroComponent introComponent;
 
-    public IntroFragment() {
-        // Required empty public constructor
-        setRetainInstance(Boolean.TRUE);
-    }
+    public IntroFragment() { }
 
     /**
      * New Instance
@@ -36,17 +37,11 @@ public class IntroFragment extends
         return fragment;
     }
 
-    /**
-     * On Create
-     * @param savedInstanceState
-     */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initializeInjector() {
         introComponent = IntroComponent.class
                 .cast(((HasComponent<IntroComponent>) getActivity())
                         .getComponent());
-        introComponent.inject(this);
     }
 
     /**
@@ -64,6 +59,7 @@ public class IntroFragment extends
         return inflater.inflate(R.layout.fragment_intro, container, false);
     }
 
+
     /**
      * Provide Presenter
      * @return
@@ -72,6 +68,30 @@ public class IntroFragment extends
     @Override
     public IntroFragmentPresenter providePresenter() {
         return introComponent.introFragmentPresenter();
+    }
+
+    @OnClick(R.id.showTutorial)
+    public void onShowTutorial(){
+        activityHandler.showLongMessage("Show Tutorial ...");
+    }
+
+    /**
+     * On Signin Handler
+     */
+    @OnClick(R.id.signinButton)
+    public void onSignin(){
+
+        activityHandler.showLongMessage("Signin Ready...");
+    }
+
+    /**
+     * On Signup Handler
+     */
+    @OnClick(R.id.signupButton)
+    public void onSignup(){
+
+        activityHandler.showLongMessage("Signup Ready...");
+
     }
 
 }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
-import com.mikepenz.iconics.context.IconicsContextWrapper;
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
@@ -93,8 +92,8 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
      */
     @Override
     protected void attachBaseContext(Context newBase) {
-        final ContextWrapper contextWrapper = IconicsContextWrapper.wrap(newBase);
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(contextWrapper));
+        final ContextWrapper contextWrapper = ViewPumpContextWrapper.wrap(newBase);
+        super.attachBaseContext(contextWrapper);
     }
 
 

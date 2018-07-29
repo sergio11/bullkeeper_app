@@ -41,6 +41,12 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
         }
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        initializeInjector();
+        super.onCreate(savedInstanceState);
+    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -72,6 +78,10 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     protected <C> C getComponent(Class<C> componentType) {
         return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
+
+
+    protected abstract void initializeInjector();
+
 
 
 }

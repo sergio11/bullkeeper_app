@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.masom_app.AndroidApplication;
 import sanchez.sanchez.sergio.masom_app.UIThread;
+import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.masom_app.notification.local.impl.LocalSystemNotificationImpl;
@@ -64,7 +65,7 @@ public class ApplicationModule {
      * @return
      */
     @Provides @Singleton
-    public NavigatorImpl provideNavigator(final Context context) {
+    INavigator provideNavigator(final Context context) {
         return new NavigatorImpl(context);
     }
 
@@ -74,7 +75,7 @@ public class ApplicationModule {
      * @return
      */
     @Provides @Singleton
-    public ILocalSystemNotification provideLocalSystemNotificationAware(final Context context) {
+    ILocalSystemNotification provideLocalSystemNotificationAware(final Context context) {
         return new LocalSystemNotificationImpl(context);
     }
 }

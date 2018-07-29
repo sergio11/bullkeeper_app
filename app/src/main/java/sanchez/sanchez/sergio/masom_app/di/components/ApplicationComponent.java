@@ -9,6 +9,7 @@ import dagger.Component;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
+import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 
@@ -24,7 +25,7 @@ public interface ApplicationComponent {
     Context context();
     IThreadExecutor threadExecutor();
     IPostExecutionThread postExecutionThread();
-    NavigatorImpl navigator();
+    INavigator navigator();
     ILocalSystemNotification localSystemNotification();
     //IRemoteSystemNotification remoteSystemNotification();
 }

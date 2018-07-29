@@ -17,4 +17,14 @@
     <dimen name="lv_row_icon_padding">5dp</dimen>
 
     <integer name="animation_duration_normal">500</integer>
+    <dimen name="common_big_button_padding">20dp</dimen>
+    <dimen name="common_btn_radius">10dip</dimen>
+    <dimen name="common_btn_stroke">1dip</dimen>
+
+    <dimen name="toolbar_elevation_size">4dp</dimen>
+    <dimen name="common_title_text_size">32dp</dimen>
+
+    <!-- Common Strong Text -->
+    <dimen name="common_strong_text_size">22dp</dimen>
+
 </resources>

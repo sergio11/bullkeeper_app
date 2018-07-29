@@ -9,7 +9,8 @@ import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
 
 public class SplashScreenActivity extends
-        SupportActivity<SplashScreenPresenter, ISplashScreenView> {
+        SupportActivity<SplashScreenPresenter, ISplashScreenView>
+        implements ISplashScreenView {
 
 
     private IntroComponent introComponent;

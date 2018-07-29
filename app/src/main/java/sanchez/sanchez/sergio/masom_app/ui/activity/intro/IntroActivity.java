@@ -20,7 +20,8 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
 
 public class IntroActivity
         extends SupportActivity<IntroPresenter, IIntroView>
-        implements HasComponent<IntroComponent>, IIntroActivityHandler {
+        implements HasComponent<IntroComponent>, IIntroActivityHandler
+        , IIntroView{
 
 
     private IntroComponent introComponent;
@@ -47,6 +48,10 @@ public class IntroActivity
         }
 
         changeStatusBarColor();
+
+        if (savedInstanceState == null) {
+            addFragment(R.id.fragmentContainer, IntroFragment.newInstance());
+        }
     }
 
     /**
@@ -54,7 +59,7 @@ public class IntroActivity
      */
     @Override
     protected void initializeInjector() {
-        this.introComponent = DaggerIntroComponent.builder()
+        introComponent = DaggerIntroComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .build();

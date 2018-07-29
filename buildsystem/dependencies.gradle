@@ -34,10 +34,11 @@ ext {
     viewpumpVersion = '1.0.0'
     timberVersion = '4.5.1'
     icePickVersion = '3.1.0'
-    iconicsCore = '3.0.4'
-    fontawesome = '5.0.13.0'
+    androidIconifyFontawesome = '2.2.2'
+
     thirtyInchVersion = '0.8.5'
     constraintLayoutVersion = '1.0.2'
+    customactivityoncrashVersion = '2.2.0'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -69,10 +70,10 @@ ext {
             timber:             "com.jakewharton.timber:timber:${timberVersion}",
             icepick:            "frankiesardo:icepick:${icePickVersion}",
             icepickProcessor:   "frankiesardo:icepick-processor:${icePickVersion}",
-            iconicsCore:        "com.mikepenz:iconics-core:${iconicsCore}@aar",
-            fontawesome:        "com.mikepenz:fontawesome-typeface:${fontawesome}@aar",
             thirtyinch:         "net.grandcentrix.thirtyinch:thirtyinch:${thirtyInchVersion}",
-            constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
+            constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+            customactivityoncrash: "cat.ereza:customactivityoncrash:${customactivityoncrashVersion}",
+            androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}"
     ]
 
     presentationTestDependencies = [

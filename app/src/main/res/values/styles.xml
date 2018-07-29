@@ -1,19 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="colorPrimary">@color/cyanBrilliant</item>
-        <item name="colorPrimaryDark">@color/darkModerateBlue</item>
-        <item name="colorAccent">@color/softOrange</item>
-        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
-    </style>
-
-    <!-- AppTheme No Action Bar -->
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
     <!-- AppCompat No Action Bar Full Screen -->
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen"
         parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -21,12 +7,31 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+        <item name="colorPrimary">@color/cyanBrilliant</item>
+        <item name="colorPrimaryDark">@color/darkModerateBlue</item>
+        <item name="colorAccent">@color/softOrange</item>
     </style>
 
     <!-- The launcher theme. -->
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
+
+    <!-- App Intro Theme -->
+    <style name="AppTheme.Intro">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+    <!-- The Crash Error Theme. -->
+    <style name="AppTheme.Crash">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
 
 
     <style name="AppTheme.Widget"/>
@@ -66,6 +71,54 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/header_margin</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!-- Common Action button Style -->
+    <style name="CommonActionButton" parent="@style/AppTheme.Button">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/common_btn_text_color</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/common_strong_text_size</item>
+        <item name="android:background">@drawable/common_action_button_state</item>
+    </style>
+    
+    <style name="CommonTitle">
+        <item name="android:textColor">@color/commonWhite</item>
+        <item name="android:textAlignment">center</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:textSize">@dimen/common_title_text_size</item>
+    </style>
+
+    <!-- Common Strong Text -->
+    <style name="CommonStrongText">
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/common_strong_text_size</item>
+    </style>
+
+    <!-- Common Strong Text All Caps -->
+    <style name="CommonStrongText.AllCaps">
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/common_strong_text_size</item>
+    </style>
+
+    <!-- App Social Icon -->
+    <style name="AppSocialIcon">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
 

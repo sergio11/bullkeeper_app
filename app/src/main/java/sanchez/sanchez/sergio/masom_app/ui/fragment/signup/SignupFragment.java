@@ -15,7 +15,8 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
  * Intro Fragment
  */
 public class SignupFragment extends
-        SupportFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler> {
+        SupportFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler>
+implements ISignupView{
 
     public static String TAG = "INTRO_FRAGMENT";
 
@@ -23,8 +24,6 @@ public class SignupFragment extends
     private IntroComponent introComponent;
 
     public SignupFragment() {
-        // Required empty public constructor
-        setRetainInstance(Boolean.TRUE);
     }
 
     /**
@@ -36,13 +35,8 @@ public class SignupFragment extends
         return fragment;
     }
 
-    /**
-     * On Create
-     * @param savedInstanceState
-     */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initializeInjector() {
         introComponent = IntroComponent.class
                 .cast(((HasComponent<IntroComponent>) getActivity())
                         .getComponent());

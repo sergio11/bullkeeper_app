@@ -8,8 +8,14 @@
     <color name="moderateRed">#ce5d43</color>
     <!-- Dark Moderate Blue -->
     <color name="darkModerateBlue">#3b64ab</color>
+    <!-- Translucent Dark Moderate Blue -->
+    <color name="translucentDarkModerateBlue">#803b64ab</color>
     <!-- Slightly Desaturated Magenta -->
     <color name="slightlyDesaturatedMagenta">#b379ab</color>
     <!-- Dark Moderate Cyan -->
     <color name="darkModerateCyan">#39a185</color>
+    <!-- Translucent white -->
+    <color name="translucentWhite">#90FFFFFF</color>
+    <!-- white -->
+    <color name="commonWhite">#FFFFFF</color>
 </resources>

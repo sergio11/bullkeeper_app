@@ -1,5 +1,19 @@
 <resources>
-    <string name="app_name">masom_app</string>
+
+    <string name="app_name">BullTec</string>
+
+    <!-- Intro Text -->
+    <string name="intro_text">The first anti-bullying in the history of the internet. Designed to protect young people and pre-teens from attacks on the social networks of other groups of their age.</string>
+
+    <!-- Sign up btn -->
+    <string name="sign_up_btn">Sign up</string>
+
+    <!-- Sign in btn -->
+    <string name="sign_in_btn">Sign in</string>
+
+    <!-- Show Tutorial -->
+    <string name="show_tutorial">Show Tutorial</string>
+
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_signing_in">SigningInActivity</string>
     <string name="title_activity_signing_up">SigningUp</string>
@@ -7,4 +21,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+
+    <string name="crash_error_content">An unexperienced error occurred during the operation of the application, sorry for the inconvenience</string>
+    <string name="btn_restart">Restart</string>
+    <string name="btn_details">Details</string>
+
 </resources>
