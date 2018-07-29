@@ -26,7 +26,7 @@ implements IIntroView {
 
     private IntroComponent introComponent;
 
-    public IntroFragment() { }
+    public IntroFragment() {}
 
     /**
      * New Instance
@@ -70,6 +70,9 @@ implements IIntroView {
         return introComponent.introFragmentPresenter();
     }
 
+    /**
+     * On Show Tutorial Handler
+     */
     @OnClick(R.id.showTutorial)
     public void onShowTutorial(){
         activityHandler.showLongMessage("Show Tutorial ...");

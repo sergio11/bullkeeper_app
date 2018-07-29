@@ -106,11 +106,7 @@
 
     <!-- Common Strong Text All Caps -->
     <style name="CommonStrongText.AllCaps">
-        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:padding">10dp</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">@dimen/common_strong_text_size</item>
     </style>
 
     <!-- App Social Icon -->

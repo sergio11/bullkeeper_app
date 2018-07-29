@@ -14,6 +14,13 @@
     <!-- Show Tutorial -->
     <string name="show_tutorial">Show Tutorial</string>
 
+    <!-- Restart App -->
+    <string name="btn_restart">Restart</string>
+    <!-- Details App -->
+    <string name="btn_details">Details</string>
+    <!-- CLose App -->
+    <string name="btn_close">Close</string>
+
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_signing_in">SigningInActivity</string>
     <string name="title_activity_signing_up">SigningUp</string>
@@ -23,7 +30,6 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
 
     <string name="crash_error_content">An unexperienced error occurred during the operation of the application, sorry for the inconvenience</string>
-    <string name="btn_restart">Restart</string>
-    <string name="btn_details">Details</string>
+
 
 </resources>

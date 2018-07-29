@@ -27,4 +27,13 @@
     <!-- Common Strong Text -->
     <dimen name="common_strong_text_size">22dp</dimen>
 
+    <!-- Common Padding -->
+    <dimen name="common_padding">10dp</dimen>
+
+    <!-- Common Action Button Width -->
+    <dimen name="common_action_button_width">130dp</dimen>
+
+    <!-- Common Action Button Height -->
+    <dimen name="common_action_button_height">62dp</dimen>
+
 </resources>
