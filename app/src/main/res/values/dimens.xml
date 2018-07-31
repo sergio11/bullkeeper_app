@@ -27,6 +27,9 @@
     <!-- Common Strong Text -->
     <dimen name="common_strong_text_size">22dp</dimen>
 
+    <!-- Common Strong Medium Text -->
+    <dimen name="common_strong_medium_text_size">11dp</dimen>
+
     <!-- Common Padding -->
     <dimen name="common_padding">10dp</dimen>
 

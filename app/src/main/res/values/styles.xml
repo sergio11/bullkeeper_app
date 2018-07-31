@@ -104,6 +104,14 @@
         <item name="android:textSize">@dimen/common_strong_text_size</item>
     </style>
 
+    <!-- Common Strong Medium Text -->
+    <style name="CommonStrongText.Medium">
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/common_strong_medium_text_size</item>
+    </style>
+
     <!-- Common Strong Text All Caps -->
     <style name="CommonStrongText.AllCaps">
         <item name="android:textAllCaps">true</item>
@@ -116,6 +124,54 @@
         <item name="android:scaleType">fitXY</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+
+    <!-- Text Styles -->
+
+    <style name="TextStyles.TextFloatLabelAppearance"
+            parent="TextAppearance.Design.Hint">
+        <!-- Floating label appearance here -->
+        <item name="android:textColor">@color/commonWhite</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextStyles.TextErrorAppearance" parent="TextAppearance.Design.Error">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textColorHint">@android:color/holo_red_dark</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="TextAppearance.Design.Counter.Intro">
+        <item name="android:textColor">@color/cyanBrilliant</item>
+        <item name="android:textColorHighlight">@color/darkModerateCyan</item>
+        <item name="android:textColorHint">@color/darkModerateCyan</item>
+    </style>
+
+    <!-- Text Input Layout Appearance -->
+    <style name="Widget.Design.TextInputLayout" parent="AppTheme">
+        <item name="hintTextAppearance">@style/TextAppearance.Design.Counter.Intro</item>
+        <item name="errorTextAppearance">@style/TextStyles.TextErrorAppearance</item>
+        <item name="counterOverflowTextAppearance">@style/TextAppearance.Design.Counter.Overflow
+        </item>
+    </style>
+
+    <style name="CommonTextInputLayout"
+            parent="Widget.Design.TextInputLayout">
+
+        <item name="android:textSize">20sp</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Design.Counter.Intro</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/commonWhite</item>
+        <!-- Control color on normal state -->
+        <item name="colorControlNormal">@color/commonWhite</item>
+        <!-- Control colo on activated state -->
+        <item name="colorControlActivated">@color/commonWhite</item>
+        <item name="android:textColorPrimary">@color/commonWhite</item>
+    </style>
+
+    <!-- End Text Styles -->
 
 
 </resources>

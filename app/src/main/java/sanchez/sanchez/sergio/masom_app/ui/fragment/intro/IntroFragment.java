@@ -83,8 +83,8 @@ implements IIntroView {
      */
     @OnClick(R.id.signinButton)
     public void onSignin(){
-
-        activityHandler.showLongMessage("Signin Ready...");
+        // Go to login
+        activityHandler.goToLogin();
     }
 
     /**

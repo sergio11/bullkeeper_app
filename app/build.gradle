@@ -94,6 +94,7 @@ dependencies {
     implementation presentationDependencies.constraintLayout
     implementation presentationDependencies.customactivityoncrash
     implementation presentationDependencies.slidingtutorial
+    implementation presentationDependencies.androidSaripaar
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 
