@@ -17,6 +17,9 @@
     <!-- Forgot password btn -->
     <string name="forgot_password_btn">Did you forget your password?</string>
 
+    <!-- Forget password send email -->
+    <string name="forgot_password_send_email">Send</string>
+
     <!-- Show Tutorial -->
     <string name="show_tutorial">Show Tutorial</string>
 
@@ -26,6 +29,7 @@
     <string name="btn_details">Details</string>
     <!-- CLose App -->
     <string name="btn_close">Close</string>
+
 
     <!-- email hint -->
     <string name="email_address_hint">Email</string>
@@ -51,6 +55,9 @@
 
     <!-- Login Screen -->
     <string name="login_screen_main_title">Login now</string>
+
+    <!-- Forgot password Screen -->
+    <string name="forgot_password_screen_main_title">Did you forget your password?</string>
 
 
     <string name="title_activity_home">HomeActivity</string>

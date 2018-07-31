@@ -20,6 +20,7 @@ import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerIntroComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.tutorial.FifthPageFragment;
@@ -178,6 +179,12 @@ public class IntroActivity
         replaceFragment(R.id.fragmentContainer, tutorialFragment,
                 "TUTORIAL_FRAGMENT", R.anim.grow_from_middle, R.anim.shrink_to_middle);
 
+    }
+
+    @Override
+    public void goToForgetPassword() {
+        replaceFragment(R.id.fragmentContainer, ForgotPasswordFragment.newInstance(),
+                ForgotPasswordFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
 

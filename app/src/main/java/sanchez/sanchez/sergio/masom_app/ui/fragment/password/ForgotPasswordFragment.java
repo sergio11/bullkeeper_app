@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.masom_app.ui.fragment.signin;
+package sanchez.sanchez.sergio.masom_app.ui.fragment.password;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,10 +7,8 @@ import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Password;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
@@ -22,12 +20,11 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
 /**
  * Intro Fragment
  */
-public class SigninFragment extends
-        SupportValidationFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler>
-implements ISigninView, Validator.ValidationListener{
+public class ForgotPasswordFragment extends
+        SupportValidationFragment<ForgotPasswordFragmentPresenter, IForgotPasswordView, IIntroActivityHandler>
+implements IForgotPasswordView {
 
-    public static String TAG = "SIGNIN_FRAGMENT";
-
+    public static String TAG = "FORGOT_PASSWORD_FRAGMENT";
 
     private IntroComponent introComponent;
 
@@ -45,27 +42,15 @@ implements ISigninView, Validator.ValidationListener{
     @Email
     protected AppCompatEditText emailInput;
 
-    /**
-     * Password Input Layout
-     */
-    @BindView(R.id.passwordInputLayout)
-    protected TextInputLayout passwordInputLayout;
 
-    /**
-     * Password Input
-     */
-    @BindView(R.id.passwordInput)
-    @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC)
-    protected AppCompatEditText passwordInput;
-
-    public SigninFragment() { }
+    public ForgotPasswordFragment() { }
 
     /**
      * New Instance
      * @return
      */
-    public static SigninFragment newInstance() {
-        SigninFragment fragment = new SigninFragment();
+    public static ForgotPasswordFragment newInstance() {
+        ForgotPasswordFragment fragment = new ForgotPasswordFragment();
         return fragment;
     }
 
@@ -90,7 +75,7 @@ implements ISigninView, Validator.ValidationListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_signin, container, false);
+        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
     }
 
     /**
@@ -99,34 +84,10 @@ implements ISigninView, Validator.ValidationListener{
      */
     @NonNull
     @Override
-    public SigninFragmentPresenter providePresenter() {
-        return introComponent.signinFragmentPresenter();
+    public ForgotPasswordFragmentPresenter providePresenter() {
+        return introComponent.forgotPasswordFragmentPresenter();
     }
 
-    /**
-     * On Login
-     */
-    @OnClick(R.id.loginBtn)
-    public void onLogin(){
-        validator.validate();
-    }
-
-    /**
-     * On Login Facebook
-     */
-    @OnClick(R.id.loginFacebook)
-    public void onLoginFacebook(){
-
-        showShortMessage("On Login Facebook");
-    }
-
-    /**
-     * On Forgot Password
-     */
-    @OnClick(R.id.forgotPassword)
-    public void onForgotPassword(){
-        activityHandler.goToForgetPassword();
-    }
 
     /**
      * On Validation Succeeded
@@ -136,13 +97,11 @@ implements ISigninView, Validator.ValidationListener{
 
         // Clear errors
         emailInputLayout.setError("");
-        passwordInputLayout.setError("");
 
         // Init Sign in
-        final String email = emailInput.getText().toString();
-        final String password = passwordInput.getText().toString();
+        final String mail = emailInput.getText().toString();
 
-        getPresenter().signin(email, password);
+        getPresenter().forgotPassword(mail);
     }
 
 
@@ -156,9 +115,15 @@ implements ISigninView, Validator.ValidationListener{
 
         if (viewId.equals(R.id.emailInput)) {
             emailInputLayout.setError(message);
-        } else if(viewId.equals(R.id.passwordInput)) {
-            passwordInputLayout.setError(message);
         }
 
+    }
+
+    /**
+     * ON Send EMail
+     */
+    @OnClick(R.id.sendEmail)
+    public void onSendEmail(){
+        validator.validate();
     }
 }
