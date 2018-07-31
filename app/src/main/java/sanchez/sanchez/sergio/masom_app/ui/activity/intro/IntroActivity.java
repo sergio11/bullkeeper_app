@@ -6,9 +6,15 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.cleveroad.slidingtutorial.TutorialOptions;
+import com.cleveroad.slidingtutorial.TutorialPageProvider;
+import com.cleveroad.slidingtutorial.TutorialSupportFragment;
+
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerIntroComponent;
@@ -16,6 +22,11 @@ import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.tutorial.FifthPageFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.tutorial.FirstPageFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.tutorial.FourthPageFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.tutorial.SecondPageFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.tutorial.ThirdPageFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
 
 public class IntroActivity
@@ -120,6 +131,53 @@ public class IntroActivity
     public void gotToHome() {
         navigatorImpl.navigateToHome();
         finish();
+    }
+
+    /**
+     * Go To Tutorial
+     */
+    @Override
+    public void goToTutorial() {
+
+        final TutorialOptions tutorialOptions = TutorialSupportFragment
+                .newTutorialOptionsBuilder(this)
+                .setUseAutoRemoveTutorialFragment(true)
+                .setUseInfiniteScroll(true)
+                .setTutorialPageProvider(new TutorialPageProvider<Fragment>() {
+                    @NonNull
+                    @Override
+                    public Fragment providePage(int position) {
+                        switch (position) {
+                            case 0:
+                                return new FirstPageFragment();
+                            case 1:
+                                return new SecondPageFragment();
+                            case 2:
+                                return new ThirdPageFragment();
+                            case 3:
+                                return new FourthPageFragment();
+                            case 4:
+                                return new FifthPageFragment();
+                            default:
+                                throw new IllegalArgumentException("Unknown position: " + position);
+                        }
+                    }
+                })
+                .setOnSkipClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        goToIntro();
+                    }
+                })
+	            .setPagesCount(5)
+                .build();
+
+        final TutorialSupportFragment tutorialFragment = TutorialSupportFragment
+                .newInstance(tutorialOptions);
+
+        replaceFragment(R.id.fragmentContainer, tutorialFragment,
+                "TUTORIAL_FRAGMENT", R.anim.grow_from_middle, R.anim.shrink_to_middle);
+
     }
 
 

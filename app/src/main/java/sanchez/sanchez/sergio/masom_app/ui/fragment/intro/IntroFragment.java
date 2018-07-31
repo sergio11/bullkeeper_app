@@ -75,7 +75,7 @@ implements IIntroView {
      */
     @OnClick(R.id.showTutorial)
     public void onShowTutorial(){
-        activityHandler.showLongMessage("Show Tutorial ...");
+        activityHandler.goToTutorial();
     }
 
     /**

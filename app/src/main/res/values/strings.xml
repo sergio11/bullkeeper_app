@@ -21,6 +21,24 @@
     <!-- CLose App -->
     <string name="btn_close">Close</string>
 
+    <!-- Tutorial Strings -->
+
+    <string name="tutorial_first_page_title">The Social Media Protec</string>
+    <string name="tutorial_first_page_content">Help protect children and youth from harassment and attacks received from social networks.</string>
+
+    <string name="tutorial_second_page_title">Registration of Children</string>
+    <string name="tutorial_second_page_content">Register the children to be monitored by the system</string>
+
+    <string name="tutorial_third_page_title">Enable social media</string>
+    <string name="tutorial_third_page_content">Enable access to the social media you want to monitor</string>
+
+    <string name="tutorial_fourth_page_title">Activity in social media</string>
+    <string name="tutorial_fourth_page_content">We obtain information about your activity in social media</string>
+
+    <string name="tutorial_fifth_page_title">Four dimensions</string>
+    <string name="tutorial_fifth_page_content">We determine its relationship with the different risk groups</string>
+
+
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_signing_in">SigningInActivity</string>
     <string name="title_activity_signing_up">SigningUp</string>

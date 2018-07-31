@@ -35,6 +35,7 @@ ext {
     timberVersion = '4.5.1'
     icePickVersion = '3.1.0'
     androidIconifyFontawesome = '2.2.2'
+    slidingtutorialVersion = '1.0.8'
 
     thirtyInchVersion = '0.8.5'
     constraintLayoutVersion = '1.0.2'
@@ -73,7 +74,8 @@ ext {
             thirtyinch:         "net.grandcentrix.thirtyinch:thirtyinch:${thirtyInchVersion}",
             constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
             customactivityoncrash: "cat.ereza:customactivityoncrash:${customactivityoncrashVersion}",
-            androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}"
+            androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}",
+            slidingtutorial:    "com.cleveroad:slidingtutorial:${slidingtutorialVersion}"
     ]
 
     presentationTestDependencies = [
