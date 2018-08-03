@@ -30,11 +30,37 @@
     <!-- CLose App -->
     <string name="btn_close">Close</string>
 
+    <!-- Sign up main title -->
+    <string name="sign_up_main_title">Register now</string>
+
+    <!-- Sign up back to login -->
+    <string name="sign_up_back_to_login">Already a user? Log in now</string>
+
+    <!-- Create Account -->
+    <string name="create_account_btn">Create Account</string>
+
 
     <!-- email hint -->
     <string name="email_address_hint">Email</string>
     <!-- password hint -->
     <string name="password_hint">Password</string>
+    <!-- name hint -->
+    <string name="name_hint">Name</string>
+    <!-- surname hint -->
+    <string name="surname_hint">Surname</string>
+    <!-- birthday hint -->
+    <string name="birthday_hint">Birthday</string>
+    <!-- Confirm Password hint -->
+    <string name="confirm_password_hint">Confirm Password</string>
+
+    <!-- fields error messages -->
+    <string name="name_not_empty_error">You must specify your name</string>
+    <string name="surname_not_empty_error">You must specify your last name</string>
+    <string name="birthday_not_empty_error">You must specify your birthday</string>
+    <string name="email_not_empty_error">You must specify your email</string>
+    <string name="email_invalid_error">The email does not have the correct format</string>
+
+
 
     <!-- Tutorial Strings -->
 

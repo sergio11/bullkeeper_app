@@ -17,6 +17,9 @@ public final class AndroidApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
+    private static AndroidApplication INSTANCE = null;
+
+
     @Override public void onCreate() {
         super.onCreate();
         this.initializeInjector();
@@ -30,12 +33,18 @@ public final class AndroidApplication extends Application {
             onReleaseConfig();
         }
 
+        INSTANCE = this;
+
     }
 
     private void initializeInjector() {
         this.applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+    }
+
+    public static AndroidApplication getInstance() {
+        return INSTANCE;
     }
 
     public ApplicationComponent getApplicationComponent() {

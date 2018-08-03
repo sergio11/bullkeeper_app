@@ -173,5 +173,9 @@
 
     <!-- End Text Styles -->
 
+    <style name="CommonDatePickerStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/darkModerateBlue</item>
+    </style>
+
 
 </resources>

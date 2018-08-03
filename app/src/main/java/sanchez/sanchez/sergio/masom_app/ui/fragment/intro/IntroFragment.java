@@ -92,9 +92,8 @@ implements IIntroView {
      */
     @OnClick(R.id.signupButton)
     public void onSignup(){
-
-        activityHandler.showLongMessage("Signup Ready...");
-
+        // Go to Signup
+        activityHandler.goToSignup();
     }
 
 }
