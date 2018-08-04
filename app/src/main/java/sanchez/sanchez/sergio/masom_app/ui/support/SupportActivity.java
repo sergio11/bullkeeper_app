@@ -29,6 +29,7 @@ import sanchez.sanchez.sergio.masom_app.permission.impl.PermissionManagerImpl;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ProgressDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 import timber.log.Timber;
 
 /**
@@ -51,7 +52,11 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     @Inject
     protected ILocalSystemNotification localSystemNotification;
 
-
+    /**
+     * Notification Helper
+     */
+    @Inject
+    protected INotificationHelper notificationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,13 +336,13 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     @Override
     public void visit(BasicNotification basicNotification) {
         Timber.d("Basic Notification");
-
+        notificationHelper.createBasicNotification(basicNotification.getTitle(),
+                basicNotification.getContent());
     }
 
     /**
      * Initialize Injector
      */
     protected abstract void initializeInjector();
-
 
 }

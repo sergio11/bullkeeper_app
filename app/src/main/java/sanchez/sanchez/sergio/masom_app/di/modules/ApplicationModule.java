@@ -15,6 +15,8 @@ import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.masom_app.notification.local.impl.LocalSystemNotificationImpl;
+import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
+import sanchez.sanchez.sergio.masom_app.ui.notification.impl.NotificationHelperImpl;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -78,4 +80,15 @@ public class ApplicationModule {
     ILocalSystemNotification provideLocalSystemNotificationAware(final Context context) {
         return new LocalSystemNotificationImpl(context);
     }
+
+    /**
+     * Provide Notification Helper
+     * @param appContext
+     * @return
+     */
+    @Provides @Singleton
+    INotificationHelper provideNotificationHelper(final Context appContext) {
+        return new NotificationHelperImpl(appContext);
+    }
+
 }

@@ -1,17 +1,14 @@
 package sanchez.sanchez.sergio.masom_app.di.components;
 
-
 import android.content.Context;
-
 import javax.inject.Singleton;
-
 import dagger.Component;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
-import sanchez.sanchez.sergio.masom_app.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
+import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 
 /**
  * A component whose lifetime is the life of the application.
@@ -28,4 +25,5 @@ public interface ApplicationComponent {
     INavigator navigator();
     ILocalSystemNotification localSystemNotification();
     //IRemoteSystemNotification remoteSystemNotification();
+    INotificationHelper notificationHelper();
 }

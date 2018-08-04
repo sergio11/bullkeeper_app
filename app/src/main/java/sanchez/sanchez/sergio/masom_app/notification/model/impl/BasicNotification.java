@@ -5,14 +5,13 @@ import android.os.Bundle;
 
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotificationVisitor;
 import sanchez.sanchez.sergio.masom_app.notification.model.SupportNotification;
-import sanchez.sanchez.sergio.masom_app.notification.remote.IRemoteSystemNotificationVisitor;
 
 /**
  * Basic Notification
  */
 public final class BasicNotification extends SupportNotification {
 
-    public static String ACTION_NAME = "MASOM_APP.BASIC_NOTIFICATION";
+    public static String ACTION_NAME = "MASOM_APP.COMMON_NOTIFICATION";
     public static String NOTIFICATION_TITLE = "TITLE";
     public static String NOTIFICATION_CONTENT = "CONTENT";
 
@@ -28,6 +27,14 @@ public final class BasicNotification extends SupportNotification {
     public BasicNotification(final String title, final String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     /**

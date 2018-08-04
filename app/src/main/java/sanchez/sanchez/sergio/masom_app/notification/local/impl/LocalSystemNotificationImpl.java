@@ -14,7 +14,7 @@ import sanchez.sanchez.sergio.masom_app.notification.model.SupportNotification;
 import sanchez.sanchez.sergio.masom_app.notification.model.impl.BasicNotification;
 
 /**
- * Local System Notificaton Impl
+ * Local System Notification Impl
  */
 public final class LocalSystemNotificationImpl implements ILocalSystemNotification {
 
