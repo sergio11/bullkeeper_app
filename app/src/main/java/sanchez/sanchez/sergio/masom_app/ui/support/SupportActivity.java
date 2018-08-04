@@ -11,7 +11,6 @@ import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
 import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import icepick.Icepick;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
@@ -27,6 +26,9 @@ import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotificat
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotificationVisitor;
 import sanchez.sanchez.sergio.masom_app.notification.model.impl.BasicNotification;
 import sanchez.sanchez.sergio.masom_app.permission.impl.PermissionManagerImpl;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.ProgressDialogFragment;
 import timber.log.Timber;
 
 /**
@@ -35,7 +37,7 @@ import timber.log.Timber;
 public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView>
         extends TiActivity<T, E>
         implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
-        ILocalSystemNotificationVisitor {
+        ILocalSystemNotificationVisitor{
 
     /**
      * NavigatorImpl
@@ -189,18 +191,133 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    protected abstract void initializeInjector();
+    /**
+     * Show Notice Dialog
+     * @param title
+     */
+    @Override
+    public void showNoticeDialog(final String title) {
+        // Create an instance of the dialog fragment and show it
+        NoticeDialogFragment.showDialog(this, title);
+    }
 
+    /**
+     * Show Notice Dialog
+     * @param stringResId
+     */
+    @Override
+    public void showNoticeDialog(final Integer stringResId) {
+        showNoticeDialog(getString(stringResId));
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param title
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(final String title,
+                                 final NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        NoticeDialogFragment.showDialog(this, title, noticeDialogListener);
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param stringResId
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(final Integer stringResId,
+                                 final NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        showNoticeDialog(getString(stringResId), noticeDialogListener);
+    }
+
+    /**
+     * Show Progress Dialog
+     * @param title
+     */
+    @Override
+    public void showProgressDialog(String title) {
+        ProgressDialogFragment.showDialog(this, title);
+    }
+
+    /**
+     * Show Progress Dialog
+     * @param stringResId
+     */
+    @Override
+    public void showProgressDialog(Integer stringResId) {
+        showProgressDialog(getString(stringResId));
+    }
+
+    /**
+     * Hide Progress Dialog
+     */
+    @Override
+    public void hideProgressDialog() {
+        ProgressDialogFragment.cancelCurrent();
+    }
+
+    /**
+     * Show Confirmation Dialog
+     * @param title
+     */
+    @Override
+    public void showConfirmationDialog(String title) {
+        ConfirmationDialogFragment.showDialog(this, title);
+    }
+
+    /**
+     * Show Confirmation Dialog
+     * @param stringResId
+     */
+    @Override
+    public void showConfirmationDialog(Integer stringResId) {
+        showConfirmationDialog(getString(stringResId));
+    }
+
+    /**
+     * Show Confirmation Dialog
+     * @param title
+     * @param confirmationDialogListener
+     */
+    @Override
+    public void showConfirmationDialog(String title, ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener) {
+        ConfirmationDialogFragment.showDialog(this, title, confirmationDialogListener);
+    }
+
+    /**
+     * Show Confirmation Dialog
+     * @param stringResId
+     * @param confirmationDialogListener
+     */
+    @Override
+    public void showConfirmationDialog(Integer stringResId, ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener) {
+        showConfirmationDialog(getString(stringResId), null);
+    }
+
+    /**
+     * On Single Permission Granted
+     * @param permission
+     */
     @Override
     public void onSinglePermissionGranted(String permission) {
         Timber.d("On Single Permission Granted: %s", permission);
     }
 
+    /**
+     * On Single Permission Rejected
+     * @param permission
+     */
     @Override
     public void onSinglePermissionRejected(String permission) {
         Timber.d("On Single Permission Rejected: %s", permission);
     }
 
+    /**
+     * On Error Occurred
+     * @param permission
+     */
     @Override
     public void onErrorOccurred(String permission) {
         Timber.d("On Error Ocurred: %s", permission);
@@ -216,4 +333,11 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
         Timber.d("Basic Notification");
 
     }
+
+    /**
+     * Initialize Injector
+     */
+    protected abstract void initializeInjector();
+
+
 }

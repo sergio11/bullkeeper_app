@@ -212,6 +212,11 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     }
 
     @Override
+    protected void onValidationFailed() {
+        showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+    @Override
     protected void onFieldInvalid(Integer viewId, String message) {
 
         if (viewId.equals(R.id.nameInput)) {
@@ -231,6 +236,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     }
 
+
     @Override
     public void onValidationSucceeded() {
 
@@ -243,7 +249,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         final String password = passwordInput.getText().toString();
         final String confirmPassword = confirmPasswordInput.getText().toString();
 
-        showShortMessage("Validation Success");
+        getPresenter().signup(name, surname, birthday, email, password, confirmPassword);
     }
 
     /**

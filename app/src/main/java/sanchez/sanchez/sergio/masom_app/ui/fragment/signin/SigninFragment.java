@@ -146,6 +146,11 @@ implements ISigninView, Validator.ValidationListener{
     }
 
 
+    @Override
+    protected void onValidationFailed() {
+        showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
     /**
      * On Field Invalid
      * @param viewId

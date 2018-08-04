@@ -33,11 +33,17 @@ public abstract class SupportValidationFragment<P extends TiPresenter<V>, V exte
      */
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+        onValidationFailed();
         for (ValidationError error : errors) {
             String message = error.getCollatedErrorMessage(getActivity());
             onFieldInvalid(error.getView().getId(), message);
         }
     }
+
+    /**
+     * On Validation Failed
+     */
+    protected abstract void onValidationFailed();
 
     /**
      * On Field Invalid
