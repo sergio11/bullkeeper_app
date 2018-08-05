@@ -37,6 +37,9 @@ ext {
     androidIconifyFontawesome = '2.2.2'
     slidingtutorialVersion = '1.0.8'
     androidSaripaarVersion = '2.0.3'
+    retrofitVersion = '2.4.0'
+    jacksonVersion = '2.9.6'
+
 
     thirtyInchVersion = '0.8.5'
     constraintLayoutVersion = '1.0.2'
@@ -110,7 +113,13 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}"
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            retrofit2:          "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            converterJackson:   "com.squareup.retrofit2:converter-jackson:${retrofitVersion}",
+            adapterRxjava:      "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
+            jacksonCore:        "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+            jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+            jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     ]
 
     dataTestDependencies = [
