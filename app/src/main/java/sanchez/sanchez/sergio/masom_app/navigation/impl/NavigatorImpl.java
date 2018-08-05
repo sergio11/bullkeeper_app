@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
+import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
 
 /**
@@ -32,6 +33,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToHome() {
-
+        Intent intentToHome = HomeActivity.getCallingIntent(context);
+        context.startActivity(intentToHome);
     }
 }

@@ -106,10 +106,12 @@
 
     <!-- Common Strong Medium Text -->
     <style name="CommonStrongText.Medium">
-        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:padding">10dp</item>
         <item name="android:textSize">@dimen/common_strong_medium_text_size</item>
+    </style>
+
+    <!-- Common Strong Small Text -->
+    <style name="CommonStrongText.Small">
+        <item name="android:textSize">@dimen/common_strong_small_text_size</item>
     </style>
 
     <!-- Common Strong Text All Caps -->

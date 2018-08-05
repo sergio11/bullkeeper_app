@@ -39,6 +39,7 @@ ext {
     androidSaripaarVersion = '2.0.3'
     retrofitVersion = '2.4.0'
     jacksonVersion = '2.9.6'
+    picassoVersion = '2.5.2'
 
 
     thirtyInchVersion = '0.8.5'
@@ -80,7 +81,8 @@ ext {
             customactivityoncrash: "cat.ereza:customactivityoncrash:${customactivityoncrashVersion}",
             androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}",
             slidingtutorial:    "com.cleveroad:slidingtutorial:${slidingtutorialVersion}",
-            androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}"
+            androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
+            picasso:            "com.squareup.picasso:picasso:${picassoVersion}"
     ]
 
     presentationTestDependencies = [

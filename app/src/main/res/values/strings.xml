@@ -66,7 +66,6 @@
     <string name="signup_in_progress">Sign up in progress, please wait ...</string>
 
 
-
     <!-- Tutorial Strings -->
 
     <string name="tutorial_first_page_title">The Social Media Protec</string>
@@ -90,6 +89,10 @@
     <!-- Forgot password Screen -->
     <string name="forgot_password_screen_main_title">Did you forget your password?</string>
 
+    <!-- Menu Items -->
+    <string name="menu_item_result">Results</string>
+    <string name="menu_item_alerts">Alerts</string>
+    <string name="menu_item_children">Children</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_signing_in">SigningInActivity</string>
@@ -103,6 +106,7 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
 
     <string name="crash_error_content">An unexperienced error occurred during the operation of the application, sorry for the inconvenience</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

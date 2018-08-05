@@ -166,4 +166,9 @@ implements ISigninView, Validator.ValidationListener{
         }
 
     }
+
+    @Override
+    public void onLoginSuccess() {
+        activityHandler.gotToHome();
+    }
 }

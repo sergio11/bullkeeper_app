@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.home.HomeFragment">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <!-- Include Toolbar -->
+        <include
+            android:id="@+id/include"
+            layout="@layout/app_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            />
+
+
+        <!-- User Actions Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:weightSum="1"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="start|center_vertical"
+            android:background="@drawable/common_section_background">
+
+            <!-- User Profile Image -->
+            <ImageView
+                android:id="@+id/userProfileImage"
+                android:layout_marginStart="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"/>
+
+
+            <!-- Actions -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:gravity="center">
+
+
+                <!-- Results -->
+                <include layout="@layout/results_menu_item_layout" />
+                <!-- Alerts -->
+                <include layout="@layout/alerts_menu_item_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+                <!-- Children -->
+                <include layout="@layout/children_menu_item_layout" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- Alerts List -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alertsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>
