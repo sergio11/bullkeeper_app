@@ -5,6 +5,9 @@ import android.app.Application;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
+import net.grandcentrix.thirtyinch.TiConfiguration;
+import net.grandcentrix.thirtyinch.TiPresenter;
+
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerApplicationComponent;
@@ -16,6 +19,13 @@ import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 public final class AndroidApplication extends Application {
 
     private ApplicationComponent applicationComponent;
+
+    public static final TiConfiguration COMMON_PRESENTER_CONFIG =
+            new TiConfiguration.Builder()
+                    .setRetainPresenterEnabled(true)
+                    .setCallOnMainThreadInterceptorEnabled(true)
+                    .setDistinctUntilChangedInterceptorEnabled(true)
+                    .build();
 
     private static AndroidApplication INSTANCE = null;
 
@@ -59,6 +69,8 @@ public final class AndroidApplication extends Application {
 
         Iconify
                 .with(new FontAwesomeModule());
+
+        TiPresenter.setDefaultConfig(COMMON_PRESENTER_CONFIG);
     }
 
 

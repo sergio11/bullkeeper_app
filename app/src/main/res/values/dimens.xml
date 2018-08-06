@@ -25,6 +25,9 @@
     <!-- Common Image Stroke -->
     <dimen name="common_image_stroke">3dip</dimen>
 
+    <!-- Common List Item Stroke -->
+    <dimen name="common_list_item_stroke">4dip</dimen>
+
     <dimen name="toolbar_elevation_size">4dp</dimen>
     <dimen name="common_title_text_size">32dp</dimen>
 

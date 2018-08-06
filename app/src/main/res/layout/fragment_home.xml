@@ -6,10 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.home.HomeFragment">
 
+    <!-- App Bar Layout -->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="300dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
         <!-- Include Toolbar -->
         <include
@@ -19,19 +22,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginTop="8dp" />
 
 
         <!-- User Actions Bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:weightSum="1"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:gravity="start|center_vertical"
-            android:background="@drawable/common_section_background">
+            style="@style/CommonSection">
 
             <!-- User Profile Image -->
             <ImageView
@@ -68,17 +66,73 @@
         </LinearLayout>
 
 
+        <!-- Children -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            style="@style/CommonSection">
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- First Child Image -->
+                    <ImageView
+                        android:id="@+id/firstChildImage"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"/>
 
 
+                    <!-- Second Child Image -->
+                    <ImageView
+                        android:id="@+id/secondChildImage"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"/>
+
+
+                    <!-- Third Child Image -->
+                    <ImageView
+                        android:id="@+id/thirdChildImage"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <ImageButton
+                android:id="@+id/addChildBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/plus_circle_solid_white"/>
+
+        </LinearLayout>
 
 
     </android.support.design.widget.AppBarLayout>
+
 
     <!-- Alerts List -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/alertsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/cyanBrilliant"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

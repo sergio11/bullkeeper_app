@@ -17,11 +17,19 @@ public final class CircleTransform implements Transformation {
     private final int borderRadius;
 
     public CircleTransform(){
-        this(Color.WHITE, 5);
+        this(Color.WHITE, 7);
     }
 
     /**
-     *
+     * Circle Transform
+     * @param borderColor
+     */
+    public CircleTransform(int borderColor){
+        this(borderColor, 7);
+    }
+
+    /**
+     * Circle Transform
      * @param borderColor
      * @param borderRadius
      */
