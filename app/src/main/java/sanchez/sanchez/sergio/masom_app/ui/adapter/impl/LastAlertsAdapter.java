@@ -3,11 +3,14 @@ package sanchez.sanchez.sergio.masom_app.ui.adapter.impl;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.masom_app.R;
@@ -17,23 +20,62 @@ import sanchez.sanchez.sergio.masom_app.ui.images.CircleTransform;
 /**
  * Last Alerts Adapter
  */
-public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity,
-        LastAlertsAdapter.LastAlertsViewHolder>{
+public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>{
 
-    public LastAlertsAdapter(Context context, List<AlertEntity> data) {
+    /**
+     *
+     * @param context
+     * @param data
+     */
+    public LastAlertsAdapter(Context context, ArrayList<AlertEntity> data) {
         super(context, data);
+        // enable header
+        hasHeader = true;
+
     }
 
     /**
-     * On Create View Holder
-     * @param parent
-     * @param viewType
+     * On Create Item View Holder
+     * @param viewGroup
      * @return
      */
     @Override
-    public LastAlertsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.last_alert_layout, parent, false);
+    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup viewGroup) {
+        View view = inflater.inflate(R.layout.last_alert_item_layout, viewGroup, false);
         return new LastAlertsViewHolder(view);
+    }
+
+    /**
+     * On Create Header View Holder
+     * @param viewGroup
+     * @return
+     */
+    @Override
+    protected RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
+        final View view = inflater.inflate(R.layout.last_alert_header_layout, viewGroup, false);
+        return new LastAlertsHeaderViewHolder(view);
+    }
+
+    /**
+     * On Create Footer View Holder
+     * @param viewGroup
+     * @return
+     */
+    @Override
+    protected RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup viewGroup) {
+        final View view = inflater.inflate(R.layout.progress_item, viewGroup, false);
+        return new SupportFooterViewHolder(view);
+    }
+
+
+    /**
+     * Last Alerts Header VIew Holder
+     */
+    public class LastAlertsHeaderViewHolder extends SupportHeaderViewHolder {
+
+        public LastAlertsHeaderViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 
 
@@ -41,17 +83,20 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
      * Last Alerts View Holder
      */
     public class LastAlertsViewHolder
-            extends SupportRecyclerViewAdapter<AlertEntity, LastAlertsAdapter.LastAlertsViewHolder>.SupportViewHolder<AlertEntity>{
+            extends SupportRecyclerViewAdapter<AlertEntity>.SupportItemViewHolder<AlertEntity>{
 
         private ImageView alertIcon;
         private ImageView childImage;
         private TextView alertMessage;
+        private ViewGroup viewBackground, viewForeground;
 
         LastAlertsViewHolder(View itemView) {
             super(itemView);
             alertIcon = itemView.findViewById(R.id.alertIcon);
             childImage = itemView.findViewById(R.id.childImage);
             alertMessage = itemView.findViewById(R.id.alertMessage);
+            viewBackground = itemView.findViewById(R.id.item_background);
+            viewForeground = itemView.findViewById(R.id.item_foreground);
         }
 
         /**
@@ -101,5 +146,44 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
                     .into(childImage);
         }
 
+        public ImageView getAlertIcon() {
+            return alertIcon;
+        }
+
+        public void setAlertIcon(ImageView alertIcon) {
+            this.alertIcon = alertIcon;
+        }
+
+        public ImageView getChildImage() {
+            return childImage;
+        }
+
+        public void setChildImage(ImageView childImage) {
+            this.childImage = childImage;
+        }
+
+        public TextView getAlertMessage() {
+            return alertMessage;
+        }
+
+        public void setAlertMessage(TextView alertMessage) {
+            this.alertMessage = alertMessage;
+        }
+
+        public ViewGroup getViewBackground() {
+            return viewBackground;
+        }
+
+        public void setViewBackground(ViewGroup viewBackground) {
+            this.viewBackground = viewBackground;
+        }
+
+        public ViewGroup getViewForeground() {
+            return viewForeground;
+        }
+
+        public void setViewForeground(ViewGroup viewForeground) {
+            this.viewForeground = viewForeground;
+        }
     }
 }

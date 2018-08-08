@@ -1,5 +1,8 @@
 package sanchez.sanchez.sergio.masom_app.ui.support;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import net.grandcentrix.thirtyinch.TiView;
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread;
 import net.grandcentrix.thirtyinch.distinctuntilchanged.DistinctUntilChanged;
@@ -120,5 +123,18 @@ public interface ISupportView extends TiView {
     @CallOnMainThread
     @DistinctUntilChanged
     void showConfirmationDialog(final Integer stringResId, final ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener);
+
+
+    /**
+     * Show Long Simple Snackbar
+     * @param viewRoot
+     * @param description
+     * @param actionText
+     * @param onClickListener
+     */
+    @CallOnMainThread
+    @DistinctUntilChanged
+    void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText,
+                                final View.OnClickListener onClickListener);
 
 }

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
+
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
@@ -181,6 +183,18 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     @Override
     public void showConfirmationDialog(Integer stringResId, ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener) {
         activityHandler.showConfirmationDialog(stringResId, confirmationDialogListener);
+    }
+
+    /**
+     * show Long Simple Snackbar
+     * @param viewRoot
+     * @param description
+     * @param actionText
+     * @param onClickListener
+     */
+    @Override
+    public void showLongSimpleSnackbar(ViewGroup viewRoot, String description, String actionText, View.OnClickListener onClickListener) {
+        activityHandler.showLongSimpleSnackbar(viewRoot, description, actionText, onClickListener);
     }
 
     /**

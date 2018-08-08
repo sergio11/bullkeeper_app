@@ -4,9 +4,15 @@ package sanchez.sanchez.sergio.masom_app.ui.support;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
@@ -317,6 +323,24 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     @Override
     public void onSinglePermissionRejected(String permission) {
         Timber.d("On Single Permission Rejected: %s", permission);
+    }
+
+    /**
+     * Show Simple Snackbar
+     * @param actionText
+     * @param onClickListener
+     */
+    @Override
+    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText, final View.OnClickListener onClickListener) {
+        Preconditions.checkNotNull(viewRoot, "View Root can not be null");
+        Preconditions.checkNotNull(actionText, "Action Text can not be null");
+        Preconditions.checkNotNull(onClickListener, "Click Listener can not be null");
+
+        Snackbar snackbar = Snackbar.make(viewRoot,description , Snackbar.LENGTH_LONG);
+
+        snackbar.setAction(actionText, onClickListener);
+
+        snackbar.show();
     }
 
     /**

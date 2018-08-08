@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +31,7 @@ import sanchez.sanchez.sergio.masom_app.di.components.HomeComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.LastAlertsAdapter;
+import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.masom_app.ui.images.CircleTransform;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
@@ -36,7 +39,7 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
  * Home Fragment
  */
 public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
-        IHomeView, IHomeActivityHandler>  implements IHomeView, SupportRecyclerViewAdapter.OnItemClickListener<AlertEntity> {
+        IHomeView, IHomeActivityHandler>  implements IHomeView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,SupportItemTouchHelper.LastAlertsItemTouchHelperListener {
 
     public static String TAG = "HOME_FRAGMENT";
 
@@ -47,6 +50,9 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
 
     @BindView(R.id.userProfileImage)
     protected ImageView userProfileImage;
+
+    @BindView(R.id.mainContainer)
+    protected ViewGroup mainContainer;
 
     /**
      * Results Action
@@ -217,8 +223,14 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         alertsList.setLayoutManager(new LinearLayoutManager(appContext));
         alertsList.setNestedScrollingEnabled(false);
         lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
-        lastAlertsAdapter.setOnItemClickListener(this);
+        lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
+        // Set Animator
+        alertsList.setItemAnimator(new DefaultItemAnimator());
         alertsList.setAdapter(lastAlertsAdapter);
+
+        // adding item touch helper
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new SupportItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
 
     }
 
@@ -242,6 +254,15 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
 
 
     /**
+     * On Header Click
+     */
+    @Override
+    public void onHeaderClick() {
+        showShortMessage("Header Clicked ...");
+
+    }
+
+    /**
      * On Item Click
      * @param alertEntity
      */
@@ -250,13 +271,42 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         showShortMessage(String.format(Locale.getDefault(), "Alert %s clicked ", alertEntity.getTitle()));
     }
 
+    @Override
+    public void onFooterClick() { }
+
     /**
      * On Last Alerts Loaded
      * @param lastAlerts
      */
     @Override
     public void onLastAlertsLoaded(List<AlertEntity> lastAlerts) {
-        lastAlertsAdapter.setData(lastAlerts);
+        lastAlertsAdapter.setData(new ArrayList<>(lastAlerts));
         lastAlertsAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * On Swiped
+     * @param viewHolder
+     * @param direction
+     * @param position
+     */
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof LastAlertsAdapter.LastAlertsViewHolder) {
+
+            final Integer deletedIndex = viewHolder.getAdapterPosition();
+            final AlertEntity alertEntity = lastAlertsAdapter.getItemByAdapterPosition(deletedIndex);
+
+            // Delete item from adapter
+            lastAlertsAdapter.removeItem(deletedIndex);
+
+            showLongSimpleSnackbar(mainContainer, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    lastAlertsAdapter.restoreItem(alertEntity, deletedIndex);
+                }
+            });
+
+        }
     }
 }

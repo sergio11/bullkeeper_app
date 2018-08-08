@@ -1,5 +1,8 @@
 package sanchez.sanchez.sergio.masom_app.ui.support;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 
@@ -86,4 +89,12 @@ public interface IBasicActivityHandler {
      * @param confirmationDialogListener
      */
     void showConfirmationDialog(final Integer stringResId, final ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener);
+
+
+    /**
+     * Show Simple Snackbar
+     * @param actionText
+     * @param onClickListener
+     */
+    void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText, final View.OnClickListener onClickListener);
 }

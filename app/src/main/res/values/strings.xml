@@ -53,6 +53,7 @@
     <!-- Confirm Password hint -->
     <string name="confirm_password_hint">Confirm Password</string>
 
+
     <!-- fields error messages -->
     <string name="name_not_empty_error">You must specify your name</string>
     <string name="surname_not_empty_error">You must specify your last name</string>
@@ -88,6 +89,12 @@
 
     <!-- Forgot password Screen -->
     <string name="forgot_password_screen_main_title">Did you forget your password?</string>
+
+
+    <string name="delete_list_menu_item">Delete</string>
+    <string name="undo_list_menu_item">Undo</string>
+
+    <string name="alert_item_removed">The alert was removed</string>
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
