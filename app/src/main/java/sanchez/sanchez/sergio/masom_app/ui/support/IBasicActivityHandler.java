@@ -97,4 +97,10 @@ public interface IBasicActivityHandler {
      * @param onClickListener
      */
     void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText, final View.OnClickListener onClickListener);
+
+    /**
+     * Show App Menu
+     */
+    void showAppMenu();
+
 }

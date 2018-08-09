@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 
 /**
@@ -16,6 +17,13 @@ import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 @Singleton
 @Component(modules = { ApplicationModule.class })
 public interface ApplicationComponent {
+
+
+    /**
+     * Menu Dialog Fragment
+     * @param menuDialogFragment
+     */
+    void inject(MenuDialogFragment menuDialogFragment);
 
 
     //Exposed to sub-graphs.

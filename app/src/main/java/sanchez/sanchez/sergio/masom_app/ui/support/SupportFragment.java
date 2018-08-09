@@ -4,14 +4,19 @@ package sanchez.sanchez.sergio.masom_app.ui.support;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
@@ -32,6 +37,11 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
      * UnBinder
      */
     private Unbinder unbinder;
+
+    @Nullable
+    @BindView(R.id.appToolbarInclude)
+    protected View appbarLayout;
+
 
     @Override
     public void onAttach(final Context context) {
@@ -55,6 +65,20 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
+
+        if(appbarLayout != null) {
+
+            AppBarLayoutIncluded appBarLayoutIncluded = new AppBarLayoutIncluded();
+            ButterKnife.bind( appBarLayoutIncluded, appbarLayout );
+
+            appBarLayoutIncluded.menuBars.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activityHandler.showAppMenu();
+                }
+            });
+        }
+
     }
 
 
@@ -207,5 +231,13 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
 
 
     protected abstract void initializeInjector();
+
+
+    /**
+     * App Bar Layout Included
+     */
+    static class AppBarLayoutIncluded {
+        @BindView( R.id.menuBars ) ImageButton menuBars;
+    }
 
 }

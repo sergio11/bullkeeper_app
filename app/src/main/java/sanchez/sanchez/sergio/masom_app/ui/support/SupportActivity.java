@@ -64,6 +64,9 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     @Inject
     protected INotificationHelper notificationHelper;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
@@ -341,6 +344,14 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
         snackbar.setAction(actionText, onClickListener);
 
         snackbar.show();
+    }
+
+    /**
+     * Show App Menu
+     */
+    @Override
+    public void showAppMenu() {
+        navigatorImpl.showAppMenuDialog(this);
     }
 
     /**

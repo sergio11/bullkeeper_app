@@ -189,4 +189,16 @@
     </style>
 
 
+    <!-- Menu Theme -->
+    <style name="AppMenuTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/AppMenuWindow.Window</item>
+        <item name="android:background">@color/translucentWhite</item>
+    </style>
+
+    <style name="AppMenuWindow.Window" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
+
 </resources>

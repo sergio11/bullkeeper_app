@@ -43,6 +43,7 @@
 
 
         <ImageButton
+            android:id="@+id/menuBars"
             android:background="@android:color/transparent"
             android:layout_width="69dp"
             android:layout_height="69dp"

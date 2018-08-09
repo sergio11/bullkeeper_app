@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Menu Items -->
+    <string-array name="app_menu_items">
+        <item>@string/app_menu_user_profile</item>
+        <item>@string/app_menu_settings</item>
+        <item>@string/app_menu_how_its_work</item>
+    </string-array>
+</resources>

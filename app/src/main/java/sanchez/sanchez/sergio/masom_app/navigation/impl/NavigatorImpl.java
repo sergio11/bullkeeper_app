@@ -2,10 +2,13 @@ package sanchez.sanchez.sergio.masom_app.navigation.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
 
 /**
  * Class used to navigate through the application.
@@ -35,5 +38,13 @@ public class NavigatorImpl implements INavigator {
     public void navigateToHome() {
         Intent intentToHome = HomeActivity.getCallingIntent(context);
         context.startActivity(intentToHome);
+    }
+
+    /**
+     * Show App Menu Dialog
+     */
+    @Override
+    public void showAppMenuDialog(final AppCompatActivity appCompatActivity) {
+        MenuDialogFragment.show(appCompatActivity);
     }
 }
