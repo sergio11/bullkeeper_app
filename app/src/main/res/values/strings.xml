@@ -101,10 +101,16 @@
     <string name="app_menu_settings">Settings</string>
     <string name="app_menu_how_its_work">How its work</string>
 
+    <!-- My Kids -->
+    <string name="my_kids_title">My Kids</string>
+    <string name="my_kids_content_description">My Kids</string>
+
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
     <string name="menu_item_alerts">Alerts</string>
     <string name="menu_item_children">Children</string>
+    <string name="menu_item_profile">Profile</string>
+    <string name="menu_item_relations">Relations</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_signing_in">SigningInActivity</string>
@@ -119,6 +125,7 @@
 
     <string name="crash_error_content">An unexperienced error occurred during the operation of the application, sorry for the inconvenience</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_my_kids">MyKidsActivity</string>
 
 
 </resources>

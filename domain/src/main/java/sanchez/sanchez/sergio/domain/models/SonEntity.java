@@ -18,6 +18,7 @@ public final class SonEntity implements Serializable {
     private String profileImage;
     private Map<AlertLevelEnum, Integer> alertStatistics;
 
+
     public String getIdentity() {
         return identity;
     }

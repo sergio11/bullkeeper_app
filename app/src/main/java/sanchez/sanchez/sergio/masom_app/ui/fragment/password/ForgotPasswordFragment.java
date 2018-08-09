@@ -1,12 +1,8 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.password;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import butterknife.BindView;
@@ -55,27 +51,24 @@ implements IForgotPasswordView {
     }
 
 
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_forgot_password;
+    }
+
+    /**
+     * Initialize Injector
+     */
     @Override
     protected void initializeInjector() {
         introComponent = IntroComponent.class
                 .cast(((HasComponent<IntroComponent>) getActivity())
                         .getComponent());
         introComponent.inject(this);
-    }
-
-    /**
-     * On Create View
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
     }
 
     /**
@@ -104,7 +97,9 @@ implements IForgotPasswordView {
         getPresenter().forgotPassword(mail);
     }
 
-
+    /**
+     * On Validation Failed
+     */
     @Override
     protected void onValidationFailed() {
         showNoticeDialog(R.string.forms_is_not_valid);

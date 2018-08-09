@@ -22,4 +22,9 @@ public interface INavigator {
      */
     void showAppMenuDialog(final AppCompatActivity appCompatActivity);
 
+    /**
+     * Navigate to My Kids
+     */
+    void navigateToMyKids();
+
 }

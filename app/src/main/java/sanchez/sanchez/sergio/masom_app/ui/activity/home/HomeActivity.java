@@ -69,4 +69,13 @@ public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
     public HomeComponent getComponent() {
         return homeComponent;
     }
+
+
+    /**
+     * Go to My Kids
+     */
+    @Override
+    public void goToMyKids() {
+        navigatorImpl.navigateToMyKids();
+    }
 }

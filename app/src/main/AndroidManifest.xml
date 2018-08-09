@@ -19,7 +19,7 @@
             android:name=".ui.activity.intro.IntroActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Intro"></activity>
+            android:theme="@style/AppTheme.Intro" />
 
         <!-- Custom Splash Screen Activity -->
         <activity
@@ -49,7 +49,13 @@
         <!-- Home Activity -->
         <activity
             android:name=".ui.activity.home.HomeActivity"
-            android:label="@string/title_activity_home"></activity>
+            android:label="@string/title_activity_home" />
+
+        <!-- My Kids Activity -->
+        <activity
+            android:name=".ui.activity.mykids.MyKidsActivity"
+            android:label="@string/title_activity_my_kids"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

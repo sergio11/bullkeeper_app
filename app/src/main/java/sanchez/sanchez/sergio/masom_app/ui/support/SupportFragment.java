@@ -3,16 +3,15 @@ package sanchez.sanchez.sergio.masom_app.ui.support;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -58,6 +57,20 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     public void onCreate(Bundle savedInstanceState) {
         initializeInjector();
         super.onCreate(savedInstanceState);
+    }
+
+    /**
+     * On Create View
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(getLayoutRes(), container, false);
     }
 
 
@@ -229,7 +242,16 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
         return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
 
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @LayoutRes
+    protected abstract int getLayoutRes();
 
+    /**
+     * Initialize Injector
+     */
     protected abstract void initializeInjector();
 
 

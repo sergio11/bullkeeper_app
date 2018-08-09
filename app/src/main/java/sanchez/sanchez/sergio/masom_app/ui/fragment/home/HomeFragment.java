@@ -11,7 +11,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,19 +123,7 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         homeComponent.inject(this);
     }
 
-    /**
-     * On Create View
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -234,6 +221,11 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
 
     }
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_home;
+    }
+
     /**
      * Provide Presenter
      * @return
@@ -250,6 +242,14 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
     @OnClick(R.id.addChildBtn)
     protected void onAddChild(){
         showShortMessage("Add Child ...");
+    }
+
+    /**
+     * On Children Action
+     */
+    @OnClick(R.id.childrenAction)
+    protected void onChildrenAction(){
+        activityHandler.goToMyKids();
     }
 
 

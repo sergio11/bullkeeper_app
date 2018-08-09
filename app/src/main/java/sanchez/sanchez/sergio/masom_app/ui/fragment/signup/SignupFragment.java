@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -165,7 +163,9 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     }
 
-
+    /**
+     * Initialize Injector
+     */
     @Override
     protected void initializeInjector() {
         introComponent = IntroComponent.class
@@ -174,6 +174,11 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         introComponent.inject(this);
     }
 
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -211,11 +216,28 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     }
 
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_signup;
+    }
+
+    /**
+     * On Validation Failed
+     */
     @Override
     protected void onValidationFailed() {
         showNoticeDialog(R.string.forms_is_not_valid);
     }
 
+    /**
+     * On Field Invalid
+     * @param viewId
+     * @param message
+     */
     @Override
     protected void onFieldInvalid(Integer viewId, String message) {
 
@@ -236,7 +258,9 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     }
 
-
+    /**
+     * On Validation Succeeded
+     */
     @Override
     public void onValidationSucceeded() {
 
@@ -250,21 +274,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         final String confirmPassword = confirmPasswordInput.getText().toString();
 
         getPresenter().signup(name, surname, birthday, email, password, confirmPassword);
-    }
-
-    /**
-     * On Create View
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_signup, container, false);
     }
 
     /**

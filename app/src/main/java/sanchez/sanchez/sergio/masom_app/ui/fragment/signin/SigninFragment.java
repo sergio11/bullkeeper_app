@@ -1,12 +1,8 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.signin;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -69,6 +65,14 @@ implements ISigninView, Validator.ValidationListener{
         return fragment;
     }
 
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_signin;
+    }
 
     @Override
     protected void initializeInjector() {
@@ -78,20 +82,6 @@ implements ISigninView, Validator.ValidationListener{
         introComponent.inject(this);
     }
 
-    /**
-     * On Create View
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_signin, container, false);
-    }
 
     /**
      * Provide Presenter

@@ -7,12 +7,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageButton
-        android:id="@+id/resultsAction"
+        android:id="@+id/profileAction"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:contentDescription="@string/menu_item_result"
+        android:contentDescription="@string/menu_item_profile"
         android:background="@drawable/common_action_menu_item_state"
-        android:src="@drawable/chart_bar_cyan"/>
+        android:src="@drawable/user_edit_cyan"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,6 +20,6 @@
         android:padding="3dp"
         style="@style/CommonStrongText.Small"
         android:textColor="@color/commonWhite"
-        android:text="@string/menu_item_result"/>
+        android:text="@string/menu_item_profile"/>
 
 </LinearLayout>

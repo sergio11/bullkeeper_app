@@ -56,17 +56,6 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
         return new LastAlertsHeaderViewHolder(view);
     }
 
-    /**
-     * On Create Footer View Holder
-     * @param viewGroup
-     * @return
-     */
-    @Override
-    protected RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.progress_item, viewGroup, false);
-        return new SupportFooterViewHolder(view);
-    }
-
 
     /**
      * Last Alerts Header VIew Holder

@@ -49,4 +49,6 @@
     <!-- Common Action Button Height -->
     <dimen name="common_action_button_height">62dp</dimen>
 
+    <dimen name="item_offset">4dp</dimen>
+
 </resources>

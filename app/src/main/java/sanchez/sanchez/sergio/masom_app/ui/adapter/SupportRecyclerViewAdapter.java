@@ -166,8 +166,8 @@ public abstract class SupportRecyclerViewAdapter<T>
      */
     public T getItemByAdapterPosition(int position) {
         return data.get(position);
-
     }
+
 
     /**
      * Get Item View Type
@@ -262,13 +262,17 @@ public abstract class SupportRecyclerViewAdapter<T>
      * On Create Item View Holder
      * @param viewGroup
      */
-    protected abstract RecyclerView.ViewHolder onCreateHeaderViewHolder(final ViewGroup viewGroup);
+    protected RecyclerView.ViewHolder onCreateHeaderViewHolder(final ViewGroup viewGroup){
+        throw new UnsupportedOperationException("Header not implemented");
+    }
 
     /**
      * On Create Item View Holder
      * @param viewGroup
      */
-    protected abstract RecyclerView.ViewHolder onCreateFooterViewHolder(final ViewGroup viewGroup);
+    protected RecyclerView.ViewHolder onCreateFooterViewHolder(final ViewGroup viewGroup){
+        throw new UnsupportedOperationException("Footer not implemented");
+    }
 
     /**
      * Remove Item

@@ -74,7 +74,6 @@ dependencies {
     // Data Module
     implementation project(':data')
 
-
     annotationProcessor presentationDependencies.daggerCompiler
     implementation presentationDependencies.dagger
     implementation presentationDependencies.butterKnife
