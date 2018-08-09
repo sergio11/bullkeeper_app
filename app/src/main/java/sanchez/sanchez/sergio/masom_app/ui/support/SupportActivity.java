@@ -307,7 +307,7 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
      */
     @Override
     public void showConfirmationDialog(Integer stringResId, ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener) {
-        showConfirmationDialog(getString(stringResId), null);
+        showConfirmationDialog(getString(stringResId), confirmationDialogListener);
     }
 
     /**
@@ -363,6 +363,13 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
         Timber.d("On Error Ocurred: %s", permission);
     }
 
+    /**
+     * Close Activity
+     */
+    @Override
+    public void closeActivity() {
+        finish();
+    }
 
     /**
      * Basic Notification

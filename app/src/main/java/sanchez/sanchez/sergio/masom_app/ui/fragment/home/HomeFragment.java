@@ -269,7 +269,11 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
     @Override
     public void onItemClick(final AlertEntity alertEntity) {
         showShortMessage(String.format(Locale.getDefault(), "Alert %s clicked ", alertEntity.getTitle()));
+
+        activityHandler.goToAlertDetail("123456");
     }
+
+
 
     @Override
     public void onFooterClick() { }

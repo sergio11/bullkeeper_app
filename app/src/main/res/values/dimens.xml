@@ -51,4 +51,13 @@
 
     <dimen name="item_offset">4dp</dimen>
 
+    <!-- Common Divider Small -->
+    <dimen name="common_divider_small">70dp</dimen>
+    <!-- Common Divider Height -->
+    <dimen name="common_divider_height">6dp</dimen>
+    <!-- Common Collapsing Toolbar -->
+    <dimen name="common_collapsing_toolbar_height">370dp</dimen>
+
+
+
 </resources>

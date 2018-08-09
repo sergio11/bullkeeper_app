@@ -55,7 +55,13 @@
         <activity
             android:name=".ui.activity.mykids.MyKidsActivity"
             android:label="@string/title_activity_my_kids"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <!-- Alert Detail Activity -->
+        <activity
+            android:name=".ui.activity.alertdetail.AlertDetailActivity"
+            android:label="@string/title_activity_alert_detail"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

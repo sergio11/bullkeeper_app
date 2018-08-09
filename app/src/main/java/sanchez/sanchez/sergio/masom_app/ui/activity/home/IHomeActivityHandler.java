@@ -12,4 +12,11 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
      */
     void goToMyKids();
 
+
+    /**
+     * Go to Alert Detail
+     * @param identity
+     */
+    void goToAlertDetail(final String identity);
+
 }

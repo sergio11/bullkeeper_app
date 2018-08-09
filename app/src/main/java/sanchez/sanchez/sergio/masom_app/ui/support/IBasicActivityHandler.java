@@ -7,6 +7,13 @@ import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 
 public interface IBasicActivityHandler {
+
+    /**
+     * Close Activity
+     */
+    void closeActivity();
+
+
     /**
      * Show Short Message
      * @param message

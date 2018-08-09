@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerHomeComponent;
@@ -77,5 +76,14 @@ public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
     @Override
     public void goToMyKids() {
         navigatorImpl.navigateToMyKids();
+    }
+
+    /**
+     * Go to Alert Detail
+     * @param identity
+     */
+    @Override
+    public void goToAlertDetail(String identity) {
+        navigatorImpl.navigateToAlertDetail(identity);
     }
 }

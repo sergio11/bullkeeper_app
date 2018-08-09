@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
+import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsActivity;
@@ -55,5 +56,14 @@ public class NavigatorImpl implements INavigator {
     public void navigateToMyKids() {
         Intent intentToMyKids = MyKidsActivity.getCallingIntent(context);
         context.startActivity(intentToMyKids);
+    }
+
+    /**
+     * Navigate to Alert Detail
+     */
+    @Override
+    public void navigateToAlertDetail(final String identity) {
+        final Intent intentToAlertDetail = AlertDetailActivity.getCallingIntent(context, identity);
+        context.startActivity(intentToAlertDetail);
     }
 }

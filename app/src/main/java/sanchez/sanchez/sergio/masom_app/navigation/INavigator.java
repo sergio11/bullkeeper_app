@@ -27,4 +27,9 @@ public interface INavigator {
      */
     void navigateToMyKids();
 
+    /**
+     * Navigate To Alert Detail
+     */
+    void navigateToAlertDetail(final String identity);
+
 }
