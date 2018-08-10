@@ -109,6 +109,15 @@
 
     <string name="remove_alert_confirm">Remove the alert?</string>
     <string name="alert_removed_successfully">Alert Removed successfully</string>
+    <string name="alert_detail_message">Message</string>
+    <string name="alert_detail_required_actions">Required Actions</string>
+
+    <!-- Alert Category Success Text -->
+    <string name="alert_category_success_text">Success data</string>
+    <string name="alert_category_info_text">Informative data</string>
+    <string name="alert_category_warning_text">important announcement</string>
+    <string name="alert_category_danger_text">important information</string>
+
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
