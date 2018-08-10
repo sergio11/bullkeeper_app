@@ -86,6 +86,11 @@
         <item name="android:textSize">@dimen/common_strong_text_size</item>
         <item name="android:background">@drawable/common_action_button_state</item>
     </style>
+
+    <style name="CommonActionButton.Inverse" parent="@style/CommonActionButton">
+        <item name="android:textColor">@color/common_btn_text_color_inverse</item>
+        <item name="android:background">@drawable/common_action_button_state_inverse</item>
+    </style>
     
     <style name="CommonTitle">
         <item name="android:textColor">@color/commonWhite</item>
@@ -190,12 +195,12 @@
 
 
     <!-- Menu Theme -->
-    <style name="AppMenuTheme" parent="@android:style/Theme.Dialog">
-        <item name="android:windowAnimationStyle">@style/AppMenuWindow.Window</item>
+    <style name="CommonDialogFragmentTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/CommonDialogWindow.Window</item>
         <item name="android:background">@color/translucentWhite</item>
     </style>
 
-    <style name="AppMenuWindow.Window" parent="@android:style/Animation.Activity">
+    <style name="CommonDialogWindow.Window" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/anim_in</item>
         <item name="android:windowExitAnimation">@anim/anim_out</item>
     </style>

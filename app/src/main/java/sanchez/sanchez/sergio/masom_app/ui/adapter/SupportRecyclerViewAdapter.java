@@ -332,6 +332,29 @@ public abstract class SupportRecyclerViewAdapter<T>
     }
 
     /**
+     * Support Item Swiped View Holder
+     * @param <T>
+     */
+    public abstract class SupportItemSwipedViewHolder<T> extends SupportItemViewHolder<T> {
+
+        private ViewGroup viewBackground, viewForeground;
+
+        public SupportItemSwipedViewHolder(View itemView) {
+            super(itemView);
+            this.viewBackground = itemView.findViewById(R.id.item_background);
+            this.viewForeground = itemView.findViewById(R.id.item_foreground);
+        }
+
+        public ViewGroup getViewBackground() {
+            return viewBackground;
+        }
+
+        public ViewGroup getViewForeground() {
+            return viewForeground;
+        }
+    }
+
+    /**
      * Support Header View Holder
      */
     public abstract class SupportHeaderViewHolder extends RecyclerView.ViewHolder {

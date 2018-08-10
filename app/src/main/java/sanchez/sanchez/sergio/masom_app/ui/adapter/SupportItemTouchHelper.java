@@ -10,9 +10,10 @@ import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.LastAlertsAdapter;
 /**
  * Last Alerts Item Touch Helper
  */
-public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback {
+public final class SupportItemTouchHelper<T extends SupportRecyclerViewAdapter.SupportItemSwipedViewHolder>
+        extends ItemTouchHelper.SimpleCallback {
 
-    private LastAlertsItemTouchHelperListener listener;
+    private ItemTouchHelperListener listener;
 
     /**
      * @param dragDirs
@@ -20,7 +21,7 @@ public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback
      * @param listener
      */
     public SupportItemTouchHelper(int dragDirs, int swipeDirs,
-                                  final LastAlertsItemTouchHelperListener listener) {
+                                  final ItemTouchHelperListener listener) {
         super(dragDirs, swipeDirs);
         this.listener = listener;
     }
@@ -46,7 +47,7 @@ public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
-            final View foregroundView = ((LastAlertsAdapter.LastAlertsViewHolder) viewHolder).getViewForeground();
+            final View foregroundView = ((T) viewHolder).getViewForeground();
             getDefaultUIUtil().onSelected(foregroundView);
         }
     }
@@ -65,7 +66,7 @@ public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback
     public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                 int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((LastAlertsAdapter.LastAlertsViewHolder) viewHolder).getViewForeground();
+        final View foregroundView = ((T) viewHolder).getViewForeground();
         getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive);
     }
@@ -77,7 +78,7 @@ public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback
      */
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        final View foregroundView = ((LastAlertsAdapter.LastAlertsViewHolder) viewHolder).getViewForeground();
+        final View foregroundView = ((T) viewHolder).getViewForeground();
         getDefaultUIUtil().clearView(foregroundView);
     }
 
@@ -95,7 +96,7 @@ public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback
     public void onChildDraw(Canvas c, RecyclerView recyclerView,
                             RecyclerView.ViewHolder viewHolder, float dX, float dY,
                             int actionState, boolean isCurrentlyActive) {
-        final View foregroundView = ((LastAlertsAdapter.LastAlertsViewHolder) viewHolder).getViewForeground();
+        final View foregroundView = ((T) viewHolder).getViewForeground();
         getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive);
     }
@@ -125,7 +126,7 @@ public final class SupportItemTouchHelper extends ItemTouchHelper.SimpleCallback
     /**
      * Last Alerts Item Touch Helper Listener
      */
-    public interface LastAlertsItemTouchHelperListener {
+    public interface ItemTouchHelperListener {
         void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position);
     }
 }

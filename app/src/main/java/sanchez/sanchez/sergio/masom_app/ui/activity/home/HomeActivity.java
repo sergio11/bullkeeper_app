@@ -86,4 +86,12 @@ public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
     public void goToAlertDetail(String identity) {
         navigatorImpl.navigateToAlertDetail(identity);
     }
+
+    /**
+     * Go to Alerts
+     */
+    @Override
+    public void goToAlerts() {
+        navigatorImpl.navigateToAlertList();
+    }
 }

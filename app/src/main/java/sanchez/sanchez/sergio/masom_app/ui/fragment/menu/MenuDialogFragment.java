@@ -55,7 +55,7 @@ public final class MenuDialogFragment extends SupportDialogFragment
      */
     public static void show(final AppCompatActivity appCompatActivity) {
         final MenuDialogFragment menuDialogFragment = new MenuDialogFragment();
-        menuDialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppMenuTheme);
+        menuDialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
         menuDialogFragment.show(appCompatActivity.getSupportFragmentManager(), TAG);
     }
 

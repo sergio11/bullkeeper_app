@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/commonWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText"
+            android:text="@string/my_alerts_filter"
+            android:textStyle="bold"
+            android:textColor="@color/cyanBrilliant"
+            />
+
+        <View
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:background="@color/cyanBrilliant"/>
+
+
+        <Button
+            android:id="@+id/applyChanges"
+            style="@style/CommonActionButton.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_padding"
+            android:text="@string/apply_changes" />
+
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

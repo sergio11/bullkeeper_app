@@ -32,4 +32,14 @@ public interface INavigator {
      */
     void navigateToAlertDetail(final String identity);
 
+    /**
+     * Navigate to Alert List
+     */
+    void navigateToAlertList();
+
+    /**
+     * Show Filter Alerts Dialog
+     */
+    void showFilterAlertsDialog(final AppCompatActivity appCompatActivity);
+
 }

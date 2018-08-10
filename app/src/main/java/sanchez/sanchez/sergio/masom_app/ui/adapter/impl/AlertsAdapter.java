@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
@@ -18,17 +19,20 @@ import sanchez.sanchez.sergio.masom_app.ui.images.CircleTransform;
 /**
  * Last Alerts Adapter
  */
-public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>{
+public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>{
+
+    private OnAlertsViewListener onAlertsViewListener;
 
     /**
      *
      * @param context
      * @param data
      */
-    public LastAlertsAdapter(Context context, ArrayList<AlertEntity> data) {
+    public AlertsAdapter(Context context, ArrayList<AlertEntity> data) {
         super(context, data);
         // enable header
         hasHeader = true;
+        hasFooter = false;
 
     }
 
@@ -40,7 +44,7 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
     @Override
     protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup viewGroup) {
         View view = inflater.inflate(R.layout.alert_item_layout, viewGroup, false);
-        return new LastAlertsViewHolder(view);
+        return new AlertsViewHolder(context, view);
     }
 
     /**
@@ -50,37 +54,69 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
      */
     @Override
     protected RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.last_alert_header_layout, viewGroup, false);
-        return new LastAlertsHeaderViewHolder(view);
+        final View view = inflater.inflate(R.layout.alert_header_layout, viewGroup, false);
+        return new AlertsHeaderViewHolder(view);
     }
 
-
     /**
-     * Last Alerts Header VIew Holder
+     * On Create Footer View Holder
+     * @param viewGroup
+     * @return
      */
-    public class LastAlertsHeaderViewHolder extends SupportHeaderViewHolder {
-
-        public LastAlertsHeaderViewHolder(View itemView) {
-            super(itemView);
-        }
+    @Override
+    protected RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup viewGroup) {
+        final View view = inflater.inflate(R.layout.progress_item, viewGroup, false);
+        return new SupportFooterViewHolder(view);
     }
 
+    /**
+     * Set On Alerts View Listener
+     * @param onAlertsViewListener
+     */
+    public void setOnAlertsViewListener(OnAlertsViewListener onAlertsViewListener){
+        this.onAlertsViewListener = onAlertsViewListener;
+    }
 
     /**
-     * Last Alerts View Holder
+     * On Alerts View Listener
      */
-    public class LastAlertsViewHolder
-            extends SupportRecyclerViewAdapter<AlertEntity>.SupportItemSwipedViewHolder<AlertEntity>{
+    public interface OnAlertsViewListener {
+
+        /**
+         * On Clear All Alerts
+         */
+        void onClearAllAlerts();
+
+        /**
+         * On Filter Alerts
+         */
+        void onFilterAlerts();
+    }
+
+    /**
+     * Alerts View Holder
+     */
+    public final class AlertsViewHolder extends
+            SupportRecyclerViewAdapter<AlertEntity>.
+                    SupportItemSwipedViewHolder<AlertEntity> {
+
+        private Context context;
 
         private ImageView alertIcon;
         private ImageView childImage;
         private TextView alertMessage;
 
-        LastAlertsViewHolder(View itemView) {
+        /**
+         * Alerts View Holder
+         * @param context
+         * @param itemView
+         */
+        public AlertsViewHolder(final Context context, final View itemView) {
             super(itemView);
-            alertIcon = itemView.findViewById(R.id.alertIcon);
-            childImage = itemView.findViewById(R.id.childImage);
-            alertMessage = itemView.findViewById(R.id.alertMessage);
+            this.context = context;
+            this.alertIcon = itemView.findViewById(R.id.alertIcon);
+            this.childImage = itemView.findViewById(R.id.childImage);
+            this.alertMessage = itemView.findViewById(R.id.alertMessage);
         }
 
         /**
@@ -155,4 +191,47 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
         }
 
     }
+
+
+    /**
+     * Alerts Header View Holder
+     */
+    public class AlertsHeaderViewHolder extends SupportHeaderViewHolder {
+
+        private ImageButton filterAlerts, clearAlerts;
+
+        public AlertsHeaderViewHolder(View itemView) {
+            super(itemView);
+
+            this.filterAlerts = itemView.findViewById(R.id.filterAlerts);
+            this.clearAlerts = itemView.findViewById(R.id.clearAlerts);
+
+            clearAlerts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onAlertsViewListener != null)
+                        onAlertsViewListener.onClearAllAlerts();
+                }
+            });
+
+            filterAlerts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onAlertsViewListener != null)
+                        onAlertsViewListener.onFilterAlerts();
+                }
+            });
+
+        }
+
+        public ImageButton getFilterAlerts() {
+            return filterAlerts;
+        }
+
+        public ImageButton getClearAlerts() {
+            return clearAlerts;
+        }
+    }
+
+
 }

@@ -42,7 +42,7 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         IHomeView, IHomeActivityHandler>  implements IHomeView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
-        SupportItemTouchHelper.LastAlertsItemTouchHelperListener,
+        SupportItemTouchHelper.ItemTouchHelperListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     public static String TAG = "HOME_FRAGMENT";
@@ -240,7 +240,8 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         alertsList.setAdapter(lastAlertsAdapter);
 
         // adding item touch helper
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new SupportItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new SupportItemTouchHelper<LastAlertsAdapter.LastAlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
 
     }
@@ -276,6 +277,14 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         activityHandler.goToMyKids();
     }
 
+    /**
+     * On Alerts Action
+     */
+    @OnClick(R.id.alertsAction)
+    protected void onAlertsAction(){
+        activityHandler.goToAlerts();
+    }
+
 
     /**
      * On Header Click
@@ -283,6 +292,7 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
     @Override
     public void onHeaderClick() {
         showShortMessage("Header Clicked ...");
+        activityHandler.goToAlerts();
 
     }
 
