@@ -118,6 +118,8 @@ public final class MenuDialogFragment extends SupportDialogFragment
                 break;
 
             case HOW_ITS_WORK_POSITION:
+                //Show App Tutorial
+                navigator.navigateToAppTutorial();
                 break;
 
         }

@@ -68,6 +68,12 @@
             android:name=".ui.activity.alertlist.AlertListActivity"
             android:label="@string/title_activity_alert_list"
             android:screenOrientation="portrait" />
+
+        <!-- App Tutorial Activity -->
+        <activity
+            android:name=".ui.activity.tutorial.AppTutorialActivity"
+            android:label="@string/title_activity_app_tutorial"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -42,4 +42,9 @@ public interface INavigator {
      */
     void showFilterAlertsDialog(final AppCompatActivity appCompatActivity);
 
+    /**
+     * Navigate To App Tutorial
+     */
+    void navigateToAppTutorial();
+
 }
