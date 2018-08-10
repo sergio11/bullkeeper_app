@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -40,10 +41,18 @@
             style="@style/CommonStrongText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="0dp"
             android:singleLine="true"
             android:text="Sergio Sánchez"
             android:textColor="@color/commonWhite"
             android:textStyle="bold" />
+
+        <View
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/commonWhite" />
 
         <!-- School Name -->
         <TextView
@@ -51,12 +60,23 @@
             style="@style/CommonStrongText.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="0dp"
             android:singleLine="true"
             android:text="C.E.L.P. Fernando Gavilán"
             android:textColor="@color/commonWhite" />
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/common_divider_height"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/commonWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <LinearLayout
         android:id="@+id/actions"
@@ -64,11 +84,12 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:padding="5dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline5">
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
         <!-- Results -->
         <include layout="@layout/results_menu_item_layout" />
@@ -95,6 +116,9 @@
             android:layout_marginStart="5dp" />
 
     </LinearLayout>
+
+
+
 
 
     <android.support.constraint.Guideline
