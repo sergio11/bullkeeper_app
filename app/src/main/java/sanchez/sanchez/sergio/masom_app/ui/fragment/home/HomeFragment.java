@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +40,10 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
  * Home Fragment
  */
 public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
-        IHomeView, IHomeActivityHandler>  implements IHomeView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,SupportItemTouchHelper.LastAlertsItemTouchHelperListener {
+        IHomeView, IHomeActivityHandler>  implements IHomeView,
+        SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
+        SupportItemTouchHelper.LastAlertsItemTouchHelperListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     public static String TAG = "HOME_FRAGMENT";
 
@@ -52,6 +57,13 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
 
     @BindView(R.id.mainContainer)
     protected ViewGroup mainContainer;
+
+    /**
+     * Swipe Refresh Layout
+     */
+    @BindView(R.id.swipeContainer)
+    protected SwipeRefreshLayout swipeRefreshLayout;
+
 
     /**
      * Results Action
@@ -84,13 +96,21 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
     @BindView(R.id.alertsList)
     protected RecyclerView alertsList;
 
-
+    /**
+     * First Child Image
+     */
     @BindView(R.id.firstChildImage)
     protected ImageView firstChildImage;
 
+    /**
+     * Second Child Image
+     */
     @BindView(R.id.secondChildImage)
     protected ImageView secondChildImage;
 
+    /**
+     * Third Child Image
+     */
     @BindView(R.id.thirdChildImage)
     protected ImageView thirdChildImage;
 
@@ -207,6 +227,10 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
                 .into(thirdChildImage);
 
 
+        swipeRefreshLayout.setColorSchemeResources(R.color.commonWhite);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
+
+        ViewCompat.setNestedScrollingEnabled(alertsList, false);
         alertsList.setLayoutManager(new LinearLayoutManager(appContext));
         alertsList.setNestedScrollingEnabled(false);
         lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
@@ -312,5 +336,10 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
             });
 
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        showShortMessage("Refresh Alerts!!");
     }
 }

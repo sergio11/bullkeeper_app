@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.List;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
