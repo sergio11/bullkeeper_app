@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Menu Items -->
+    <string-array name="app_menu_items">
+        <item>@string/app_menu_user_profile</item>
+        <item>@string/app_menu_settings</item>
+        <item>@string/app_menu_how_its_work</item>
+    </string-array>
+
+    <!-- Number of Alerts Values -->
+    <string-array name="number_of_alerts_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
+
+    <integer name="number_of_alerts_default_value">20</integer>
+
+    <!-- Number of alerts -->
+    <string-array name="number_of_alerts">
+        <item>@string/five_alerts_preference_value</item>
+        <item>@string/ten_alerts_preference_value</item>
+        <item>@string/fifteen_alerts_preference_value</item>
+        <item>@string/twenty_alerts_preference_value</item>
+        <item>@string/twenty_five_alerts_preference_value</item>
+        <item>@string/thirty_alerts_preference_value</item>
+    </string-array>
+
+    <!-- Age of Alerts Values -->
+    <string-array name="age_of_alerts_values">
+        <item>0</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+    </string-array>
+
+    <integer name="age_of_alerts_default_value">30</integer>
+
+    <!-- Age of Alerts -->
+    <string-array name="age_of_alerts">
+        <item>@string/age_of_alerts_no_filter</item>
+        <item>@string/age_of_alerts_fifteen_minutes</item>
+        <item>@string/age_of_alerts_thirty_minutes</item>
+        <item>@string/age_of_alerts_forty_five_minutes</item>
+        <item>@string/age_of_alerts_sixty_minutes</item>
+    </string-array>
+
+
+    <!-- Remove Alerts Every values -->
+    <string-array name="remove_alerts_every_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <integer name="remove_alerts_every_default_value">0</integer>
+
+    <!-- Remove Alerts Every -->
+    <string-array name="remove_alerts_every">
+        <item>@string/remove_alerts_never</item>
+        <item>@string/remove_alerts_last_hour</item>
+        <item>@string/remove_alerts_last_day</item>
+        <item>@string/remove_alerts_last_month</item>
+    </string-array>
+
+
+</resources>

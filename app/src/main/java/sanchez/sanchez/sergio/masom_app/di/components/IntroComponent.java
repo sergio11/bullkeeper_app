@@ -9,6 +9,8 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.splash.SplashScreenActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.splash.SplashScreenPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragmentPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragment;
@@ -45,10 +47,16 @@ public interface IntroComponent extends ActivityComponent {
     void inject(final SigninFragment signinFragment);
 
     /**
-     * Signup FragmentS
+     * Signup Fragment
      * @param signupFragment
      */
     void inject(final SignupFragment signupFragment);
+
+    /**
+     * Inject on Forgot Password Fragment
+     * @param forgotPasswordFragment
+     */
+    void inject(final ForgotPasswordFragment forgotPasswordFragment);
 
 
     IntroPresenter introPresenter();
@@ -56,4 +64,5 @@ public interface IntroComponent extends ActivityComponent {
     SigninFragmentPresenter signinFragmentPresenter();
     SignupFragmentPresenter signupFragmentPresenter();
     SplashScreenPresenter splashScreenPresenter();
+    ForgotPasswordFragmentPresenter forgotPasswordFragmentPresenter();
 }

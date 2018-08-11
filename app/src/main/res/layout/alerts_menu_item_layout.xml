@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Results -->
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageButton
+        android:id="@+id/alertsAction"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/common_action_menu_item_state"
+        android:src="@drawable/alert_cyan"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        style="@style/CommonStrongText.Small"
+        android:textColor="@color/commonWhite"
+        android:text="@string/menu_item_alerts"/>
+
+</LinearLayout>

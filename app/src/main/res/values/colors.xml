@@ -2,6 +2,8 @@
 <resources>
     <!-- Cyan Brilliant -->
     <color name="cyanBrilliant">#5db4df</color>
+    <!-- Translucent Cyan Brilliant -->
+    <color name="translucentCyanBrilliant">#905db4df</color>
     <!-- Soft Orange -->
     <color name="softOrange">#e7b15f</color>
     <!-- Moderate Red -->
@@ -18,4 +20,11 @@
     <color name="translucentWhite">#90FFFFFF</color>
     <!-- white -->
     <color name="commonWhite">#FFFFFF</color>
+    <!-- Green Success -->
+    <color name="greenSuccess">#4BB543</color>
+    <!-- Red Danger -->
+    <color name="redDanger">#ff2323</color>
+    <!-- Yellow Warning -->
+    <color name="yellowWarning">#FFCC00</color>
+
 </resources>

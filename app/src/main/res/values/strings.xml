@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">BullTec</string>
+    <string name="app_name">MyApp</string>
 
     <!-- Intro Text -->
     <string name="intro_text">The first anti-bullying in the history of the internet. Designed to protect young people and pre-teens from attacks on the social networks of other groups of their age.</string>
@@ -11,19 +11,195 @@
     <!-- Sign in btn -->
     <string name="sign_in_btn">Sign in</string>
 
+    <!-- Sign in facebook -->
+    <string name="sign_in_facebook">Log in through Facebook</string>
+
+    <!-- Forgot password btn -->
+    <string name="forgot_password_btn">Did you forget your password?</string>
+
+    <!-- Forget password send email -->
+    <string name="forgot_password_send_email">Send</string>
+
     <!-- Show Tutorial -->
     <string name="show_tutorial">Show Tutorial</string>
+
+    <!-- Restart App -->
+    <string name="btn_restart">Restart</string>
+    <!-- Details App -->
+    <string name="btn_details">Details</string>
+    <!-- CLose App -->
+    <string name="btn_close">Close</string>
+
+    <!-- Sign up main title -->
+    <string name="sign_up_main_title">Register now</string>
+
+    <!-- Sign up back to login -->
+    <string name="sign_up_back_to_login">Already a user? Log in now</string>
+
+    <!-- Create Account -->
+    <string name="create_account_btn">Create Account</string>
+
+
+    <!-- email hint -->
+    <string name="email_address_hint">Email</string>
+    <!-- password hint -->
+    <string name="password_hint">Password</string>
+    <!-- name hint -->
+    <string name="name_hint">Name</string>
+    <!-- surname hint -->
+    <string name="surname_hint">Surname</string>
+    <!-- birthday hint -->
+    <string name="birthday_hint">Birthday</string>
+    <!-- Confirm Password hint -->
+    <string name="confirm_password_hint">Confirm Password</string>
+
+
+    <!-- fields error messages -->
+    <string name="name_not_empty_error">You must specify your name</string>
+    <string name="surname_not_empty_error">You must specify your last name</string>
+    <string name="birthday_not_empty_error">You must specify your birthday</string>
+    <string name="email_not_empty_error">You must specify your email</string>
+    <string name="email_invalid_error">The email does not have the correct format</string>
+    <string name="forms_is_not_valid">The information provided is not valid</string>
+
+
+    <!-- Sign up -->
+    <string name="signup_in_progress">Sign up in progress, please wait ...</string>
+
+
+    <!-- Tutorial Strings -->
+
+    <string name="tutorial_first_page_title">The Social Media Protec</string>
+    <string name="tutorial_first_page_content">Help protect children and youth from harassment and attacks received from social networks.</string>
+
+    <string name="tutorial_second_page_title">Registration of Children</string>
+    <string name="tutorial_second_page_content">Register the children to be monitored by the system</string>
+
+    <string name="tutorial_third_page_title">Enable social media</string>
+    <string name="tutorial_third_page_content">Enable access to the social media you want to monitor</string>
+
+    <string name="tutorial_fourth_page_title">Activity in social media</string>
+    <string name="tutorial_fourth_page_content">We obtain information about your activity in social media</string>
+
+    <string name="tutorial_fifth_page_title">Four dimensions</string>
+    <string name="tutorial_fifth_page_content">We determine its relationship with the different risk groups</string>
+
+    <!-- Login Screen -->
+    <string name="login_screen_main_title">Login now</string>
+
+    <!-- Forgot password Screen -->
+    <string name="forgot_password_screen_main_title">Did you forget your password?</string>
+
+
+    <string name="delete_list_menu_item">Delete</string>
+    <string name="undo_list_menu_item">Undo</string>
+
+    <string name="alert_item_removed">The alert was removed</string>
+
+    <!-- App Menu items -->
+    <string name="app_menu_user_profile">Profile</string>
+    <string name="app_menu_settings">Settings</string>
+    <string name="app_menu_how_its_work">How its work</string>
+
+    <!-- My Kids -->
+    <string name="my_kids_title">My Kids</string>
+    <string name="my_kids_content_description">My Kids</string>
+
+    <string name="content_not_be_loaded">The content could not be loaded</string>
+
+    <string name="remove_alert_confirm">Remove the alert?</string>
+    <string name="alert_removed_successfully">Alert Removed successfully</string>
+    <string name="alert_detail_message">Message</string>
+    <string name="alert_detail_required_actions">Required Actions</string>
+
+    <!-- Alert Category Success Text -->
+    <string name="alert_category_success_text">Success data</string>
+    <string name="alert_category_info_text">Informative data</string>
+    <string name="alert_category_warning_text">important announcement</string>
+    <string name="alert_category_danger_text">important information</string>
+
+    <!-- My Alerts -->
+    <string name="my_alerts">My Alerts</string>
+    <string name="my_alerts_clear_all">Delete all alerts?</string>
+    <string name="my_alerts_cleared_successfully">All alerts cleared successfully</string>
+
+    <string name="operation_cancelled">Operation cancelled</string>
+    <string name="my_alerts_filter">Filter Alerts</string>
+    <string name="apply_changes">Apply Changes</string>
+
+    <!-- Preferences -->
+
+    <!-- App Preferences General Configuration Category -->
+    <string name="app_preferences_general_configuration_category">General configuration</string>
+    <string name="app_preferences_category_of_alerts">Category of alerts</string>
+
+    <!-- Number of alerts -->
+    <string name="number_of_alerts_preference_title">Number of alerts</string>
+    <string name="number_of_alerts_preference_summary">Number of alerts to be displayed on the home screen</string>
+
+    <string name="five_alerts_preference_value">5 alerts</string>
+    <string name="ten_alerts_preference_value">10 alerts</string>
+    <string name="fifteen_alerts_preference_value">15 alerts</string>
+    <string name="twenty_alerts_preference_value">20 alerts</string>
+    <string name="twenty_five_alerts_preference_value">25 alerts</string>
+    <string name="thirty_alerts_preference_value">30 alerts</string>
+
+
+    <!-- Age of alerts -->
+    <string name="age_of_alerts_preference_title">Age of alerts</string>
+    <string name="age_of_alerts_preference_summary">Age of alerts to show on the home screen</string>
+
+    <string name="age_of_alerts_no_filter">No Filter</string>
+    <string name="age_of_alerts_fifteen_minutes">15 minutes</string>
+    <string name="age_of_alerts_thirty_minutes">30 minutes</string>
+    <string name="age_of_alerts_forty_five_minutes">45 minutes</string>
+    <string name="age_of_alerts_sixty_minutes">60 minutes</string>
+
+    <!-- Enable Push Notifications -->
+    <string name="enable_push_notifications_preference_title">Enable push notifications</string>
+    <string name="enable_push_notifications_preference_summary">Enable remote notifications for all devices in your account.</string>
+
+
+    <!-- Remove Alerts Every -->
+    <string name="remove_alerts_every_preference_title">Remove Alerts Every</string>
+    <string name="remove_alerts_every_preference_summary">Age of alerts to show on the home screen</string>
+
+    <string name="remove_alerts_never">Never</string>
+    <string name="remove_alerts_last_hour">Last Hour</string>
+    <string name="remove_alerts_last_day">Last Day</string>
+    <string name="remove_alerts_last_month">Last Month</string>
+
+    <!-- Save Preferences Btn -->
+    <string name="save_preferences_btn">Save Preferences</string>
+
+
+    <!-- Menu Items -->
+    <string name="menu_item_result">Results</string>
+    <string name="menu_item_alerts">Alerts</string>
+    <string name="menu_item_children">Children</string>
+    <string name="menu_item_profile">Profile</string>
+    <string name="menu_item_relations">Relations</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_signing_in">SigningInActivity</string>
     <string name="title_activity_signing_up">SigningUp</string>
+
+    <!-- Dialogs Strings -->
+    <string name="default_notice_dialog_title">Notice Dialog</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
 
     <string name="crash_error_content">An unexperienced error occurred during the operation of the application, sorry for the inconvenience</string>
-    <string name="btn_restart">Restart</string>
-    <string name="btn_details">Details</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_my_kids">MyKidsActivity</string>
+    <string name="title_activity_alert_detail">AlertDetailActivity</string>
+
+    <string name="content">The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.</string>
+    <string name="title_activity_alert_list">AlertListActivity</string>
+    <string name="title_activity_app_tutorial">AppTutorialActivity</string>
+    <string name="title_activity_user_settings">UserSettingsActivity</string>
+
 
 </resources>

@@ -4,6 +4,7 @@
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".AndroidApplication"
@@ -18,8 +19,7 @@
             android:name=".ui.activity.intro.IntroActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Intro">
-        </activity>
+            android:theme="@style/AppTheme.Intro" />
 
         <!-- Custom Splash Screen Activity -->
         <activity
@@ -28,7 +28,9 @@
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="cat.ereza.customactivityoncrash.RESTART" />
             </intent-filter>
         </activity>
@@ -37,13 +39,48 @@
         <activity
             android:name=".ui.activity.CrashErrorActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.Crash"
-            android:process=":error_activity">
-            <!--<intent-filter>
+            android:process=":error_activity"
+            android:theme="@style/AppTheme.Crash">
+            <intent-filter>
                 <action android:name="cat.ereza.customactivityoncrash.ERROR" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
+        <!-- Home Activity -->
+        <activity
+            android:name=".ui.activity.home.HomeActivity"
+            android:label="@string/title_activity_home" />
+
+        <!-- My Kids Activity -->
+        <activity
+            android:name=".ui.activity.mykids.MyKidsActivity"
+            android:label="@string/title_activity_my_kids"
+            android:screenOrientation="portrait" />
+
+        <!-- Alert Detail Activity -->
+        <activity
+            android:name=".ui.activity.alertdetail.AlertDetailActivity"
+            android:label="@string/title_activity_alert_detail"
+            android:screenOrientation="portrait" />
+
+        <!-- Alert List Activity -->
+        <activity
+            android:name=".ui.activity.alertlist.AlertListActivity"
+            android:label="@string/title_activity_alert_list"
+            android:screenOrientation="portrait" />
+
+        <!-- App Tutorial Activity -->
+        <activity
+            android:name=".ui.activity.tutorial.AppTutorialActivity"
+            android:label="@string/title_activity_app_tutorial"
+            android:screenOrientation="portrait" />
+
+        <!-- User Settings Activity -->
+        <activity
+            android:name=".ui.activity.settings.UserSettingsActivity"
+            android:label="@string/title_activity_user_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Preferences"/>
     </application>
 
 </manifest>

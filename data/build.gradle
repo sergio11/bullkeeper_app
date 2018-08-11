@@ -60,6 +60,14 @@ dependencies {
     implementation dataDependencies.rxJava
     implementation dataDependencies.rxAndroid
     implementation dataDependencies.androidAnnotations
+    // Retrofit 2
+    implementation dataDependencies.retrofit2
+    implementation dataDependencies.converterJackson
+    implementation dataDependencies.adapterRxjava
+    // Jackson
+    implementation dataDependencies.jacksonCore
+    implementation dataDependencies.jacksonAnnotations
+    implementation dataDependencies.jacksonDatabind
 
     testImplementation testDependencies.junit
     testImplementation testDependencies.assertj

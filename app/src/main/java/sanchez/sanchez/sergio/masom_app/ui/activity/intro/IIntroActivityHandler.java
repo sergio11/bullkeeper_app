@@ -26,4 +26,14 @@ public interface IIntroActivityHandler extends IBasicActivityHandler {
      * Go to Home
      */
     void gotToHome();
+
+    /**
+     * Go to Tutorial
+     */
+    void goToTutorial();
+
+    /**
+     * Go to Forget Password
+     */
+    void goToForgetPassword();
 }

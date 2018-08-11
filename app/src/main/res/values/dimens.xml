@@ -19,12 +19,51 @@
     <integer name="animation_duration_normal">500</integer>
     <dimen name="common_big_button_padding">20dp</dimen>
     <dimen name="common_btn_radius">10dip</dimen>
+
     <dimen name="common_btn_stroke">1dip</dimen>
+
+    <!-- Common Image Stroke -->
+    <dimen name="common_image_stroke">3dip</dimen>
+
+    <!-- Common List Item Stroke -->
+    <dimen name="common_list_item_stroke">4dip</dimen>
 
     <dimen name="toolbar_elevation_size">4dp</dimen>
     <dimen name="common_title_text_size">32dp</dimen>
 
     <!-- Common Strong Text -->
     <dimen name="common_strong_text_size">22dp</dimen>
+
+    <!-- Common Strong Medium Text -->
+    <dimen name="common_strong_medium_text_size">11dp</dimen>
+
+    <!-- Common Strong Small Text -->
+    <dimen name="common_strong_small_text_size">9dp</dimen>
+
+    <!-- Common Padding -->
+    <dimen name="common_padding">10dp</dimen>
+
+    <!-- Common Action Button Width -->
+    <dimen name="common_action_button_width">130dp</dimen>
+
+    <!-- Common Action Button Height -->
+    <dimen name="common_action_button_height">62dp</dimen>
+
+    <dimen name="item_offset">4dp</dimen>
+
+    <!-- Common Divider Small -->
+    <dimen name="common_divider_small">70dp</dimen>
+    <!-- Common Divider Height -->
+    <dimen name="common_divider_height">6dp</dimen>
+    <!-- Common Collapsing Toolbar -->
+    <dimen name="common_collapsing_toolbar_height">370dp</dimen>
+
+    <dimen name="common_switch_width">90dp</dimen>
+    <dimen name="common_switch_height">90dp</dimen>
+    <dimen name="common_switch_text_size">10dp</dimen>
+
+    <dimen name="common_preference_margin">5dp</dimen>
+
+
 
 </resources>

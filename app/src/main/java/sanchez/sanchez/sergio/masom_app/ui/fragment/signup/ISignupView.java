@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.signup;
 
-import net.grandcentrix.thirtyinch.TiView;
 
-public interface ISignupView extends TiView {
+import sanchez.sanchez.sergio.masom_app.ui.support.ISupportView;
+
+public interface ISignupView extends ISupportView {
 }

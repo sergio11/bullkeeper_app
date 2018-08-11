@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Item Pressed -->
+    <item android:state_pressed="true"
+        android:drawable="@drawable/common_list_item_pressed" />
+
+    <!-- Item not pressed -->
+    <item  android:state_focused="false"
+        android:drawable="@drawable/common_list_item_not_pressed" />
+</selector>

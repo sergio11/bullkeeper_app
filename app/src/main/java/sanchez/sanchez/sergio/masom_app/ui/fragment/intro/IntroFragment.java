@@ -1,11 +1,7 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.intro;
 
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
@@ -26,7 +22,7 @@ implements IIntroView {
 
     private IntroComponent introComponent;
 
-    public IntroFragment() { }
+    public IntroFragment() {}
 
     /**
      * New Instance
@@ -37,6 +33,9 @@ implements IIntroView {
         return fragment;
     }
 
+    /**
+     * Initialize Injector
+     */
     @Override
     protected void initializeInjector() {
         introComponent = IntroComponent.class
@@ -45,18 +44,12 @@ implements IIntroView {
     }
 
     /**
-     * On Create View
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * Get Layout Resource
      * @return
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_intro, container, false);
+    protected int getLayoutRes() {
+        return R.layout.fragment_intro;
     }
 
 
@@ -70,9 +63,12 @@ implements IIntroView {
         return introComponent.introFragmentPresenter();
     }
 
+    /**
+     * On Show Tutorial Handler
+     */
     @OnClick(R.id.showTutorial)
     public void onShowTutorial(){
-        activityHandler.showLongMessage("Show Tutorial ...");
+        activityHandler.goToTutorial();
     }
 
     /**
@@ -80,8 +76,8 @@ implements IIntroView {
      */
     @OnClick(R.id.signinButton)
     public void onSignin(){
-
-        activityHandler.showLongMessage("Signin Ready...");
+        // Go to login
+        activityHandler.goToLogin();
     }
 
     /**
@@ -89,9 +85,8 @@ implements IIntroView {
      */
     @OnClick(R.id.signupButton)
     public void onSignup(){
-
-        activityHandler.showLongMessage("Signup Ready...");
-
+        // Go to Signup
+        activityHandler.goToSignup();
     }
 
 }

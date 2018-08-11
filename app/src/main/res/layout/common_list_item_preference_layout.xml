@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_marginTop="@dimen/common_preference_margin"
+    android:layout_marginBottom="@dimen/common_preference_margin"
+    android:background="@drawable/common_preference_list_item_state">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+android:id/title"
+        style="@style/CommonStrongText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:padding="2dp"
+        android:textColor="@color/cyanBrilliant"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="@dimen/common_divider_small"
+        android:layout_height="@dimen/common_divider_height"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/cyanBrilliant" />
+
+    <!-- Summary -->
+    <TextView
+        android:id="@+android:id/summary"
+        style="@style/CommonStrongText.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:singleLine="true"
+        android:textColor="@color/cyanBrilliant" />
+
+</LinearLayout>

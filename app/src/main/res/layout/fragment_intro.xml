@@ -8,7 +8,7 @@
 
     <!-- Include Toolbar -->
     <include
-        android:id="@+id/include"
+        android:id="@+id/appToolbarInclude"
         layout="@layout/app_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,6 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Intro Text -->
     <TextView
         android:id="@+id/introText"
         style="@style/CommonStrongText"
@@ -31,7 +32,7 @@
         android:textColor="@color/commonWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude" />
 
 
     <!-- Show Tutorial Button -->
@@ -58,8 +59,8 @@
     <Button
         android:id="@+id/signinButton"
         style="@style/CommonActionButton"
-        android:layout_width="130dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/common_action_button_width"
+        android:layout_height="@dimen/common_action_button_height"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="24dp"
         android:text="@string/sign_in_btn"
@@ -69,8 +70,8 @@
     <Button
         android:id="@+id/signupButton"
         style="@style/CommonActionButton"
-        android:layout_width="130dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/common_action_button_width"
+        android:layout_height="@dimen/common_action_button_height"
         android:layout_marginBottom="24dp"
         android:layout_marginStart="24dp"
         android:text="@string/sign_up_btn"

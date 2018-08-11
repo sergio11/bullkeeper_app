@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.signup.SignupFragment">
+
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/introText"
+        style="@style/CommonTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/sign_up_main_title"
+        android:textColor="@color/commonWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <Button
+        android:id="@+id/createAccountButton"
+        style="@style/CommonActionButton"
+        android:layout_width="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:padding="20dp"
+        android:text="@string/create_account_btn"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <!-- Signup Footer -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/cyanBrilliant"
+        android:gravity="center"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Go to login Button -->
+        <Button
+            android:id="@+id/backToLogin"
+            style="@style/CommonStrongText.AllCaps"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/arrow_alt_circle_right_regular_52"
+            android:drawablePadding="5dp"
+            android:text="@string/sign_up_back_to_login"
+            android:textColor="@color/commonWhite" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scrollbarThumbVertical="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/introText">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- name input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/nameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/nameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name_hint"
+                    android:inputType="text"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!-- surname input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/surnameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/surnameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/surname_hint"
+                    android:inputType="text"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- birthday -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/birthdayInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/birthdayInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/birthday_hint"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <!-- email input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/emailInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/emailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_address_hint"
+                    android:inputType="textEmailAddress"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- password input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/passwordInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/passwordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!-- confirm password input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/confirmPasswordInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/confirmPasswordInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/confirm_password_hint"
+                    android:inputType="textPassword"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- App Bar Layout -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cyanBrilliant">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_collapsing_toolbar_height"
+            android:minHeight="?android:actionBarSize"
+            app:contentScrim="@color/cyanBrilliant"
+            app:scrimAnimationDuration="300"
+            app:scrimVisibleHeightTrigger="200dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/alertDetailBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:layout_collapseMode="parallax"
+                android:foreground="@color/translucentCyanBrilliant"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+
+            <!-- Include Toolbar -->
+            <include
+                android:id="@+id/appToolbarInclude"
+                layout="@layout/app_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_collapseMode="pin"/>
+
+
+            <LinearLayout
+                android:layout_gravity="start|bottom"
+                android:layout_width="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax"
+                android:orientation="vertical">
+
+                <!-- Alert Title -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText"
+                    android:textColor="@color/commonWhite"
+                    android:textStyle="bold"
+                    android:text="Nueva información acerca del sentimiento de los comentarios"/>
+
+                <!-- Son name -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText.Medium"
+                    android:textColor="@color/commonWhite"
+                    android:text="Sergio Martín"/>
+
+                <View
+                    android:layout_width="@dimen/common_divider_small"
+                    android:layout_height="@dimen/common_divider_height"
+                    android:layout_margin="10dp"
+                    android:background="@color/commonWhite"/>
+
+
+            </LinearLayout>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:id="@+id/alertCategoryImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/success_icon_solid"
+                    android:contentDescription="@string/content_not_be_loaded" />
+
+                <TextView
+                    android:id="@+id/alertCategoryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_toEndOf="@id/alertCategoryImage"
+                    style="@style/CommonStrongText.Medium"
+                    android:textColor="@color/greenSuccess"
+                    android:text="@string/alert_category_success_text"/>
+
+
+                <!-- Alert Since -->
+                <TextView
+                    android:id="@+id/alertSince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
+                    style="@style/CommonStrongText.Medium"
+                    android:text="3 hours ago"/>
+            </RelativeLayout>
+
+            <!-- Message -->
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Alert Detail Message Title -->
+                    <TextView
+                        android:id="@+id/alertDetailMessageTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textStyle="bold"
+                        android:text="@string/alert_detail_message"
+                        android:textColor="@color/greenSuccess"/>
+
+                    <!-- Alert Detail Message Title Separator -->
+                    <View
+                        android:id="@+id/alertDetailMessageTitleSeparator"
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/greenSuccess"/>
+
+                    <!-- Message -->
+                    <TextView
+                        android:id="@+id/alertDetailMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Sólo el 23% de los comentarios analaizados tiene un sentimiento negativo" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- Required actions -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Alert Detail Required Actions Title -->
+                    <TextView
+                        android:id="@+id/alertDetailRequiredActionsTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textStyle="bold"
+                        android:text="@string/alert_detail_required_actions"
+                        android:textColor="@color/greenSuccess"/>
+
+                    <!-- Alert Detail Required Actions Title Separator -->
+                    <View
+                        android:id="@+id/alertDetailRequiredActionsTitleSeparator"
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/greenSuccess"/>
+
+                    <!-- Alert Detail Actions -->
+                    <TextView
+                        android:id="@+id/alertDetailActions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Vaya a la sección de estadísticas del niño para obtener más informació" />
+
+                    <!-- Action Button -->
+                    <Button
+                        android:id="@+id/actionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:padding="5dp"
+                        android:drawablePadding="5dp"
+                        android:drawableEnd="@drawable/arrow_alt_circle_right_regular_green_52"
+                        android:text="Ir a estadísticas del hijo"
+                        android:textColor="@color/greenSuccess"/>
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!-- Floating Action Button -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/removeAlert"
+        android:src="@drawable/trash_white"
+        android:backgroundTint="@color/darkModerateBlue"
+        android:background="@color/darkModerateBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-60dp"
+        android:layout_marginEnd="16dp"
+        app:layout_anchor="@id/appbarLayout"
+        app:layout_anchorGravity="bottom|right|end" />
+
+
+</android.support.design.widget.CoordinatorLayout>

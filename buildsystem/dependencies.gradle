@@ -35,6 +35,12 @@ ext {
     timberVersion = '4.5.1'
     icePickVersion = '3.1.0'
     androidIconifyFontawesome = '2.2.2'
+    slidingtutorialVersion = '1.0.8'
+    androidSaripaarVersion = '2.0.3'
+    retrofitVersion = '2.4.0'
+    jacksonVersion = '2.9.6'
+    picassoVersion = '2.5.2'
+
 
     thirtyInchVersion = '0.8.5'
     constraintLayoutVersion = '1.0.2'
@@ -64,6 +70,9 @@ ext {
             appcompatv7:        "com.android.support:appcompat-v7:${supportVersion}",
             supportV4:          "com.android.support:support-v4:${supportVersion}",
             supportDesign:      "com.android.support:design:${supportVersion}",
+            cardview:           "com.android.support:cardview-v7:${supportVersion}",
+            preferencev7:       "com.android.support:preference-v7:${supportVersion}",
+            preferencev14:      "com.android.support:preference-v14:${supportVersion}",
             dexter:             "com.karumi:dexter:${dexterVersion}",
             calligraphy:        "io.github.inflationx:calligraphy3:${calligraphyVersion}",
             viewpump:           "io.github.inflationx:viewpump:${viewpumpVersion}",
@@ -73,7 +82,10 @@ ext {
             thirtyinch:         "net.grandcentrix.thirtyinch:thirtyinch:${thirtyInchVersion}",
             constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
             customactivityoncrash: "cat.ereza:customactivityoncrash:${customactivityoncrashVersion}",
-            androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}"
+            androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}",
+            slidingtutorial:    "com.cleveroad:slidingtutorial:${slidingtutorialVersion}",
+            androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
+            picasso:            "com.squareup.picasso:picasso:${picassoVersion}"
     ]
 
     presentationTestDependencies = [
@@ -106,7 +118,13 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}"
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            retrofit2:          "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            converterJackson:   "com.squareup.retrofit2:converter-jackson:${retrofitVersion}",
+            adapterRxjava:      "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
+            jacksonCore:        "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+            jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+            jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     ]
 
     dataTestDependencies = [
