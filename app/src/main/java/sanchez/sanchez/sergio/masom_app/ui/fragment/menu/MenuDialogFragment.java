@@ -13,15 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.fernandocejas.arrow.collections.Lists;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
@@ -87,11 +81,18 @@ public final class MenuDialogFragment extends SupportDialogFragment
         appMenuItems.setOnItemClickListener(this);
     }
 
+    /**
+     * Get Layout Res
+     * @return
+     */
     @Override
     protected int getLayoutRes() {
         return R.layout.app_menu_dialog_layout;
     }
 
+    /**
+     * Initialize Injector
+     */
     @Override
     protected void initializeInjector() {
         this.applicationComponent = getApplicationComponent();
@@ -115,6 +116,8 @@ public final class MenuDialogFragment extends SupportDialogFragment
                 break;
 
             case SETTINGS_ITEM_POSITION:
+                // Navigate to User Settings
+                navigator.navigateToUserSettings();
                 break;
 
             case HOW_ITS_WORK_POSITION:

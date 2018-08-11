@@ -47,4 +47,9 @@ public interface INavigator {
      */
     void navigateToAppTutorial();
 
+    /**
+     * Navigate to User Settings
+     */
+    void navigateToUserSettings();
+
 }

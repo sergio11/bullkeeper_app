@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
+import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
 
 /**
  * A component whose lifetime is the life of the application.
@@ -34,4 +35,5 @@ public interface ApplicationComponent {
     ILocalSystemNotification localSystemNotification();
     //IRemoteSystemNotification remoteSystemNotification();
     INotificationHelper notificationHelper();
+    PreferencesManager preferencesManager();
 }

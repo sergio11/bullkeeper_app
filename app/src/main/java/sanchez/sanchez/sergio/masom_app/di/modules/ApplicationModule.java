@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotificat
 import sanchez.sanchez.sergio.masom_app.notification.local.impl.LocalSystemNotificationImpl;
 import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.masom_app.ui.notification.impl.NotificationHelperImpl;
+import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -89,6 +90,16 @@ public class ApplicationModule {
     @Provides @Singleton
     INotificationHelper provideNotificationHelper(final Context appContext) {
         return new NotificationHelperImpl(appContext);
+    }
+
+    /**
+     * Provide Preferences Manager
+     * @param appContext
+     * @return
+     */
+    @Provides @Singleton
+    PreferencesManager providePreferencesManager(final Context appContext) {
+        return new PreferencesManager(appContext);
     }
 
 }

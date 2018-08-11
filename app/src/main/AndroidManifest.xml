@@ -74,6 +74,13 @@
             android:name=".ui.activity.tutorial.AppTutorialActivity"
             android:label="@string/title_activity_app_tutorial"
             android:screenOrientation="portrait" />
+
+        <!-- User Settings Activity -->
+        <activity
+            android:name=".ui.activity.settings.UserSettingsActivity"
+            android:label="@string/title_activity_user_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Preferences"/>
     </application>
 
 </manifest>

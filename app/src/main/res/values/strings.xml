@@ -127,6 +127,51 @@
     <string name="my_alerts_filter">Filter Alerts</string>
     <string name="apply_changes">Apply Changes</string>
 
+    <!-- Preferences -->
+
+    <!-- App Preferences General Configuration Category -->
+    <string name="app_preferences_general_configuration_category">General configuration</string>
+    <string name="app_preferences_category_of_alerts">Category of alerts</string>
+
+    <!-- Number of alerts -->
+    <string name="number_of_alerts_preference_title">Number of alerts</string>
+    <string name="number_of_alerts_preference_summary">Number of alerts to be displayed on the home screen</string>
+
+    <string name="five_alerts_preference_value">5 alerts</string>
+    <string name="ten_alerts_preference_value">10 alerts</string>
+    <string name="fifteen_alerts_preference_value">15 alerts</string>
+    <string name="twenty_alerts_preference_value">20 alerts</string>
+    <string name="twenty_five_alerts_preference_value">25 alerts</string>
+    <string name="thirty_alerts_preference_value">30 alerts</string>
+
+
+    <!-- Age of alerts -->
+    <string name="age_of_alerts_preference_title">Age of alerts</string>
+    <string name="age_of_alerts_preference_summary">Age of alerts to show on the home screen</string>
+
+    <string name="age_of_alerts_no_filter">No Filter</string>
+    <string name="age_of_alerts_fifteen_minutes">15 minutes</string>
+    <string name="age_of_alerts_thirty_minutes">30 minutes</string>
+    <string name="age_of_alerts_forty_five_minutes">45 minutes</string>
+    <string name="age_of_alerts_sixty_minutes">60 minutes</string>
+
+    <!-- Enable Push Notifications -->
+    <string name="enable_push_notifications_preference_title">Enable push notifications</string>
+    <string name="enable_push_notifications_preference_summary">Enable remote notifications for all devices in your account.</string>
+
+
+    <!-- Remove Alerts Every -->
+    <string name="remove_alerts_every_preference_title">Remove Alerts Every</string>
+    <string name="remove_alerts_every_preference_summary">Age of alerts to show on the home screen</string>
+
+    <string name="remove_alerts_never">Never</string>
+    <string name="remove_alerts_last_hour">Last Hour</string>
+    <string name="remove_alerts_last_day">Last Day</string>
+    <string name="remove_alerts_last_month">Last Month</string>
+
+    <!-- Save Preferences Btn -->
+    <string name="save_preferences_btn">Save Preferences</string>
+
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -154,6 +199,7 @@
     <string name="content">The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.</string>
     <string name="title_activity_alert_list">AlertListActivity</string>
     <string name="title_activity_app_tutorial">AppTutorialActivity</string>
+    <string name="title_activity_user_settings">UserSettingsActivity</string>
 
 
 </resources>
