@@ -66,9 +66,4 @@
     <!-- Common Preference Margin -->
     <dimen name="common_preference_margin">5dp</dimen>
 
-
-
-
-
-
 </resources>

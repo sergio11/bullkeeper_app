@@ -103,6 +103,7 @@ dependencies {
     implementation presentationDependencies.slidingtutorial
     implementation presentationDependencies.androidSaripaar
     implementation presentationDependencies.picasso
+    implementation presentationDependencies.stetho
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 

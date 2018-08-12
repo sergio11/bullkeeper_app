@@ -40,6 +40,7 @@ ext {
     retrofitVersion = '2.4.0'
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
+    stethoVersion = '1.5.0'
 
 
     thirtyInchVersion = '0.8.5'
@@ -85,7 +86,8 @@ ext {
             androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}",
             slidingtutorial:    "com.cleveroad:slidingtutorial:${slidingtutorialVersion}",
             androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
-            picasso:            "com.squareup.picasso:picasso:${picassoVersion}"
+            picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
+            stetho:             "com.facebook.stetho:stetho:${stethoVersion}"
     ]
 
     presentationTestDependencies = [

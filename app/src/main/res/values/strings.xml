@@ -169,6 +169,24 @@
     <string name="remove_alerts_last_day">Last Day</string>
     <string name="remove_alerts_last_month">Last Month</string>
 
+    <!-- Alerts -->
+    <string name="all_alert_categories_title">All alert categories</string>
+    <string name="all_alert_categories_summary">Enable all alert categories</string>
+
+    <string name="success_alerts_title">Success alerts</string>
+    <string name="success_alerts_summary">Enable alerts to report on successful operations</string>
+
+    <string name="information_alerts_title">Information Alerts</string>
+    <string name="information_alerts_summary">Enable alerts to report on informative operations</string>
+
+    <string name="warning_alerts_title">Warning Alerts</string>
+    <string name="warning_alerts_summary">Enable alerts to report on warning operations</string>
+
+    <string name="danger_alerts_title">Danger Alerts</string>
+    <string name="danger_alerts_summary">Enable alerts to report on danger operations</string>
+
+    <string name="preferences_saved_successfully">Successfully saved preferences</string>
+
     <!-- Save Preferences Btn -->
     <string name="save_preferences_btn">Save Preferences</string>
 

@@ -2,6 +2,8 @@ package sanchez.sanchez.sergio.masom_app;
 
 import android.app.Application;
 import android.util.Log;
+
+import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import net.grandcentrix.thirtyinch.TiConfiguration;
@@ -88,7 +90,10 @@ public final class AndroidApplication extends Application {
      * On Debug Config
      */
     protected void onDebugConfig(){
+
         Timber.plant(new Timber.DebugTree());
+
+        Stetho.initializeWithDefaults(this);
     }
 
 
