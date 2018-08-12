@@ -80,7 +80,9 @@
             android:name=".ui.activity.settings.UserSettingsActivity"
             android:label="@string/title_activity_user_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Preferences"/>
+            android:theme="@style/AppTheme.Preferences" />
+
+
     </application>
 
 </manifest>

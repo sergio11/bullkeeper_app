@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
@@ -37,11 +36,22 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
      */
     private Unbinder unbinder;
 
+    /**
+     * Optional App Bar Layout
+     */
     @Nullable
     @BindView(R.id.appToolbarInclude)
     protected View appbarLayout;
 
+    /**
+     * Support Toolbar App
+     */
+    private SupportToolbarApp supportToolbarApp;
 
+    /**
+     * On Attach
+     * @param context
+     */
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
@@ -53,6 +63,10 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
         }
     }
 
+    /**
+     * On Create
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         initializeInjector();
@@ -74,6 +88,11 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     }
 
 
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -81,25 +100,23 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
 
         if(appbarLayout != null) {
 
-            AppBarLayoutIncluded appBarLayoutIncluded = new AppBarLayoutIncluded();
-            ButterKnife.bind( appBarLayoutIncluded, appbarLayout );
-
-            appBarLayoutIncluded.menuBars.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    activityHandler.showAppMenu();
-                }
-            });
+            supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
+            supportToolbarApp.bind(activityHandler);
         }
 
     }
 
-
+    /**
+     * On Destroy View
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         if(unbinder != null)
             unbinder.unbind();
+
+        if(supportToolbarApp != null)
+            supportToolbarApp.unbind();
     }
 
     /**
@@ -256,10 +273,11 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
 
 
     /**
-     * App Bar Layout Included
+     * Toolbar Type
+     * @return
      */
-    static class AppBarLayoutIncluded {
-        @BindView( R.id.menuBars ) ImageButton menuBars;
+    protected int getToolbarType(){
+        return SupportToolbarApp.INFORMATIVE_TOOLBAR;
     }
 
 }

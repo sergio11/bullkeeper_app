@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
+
     <!-- Preferences List Container -->
     <FrameLayout
         android:id="@android:id/list_container"

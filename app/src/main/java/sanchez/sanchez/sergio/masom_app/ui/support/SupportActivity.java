@@ -4,6 +4,7 @@ package sanchez.sanchez.sergio.masom_app.ui.support;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,8 @@ import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
 import javax.inject.Inject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
@@ -65,6 +68,18 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     protected INotificationHelper notificationHelper;
 
 
+    /**
+     * Optional App Bar Layout
+     */
+    @Nullable
+    @BindView(R.id.appToolbarInclude)
+    protected View appbarLayout;
+
+
+    /**
+     * Support Toolbar App
+     */
+    private SupportToolbarApp supportToolbarApp;
 
 
     @Override
@@ -82,21 +97,47 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
                 .build());
 
         Icepick.restoreInstanceState(this, savedInstanceState);
+
+
+        if(appbarLayout != null) {
+
+            supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
+            supportToolbarApp.bind(this);
+        }
     }
 
+    /**
+     * On Resume
+     */
     @Override
     protected void onResume() {
         super.onResume();
         localSystemNotification.registerVisitor(this);
     }
 
+    /**
+     * On Resume
+     */
     @Override
     protected void onPause() {
         super.onPause();
         localSystemNotification.unregisterVisitor();
     }
 
+    /**
+     * On Destroy
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(supportToolbarApp != null)
+            supportToolbarApp.unbind();
+    }
 
+    /**
+     * On Save Instance State
+     * @param outState
+     */
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
@@ -372,6 +413,22 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     }
 
     /**
+     * Show Question Dialog
+     */
+    @Override
+    public void showQuestionDialog() {
+        navigatorImpl.showQuestionAppDialog(this);
+    }
+
+    /**
+     * Navigate To Home
+     */
+    @Override
+    public void navigateToHome() {
+        navigatorImpl.navigateToHome();
+    }
+
+    /**
      * Basic Notification
      * @param basicNotification
      */
@@ -386,5 +443,13 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
      * Initialize Injector
      */
     protected abstract void initializeInjector();
+
+    /**
+     * Toolbar Type
+     * @return
+     */
+    protected int getToolbarType(){
+        return SupportToolbarApp.INFORMATIVE_TOOLBAR;
+    }
 
 }

@@ -36,6 +36,8 @@ import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.masom_app.ui.images.CircleTransform;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
+import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+
 /**
  * Home Fragment
  */
@@ -348,8 +350,20 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         }
     }
 
+    /**
+     * On Refresh
+     */
     @Override
     public void onRefresh() {
         showShortMessage("Refresh Alerts!!");
+    }
+
+    /**
+     * Get Toolbar Type
+     * @return
+     */
+    @Override
+    protected int getToolbarType() {
+        return TOOLBAR_WITH_MENU;
     }
 }

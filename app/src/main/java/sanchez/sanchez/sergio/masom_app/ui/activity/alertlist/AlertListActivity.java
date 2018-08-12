@@ -27,6 +27,8 @@ import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
 
+import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+
 /**
  * Alert List Activity
  */
@@ -255,5 +257,14 @@ public class AlertListActivity extends SupportActivity<AlertListPresenter, IAler
     @Override
     public void onApplyChanges() {
         showShortMessage("Apply CHanges");
+    }
+
+    /**
+     * Get Toolbar Type
+     * @return
+     */
+    @Override
+    protected int getToolbarType() {
+        return TOOLBAR_WITH_MENU;
     }
 }

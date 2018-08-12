@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.masom_app.di.components.DaggerSettingsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.settings.UserSettingsActivityFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
 
 /**
  * User Settings Activity
@@ -75,5 +76,14 @@ public class UserSettingsActivity extends SupportActivity<UserSettingsActivityPr
     @Override
     public SettingsComponent getComponent() {
         return settingsComponent;
+    }
+
+    /**
+     * Get Toolbar Type
+     * @return
+     */
+    @Override
+    protected int getToolbarType() {
+        return SupportToolbarApp.RETURN_TOOLBAR;
     }
 }

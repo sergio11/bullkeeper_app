@@ -24,6 +24,8 @@ import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.MyKidsAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 import timber.log.Timber;
 
+import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+
 /**
  * My Kids Activity Fragment
  */
@@ -180,5 +182,14 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
     @Override
     public void onProfileActionClicked(final SonEntity sonEntity) {
         showLongMessage("On Profile Action");
+    }
+
+    /**
+     * Get Toolbar Type
+     * @return
+     */
+    @Override
+    protected int getToolbarType() {
+        return TOOLBAR_WITH_MENU;
     }
 }

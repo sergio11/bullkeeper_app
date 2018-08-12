@@ -9,6 +9,7 @@ import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.question.QuestionAppDialog;
 import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
 
@@ -25,6 +26,13 @@ public interface ApplicationComponent {
      * @param menuDialogFragment
      */
     void inject(MenuDialogFragment menuDialogFragment);
+
+    /**
+     * Inject on Question App Dialog
+     * @param questionAppDialog
+     */
+    void inject(final QuestionAppDialog questionAppDialog);
+
 
 
     //Exposed to sub-graphs.

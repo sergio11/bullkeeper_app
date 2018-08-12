@@ -22,6 +22,8 @@ import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
+import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+
 /**
  * Alert Detail Activity Fragment
  */
@@ -325,4 +327,13 @@ public class AlertDetailActivityFragment extends SupportFragment<AlertDetailFrag
      */
     @OnClick(R.id.actionButton)
     protected void onActionButton(){}
+
+    /**
+     * Get Toolbar Type
+     * @return
+     */
+    @Override
+    protected int getToolbarType() {
+        return TOOLBAR_WITH_MENU;
+    }
 }

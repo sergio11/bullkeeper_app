@@ -172,6 +172,8 @@
     <!-- Save Preferences Btn -->
     <string name="save_preferences_btn">Save Preferences</string>
 
+    <string name="what_are_your_questions">What are your questions?</string>
+
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -201,5 +203,11 @@
     <string name="title_activity_app_tutorial">AppTutorialActivity</string>
     <string name="title_activity_user_settings">UserSettingsActivity</string>
 
-
+    <!-- Youtube API strings -->
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="seek_to">Jump To</string>
+    <string name="seek_to_hint">Seconds</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
+    <string name="youtube_video_cue">gsT5agfijBE</string>
 </resources>

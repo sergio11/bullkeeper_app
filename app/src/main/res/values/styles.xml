@@ -38,6 +38,11 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- Questions -->
+    <style name="AppTheme.Questions">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
 
     <style name="AppTheme.Widget"/>
 
@@ -127,6 +132,16 @@
     <!-- Common Strong Text All Caps -->
     <style name="CommonStrongText.AllCaps">
         <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Common Toolbar Button Icon -->
+    <style name="CommonToolbarButtonIcon">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:contentDescription">@string/content_not_be_loaded</item>
     </style>
 
     <!-- App Social Icon -->

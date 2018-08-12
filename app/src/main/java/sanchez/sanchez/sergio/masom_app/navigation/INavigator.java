@@ -52,4 +52,9 @@ public interface INavigator {
      */
     void navigateToUserSettings();
 
+    /**
+     * Show Question App Dialog
+     */
+    void showQuestionAppDialog(final AppCompatActivity appCompatActivity);
+
 }

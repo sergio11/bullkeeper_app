@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsActivit
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.question.QuestionAppDialog;
 
 /**
  * Class used to navigate through the application.
@@ -103,5 +104,13 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToUserSettings() {
         context.startActivity(UserSettingsActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Show Question App Dialog
+     */
+    @Override
+    public void showQuestionAppDialog(final AppCompatActivity appCompatActivity) {
+        QuestionAppDialog.show(appCompatActivity);
     }
 }
