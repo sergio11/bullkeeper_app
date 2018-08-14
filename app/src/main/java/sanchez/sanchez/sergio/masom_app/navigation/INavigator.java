@@ -57,4 +57,9 @@ public interface INavigator {
      */
     void showQuestionAppDialog(final AppCompatActivity appCompatActivity);
 
+    /**
+     * Navigate to User Profile
+     */
+    void navigateToUserProfile();
+
 }

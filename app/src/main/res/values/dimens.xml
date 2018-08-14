@@ -65,5 +65,11 @@
     <dimen name="common_switch_text_size">10dp</dimen>
     <!-- Common Preference Margin -->
     <dimen name="common_preference_margin">5dp</dimen>
+    <!-- Common Image Big Width -->
+    <dimen name="common_image_big_width">120dp</dimen>
+    <!-- Common Image Big Height -->
+    <dimen name="common_image_big_height">120dp</dimen>
+    <!-- Common Image stroke Width -->
+    <dimen name="common_image_stroke_width">5dp</dimen>
 
 </resources>

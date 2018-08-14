@@ -76,6 +76,7 @@ dependencies {
     // Data Module
     implementation project(':data')
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor presentationDependencies.daggerCompiler
     implementation presentationDependencies.dagger
     implementation presentationDependencies.butterKnife
@@ -104,6 +105,7 @@ dependencies {
     implementation presentationDependencies.androidSaripaar
     implementation presentationDependencies.picasso
     implementation presentationDependencies.stetho
+    implementation presentationDependencies.circleimageview
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 

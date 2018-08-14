@@ -78,34 +78,6 @@ public class AlertListActivity extends SupportActivity<AlertListPresenter, IAler
 
 
     /**
-     * On Create
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_alert_list);
-        super.onCreate(savedInstanceState);
-
-        refreshLayout.setColorSchemeResources(R.color.commonWhite);
-        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
-
-        alertsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        alertsList.setNestedScrollingEnabled(false);
-        alertsAdapter = new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
-        alertsAdapter.setOnSupportRecyclerViewListener(this);
-        alertsAdapter.setOnAlertsViewListener(this);
-        // Set Animator
-        alertsList.setItemAnimator(new DefaultItemAnimator());
-        alertsList.setAdapter(alertsAdapter);
-
-        // adding item touch helper
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
-
-    }
-
-    /**
      * Initialize Injector
      */
     @Override
@@ -266,5 +238,38 @@ public class AlertListActivity extends SupportActivity<AlertListPresenter, IAler
     @Override
     protected int getToolbarType() {
         return TOOLBAR_WITH_MENU;
+    }
+
+    /**
+     * Get Layout Res
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_alert_list;
+    }
+
+    /**
+     * On View Ready
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onViewReady(Bundle savedInstanceState) {
+        refreshLayout.setColorSchemeResources(R.color.commonWhite);
+        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
+
+        alertsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        alertsList.setNestedScrollingEnabled(false);
+        alertsAdapter = new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
+        alertsAdapter.setOnSupportRecyclerViewListener(this);
+        alertsAdapter.setOnAlertsViewListener(this);
+        // Set Animator
+        alertsList.setItemAnimator(new DefaultItemAnimator());
+        alertsList.setAdapter(alertsAdapter);
+
+        // adding item touch helper
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
     }
 }

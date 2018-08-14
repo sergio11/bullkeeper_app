@@ -34,18 +34,6 @@ public class UserSettingsActivity extends SupportActivity<UserSettingsActivityPr
         return new Intent(context, UserSettingsActivity.class);
     }
 
-    /**
-     * On Create
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_user_settings);
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState == null)
-            addFragment(R.id.mainContainer, new UserSettingsActivityFragment());
-    }
 
     /**
      * Initialize Injector
@@ -85,5 +73,24 @@ public class UserSettingsActivity extends SupportActivity<UserSettingsActivityPr
     @Override
     protected int getToolbarType() {
         return SupportToolbarApp.RETURN_TOOLBAR;
+    }
+
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_user_settings;
+    }
+
+    /**
+     * On View Ready
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onViewReady(Bundle savedInstanceState) {
+        if (savedInstanceState == null)
+            addFragment(R.id.mainContainer, new UserSettingsActivityFragment(), false);
     }
 }

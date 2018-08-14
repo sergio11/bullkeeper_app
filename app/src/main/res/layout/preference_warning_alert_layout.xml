@@ -45,6 +45,7 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
         <View
             android:layout_width="@dimen/common_divider_small"
             android:layout_height="@dimen/common_divider_height"

@@ -4,6 +4,7 @@ package sanchez.sanchez.sergio.masom_app.ui.support;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -86,6 +87,7 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutRes());
         ButterKnife.bind(this);
 
         ViewPump.init(ViewPump.builder()
@@ -104,6 +106,9 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
             supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
             supportToolbarApp.bind(this);
         }
+
+        // On View Ready
+        onViewReady(savedInstanceState);
     }
 
     /**
@@ -153,37 +158,47 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
         super.attachBaseContext(contextWrapper);
     }
 
-
     /**
-     * Adds a {@link Fragment} to this activity's layout.
-     *
-     * @param containerViewId The container view to where add the fragment.
-     * @param fragment The fragment to be added.
+     * Add Fragment
+     * @param containerViewId
+     * @param fragment
+     * @param addToBackStack
      */
-    protected void addFragment(int containerViewId, Fragment fragment) {
+    protected void addFragment(int containerViewId, Fragment fragment, boolean addToBackStack) {
         final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(containerViewId, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-    protected void addFragment(int containerViewId, Fragment fragment, String tag) {
-        final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(containerViewId, fragment);
-        fragmentTransaction.addToBackStack(tag);
+        if(addToBackStack)
+            fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     /**
-     * Adds a {@link Fragment} to this activity's layout.
      *
-     * @param containerViewId The container view to where add the fragment.
-     * @param fragment The fragment to be added.
+     * @param containerViewId
+     * @param fragment
+     * @param addToBackStack
+     * @param tag
      */
-    protected void replaceFragment(int containerViewId, Fragment fragment, String tag) {
+    protected void addFragment(int containerViewId, Fragment fragment, boolean addToBackStack, String tag) {
+        final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId, fragment);
+        if(addToBackStack)
+            fragmentTransaction.addToBackStack(tag);
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * Replace Fragment
+     * @param containerViewId
+     * @param fragment
+     * @param addToBackStack
+     * @param tag
+     */
+    protected void replaceFragment(int containerViewId, Fragment fragment, boolean addToBackStack, String tag) {
         final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
-        fragmentTransaction.addToBackStack(tag);
+        if(addToBackStack)
+            fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
     }
 
@@ -192,15 +207,18 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
      * Replace Fragment
      * @param containerViewId
      * @param fragment
+     * @param addToBackStack
      * @param tag
      * @param enterAnim
      * @param exitAnim
      */
-    protected void replaceFragment(int containerViewId, Fragment fragment, String tag, int enterAnim, int exitAnim) {
+    protected void replaceFragment(int containerViewId, Fragment fragment, boolean addToBackStack,
+                                   String tag, int enterAnim, int exitAnim) {
         final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(enterAnim, exitAnim);
         fragmentTransaction.replace(containerViewId, fragment);
-        fragmentTransaction.addToBackStack(tag);
+        if(addToBackStack)
+            fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
     }
 
@@ -451,5 +469,17 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     protected int getToolbarType(){
         return SupportToolbarApp.INFORMATIVE_TOOLBAR;
     }
+
+    /**
+     * Get Layout Res
+     * @return
+     */
+    @LayoutRes
+    protected abstract int getLayoutRes();
+
+    /**
+     * On View Ready
+     */
+    protected void onViewReady(final Bundle savedInstanceState){};
 
 }

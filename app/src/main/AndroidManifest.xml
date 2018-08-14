@@ -82,7 +82,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Preferences" />
 
-
+        <activity
+            android:name=".ui.activity.userprofile.UserProfileActivity"
+            android:label="@string/title_activity_user_profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.UserProfile"/>
     </application>
 
 </manifest>

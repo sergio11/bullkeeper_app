@@ -113,6 +113,8 @@ public final class MenuDialogFragment extends SupportDialogFragment
         switch (position) {
 
             case PROFILE_ITEM_POSITION:
+                // Navigate to User Profile Screen
+                navigator.navigateToUserProfile();
                 break;
 
             case SETTINGS_ITEM_POSITION:
@@ -126,8 +128,6 @@ public final class MenuDialogFragment extends SupportDialogFragment
                 break;
 
         }
-
-
 
         final String item = (String)adapterView.getItemAtPosition(position);
         Timber.d("Item -> %s", item);

@@ -36,24 +36,6 @@ public class IntroActivity
         return new Intent(context, IntroActivity.class);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
-
-        // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView()
-                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-
-        changeStatusBarColor();
-
-        if (savedInstanceState == null) {
-            addFragment(R.id.fragmentContainer, IntroFragment.newInstance());
-        }
-    }
 
     /**
      * Initialize Injector
@@ -65,6 +47,35 @@ public class IntroActivity
                 .activityModule(getActivityModule())
                 .build();
         introComponent.inject(this);
+    }
+
+    /**
+     * Get Layout Res
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_intro;
+    }
+
+    /**
+     * On View Ready
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onViewReady(Bundle savedInstanceState) {
+        // Making notification bar transparent
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+
+        changeStatusBarColor();
+
+        if (savedInstanceState == null)
+            addFragment(R.id.fragmentContainer, IntroFragment.newInstance(), false);
+
     }
 
     /**
@@ -92,7 +103,7 @@ public class IntroActivity
     @Override
     public void goToIntro() {
         replaceFragment(R.id.fragmentContainer,
-                IntroFragment.newInstance(), IntroFragment.TAG,
+                IntroFragment.newInstance(), true, IntroFragment.TAG,
                 R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
@@ -101,7 +112,7 @@ public class IntroActivity
      */
     @Override
     public void goToLogin() {
-        replaceFragment(R.id.fragmentContainer, SigninFragment.newInstance(),
+        replaceFragment(R.id.fragmentContainer, SigninFragment.newInstance(), true,
                 SigninFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
@@ -110,7 +121,7 @@ public class IntroActivity
      */
     @Override
     public void goToSignup() {
-        replaceFragment(R.id.fragmentContainer, SignupFragment.newInstance(),
+        replaceFragment(R.id.fragmentContainer, SignupFragment.newInstance(), true,
                 SignupFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
@@ -131,9 +142,12 @@ public class IntroActivity
         navigatorImpl.navigateToAppTutorial();
     }
 
+    /**
+     * Go to Forget Password
+     */
     @Override
     public void goToForgetPassword() {
-        replaceFragment(R.id.fragmentContainer, ForgotPasswordFragment.newInstance(),
+        replaceFragment(R.id.fragmentContainer, ForgotPasswordFragment.newInstance(), true,
                 ForgotPasswordFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 

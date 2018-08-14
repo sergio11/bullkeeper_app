@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileActivity;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.question.QuestionAppDialog;
@@ -112,5 +113,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showQuestionAppDialog(final AppCompatActivity appCompatActivity) {
         QuestionAppDialog.show(appCompatActivity);
+    }
+
+
+    /**
+     * Navigate to User Profile
+     */
+    @Override
+    public void navigateToUserProfile() {
+        context.startActivity(UserProfileActivity.getCallingIntent(context));
     }
 }

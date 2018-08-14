@@ -32,6 +32,11 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- User Profile Theme. -->
+    <style name="AppTheme.UserProfile">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
     <!-- User Preferences Theme -->
     <style name="AppTheme.Preferences">
         <item name="preferenceTheme">@style/UserPreferenceTheme</item>

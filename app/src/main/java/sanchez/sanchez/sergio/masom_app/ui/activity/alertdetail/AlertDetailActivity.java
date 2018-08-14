@@ -35,22 +35,6 @@ public class AlertDetailActivity extends SupportActivity<AlertDetailPresenter, I
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_detail);
-
-        if(savedInstanceState == null) {
-
-            if(!getIntent().hasExtra(ALERT_ID_ARG))
-                throw new IllegalArgumentException("It is necessary to specify an alert identifier");
-
-            final String alertId = getIntent().getStringExtra(ALERT_ID_ARG);
-            addFragment(R.id.mainContainer, AlertDetailActivityFragment.newInstance(alertId));
-        }
-
-    }
-
     /**
      * Initialize Injector
      */
@@ -62,6 +46,25 @@ public class AlertDetailActivity extends SupportActivity<AlertDetailPresenter, I
                 .build();
         alertsComponent.inject(this);
 
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_alert_detail;
+    }
+
+
+    @Override
+    protected void onViewReady(final Bundle savedInstanceState) {
+        if(savedInstanceState == null) {
+
+            if(!getIntent().hasExtra(ALERT_ID_ARG))
+                throw new IllegalArgumentException("It is necessary to specify an alert identifier");
+
+            final String alertId = getIntent().getStringExtra(ALERT_ID_ARG);
+            addFragment(R.id.mainContainer,
+                    AlertDetailActivityFragment.newInstance(alertId), false);
+        }
     }
 
     /**

@@ -52,6 +52,8 @@
     <string name="birthday_hint">Birthday</string>
     <!-- Confirm Password hint -->
     <string name="confirm_password_hint">Confirm Password</string>
+    <!-- Tfno -->
+    <string name="tfno_hint">Tfno</string>
 
 
     <!-- fields error messages -->
@@ -192,6 +194,9 @@
 
     <string name="what_are_your_questions">What are your questions?</string>
 
+    <!-- User Profile -->
+    <string name="user_profile_title">Profile</string>
+
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -206,6 +211,17 @@
 
     <!-- Dialogs Strings -->
     <string name="default_notice_dialog_title">Notice Dialog</string>
+
+
+
+    <!-- Profile -->
+    <string name="update_profile_in_progress">Updating profile wait...</string>
+    <!-- Save Changes -->
+    <string name="user_profile_save_changes">Save Changes</string>
+    <string name="user_profile_delete_account">Delete account</string>
+
+    <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
+    <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -228,4 +244,5 @@
     <string name="title_activity_question">QuestionActivity</string>
     <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
     <string name="youtube_video_cue">gsT5agfijBE</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
 </resources>

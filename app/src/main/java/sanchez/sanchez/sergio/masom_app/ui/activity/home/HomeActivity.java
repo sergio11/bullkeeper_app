@@ -32,12 +32,6 @@ public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-    }
-
     /**
      * initialize Injector
      */
@@ -49,6 +43,16 @@ public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
                 .build();
         homeComponent.inject(this);
     }
+
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_home;
+    }
+
 
     /**
      * Provide Presenter

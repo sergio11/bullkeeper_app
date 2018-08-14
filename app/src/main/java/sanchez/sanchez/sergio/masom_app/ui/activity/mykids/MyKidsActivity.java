@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.masom_app.ui.activity.mykids;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import sanchez.sanchez.sergio.masom_app.R;
@@ -31,18 +30,6 @@ public class MyKidsActivity extends SupportActivity<MyKidsActivityPresenter, IMy
         return intent;
     }
 
-
-    /**
-     * On Create
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_kids);
-    }
-
-
     /**
      * Initialize Injector
      */
@@ -53,6 +40,15 @@ public class MyKidsActivity extends SupportActivity<MyKidsActivityPresenter, IMy
                 .activityModule(getActivityModule())
                 .build();
         myKidsComponent.inject(this);
+    }
+
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_my_kids;
     }
 
     /**
