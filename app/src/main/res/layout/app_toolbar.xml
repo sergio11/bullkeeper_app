@@ -47,18 +47,21 @@
         <ImageButton
             android:id="@+id/menuBars"
             style="@style/CommonToolbarButtonIcon"
+            android:contentDescription="@string/content_not_be_loaded"
             android:src="@drawable/bars_solid" />
 
         <!-- Close Button -->
         <ImageButton
             android:id="@+id/close"
             style="@style/CommonToolbarButtonIcon"
+            android:contentDescription="@string/content_not_be_loaded"
             android:src="@drawable/close_icon_solid_white" />
 
         <!-- Question -->
         <ImageButton
             android:id="@+id/question"
             style="@style/CommonToolbarButtonIcon"
+            android:contentDescription="@string/content_not_be_loaded"
             android:src="@drawable/question_solid_white" />
 
     </FrameLayout>

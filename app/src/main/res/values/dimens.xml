@@ -57,6 +57,8 @@
     <dimen name="common_divider_height">6dp</dimen>
     <!-- Common Collapsing Toolbar -->
     <dimen name="common_collapsing_toolbar_height">370dp</dimen>
+    <!-- Home Collapsing Toolbar Height -->
+    <dimen name="home_collapsing_toolbar_height">300dp</dimen>
     <!-- Common Switch Width -->
     <dimen name="common_switch_width">90dp</dimen>
     <!-- Common Switch Height -->

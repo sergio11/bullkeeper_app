@@ -223,6 +223,10 @@
     <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
     <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
 
+    <!-- Home -->
+    <string name="home_last_alerts">Last Alerts</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>

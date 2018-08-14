@@ -43,10 +43,6 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     @BindView(R.id.appToolbarInclude)
     protected View appbarLayout;
 
-    /**
-     * Support Toolbar App
-     */
-    private SupportToolbarApp supportToolbarApp;
 
     /**
      * On Attach
@@ -100,8 +96,9 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
 
         if(appbarLayout != null) {
 
-            supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
+            final SupportToolbarApp supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
             supportToolbarApp.bind(activityHandler);
+            activityHandler.setSupportToolbarApp(supportToolbarApp);
         }
 
     }
@@ -114,9 +111,6 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
         super.onDestroyView();
         if(unbinder != null)
             unbinder.unbind();
-
-        if(supportToolbarApp != null)
-            supportToolbarApp.unbind();
     }
 
     /**

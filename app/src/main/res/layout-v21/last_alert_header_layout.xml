@@ -4,24 +4,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeightSmall"
-    android:background="@drawable/common_section_background">
+    android:background="@drawable/common_section_translucent_background">
 
-    <!-- Alert Message -->
+    <ImageView
+        android:id="@+id/bellIcon"
+        android:contentDescription="@string/content_not_be_loaded"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/bell_solid_white"/>
+
     <TextView
-        android:id="@+id/alertMessage"
         style="@style/CommonStrongText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="Últimas alertas"
+        android:text="@string/home_last_alerts"
         android:textColor="@color/commonWhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bellIcon"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <ImageView
@@ -33,7 +41,8 @@
         android:src="@drawable/arrow_alt_circle_right_regular_52"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_not_be_loaded" />
 
 
 

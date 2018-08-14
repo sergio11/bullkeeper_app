@@ -101,8 +101,7 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
         Icepick.restoreInstanceState(this, savedInstanceState);
 
 
-        if(appbarLayout != null) {
-
+        if(supportToolbarApp == null && appbarLayout != null ) {
             supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
             supportToolbarApp.bind(this);
         }
@@ -480,6 +479,15 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
     /**
      * On View Ready
      */
-    protected void onViewReady(final Bundle savedInstanceState){};
+    protected void onViewReady(final Bundle savedInstanceState){}
 
+
+    /**
+     * Set Support Toolbar App
+     * @param supportToolbarApp
+     */
+    @Override
+    public void setSupportToolbarApp(SupportToolbarApp supportToolbarApp) {
+        this.supportToolbarApp = supportToolbarApp;
+    }
 }

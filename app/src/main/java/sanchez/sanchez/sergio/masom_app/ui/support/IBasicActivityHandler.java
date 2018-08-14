@@ -120,4 +120,10 @@ public interface IBasicActivityHandler {
      */
     void navigateToHome();
 
+    /**
+     * Set Support Toolbar App
+     * @param supportToolbarApp
+     */
+    void setSupportToolbarApp(final SupportToolbarApp supportToolbarApp);
+
 }
