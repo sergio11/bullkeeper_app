@@ -197,6 +197,10 @@
     <!-- User Profile -->
     <string name="user_profile_title">Profile</string>
 
+    <!-- My Kids Profile -->
+    <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
+    <string name="my_kids_profile_name_default">My Kids Profile</string>
+
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -211,7 +215,6 @@
 
     <!-- Dialogs Strings -->
     <string name="default_notice_dialog_title">Notice Dialog</string>
-
 
 
     <!-- Profile -->
@@ -249,4 +252,5 @@
     <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
     <string name="youtube_video_cue">gsT5agfijBE</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_my_kids_profile">MyKidsProfileActivity</string>
 </resources>

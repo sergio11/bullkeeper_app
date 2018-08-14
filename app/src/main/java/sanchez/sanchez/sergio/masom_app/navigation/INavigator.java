@@ -62,4 +62,9 @@ public interface INavigator {
      */
     void navigateToUserProfile();
 
+    /**
+     * Navigate To My Kids Profile
+     */
+    void navigateToMyKidsProfile(final String identity);
+
 }

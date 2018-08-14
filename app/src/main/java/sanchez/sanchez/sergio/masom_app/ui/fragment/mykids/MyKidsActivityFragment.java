@@ -181,7 +181,8 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
      */
     @Override
     public void onProfileActionClicked(final SonEntity sonEntity) {
-        showLongMessage("On Profile Action");
+        activityHandler.navigateToMyKidsProfile(sonEntity.getIdentity());
+
     }
 
     /**

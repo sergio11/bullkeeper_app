@@ -70,4 +70,13 @@ public class MyKidsActivity extends SupportActivity<MyKidsActivityPresenter, IMy
     public MyKidsComponent getComponent() {
         return myKidsComponent;
     }
+
+    /**
+     * Navigate To My Kids Profile
+     * @param identity
+     */
+    @Override
+    public void navigateToMyKidsProfile(String identity) {
+        navigatorImpl.navigateToMyKidsProfile(identity);
+    }
 }

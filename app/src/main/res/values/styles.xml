@@ -37,6 +37,12 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- User Kids Profile Theme. -->
+    <style name="AppTheme.MyKidsProfile">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+
     <!-- User Preferences Theme -->
     <style name="AppTheme.Preferences">
         <item name="preferenceTheme">@style/UserPreferenceTheme</item>
@@ -259,6 +265,16 @@
     </style>
 
     <style name="BrandedSwitch.text" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/commonWhite</item>
+        <item name="android:textSize">@dimen/common_switch_text_size</item>
+    </style>
+
+    <style name="CommonSwitch">
+        <item name="colorControlActivated">@color/darkModerateBlue</item>
+        <item name="colorSwitchThumbNormal">@color/commonWhite</item>
+    </style>
+
+    <style name="CommonSwitch.Text">
         <item name="android:textColor">@color/commonWhite</item>
         <item name="android:textSize">@dimen/common_switch_text_size</item>
     </style>

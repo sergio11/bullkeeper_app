@@ -82,11 +82,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Preferences" />
 
+        <!-- User Profile -->
         <activity
             android:name=".ui.activity.userprofile.UserProfileActivity"
             android:label="@string/title_activity_user_profile"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.UserProfile"/>
+            android:theme="@style/AppTheme.UserProfile" />
+
+        <!-- My Kids Profile -->
+        <activity
+            android:name=".ui.activity.mykidsprofile.MyKidsProfileActivity"
+            android:label="@string/title_activity_my_kids_profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.MyKidsProfile" />
     </application>
 
 </manifest>
