@@ -95,6 +95,15 @@
             android:label="@string/title_activity_my_kids_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MyKidsProfile" />
+
+        <!-- Comments Activity -->
+        <activity
+            android:name=".ui.activity.comments.CommentsActivity"
+            android:label="@string/title_activity_comments"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Comments"/>
+
+
     </application>
 
 </manifest>

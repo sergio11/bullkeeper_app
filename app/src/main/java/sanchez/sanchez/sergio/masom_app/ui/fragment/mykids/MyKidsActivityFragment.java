@@ -172,7 +172,7 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
      */
     @Override
     public void onRelationsActionClicked(final SonEntity sonEntity) {
-        showLongMessage("On Relations Action");
+        activityHandler.navigateToComments(sonEntity.getIdentity());
     }
 
     /**

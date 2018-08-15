@@ -79,4 +79,13 @@ public class MyKidsActivity extends SupportActivity<MyKidsActivityPresenter, IMy
     public void navigateToMyKidsProfile(String identity) {
         navigatorImpl.navigateToMyKidsProfile(identity);
     }
+
+    /**
+     * Navigate To Comments
+     * @param identity
+     */
+    @Override
+    public void navigateToComments(String identity) {
+        navigatorImpl.navigateToComments(identity);
+    }
 }

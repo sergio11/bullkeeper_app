@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@android:color/transparent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/authorImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/user_default"
+        app:civ_border_color="@color/commonWhite"
+        app:civ_border_width="@dimen/common_image_stroke_width"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Comment Item Background -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/comment_item_background_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/authorImage"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/authorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText"
+            android:text="Peter Peter"
+            android:textStyle="bold"
+            android:textColor="@color/cyanBrilliant"/>
+
+        <!-- Comment Message -->
+        <TextView
+            android:id="@+id/commentMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authorName"
+            style="@style/CommonStrongText.Medium"
+            android:padding="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:singleLine="true"
+            android:text="Wow que realismo!"
+            android:textColor="@color/darkModerateBlue"/>
+
+
+        <!-- Comment Social Media -->
+        <ImageView
+            android:id="@+id/commentSocialMedia"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_above="@id/commentSince"
+            android:src="@drawable/facebook_brand_solid_cyan"/>
+
+
+        <TextView
+            android:id="@+id/commentSince"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            style="@style/CommonStrongText.Small"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:text="3 days ago"
+            android:textColor="@color/darkModerateBlue"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

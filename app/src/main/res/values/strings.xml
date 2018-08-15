@@ -201,6 +201,9 @@
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
     <string name="my_kids_profile_name_default">My Kids Profile</string>
 
+    <!-- Comments -->
+    <string name="comments_by_child_title" formatted="true">Comments of %s</string>
+    <string name="comments_by_child_title_default">Comments</string>
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -253,4 +256,5 @@
     <string name="youtube_video_cue">gsT5agfijBE</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_my_kids_profile">MyKidsProfileActivity</string>
+    <string name="title_activity_comments">CommentsActivity</string>
 </resources>

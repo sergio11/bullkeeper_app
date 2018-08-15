@@ -26,7 +26,6 @@ import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
-
 import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
@@ -37,7 +36,6 @@ public class AlertListActivity extends SupportActivity<AlertListPresenter, IAler
         , IAlertListView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
         SupportItemTouchHelper.ItemTouchHelperListener ,
         AlertsAdapter.OnAlertsViewListener {
-
 
     /**
      * Alerts Component
