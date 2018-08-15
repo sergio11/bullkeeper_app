@@ -165,11 +165,12 @@ public class CommentsActivity extends SupportActivity<CommentsPresenter, ICommen
 
     /**
      * On Item Click
-     * @param item
+     * @param commentEntity
      */
     @Override
-    public void onItemClick(CommentEntity item) {
-        showShortMessage("Comment Clicked!!!");
+    public void onItemClick(CommentEntity commentEntity) {
+        // Navigate to comment detail
+        navigatorImpl.navigateToCommentDetail(commentEntity.getIdentity());
     }
 
     /**

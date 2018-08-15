@@ -205,6 +205,40 @@
     <string name="comments_by_child_title" formatted="true">Comments of %s</string>
     <string name="comments_by_child_title_default">Comments</string>
 
+    <!-- Comment Detail -->
+    <string name="comment_detail_message_title">Message</string>
+
+    <string name="comment_detail_results_title">Results</string>
+    <string name="comment_detail_create_at" formatted="true">Comment create at %s</string>
+
+    <!-- Sentiment -->
+    <string name="comment_detail_sentiment_level_unknown">There are no results for the sentiment analysis.</string>
+    <string name="comment_detail_sentiment_level_neutro">The comment has a neutral sentiment.</string>
+    <string name="comment_detail_sentiment_level_positive">The comment has a positive sentiment.</string>
+    <string name="comment_detail_sentiment_level_negative">The comment has a negative sentiment.</string>
+
+    <!-- Adult -->
+    <string name="comment_detail_adult_level_unknown">No results for content analysis for adults.</string>
+    <string name="comment_detail_adult_level_positive">The comment is related to adult content.</string>
+    <string name="comment_detail_adult_level_negative">The comment is not related to the content for adults.</string>
+
+    <!-- Drugs -->
+    <string name="comment_detail_drugs_level_unknown">There are no results for drug analysis.</string>
+    <string name="comment_detail_drugs_level_positive">The comment is related to drugs.</string>
+    <string name="comment_detail_drugs_level_negative">The comment is not related to drugs.</string>
+
+
+    <!-- Violence -->
+    <string name="comment_detail_violence_level_unknown">There are no results for the analysis of violence.</string>
+    <string name="comment_detail_violence_level_positive">The comment is violent.</string>
+    <string name="comment_detail_violence_level_negative">The comment is not violent.</string>
+
+    <!-- Bullying -->
+    <string name="comment_detail_bullying_level_unknown">There are no results for the analysis of bullying.</string>
+    <string name="comment_detail_bullying_level_positive">The comment has relation to bullying.</string>
+    <string name="comment_detail_bullying_level_negative">The comment has no relation to bullying.</string>
+
+
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
     <string name="menu_item_alerts">Alerts</string>
@@ -257,4 +291,5 @@
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="title_activity_my_kids_profile">MyKidsProfileActivity</string>
     <string name="title_activity_comments">CommentsActivity</string>
+    <string name="title_activity_comment_detail">CommentDetailActivity</string>
 </resources>

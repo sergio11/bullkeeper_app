@@ -59,6 +59,11 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- Comments Detail Theme. -->
+    <style name="AppTheme.CommentDetail">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
 
     <style name="AppTheme.Widget"/>
 

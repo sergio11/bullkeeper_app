@@ -101,8 +101,14 @@
             android:name=".ui.activity.comments.CommentsActivity"
             android:label="@string/title_activity_comments"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Comments"/>
+            android:theme="@style/AppTheme.Comments" />
 
+        <!-- Comment Detail Activity -->
+        <activity
+            android:name=".ui.activity.commentdetail.CommentDetailActivity"
+            android:label="@string/title_activity_comment_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CommentDetail"/>
 
     </application>
 

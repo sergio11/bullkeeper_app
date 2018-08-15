@@ -73,4 +73,10 @@ public interface INavigator {
      */
     void navigateToComments(final String identity);
 
+    /**
+     * Navigate To Comment Detail
+     * @param identity
+     */
+    void navigateToCommentDetail(final String identity);
+
 }

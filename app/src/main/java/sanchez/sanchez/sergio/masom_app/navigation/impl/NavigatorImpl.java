@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.commentdetail.CommentDetailActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.comments.CommentsActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
@@ -141,5 +142,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToComments(final String identity) {
         context.startActivity(CommentsActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Navigate To Comment Detail
+     * @param identity
+     */
+    @Override
+    public void navigateToCommentDetail(String identity) {
+        context.startActivity(CommentDetailActivity.getCallingIntent(context, identity));
     }
 }
