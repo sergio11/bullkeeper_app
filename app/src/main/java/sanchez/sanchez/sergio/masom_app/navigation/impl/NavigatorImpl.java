@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.comments.CommentsActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
@@ -151,5 +152,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToCommentDetail(String identity) {
         context.startActivity(CommentDetailActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Navigate To My Kids Detail
+     * @param identity
+     */
+    @Override
+    public void navigateToMyKidsDetail(final String identity) {
+        context.startActivity(MyKidsDetailActivity.getCallingIntent(context, identity));
     }
 }

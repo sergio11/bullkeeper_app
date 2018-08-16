@@ -17,12 +17,11 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
  * Intro Fragment
  */
 public class ForgotPasswordFragment extends
-        SupportValidationFragment<ForgotPasswordFragmentPresenter, IForgotPasswordView, IIntroActivityHandler>
+        SupportValidationFragment<ForgotPasswordFragmentPresenter,
+                IForgotPasswordView, IIntroActivityHandler, IntroComponent>
 implements IForgotPasswordView {
 
     public static String TAG = "FORGOT_PASSWORD_FRAGMENT";
-
-    private IntroComponent introComponent;
 
     /**
      * Email Input Layout
@@ -64,12 +63,10 @@ implements IForgotPasswordView {
      * Initialize Injector
      */
     @Override
-    protected void initializeInjector() {
-        introComponent = IntroComponent.class
-                .cast(((HasComponent<IntroComponent>) getActivity())
-                        .getComponent());
-        introComponent.inject(this);
+    protected void initializeInjector(IntroComponent component) {
+        component.inject(this);
     }
+
 
     /**
      * Provide Presenter
@@ -78,7 +75,7 @@ implements IForgotPasswordView {
     @NonNull
     @Override
     public ForgotPasswordFragmentPresenter providePresenter() {
-        return introComponent.forgotPasswordFragmentPresenter();
+        return component.forgotPasswordFragmentPresenter();
     }
 
 

@@ -19,13 +19,11 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
  * Intro Fragment
  */
 public class SigninFragment extends
-        SupportValidationFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler>
+        SupportValidationFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler,
+                IntroComponent>
 implements ISigninView, Validator.ValidationListener{
 
     public static String TAG = "SIGNIN_FRAGMENT";
-
-
-    private IntroComponent introComponent;
 
     /**
      * Email Input Layout
@@ -74,14 +72,14 @@ implements ISigninView, Validator.ValidationListener{
         return R.layout.fragment_signin;
     }
 
+    /**
+     * Initialize Injector
+     * @param component
+     */
     @Override
-    protected void initializeInjector() {
-        introComponent = IntroComponent.class
-                .cast(((HasComponent<IntroComponent>) getActivity())
-                        .getComponent());
-        introComponent.inject(this);
+    protected void initializeInjector(IntroComponent component) {
+        component.inject(this);
     }
-
 
     /**
      * Provide Presenter
@@ -90,7 +88,7 @@ implements ISigninView, Validator.ValidationListener{
     @NonNull
     @Override
     public SigninFragmentPresenter providePresenter() {
-        return introComponent.signinFragmentPresenter();
+        return component.signinFragmentPresenter();
     }
 
     /**

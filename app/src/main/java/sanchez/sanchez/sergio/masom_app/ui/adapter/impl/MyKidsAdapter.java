@@ -182,11 +182,28 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
                     .error(R.drawable.user_default)
                     .transform(new CircleTransform())
                     .into(childImage);
+
+
+            childImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null)
+                        listener.onDetailActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                }
+            });
         }
     }
 
-
+    /**
+     * On My Kids Listener
+     */
     public interface OnMyKidsListener {
+
+        /**
+         * On Detail Action Clicked
+         * @param sonEntity
+         */
+        void onDetailActionClicked(final SonEntity sonEntity);
 
         /**
          * On Results Action Clicked

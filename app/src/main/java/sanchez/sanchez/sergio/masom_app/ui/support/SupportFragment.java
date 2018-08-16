@@ -11,11 +11,15 @@ import android.view.ViewGroup;
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
+
+import java.lang.reflect.ParameterizedType;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
+import sanchez.sanchez.sergio.masom_app.di.components.ActivityComponent;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 
@@ -23,8 +27,17 @@ import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
  * Support Fragment
  */
 public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView,
-        H extends IBasicActivityHandler> extends TiFragment<P, V> implements  ISupportView {
+        H extends IBasicActivityHandler, C extends ActivityComponent> extends TiFragment<P, V> implements  ISupportView {
 
+    /**
+     * Component Class
+     */
+    protected Class<C> componentClass;
+
+    /**
+     * Component
+     */
+    protected C component;
 
     /**
      * Activity Handler
@@ -65,7 +78,11 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        initializeInjector();
+
+        // Create Component
+        createComponent();
+        // Initialize component
+        initializeInjector(component);
         super.onCreate(savedInstanceState);
     }
 
@@ -261,9 +278,23 @@ public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView
     protected abstract int getLayoutRes();
 
     /**
+     * Create Component
+     */
+    private void createComponent(){
+
+        this.componentClass = (Class<C>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[3];
+
+        this.component = componentClass
+                .cast(((HasComponent<C>) getActivity())
+                        .getComponent());
+    }
+
+
+    /**
      * Initialize Injector
      */
-    protected abstract void initializeInjector();
+    protected abstract void initializeInjector(final C component);
 
 
     /**

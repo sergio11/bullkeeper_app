@@ -79,4 +79,10 @@ public interface INavigator {
      */
     void navigateToCommentDetail(final String identity);
 
+    /**
+     * Navigate To My Kids Detail
+     * @param identity
+     */
+    void navigateToMyKidsDetail(final String identity);
+
 }

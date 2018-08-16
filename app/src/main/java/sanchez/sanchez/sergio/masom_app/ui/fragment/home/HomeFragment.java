@@ -27,7 +27,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.HomeComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
@@ -42,14 +41,13 @@ import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOL
  * Home Fragment
  */
 public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
-        IHomeView, IHomeActivityHandler>  implements IHomeView,
+        IHomeView, IHomeActivityHandler, HomeComponent>  implements IHomeView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
         SupportItemTouchHelper.ItemTouchHelperListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     public static String TAG = "HOME_FRAGMENT";
 
-    private HomeComponent homeComponent;
 
     @Inject
     protected Context appContext;
@@ -132,19 +130,6 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
         HomeFragment fragment = new HomeFragment();
         return fragment;
     }
-
-    /**
-     * Initialize Injector
-     */
-    @Override
-    protected void initializeInjector() {
-        homeComponent = HomeComponent.class
-                .cast(((HasComponent<HomeComponent>) getActivity())
-                        .getComponent());
-
-        homeComponent.inject(this);
-    }
-
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -254,13 +239,22 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
     }
 
     /**
+     * Initialize Injector
+     * @param component
+     */
+    @Override
+    protected void initializeInjector(HomeComponent component) {
+        component.inject(this);
+    }
+
+    /**
      * Provide Presenter
      * @return
      */
     @NonNull
     @Override
     public HomeFragmentPresenter providePresenter() {
-        return homeComponent.homeFragmentPresenter();
+        return component.homeFragmentPresenter();
     }
 
     /**

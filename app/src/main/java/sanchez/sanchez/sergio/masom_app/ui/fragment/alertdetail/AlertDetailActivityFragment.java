@@ -28,11 +28,9 @@ import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOL
  * Alert Detail Activity Fragment
  */
 public class AlertDetailActivityFragment extends SupportFragment<AlertDetailFragmentPresenter,
-        IAlertDetailView, IAlertDetailActivityHandler> implements IAlertDetailView {
+        IAlertDetailView, IAlertDetailActivityHandler, AlertsComponent> implements IAlertDetailView {
 
     public static String ALERT_ID_ARG = "ALERT_ID_ARG";
-
-    protected AlertsComponent alertsComponent;
 
     /**
      * Alert Detail Background
@@ -276,13 +274,10 @@ public class AlertDetailActivityFragment extends SupportFragment<AlertDetailFrag
      * Initialize Injector
      */
     @Override
-    protected void initializeInjector() {
-        alertsComponent = AlertsComponent.class
-                .cast(((HasComponent<AlertsComponent>) getActivity())
-                        .getComponent());
-
-        alertsComponent.inject(this);
+    protected void initializeInjector(AlertsComponent component) {
+        component.inject(this);
     }
+
 
     /**
      * Provide Presenter
@@ -291,7 +286,7 @@ public class AlertDetailActivityFragment extends SupportFragment<AlertDetailFrag
     @NonNull
     @Override
     public AlertDetailFragmentPresenter providePresenter() {
-        return alertsComponent.alertDetailFragmentPresenter();
+        return component.alertDetailFragmentPresenter();
     }
 
     /**

@@ -266,6 +266,15 @@
     <!-- Home -->
     <string name="home_last_alerts">Last Alerts</string>
 
+    <!-- Kid Detail -->
+
+    <!-- Kid Detail Dimensions Tab -->
+    <string name="kid_detail_dimensions_tab">Dimensions</string>
+    <!-- Kid Detail Alerts Tab -->
+    <string name="kid_detail_alerts_tab">Alerts</string>
+    <!-- Kid Detail Relations Tab -->
+    <string name="kid_detail_relations_tab">Relations</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -292,4 +301,5 @@
     <string name="title_activity_my_kids_profile">MyKidsProfileActivity</string>
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="title_activity_comment_detail">CommentDetailActivity</string>
+    <string name="title_activity_my_kids_detail_activty">MyKidsDetailActivty</string>
 </resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.dimensions.FourDimensionsFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Alert Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText"
+                android:textColor="@color/cyanBrilliant"
+                android:textStyle="bold"
+                android:text="Four Dimensions"/>
+
+            <!-- Son name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText.Medium"
+                android:textColor="@color/cyanBrilliant"
+                android:text="Datos de las cuatro dimensiones analizadas"/>
+
+            <View
+                android:layout_width="@dimen/common_divider_small"
+                android:layout_height="@dimen/common_divider_height"
+                android:layout_margin="10dp"
+                android:background="@color/cyanBrilliant"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

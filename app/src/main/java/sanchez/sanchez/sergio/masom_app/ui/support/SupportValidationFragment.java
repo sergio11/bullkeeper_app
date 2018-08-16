@@ -10,11 +10,14 @@ import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
 import java.util.List;
 
+import sanchez.sanchez.sergio.masom_app.di.components.ActivityComponent;
+
 /**
  * Support Fragment
  */
 public abstract class SupportValidationFragment<P extends TiPresenter<V>, V extends TiView,
-        H extends IBasicActivityHandler> extends SupportFragment<P, V, H>
+        H extends IBasicActivityHandler, C extends ActivityComponent>
+        extends SupportFragment<P, V, H, C>
     implements Validator.ValidationListener {
 
     protected Validator validator;

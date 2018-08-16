@@ -14,13 +14,12 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
  * Intro Fragment
  */
 public class IntroFragment extends
-        SupportFragment<IntroFragmentPresenter, IIntroView, IIntroActivityHandler>
+        SupportFragment<IntroFragmentPresenter, IIntroView,
+                IIntroActivityHandler, IntroComponent>
 implements IIntroView {
 
     public static String TAG = "INTRO_FRAGMENT";
 
-
-    private IntroComponent introComponent;
 
     public IntroFragment() {}
 
@@ -33,15 +32,6 @@ implements IIntroView {
         return fragment;
     }
 
-    /**
-     * Initialize Injector
-     */
-    @Override
-    protected void initializeInjector() {
-        introComponent = IntroComponent.class
-                .cast(((HasComponent<IntroComponent>) getActivity())
-                        .getComponent());
-    }
 
     /**
      * Get Layout Resource
@@ -52,6 +42,14 @@ implements IIntroView {
         return R.layout.fragment_intro;
     }
 
+    /**
+     * Initialize Injector
+     */
+    @Override
+    protected void initializeInjector(IntroComponent component) {
+        component.inject(this);
+    }
+
 
     /**
      * Provide Presenter
@@ -60,7 +58,7 @@ implements IIntroView {
     @NonNull
     @Override
     public IntroFragmentPresenter providePresenter() {
-        return introComponent.introFragmentPresenter();
+        return component.introFragmentPresenter();
     }
 
     /**

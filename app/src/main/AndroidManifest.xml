@@ -108,8 +108,13 @@
             android:name=".ui.activity.commentdetail.CommentDetailActivity"
             android:label="@string/title_activity_comment_detail"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.CommentDetail"/>
+            android:theme="@style/AppTheme.CommentDetail" />
 
+        <!-- My Kids Detail Activity -->
+        <activity
+            android:name=".ui.activity.mykidsdetail.MyKidsDetailActivity"
+            android:label="@string/title_activity_my_kids_detail_activty"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

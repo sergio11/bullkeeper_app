@@ -19,4 +19,10 @@ public interface IMyKidsActivityHandler extends IBasicActivityHandler {
      */
     void navigateToComments(final String identity);
 
+    /**
+     * Navigate To My Kid Detail
+     * @param identity
+     */
+    void navigateToMyKidDetail(final String identity);
+
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cyanBrilliant">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_collapsing_toolbar_height"
+            android:minHeight="?android:actionBarSize"
+            app:contentScrim="@color/cyanBrilliant"
+            app:scrimAnimationDuration="300"
+            app:scrimVisibleHeightTrigger="200dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:layout_collapseMode="parallax"
+                android:foreground="@color/translucentCyanBrilliant"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Include Toolbar -->
+            <include
+                android:id="@+id/appToolbarInclude"
+                layout="@layout/app_translucent_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_collapseMode="pin"/>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <!-- Tab Layout -->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"
+            android:layout_gravity="bottom"
+            app:layout_anchor="@+id/collapsingToolbar"
+            app:layout_anchorGravity="bottom"
+            app:tabGravity="fill"
+            android:layout_marginStart="72dp"
+            app:tabTextColor="@color/commonWhite"
+            app:tabIndicatorColor="@color/commonWhite"
+            app:tabSelectedTextColor="@color/commonWhite"
+            app:tabMode="scrollable" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <!-- Nested Scroll View -->
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editProfileBtn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_anchor="@id/nestedScrollView"
+        app:backgroundTint="@color/darkModerateBlue"
+        app:layout_anchorGravity="start|top"
+        android:src="@drawable/user_edit_white"
+        android:layout_marginStart="5dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -30,7 +30,7 @@ import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOL
  * My Kids Activity Fragment
  */
 public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresenter,
-        IMyKidsView, IMyKidsActivityHandler> implements IMyKidsView,
+        IMyKidsView, IMyKidsActivityHandler, MyKidsComponent> implements IMyKidsView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SonEntity>,
         MyKidsAdapter.OnMyKidsListener {
 
@@ -38,11 +38,6 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
 
     @Inject
     protected Context appContext;
-
-    /**
-     * My Kids Component
-     */
-    private MyKidsComponent myKidsComponent;
 
     /**
      * My Kids Adapter
@@ -90,10 +85,14 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
 
     }
 
+    /**
+     * Provide Presenter
+     * @return
+     */
     @NonNull
     @Override
     public MyKidsFragmentPresenter providePresenter() {
-        return myKidsComponent.myKidsFragmentPresenter();
+        return component.myKidsFragmentPresenter();
     }
 
     /**
@@ -108,7 +107,7 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
      */
     @Override
     public void onItemClick(SonEntity sonEntity) {
-        Timber.d("On Item Clicked");
+        activityHandler.navigateToMyKidDetail(sonEntity.getIdentity());
     }
 
     /**
@@ -140,12 +139,18 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
      * Initialize Injector
      */
     @Override
-    protected void initializeInjector() {
-        myKidsComponent = MyKidsComponent.class
-                .cast(((HasComponent<MyKidsComponent>) getActivity())
-                        .getComponent());
+    protected void initializeInjector(MyKidsComponent component) {
+        component.inject(this);
+    }
 
-        myKidsComponent.inject(this);
+
+    /**
+     * On Detail Action CLicked
+     * @param sonEntity
+     */
+    @Override
+    public void onDetailActionClicked(SonEntity sonEntity) {
+        activityHandler.navigateToMyKidDetail(sonEntity.getIdentity());
     }
 
     /**

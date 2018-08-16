@@ -20,7 +20,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
@@ -29,12 +28,11 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
  * Intro Fragment
  */
 public class SignupFragment extends
-        SupportValidationFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler>
+        SupportValidationFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler,
+                IntroComponent>
 implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     public static String TAG = "INTRO_FRAGMENT";
-
-    private IntroComponent introComponent;
 
     private DatePickerDialog datePickerDialog;
 
@@ -164,17 +162,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     }
 
     /**
-     * Initialize Injector
-     */
-    @Override
-    protected void initializeInjector() {
-        introComponent = IntroComponent.class
-                .cast(((HasComponent<IntroComponent>) getActivity())
-                        .getComponent());
-        introComponent.inject(this);
-    }
-
-    /**
      * On View Created
      * @param view
      * @param savedInstanceState
@@ -223,6 +210,14 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_signup;
+    }
+
+    /**
+     * Initialize Injector
+     */
+    @Override
+    protected void initializeInjector(IntroComponent component) {
+        component.inject(this);
     }
 
     /**
@@ -283,7 +278,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @NonNull
     @Override
     public SignupFragmentPresenter providePresenter() {
-        return introComponent.signupFragmentPresenter();
+        return component.signupFragmentPresenter();
     }
 
     /**
