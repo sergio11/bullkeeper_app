@@ -106,6 +106,7 @@ dependencies {
     implementation presentationDependencies.picasso
     implementation presentationDependencies.stetho
     implementation presentationDependencies.circleimageview
+    implementation presentationDependencies.MPAndroidChart
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 

@@ -1,10 +1,26 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.relations;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.SocialMediaFriendAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.support.IBasicActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
@@ -13,9 +29,12 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
  */
 public class KidRelationsFragment extends SupportFragment<KidRelationFragmentPresenter,
         IKidRelationsFragmentView, IBasicActivityHandler, MyKidsComponent>
-        implements IKidRelationsFragmentView {
+        implements IKidRelationsFragmentView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SocialMediaFriendEntity> {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    @Inject
+    protected Context appContext;
 
 
     /**
@@ -23,6 +42,16 @@ public class KidRelationsFragment extends SupportFragment<KidRelationFragmentPre
      */
     private String kidIdentity;
 
+    /**
+     * Kid Relations List
+     */
+    @BindView(R.id.kidRelationsList)
+    protected RecyclerView kidRelationsList;
+
+    /**
+     * Social Media Friend Adapter
+     */
+    private SocialMediaFriendAdapter socialMediaFriendAdapter;
 
     public KidRelationsFragment() {
         // Required empty public constructor
@@ -64,5 +93,59 @@ public class KidRelationsFragment extends SupportFragment<KidRelationFragmentPre
     @Override
     public KidRelationFragmentPresenter providePresenter() {
         return component.kidRelationFragmentPresenter();
+    }
+
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ViewCompat.setNestedScrollingEnabled(kidRelationsList, false);
+        kidRelationsList.setLayoutManager(new LinearLayoutManager(appContext));
+        socialMediaFriendAdapter = new SocialMediaFriendAdapter(appContext, new ArrayList<SocialMediaFriendEntity>());
+        socialMediaFriendAdapter.setOnSupportRecyclerViewListener(this);
+        // Set Animator
+        kidRelationsList.setItemAnimator(new DefaultItemAnimator());
+        kidRelationsList.setAdapter(socialMediaFriendAdapter);
+
+    }
+
+    /**
+     * On Kid Relations Loaded
+     * @param socialMediaFriendEntityList
+     */
+    @Override
+    public void onKidRelationsLoaded(List<SocialMediaFriendEntity> socialMediaFriendEntityList) {
+        socialMediaFriendAdapter.setData(new ArrayList<>(socialMediaFriendEntityList));
+        socialMediaFriendAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * On Header Click
+     */
+    @Override
+    public void onHeaderClick() {
+
+    }
+
+    /**
+     * Social Media Friend Entity
+     * @param socialMediaFriendEntity
+     */
+    @Override
+    public void onItemClick(SocialMediaFriendEntity socialMediaFriendEntity) {
+        showShortMessage("Social Media Friend Clicked!!!");
+    }
+
+    /**
+     * On Footer Click
+     */
+    @Override
+    public void onFooterClick() {
+
     }
 }

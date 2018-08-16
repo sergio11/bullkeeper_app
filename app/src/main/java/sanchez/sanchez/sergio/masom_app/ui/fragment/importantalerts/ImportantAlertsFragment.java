@@ -1,20 +1,41 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import butterknife.BindView;
+import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
-import sanchez.sanchez.sergio.masom_app.ui.support.IBasicActivityHandler;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
+import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.LastAlertsAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
 /**
  * Important Alerts Fragment
  */
 public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFragmentPresenter,
-        IImportantAlertsFragmentView, IBasicActivityHandler, MyKidsComponent> implements IImportantAlertsFragmentView {
+        IImportantAlertsFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent>
+        implements IImportantAlertsFragmentView,
+        SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity> {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    /**
+     * App Context
+     */
+    @Inject
+    protected Context appContext;
 
 
     /**
@@ -22,14 +43,25 @@ public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFrag
      */
     private String kidIdentity;
 
+    /**
+     * Important Alerts
+     */
+    @BindView(R.id.alertsList)
+    protected RecyclerView alertsList;
+
+    /**
+     * Last Alerts Adapter
+     */
+    private LastAlertsAdapter lastAlertsAdapter;
+
 
     public ImportantAlertsFragment() {
         // Required empty public constructor
     }
 
-
     /**
      * New Instance
+     *
      * @param kidIdentity
      * @return
      */
@@ -48,6 +80,7 @@ public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFrag
 
     /**
      * Initialize Injector
+     *
      * @param component
      */
     @Override
@@ -57,6 +90,7 @@ public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFrag
 
     /**
      * Provide Presenter
+     *
      * @return
      */
     @NonNull
@@ -64,4 +98,59 @@ public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFrag
     public ImportantAlertsFragmentPresenter providePresenter() {
         return component.importantAlertsFragmentPresenter();
     }
+
+    /**
+     * On View Created
+     *
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        ViewCompat.setNestedScrollingEnabled(alertsList, false);
+        alertsList.setLayoutManager(new LinearLayoutManager(appContext));
+        lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
+        lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
+        // Set Animator
+        alertsList.setItemAnimator(new DefaultItemAnimator());
+        alertsList.setAdapter(lastAlertsAdapter);
+    }
+
+    /**
+     * On Alerts Loaded
+     *
+     * @param alertEntityList
+     */
+    @Override
+    public void onAlertsLoaded(List<AlertEntity> alertEntityList) {
+        lastAlertsAdapter.setData(new ArrayList<>(alertEntityList));
+        lastAlertsAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * On Header Click
+     */
+    @Override
+    public void onHeaderClick() {
+        activityHandler.navigateToAlerts();
+    }
+
+    /**
+     * On Item Click
+     *
+     * @param alertEntity
+     */
+    @Override
+    public void onItemClick(AlertEntity alertEntity) {
+        activityHandler.navigateToAlertDetail(alertEntity.getIdentity());
+    }
+
+    @Override
+    public void onFooterClick() {
+
+    }
 }
+

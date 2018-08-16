@@ -284,6 +284,10 @@
     <string name="kid_detail_relations_title">Relations</string>
     <string name="kid_detail_relations_description">Relationship with other users of social media</string>
 
+    <string name="kid_detail_relations_most_active_friends">Most active friends</string>
+
+    <string name="kid_detail_birthday" formatted="true">Birthday: %s</string>
+    <string name="kid_detail_school" formatted="true">School: %s</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

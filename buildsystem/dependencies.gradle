@@ -42,6 +42,7 @@ ext {
     picassoVersion = '2.5.2'
     stethoVersion = '1.5.0'
     circleimageviewVersion = '2.2.0'
+    mpAndroidChartVerion = 'v3.0.3'
 
 
     thirtyInchVersion = '0.8.5'
@@ -89,7 +90,8 @@ ext {
             androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
             picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
             stetho:             "com.facebook.stetho:stetho:${stethoVersion}",
-            circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}"
+            circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}",
+            MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}"
     ]
 
     presentationTestDependencies = [

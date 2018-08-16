@@ -10,8 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -83,6 +86,25 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
     @BindView(R.id.tabs)
     protected TabLayout tabLayout;
 
+    /**
+     * Kid Name Text View
+     */
+    @BindView(R.id.kidName)
+    protected TextView kidNameTextView;
+
+
+    /**
+     * Kid Birthday Text View
+     */
+    @BindView(R.id.kidBirthday)
+    protected TextView kidBirthdayTextView;
+
+    /**
+     * Kid School Text View
+     */
+    @BindView(R.id.kidSchool)
+    protected TextView kidSchoolTextView;
+
 
     /**
      * Get Calling Intent
@@ -138,6 +160,16 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
                 .error(R.drawable.user_default)
                 .noFade()
                 .into(profileImage);
+
+        kidNameTextView.setText("Sergio Sánchez Sánchez");
+
+        // Set Kid Birthday
+        kidBirthdayTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.kid_detail_birthday), "23 Mayo, 2005"));
+
+        kidSchoolTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.kid_detail_school), "C.E.I.P Fernando Gavilán"));
+
 
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(sectionsPagerAdapter);
@@ -201,6 +233,23 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
     @OnClick(R.id.editProfileBtn)
     protected void onEditProfileBtn(){
         navigatorImpl.navigateToMyKidsProfile(kidIdentity);
+    }
+
+    /**
+     * Navigate To Alerts
+     */
+    @Override
+    public void navigateToAlerts() {
+        navigatorImpl.navigateToAlertList();
+    }
+
+    /***
+     * Navigate To Alerts Detail
+     * @param identity
+     */
+    @Override
+    public void navigateToAlertDetail(String identity) {
+        navigatorImpl.navigateToAlertDetail(identity);
     }
 
     /**
