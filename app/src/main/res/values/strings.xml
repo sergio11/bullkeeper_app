@@ -275,6 +275,16 @@
     <!-- Kid Detail Relations Tab -->
     <string name="kid_detail_relations_tab">Relations</string>
 
+    <string name="kid_detail_dimensions_title">Four Dimensions</string>
+    <string name="kid_detail_dimensions_description">Data of the four dimensions analyzed</string>
+
+    <string name="kid_detail_alerts_title">Important alerts</string>
+    <string name="kid_detail_alerts_description">List of the most outstanding alerts</string>
+
+    <string name="kid_detail_relations_title">Relations</string>
+    <string name="kid_detail_relations_description">Relationship with other users of social media</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

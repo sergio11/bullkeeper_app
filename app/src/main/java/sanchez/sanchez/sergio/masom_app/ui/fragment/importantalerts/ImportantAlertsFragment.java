@@ -1,22 +1,21 @@
-package sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions;
+package sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
+
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.support.IBasicActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
 
 /**
- * Four Dimensions Fragment
+ * Important Alerts Fragment
  */
-public class FourDimensionsFragment
-        extends SupportFragment<FourDimensionsFragmentPresenter,
-        IFourDimensionsFragmentView, IBasicActivityHandler, MyKidsComponent> implements IFourDimensionsFragmentView {
+public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFragmentPresenter,
+        IImportantAlertsFragmentView, IBasicActivityHandler, MyKidsComponent> implements IImportantAlertsFragmentView {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
 
     /**
      * Kid Identity
@@ -24,44 +23,32 @@ public class FourDimensionsFragment
     private String kidIdentity;
 
 
-    public FourDimensionsFragment() {
+    public ImportantAlertsFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * New Instance
      * @param kidIdentity
      * @return
      */
-    public static FourDimensionsFragment newInstance(final String kidIdentity) {
-        FourDimensionsFragment fragment = new FourDimensionsFragment();
+    public static ImportantAlertsFragment newInstance(final String kidIdentity) {
+        ImportantAlertsFragment fragment = new ImportantAlertsFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
         fragment.setArguments(args);
         return fragment;
     }
 
-    /**
-     * On View Created
-     * @param view
-     * @param savedInstanceState
-     */
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    /**
-     * Get Layout Resource
-     * @return
-     */
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_four_dimensions;
+        return R.layout.fragment_important_alerts;
     }
 
     /**
      * Initialize Injector
+     * @param component
      */
     @Override
     protected void initializeInjector(MyKidsComponent component) {
@@ -74,7 +61,7 @@ public class FourDimensionsFragment
      */
     @NonNull
     @Override
-    public FourDimensionsFragmentPresenter providePresenter() {
-        return component.fourDimensionsFragmentPresenter();
+    public ImportantAlertsFragmentPresenter providePresenter() {
+        return component.importantAlertsFragmentPresenter();
     }
 }

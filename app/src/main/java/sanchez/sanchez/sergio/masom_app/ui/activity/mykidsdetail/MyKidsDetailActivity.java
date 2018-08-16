@@ -21,6 +21,8 @@ import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
 
@@ -183,9 +185,9 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
                 case DIMENSIONS_TAB:
                     return FourDimensionsFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
-                    return FourDimensionsFragment.newInstance(kidIdentity);
+                    return ImportantAlertsFragment.newInstance(kidIdentity);
                 case RELATIONS_TAB:
-                    return FourDimensionsFragment.newInstance(kidIdentity);
+                    return KidRelationsFragment.newInstance(kidIdentity);
             }
             return null;
         }

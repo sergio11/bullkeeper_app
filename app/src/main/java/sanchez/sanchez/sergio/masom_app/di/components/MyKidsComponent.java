@@ -11,8 +11,12 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileA
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfilePresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsFragmentPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.mykids.MyKidsActivityFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.mykids.MyKidsFragmentPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationFragmentPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsFragment;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = { ActivityModule.class })
@@ -48,10 +52,24 @@ public interface MyKidsComponent extends ActivityComponent {
      */
     void inject(final FourDimensionsFragment fourDimensionsFragment);
 
+    /**
+     * Inject on Important Alerts Fragment
+     * @param importantAlertsFragment
+     */
+    void inject(final ImportantAlertsFragment importantAlertsFragment);
+
+    /**
+     * Inject on Kid Relations Fragment
+     * @param kidRelationsFragment
+     */
+    void inject(final KidRelationsFragment kidRelationsFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
     MyKidsProfilePresenter myKidsProfilePresenter();
     MyKidsDetailPresenter myKidsDetailPresenter();
     FourDimensionsFragmentPresenter fourDimensionsFragmentPresenter();
+    ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
+    KidRelationFragmentPresenter kidRelationFragmentPresenter();
 }

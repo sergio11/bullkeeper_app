@@ -49,22 +49,22 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <!-- Tab Layout -->
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
-            android:layout_gravity="bottom"
-            app:layout_anchor="@+id/collapsingToolbar"
-            app:layout_anchorGravity="bottom"
-            app:tabGravity="fill"
-            android:layout_marginStart="72dp"
-            app:tabTextColor="@color/commonWhite"
-            app:tabIndicatorColor="@color/commonWhite"
-            app:tabSelectedTextColor="@color/commonWhite"
-            app:tabMode="scrollable" />
-
     </android.support.design.widget.AppBarLayout>
+
+    <!-- Tab Layout -->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_gravity="bottom"
+        app:layout_anchor="@+id/appbarLayout"
+        app:layout_anchorGravity="bottom"
+        android:background="@color/commonWhite"
+        app:tabTextColor="@color/cyanBrilliant"
+        app:tabIndicatorColor="@color/darkModerateBlue"
+        app:tabSelectedTextColor="@color/darkModerateBlue"
+        app:tabTextAppearance="@style/CommonTabTextAppearance"
+        app:tabMode="scrollable" />
 
 
     <!-- Nested Scroll View -->
@@ -72,26 +72,30 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?android:actionBarSize"
         android:fillViewport="true"
+        android:background="@color/cyanBrilliant"
+        android:padding="@dimen/common_padding"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             />
 
     </android.support.v4.widget.NestedScrollView>
 
 
-
+    <!-- Edit Profile Button -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/editProfileBtn"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        app:layout_anchor="@id/nestedScrollView"
+        app:layout_anchor="@id/appbarLayout"
         app:backgroundTint="@color/darkModerateBlue"
-        app:layout_anchorGravity="start|top"
+        app:layout_anchorGravity="end|bottom"
         android:src="@drawable/user_edit_white"
         android:layout_marginStart="5dp"
         android:clickable="true"

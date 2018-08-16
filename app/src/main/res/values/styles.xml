@@ -289,4 +289,10 @@
         <item name="android:textSize">@dimen/common_switch_text_size</item>
     </style>
 
+
+    <style name="CommonTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
