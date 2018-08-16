@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +45,25 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
      * My Kids Component
      */
     private MyKidsComponent myKidsComponent;
+
+
+    /**
+     * Unselected tab icons
+     */
+    private int[] unselectedTabIcons = {
+            R.drawable.dimensions_tab_cyan,
+            R.drawable.important_alerts_tab_cyan,
+            R.drawable.relations_tab_cyan
+    };
+
+    /**
+     * Selected Tab icons
+     */
+    private int[] selectedTabIcons = {
+            R.drawable.dimensions_tab_dark_cyan,
+            R.drawable.important_alerts_tab_dark_cyan,
+            R.drawable.relations_tab_dark_cyan
+    };
 
     /**
      * Profile Image
@@ -123,7 +141,30 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
 
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewpager.setAdapter(sectionsPagerAdapter);
+
         tabLayout.setupWithViewPager(viewpager);
+
+        for(int i = 0; i < tabLayout.getTabCount(); i++) {
+            final TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if(tab != null)
+                tab.setIcon( i == 0 ? selectedTabIcons[i] : unselectedTabIcons[i]);
+        }
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setIcon(selectedTabIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(unselectedTabIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     /**

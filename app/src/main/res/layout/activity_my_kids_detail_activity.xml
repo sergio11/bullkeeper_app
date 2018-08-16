@@ -55,7 +55,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
+        android:layout_height="@dimen/common_tab_layout_height"
         android:layout_gravity="bottom"
         app:layout_anchor="@+id/appbarLayout"
         app:layout_anchorGravity="bottom"
@@ -72,7 +72,7 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?android:actionBarSize"
+        android:layout_marginTop="@dimen/common_tab_layout_height"
         android:fillViewport="true"
         android:background="@color/cyanBrilliant"
         android:padding="@dimen/common_padding"

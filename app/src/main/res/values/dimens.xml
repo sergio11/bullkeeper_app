@@ -79,5 +79,7 @@
     <dimen name="common_table_layout_margin">10dp</dimen>
     <!-- Common Table Row Margin Bottom -->
     <dimen name="common_table_row_margin_bottom">5dp</dimen>
+    <!-- Common Tab Layout HEight -->
+    <dimen name="common_tab_layout_height">70dp</dimen>
 
 </resources>
