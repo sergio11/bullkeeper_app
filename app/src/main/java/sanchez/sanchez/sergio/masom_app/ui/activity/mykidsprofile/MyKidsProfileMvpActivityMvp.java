@@ -26,12 +26,12 @@ import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpActivity;
 
 /**
  * My Kids Profile Activity
  */
-public class MyKidsProfileActivity extends SupportValidationActivity<MyKidsProfilePresenter, IMyKidsProfileView>
+public class MyKidsProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
         implements HasComponent<MyKidsComponent>, IMyKidsProfileView, DatePickerDialog.OnDateSetListener {
 
     protected MyKidsComponent myKidsComponent;
@@ -129,7 +129,7 @@ public class MyKidsProfileActivity extends SupportValidationActivity<MyKidsProfi
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
-        final Intent callingIntent = new Intent(context, MyKidsProfileActivity.class);
+        final Intent callingIntent = new Intent(context, MyKidsProfileMvpActivityMvp.class);
         callingIntent.putExtra(KIDS_IDENTITY_ARG, identity);
         return callingIntent;
     }

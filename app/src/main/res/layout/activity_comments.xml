@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@android:color/transparent"
-    tools:context=".ui.activity.comments.CommentsActivity">
+    tools:context=".ui.activity.comments.CommentsMvpActivity">
 
     <!-- Include Toolbar -->
     <include

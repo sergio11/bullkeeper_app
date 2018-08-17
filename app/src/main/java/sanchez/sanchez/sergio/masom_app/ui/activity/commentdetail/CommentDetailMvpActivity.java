@@ -16,13 +16,13 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.CommentsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerCommentsComponent;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
 
 /**
  * Comment Detail Activity
  */
-public class CommentDetailActivity extends SupportActivity<CommentDetailPresenter, ICommentDetailView>
+public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPresenter, ICommentDetailView>
         implements HasComponent<CommentsComponent> , ICommentDetailView {
 
     public static final String COMMENT_IDENTITY_ARG = "COMMENT_IDENTITY_ARG";
@@ -88,7 +88,7 @@ public class CommentDetailActivity extends SupportActivity<CommentDetailPresente
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
-        final Intent callingIntent = new Intent(context, CommentDetailActivity.class);
+        final Intent callingIntent = new Intent(context, CommentDetailMvpActivity.class);
         callingIntent.putExtra(COMMENT_IDENTITY_ARG, identity);
         return callingIntent;
     }

@@ -7,13 +7,13 @@ import android.support.annotation.NonNull;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
 
 /**
  * My Kids Activity
  */
-public class MyKidsActivity extends SupportActivity<MyKidsActivityPresenter, IMyKidsActivityView>
+public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresenter, IMyKidsActivityView>
         implements HasComponent<MyKidsComponent>, IMyKidsActivityHandler
         , IMyKidsActivityView {
 
@@ -26,7 +26,7 @@ public class MyKidsActivity extends SupportActivity<MyKidsActivityPresenter, IMy
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        final Intent intent = new Intent(context, MyKidsActivity.class);
+        final Intent intent = new Intent(context, MyKidsMvpActivity.class);
         return intent;
     }
 

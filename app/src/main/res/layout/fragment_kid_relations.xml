@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.fragment.relations.KidRelationsFragment">
+    tools:context=".ui.fragment.relations.KidRelationsMvpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

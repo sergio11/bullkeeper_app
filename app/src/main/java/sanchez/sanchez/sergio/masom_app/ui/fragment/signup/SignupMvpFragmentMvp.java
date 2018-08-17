@@ -22,14 +22,14 @@ import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpFragment;
 
 /**
  * Intro Fragment
  */
-public class SignupFragment extends
-        SupportValidationFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler,
-                IntroComponent>
+public class SignupMvpFragmentMvp extends
+        SupportMvpValidationMvpFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler,
+                                IntroComponent>
 implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     public static String TAG = "INTRO_FRAGMENT";
@@ -121,14 +121,14 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     protected AppCompatEditText confirmPasswordInput;
 
 
-    public SignupFragment() { }
+    public SignupMvpFragmentMvp() { }
 
     /**
      * New Instance
      * @return
      */
-    public static SignupFragment newInstance() {
-        SignupFragment fragment = new SignupFragment();
+    public static SignupMvpFragmentMvp newInstance() {
+        SignupMvpFragmentMvp fragment = new SignupMvpFragmentMvp();
         return fragment;
     }
 
@@ -175,7 +175,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         Integer START_DAY = 1;
 
         datePickerDialog = new DatePickerDialog(
-                getActivity(), R.style.CommonDatePickerStyle, SignupFragment.this, START_YEAR,
+                getActivity(), R.style.CommonDatePickerStyle, SignupMvpFragmentMvp.this, START_YEAR,
                 START_MONTH, START_DAY);
 
         // On Focus Listener

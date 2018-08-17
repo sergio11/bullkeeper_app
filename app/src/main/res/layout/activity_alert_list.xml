@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@color/cyanBrilliant"
-    tools:context=".ui.activity.alertlist.AlertListActivity">
+    tools:context=".ui.activity.alertlist.AlertListMvpActivity">
 
     <!-- Include Toolbar -->
     <include

@@ -5,19 +5,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
-import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.commentdetail.CommentDetailActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.comments.CommentsActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.commentdetail.CommentDetailMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.comments.CommentsMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivityMvp;
+import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivityMvp;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.question.QuestionAppDialog;
 
@@ -38,7 +39,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToIntro() {
-        Intent intentToLaunch = IntroActivity.getCallingIntent(context);
+        Intent intentToLaunch = IntroMvpActivity.getCallingIntent(context);
         context.startActivity(intentToLaunch);
     }
 
@@ -47,7 +48,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToHome() {
-        Intent intentToHome = HomeActivity.getCallingIntent(context);
+        Intent intentToHome = HomeMvpActivity.getCallingIntent(context);
         context.startActivity(intentToHome);
     }
 
@@ -64,7 +65,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToMyKids() {
-        Intent intentToMyKids = MyKidsActivity.getCallingIntent(context);
+        Intent intentToMyKids = MyKidsMvpActivity.getCallingIntent(context);
         context.startActivity(intentToMyKids);
     }
 
@@ -73,7 +74,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToAlertDetail(final String identity) {
-        final Intent intentToAlertDetail = AlertDetailActivity.getCallingIntent(context, identity);
+        final Intent intentToAlertDetail = AlertDetailMvpActivity.getCallingIntent(context, identity);
         context.startActivity(intentToAlertDetail);
     }
 
@@ -82,7 +83,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToAlertList() {
-        final Intent intentToAlertList = AlertListActivity.getCallingIntent(context);
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context);
         context.startActivity(intentToAlertList);
     }
 
@@ -108,7 +109,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToUserSettings() {
-        context.startActivity(UserSettingsActivity.getCallingIntent(context));
+        context.startActivity(UserSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
@@ -125,7 +126,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToUserProfile() {
-        context.startActivity(UserProfileActivity.getCallingIntent(context));
+        context.startActivity(UserProfileMvpActivityMvp.getCallingIntent(context));
     }
 
     /**
@@ -133,7 +134,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToMyKidsProfile(final String identity) {
-        context.startActivity(MyKidsProfileActivity.getCallingIntent(context, identity));
+        context.startActivity(MyKidsProfileMvpActivityMvp.getCallingIntent(context, identity));
     }
 
     /**
@@ -142,7 +143,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToComments(final String identity) {
-        context.startActivity(CommentsActivity.getCallingIntent(context, identity));
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity));
     }
 
     /**
@@ -151,7 +152,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToCommentDetail(String identity) {
-        context.startActivity(CommentDetailActivity.getCallingIntent(context, identity));
+        context.startActivity(CommentDetailMvpActivity.getCallingIntent(context, identity));
     }
 
     /**
@@ -160,6 +161,15 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToMyKidsDetail(final String identity) {
-        context.startActivity(MyKidsDetailActivity.getCallingIntent(context, identity));
+        context.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Show Four Dimensions Dialog
+     * @param appCompatActivity
+     */
+    @Override
+    public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, int value, int total) {
+        FourDimensionsDialog.show(appCompatActivity, dimensionIdx, value, total);
     }
 }

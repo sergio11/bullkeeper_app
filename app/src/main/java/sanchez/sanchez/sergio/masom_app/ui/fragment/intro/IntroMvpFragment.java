@@ -4,31 +4,30 @@ package sanchez.sanchez.sergio.masom_app.ui.fragment.intro;
 import android.support.annotation.NonNull;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpFragment;
 
 
 /**
  * Intro Fragment
  */
-public class IntroFragment extends
-        SupportFragment<IntroFragmentPresenter, IIntroView,
-                IIntroActivityHandler, IntroComponent>
+public class IntroMvpFragment extends
+        SupportMvpFragment<IntroFragmentPresenter, IIntroView,
+                        IIntroActivityHandler, IntroComponent>
 implements IIntroView {
 
     public static String TAG = "INTRO_FRAGMENT";
 
 
-    public IntroFragment() {}
+    public IntroMvpFragment() {}
 
     /**
      * New Instance
      * @return
      */
-    public static IntroFragment newInstance() {
-        IntroFragment fragment = new IntroFragment();
+    public static IntroMvpFragment newInstance() {
+        IntroMvpFragment fragment = new IntroMvpFragment();
         return fragment;
     }
 

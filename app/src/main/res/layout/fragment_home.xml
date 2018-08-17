@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.fragment.home.HomeFragment">
+    tools:context=".ui.fragment.home.HomeMvpFragment">
 
     <!-- App Bar Layout -->
     <android.support.design.widget.AppBarLayout

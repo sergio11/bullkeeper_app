@@ -85,4 +85,11 @@ public interface INavigator {
      */
     void navigateToMyKidsDetail(final String identity);
 
+    /**
+     * Show Four Dimensions Dialog
+     * @param appCompatActivity
+     */
+    void showFourDimensionsDialog(final AppCompatActivity appCompatActivity,
+                                  int dimensionIdx, int value, int total);
+
 }

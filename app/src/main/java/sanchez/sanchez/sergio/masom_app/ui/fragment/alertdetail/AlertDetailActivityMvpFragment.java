@@ -15,19 +15,18 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.AlertsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.IAlertDetailActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpFragment;
 
 import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Alert Detail Activity Fragment
  */
-public class AlertDetailActivityFragment extends SupportFragment<AlertDetailFragmentPresenter,
+public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDetailFragmentPresenter,
         IAlertDetailView, IAlertDetailActivityHandler, AlertsComponent> implements IAlertDetailView {
 
     public static String ALERT_ID_ARG = "ALERT_ID_ARG";
@@ -102,15 +101,15 @@ public class AlertDetailActivityFragment extends SupportFragment<AlertDetailFrag
     @Inject
     protected Context appContext;
 
-    public AlertDetailActivityFragment() { }
+    public AlertDetailActivityMvpFragment() { }
 
     /**
      * New Instance
      * @param alertId
      */
-    public static AlertDetailActivityFragment newInstance(final String alertId) {
-        final AlertDetailActivityFragment alertDetailActivityFragment =
-                new AlertDetailActivityFragment();
+    public static AlertDetailActivityMvpFragment newInstance(final String alertId) {
+        final AlertDetailActivityMvpFragment alertDetailActivityFragment =
+                new AlertDetailActivityMvpFragment();
         final Bundle args = new Bundle();
         args.putString(ALERT_ID_ARG, alertId);
         alertDetailActivityFragment.setArguments(args);

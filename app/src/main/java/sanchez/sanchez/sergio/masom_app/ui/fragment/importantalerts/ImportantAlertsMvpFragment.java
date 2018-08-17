@@ -19,12 +19,12 @@ import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.LastAlertsAdapter;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpFragment;
 
 /**
  * Important Alerts Fragment
  */
-public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFragmentPresenter,
+public class ImportantAlertsMvpFragment extends SupportMvpFragment<ImportantAlertsFragmentPresenter,
         IImportantAlertsFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent>
         implements IImportantAlertsFragmentView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity> {
@@ -55,7 +55,7 @@ public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFrag
     private LastAlertsAdapter lastAlertsAdapter;
 
 
-    public ImportantAlertsFragment() {
+    public ImportantAlertsMvpFragment() {
         // Required empty public constructor
     }
 
@@ -65,8 +65,8 @@ public class ImportantAlertsFragment extends SupportFragment<ImportantAlertsFrag
      * @param kidIdentity
      * @return
      */
-    public static ImportantAlertsFragment newInstance(final String kidIdentity) {
-        ImportantAlertsFragment fragment = new ImportantAlertsFragment();
+    public static ImportantAlertsMvpFragment newInstance(final String kidIdentity) {
+        ImportantAlertsMvpFragment fragment = new ImportantAlertsMvpFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
         fragment.setArguments(args);

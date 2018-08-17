@@ -8,17 +8,16 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpFragment;
 
 /**
  * Intro Fragment
  */
-public class ForgotPasswordFragment extends
-        SupportValidationFragment<ForgotPasswordFragmentPresenter,
-                IForgotPasswordView, IIntroActivityHandler, IntroComponent>
+public class ForgotPasswordMvpFragmentMvp extends
+        SupportMvpValidationMvpFragment<ForgotPasswordFragmentPresenter,
+                                IForgotPasswordView, IIntroActivityHandler, IntroComponent>
 implements IForgotPasswordView {
 
     public static String TAG = "FORGOT_PASSWORD_FRAGMENT";
@@ -38,14 +37,14 @@ implements IForgotPasswordView {
     protected AppCompatEditText emailInput;
 
 
-    public ForgotPasswordFragment() { }
+    public ForgotPasswordMvpFragmentMvp() { }
 
     /**
      * New Instance
      * @return
      */
-    public static ForgotPasswordFragment newInstance() {
-        ForgotPasswordFragment fragment = new ForgotPasswordFragment();
+    public static ForgotPasswordMvpFragmentMvp newInstance() {
+        ForgotPasswordMvpFragmentMvp fragment = new ForgotPasswordMvpFragmentMvp();
         return fragment;
     }
 

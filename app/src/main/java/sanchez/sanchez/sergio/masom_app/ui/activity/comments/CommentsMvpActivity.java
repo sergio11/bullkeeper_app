@@ -22,14 +22,14 @@ import sanchez.sanchez.sergio.masom_app.di.components.DaggerCommentsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.CommentsAdapter;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 
 import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Comments Activity
  */
-public class CommentsActivity extends SupportActivity<CommentsPresenter, ICommentsView>
+public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, ICommentsView>
         implements HasComponent<CommentsComponent>, ICommentsView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<CommentEntity>,CommentsAdapter.OnCommentsViewListener {
 
     public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
@@ -71,7 +71,7 @@ public class CommentsActivity extends SupportActivity<CommentsPresenter, ICommen
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
-        final Intent callingIntent = new Intent(context, CommentsActivity.class);
+        final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
         callingIntent.putExtra(KIDS_IDENTITY_ARG, identity);
         return callingIntent;
     }

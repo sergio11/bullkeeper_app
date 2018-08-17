@@ -22,18 +22,19 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsFragment;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
+import timber.log.Timber;
 
 /**
  * My Kids Detail Activity
  */
-public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter, IMyKidsDetailView>
+public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPresenter, IMyKidsDetailView>
         implements HasComponent<MyKidsComponent>, IMyKidsDetailActivityHandler
-        , IMyKidsDetailView {
+        , IMyKidsDetailView, FourDimensionsMvpFragment.OnFourDimensionsListener {
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
@@ -112,7 +113,7 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
-        final Intent callingIntent = new Intent(context, MyKidsDetailActivity.class);
+        final Intent callingIntent = new Intent(context, MyKidsDetailMvpActivity.class);
         callingIntent.putExtra(KID_IDENTITY_ARG, identity);
         return callingIntent;
     }
@@ -253,6 +254,19 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
     }
 
     /**
+     * On Dimensions Selected
+     * @param dimensionIdx
+     * @param value
+     * @param total
+     */
+    @Override
+    public void onDimensionsSelected(int dimensionIdx, int value, int total) {
+
+        showShortMessage("Dimensions " + dimensionIdx + " -> " + value + "/"+ total);
+
+    }
+
+    /**
      * Sections Page Adapter
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -273,11 +287,11 @@ public class MyKidsDetailActivity extends SupportActivity<MyKidsDetailPresenter,
         public Fragment getItem(int position) {
             switch (position) {
                 case DIMENSIONS_TAB:
-                    return FourDimensionsFragment.newInstance(kidIdentity);
+                    return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
-                    return ImportantAlertsFragment.newInstance(kidIdentity);
+                    return ImportantAlertsMvpFragment.newInstance(kidIdentity);
                 case RELATIONS_TAB:
-                    return KidRelationsFragment.newInstance(kidIdentity);
+                    return KidRelationsMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }

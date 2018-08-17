@@ -13,14 +13,14 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerIntroComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragment;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 
-public class IntroActivity
-        extends SupportActivity<IntroPresenter, IIntroView>
+public class IntroMvpActivity
+        extends SupportMvpActivity<IntroPresenter, IIntroView>
         implements HasComponent<IntroComponent>, IIntroActivityHandler
         , IIntroView{
 
@@ -33,7 +33,7 @@ public class IntroActivity
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, IntroActivity.class);
+        return new Intent(context, IntroMvpActivity.class);
     }
 
 
@@ -74,7 +74,7 @@ public class IntroActivity
         changeStatusBarColor();
 
         if (savedInstanceState == null)
-            addFragment(R.id.fragmentContainer, IntroFragment.newInstance(), false);
+            addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), false);
 
     }
 
@@ -103,7 +103,7 @@ public class IntroActivity
     @Override
     public void goToIntro() {
         replaceFragment(R.id.fragmentContainer,
-                IntroFragment.newInstance(), true, IntroFragment.TAG,
+                IntroMvpFragment.newInstance(), true, IntroMvpFragment.TAG,
                 R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
@@ -112,8 +112,8 @@ public class IntroActivity
      */
     @Override
     public void goToLogin() {
-        replaceFragment(R.id.fragmentContainer, SigninFragment.newInstance(), true,
-                SigninFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+        replaceFragment(R.id.fragmentContainer, SigninMvpFragmentMvp.newInstance(), true,
+                SigninMvpFragmentMvp.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
     /**
@@ -121,8 +121,8 @@ public class IntroActivity
      */
     @Override
     public void goToSignup() {
-        replaceFragment(R.id.fragmentContainer, SignupFragment.newInstance(), true,
-                SignupFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+        replaceFragment(R.id.fragmentContainer, SignupMvpFragmentMvp.newInstance(), true,
+                SignupMvpFragmentMvp.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
     /**
@@ -147,8 +147,8 @@ public class IntroActivity
      */
     @Override
     public void goToForgetPassword() {
-        replaceFragment(R.id.fragmentContainer, ForgotPasswordFragment.newInstance(), true,
-                ForgotPasswordFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+        replaceFragment(R.id.fragmentContainer, ForgotPasswordMvpFragmentMvp.newInstance(), true,
+                ForgotPasswordMvpFragmentMvp.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
 

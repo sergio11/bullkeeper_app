@@ -12,14 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
@@ -45,7 +42,7 @@ import timber.log.Timber;
 /**
  * Support Activity
  */
-public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView>
+public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiView>
         extends TiActivity<T, E>
         implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
         ILocalSystemNotificationVisitor{
@@ -99,7 +96,6 @@ public abstract class SupportActivity<T extends TiPresenter<E>, E extends TiView
                 .build());
 
         Icepick.restoreInstanceState(this, savedInstanceState);
-
 
         if(supportToolbarApp == null && appbarLayout != null ) {
             supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);

@@ -2,18 +2,17 @@ package sanchez.sanchez.sergio.masom_app.ui.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerHomeComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.HomeComponent;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 
 /**
  * Home Activity
  */
-public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
+public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView>
         implements HasComponent<HomeComponent>, IHomeActivityHandler
         , IHomeView {
 
@@ -25,7 +24,7 @@ public class HomeActivity extends SupportActivity<HomePresenter, IHomeView>
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        final Intent intent = new Intent(context, HomeActivity.class);
+        final Intent intent = new Intent(context, HomeMvpActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return intent;

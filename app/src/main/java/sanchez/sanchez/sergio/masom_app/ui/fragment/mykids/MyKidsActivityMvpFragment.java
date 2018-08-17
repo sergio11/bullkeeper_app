@@ -15,21 +15,19 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.IMyKidsActivityHandler;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.MyKidsAdapter;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
-import timber.log.Timber;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpFragment;
 
 import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * My Kids Activity Fragment
  */
-public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresenter,
+public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragmentPresenter,
         IMyKidsView, IMyKidsActivityHandler, MyKidsComponent> implements IMyKidsView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SonEntity>,
         MyKidsAdapter.OnMyKidsListener {
@@ -50,14 +48,14 @@ public class MyKidsActivityFragment extends SupportFragment<MyKidsFragmentPresen
     @BindView(R.id.myKidsList)
     protected RecyclerView myKidsList;
 
-    public MyKidsActivityFragment() {}
+    public MyKidsActivityMvpFragment() {}
 
     /**
      * New Instance
      * @return
      */
-    public static MyKidsActivityFragment newInstance() {
-        MyKidsActivityFragment fragment = new MyKidsActivityFragment();
+    public static MyKidsActivityMvpFragment newInstance() {
+        MyKidsActivityMvpFragment fragment = new MyKidsActivityMvpFragment();
         return fragment;
     }
 

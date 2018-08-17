@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Support Validation Activity
  */
-public abstract class SupportValidationActivity<T extends TiPresenter<E>, E extends TiView> extends SupportActivity<T,E>
+public abstract class SupportMvpValidationMvpActivity<T extends TiPresenter<E>, E extends TiView> extends SupportMvpActivity<T,E>
         implements Validator.ValidationListener{
 
     protected Validator validator;

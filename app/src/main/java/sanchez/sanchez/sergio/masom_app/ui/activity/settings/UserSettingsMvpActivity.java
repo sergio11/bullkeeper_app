@@ -9,13 +9,13 @@ import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerSettingsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.settings.UserSettingsActivityFragment;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
 
 /**
  * User Settings Activity
  */
-public class UserSettingsActivity extends SupportActivity<UserSettingsActivityPresenter, IUserSettingsView>
+public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActivityPresenter, IUserSettingsView>
         implements HasComponent<SettingsComponent>, IUserSettingsActivityHandler
         , IUserSettingsView {
 
@@ -31,7 +31,7 @@ public class UserSettingsActivity extends SupportActivity<UserSettingsActivityPr
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, UserSettingsActivity.class);
+        return new Intent(context, UserSettingsMvpActivity.class);
     }
 
 

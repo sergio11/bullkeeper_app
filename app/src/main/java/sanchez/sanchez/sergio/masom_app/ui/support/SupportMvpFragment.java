@@ -26,7 +26,7 @@ import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 /**
  * Support Fragment
  */
-public abstract class SupportFragment<P extends TiPresenter<V>, V extends TiView,
+public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends TiView,
         H extends IBasicActivityHandler, C extends ActivityComponent> extends TiFragment<P, V> implements  ISupportView {
 
     /**

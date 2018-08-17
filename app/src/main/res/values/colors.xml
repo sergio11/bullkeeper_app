@@ -26,5 +26,21 @@
     <color name="redDanger">#ff2323</color>
     <!-- Yellow Warning -->
     <color name="yellowWarning">#FFCC00</color>
+    <!-- Bullying Color -->
+    <color name="bullying_color">#69c7e0</color>
+    <!-- Bullying Color Dark -->
+    <color name="bullying_color_dark">#2baed1</color>
+    <!-- Drugs Color -->
+    <color name="drugs_color">#7ac5af</color>
+    <!-- Drugs Color Dark-->
+    <color name="drugs_color_dark">#4aa98d</color>
+    <!-- Sex Color -->
+    <color name="sex_color">#ea4899</color>
+    <!-- Sex Color Dark -->
+    <color name="sex_color_dark">#ce1873</color>
+    <!-- Violence Color -->
+    <color name="violence_color">#7b56ab</color>
+    <!-- Violence Color Dark -->
+    <color name="violence_color_dark">#563c79</color>
 
 </resources>

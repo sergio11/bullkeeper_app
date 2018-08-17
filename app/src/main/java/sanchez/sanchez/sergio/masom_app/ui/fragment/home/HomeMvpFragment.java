@@ -33,15 +33,15 @@ import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.LastAlertsAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.masom_app.ui.images.CircleTransform;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpFragment;
 
 import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Home Fragment
  */
-public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
-        IHomeView, IHomeActivityHandler, HomeComponent>  implements IHomeView,
+public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
+        IHomeView, IHomeActivityHandler, HomeComponent> implements IHomeView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
         SupportItemTouchHelper.ItemTouchHelperListener,
         SwipeRefreshLayout.OnRefreshListener {
@@ -120,14 +120,14 @@ public class HomeFragment extends SupportFragment<HomeFragmentPresenter,
     private LastAlertsAdapter lastAlertsAdapter;
 
 
-    public HomeFragment() { }
+    public HomeMvpFragment() { }
 
     /**
      * New Instance
      * @return
      */
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static HomeMvpFragment newInstance() {
+        HomeMvpFragment fragment = new HomeMvpFragment();
         return fragment;
     }
 

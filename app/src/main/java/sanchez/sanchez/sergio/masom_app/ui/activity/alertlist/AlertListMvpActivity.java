@@ -25,13 +25,14 @@ import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
+
 import static sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Alert List Activity
  */
-public class AlertListActivity extends SupportActivity<AlertListPresenter, IAlertListView>
+public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter, IAlertListView>
         implements HasComponent<AlertsComponent>, IAlertListActivityHandler
         , IAlertListView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
         SupportItemTouchHelper.ItemTouchHelperListener ,
@@ -71,7 +72,7 @@ public class AlertListActivity extends SupportActivity<AlertListPresenter, IAler
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, AlertListActivity.class);
+        return new Intent(context, AlertListMvpActivity.class);
     }
 
 

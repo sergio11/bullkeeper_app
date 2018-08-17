@@ -10,17 +10,16 @@ import com.mobsandgeeks.saripaar.annotation.Password;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
-import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpFragment;
 
 /**
  * Intro Fragment
  */
-public class SigninFragment extends
-        SupportValidationFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler,
-                IntroComponent>
+public class SigninMvpFragmentMvp extends
+        SupportMvpValidationMvpFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler,
+                                IntroComponent>
 implements ISigninView, Validator.ValidationListener{
 
     public static String TAG = "SIGNIN_FRAGMENT";
@@ -52,14 +51,14 @@ implements ISigninView, Validator.ValidationListener{
     @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC)
     protected AppCompatEditText passwordInput;
 
-    public SigninFragment() { }
+    public SigninMvpFragmentMvp() { }
 
     /**
      * New Instance
      * @return
      */
-    public static SigninFragment newInstance() {
-        SigninFragment fragment = new SigninFragment();
+    public static SigninMvpFragmentMvp newInstance() {
+        SigninMvpFragmentMvp fragment = new SigninMvpFragmentMvp();
         return fragment;
     }
 

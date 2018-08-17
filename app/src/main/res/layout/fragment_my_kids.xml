@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cyanBrilliant"
-    tools:context=".ui.fragment.mykids.MyKidsActivityFragment">
+    tools:context=".ui.fragment.mykids.MyKidsActivityMvpFragment">
 
     <!-- Include Toolbar -->
     <include

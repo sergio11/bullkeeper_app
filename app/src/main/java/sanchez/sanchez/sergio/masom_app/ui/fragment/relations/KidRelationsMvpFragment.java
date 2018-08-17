@@ -22,12 +22,12 @@ import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.adapter.impl.SocialMediaFriendAdapter;
 import sanchez.sanchez.sergio.masom_app.ui.support.IBasicActivityHandler;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpFragment;
 
 /**
  * Kid Relations Fragment
  */
-public class KidRelationsFragment extends SupportFragment<KidRelationFragmentPresenter,
+public class KidRelationsMvpFragment extends SupportMvpFragment<KidRelationFragmentPresenter,
         IKidRelationsFragmentView, IBasicActivityHandler, MyKidsComponent>
         implements IKidRelationsFragmentView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SocialMediaFriendEntity> {
 
@@ -53,7 +53,7 @@ public class KidRelationsFragment extends SupportFragment<KidRelationFragmentPre
      */
     private SocialMediaFriendAdapter socialMediaFriendAdapter;
 
-    public KidRelationsFragment() {
+    public KidRelationsMvpFragment() {
         // Required empty public constructor
     }
 
@@ -63,8 +63,8 @@ public class KidRelationsFragment extends SupportFragment<KidRelationFragmentPre
      * @param kidIdentity
      * @return
      */
-    public static KidRelationsFragment newInstance(final String kidIdentity) {
-        KidRelationsFragment fragment = new KidRelationsFragment();
+    public static KidRelationsMvpFragment newInstance(final String kidIdentity) {
+        KidRelationsMvpFragment fragment = new KidRelationsMvpFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
         fragment.setArguments(args);

@@ -22,13 +22,13 @@ import sanchez.sanchez.sergio.masom_app.di.components.DaggerUserProfileComponent
 import sanchez.sanchez.sergio.masom_app.di.components.UserProfileComponent;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportValidationActivity;
 
 /**
  * User Profile Activity
  */
-public class UserProfileActivity extends SupportValidationActivity<UserProfilePresenter, IUserProfileView>
+public class UserProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
         implements HasComponent<UserProfileComponent>, IUserProfileView  {
 
 
@@ -118,7 +118,7 @@ public class UserProfileActivity extends SupportValidationActivity<UserProfilePr
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, UserProfileActivity.class);
+        return new Intent(context, UserProfileMvpActivityMvp.class);
     }
 
     /**

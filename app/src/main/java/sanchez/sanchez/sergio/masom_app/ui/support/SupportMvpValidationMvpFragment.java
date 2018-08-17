@@ -15,9 +15,9 @@ import sanchez.sanchez.sergio.masom_app.di.components.ActivityComponent;
 /**
  * Support Fragment
  */
-public abstract class SupportValidationFragment<P extends TiPresenter<V>, V extends TiView,
+public abstract class SupportMvpValidationMvpFragment<P extends TiPresenter<V>, V extends TiView,
         H extends IBasicActivityHandler, C extends ActivityComponent>
-        extends SupportFragment<P, V, H, C>
+        extends SupportMvpFragment<P, V, H, C>
     implements Validator.ValidationListener {
 
     protected Validator validator;

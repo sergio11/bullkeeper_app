@@ -289,6 +289,14 @@
     <string name="kid_detail_birthday" formatted="true">Birthday: %s</string>
     <string name="kid_detail_school" formatted="true">School: %s</string>
 
+    <string name="four_dimension_violence">Violence</string>
+    <string name="four_dimension_drugs">Drugs</string>
+    <string name="four_dimension_adult">Adult</string>
+    <string name="four_dimension_bullying">Bullying</string>
+    <string name="results_since_one_month_ago">Results since 1 month ago</string>
+    <string name="close_dialog">I understood</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

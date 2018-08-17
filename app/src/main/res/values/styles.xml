@@ -122,6 +122,17 @@
         <item name="android:textColor">@color/common_btn_text_color_inverse</item>
         <item name="android:background">@drawable/common_action_button_state_inverse</item>
     </style>
+
+    <style name="DimensionActionButton" parent="@style/AppTheme.Button">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/common_strong_text_size</item>
+    </style>
+
     
     <style name="CommonTitle">
         <item name="android:textColor">@color/commonWhite</item>

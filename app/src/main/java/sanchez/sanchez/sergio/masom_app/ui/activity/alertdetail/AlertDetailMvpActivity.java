@@ -9,13 +9,13 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.AlertsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerAlertsComponent;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.alertdetail.AlertDetailActivityFragment;
-import sanchez.sanchez.sergio.masom_app.ui.support.SupportActivity;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.alertdetail.AlertDetailActivityMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 
 /**
  * Alert Detail
  */
-public class AlertDetailActivity extends SupportActivity<AlertDetailPresenter, IAlertDetailView>
+public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresenter, IAlertDetailView>
         implements HasComponent<AlertsComponent>, IAlertDetailActivityHandler
         , IAlertDetailView  {
 
@@ -29,7 +29,7 @@ public class AlertDetailActivity extends SupportActivity<AlertDetailPresenter, I
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
-        final Intent intent = new Intent(context, AlertDetailActivity.class);
+        final Intent intent = new Intent(context, AlertDetailMvpActivity.class);
         intent.putExtra(ALERT_ID_ARG, identity);
         return intent;
     }
@@ -63,7 +63,7 @@ public class AlertDetailActivity extends SupportActivity<AlertDetailPresenter, I
 
             final String alertId = getIntent().getStringExtra(ALERT_ID_ARG);
             addFragment(R.id.mainContainer,
-                    AlertDetailActivityFragment.newInstance(alertId), false);
+                    AlertDetailActivityMvpFragment.newInstance(alertId), false);
         }
     }
 
