@@ -61,12 +61,6 @@
     <dimen name="common_collapsing_toolbar_height">370dp</dimen>
     <!-- Home Collapsing Toolbar Height -->
     <dimen name="home_collapsing_toolbar_height">300dp</dimen>
-    <!-- Common Switch Width -->
-    <dimen name="common_switch_width">90dp</dimen>
-    <!-- Common Switch Height -->
-    <dimen name="common_switch_height">90dp</dimen>
-    <!-- Common Switch Text Size -->
-    <dimen name="common_switch_text_size">10dp</dimen>
     <!-- Common Preference Margin -->
     <dimen name="common_preference_margin">5dp</dimen>
     <!-- Common Image Big Width -->

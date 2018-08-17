@@ -279,16 +279,6 @@
         <item name="android:background">@android:color/white</item>
     </style>
 
-    <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">@color/darkModerateBlue</item>
-        <item name="colorSwitchThumbNormal">@color/cyanBrilliant</item>
-    </style>
-
-    <style name="BrandedSwitch.text" parent="Theme.AppCompat.Light">
-        <item name="android:textColor">@color/commonWhite</item>
-        <item name="android:textSize">@dimen/common_switch_text_size</item>
-    </style>
 
     <style name="CommonSwitch">
         <item name="colorControlActivated">@color/darkModerateBlue</item>
@@ -297,7 +287,6 @@
 
     <style name="CommonSwitch.Text">
         <item name="android:textColor">@color/commonWhite</item>
-        <item name="android:textSize">@dimen/common_switch_text_size</item>
     </style>
 
 
