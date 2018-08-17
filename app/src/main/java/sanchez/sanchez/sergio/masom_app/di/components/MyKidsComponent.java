@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsActivityPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailPresenter;
-import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivityMvp;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfilePresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsFragmentPresenter;
@@ -38,7 +38,7 @@ public interface MyKidsComponent extends ActivityComponent {
      * My Kids Profile Activity
      * @param myKidsProfileActivity
      */
-    void inject(final MyKidsProfileMvpActivityMvp myKidsProfileActivity);
+    void inject(final MyKidsProfileMvpActivity myKidsProfileActivity);
 
     /**
      * Inject on My Kids Detail Activity

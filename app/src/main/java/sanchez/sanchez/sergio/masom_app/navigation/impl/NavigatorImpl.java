@@ -13,7 +13,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailMvpActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivityMvp;
+import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivityMvp;
@@ -134,7 +134,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToMyKidsProfile(final String identity) {
-        context.startActivity(MyKidsProfileMvpActivityMvp.getCallingIntent(context, identity));
+        context.startActivity(MyKidsProfileMvpActivity.getCallingIntent(context, identity));
     }
 
     /**

@@ -31,7 +31,7 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpActivi
 /**
  * My Kids Profile Activity
  */
-public class MyKidsProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
+public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
         implements HasComponent<MyKidsComponent>, IMyKidsProfileView, DatePickerDialog.OnDateSetListener {
 
     protected MyKidsComponent myKidsComponent;
@@ -129,7 +129,7 @@ public class MyKidsProfileMvpActivityMvp extends SupportMvpValidationMvpActivity
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
-        final Intent callingIntent = new Intent(context, MyKidsProfileMvpActivityMvp.class);
+        final Intent callingIntent = new Intent(context, MyKidsProfileMvpActivity.class);
         callingIntent.putExtra(KIDS_IDENTITY_ARG, identity);
         return callingIntent;
     }

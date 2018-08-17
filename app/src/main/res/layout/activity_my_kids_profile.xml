@@ -7,7 +7,7 @@
     android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ui.activity.mykidsprofile.MyKidsProfileMvpActivityMvp">
+    tools:context=".ui.activity.mykidsprofile.MyKidsProfileMvpActivity">
 
     <!-- Include Toolbar -->
     <include
@@ -74,170 +74,173 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileSectionTitle">
 
-        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:stretchColumns="*">
+            android:orientation="vertical">
 
 
-            <TableRow
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-                <!-- Profile Image -->
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="@dimen/common_image_big_width"
-                    android:layout_height="@dimen/common_image_big_height"
-                    android:src="@drawable/user_default"
-                    app:civ_border_color="@color/commonWhite"
-                    app:civ_border_width="@dimen/common_image_stroke_width" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- name input -->
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/nameInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:textColorHint="@color/commonWhite"
-                        android:theme="@style/CommonTextInputLayout"
-                        app:counterEnabled="true"
-                        app:errorEnabled="true"
-                        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
-
-                        <android.support.v7.widget.AppCompatEditText
-                            android:id="@+id/nameInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/name_hint"
-                            android:inputType="text"
-                            android:lines="1" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <!-- surname input -->
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/surnameInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:textColorHint="@color/commonWhite"
-                        android:theme="@style/CommonTextInputLayout"
-                        app:counterEnabled="true"
-                        app:errorEnabled="true"
-                        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
-
-                        <android.support.v7.widget.AppCompatEditText
-                            android:id="@+id/surnameInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/surname_hint"
-                            android:inputType="text"
-                            android:lines="1" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <!-- birthday -->
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/birthdayInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:textColorHint="@color/commonWhite"
-                        android:theme="@style/CommonTextInputLayout"
-                        app:counterEnabled="true"
-                        app:errorEnabled="true"
-                        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
-
-                        <android.support.v7.widget.AppCompatEditText
-                            android:id="@+id/birthdayInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:editable="false"
-                            android:hint="@string/birthday_hint"
-                            android:lines="1" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                </LinearLayout>
-
-
-            </TableRow>
-
-            <!-- Instagram Social Media -->
-            <TableRow
-                android:layout_width="0dp"
+            <TableLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:stretchColumns="1">
 
-                <!-- Instagram -->
-                <LinearLayout
+
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <!-- Profile Image -->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:src="@drawable/user_default"
+                        app:civ_border_color="@color/commonWhite"
+                        app:civ_border_width="@dimen/common_image_stroke_width" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- name input -->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/nameInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:textColorHint="@color/commonWhite"
+                            android:theme="@style/CommonTextInputLayout"
+                            app:counterEnabled="true"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/nameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/name_hint"
+                                android:inputType="text"
+                                android:lines="1" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- surname input -->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/surnameInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/commonWhite"
+                            android:theme="@style/CommonTextInputLayout"
+                            app:counterEnabled="true"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/surnameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/surname_hint"
+                                android:inputType="text"
+                                android:lines="1" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- birthday -->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/birthdayInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/commonWhite"
+                            android:theme="@style/CommonTextInputLayout"
+                            app:counterEnabled="true"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/birthdayInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:editable="false"
+                                android:hint="@string/birthday_hint"
+                                android:lines="1" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                    </LinearLayout>
+
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:stretchColumns="1">
+
+
+                <!-- Instagram Social Media -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
                     android:gravity="center">
 
                     <ImageView
                         android:layout_width="55dp"
                         android:layout_height="55dp"
-                        android:src="@drawable/instagram_brands"
-                        android:contentDescription="@string/content_not_be_loaded"/>
+                        android:contentDescription="@string/content_not_be_loaded"
+                        android:src="@drawable/instagram_brands" />
 
                     <TextView
-                        android:layout_width="50dp"
+                        style="@style/CommonStrongText.Medium"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
-                        android:textColor="@color/commonWhite"
-                        android:textStyle="bold"
+                        android:padding="@dimen/common_padding"
                         android:singleLine="true"
-                        android:text="El medio social no está habilitado"/>
+                        android:text="El medio social no está habilitado"
+                        android:textColor="@color/commonWhite"
+                        android:textStyle="bold" />
 
 
-                </LinearLayout>
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/instagramSwitchWidget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:scaleX="2"
+                        android:scaleY="2"
 
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/instagramSwitchWidget"
-                    android:layout_width="wrap_content"
+                        app:theme="@style/CommonSwitch"/>
+
+                </TableRow>
+
+                <!-- Facebook Social Media -->
+                <TableRow
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:scaleX="2"
-                    android:scaleY="2"
-                    app:theme="@style/CommonSwitch"/>
-
-            </TableRow>
-
-            <!-- Facebook Social Media -->
-            <TableRow
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <!-- Facebook -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:gravity="center">
 
+                    <!-- Facebook -->
                     <ImageView
                         android:layout_width="55dp"
                         android:layout_height="55dp"
@@ -246,42 +249,34 @@
 
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
+                        style="@style/CommonStrongText.Medium"
                         android:textColor="@color/commonWhite"
                         android:textStyle="bold"
                         android:singleLine="true"
                         android:text="El medio social no está habilitado"/>
 
-                </LinearLayout>
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/facebookSwitchWidget"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        app:theme="@style/CommonSwitch"/>
 
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/facebookSwitchWidget"
-                    android:layout_width="wrap_content"
+                </TableRow>
+
+
+                <!-- Youtube Social Mediate -->
+                <TableRow
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:scaleX="2"
-                    android:scaleY="2"
-                    app:theme="@style/CommonSwitch"/>
-
-            </TableRow>
-
-
-            <!-- Youtube Social Mediate -->
-            <TableRow
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <!-- Youtube -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:gravity="center">
 
+                    <!-- Youtube -->
                     <ImageView
                         android:layout_width="55dp"
                         android:layout_height="55dp"
@@ -289,29 +284,29 @@
                         android:contentDescription="@string/content_not_be_loaded"/>
 
                     <TextView
-                        android:layout_width="50dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
+                        style="@style/CommonStrongText.Medium"
                         android:textColor="@color/commonWhite"
                         android:textStyle="bold"
                         android:singleLine="true"
                         android:text="El medio social no está habilitado"/>
 
-                </LinearLayout>
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/youtubeSwitchWidget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        app:theme="@style/CommonSwitch" />
 
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/youtubeSwitchWidget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:scaleX="2"
-                    android:scaleY="2"
-                    app:theme="@style/CommonSwitch" />
+                </TableRow>
 
-            </TableRow>
+            </TableLayout>
 
-        </TableLayout>
 
+        </LinearLayout>
 
     </ScrollView>
 
