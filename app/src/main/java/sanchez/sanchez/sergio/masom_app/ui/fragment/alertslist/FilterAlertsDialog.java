@@ -47,7 +47,7 @@ public final class FilterAlertsDialog extends SupportDialogFragment {
             alertListActivityHandler = (IAlertListActivityHandler) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
-                    + " must implement EditNameDialogListener");
+                    + " must implement IAlertListActivityHandler");
         }
     }
 

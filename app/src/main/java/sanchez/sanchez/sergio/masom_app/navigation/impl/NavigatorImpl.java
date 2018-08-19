@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileM
 import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivityMvp;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
@@ -171,5 +172,16 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, int value, int total) {
         FourDimensionsDialog.show(appCompatActivity, dimensionIdx, value, total);
+    }
+
+    /**
+     * Show Photo Viewer Dialog
+     * @param appCompatActivity
+     * @param photoUrl
+     */
+    @Override
+    public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+                                      final String photoUrl) {
+        PhotoViewerDialog.show(appCompatActivity, photoUrl);
     }
 }

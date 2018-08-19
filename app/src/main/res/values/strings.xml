@@ -296,6 +296,12 @@
     <string name="results_since_one_month_ago">Results since 1 month ago</string>
     <string name="close_dialog">I understood</string>
 
+    <string name="pick_image_intent_text">Choose an image</string>
+    <string name="change_profile_picture_of_kid"
+        formatted="true">Change profile picture of %s</string>
+
+    <string name="show_detail_btn">Show Detail</string>
+    <string name="change_photo_btn">Change Photo</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -3,6 +3,8 @@ package sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -15,24 +17,32 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpActivity;
+import sanchez.sanchez.sergio.masom_app.utils.imagepicker.ImagePicker;
+import timber.log.Timber;
 
 /**
  * My Kids Profile Activity
  */
 public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
-        implements HasComponent<MyKidsComponent>, IMyKidsProfileView, DatePickerDialog.OnDateSetListener {
+        implements HasComponent<MyKidsComponent>,
+        IMyKidsProfileView, DatePickerDialog.OnDateSetListener,
+        PhotoViewerDialog.IPhotoViewerListener {
 
     protected MyKidsComponent myKidsComponent;
 
@@ -42,6 +52,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * My Kid Identity
      */
     private String myKidIdentity;
+
+    private String currentImagePath = "https://avatars3.githubusercontent.com/u/831538?s=460&v=4";
 
     /**
      * My Kids Profile Title
@@ -177,6 +189,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
         }
 
+        // width and height will be at least 300px long (optional).
+        ImagePicker.setMinQuality(300, 300);
+
 
         myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), "Sergio Sánchez"));
 
@@ -212,13 +227,35 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             }
         });
 
-        Picasso.with(getApplicationContext()).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
+        Picasso.with(getApplicationContext()).load(currentImagePath)
                 .placeholder(R.drawable.user_default)
                 .error(R.drawable.user_default)
                 .noFade()
                 .into(profileImageView);
 
 
+    }
+
+    /**
+     * On Activity Result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String imagePathFromResult = ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
+        if(imagePathFromResult != null) {
+            final File imageFileDescriptor = new File(imagePathFromResult);
+            // We Check that file exists and can be read
+            if(imageFileDescriptor.exists() && imageFileDescriptor.canRead()) {
+                final Uri imageUri =  Uri.fromFile(imageFileDescriptor);
+                currentImagePath = imageUri.getEncodedPath();
+                Timber.d("Image Path -> %s", currentImagePath);
+                profileImageView.setImageURI(imageUri);
+            }
+        }
     }
 
     /**
@@ -257,6 +294,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
     }
 
+    /**
+     * On Reset Errors
+     */
     @Override
     protected void onResetErrors() {
 
@@ -265,6 +305,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         birthdayInputLayout.setError("");
     }
 
+    /**
+     * On Reset Fields
+     */
     @Override
     protected void onResetFields() {
         super.onResetFields();
@@ -291,6 +334,27 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
         validate();
+    }
+
+
+    /**
+     * On Click Profile Image
+     */
+    @OnClick(R.id.profileImage)
+    protected void onClickProfileImage() {
+        navigatorImpl.showPhotoViewerDialog(this,
+                currentImagePath);
+    }
+
+
+    /**
+     * On Long Profile Image Clicked
+     */
+    @OnLongClick(R.id.profileImage)
+    protected boolean onLongProfileImageClicked(){
+        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                getString(R.string.change_profile_picture_of_kid), "Sergio Sánchez"));
+        return true;
     }
 
 
@@ -323,5 +387,22 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String name = nameInput.getText().toString();
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getText().toString();
+    }
+
+    /**
+     * On Show Profile
+     */
+    @Override
+    public void onShowDetail() {
+        navigatorImpl.navigateToMyKidsDetail("");
+    }
+
+    /**
+     * On Change Photo
+     */
+    @Override
+    public void onChangePhoto() {
+        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                getString(R.string.change_profile_picture_of_kid), "Sergio Sánchez"));
     }
 }

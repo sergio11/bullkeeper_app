@@ -92,4 +92,12 @@ public interface INavigator {
     void showFourDimensionsDialog(final AppCompatActivity appCompatActivity,
                                   int dimensionIdx, int value, int total);
 
+    /**
+     * Show Photo Viewer Dialog
+     * @param appCompatActivity
+     * @param photoUrl
+     */
+    void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+                               final String photoUrl);
+
 }
