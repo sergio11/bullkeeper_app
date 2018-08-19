@@ -3,7 +3,6 @@ package sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -353,7 +352,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
         ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture_of_kid), "Sergio Sánchez"));
+                getString(R.string.change_profile_picture), "Sergio Sánchez"));
         return true;
     }
 
@@ -403,6 +402,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     public void onChangePhoto() {
         ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture_of_kid), "Sergio Sánchez"));
+                getString(R.string.change_profile_picture), "Sergio Sánchez"));
     }
 }

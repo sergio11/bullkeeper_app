@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.masom_app.ui.activity.userprofile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -13,8 +14,13 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
@@ -22,14 +28,18 @@ import sanchez.sanchez.sergio.masom_app.di.components.DaggerUserProfileComponent
 import sanchez.sanchez.sergio.masom_app.di.components.UserProfileComponent;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.masom_app.utils.imagepicker.ImagePicker;
+import timber.log.Timber;
 
 /**
  * User Profile Activity
  */
-public class UserProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
-        implements HasComponent<UserProfileComponent>, IUserProfileView  {
+public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
+        implements HasComponent<UserProfileComponent>, IUserProfileView,
+        PhotoViewerDialog.IPhotoViewerListener{
 
 
     /**
@@ -37,6 +47,8 @@ public class UserProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<U
      */
     private UserProfileComponent userProfileComponent;
 
+
+    private String currentImagePath = "https://avatars3.githubusercontent.com/u/831538?s=460&v=4";
 
     /**
      * Profile Image View
@@ -118,7 +130,7 @@ public class UserProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<U
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, UserProfileMvpActivityMvp.class);
+        return new Intent(context, UserProfileMvpActivity.class);
     }
 
     /**
@@ -179,11 +191,15 @@ public class UserProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<U
     @Override
     protected void onViewReady(final Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
+
         Picasso.with(getApplicationContext()).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
                 .placeholder(R.drawable.user_default)
                 .error(R.drawable.user_default)
                 .noFade()
                 .into(profileImageView);
+
+        // width and height will be at least 300px long (optional).
+        ImagePicker.setMinQuality(300, 300);
     }
 
     /**
@@ -295,4 +311,62 @@ public class UserProfileMvpActivityMvp extends SupportMvpValidationMvpActivity<U
 
     }
 
+    /**
+     * On Click Profile Image
+     */
+    @OnClick(R.id.profileImage)
+    protected void onClickProfileImage() {
+        navigatorImpl.showPhotoViewerDialog(this,
+                currentImagePath);
+    }
+
+
+    /**
+     * On Long Profile Image Clicked
+     */
+    @OnLongClick(R.id.profileImage)
+    protected boolean onLongProfileImageClicked(){
+        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                getString(R.string.change_profile_picture), "Sergio Sánchez"));
+        return true;
+    }
+
+    /**
+     * On Show Detail
+     */
+    @Override
+    public void onShowDetail() {
+        navigatorImpl.navigateToHome();
+    }
+
+    /**
+     * On Change Photo
+     */
+    @Override
+    public void onChangePhoto() {
+        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                getString(R.string.change_profile_picture), "Sergio Sánchez"));
+    }
+
+    /**
+     * On Activity Result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String imagePathFromResult = ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
+        if(imagePathFromResult != null) {
+            final File imageFileDescriptor = new File(imagePathFromResult);
+            // We Check that file exists and can be read
+            if(imageFileDescriptor.exists() && imageFileDescriptor.canRead()) {
+                final Uri imageUri =  Uri.fromFile(imageFileDescriptor);
+                currentImagePath = imageUri.getEncodedPath();
+                Timber.d("Image Path -> %s", currentImagePath);
+                profileImageView.setImageURI(imageUri);
+            }
+        }
+    }
 }

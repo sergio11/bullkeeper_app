@@ -97,7 +97,7 @@
 
         <!-- User Profile -->
         <activity
-            android:name=".ui.activity.userprofile.UserProfileMvpActivityMvp"
+            android:name=".ui.activity.userprofile.UserProfileMvpActivity"
             android:label="@string/title_activity_user_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.UserProfile" />

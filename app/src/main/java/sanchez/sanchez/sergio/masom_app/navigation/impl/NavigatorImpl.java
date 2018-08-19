@@ -16,7 +16,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailMvp
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivityMvp;
+import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsDialog;
@@ -127,7 +127,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToUserProfile() {
-        context.startActivity(UserProfileMvpActivityMvp.getCallingIntent(context));
+        context.startActivity(UserProfileMvpActivity.getCallingIntent(context));
     }
 
     /**

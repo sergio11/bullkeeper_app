@@ -297,7 +297,7 @@
     <string name="close_dialog">I understood</string>
 
     <string name="pick_image_intent_text">Choose an image</string>
-    <string name="change_profile_picture_of_kid"
+    <string name="change_profile_picture"
         formatted="true">Change profile picture of %s</string>
 
     <string name="show_detail_btn">Show Detail</string>

@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.masom_app.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.masom_app.di.scopes.PerActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivityMvp;
+import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfilePresenter;
 
 /**
@@ -17,7 +17,7 @@ public interface UserProfileComponent extends ActivityComponent {
      * Inject into User Profile Activity
      * @param userProfileActivity
      */
-    void inject(final UserProfileMvpActivityMvp userProfileActivity);
+    void inject(final UserProfileMvpActivity userProfileActivity);
 
 
     UserProfilePresenter userProfilePresenter();
