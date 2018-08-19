@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/commonWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/common_margin"
+            android:gravity="center">
+
+            <!-- Social Media Image -->
+            <ImageView
+                android:id="@+id/socialMediaImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/facebook_square_brands_color"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Facebook Brand Title -->
+            <TextView
+                android:id="@+id/socialMediaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText"
+                android:text="@string/facebook_brand_title"
+                android:textStyle="bold"
+                android:textColor="@color/facebook_color"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:background="@color/facebook_color"/>
+
+        <!-- Content Detail Text -->
+        <TextView
+            android:id="@+id/contentDetailText"
+            android:layout_width="match_parent"
+            android:padding="@dimen/common_padding"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Medium"
+            android:text="@string/intro_text"/>
+
+        <!-- Close Dialog -->
+
+        <Button
+            android:id="@+id/closeDialog"
+            style="@style/DimensionActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/commonWhite"
+            android:background="@drawable/social_media_facebook_button_state"
+            android:padding="@dimen/common_padding"
+            android:text="@string/close_dialog" />
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

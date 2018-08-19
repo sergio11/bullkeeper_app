@@ -200,6 +200,7 @@
 
                 <!-- Instagram Social Media -->
                 <TableRow
+                    android:id="@+id/instagramRow"
                     android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:gravity="center">
@@ -235,6 +236,7 @@
 
                 <!-- Facebook Social Media -->
                 <TableRow
+                    android:id="@+id/facebookRow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -269,8 +271,9 @@
                 </TableRow>
 
 
-                <!-- Youtube Social Mediate -->
+                <!-- Youtube Social Media -->
                 <TableRow
+                    android:id="@+id/youtubeRow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

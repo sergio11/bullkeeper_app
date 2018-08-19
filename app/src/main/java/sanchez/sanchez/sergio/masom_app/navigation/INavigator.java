@@ -2,6 +2,9 @@ package sanchez.sanchez.sergio.masom_app.navigation;
 
 import android.support.v7.app.AppCompatActivity;
 
+import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
+
 /**
  * Navigator
  */
@@ -99,5 +102,15 @@ public interface INavigator {
      */
     void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
                                final String photoUrl);
+
+    /**
+     * Show Social Media Status Dialog
+     * @param appCompatActivity
+     * @param socialMediaTypeEnum
+     * @param socialMediaStatusEnum
+     */
+    void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity,
+                                     final SocialMediaTypeEnum socialMediaTypeEnum,
+                                     final SocialMediaStatusEnum socialMediaStatusEnum);
 
 }

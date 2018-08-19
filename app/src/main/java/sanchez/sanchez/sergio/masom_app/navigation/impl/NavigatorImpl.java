@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListMvpActivity;
@@ -18,6 +21,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.settings.UserSettingsMvpActi
 import sanchez.sanchez.sergio.masom_app.ui.activity.tutorial.AppTutorialActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.PhotoViewerDialog;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.SocialMediaStatusDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
@@ -183,5 +187,16 @@ public class NavigatorImpl implements INavigator {
     public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
                                       final String photoUrl) {
         PhotoViewerDialog.show(appCompatActivity, photoUrl);
+    }
+
+    /**
+     * Show Social Media Status Dialog
+     * @param appCompatActivity
+     * @param socialMediaTypeEnum
+     * @param socialMediaStatusEnum
+     */
+    @Override
+    public void showSocialMediaStatusDialog(AppCompatActivity appCompatActivity, SocialMediaTypeEnum socialMediaTypeEnum, SocialMediaStatusEnum socialMediaStatusEnum) {
+        SocialMediaStatusDialog.show(appCompatActivity, socialMediaTypeEnum, socialMediaStatusEnum);
     }
 }

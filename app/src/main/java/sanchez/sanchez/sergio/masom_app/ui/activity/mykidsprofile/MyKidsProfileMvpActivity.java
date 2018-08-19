@@ -25,6 +25,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
@@ -404,4 +406,34 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         ImagePicker.pickImage(this, String.format(Locale.getDefault(),
                 getString(R.string.change_profile_picture), "Sergio Sánchez"));
     }
+
+    /**
+     * On Instagram Row Clicked
+     */
+    @OnClick(R.id.instagramRow)
+    protected void onInstagramRowClicked(){
+        navigatorImpl.showSocialMediaStatusDialog(this, SocialMediaTypeEnum.INSTAGRAM,
+                SocialMediaStatusEnum.DISABLED);
+    }
+
+    /**
+     * On Facebook Row Clicked
+     */
+    @OnClick(R.id.facebookRow)
+    protected void onFacebookRowClicked(){
+        navigatorImpl.showSocialMediaStatusDialog(this, SocialMediaTypeEnum.FACEBOOK,
+                SocialMediaStatusEnum.DISABLED);
+    }
+
+
+    /**
+     * On Youtube Row Clicked
+     */
+    @OnClick(R.id.youtubeRow)
+    protected void onYoutubeRowClicked(){
+        navigatorImpl.showSocialMediaStatusDialog(this,
+                SocialMediaTypeEnum.YOUTUBE,
+                SocialMediaStatusEnum.DISABLED);
+    }
+
 }

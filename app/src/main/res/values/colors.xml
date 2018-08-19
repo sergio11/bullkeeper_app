@@ -42,5 +42,17 @@
     <color name="violence_color">#7b56ab</color>
     <!-- Violence Color Dark -->
     <color name="violence_color_dark">#563c79</color>
+    <!-- Facebook Color -->
+    <color name="facebook_color">#3a5998</color>
+    <!-- Facebook Color Dark -->
+    <color name="facebook_color_dark">#22355b</color>
+    <!-- Instagram Color -->
+    <color name="instagram_color">#c13584</color>
+    <!-- Instagram Color Dark -->
+    <color name="instagram_color_dark">#87255c</color>
+    <!-- Youtube Color -->
+    <color name="youtube_color">#fd1d1d</color>
+    <!-- Youtube Color Dark -->
+    <color name="youtube_color_dark">#b11414</color>
 
 </resources>

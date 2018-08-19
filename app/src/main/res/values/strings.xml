@@ -303,6 +303,11 @@
     <string name="show_detail_btn">Show Detail</string>
     <string name="change_photo_btn">Change Photo</string>
 
+    <string name="instagram_brand_title">Instagram</string>
+    <string name="facebook_brand_title">Facebook</string>
+    <string name="youtube_brand_title">Youtube</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
