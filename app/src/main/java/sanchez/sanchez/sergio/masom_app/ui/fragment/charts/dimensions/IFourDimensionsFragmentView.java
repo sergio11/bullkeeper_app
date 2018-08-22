@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions;
+package sanchez.sanchez.sergio.masom_app.ui.fragment.charts.dimensions;
 
 
 import com.github.mikephil.charting.data.BarEntry;

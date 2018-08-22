@@ -55,4 +55,6 @@
     <!-- Youtube Color Dark -->
     <color name="youtube_color_dark">#b11414</color>
 
+    <color name="silver_color">#C0C0C0</color>
+
 </resources>

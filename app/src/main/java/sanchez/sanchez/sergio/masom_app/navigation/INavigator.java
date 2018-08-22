@@ -113,4 +113,10 @@ public interface INavigator {
                                      final SocialMediaTypeEnum socialMediaTypeEnum,
                                      final SocialMediaStatusEnum socialMediaStatusEnum);
 
+    /**
+     * Navigate To Kids Results Activity
+     * @param identity
+     */
+    void navigateToKidsResultsActivity(final String identity);
+
 }

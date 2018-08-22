@@ -43,6 +43,7 @@ ext {
     stethoVersion = '1.5.0'
     circleimageviewVersion = '2.2.0'
     mpAndroidChartVerion = 'v3.0.3'
+    viewPagerTransforms = '1.2.32'
 
 
     thirtyInchVersion = '0.8.5'
@@ -91,7 +92,8 @@ ext {
             picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
             stetho:             "com.facebook.stetho:stetho:${stethoVersion}",
             circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}",
-            MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}"
+            MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
+            viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar"
     ]
 
     presentationTestDependencies = [

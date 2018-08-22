@@ -157,7 +157,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @Override
     public void onResultsActionClicked(final SonEntity sonEntity) {
-        showLongMessage("On Results Action");
+        activityHandler.navigateToKidsResults(sonEntity.getIdentity());
     }
 
     /**

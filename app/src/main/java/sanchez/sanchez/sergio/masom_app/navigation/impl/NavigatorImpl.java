@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.commentdetail.CommentDetailM
 import sanchez.sanchez.sergio.masom_app.ui.activity.comments.CommentsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.home.HomeMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroMvpActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.kidsresults.KidsResultsActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykids.MyKidsMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
@@ -23,7 +24,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.userprofile.UserProfileMvpAc
 import sanchez.sanchez.sergio.masom_app.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.masom_app.ui.dialog.SocialMediaStatusDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsDialog;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.menu.MenuDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.question.QuestionAppDialog;
 
@@ -198,5 +199,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showSocialMediaStatusDialog(AppCompatActivity appCompatActivity, SocialMediaTypeEnum socialMediaTypeEnum, SocialMediaStatusEnum socialMediaStatusEnum) {
         SocialMediaStatusDialog.show(appCompatActivity, socialMediaTypeEnum, socialMediaStatusEnum);
+    }
+
+    /**
+     * Navigate To Kids Results Activity
+     * @param identity
+     */
+    @Override
+    public void navigateToKidsResultsActivity(String identity) {
+        context.startActivity(KidsResultsActivity.getCallingIntent(context, identity));
     }
 }

@@ -22,12 +22,11 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.MyKidsComponent;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
-import timber.log.Timber;
 
 /**
  * My Kids Detail Activity
@@ -314,11 +313,11 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case DIMENSIONS_TAB:
-                    return getString(R.string.kid_detail_dimensions_tab);
+                    return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
-                    return getString(R.string.kid_detail_alerts_tab);
+                    return getString(R.string.alerts_tab);
                 case RELATIONS_TAB:
-                    return getString(R.string.kid_detail_relations_tab);
+                    return getString(R.string.relations_tab);
             }
             return null;
         }

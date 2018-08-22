@@ -9,8 +9,6 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailMvp
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsdetail.MyKidsDetailPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.mykidsprofile.MyKidsProfilePresenter;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsMvpFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions.FourDimensionsFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.mykids.MyKidsActivityMvpFragment;
@@ -20,7 +18,7 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsMvpFra
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = { ActivityModule.class })
-public interface MyKidsComponent extends ActivityComponent {
+public interface MyKidsComponent extends StatsComponent {
 
     /**
      * My Kids Activity
@@ -46,11 +44,6 @@ public interface MyKidsComponent extends ActivityComponent {
      */
     void inject(final MyKidsDetailMvpActivity myKidsDetailActivity);
 
-    /**
-     * Inject on Four Dimensions
-     * @param fourDimensionsFragment
-     */
-    void inject(final FourDimensionsMvpFragment fourDimensionsFragment);
 
     /**
      * Inject on Important Alerts Fragment
@@ -69,7 +62,6 @@ public interface MyKidsComponent extends ActivityComponent {
     MyKidsFragmentPresenter myKidsFragmentPresenter();
     MyKidsProfilePresenter myKidsProfilePresenter();
     MyKidsDetailPresenter myKidsDetailPresenter();
-    FourDimensionsFragmentPresenter fourDimensionsFragmentPresenter();
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
     KidRelationFragmentPresenter kidRelationFragmentPresenter();
 }

@@ -14,7 +14,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -25,7 +24,6 @@
                 android:resource="@xml/file_paths"
                 tools:replace="android:resource" />
         </provider>
-
 
         <!-- Intro Activity -->
         <activity
@@ -127,6 +125,12 @@
         <activity
             android:name=".ui.activity.mykidsdetail.MyKidsDetailMvpActivity"
             android:label="@string/title_activity_my_kids_detail_activty"
+            android:screenOrientation="portrait" />
+
+        <!-- Kids Results Activity -->
+        <activity
+            android:name=".ui.activity.kidsresults.KidsResultsActivity"
+            android:label="@string/title_activity_kids_results"
             android:screenOrientation="portrait"/>
     </application>
 

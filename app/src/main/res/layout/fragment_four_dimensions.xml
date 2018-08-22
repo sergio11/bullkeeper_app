@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.fragment.dimensions.FourDimensionsMvpFragment">
+    tools:context=".ui.fragment.charts.dimensions.FourDimensionsMvpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
 
                 <!-- Four Dimensions Chart -->
                 <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/fourDimensionChart"
+                    android:id="@+id/barChart"
                     android:layout_margin="@dimen/common_margin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

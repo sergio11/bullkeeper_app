@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.masom_app.ui.fragment.dimensions;
+package sanchez.sanchez.sergio.masom_app.ui.fragment.charts.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
