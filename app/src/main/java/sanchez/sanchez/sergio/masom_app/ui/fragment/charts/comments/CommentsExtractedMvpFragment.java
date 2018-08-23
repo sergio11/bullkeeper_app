@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.masom_app.ui.fragment.charts.likes;
+package sanchez.sanchez.sergio.masom_app.ui.fragment.charts.comments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,16 +16,14 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.SupportBarChartMvpFra
 import sanchez.sanchez.sergio.masom_app.ui.support.IBasicActivityHandler;
 
 /**
- * Likes Chart Mvp Fragment
+ * Comments Extracted MVP Fragment
  */
-public class LikesChartMvpFragment
-        extends SupportBarChartMvpFragment<LikesChartFragmentPresenter,
-                ILikesChartFragmentView, IBasicActivityHandler, StatsComponent>
-        implements ILikesChartFragmentView {
+public class CommentsExtractedMvpFragment
+        extends SupportBarChartMvpFragment<CommentsExtractedFragmentPresenter,
+        ICommentsExtractedFragmentView, IBasicActivityHandler, StatsComponent>
+        implements ICommentsExtractedFragmentView {
 
-    /**
-     * Kid Identity Arg
-     */
+
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
@@ -34,7 +32,7 @@ public class LikesChartMvpFragment
     private String kidIdentity;
 
 
-    public LikesChartMvpFragment() {
+    public CommentsExtractedMvpFragment() {
         // Required empty public constructor
     }
 
@@ -43,13 +41,14 @@ public class LikesChartMvpFragment
      * @param kidIdentity
      * @return
      */
-    public static LikesChartMvpFragment newInstance(final String kidIdentity) {
-        LikesChartMvpFragment fragment = new LikesChartMvpFragment();
+    public static CommentsExtractedMvpFragment newInstance(final String kidIdentity) {
+        CommentsExtractedMvpFragment fragment = new CommentsExtractedMvpFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     /**
      * Get Legend Label Color
@@ -57,7 +56,7 @@ public class LikesChartMvpFragment
      */
     @Override
     protected int[] getLegendLabelColor() {
-        return new int[]{
+        return new int[] {
                 ContextCompat.getColor(appContext, R.color.instagram_color),
                 ContextCompat.getColor(appContext, R.color.facebook_color),
                 ContextCompat.getColor(appContext, R.color.youtube_color)
@@ -78,23 +77,6 @@ public class LikesChartMvpFragment
     }
 
     /**
-     * Get Layout Resource
-     * @return
-     */
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.fragment_likes;
-    }
-
-    /**
-     * Initialize Injector
-     */
-    @Override
-    protected void initializeInjector(StatsComponent component) {
-        component.inject(this);
-    }
-
-    /**
      * Get Value Formatter
      * @return
      */
@@ -109,6 +91,22 @@ public class LikesChartMvpFragment
         };
     }
 
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_comments_extracted;
+    }
+
+    /**
+     * Initialize Injector
+     */
+    @Override
+    protected void initializeInjector(StatsComponent component) {
+        component.inject(this);
+    }
 
     /**
      * Provide Presenter
@@ -116,23 +114,27 @@ public class LikesChartMvpFragment
      */
     @NonNull
     @Override
-    public LikesChartFragmentPresenter providePresenter() {
-        return component.likesChartFragmentPresenter();
+    public CommentsExtractedFragmentPresenter providePresenter() {
+        return component.commentsExtractedFragmentPresenter();
     }
 
 
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {}
-
-    @Override
-    public void onNothingSelected() { }
-
     /**
-     * On Likes Results Loaded
+     * On Comments Stats Loaded
      * @param entries
      */
     @Override
-    public void onLikesResultsLoaded(List<BarEntry> entries) {
+    public void onCommentsStatsLoaded(final List<BarEntry> entries) {
         setChartData(entries);
+    }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
     }
 }

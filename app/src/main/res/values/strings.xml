@@ -298,6 +298,14 @@
     <string name="likes_chart_title">"Likes" by social media</string>
     <string name="likes_chart_description">Statistics of the "Likes" received for the set of comments analyzed</string>
 
+    <!-- Comments Extracted -->
+    <string name="comments_extracted_title">Comments Extracted</string>
+    <string name="comments_extracted_description">Summary on the set of comments extracted</string>
+
+    <!-- Relations -->
+    <string name="relations_title">Social Relations</string>
+    <string name="relations_description">Statistics of the most active friends for each social media</string>
+
     <string name="kid_detail_birthday" formatted="true">Birthday: %s</string>
     <string name="kid_detail_school" formatted="true">School: %s</string>
 
@@ -332,8 +340,8 @@
     <string name="sentiment_analysis_tab">Sentiment</string>
     <!-- Likes Social Media Tab -->
     <string name="likes_social_media_tab">Likes</string>
-    <!-- Most Active Friends Tab -->
-    <string name="most_active_friends_tab">Friends</string>
+    <!-- Comments Extracted -->
+    <string name="comments_extracted_tab">Comments</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -21,8 +21,10 @@ import sanchez.sanchez.sergio.masom_app.di.components.DaggerStatsComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.StatsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.activity.ActivitySocialMediaMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.alerts.SystemAlertsMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.comments.CommentsExtractedMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.likes.LikesChartMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportToolbarApp;
@@ -79,6 +81,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      */
     private int[] unselectedTabIcons = {
             R.drawable.dimensions_tab_cyan,
+            R.drawable.comment_tab,
             R.drawable.activity_social_media_solid,
             R.drawable.activity_social_media_solid,
             R.drawable.alerts_kids_solid,
@@ -91,6 +94,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      */
     private int[] selectedTabIcons = {
             R.drawable.dimensions_tab_dark_cyan,
+            R.drawable.comment_tab_dark,
             R.drawable.activity_social_media_solid_dark,
             R.drawable.activity_social_media_solid_dark,
             R.drawable.alerts_kids_solid_dark,
@@ -230,13 +234,14 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
 
         private final static int DIMENSIONS_TAB = 0;
-        private final static int SOCIAL_MEDIA_TAB = 1;
-        private final static int SENTIMENT_ANALYSIS_TAB = 2;
-        private final static int ALERTS_TAB = 3;
-        private final static int LIKES_TAB = 4;
-        private final static int MOST_ACTIVE_FRIENDS_TAB = 5;
+        private final static int COMMENTS_EXTRACTED_TAB = 1;
+        private final static int SOCIAL_MEDIA_TAB = 2;
+        private final static int SENTIMENT_ANALYSIS_TAB = 3;
+        private final static int ALERTS_TAB = 4;
+        private final static int LIKES_TAB = 5;
+        private final static int RELATIONS_TAB = 6;
 
-        private final static int SECTION_COUNT = 6;
+        private final static int SECTION_COUNT = 7;
 
         /**
          * Sections Pager Adapter
@@ -250,6 +255,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             switch (position) {
                 case DIMENSIONS_TAB:
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
+                case COMMENTS_EXTRACTED_TAB:
+                    return CommentsExtractedMvpFragment.newInstance(kidIdentity);
                 case SOCIAL_MEDIA_TAB:
                     return ActivitySocialMediaMvpFragment.newInstance(kidIdentity);
                 case SENTIMENT_ANALYSIS_TAB:
@@ -258,8 +265,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
                     return SystemAlertsMvpFragment.newInstance(kidIdentity);
                 case LIKES_TAB:
                     return LikesChartMvpFragment.newInstance(kidIdentity);
-                case MOST_ACTIVE_FRIENDS_TAB:
-                    return FourDimensionsMvpFragment.newInstance(kidIdentity);
+                case RELATIONS_TAB:
+                    return RelationsMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -283,6 +290,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             switch (position) {
                 case DIMENSIONS_TAB:
                     return getString(R.string.dimensions_tab);
+                case COMMENTS_EXTRACTED_TAB:
+                    return getString(R.string.comments_extracted_tab);
                 case SOCIAL_MEDIA_TAB:
                     return getString(R.string.activity_social_media_tab);
                 case SENTIMENT_ANALYSIS_TAB:
@@ -291,8 +300,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
                     return getString(R.string.alerts_tab);
                 case LIKES_TAB:
                     return getString(R.string.likes_social_media_tab);
-                case MOST_ACTIVE_FRIENDS_TAB:
-                    return getString(R.string.most_active_friends_tab);
+                case RELATIONS_TAB:
+                    return getString(R.string.relations_tab);
             }
             return null;
         }

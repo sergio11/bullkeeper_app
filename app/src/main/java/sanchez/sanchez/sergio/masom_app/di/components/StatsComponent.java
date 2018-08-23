@@ -9,12 +9,17 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.activity.ActivitySoci
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.activity.ActivitySocialMediaMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.alerts.SystemAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.alerts.SystemAlertsMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.comments.CommentsExtractedFragmentPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.comments.CommentsExtractedMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.dimensions.FourDimensionsFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.likes.LikesChartFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.likes.LikesChartMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.relations.RelationsFragmentPresenter;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.sentiment.SentimentAnalysisFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.relations.KidRelationsMvpFragment;
 
 /**
  * Results Component
@@ -60,6 +65,19 @@ public interface StatsComponent extends ActivityComponent {
     void inject(final LikesChartMvpFragment likesChartMvpFragment);
 
     /**
+     * Inject into Comments Extracted Mvp Fragment
+     * @param commentsExtractedMvpFragment
+     */
+    void inject(final CommentsExtractedMvpFragment commentsExtractedMvpFragment);
+
+    /**
+     * Inject into Relations Mvp Fragment
+     * @param relationsMvpFragment
+     */
+    void inject(final RelationsMvpFragment relationsMvpFragment);
+
+
+    /**
      * kids Results Activity Presenter
      * @return
      */
@@ -69,5 +87,7 @@ public interface StatsComponent extends ActivityComponent {
     SentimentAnalysisFragmentPresenter sentimentAnalysisFragmentPresenter();
     SystemAlertsFragmentPresenter systemAlertsFragmentPresenter();
     LikesChartFragmentPresenter likesChartFragmentPresenter();
+    CommentsExtractedFragmentPresenter commentsExtractedFragmentPresenter();
+    RelationsFragmentPresenter relationsFragmentPresenter();
 
 }
