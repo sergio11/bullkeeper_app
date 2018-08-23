@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cyanBrilliant"
-    tools:context=".ui.fragment.mykids.MyKidsActivityFragment">
+    tools:context=".ui.fragment.mykids.MyKidsActivityMvpFragment">
 
     <!-- Include Toolbar -->
     <include
         android:id="@+id/appToolbarInclude"
-        layout="@layout/app_toolbar"
+        layout="@layout/app_translucent_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

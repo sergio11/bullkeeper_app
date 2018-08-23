@@ -52,6 +52,8 @@
     <string name="birthday_hint">Birthday</string>
     <!-- Confirm Password hint -->
     <string name="confirm_password_hint">Confirm Password</string>
+    <!-- Tfno -->
+    <string name="tfno_hint">Tfno</string>
 
 
     <!-- fields error messages -->
@@ -169,8 +171,73 @@
     <string name="remove_alerts_last_day">Last Day</string>
     <string name="remove_alerts_last_month">Last Month</string>
 
+    <!-- Alerts -->
+    <string name="all_alert_categories_title">All alert categories</string>
+    <string name="all_alert_categories_summary">Enable all alert categories</string>
+
+
+    <string name="success_alerts_title">Success alerts</string>
+    <string name="success_alerts_summary">Enable alerts to report on successful operations</string>
+
+    <string name="information_alerts_title">Information Alerts</string>
+    <string name="information_alerts_summary">Enable alerts to report on informative operations</string>
+
+    <string name="warning_alerts_title">Warning Alerts</string>
+    <string name="warning_alerts_summary">Enable alerts to report on warning operations</string>
+
+    <string name="danger_alerts_title">Danger Alerts</string>
+    <string name="danger_alerts_summary">Enable alerts to report on danger operations</string>
+
+    <string name="preferences_saved_successfully">Successfully saved preferences</string>
+
     <!-- Save Preferences Btn -->
     <string name="save_preferences_btn">Save Preferences</string>
+
+    <string name="what_are_your_questions">What are your questions?</string>
+
+    <!-- User Profile -->
+    <string name="user_profile_title">Profile</string>
+
+    <!-- My Kids Profile -->
+    <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
+    <string name="my_kids_profile_name_default">My Kids Profile</string>
+
+    <!-- Comments -->
+    <string name="comments_by_child_title" formatted="true">Comments of %s</string>
+    <string name="comments_by_child_title_default">Comments</string>
+
+    <!-- Comment Detail -->
+    <string name="comment_detail_message_title">Message</string>
+
+    <string name="comment_detail_results_title">Results</string>
+    <string name="comment_detail_create_at" formatted="true">Comment create at %s</string>
+
+    <!-- Sentiment -->
+    <string name="comment_detail_sentiment_level_unknown">There are no results for the sentiment analysis.</string>
+    <string name="comment_detail_sentiment_level_neutro">The comment has a neutral sentiment.</string>
+    <string name="comment_detail_sentiment_level_positive">The comment has a positive sentiment.</string>
+    <string name="comment_detail_sentiment_level_negative">The comment has a negative sentiment.</string>
+
+    <!-- Adult -->
+    <string name="comment_detail_adult_level_unknown">No results for content analysis for adults.</string>
+    <string name="comment_detail_adult_level_positive">The comment is related to adult content.</string>
+    <string name="comment_detail_adult_level_negative">The comment is not related to the content for adults.</string>
+
+    <!-- Drugs -->
+    <string name="comment_detail_drugs_level_unknown">There are no results for drug analysis.</string>
+    <string name="comment_detail_drugs_level_positive">The comment is related to drugs.</string>
+    <string name="comment_detail_drugs_level_negative">The comment is not related to drugs.</string>
+
+
+    <!-- Violence -->
+    <string name="comment_detail_violence_level_unknown">There are no results for the analysis of violence.</string>
+    <string name="comment_detail_violence_level_positive">The comment is violent.</string>
+    <string name="comment_detail_violence_level_negative">The comment is not violent.</string>
+
+    <!-- Bullying -->
+    <string name="comment_detail_bullying_level_unknown">There are no results for the analysis of bullying.</string>
+    <string name="comment_detail_bullying_level_positive">The comment has relation to bullying.</string>
+    <string name="comment_detail_bullying_level_negative">The comment has no relation to bullying.</string>
 
 
     <!-- Menu Items -->
@@ -187,6 +254,96 @@
     <!-- Dialogs Strings -->
     <string name="default_notice_dialog_title">Notice Dialog</string>
 
+
+    <!-- Profile -->
+    <string name="update_profile_in_progress">Updating profile wait...</string>
+    <!-- Save Changes -->
+    <string name="user_profile_save_changes">Save Changes</string>
+    <string name="user_profile_delete_account">Delete account</string>
+
+    <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
+    <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
+
+    <!-- Home -->
+    <string name="home_last_alerts">Last Alerts</string>
+
+
+    <string name="kid_detail_dimensions_title">Four Dimensions</string>
+    <string name="kid_detail_dimensions_description">Data of the four dimensions analyzed</string>
+
+    <string name="kid_detail_alerts_title">Important alerts</string>
+    <string name="kid_detail_alerts_description">List of the most outstanding alerts</string>
+
+    <string name="kid_detail_relations_title">Relations</string>
+    <string name="kid_detail_relations_description">Relationship with other users of social media</string>
+
+    <string name="kid_detail_relations_most_active_friends">Most active friends</string>
+
+    <!-- Activity In Social Media Chart -->
+    <string name="activity_in_social_media_title">Activity in social media</string>
+    <string name="activity_in_social_media_description">Indicators of activity in different social media</string>
+
+    <!-- Sentiment Analysis Chart -->
+    <string name="sentiment_analysis_chart_title">Sentiment Results</string>
+    <string name="sentiment_analysis_chart_description">Results of the sentiment obtained for the comments analyzed</string>
+    <string name="sentiment_analysis_positive">Positive</string>
+    <string name="sentiment_analysis_negative">Negative</string>
+    <string name="sentiment_analysis_neutro">Neutro</string>
+
+    <!-- System Alert -->
+    <string name="system_alerts_chart_title">Alerts system</string>
+    <string name="system_alerts_chart_description">Set of alerts produced in the system for the child</string>
+
+    <!-- System Alert -->
+    <string name="likes_chart_title">"Likes" by social media</string>
+    <string name="likes_chart_description">Statistics of the "Likes" received for the set of comments analyzed</string>
+
+    <!-- Comments Extracted -->
+    <string name="comments_extracted_title">Comments Extracted</string>
+    <string name="comments_extracted_description">Summary on the set of comments extracted</string>
+
+    <!-- Relations -->
+    <string name="relations_title">Social Relations</string>
+    <string name="relations_description">Statistics of the most active friends for each social media</string>
+
+    <string name="kid_detail_birthday" formatted="true">Birthday: %s</string>
+    <string name="kid_detail_school" formatted="true">School: %s</string>
+
+    <string name="four_dimension_violence">Violence</string>
+    <string name="four_dimension_drugs">Drugs</string>
+    <string name="four_dimension_adult">Adult</string>
+    <string name="four_dimension_bullying">Bullying</string>
+    <string name="results_since_one_month_ago">Results since 1 month ago</string>
+    <string name="close_dialog">I understood</string>
+
+    <string name="pick_image_intent_text">Choose an image</string>
+    <string name="change_profile_picture" formatted="true">Change profile picture of %s</string>
+
+    <string name="show_detail_btn">Show Detail</string>
+    <string name="change_photo_btn">Change Photo</string>
+
+    <string name="instagram_brand_title">Instagram</string>
+    <string name="facebook_brand_title">Facebook</string>
+    <string name="youtube_brand_title">Youtube</string>
+
+    <!-- Results Tab -->
+
+    <!-- Dimensions Tab -->
+    <string name="dimensions_tab">Dimensions</string>
+    <!-- Alerts Tab -->
+    <string name="alerts_tab">Alerts</string>
+    <!-- Relations Tab -->
+    <string name="relations_tab">Relations</string>
+    <!-- Activity Social Media Tab -->
+    <string name="activity_social_media_tab">Activity</string>
+    <!-- Sentiment Tab -->
+    <string name="sentiment_analysis_tab">Sentiment</string>
+    <!-- Likes Social Media Tab -->
+    <string name="likes_social_media_tab">Likes</string>
+    <!-- Comments Extracted -->
+    <string name="comments_extracted_tab">Comments</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
@@ -201,5 +358,17 @@
     <string name="title_activity_app_tutorial">AppTutorialActivity</string>
     <string name="title_activity_user_settings">UserSettingsActivity</string>
 
-
+    <!-- Youtube API strings -->
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="seek_to">Jump To</string>
+    <string name="seek_to_hint">Seconds</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
+    <string name="youtube_video_cue">gsT5agfijBE</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_my_kids_profile">MyKidsProfileActivity</string>
+    <string name="title_activity_comments">CommentsActivity</string>
+    <string name="title_activity_comment_detail">CommentDetailActivity</string>
+    <string name="title_activity_my_kids_detail_activty">MyKidsDetailActivty</string>
+    <string name="title_activity_kids_results">KidsResultsActivity</string>
 </resources>

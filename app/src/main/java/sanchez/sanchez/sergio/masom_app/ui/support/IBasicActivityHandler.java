@@ -110,4 +110,20 @@ public interface IBasicActivityHandler {
      */
     void showAppMenu();
 
+    /**
+     * Show Question Dialog
+     */
+    void showQuestionDialog();
+
+    /**
+     * Navigate To Home
+     */
+    void navigateToHome();
+
+    /**
+     * Set Support Toolbar App
+     * @param supportToolbarApp
+     */
+    void setSupportToolbarApp(final SupportToolbarApp supportToolbarApp);
+
 }

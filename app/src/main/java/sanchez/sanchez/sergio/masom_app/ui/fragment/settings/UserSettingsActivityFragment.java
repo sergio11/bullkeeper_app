@@ -3,18 +3,20 @@ package sanchez.sanchez.sergio.masom_app.ui.fragment.settings;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v14.preference.SwitchPreference;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
+
+import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.settings.IUserSettingsActivityHandler;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportPreferenceFragment;
 import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
-import timber.log.Timber;
 
 /**
  * User Settings Activity Fragment
@@ -68,6 +70,25 @@ public class UserSettingsActivityFragment extends
         // Enable Push Notification
         final SwitchPreferenceCompat enablePushNotification = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_PUSH_NOTIFICATIONS);
         enablePushNotification.setOnPreferenceChangeListener(this);
+        // Enable All Alerts Categories
+        final SwitchPreferenceCompat enableAllAlertCategories = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_ALL_ALERT_CATEGORIES);
+        enableAllAlertCategories.setOnPreferenceChangeListener(this);
+        // Enable Success Alerts
+        final SwitchPreferenceCompat enableSuccessAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_SUCCESS_ALERTS);
+        enableSuccessAlerts.setOnPreferenceChangeListener(this);
+        enableSuccessAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+        // Enable Information Alerts
+        final SwitchPreferenceCompat enableInformationAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_INFORMATION_ALERTS);
+        enableInformationAlerts.setOnPreferenceChangeListener(this);
+        enableInformationAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+        // Enable Warning Alerts
+        final SwitchPreferenceCompat enableWarningAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_WARNING_ALERTS);
+        enableWarningAlerts.setOnPreferenceChangeListener(this);
+        enableWarningAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+        // Enable Danger Alerts
+        final SwitchPreferenceCompat enableDangerAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_DANGER_ALERTS);
+        enableDangerAlerts.setOnPreferenceChangeListener(this);
+        enableDangerAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
 
     }
 
@@ -83,31 +104,84 @@ public class UserSettingsActivityFragment extends
 
         switch (preference.getKey()) {
 
-            case PreferencesManager.PREF_NUMBER_OF_ALERTS:
-                final String numberOfAlerts = String.valueOf(newValue);
-                Timber.d("Number Of Alerts -> %s", numberOfAlerts);
-                preferencesManager.setNumberOfAlerts(numberOfAlerts);
-                break;
+            case PreferencesManager.PREF_ENABLE_ALL_ALERT_CATEGORIES:
 
-            case PreferencesManager.PREF_AGE_OF_ALERTS:
-                final String ageOfAlerts = String.valueOf(newValue);
-                Timber.d("Age of Alerts -> %s", ageOfAlerts);
-                preferencesManager.setAgeOfAlerts(ageOfAlerts);
-                break;
+                final boolean enableAllAlertsCategories = (boolean)newValue;
 
-            case PreferencesManager.PREF_REMOVE_ALERTS_EVERY:
-                final String removeAlertsEvery = String.valueOf(newValue);
-                Timber.d("Remove Alerts Every -> %s", removeAlertsEvery);
-                preferencesManager.setRemoveAlertsEvery(removeAlertsEvery);
-                break;
+                final SwitchPreferenceCompat enableSuccessAlerts, enableInformationAlerts,
+                        enableWarningAlerts, enableDangerAlerts;
 
-            case PreferencesManager.PREF_ENABLE_PUSH_NOTIFICATIONS:
-                final boolean enablePushNotification = (boolean)newValue;
-                preferencesManager.setEnablePushNotifications(enablePushNotification);
+                enableSuccessAlerts  = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_SUCCESS_ALERTS);
+                enableInformationAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_INFORMATION_ALERTS);
+                enableWarningAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_WARNING_ALERTS);
+                enableDangerAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_DANGER_ALERTS);
+
+                if(enableAllAlertsCategories) {
+
+                    enableSuccessAlerts.setChecked(true);
+                    enableSuccessAlerts.setEnabled(false);
+
+                    enableInformationAlerts.setChecked(true);
+                    enableInformationAlerts.setEnabled(false);
+
+                    enableWarningAlerts.setChecked(true);
+                    enableWarningAlerts.setEnabled(false);
+
+                    enableDangerAlerts.setChecked(true);
+                    enableDangerAlerts.setEnabled(false);
+
+                } else {
+                    // Enable all
+                    enableSuccessAlerts.setEnabled(true);
+                    enableInformationAlerts.setEnabled(true);
+                    enableWarningAlerts.setEnabled(true);
+                    enableDangerAlerts.setEnabled(true);
+                }
+
                 break;
 
         }
 
         return true;
+    }
+
+    @OnClick(R.id.savePreferences)
+    protected void onSavePreferences(){
+
+        final SwitchPreferenceCompat enableAllAlertCategories, enableSuccessAlerts, enableInformationAlerts,
+                enableWarningAlerts, enableDangerAlerts;
+
+        enableAllAlertCategories = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_ALL_ALERT_CATEGORIES);
+        enableSuccessAlerts  = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_SUCCESS_ALERTS);
+        enableInformationAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_INFORMATION_ALERTS);
+        enableWarningAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_WARNING_ALERTS);
+        enableDangerAlerts = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_DANGER_ALERTS);
+
+        preferencesManager.setEnableAllAlertCategories(enableAllAlertCategories.isChecked());
+        preferencesManager.setSuccessAlertsEnabled(enableSuccessAlerts.isChecked());
+        preferencesManager.setInformationAlertsEnabled(enableInformationAlerts.isChecked());
+        preferencesManager.setWarningAlertsEnabled(enableWarningAlerts.isChecked());
+        preferencesManager.setDangerAlertsEnabled(enableDangerAlerts.isChecked());
+
+        // Save NUmber Of Alerts Preference
+        final ListPreference numberOfAlertsListPreference = (ListPreference) findPreference(PreferencesManager.PREF_NUMBER_OF_ALERTS);
+        preferencesManager.setNumberOfAlerts(numberOfAlertsListPreference.getValue());
+        // Save Age of Alerts Preference
+        final ListPreference ageOfAlertsPreference = (ListPreference) findPreference(PreferencesManager.PREF_AGE_OF_ALERTS);
+        preferencesManager.setAgeOfAlerts(ageOfAlertsPreference.getValue());
+        // Save Remove Alerts Every preference
+        final ListPreference removeAlertsEvery = (ListPreference) findPreference(PreferencesManager.PREF_REMOVE_ALERTS_EVERY);
+        preferencesManager.setRemoveAlertsEvery(removeAlertsEvery.getValue());
+
+        // Save Enable Push Notification
+        final SwitchPreferenceCompat enablePushNotification = (SwitchPreferenceCompat) findPreference(PreferencesManager.PREF_ENABLE_PUSH_NOTIFICATIONS);
+        preferencesManager.setEnablePushNotifications(enablePushNotification.isChecked());
+
+        activityHandler.showNoticeDialog(R.string.preferences_saved_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
     }
 }

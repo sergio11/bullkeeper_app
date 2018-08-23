@@ -27,6 +27,25 @@ public class PreferencesManager {
     public static final String PREF_ENABLE_PUSH_NOTIFICATIONS = "enable_push_notifications";
     public static final boolean ENABLE_PUSH_NOTIFICATIONS_DEFAULT_VALUE = true;
 
+    // Enable All Alert Categories
+    public static final String PREF_ENABLE_ALL_ALERT_CATEGORIES = "enable_all_alert_categories";
+    public static final boolean ENABLE_ALL_ALERT_CATEGORIES_DEFAULT_VALUE = true;
+
+    // Enable Success alerts
+    public static final String PREF_ENABLE_SUCCESS_ALERTS = "enable_success_alerts";
+    public static final boolean ENABLE_SUCCESS_ALERTS_DEFAULT_VALUE = true;
+
+    // Enable Information Alerts
+    public static final String PREF_ENABLE_INFORMATION_ALERTS = "enable_information_alerts";
+    public static final boolean ENABLE_INFORMATION_ALERTS_DEFAULT_VALUE = true;
+
+    // Enable Warning Alerts
+    public static final String PREF_ENABLE_WARNING_ALERTS = "enable_warning_alerts";
+    public static final boolean ENABLE_WARNING_ALERTS_DEFAULT_VALUE = true;
+
+    // Enable Danger Alerts
+    public static final String PREF_ENABLE_DANGER_ALERTS = "enable_danger_alerts";
+    public static final boolean ENABLE_DANGER_ALERTS_DEFAULT_VALUE = true;
 
     private final SharedPreferences mPref;
 
@@ -120,4 +139,105 @@ public class PreferencesManager {
                 .putBoolean(PREF_ENABLE_PUSH_NOTIFICATIONS, enablePushNotification)
                 .apply();
     }
+
+
+    /**
+     * Is Enable All Alert Categories
+     * @return
+     */
+    public boolean isEnableAllAlertCategories() {
+        return mPref.getBoolean(PREF_ENABLE_ALL_ALERT_CATEGORIES,
+                ENABLE_ALL_ALERT_CATEGORIES_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Enable All Alert Categories
+     * @param enableAllAlertCategories
+     */
+    public void setEnableAllAlertCategories(boolean enableAllAlertCategories) {
+        mPref.edit()
+                .putBoolean(PREF_ENABLE_ALL_ALERT_CATEGORIES, enableAllAlertCategories)
+                .apply();
+    }
+
+    /**
+     * Is Success Alerts Enabled
+     * @return
+     */
+    public boolean isSuccessAlertsEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_SUCCESS_ALERTS,
+                ENABLE_SUCCESS_ALERTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Success Alerts Enabled
+     * @param enableSuccessAlerts
+     */
+    public void setSuccessAlertsEnabled(boolean enableSuccessAlerts) {
+        mPref.edit()
+                .putBoolean(PREF_ENABLE_SUCCESS_ALERTS, enableSuccessAlerts)
+                .apply();
+    }
+
+    /**
+     * Is Information Alerts Enabled
+     * @return
+     */
+    public boolean isInformationAlertsEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_INFORMATION_ALERTS,
+                ENABLE_INFORMATION_ALERTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Information Alerts Enabled
+     * @param enableInformationAlerts
+     */
+    public void setInformationAlertsEnabled(boolean enableInformationAlerts) {
+        mPref.edit()
+                .putBoolean(PREF_ENABLE_INFORMATION_ALERTS, enableInformationAlerts)
+                .apply();
+    }
+
+
+    /**
+     * Is Warning Alerts Enabled
+     * @return
+     */
+    public boolean isWarningAlertsEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_WARNING_ALERTS,
+                ENABLE_WARNING_ALERTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Warning Alerts Enabled
+     * @param enableWarningAlerts
+     */
+    public void setWarningAlertsEnabled(boolean enableWarningAlerts) {
+        mPref.edit()
+                .putBoolean(PREF_ENABLE_WARNING_ALERTS,
+                        enableWarningAlerts)
+                .apply();
+    }
+
+    /**
+     * Is Danger Alerts Enabled
+     * @return
+     */
+    public boolean isDangerAlertsEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_DANGER_ALERTS,
+                ENABLE_DANGER_ALERTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Danger Alerts Enabled
+     * @param enableDangerAlerts
+     */
+    public void setDangerAlertsEnabled(boolean enableDangerAlerts) {
+        mPref.edit()
+                .putBoolean(PREF_ENABLE_DANGER_ALERTS,
+                        enableDangerAlerts)
+                .apply();
+    }
+
+
 }

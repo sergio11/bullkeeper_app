@@ -42,6 +42,8 @@
 
     <!-- Common Padding -->
     <dimen name="common_padding">10dp</dimen>
+    <!-- Common Margin -->
+    <dimen name="common_margin">10dp</dimen>
 
     <!-- Common Action Button Width -->
     <dimen name="common_action_button_width">130dp</dimen>
@@ -57,13 +59,21 @@
     <dimen name="common_divider_height">6dp</dimen>
     <!-- Common Collapsing Toolbar -->
     <dimen name="common_collapsing_toolbar_height">370dp</dimen>
-
-    <dimen name="common_switch_width">90dp</dimen>
-    <dimen name="common_switch_height">90dp</dimen>
-    <dimen name="common_switch_text_size">10dp</dimen>
-
+    <!-- Home Collapsing Toolbar Height -->
+    <dimen name="home_collapsing_toolbar_height">300dp</dimen>
+    <!-- Common Preference Margin -->
     <dimen name="common_preference_margin">5dp</dimen>
-
-
+    <!-- Common Image Big Width -->
+    <dimen name="common_image_big_width">120dp</dimen>
+    <!-- Common Image Big Height -->
+    <dimen name="common_image_big_height">120dp</dimen>
+    <!-- Common Image stroke Width -->
+    <dimen name="common_image_stroke_width">5dp</dimen>
+    <!-- Common Table Layout Margin -->
+    <dimen name="common_table_layout_margin">10dp</dimen>
+    <!-- Common Table Row Margin Bottom -->
+    <dimen name="common_table_row_margin_bottom">5dp</dimen>
+    <!-- Common Tab Layout HEight -->
+    <dimen name="common_tab_layout_height">70dp</dimen>
 
 </resources>

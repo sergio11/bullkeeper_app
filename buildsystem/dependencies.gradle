@@ -40,6 +40,10 @@ ext {
     retrofitVersion = '2.4.0'
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
+    stethoVersion = '1.5.0'
+    circleimageviewVersion = '2.2.0'
+    mpAndroidChartVerion = 'v3.0.3'
+    viewPagerTransforms = '1.2.32'
 
 
     thirtyInchVersion = '0.8.5'
@@ -85,7 +89,11 @@ ext {
             androidIconifyFontawesome: "com.joanzapata.iconify:android-iconify-fontawesome:${androidIconifyFontawesome}",
             slidingtutorial:    "com.cleveroad:slidingtutorial:${slidingtutorialVersion}",
             androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
-            picasso:            "com.squareup.picasso:picasso:${picassoVersion}"
+            picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
+            stetho:             "com.facebook.stetho:stetho:${stethoVersion}",
+            circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}",
+            MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
+            viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar"
     ]
 
     presentationTestDependencies = [

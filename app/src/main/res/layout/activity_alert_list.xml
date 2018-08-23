@@ -9,12 +9,12 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@color/cyanBrilliant"
-    tools:context=".ui.activity.alertlist.AlertListActivity">
+    tools:context=".ui.activity.alertlist.AlertListMvpActivity">
 
     <!-- Include Toolbar -->
     <include
         android:id="@+id/appToolbarInclude"
-        layout="@layout/app_toolbar"
+        layout="@layout/app_translucent_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

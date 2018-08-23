@@ -32,9 +32,35 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- User Profile Theme. -->
+    <style name="AppTheme.UserProfile">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+    <!-- User Kids Profile Theme. -->
+    <style name="AppTheme.MyKidsProfile">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+
     <!-- User Preferences Theme -->
     <style name="AppTheme.Preferences">
         <item name="preferenceTheme">@style/UserPreferenceTheme</item>
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+    <!-- Questions -->
+    <style name="AppTheme.Questions">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+    <!-- Comments Theme. -->
+    <style name="AppTheme.Comments">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+    <!-- Comments Detail Theme. -->
+    <style name="AppTheme.CommentDetail">
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
@@ -96,6 +122,17 @@
         <item name="android:textColor">@color/common_btn_text_color_inverse</item>
         <item name="android:background">@drawable/common_action_button_state_inverse</item>
     </style>
+
+    <style name="DimensionActionButton" parent="@style/AppTheme.Button">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/common_strong_text_size</item>
+    </style>
+
     
     <style name="CommonTitle">
         <item name="android:textColor">@color/commonWhite</item>
@@ -129,6 +166,15 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <!-- Common Toolbar Button Icon -->
+    <style name="CommonToolbarButtonIcon">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_gravity">end|center_vertical</item>
+    </style>
+
     <!-- App Social Icon -->
     <style name="AppSocialIcon">
         <item name="android:layout_width">42dp</item>
@@ -143,7 +189,7 @@
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:gravity">start|center_vertical</item>
-        <item name="android:background">@drawable/common_section_background</item>
+        <item name="android:background">@drawable/common_section_translucent_background</item>
     </style>
 
 
@@ -233,15 +279,20 @@
         <item name="android:background">@android:color/white</item>
     </style>
 
-    <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
+
+    <style name="CommonSwitch">
         <item name="colorControlActivated">@color/darkModerateBlue</item>
-        <item name="colorSwitchThumbNormal">@color/cyanBrilliant</item>
+        <item name="colorSwitchThumbNormal">@color/commonWhite</item>
     </style>
 
-    <style name="BrandedSwitch.text" parent="Theme.AppCompat.Light">
+    <style name="CommonSwitch.Text">
         <item name="android:textColor">@color/commonWhite</item>
-        <item name="android:textSize">@dimen/common_switch_text_size</item>
+    </style>
+
+
+    <style name="CommonTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

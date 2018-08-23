@@ -42,7 +42,6 @@ public class AppTutorialActivity extends AppCompatActivity {
     protected void addFragment(int containerViewId, Fragment fragment) {
         final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(containerViewId, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

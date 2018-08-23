@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.fragment.relations.KidRelationsMvpFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText"
+                    android:textColor="@color/cyanBrilliant"
+                    android:textStyle="bold"
+                    android:text="@string/kid_detail_relations_title"/>
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText.Medium"
+                    android:textColor="@color/cyanBrilliant"
+                    android:text="@string/kid_detail_relations_description"/>
+
+                <View
+                    android:layout_width="@dimen/common_divider_small"
+                    android:layout_height="@dimen/common_divider_height"
+                    android:layout_margin="10dp"
+                    android:background="@color/cyanBrilliant"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <!-- Kid Relations List -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/kidRelationsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:background="@color/cyanBrilliant"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

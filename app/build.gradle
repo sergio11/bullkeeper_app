@@ -53,9 +53,11 @@ android {
         }
     }
 
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            multiDexEnabled true
         }
     }
 }
@@ -67,6 +69,8 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
     // Compile Utils Module
     implementation project(':utils')
     // Compile Domain
@@ -74,6 +78,7 @@ dependencies {
     // Data Module
     implementation project(':data')
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor presentationDependencies.daggerCompiler
     implementation presentationDependencies.dagger
     implementation presentationDependencies.butterKnife
@@ -101,6 +106,10 @@ dependencies {
     implementation presentationDependencies.slidingtutorial
     implementation presentationDependencies.androidSaripaar
     implementation presentationDependencies.picasso
+    implementation presentationDependencies.stetho
+    implementation presentationDependencies.circleimageview
+    implementation presentationDependencies.MPAndroidChart
+    implementation presentationDependencies.viewPagerTransforms
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 

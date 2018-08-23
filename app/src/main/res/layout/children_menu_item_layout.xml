@@ -11,7 +11,8 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/common_action_menu_item_state"
-        android:src="@drawable/child_cyan"/>
+        android:src="@drawable/child_cyan"
+        android:contentDescription="@string/content_not_be_loaded"/>
 
     <TextView
         android:layout_width="wrap_content"

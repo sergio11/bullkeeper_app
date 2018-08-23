@@ -5,6 +5,8 @@
     android:id="@+id/appToolbar"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:paddingTop="@dimen/common_padding"
+    android:paddingBottom="@dimen/common_padding"
     android:background="@drawable/common_section_background"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -16,7 +18,9 @@
         android:paddingEnd="5dp"
         android:paddingBottom="8dp">
 
+
         <LinearLayout
+            android:id="@+id/appIcon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start|center_vertical"
@@ -26,7 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/content_not_be_loaded" />
 
             <!-- Common Title -->
             <TextView
@@ -35,17 +40,29 @@
                 android:text="@string/app_name"
                 style="@style/CommonTitle"/>
 
+
         </LinearLayout>
 
-
+        <!-- Menu Bars -->
         <ImageButton
             android:id="@+id/menuBars"
-            android:background="@android:color/transparent"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
-            android:layout_gravity="end|center_vertical"
-            android:src="@drawable/bars_solid"/>
+            style="@style/CommonToolbarButtonIcon"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/bars_solid" />
+
+        <!-- Close Button -->
+        <ImageButton
+            android:id="@+id/close"
+            style="@style/CommonToolbarButtonIcon"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/close_icon_solid_white" />
+
+        <!-- Question -->
+        <ImageButton
+            android:id="@+id/question"
+            style="@style/CommonToolbarButtonIcon"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/question_solid_white" />
 
     </FrameLayout>
 

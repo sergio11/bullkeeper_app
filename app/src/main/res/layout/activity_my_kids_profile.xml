@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.mykidsprofile.MyKidsProfileMvpActivity">
+
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/appToolbarInclude"
+        layout="@layout/app_translucent_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/profileSectionTitle"
+        style="@style/CommonSection"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start|center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/profileForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/user_edit_white" />
+
+
+        <TextView
+            android:id="@+id/myKidsProfileTitle"
+            style="@style/CommonStrongText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_kids_profile_name_default"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Profile Form -->
+    <ScrollView
+        android:id="@+id/profileForm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:scrollbarStyle="insideInset"
+        app:layout_constraintBottom_toTopOf="@+id/saveChanges"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight=".70"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileSectionTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:stretchColumns="1">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Profile Image -->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:src="@drawable/user_default"
+                        app:civ_border_color="@color/commonWhite"
+                        app:civ_border_width="@dimen/common_image_stroke_width" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- name input -->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/nameInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:textColorHint="@color/commonWhite"
+                            android:theme="@style/CommonTextInputLayout"
+                            app:counterEnabled="true"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/nameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/name_hint"
+                                android:inputType="text"
+                                android:lines="1" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- surname input -->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/surnameInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/commonWhite"
+                            android:theme="@style/CommonTextInputLayout"
+                            app:counterEnabled="true"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/surnameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/surname_hint"
+                                android:inputType="text"
+                                android:lines="1" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- birthday -->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/birthdayInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/commonWhite"
+                            android:theme="@style/CommonTextInputLayout"
+                            app:counterEnabled="true"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/birthdayInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:editable="false"
+                                android:hint="@string/birthday_hint"
+                                android:lines="1" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                    </LinearLayout>
+
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:stretchColumns="1">
+
+
+                <!-- Instagram Social Media -->
+                <TableRow
+                    android:id="@+id/instagramRow"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:contentDescription="@string/content_not_be_loaded"
+                        android:src="@drawable/instagram_brands" />
+
+                    <TextView
+                        style="@style/CommonStrongText.Medium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/common_padding"
+                        android:singleLine="true"
+                        android:text="El medio social no está habilitado"
+                        android:textColor="@color/commonWhite"
+                        android:textStyle="bold" />
+
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/instagramSwitchWidget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:scaleX="2"
+                        android:scaleY="2"
+
+                        app:theme="@style/CommonSwitch"/>
+
+                </TableRow>
+
+                <!-- Facebook Social Media -->
+                <TableRow
+                    android:id="@+id/facebookRow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <!-- Facebook -->
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/facebook_square_brands"
+                        android:contentDescription="@string/content_not_be_loaded"/>
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText.Medium"
+                        android:textColor="@color/commonWhite"
+                        android:textStyle="bold"
+                        android:singleLine="true"
+                        android:text="El medio social no está habilitado"/>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/facebookSwitchWidget"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        app:theme="@style/CommonSwitch"/>
+
+                </TableRow>
+
+
+                <!-- Youtube Social Media -->
+                <TableRow
+                    android:id="@+id/youtubeRow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <!-- Youtube -->
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/youtube_brands_solid_white"
+                        android:contentDescription="@string/content_not_be_loaded"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText.Medium"
+                        android:textColor="@color/commonWhite"
+                        android:textStyle="bold"
+                        android:singleLine="true"
+                        android:text="El medio social no está habilitado"/>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/youtubeSwitchWidget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        app:theme="@style/CommonSwitch" />
+
+                </TableRow>
+
+            </TableLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Save Changes -->
+    <LinearLayout
+        android:id="@+id/saveChanges"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight=".15"
+        app:layout_constraintTop_toBottomOf="@id/profileForm">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/check_circle_solid_green" />
+
+
+        <TextView
+            style="@style/CommonStrongText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".85"
+            android:background="@color/greenSuccess"
+            android:padding="@dimen/common_padding"
+            android:text="@string/user_profile_save_changes"
+            android:textAlignment="textStart"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

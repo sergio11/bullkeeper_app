@@ -54,6 +54,58 @@
         android:layout="@layout/preferences_category_layout">
 
 
+        <!-- Enable All Alert Categories -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_all_alert_categories"
+            android:title="@string/all_alert_categories_title"
+            android:summary="@string/all_alert_categories_summary"
+            android:layout="@layout/preference_switch_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+
+        <!-- Success alerts -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_success_alerts"
+            android:title="@string/success_alerts_title"
+            android:summary="@string/success_alerts_summary"
+            android:layout="@layout/preference_success_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Information alerts -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_information_alerts"
+            android:title="@string/information_alerts_title"
+            android:summary="@string/information_alerts_summary"
+            android:layout="@layout/preference_informative_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Warning alerts -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_warning_alerts"
+            android:title="@string/warning_alerts_title"
+            android:summary="@string/warning_alerts_summary"
+            android:layout="@layout/preference_warning_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Danger alerts -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_danger_alerts"
+            android:title="@string/danger_alerts_title"
+            android:summary="@string/danger_alerts_summary"
+            android:layout="@layout/preference_danger_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+
+
     </android.support.v7.preference.PreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

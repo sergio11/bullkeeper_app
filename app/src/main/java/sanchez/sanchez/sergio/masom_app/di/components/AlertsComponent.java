@@ -3,11 +3,11 @@ package sanchez.sanchez.sergio.masom_app.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.masom_app.di.scopes.PerActivity;
-import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertdetail.AlertDetailPresenter;
-import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListActivity;
+import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.alertlist.AlertListPresenter;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.alertdetail.AlertDetailActivityFragment;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.alertdetail.AlertDetailActivityMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertdetail.AlertDetailFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.alertslist.FilterAlertsDialog;
 
@@ -19,19 +19,19 @@ public interface AlertsComponent extends ActivityComponent {
      * Alert Detail Activity
      * @param alertDetailActivity
      */
-    void inject(final AlertDetailActivity alertDetailActivity);
+    void inject(final AlertDetailMvpActivity alertDetailActivity);
 
     /**
      * Alert Detail Activity Fragment
      * @return
      */
-    void inject(final AlertDetailActivityFragment alertDetailActivityFragment);
+    void inject(final AlertDetailActivityMvpFragment alertDetailActivityFragment);
 
     /**
      * Alert List Activity
      * @param alertListActivity
      */
-    void inject(final AlertListActivity alertListActivity);
+    void inject(final AlertListMvpActivity alertListActivity);
 
     /**
      * Inject on Filter Alerts Dialog
