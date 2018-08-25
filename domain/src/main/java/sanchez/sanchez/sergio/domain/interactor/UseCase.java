@@ -73,4 +73,13 @@ public abstract class UseCase<T, Params> {
         Preconditions.checkNotNull(disposables);
         disposables.add(disposable);
     }
+
+    /**
+     * Attach Disposables To
+     * @param disposablesToAttach
+     */
+    public void attachDisposablesTo(CompositeDisposable disposablesToAttach) {
+        if(disposablesToAttach != null)
+            disposablesToAttach.addAll(disposables);
+    }
 }

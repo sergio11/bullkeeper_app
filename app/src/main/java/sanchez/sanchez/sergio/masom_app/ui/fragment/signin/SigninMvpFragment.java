@@ -17,7 +17,7 @@ import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpFragme
 /**
  * Intro Fragment
  */
-public class SigninMvpFragmentMvp extends
+public class SigninMvpFragment extends
         SupportMvpValidationMvpFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler,
                                 IntroComponent>
 implements ISigninView, Validator.ValidationListener{
@@ -51,14 +51,14 @@ implements ISigninView, Validator.ValidationListener{
     @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC)
     protected AppCompatEditText passwordInput;
 
-    public SigninMvpFragmentMvp() { }
+    public SigninMvpFragment() { }
 
     /**
      * New Instance
      * @return
      */
-    public static SigninMvpFragmentMvp newInstance() {
-        SigninMvpFragmentMvp fragment = new SigninMvpFragmentMvp();
+    public static SigninMvpFragment newInstance() {
+        SigninMvpFragment fragment = new SigninMvpFragment();
         return fragment;
     }
 
@@ -156,6 +156,17 @@ implements ISigninView, Validator.ValidationListener{
 
     @Override
     public void onLoginSuccess() {
+
         activityHandler.gotToHome();
+    }
+
+    /**
+     * On Login Failed
+     */
+    @Override
+    public void onLoginFailed() {
+
+        showNoticeDialog(R.string.login_failed);
+
     }
 }

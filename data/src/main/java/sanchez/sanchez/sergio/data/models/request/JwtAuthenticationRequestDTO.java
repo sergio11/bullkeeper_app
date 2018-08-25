@@ -13,6 +13,18 @@ public final class JwtAuthenticationRequestDTO {
     @JsonProperty("password")
     private String password;
 
+    public JwtAuthenticationRequestDTO(){}
+
+    /**
+     *
+     * @param email
+     * @param password
+     */
+    public JwtAuthenticationRequestDTO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }

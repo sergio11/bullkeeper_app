@@ -38,6 +38,8 @@ ext {
     slidingtutorialVersion = '1.0.8'
     androidSaripaarVersion = '2.0.3'
     retrofitVersion = '2.4.0'
+    rxjava2AdapterVersion = '1.0.0'
+
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
     stethoVersion = '1.5.0'
@@ -91,6 +93,7 @@ ext {
             androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
             picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
             stetho:             "com.facebook.stetho:stetho:${stethoVersion}",
+            stethoOkHttp:       "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
             circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}",
             MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
             viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar"
@@ -129,7 +132,7 @@ ext {
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             converterJackson:   "com.squareup.retrofit2:converter-jackson:${retrofitVersion}",
-            adapterRxjava:      "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
+            adapterRxjava:      "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxjava2AdapterVersion}",
             jacksonCore:        "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
             jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"

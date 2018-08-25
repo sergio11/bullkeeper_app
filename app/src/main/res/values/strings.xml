@@ -89,6 +89,8 @@
     <!-- Login Screen -->
     <string name="login_screen_main_title">Login now</string>
 
+    <string name="login_failed">Login Failed</string>
+
     <!-- Forgot password Screen -->
     <string name="forgot_password_screen_main_title">Did you forget your password?</string>
 
