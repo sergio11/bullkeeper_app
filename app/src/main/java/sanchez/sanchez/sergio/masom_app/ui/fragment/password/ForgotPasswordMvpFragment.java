@@ -2,7 +2,10 @@ package sanchez.sanchez.sergio.masom_app.ui.fragment.password;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
+
+import com.mobsandgeeks.saripaar.annotation.ConfirmEmail;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import butterknife.BindView;
@@ -10,12 +13,13 @@ import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpFragment;
 
 /**
  * Intro Fragment
  */
-public class ForgotPasswordMvpFragmentMvp extends
+public class ForgotPasswordMvpFragment extends
         SupportMvpValidationMvpFragment<ForgotPasswordFragmentPresenter,
                                 IForgotPasswordView, IIntroActivityHandler, IntroComponent>
 implements IForgotPasswordView {
@@ -36,15 +40,29 @@ implements IForgotPasswordView {
     @Email
     protected AppCompatEditText emailInput;
 
+    /**
+     * Repeat Email Input Layout
+     */
+    @BindView(R.id.repeatEmailInputLayout)
+    protected TextInputLayout repeatEmailInputLayout;
 
-    public ForgotPasswordMvpFragmentMvp() { }
+    /**
+     * Repeat Email Input
+     */
+    @BindView(R.id.repeatEmailInput)
+    @NotEmpty
+    @ConfirmEmail
+    protected AppCompatEditText repeatEmailInput;
+
+
+    public ForgotPasswordMvpFragment() { }
 
     /**
      * New Instance
      * @return
      */
-    public static ForgotPasswordMvpFragmentMvp newInstance() {
-        ForgotPasswordMvpFragmentMvp fragment = new ForgotPasswordMvpFragmentMvp();
+    public static ForgotPasswordMvpFragment newInstance() {
+        ForgotPasswordMvpFragment fragment = new ForgotPasswordMvpFragment();
         return fragment;
     }
 
@@ -86,8 +104,9 @@ implements IForgotPasswordView {
 
         // Clear errors
         emailInputLayout.setError("");
+        repeatEmailInputLayout.setError("");
 
-        // Init Sign in
+        // Init Reset Password
         final String mail = emailInput.getText().toString();
 
         getPresenter().forgotPassword(mail);
@@ -111,6 +130,8 @@ implements IForgotPasswordView {
 
         if (viewId.equals(R.id.emailInput)) {
             emailInputLayout.setError(message);
+        } else if(viewId.equals(R.id.repeatEmailInput)) {
+            repeatEmailInputLayout.setError(message);
         }
 
     }
@@ -121,5 +142,25 @@ implements IForgotPasswordView {
     @OnClick(R.id.sendEmail)
     public void onSendEmail(){
         validator.validate();
+    }
+
+    /**
+     * On Password Reset
+     */
+    @Override
+    public void onPasswordReset() {
+        showConfirmationDialog(R.string.password_reset_success, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.openMailApp();
+                activityHandler.goToIntro();
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {
+                activityHandler.goToIntro();
+            }
+        });
     }
 }

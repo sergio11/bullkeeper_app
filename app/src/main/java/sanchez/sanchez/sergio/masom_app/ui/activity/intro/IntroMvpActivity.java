@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.masom_app.ui.activity.intro;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,10 +15,11 @@ import sanchez.sanchez.sergio.masom_app.di.HasComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.DaggerIntroComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroMvpFragment;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupMvpFragmentMvp;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
+import timber.log.Timber;
 
 public class IntroMvpActivity
         extends SupportMvpActivity<IntroPresenter, IIntroView>
@@ -147,8 +149,19 @@ public class IntroMvpActivity
      */
     @Override
     public void goToForgetPassword() {
-        replaceFragment(R.id.fragmentContainer, ForgotPasswordMvpFragmentMvp.newInstance(), true,
-                ForgotPasswordMvpFragmentMvp.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+        replaceFragment(R.id.fragmentContainer, ForgotPasswordMvpFragment.newInstance(), true,
+                ForgotPasswordMvpFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+    }
+
+    @Override
+    public void openMailApp() {
+        final Intent emailLauncher = new Intent(Intent.ACTION_VIEW);
+        emailLauncher.setType("message/rfc822");
+        try{
+            startActivity(emailLauncher);
+        }catch(ActivityNotFoundException e){
+            Timber.e(e);
+        }
     }
 
 

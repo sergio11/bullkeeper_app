@@ -93,11 +93,9 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         protected void onApiException(APIResponse response) {
             if (response != null) {
                 Timber.e("On Api Exception -> %s - %s", response.getCode(), response.getCodeName());
-                final Iterator<E> apiErrorsIte = apiErrorsValues.iterator();
-                while (apiErrorsIte.hasNext()) {
-                    final E apiError = apiErrorsIte.next();
-                    if(apiError.name().equalsIgnoreCase(response.getCodeName())) {
-                        apiError.accept((V)this);
+                for (E apiError : apiErrorsValues) {
+                    if (apiError.name().equalsIgnoreCase(response.getCodeName())) {
+                        apiError.accept((V) this, response.getData());
                         break;
                     }
                 }
@@ -119,12 +117,13 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
          * Accept
          * @param visitor
          */
-        void accept(T visitor);
+        <E> void accept(T visitor, final E data);
     }
 
     /**
      * Support Visitor
      */
     public interface ISupportVisitor{}
+
 
 }

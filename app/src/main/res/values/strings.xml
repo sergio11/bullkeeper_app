@@ -42,6 +42,8 @@
 
     <!-- email hint -->
     <string name="email_address_hint">Email</string>
+    <!-- Repeat Email Hint -->
+    <string name="repeat_email_address_hint">Repeat Email</string>
     <!-- password hint -->
     <string name="password_hint">Password</string>
     <!-- name hint -->
@@ -349,6 +351,10 @@
     <string name="network_error_ocurred">An error occurred when contacting the server, please try again later</string>
     <string name="unexpected_error_ocurred">An unexpected error occurred</string>
     <string name="bad_credentials_error">Invalid username or password</string>
+
+    <string name="resetting_password_wait">Resetting password, wait ...</string>
+    <string name="email_is_not_valid">The email is not valid</string>
+    <string name="password_reset_success">You will receive an email with additional information to finish resetting your password.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

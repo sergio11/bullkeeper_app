@@ -110,7 +110,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
          */
         BAD_CREDENTIALS(){
             @Override
-            public void accept(ISigninApiErrorVisitor visitor) {
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
                 visitor.visitBadCredentials(this);
             }
         };

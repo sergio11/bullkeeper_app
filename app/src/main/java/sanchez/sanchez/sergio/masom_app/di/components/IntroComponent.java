@@ -8,7 +8,7 @@ import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroMvpActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragmentPresenter;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragmentPresenter;
@@ -49,7 +49,7 @@ public interface IntroComponent extends ActivityComponent {
      * Inject on Forgot Password Fragment
      * @param forgotPasswordFragment
      */
-    void inject(final ForgotPasswordMvpFragmentMvp forgotPasswordFragment);
+    void inject(final ForgotPasswordMvpFragment forgotPasswordFragment);
 
 
     IntroPresenter introPresenter();

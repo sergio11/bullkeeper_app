@@ -12,6 +12,12 @@ public final class ResetPasswordRequestDTO implements Serializable {
     @JsonProperty("email")
     private String email;
 
+    public ResetPasswordRequestDTO(){}
+
+    public ResetPasswordRequestDTO(String email) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

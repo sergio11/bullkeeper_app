@@ -16,4 +16,11 @@ public interface IAccountsRepository {
      */
     Observable<String> getAuthorizationToken(final String email, final String password);
 
+    /**
+     * Reset Password
+     * @param email
+     * @return
+     */
+    Observable<String> resetPassword(final String email);
+
 }
