@@ -15,7 +15,7 @@ import sanchez.sanchez.sergio.masom_app.di.components.DaggerIntroComponent;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragmentMvp;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupMvpFragmentMvp;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpActivity;
 
@@ -112,8 +112,8 @@ public class IntroMvpActivity
      */
     @Override
     public void goToLogin() {
-        replaceFragment(R.id.fragmentContainer, SigninMvpFragmentMvp.newInstance(), true,
-                SigninMvpFragmentMvp.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+        replaceFragment(R.id.fragmentContainer, SigninMvpFragment.newInstance(), true,
+                SigninMvpFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
 
     /**

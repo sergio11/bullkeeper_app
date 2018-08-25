@@ -45,7 +45,7 @@ import timber.log.Timber;
 public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiView>
         extends TiActivity<T, E>
         implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
-        ILocalSystemNotificationVisitor{
+        ILocalSystemNotificationVisitor, ISupportView{
 
     /**
      * NavigatorImpl
@@ -242,6 +242,22 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * On Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        showNoticeDialog(R.string.network_error_ocurred);
+    }
+
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        showNoticeDialog(R.string.unexpected_error_ocurred);
+    }
+
+    /**
      * Show Short Message
      * @param message
      */
@@ -306,6 +322,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showProgressDialog(String title) {
+
         ProgressDialogFragment.showDialog(this, title);
     }
 

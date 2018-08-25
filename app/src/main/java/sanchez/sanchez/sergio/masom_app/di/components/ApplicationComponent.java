@@ -3,8 +3,10 @@ package sanchez.sanchez.sergio.masom_app.di.components;
 import android.content.Context;
 import javax.inject.Singleton;
 import dagger.Component;
+import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.masom_app.di.modules.ApiModule;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotification;
@@ -18,7 +20,7 @@ import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
  * A component whose lifetime is the life of the application.
  */
 @Singleton
-@Component(modules = { ApplicationModule.class })
+@Component(modules = { ApplicationModule.class, ApiModule.class })
 public interface ApplicationComponent {
 
     /**
@@ -50,4 +52,5 @@ public interface ApplicationComponent {
     //IRemoteSystemNotification remoteSystemNotification();
     INotificationHelper notificationHelper();
     PreferencesManager preferencesManager();
+    Retrofit retrofit();
 }

@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.masom_app.di.components;
 
 import dagger.Component;
+import sanchez.sanchez.sergio.masom_app.di.modules.AccountsModule;
 import sanchez.sanchez.sergio.masom_app.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.masom_app.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IntroMvpActivity;
@@ -9,7 +10,7 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.intro.IntroFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFragmentMvp;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragmentPresenter;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupMvpFragmentMvp;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragmentPresenter;
@@ -17,7 +18,7 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragmentPresent
 @PerActivity
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class })
+        modules = { ActivityModule.class, AccountsModule.class })
 public interface IntroComponent extends ActivityComponent {
 
     /**
@@ -36,7 +37,7 @@ public interface IntroComponent extends ActivityComponent {
      * Inject Signin Fragment
      * @param signinFragment
      */
-    void inject(final SigninMvpFragmentMvp signinFragment);
+    void inject(final SigninMvpFragment signinFragment);
 
     /**
      * Signup Fragment

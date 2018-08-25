@@ -8,17 +8,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class APIResponse<T> {
 
-    @JsonProperty("code")
+    @JsonProperty("response_code")
     private String code;
 
-    @JsonProperty("response_status")
-    private String status;
+    @JsonProperty("response_code_name")
+    private String codeName;
 
     @JsonProperty("response_http_status")
     private String httpStatus;
 
     @JsonProperty("response_info_url")
     private String infoUrl;
+
+    @JsonProperty("response_status")
+    private String status;
 
     @JsonProperty("response_data")
     private T data;
@@ -31,12 +34,12 @@ public class APIResponse<T> {
         this.code = code;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCodeName() {
+        return codeName;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
     }
 
     public String getHttpStatus() {
@@ -55,22 +58,19 @@ public class APIResponse<T> {
         this.infoUrl = infoUrl;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public T getData() {
         return data;
     }
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return "APIResponse{" +
-                "code='" + code + '\'' +
-                ", status='" + status + '\'' +
-                ", httpStatus='" + httpStatus + '\'' +
-                ", infoUrl='" + infoUrl + '\'' +
-                ", data=" + data +
-                '}';
     }
 }

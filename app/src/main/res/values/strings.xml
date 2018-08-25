@@ -89,6 +89,8 @@
     <!-- Login Screen -->
     <string name="login_screen_main_title">Login now</string>
 
+    <string name="login_failed">Login Failed</string>
+
     <!-- Forgot password Screen -->
     <string name="forgot_password_screen_main_title">Did you forget your password?</string>
 
@@ -343,6 +345,10 @@
     <!-- Comments Extracted -->
     <string name="comments_extracted_tab">Comments</string>
 
+    <string name="authenticating_wait">Authenticating wait ...</string>
+    <string name="network_error_ocurred">An error occurred when contacting the server, please try again later</string>
+    <string name="unexpected_error_ocurred">An unexpected error occurred</string>
+    <string name="bad_credentials_error">Invalid username or password</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

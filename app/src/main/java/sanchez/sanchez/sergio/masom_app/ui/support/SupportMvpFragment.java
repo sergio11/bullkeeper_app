@@ -149,6 +149,22 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends TiV
     }
 
     /**
+     * On Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        activityHandler.showNoticeDialog(R.string.network_error_ocurred);
+    }
+
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        activityHandler.showNoticeDialog(R.string.unexpected_error_ocurred);
+    }
+
+    /**
      * Show Notice Dialog
      * @param title
      */

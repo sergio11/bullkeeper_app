@@ -55,9 +55,15 @@ android {
 
 
     buildTypes {
+
         debug {
             signingConfig signingConfigs.debug
             multiDexEnabled true
+            buildConfigField "String", "BASE_URL", '"http://192.168.1.125:8080/api/v1/"'
+        }
+
+        release {
+            buildConfigField "String", "BASE_URL", '"http://192.168.1.125:8080/api/v1/"'
         }
     }
 }
@@ -75,7 +81,8 @@ dependencies {
     implementation project(':utils')
     // Compile Domain
     implementation project(':domain')
-    // Data Module
+
+    // Compile Data
     implementation project(':data')
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -107,6 +114,7 @@ dependencies {
     implementation presentationDependencies.androidSaripaar
     implementation presentationDependencies.picasso
     implementation presentationDependencies.stetho
+    implementation presentationDependencies.stethoOkHttp
     implementation presentationDependencies.circleimageview
     implementation presentationDependencies.MPAndroidChart
     implementation presentationDependencies.viewPagerTransforms

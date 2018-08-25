@@ -61,13 +61,13 @@ dependencies {
     implementation dataDependencies.rxAndroid
     implementation dataDependencies.androidAnnotations
     // Retrofit 2
-    implementation dataDependencies.retrofit2
-    implementation dataDependencies.converterJackson
-    implementation dataDependencies.adapterRxjava
+    api dataDependencies.retrofit2
+    api dataDependencies.converterJackson
+    api dataDependencies.adapterRxjava
     // Jackson
-    implementation dataDependencies.jacksonCore
-    implementation dataDependencies.jacksonAnnotations
-    implementation dataDependencies.jacksonDatabind
+    api dataDependencies.jacksonCore
+    api dataDependencies.jacksonAnnotations
+    api dataDependencies.jacksonDatabind
 
     testImplementation testDependencies.junit
     testImplementation testDependencies.assertj

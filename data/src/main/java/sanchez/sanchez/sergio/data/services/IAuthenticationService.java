@@ -19,8 +19,7 @@ public interface IAuthenticationService {
      * @param authorizationRequest
      * @return
      */
-    @FormUrlEncoded
-    @POST("/parents/auth/")
+    @POST("parents/auth/")
     Observable<APIResponse<JwtAuthenticationResponseDTO>> getAuthorizationToken(
             @Body JwtAuthenticationRequestDTO authorizationRequest);
 
@@ -30,8 +29,7 @@ public interface IAuthenticationService {
      * @param authorizationRequest
      * @return
      */
-    @FormUrlEncoded
-    @POST("/parents/auth/facebook")
+    @POST("parents/auth/facebook")
     Observable<APIResponse<JwtAuthenticationResponseDTO>> getAuthorizationTokenByFacebook(
             @Body JwtSocialAuthenticationRequestDTO authorizationRequest);
 
@@ -40,8 +38,7 @@ public interface IAuthenticationService {
      * @param authorizationRequest
      * @return
      */
-    @FormUrlEncoded
-    @POST("/parents/auth/google")
+    @POST("parents/auth/google")
     Observable<APIResponse<JwtAuthenticationResponseDTO>> getAuthorizationTokenByGoogle(
             @Body JwtSocialAuthenticationRequestDTO authorizationRequest);
 

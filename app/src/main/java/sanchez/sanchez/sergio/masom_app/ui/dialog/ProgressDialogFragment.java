@@ -62,9 +62,7 @@ public final class ProgressDialogFragment extends SupportDialog {
         args.putString(TITLE_ARG, title);
         progressDialog.setArguments(args);
         progressDialog.show(activity.getSupportFragmentManager(), TAG);
-
         currentProgressDialog = new WeakReference<>(progressDialog);
-
         return progressDialog;
     }
 

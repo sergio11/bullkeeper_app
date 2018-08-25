@@ -47,6 +47,10 @@ public class PreferencesManager {
     public static final String PREF_ENABLE_DANGER_ALERTS = "enable_danger_alerts";
     public static final boolean ENABLE_DANGER_ALERTS_DEFAULT_VALUE = true;
 
+    // Auth Token
+    public static final String PREF_AUTH_TOKEN = "auth_token";
+    public static final String AUTH_TOKEN_DEFAULT_VALUE = "";
+
     private final SharedPreferences mPref;
 
     /**
@@ -239,5 +243,21 @@ public class PreferencesManager {
                 .apply();
     }
 
+    /**
+     * Get Auth Token
+     * @return
+     */
+    public String getAuthToken() {
+        return mPref.getString(PREF_AUTH_TOKEN, AUTH_TOKEN_DEFAULT_VALUE);
+    }
 
+    /**
+     * Set Auth Token
+     * @param token
+     */
+    public void setAuthToken(final String token) {
+        mPref.edit()
+                .putString(PREF_AUTH_TOKEN, token)
+                .apply();
+    }
 }
