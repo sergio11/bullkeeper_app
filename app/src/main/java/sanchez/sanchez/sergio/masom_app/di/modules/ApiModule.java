@@ -7,6 +7,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import sanchez.sanchez.sergio.data.services.utils.RxJava2ErrorHandlingCallAdapterFactory;
 import sanchez.sanchez.sergio.masom_app.BuildConfig;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,7 +62,7 @@ public class ApiModule {
 
         return new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create(mapper))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2ErrorHandlingCallAdapterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(client)
                 .build();

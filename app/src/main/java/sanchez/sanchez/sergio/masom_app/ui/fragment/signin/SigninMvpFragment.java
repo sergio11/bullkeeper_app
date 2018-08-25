@@ -156,7 +156,6 @@ implements ISigninView, Validator.ValidationListener{
 
     @Override
     public void onLoginSuccess() {
-
         activityHandler.gotToHome();
     }
 
@@ -165,8 +164,14 @@ implements ISigninView, Validator.ValidationListener{
      */
     @Override
     public void onLoginFailed() {
-
         showNoticeDialog(R.string.login_failed);
+    }
 
+    /**
+     * On Bad Credentials
+     */
+    @Override
+    public void onBadCredentials() {
+        showNoticeDialog(R.string.bad_credentials_error);
     }
 }

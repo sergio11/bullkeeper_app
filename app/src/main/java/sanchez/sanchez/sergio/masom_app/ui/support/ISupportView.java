@@ -38,6 +38,18 @@ public interface ISupportView extends TiView {
     void showNoticeDialog(final String title);
 
     /**
+     * On Network Error
+     */
+    @CallOnMainThread
+    void onNetworkError();
+
+    /**
+     * On Other Exception
+     */
+    @CallOnMainThread
+    void onOtherException();
+
+    /**
      * Show Notice Dialog
      * @param stringResId
      */

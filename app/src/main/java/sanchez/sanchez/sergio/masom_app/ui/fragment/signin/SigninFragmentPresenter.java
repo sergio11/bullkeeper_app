@@ -2,8 +2,8 @@ package sanchez.sanchez.sergio.masom_app.ui.fragment.signin;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.domain.interactor.DefaultObserver;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
+import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportPresenter;
 import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
 import timber.log.Timber;
@@ -13,7 +13,14 @@ import timber.log.Timber;
  */
 public final class SigninFragmentPresenter extends SupportPresenter<ISigninView> {
 
+    /**
+     * Signin Interact
+     */
     private final SigninInteract signinInteract;
+
+    /**
+     * Preferences Manager
+     */
     private final PreferencesManager preferencesManager;
 
     /**
@@ -33,7 +40,6 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
     @Override
     public void init() {
         super.init();
-
         this.signinInteract.attachDisposablesTo(compositeDisposable);
     }
 
@@ -43,13 +49,15 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
      * @param password
      */
     public void signin(final String mail, final String password) {
-
         Preconditions.checkNotNull(mail, "Mail can not be null");
         Preconditions.checkNotNull(password, "Password can not be null");
-
         Timber.d("Mail: %s, password: %s", mail, password);
 
-        signinInteract.execute(new SigninObserver(), SigninInteract.Params.create(mail, password));
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.authenticating_wait);
+
+        // Execute Signin Interact
+        signinInteract.execute(new SigninObserver(SigninApiErrors.class), SigninInteract.Params.create(mail, password));
 
     }
 
@@ -57,31 +65,68 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
     /**
      * Signin Observer
      */
-    private final class SigninObserver extends DefaultObserver<String> {
+    private final class SigninObserver extends CommandCallBackWrapper<String, SigninApiErrors.ISigninApiErrorVisitor,
+            SigninApiErrors> implements SigninApiErrors.ISigninApiErrorVisitor {
 
-        @Override public void onComplete() {
-
-
+        /**
+         *
+         * @param apiErrors
+         */
+        public SigninObserver(Class<SigninApiErrors> apiErrors) {
+            super(apiErrors);
         }
 
-        @Override public void onError(Throwable e) {
-
-            Timber.e(e);
-
-            if(isViewAttached() && getView() != null) {
-                getView().onLoginFailed();
-            }
-        }
-
-        @Override public void onNext(final String authToken) {
-
+        /**
+         * On Success
+         * @param authToken
+         */
+        @Override
+        protected void onSuccess(String authToken) {
             // Save Token on preferences
             preferencesManager.setAuthToken(authToken);
-
             if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onLoginSuccess();
             }
         }
+
+        @Override
+        public void visitBadCredentials(SigninApiErrors error) {
+            Timber.e("Bad Credentials Error");
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onBadCredentials();
+            }
+        }
     }
+
+    /**
+     * Signin Api Errors
+     */
+    public enum SigninApiErrors implements ISupportVisitable<SigninApiErrors.ISigninApiErrorVisitor> {
+
+        /**
+         * Bad Credentials Error
+         */
+        BAD_CREDENTIALS(){
+            @Override
+            public void accept(ISigninApiErrorVisitor visitor) {
+                visitor.visitBadCredentials(this);
+            }
+        };
+
+        /**
+         * Signin Api Error Visitor
+         */
+        public interface ISigninApiErrorVisitor extends ISupportVisitor {
+            /**
+             * Visit Bad Credentials
+             * @param error
+             */
+            void visitBadCredentials(final SigninApiErrors error);
+        }
+
+    }
+
 
 }

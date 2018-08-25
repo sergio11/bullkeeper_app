@@ -14,4 +14,9 @@ public interface ISigninView extends ISupportView {
      */
     void onLoginFailed();
 
+    /**
+     * On Bad Credentials
+     */
+    void onBadCredentials();
+
 }
