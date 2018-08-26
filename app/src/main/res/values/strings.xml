@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">MyApp</string>
+    <string name="app_name">BullKeeper</string>
 
     <!-- Intro Text -->
     <string name="intro_text">The first anti-bullying in the history of the internet. Designed to protect young people and pre-teens from attacks on the social networks of other groups of their age.</string>
@@ -264,9 +264,6 @@
     <string name="menu_item_profile">Profile</string>
     <string name="menu_item_relations">Relations</string>
 
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_activity_signing_in">SigningInActivity</string>
-    <string name="title_activity_signing_up">SigningUp</string>
 
     <!-- Dialogs Strings -->
     <string name="default_notice_dialog_title">Notice Dialog</string>
@@ -369,31 +366,14 @@
     <string name="email_is_not_valid">The email is not valid</string>
     <string name="password_reset_success">You will receive an email with additional information to finish resetting your password.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
-
     <string name="crash_error_content">An unexperienced error occurred during the operation of the application, sorry for the inconvenience</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_my_kids">MyKidsActivity</string>
-    <string name="title_activity_alert_detail">AlertDetailActivity</string>
-
     <string name="content">The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.</string>
-    <string name="title_activity_alert_list">AlertListActivity</string>
-    <string name="title_activity_app_tutorial">AppTutorialActivity</string>
-    <string name="title_activity_user_settings">UserSettingsActivity</string>
 
     <!-- Youtube API strings -->
     <string name="player_error">Error initializing YouTube player: %s</string>
     <string name="seek_to">Jump To</string>
     <string name="seek_to_hint">Seconds</string>
-    <string name="title_activity_question">QuestionActivity</string>
     <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
     <string name="youtube_video_cue">gsT5agfijBE</string>
-    <string name="title_activity_user_profile">UserProfileActivity</string>
-    <string name="title_activity_my_kids_profile">MyKidsProfileActivity</string>
-    <string name="title_activity_comments">CommentsActivity</string>
-    <string name="title_activity_comment_detail">CommentDetailActivity</string>
-    <string name="title_activity_my_kids_detail_activty">MyKidsDetailActivty</string>
-    <string name="title_activity_kids_results">KidsResultsActivity</string>
 </resources>

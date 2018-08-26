@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="sanchez.sanchez.sergio.masom_app">
+    package="sanchez.sanchez.sergio.bullkeeper">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,14 +28,14 @@
         <!-- Intro Activity -->
         <activity
             android:name=".ui.activity.intro.IntroMvpActivity"
-            android:label="@string/title_activity_home"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Intro" />
 
         <!-- Custom Splash Screen Activity -->
         <activity
             android:name=".ui.activity.splash.SplashScreenActivity"
-            android:label="@string/title_activity_splash_screen"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,77 +60,77 @@
         <!-- Home Activity -->
         <activity
             android:name=".ui.activity.home.HomeMvpActivity"
-            android:label="@string/title_activity_home" />
+            android:label="@string/app_name" />
 
         <!-- My Kids Activity -->
         <activity
             android:name=".ui.activity.mykids.MyKidsMvpActivity"
-            android:label="@string/title_activity_my_kids"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- Alert Detail Activity -->
         <activity
             android:name=".ui.activity.alertdetail.AlertDetailMvpActivity"
-            android:label="@string/title_activity_alert_detail"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- Alert List Activity -->
         <activity
             android:name=".ui.activity.alertlist.AlertListMvpActivity"
-            android:label="@string/title_activity_alert_list"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- App Tutorial Activity -->
         <activity
             android:name=".ui.activity.tutorial.AppTutorialActivity"
-            android:label="@string/title_activity_app_tutorial"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- User Settings Activity -->
         <activity
             android:name=".ui.activity.settings.UserSettingsMvpActivity"
-            android:label="@string/title_activity_user_settings"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Preferences" />
 
         <!-- User Profile -->
         <activity
             android:name=".ui.activity.userprofile.UserProfileMvpActivity"
-            android:label="@string/title_activity_user_profile"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.UserProfile" />
 
         <!-- My Kids Profile -->
         <activity
             android:name=".ui.activity.mykidsprofile.MyKidsProfileMvpActivity"
-            android:label="@string/title_activity_my_kids_profile"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MyKidsProfile" />
 
         <!-- Comments Activity -->
         <activity
             android:name=".ui.activity.comments.CommentsMvpActivity"
-            android:label="@string/title_activity_comments"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Comments" />
 
         <!-- Comment Detail Activity -->
         <activity
             android:name=".ui.activity.commentdetail.CommentDetailMvpActivity"
-            android:label="@string/title_activity_comment_detail"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CommentDetail" />
 
         <!-- My Kids Detail Activity -->
         <activity
             android:name=".ui.activity.mykidsdetail.MyKidsDetailMvpActivity"
-            android:label="@string/title_activity_my_kids_detail_activty"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- Kids Results Activity -->
         <activity
             android:name=".ui.activity.kidsresults.KidsResultsActivity"
-            android:label="@string/title_activity_kids_results"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"/>
     </application>
 
