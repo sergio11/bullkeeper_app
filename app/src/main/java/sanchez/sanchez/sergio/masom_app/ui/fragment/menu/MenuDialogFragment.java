@@ -21,6 +21,7 @@ import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportDialogFragment;
+import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
 import timber.log.Timber;
 
 /**
@@ -32,6 +33,7 @@ public final class MenuDialogFragment extends SupportDialogFragment
     private final static int PROFILE_ITEM_POSITION = 0;
     private final static int SETTINGS_ITEM_POSITION = 1;
     private final static int HOW_ITS_WORK_POSITION = 2;
+    private final static int CLOSE_SESSION_POSITION = 3;
 
     public static final String TAG = "MENU_DIALOG_FRAGMENT";
 
@@ -40,8 +42,17 @@ public final class MenuDialogFragment extends SupportDialogFragment
 
     protected ApplicationComponent applicationComponent;
 
+    /**
+     * Navigator
+     */
     @Inject
     protected INavigator navigator;
+
+    /**
+     * Preference Manager
+     */
+    @Inject
+    protected PreferencesManager preferencesManager;
 
     /**
      * Show
@@ -125,6 +136,13 @@ public final class MenuDialogFragment extends SupportDialogFragment
             case HOW_ITS_WORK_POSITION:
                 //Show App Tutorial
                 navigator.navigateToAppTutorial();
+                break;
+
+            case CLOSE_SESSION_POSITION:
+                // Close Session
+                preferencesManager.setAuthToken(PreferencesManager.AUTH_TOKEN_DEFAULT_VALUE);
+                preferencesManager.setPrefCurrentUserIdentity(PreferencesManager.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+                navigator.navigateToIntro(true);
                 break;
 
         }

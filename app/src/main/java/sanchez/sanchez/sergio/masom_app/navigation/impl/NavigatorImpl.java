@@ -41,12 +41,21 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Naavigate To Intro
+     * @param closeSession
+     */
+    @Override
+    public void navigateToIntro(boolean closeSession) {
+        Intent intentToLaunch = IntroMvpActivity.getCallingIntent(context, closeSession);
+        context.startActivity(intentToLaunch);
+    }
+
+    /**
      * Navigate To Intro
      */
     @Override
     public void navigateToIntro() {
-        Intent intentToLaunch = IntroMvpActivity.getCallingIntent(context);
-        context.startActivity(intentToLaunch);
+        navigateToIntro(false);
     }
 
     /**

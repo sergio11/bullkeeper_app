@@ -5,6 +5,7 @@
         <item>@string/app_menu_user_profile</item>
         <item>@string/app_menu_settings</item>
         <item>@string/app_menu_how_its_work</item>
+        <item>@string/app_menu_close_session</item>
     </string-array>
 
     <!-- Number of Alerts Values -->

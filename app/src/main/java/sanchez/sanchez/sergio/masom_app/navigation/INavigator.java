@@ -13,7 +13,13 @@ public interface INavigator {
     /**
      * Navigate To Intro
      */
+    void navigateToIntro(final boolean closeSession);
+
+    /**
+     * Navigate To Intro
+     */
     void navigateToIntro();
+
 
     /**
      * Navigate To Home

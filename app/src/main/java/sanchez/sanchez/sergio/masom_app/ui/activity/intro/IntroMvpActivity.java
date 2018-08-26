@@ -30,6 +30,8 @@ public class IntroMvpActivity
         implements HasComponent<IntroComponent>, IIntroActivityHandler
         , IIntroView{
 
+    private final static String CLOSE_SESSION_ARG = "close_session";
+
 
     private IntroComponent introComponent;
 
@@ -38,8 +40,12 @@ public class IntroMvpActivity
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, IntroMvpActivity.class);
+    public static Intent getCallingIntent(final Context context, final boolean closeSession) {
+        final Intent introIntent =  new Intent(context, IntroMvpActivity.class);
+        introIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        introIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        introIntent.putExtra(CLOSE_SESSION_ARG, closeSession);
+        return introIntent;
     }
 
 
@@ -82,6 +88,10 @@ public class IntroMvpActivity
         if (savedInstanceState == null)
             addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), false);
 
+        if(getIntent().hasExtra(CLOSE_SESSION_ARG)) {
+            final boolean closeSession = getIntent().getBooleanExtra(CLOSE_SESSION_ARG, false);
+            if(closeSession) showShortMessage(getString(R.string.close_session_message));
+        }
     }
 
     /**
