@@ -19,4 +19,9 @@ public interface ISigninView extends ISupportView {
      */
     void onBadCredentials();
 
+    /**
+     * On Account Disabled
+     */
+    void onAccountDisabled();
+
 }

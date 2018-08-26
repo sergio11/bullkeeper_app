@@ -12,7 +12,7 @@ import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordMvpFr
 import sanchez.sanchez.sergio.masom_app.ui.fragment.password.ForgotPasswordFragmentPresenter;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signin.SigninFragmentPresenter;
-import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupMvpFragmentMvp;
+import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupMvpFragment;
 import sanchez.sanchez.sergio.masom_app.ui.fragment.signup.SignupFragmentPresenter;
 
 @PerActivity
@@ -43,7 +43,7 @@ public interface IntroComponent extends ActivityComponent {
      * Signup Fragment
      * @param signupFragment
      */
-    void inject(final SignupMvpFragmentMvp signupFragment);
+    void inject(final SignupMvpFragment signupFragment);
 
     /**
      * Inject on Forgot Password Fragment

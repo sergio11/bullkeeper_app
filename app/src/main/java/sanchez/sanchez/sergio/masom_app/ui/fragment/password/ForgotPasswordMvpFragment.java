@@ -8,6 +8,10 @@ import android.support.v7.widget.AppCompatEditText;
 import com.mobsandgeeks.saripaar.annotation.ConfirmEmail;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
@@ -25,6 +29,8 @@ public class ForgotPasswordMvpFragment extends
 implements IForgotPasswordView {
 
     public static String TAG = "FORGOT_PASSWORD_FRAGMENT";
+
+    private final static String EMAIL_FIELD_NAME = "email";
 
     /**
      * Email Input Layout
@@ -162,5 +168,24 @@ implements IForgotPasswordView {
                 activityHandler.goToIntro();
             }
         });
+    }
+
+    /**
+     * On Validation Errors
+     * @param errors
+     */
+    @Override
+    public void onValidationErrors(final List<LinkedHashMap<String, String>> errors) {
+
+        for(final LinkedHashMap<String, String> error: errors) {
+
+            if(error.get("field").equalsIgnoreCase(EMAIL_FIELD_NAME)) {
+                emailInputLayout.setError(error.get("message"));
+                break;
+            }
+
+        }
+
+        showNoticeDialog(R.string.forms_is_not_valid);
     }
 }

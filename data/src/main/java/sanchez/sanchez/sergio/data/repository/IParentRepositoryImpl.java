@@ -1,7 +1,7 @@
 package sanchez.sanchez.sergio.data.repository;
 
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.data.services.IParentsService;
+import sanchez.sanchez.sergio.data.net.services.IParentsService;
 import sanchez.sanchez.sergio.domain.repository.IParentRepository;
 
 /**

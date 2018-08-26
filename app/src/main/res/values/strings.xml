@@ -57,6 +57,10 @@
     <!-- Tfno -->
     <string name="tfno_hint">Tfno</string>
 
+    <!-- Date Format -->
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="date_format_server_response">yyyy/MM/dd</string>
+
 
     <!-- fields error messages -->
     <string name="name_not_empty_error">You must specify your name</string>
@@ -67,8 +71,14 @@
     <string name="forms_is_not_valid">The information provided is not valid</string>
 
 
+    <!-- Signin -->
+    <string name="account_is_not_activated">The account is not activated, please check your email to activate it.</string>
+
+
     <!-- Sign up -->
     <string name="signup_in_progress">Sign up in progress, please wait ...</string>
+    <string name="signup_success" formatted="true">%s, your account was created successfully, you must check your email to validate it.</string>
+
 
 
     <!-- Tutorial Strings -->

@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.masom_app.ui.fragment.password;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.domain.interactor.accounts.ResetPasswordInteract;
 import sanchez.sanchez.sergio.masom_app.R;
@@ -73,24 +72,17 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
          * @param errors
          */
         @Override
-        public void visitValidationError(ResetPasswordApiErrors apiErrors, LinkedHashMap<String, String> errors) {
+        public void visitValidationError(ResetPasswordApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                if(errors != null && !errors.isEmpty() && errors.containsKey("email")) {
-                    getView().showNoticeDialog(errors.get("email"));
+                if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
+                    getView().onValidationErrors(errors.get("field_errors"));
                 } else {
-                    getView().showNoticeDialog(R.string.email_is_not_valid);
+                    getView().showNoticeDialog(R.string.forms_is_not_valid);
                 }
             }
         }
 
-        @Override
-        public void visitGenericError(ResetPasswordApiErrors apiErrors) {
-            if (isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onOtherException();
-            }
-        }
     }
 
     /**
@@ -99,19 +91,12 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
     public enum ResetPasswordApiErrors  implements ISupportVisitable<ResetPasswordApiErrors.IResetPasswordApiErrorVisitor> {
 
         /**
-         * Bad Credentials Error
+         * Validation Errors
          */
         VALIDATION_ERROR(){
             @Override
             public <E> void accept(IResetPasswordApiErrorVisitor visitor, E data) {
-                visitor.visitValidationError(this, (LinkedHashMap<String, String>) data);
-            }
-        },
-
-        GENERIC_ERROR() {
-            @Override
-            public <E> void accept(IResetPasswordApiErrorVisitor visitor, E data) {
-                visitor.visitGenericError(this);
+                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
             }
         };
 
@@ -123,13 +108,7 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
              * Visit Bad Credentials
              * @param apiErrors
              */
-            void visitValidationError(final ResetPasswordApiErrors apiErrors, final LinkedHashMap<String, String> errors);
-
-            /**
-             * Visit Generic Error
-             * @param apiErrors
-             */
-            void visitGenericError(final ResetPasswordApiErrors apiErrors);
+            void visitValidationError(final ResetPasswordApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
         }
 
     }

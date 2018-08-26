@@ -1,8 +1,13 @@
 package sanchez.sanchez.sergio.masom_app.ui.fragment.signin;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
+
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -12,6 +17,7 @@ import butterknife.OnClick;
 import sanchez.sanchez.sergio.masom_app.R;
 import sanchez.sanchez.sergio.masom_app.di.components.IntroComponent;
 import sanchez.sanchez.sergio.masom_app.ui.activity.intro.IIntroActivityHandler;
+import sanchez.sanchez.sergio.masom_app.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.masom_app.ui.support.SupportMvpValidationMvpFragment;
 
 /**
@@ -23,6 +29,8 @@ public class SigninMvpFragment extends
 implements ISigninView, Validator.ValidationListener{
 
     public static String TAG = "SIGNIN_FRAGMENT";
+
+    private static final String EMAIL_ARG = "email";
 
     /**
      * Email Input Layout
@@ -59,6 +67,19 @@ implements ISigninView, Validator.ValidationListener{
      */
     public static SigninMvpFragment newInstance() {
         SigninMvpFragment fragment = new SigninMvpFragment();
+        return fragment;
+    }
+
+    /**
+     * New Instance
+     * @param email
+     * @return
+     */
+    public static SigninMvpFragment newInstance(final String email) {
+        SigninMvpFragment fragment = new SigninMvpFragment();
+        final Bundle args = new Bundle();
+        args.putString(EMAIL_ARG, email);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -132,10 +153,26 @@ implements ISigninView, Validator.ValidationListener{
         getPresenter().signin(email, password);
     }
 
-
+    /**
+     * On Validation Failed
+     */
     @Override
     protected void onValidationFailed() {
         showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(getArguments() != null && getArguments().containsKey(EMAIL_ARG)) {
+            emailInput.setText(getArguments().getString(EMAIL_ARG));
+        }
     }
 
     /**
@@ -173,5 +210,21 @@ implements ISigninView, Validator.ValidationListener{
     @Override
     public void onBadCredentials() {
         showNoticeDialog(R.string.bad_credentials_error);
+    }
+
+    /**
+     * On Account Disabled
+     */
+    @Override
+    public void onAccountDisabled() {
+        showConfirmationDialog(R.string.account_is_not_activated, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.openMailApp();
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
     }
 }

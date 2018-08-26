@@ -2,8 +2,8 @@ package sanchez.sanchez.sergio.data.utils;
 
 import java.io.IOException;
 
-import sanchez.sanchez.sergio.data.models.response.APIResponse;
-import sanchez.sanchez.sergio.data.services.utils.RetrofitException;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.data.net.utils.RetrofitException;
 import sanchez.sanchez.sergio.domain.interactor.DefaultObserver;
 
 /**
@@ -17,12 +17,11 @@ public abstract class CallbackWrapper<T> extends DefaultObserver<T> {
         super.onError(exception);
         if(exception instanceof RetrofitException){
             RetrofitException error = (RetrofitException) exception;
-            APIResponse response = null;
             try {
                 if(error.getKind()== RetrofitException.Kind.NETWORK){
                     onNetworkError();
                 }else{
-                    response = error.getErrorBodyAs(APIResponse.class);
+                    final APIResponse response = error.getErrorBodyAs(APIResponse.class);
                     onApiException(response);
                 }
 

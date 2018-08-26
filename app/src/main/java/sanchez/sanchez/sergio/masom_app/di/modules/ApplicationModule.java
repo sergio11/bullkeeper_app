@@ -9,6 +9,7 @@ import dagger.Provides;
 import sanchez.sanchez.sergio.data.executor.JobExecutor;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.masom_app.AndroidApplication;
 import sanchez.sanchez.sergio.masom_app.UIThread;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
@@ -17,6 +18,7 @@ import sanchez.sanchez.sergio.masom_app.notification.local.ILocalSystemNotificat
 import sanchez.sanchez.sergio.masom_app.notification.local.impl.LocalSystemNotificationImpl;
 import sanchez.sanchez.sergio.masom_app.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.masom_app.ui.notification.impl.NotificationHelperImpl;
+import sanchez.sanchez.sergio.data.utils.AppUtils;
 import sanchez.sanchez.sergio.masom_app.utils.PreferencesManager;
 
 /**
@@ -100,6 +102,16 @@ public class ApplicationModule {
     @Provides @Singleton
     PreferencesManager providePreferencesManager(final Context appContext) {
         return new PreferencesManager(appContext);
+    }
+
+    /**
+     * Provide App Utils
+     * @param appContext
+     * @return
+     */
+    @Provides @Singleton
+    IAppUtils provideAppUtils(final Context appContext) {
+        return new AppUtils(appContext);
     }
 
 }
