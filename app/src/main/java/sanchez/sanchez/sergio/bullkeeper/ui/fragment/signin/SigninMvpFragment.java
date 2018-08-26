@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,10 +10,23 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -19,6 +34,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
+import timber.log.Timber;
 
 /**
  * Intro Fragment
@@ -26,7 +42,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragm
 public class SigninMvpFragment extends
         SupportMvpValidationMvpFragment<SigninFragmentPresenter, ISigninView, IIntroActivityHandler,
                                 IntroComponent>
-implements ISigninView, Validator.ValidationListener{
+implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResult> {
 
     public static String TAG = "SIGNIN_FRAGMENT";
 
@@ -58,6 +74,17 @@ implements ISigninView, Validator.ValidationListener{
     @BindView(R.id.passwordInput)
     @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC)
     protected AppCompatEditText passwordInput;
+
+    @Inject
+    protected Context appContext;
+
+    private CallbackManager callbackManager;
+
+    /**
+     * User Read Permissions
+     */
+    private final List<String> userReadPermissions = Arrays.asList("email", "user_birthday", "user_hometown",
+            "user_location", "public_profile");
 
     public SigninMvpFragment() { }
 
@@ -124,8 +151,7 @@ implements ISigninView, Validator.ValidationListener{
      */
     @OnClick(R.id.loginFacebook)
     public void onLoginFacebook(){
-
-        showShortMessage("On Login Facebook");
+        LoginManager.getInstance().logInWithReadPermissions(this, userReadPermissions);
     }
 
     /**
@@ -173,6 +199,11 @@ implements ISigninView, Validator.ValidationListener{
         if(getArguments() != null && getArguments().containsKey(EMAIL_ARG)) {
             emailInput.setText(getArguments().getString(EMAIL_ARG));
         }
+
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(
+                callbackManager, this);
     }
 
     /**
@@ -227,4 +258,50 @@ implements ISigninView, Validator.ValidationListener{
             public void onRejected(DialogFragment dialog) {}
         });
     }
+
+    /**
+     * On Activity Result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * On Success
+     * @param loginResult
+     */
+    @Override
+    public void onSuccess(LoginResult loginResult) {
+        Timber.d("Facebook Login Success");
+        AccessToken accessToken = loginResult.getAccessToken();
+        if (accessToken != null)
+            getPresenter().signin(accessToken);
+        else
+            showShortMessage(R.string.login_facebook_error);
+    }
+
+    /**
+     * On Cancel
+     */
+    @Override
+    public void onCancel() {
+        Timber.d("Facebook Login Canceled");
+        showShortMessage(R.string.login_facebook_canceled);
+    }
+
+    /**
+     * On Error
+     * @param error
+     */
+    @Override
+    public void onError(FacebookException error) {
+        Timber.d("Facebook Login Exception");
+        showShortMessage(R.string.login_facebook_error);
+    }
+
 }

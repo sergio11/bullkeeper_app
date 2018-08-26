@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.data.repository;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.JwtAuthenticationRequestDTO;
+import sanchez.sanchez.sergio.data.net.models.request.JwtSocialAuthenticationRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.request.RegisterParentDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
@@ -43,6 +44,19 @@ public final class AccountsRepositoryImpl implements IAccountsRepository {
         return authenticationService.getAuthorizationToken(new JwtAuthenticationRequestDTO(email, password))
                 .map(response -> response != null
                 && response.getData() != null ?
+                        response.getData().getToken() : null);
+    }
+
+    /**
+     * Get Authorization Token By Facebook
+     * @param token
+     * @return
+     */
+    @Override
+    public Observable<String> getAuthorizationTokenByFacebook(final String token) {
+        return authenticationService.getAuthorizationTokenByFacebook(new JwtSocialAuthenticationRequestDTO(token))
+                .map(response -> response != null
+                        && response.getData() != null ?
                         response.getData().getToken() : null);
     }
 

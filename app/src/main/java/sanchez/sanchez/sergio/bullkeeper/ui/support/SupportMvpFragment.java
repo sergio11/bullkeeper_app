@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,6 +138,15 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends TiV
     @Override
     public void showShortMessage(String message) {
         activityHandler.showShortMessage(message);
+    }
+
+    /**
+     * Show Short Message
+     * @param messageResId
+     */
+    @Override
+    public void showShortMessage(@StringRes int messageResId) {
+        activityHandler.showShortMessage(messageResId);
     }
 
     /**

@@ -15,6 +15,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterParentInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.ResetPasswordInteract;
+import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
@@ -114,6 +115,15 @@ public class AccountsModule {
         Preconditions.checkNotNull(accountsRepository, "Accounts Repository can not be null");
         Preconditions.checkNotNull(appUtils, "App Utils can not ben null");
         return new RegisterParentInteract(threadExecutor, postExecutionThread, accountsRepository, appUtils);
+    }
+
+    @Provides @PerActivity
+    public SigninFacebookInteract provideSigninFacebookInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                final IAccountsRepository accountsRepository) {
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(accountsRepository, "Accounts Repository can not be null");
+        return new SigninFacebookInteract(threadExecutor, postExecutionThread, accountsRepository);
     }
 
 }

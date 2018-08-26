@@ -376,4 +376,12 @@
     <string name="seek_to_hint">Seconds</string>
     <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
     <string name="youtube_video_cue">gsT5agfijBE</string>
+
+    <!-- Facebook -->
+    <string name="facebook_app_id">296606527738358</string>
+    <string name="fb_login_protocol_scheme">fb296606527738358</string>
+    <string name="login_facebook_canceled">The login was canceled by the user</string>
+    <string name="login_facebook_error">There was an error when logging in through Facebook</string>
+
+
 </resources>

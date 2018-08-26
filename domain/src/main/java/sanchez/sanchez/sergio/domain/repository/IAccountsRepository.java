@@ -18,6 +18,13 @@ public interface IAccountsRepository {
     Observable<String> getAuthorizationToken(final String email, final String password);
 
     /**
+     * Get Authorization Token By Facebook
+     * @param token
+     * @return
+     */
+    Observable<String> getAuthorizationTokenByFacebook(final String token);
+
+    /**
      * Reset Password
      * @param email
      * @return

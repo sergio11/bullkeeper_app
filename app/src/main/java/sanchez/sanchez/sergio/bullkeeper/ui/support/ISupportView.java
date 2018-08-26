@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,14 @@ public interface ISupportView extends TiView {
     @CallOnMainThread
     @DistinctUntilChanged
     void showShortMessage(final String message);
+
+    /**
+     * Show Short Message
+     * @param messageResId
+     */
+    @CallOnMainThread
+    @DistinctUntilChanged
+    void showShortMessage(@StringRes final int messageResId);
 
     /**
      * Show Long Message

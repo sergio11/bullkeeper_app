@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,12 @@ public interface IBasicActivityHandler {
      * @param message
      */
     void showShortMessage(final String message);
+
+    /**
+     * Show Short Message
+     * @param messageResId
+     */
+    void showShortMessage(@StringRes final int messageResId);
 
     /**
      * Show Long Message

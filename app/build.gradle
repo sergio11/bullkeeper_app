@@ -118,6 +118,7 @@ dependencies {
     implementation presentationDependencies.circleimageview
     implementation presentationDependencies.MPAndroidChart
     implementation presentationDependencies.viewPagerTransforms
+    implementation presentationDependencies.facebookSdk
 
     implementation 'com.fernandocejas:arrow:1.0.0'
 

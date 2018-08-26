@@ -1,7 +1,9 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin;
 
+import com.facebook.AccessToken;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
+import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
@@ -24,14 +26,20 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
     private final PreferencesManager preferencesManager;
 
     /**
+     * Signin Facebook Interact
+     */
+    private final SigninFacebookInteract signinFacebookInteract;
+
+    /**
      * Signin Fragment Presenter
      * @param signinInteract
      */
     @Inject
-    public SigninFragmentPresenter(final SigninInteract signinInteract,
-                                   final PreferencesManager preferencesManager){
+    public SigninFragmentPresenter(final SigninInteract signinInteract, final PreferencesManager preferencesManager,
+                                   final SigninFacebookInteract signinFacebookInteract){
         this.signinInteract = signinInteract;
         this.preferencesManager = preferencesManager;
+        this.signinFacebookInteract = signinFacebookInteract;
     }
 
     /**
@@ -41,6 +49,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
     public void init() {
         super.init();
         this.signinInteract.attachDisposablesTo(compositeDisposable);
+        this.signinFacebookInteract.attachDisposablesTo(compositeDisposable);
     }
 
     /**
@@ -59,6 +68,21 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
         // Execute Signin Interact
         signinInteract.execute(new SigninObserver(SigninApiErrors.class), SigninInteract.Params.create(mail, password));
 
+    }
+
+    /**
+     * Signin
+     * @param accessToken
+     */
+    public void signin(final AccessToken accessToken) {
+        Preconditions.checkNotNull(accessToken, "AccessToken can not be null");
+        Preconditions.checkNotNull(accessToken.getToken(), "Token can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.authenticating_wait);
+
+        // Execute Signin Facebook
+        signinFacebookInteract.execute(new SigninObserver(SigninApiErrors.class), SigninFacebookInteract.Params.create(accessToken.getToken()));
     }
 
 

@@ -39,6 +39,7 @@ ext {
     androidSaripaarVersion = '2.0.3'
     retrofitVersion = '2.4.0'
     rxjava2AdapterVersion = '1.0.0'
+    facebookSdkVersion = '[4,5)'
 
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
@@ -96,7 +97,8 @@ ext {
             stethoOkHttp:       "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
             circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}",
             MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
-            viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar"
+            viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar",
+            facebookSdk:        "com.facebook.android:facebook-login:${facebookSdkVersion}"
     ]
 
     presentationTestDependencies = [

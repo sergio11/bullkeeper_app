@@ -6,6 +6,7 @@ import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -264,6 +265,15 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public void showShortMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Show Short Message
+     * @param messageResId
+     */
+    @Override
+    public void showShortMessage(@StringRes int messageResId) {
+        showShortMessage(getString(messageResId));
     }
 
     /**
