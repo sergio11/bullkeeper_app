@@ -18,7 +18,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_not_be_loaded" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:singleLine="true"
-            android:text="Sergio Sánchez"
+            android:text="-"
             android:textColor="@color/commonWhite"
             android:textStyle="bold" />
 
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:singleLine="true"
-            android:text="C.E.L.P. Fernando Gavilán"
+            android:text="-"
             android:textColor="@color/commonWhite" />
 
     </LinearLayout>
@@ -116,9 +117,6 @@
             android:layout_marginStart="5dp" />
 
     </LinearLayout>
-
-
-
 
 
     <android.support.constraint.Guideline

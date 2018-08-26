@@ -6,7 +6,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.data.executor.JobExecutor;
+import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -20,6 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.impl.NotificationHelperImpl;
 import sanchez.sanchez.sergio.data.utils.AppUtils;
 import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -105,6 +108,16 @@ public class ApplicationModule {
     }
 
     /**
+     * Provide Auth Token Aware
+     * @param preferencesManager
+     * @return
+     */
+    @Provides @Singleton
+    IAuthTokenAware provideAuthTokenAware(final PreferencesManager preferencesManager) {
+        return preferencesManager;
+    }
+
+    /**
      * Provide App Utils
      * @param appContext
      * @return
@@ -112,6 +125,15 @@ public class ApplicationModule {
     @Provides @Singleton
     IAppUtils provideAppUtils(final Context appContext) {
         return new AppUtils(appContext);
+    }
+
+    /**
+     * Provide Api End Points Helper
+     * @return
+     */
+    @Provides @Singleton
+    ApiEndPointsHelper provideApiEndPointsHelper(){
+        return new ApiEndPointsHelper(BuildConfig.BASE_URL);
     }
 
 }

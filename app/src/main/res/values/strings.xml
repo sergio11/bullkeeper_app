@@ -123,6 +123,7 @@
     <!-- My Kids -->
     <string name="my_kids_title">My Kids</string>
     <string name="my_kids_content_description">My Kids</string>
+    <string name="loading_information_of_children">Loading information of registered children</string>
 
     <string name="content_not_be_loaded">The content could not be loaded</string>
 

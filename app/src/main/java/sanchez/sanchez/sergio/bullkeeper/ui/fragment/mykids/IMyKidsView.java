@@ -12,4 +12,9 @@ public interface IMyKidsView extends ISupportView {
      */
     void onMyKidsLoaded(final List<SonEntity> myKids);
 
+    /**
+     * On No Children Found
+     */
+    void onNoChildrenFound();
+
 }

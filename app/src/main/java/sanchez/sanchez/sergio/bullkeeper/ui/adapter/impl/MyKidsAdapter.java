@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
@@ -61,6 +63,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
         private ImageView childImage;
         private ImageButton resultsAction, alertsAction, relationsAction, profileAction;
+        private TextView childName, schoolName;
 
 
         MyKidsViewHolder(View itemView) {
@@ -71,6 +74,8 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             alertsAction = itemView.findViewById(R.id.alertsAction);
             relationsAction = itemView.findViewById(R.id.relationsAction);
             profileAction = itemView.findViewById(R.id.profileAction);
+            childName = itemView.findViewById(R.id.childName);
+            schoolName = itemView.findViewById(R.id.schoolName);
 
         }
 
@@ -82,6 +87,11 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
         @Override
         public void bind(SonEntity sonEntity){
             super.bind(sonEntity);
+
+            // Set Child Name
+            childName.setText(sonEntity.getFullName());
+            // Set School Name
+            schoolName.setText(sonEntity.getSchool().getName());
 
             // Results Action
             resultsAction.setOnTouchListener(new View.OnTouchListener() {
@@ -177,7 +187,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
 
             // Set Child Image
-            Picasso.with(context).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
+            Picasso.with(context).load(sonEntity.getProfileImage())
                     .placeholder(R.drawable.user_default)
                     .error(R.drawable.user_default)
                     .transform(new CircleTransform())

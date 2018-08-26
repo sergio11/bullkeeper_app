@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
+import timber.log.Timber;
 
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
@@ -30,7 +32,7 @@ import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOO
 public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragmentPresenter,
         IMyKidsView, IMyKidsActivityHandler, MyKidsComponent> implements IMyKidsView,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SonEntity>,
-        MyKidsAdapter.OnMyKidsListener {
+        MyKidsAdapter.OnMyKidsListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static String TAG = "MY_KIDS_ACTIVITY_FRAGMENT";
 
@@ -47,6 +49,12 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @BindView(R.id.myKidsList)
     protected RecyclerView myKidsList;
+
+    /**
+     * Swipe Refresh Layout
+     */
+    @BindView(R.id.swipeContainer)
+    protected SwipeRefreshLayout swipeRefreshLayout;
 
     public MyKidsActivityMvpFragment() {}
 
@@ -68,6 +76,10 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        swipeRefreshLayout.setColorSchemeResources(R.color.commonWhite);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         myKidsList.setLayoutManager(new LinearLayoutManager(appContext));
         myKidsList.setNestedScrollingEnabled(false);
 
@@ -80,6 +92,8 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
         // Set Animator
         myKidsList.setItemAnimator(new DefaultItemAnimator());
         myKidsList.setAdapter(myKidsAdapter);
+
+        getPresenter().loadData();
 
     }
 
@@ -122,6 +136,15 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
     public void onMyKidsLoaded(List<SonEntity> myKids) {
         myKidsAdapter.setData(new ArrayList<>(myKids));
         myKidsAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    /**
+     * On No Children Found
+     */
+    @Override
+    public void onNoChildrenFound() {
+        Timber.d("No Children Found");
     }
 
     /**
@@ -148,6 +171,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @Override
     public void onDetailActionClicked(SonEntity sonEntity) {
+        Timber.d("On Detail for -> %s ", sonEntity.getIdentity());
         activityHandler.navigateToMyKidDetail(sonEntity.getIdentity());
     }
 
@@ -157,6 +181,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @Override
     public void onResultsActionClicked(final SonEntity sonEntity) {
+        Timber.d("On Results for -> %s ", sonEntity.getIdentity());
         activityHandler.navigateToKidsResults(sonEntity.getIdentity());
     }
 
@@ -166,6 +191,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @Override
     public void onAlertsActionClicked(final SonEntity sonEntity) {
+        Timber.d("On Alerts for -> %s ", sonEntity.getIdentity());
         showLongMessage("On Alerts Action");
     }
 
@@ -175,6 +201,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @Override
     public void onRelationsActionClicked(final SonEntity sonEntity) {
+        Timber.d("On Relations for -> %s ", sonEntity.getIdentity());
         activityHandler.navigateToComments(sonEntity.getIdentity());
     }
 
@@ -184,6 +211,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
      */
     @Override
     public void onProfileActionClicked(final SonEntity sonEntity) {
+        Timber.d("On Profile for -> %s ", sonEntity.getIdentity());
         activityHandler.navigateToMyKidsProfile(sonEntity.getIdentity());
 
     }
@@ -195,5 +223,13 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
     @Override
     protected int getToolbarType() {
         return TOOLBAR_WITH_MENU;
+    }
+
+    /**
+     * On Refresh
+     */
+    @Override
+    public void onRefresh() {
+        getPresenter().loadData();
     }
 }

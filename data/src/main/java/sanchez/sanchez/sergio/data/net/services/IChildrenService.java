@@ -28,6 +28,9 @@ import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
+/**
+ * Children Service Interface
+ */
 public interface IChildrenService {
 
     /**

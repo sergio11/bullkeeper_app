@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 
+import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
+
 /**
  * Preferences Manager
  */
-public class PreferencesManager {
+public class PreferencesManager implements IAuthTokenAware{
 
     private final static String TAG = "PREFERENCES_MANAGER";
 
@@ -251,6 +253,7 @@ public class PreferencesManager {
      * Get Auth Token
      * @return
      */
+    @Override
     public String getAuthToken() {
         return mPref.getString(PREF_AUTH_TOKEN, AUTH_TOKEN_DEFAULT_VALUE);
     }
