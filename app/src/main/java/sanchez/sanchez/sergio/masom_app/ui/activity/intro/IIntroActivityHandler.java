@@ -18,6 +18,11 @@ public interface IIntroActivityHandler extends IBasicActivityHandler {
     void goToLogin();
 
     /**
+     * Go to Login with email
+     */
+    void goToLogin(final String email);
+
+    /**
      * Go to Signup
      */
     void goToSignup();
@@ -36,4 +41,10 @@ public interface IIntroActivityHandler extends IBasicActivityHandler {
      * Go to Forget Password
      */
     void goToForgetPassword();
+
+    /**
+     * Open Mail App
+     */
+    void openMailApp();
+
 }

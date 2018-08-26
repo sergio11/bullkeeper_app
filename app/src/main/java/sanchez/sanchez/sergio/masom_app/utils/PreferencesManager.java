@@ -51,6 +51,10 @@ public class PreferencesManager {
     public static final String PREF_AUTH_TOKEN = "auth_token";
     public static final String AUTH_TOKEN_DEFAULT_VALUE = "";
 
+    // Current User Identity
+    public static final String PREF_CURRENT_USER_IDENTITY = "identity";
+    public static final String CURRENT_USER_IDENTITY_DEFAULT_VALUE = "";
+
     private final SharedPreferences mPref;
 
     /**
@@ -258,6 +262,24 @@ public class PreferencesManager {
     public void setAuthToken(final String token) {
         mPref.edit()
                 .putString(PREF_AUTH_TOKEN, token)
+                .apply();
+    }
+
+    /**
+     * Get Current User Identity
+     * @return
+     */
+    public String getPrefCurrentUserIdentity() {
+        return mPref.getString(PREF_CURRENT_USER_IDENTITY, CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Current User Identity
+     * @param identity
+     */
+    public void setPrefCurrentUserIdentity(final String identity) {
+        mPref.edit()
+                .putString(PREF_CURRENT_USER_IDENTITY, identity)
                 .apply();
     }
 }

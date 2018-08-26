@@ -98,6 +98,15 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
                 getView().onBadCredentials();
             }
         }
+
+        @Override
+        public void visitAccountDisabled(SigninApiErrors errors) {
+            Timber.e("Account Disabled");
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onAccountDisabled();
+            }
+        }
     }
 
     /**
@@ -110,10 +119,18 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
          */
         BAD_CREDENTIALS(){
             @Override
-            public void accept(ISigninApiErrorVisitor visitor) {
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
                 visitor.visitBadCredentials(this);
             }
+        },
+
+        ACCOUNT_DISABLED() {
+            @Override
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
+                visitor.visitAccountDisabled(this);
+            }
         };
+
 
         /**
          * Signin Api Error Visitor
@@ -124,6 +141,12 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
              * @param error
              */
             void visitBadCredentials(final SigninApiErrors error);
+
+            /**
+             * Visit Account Disabled
+             * @param errors
+             */
+            void visitAccountDisabled(final SigninApiErrors errors);
         }
 
     }

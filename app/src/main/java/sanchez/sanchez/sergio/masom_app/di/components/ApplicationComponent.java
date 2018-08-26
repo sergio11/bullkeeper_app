@@ -6,6 +6,7 @@ import dagger.Component;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApiModule;
 import sanchez.sanchez.sergio.masom_app.di.modules.ApplicationModule;
 import sanchez.sanchez.sergio.masom_app.navigation.INavigator;
@@ -53,4 +54,5 @@ public interface ApplicationComponent {
     INotificationHelper notificationHelper();
     PreferencesManager preferencesManager();
     Retrofit retrofit();
+    IAppUtils appUtils();
 }

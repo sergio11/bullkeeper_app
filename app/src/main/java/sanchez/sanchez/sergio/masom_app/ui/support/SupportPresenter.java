@@ -1,15 +1,11 @@
 package sanchez.sanchez.sergio.masom_app.ui.support;
 
 import android.os.Bundle;
-
 import net.grandcentrix.thirtyinch.TiPresenter;
-
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.Set;
-
 import io.reactivex.disposables.CompositeDisposable;
-import sanchez.sanchez.sergio.data.models.response.APIResponse;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.utils.CallbackWrapper;
 import timber.log.Timber;
 
@@ -29,8 +25,6 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     protected void onDetachView() {
         super.onDetachView();
         releaseSubscription();
-
-
     }
 
     /**
@@ -41,6 +35,15 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
             compositeDisposable.dispose();
     }
 
+    /**
+     * Notify Unexpected exception
+     */
+    protected void notifyUnexpectedException(){
+        if (isViewAttached() && getView() != null) {
+            getView().hideProgressDialog();
+            getView().onOtherException();
+        }
+    }
 
     public void init(){}
 
@@ -52,13 +55,54 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
      */
     public abstract class CommandCallBackWrapper<T, V extends ISupportVisitor,
             E extends Enum<E> & ISupportVisitable<V>>
-            extends CallbackWrapper<T> {
+            extends CallbackWrapper<T> implements CommonApiErrors.ICommonApiErrorVisitor {
 
         private final Set<E> apiErrorsValues;
+        private final Set<CommonApiErrors> commonApiErrors;
 
         public CommandCallBackWrapper(Class<E> apiErrors)
         {
             apiErrorsValues= EnumSet.allOf(apiErrors);
+            commonApiErrors = EnumSet.allOf(CommonApiErrors.class);
+        }
+
+        /**
+         * Find Common Api Error From Code Name
+         * @param codeName
+         * @return
+         */
+        private CommonApiErrors findCommonApiErrorFromCodeName(final String codeName) {
+
+            CommonApiErrors commonApiError = null;
+
+            for(final CommonApiErrors ce: commonApiErrors) {
+                if (ce.name().equalsIgnoreCase(codeName)) {
+                    commonApiError = ce;
+                    break;
+                }
+            }
+
+            return commonApiError;
+
+        }
+
+        /**
+         * Find Api Error From Code Name
+         * @param codeName
+         * @return
+         */
+        private E findApiErrorFromCodeName(final String codeName) {
+
+            E apiErrorFounded = null;
+
+            for (E apiError : apiErrorsValues) {
+                if (apiError.name().equalsIgnoreCase(codeName)) {
+                    apiErrorFounded = apiError;
+                    break;
+                }
+            }
+
+            return apiErrorFounded;
         }
 
         /**
@@ -85,23 +129,60 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         @Override
         protected void onOtherException(Throwable ex) {
             Timber.e("On Other Error -> %s", ex.getMessage());
-            if(isViewAttached() && getView() != null)
-                getView().onOtherException();
+            notifyUnexpectedException();
         }
 
         @Override
         protected void onApiException(APIResponse response) {
             if (response != null) {
                 Timber.e("On Api Exception -> %s - %s", response.getCode(), response.getCodeName());
-                final Iterator<E> apiErrorsIte = apiErrorsValues.iterator();
-                while (apiErrorsIte.hasNext()) {
-                    final E apiError = apiErrorsIte.next();
-                    if(apiError.name().equalsIgnoreCase(response.getCodeName())) {
-                        apiError.accept((V)this);
-                        break;
+
+                final CommonApiErrors commonApiError = findCommonApiErrorFromCodeName(response.getCodeName());
+
+                if(commonApiError != null) {
+
+                    commonApiError.accept(this, response.getData());
+
+                } else {
+
+                    final E apiError = findApiErrorFromCodeName(response.getCodeName());
+
+                    if(apiError != null) {
+
+                        apiError.accept((V)this, response.getData());
+
+                    } else {
+
+                        Timber.e("No Api Code Name Founded");
+                        notifyUnexpectedException();
+
                     }
+
                 }
+
+            } else {
+
+                Timber.e("Response is null");
+                notifyUnexpectedException();
             }
+        }
+
+        /**
+         * Visit Generic Error
+         * @param errors
+         */
+        @Override
+        public void visitGenericError(CommonApiErrors errors) {
+            notifyUnexpectedException();
+        }
+
+        /**
+         * Visit Message Not Readable
+         * @param errors
+         */
+        @Override
+        public void visitMessageNotReadable(CommonApiErrors errors) {
+            notifyUnexpectedException();
         }
 
         /**
@@ -109,7 +190,54 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
          * @param response
          */
         protected abstract void onSuccess(final T response);
+
     }
+
+
+    /**
+     * Signup Api Errors
+     */
+    public enum CommonApiErrors implements ISupportVisitable<CommonApiErrors.ICommonApiErrorVisitor> {
+
+        /**
+         * Generic Error
+         */
+        GENERIC_ERROR() {
+            @Override
+            public <E> void accept(ICommonApiErrorVisitor visitor, E data) {
+                visitor.visitGenericError(this);
+            }
+        },
+        /**
+         * Message Not Readable
+         */
+        MESSAGE_NOT_READABLE(){
+            @Override
+            public <E> void accept(ICommonApiErrorVisitor visitor, E data) {
+                visitor.visitMessageNotReadable(this);
+            }
+        };
+
+        /**
+         * Signup Api Error Visitor
+         */
+        public interface ICommonApiErrorVisitor extends ISupportVisitor {
+
+            /**
+             * Visit Generic Error
+             * @param errors
+             */
+            void visitGenericError(final CommonApiErrors errors);
+
+            /**
+             * Visit Message Not Readable
+             * @param errors
+             */
+            void visitMessageNotReadable(final CommonApiErrors errors);
+        }
+
+    }
+
 
     /**
      * Support Visitable
@@ -119,12 +247,13 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
          * Accept
          * @param visitor
          */
-        void accept(T visitor);
+        <E> void accept(T visitor, final E data);
     }
 
     /**
      * Support Visitor
      */
     public interface ISupportVisitor{}
+
 
 }

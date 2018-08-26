@@ -1,18 +1,21 @@
 package sanchez.sanchez.sergio.masom_app.di.modules;
 
+import android.content.Context;
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import sanchez.sanchez.sergio.data.services.utils.RxJava2ErrorHandlingCallAdapterFactory;
+import sanchez.sanchez.sergio.data.net.deserializers.BirthdayDeserializer;
+import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
 import sanchez.sanchez.sergio.masom_app.BuildConfig;
+import sanchez.sanchez.sergio.masom_app.R;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import java.util.Date;
 
 
 @Module
@@ -43,9 +46,10 @@ public class ApiModule {
      */
     @Singleton
     @Provides
-    public ObjectMapper provideObjectMapper(){
+    public ObjectMapper provideObjectMapper(final Context appContext){
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
+        module.addDeserializer(Date.class, new BirthdayDeserializer(appContext.getString(R.string.date_format_server_response)));
         mapper.registerModule(module);
         return mapper;
     }

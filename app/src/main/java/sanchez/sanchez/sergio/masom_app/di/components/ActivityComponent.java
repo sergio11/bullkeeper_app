@@ -15,7 +15,7 @@ import sanchez.sanchez.sergio.masom_app.permission.IPermissionManager;
 @PerActivity
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = ActivityModule.class)
+        modules = { ActivityModule.class } )
 public interface ActivityComponent {
     //Exposed to sub-graphs.
     Activity activity();
