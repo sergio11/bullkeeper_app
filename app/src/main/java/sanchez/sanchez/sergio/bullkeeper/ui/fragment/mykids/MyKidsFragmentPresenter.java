@@ -1,17 +1,16 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import java.util.List;
-
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
  * My Kids Fragment Presenter
  */
-public final class MyKidsFragmentPresenter extends SupportPresenter<IMyKidsView> {
+public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsView> {
 
     private final GetSelfChildrenInteract getSelfChildrenInteract;
 
@@ -33,6 +32,7 @@ public final class MyKidsFragmentPresenter extends SupportPresenter<IMyKidsView>
     /**
      * Load Data
      */
+    @Override
     public void loadData() {
 
         if (isViewAttached() && getView() != null) {
@@ -60,7 +60,10 @@ public final class MyKidsFragmentPresenter extends SupportPresenter<IMyKidsView>
         protected void onSuccess(List<SonEntity> myKids) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onMyKidsLoaded(myKids);
+                if(myKids != null && !myKids.isEmpty())
+                    getView().onDataLoaded(myKids);
+                else
+                    getView().onNoDataFound();
             }
         }
 
@@ -73,7 +76,7 @@ public final class MyKidsFragmentPresenter extends SupportPresenter<IMyKidsView>
         public void visitNoChildrenFoundForSelfParent(GetChildrenApiErrors error) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onNoChildrenFound();
+                getView().onNoDataFound();
             }
         }
     }

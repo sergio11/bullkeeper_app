@@ -77,6 +77,12 @@ public interface INavigator {
     void navigateToMyKidsProfile(final String identity);
 
     /**
+     * Navigate To Add Kids
+     */
+    void navigateToAddKids();
+
+
+    /**
      * Navigate To Comments
      * @param identity
      */

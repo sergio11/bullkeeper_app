@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public abstract class SupportRecyclerViewAdapter<T>
 
     protected Context context;
     protected LayoutInflater inflater;
-    protected ArrayList<T> data;
+    protected List<T> data;
     protected String highlightText;
 
     protected boolean hasHeader = false;
@@ -96,7 +95,7 @@ public abstract class SupportRecyclerViewAdapter<T>
      * Set data
      * @param data
      */
-    public void setData(ArrayList<T> data){
+    public void setData(List<T> data){
         this.data = data;
     }
 

@@ -148,6 +148,16 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
+     * Get Calling Intent
+     * @param context
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context) {
+        final Intent callingIntent = new Intent(context, MyKidsProfileMvpActivity.class);
+        return callingIntent;
+    }
+
+    /**
      * Initialize Injector
      */
     @Override

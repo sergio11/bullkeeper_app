@@ -11,10 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
-import net.grandcentrix.thirtyinch.TiView;
-
 import java.lang.reflect.ParameterizedType;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,7 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 /**
  * Support Fragment
  */
-public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends TiView,
+public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISupportView,
         H extends IBasicActivityHandler, C extends ActivityComponent> extends TiFragment<P, V> implements  ISupportView {
 
     /**

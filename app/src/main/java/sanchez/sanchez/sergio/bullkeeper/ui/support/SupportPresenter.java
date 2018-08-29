@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import net.grandcentrix.thirtyinch.TiPresenter;
 import java.util.EnumSet;
@@ -120,8 +119,10 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         @Override
         protected void onNetworkError() {
             Timber.e("On Network Error");
-            if(isViewAttached() && getView() != null)
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onNetworkError();
+            }
         }
 
         /**

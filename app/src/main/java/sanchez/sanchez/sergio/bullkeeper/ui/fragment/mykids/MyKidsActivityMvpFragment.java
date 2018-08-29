@@ -1,60 +1,29 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
-
-import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import butterknife.BindView;
+
+import butterknife.OnClick;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.IMyKidsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
 import timber.log.Timber;
-
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * My Kids Activity Fragment
  */
-public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragmentPresenter,
-        IMyKidsView, IMyKidsActivityHandler, MyKidsComponent> implements IMyKidsView,
-        SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SonEntity>,
-        MyKidsAdapter.OnMyKidsListener, SwipeRefreshLayout.OnRefreshListener {
+public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragmentPresenter,
+        IMyKidsView, IMyKidsActivityHandler, MyKidsComponent, SonEntity> implements IMyKidsView,
+        MyKidsAdapter.OnMyKidsListener {
 
     public static String TAG = "MY_KIDS_ACTIVITY_FRAGMENT";
 
-    @Inject
-    protected Context appContext;
-
-    /**
-     * My Kids Adapter
-     */
-    private MyKidsAdapter myKidsAdapter;
-
-    /**
-     * My Kids List
-     */
-    @BindView(R.id.myKidsList)
-    protected RecyclerView myKidsList;
-
-    /**
-     * Swipe Refresh Layout
-     */
-    @BindView(R.id.swipeContainer)
-    protected SwipeRefreshLayout swipeRefreshLayout;
 
     public MyKidsActivityMvpFragment() {}
 
@@ -68,33 +37,16 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
     }
 
     /**
-     * On View Created
-     * @param view
-     * @param savedInstanceState
+     * Get Adapter
+     * @return
      */
+    @NotNull
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        swipeRefreshLayout.setColorSchemeResources(R.color.commonWhite);
-        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        myKidsList.setLayoutManager(new LinearLayoutManager(appContext));
-        myKidsList.setNestedScrollingEnabled(false);
-
-        myKidsAdapter = new MyKidsAdapter(appContext, new ArrayList<SonEntity>());
+    protected SupportRecyclerViewAdapter<SonEntity> getAdapter() {
+        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(appContext, new ArrayList<SonEntity>());
         myKidsAdapter.setOnSupportRecyclerViewListener(this);
         myKidsAdapter.setOnMyKidsListenerListener(this);
-
-        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(appContext, R.dimen.item_offset);
-        myKidsList.addItemDecoration(itemOffsetDecoration);
-        // Set Animator
-        myKidsList.setItemAnimator(new DefaultItemAnimator());
-        myKidsList.setAdapter(myKidsAdapter);
-
-        getPresenter().loadData();
-
+        return myKidsAdapter;
     }
 
     /**
@@ -128,24 +80,6 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
     @Override
     public void onFooterClick() { }
 
-    /**
-     * On My Kids Loaded
-     * @param myKids
-     */
-    @Override
-    public void onMyKidsLoaded(List<SonEntity> myKids) {
-        myKidsAdapter.setData(new ArrayList<>(myKids));
-        myKidsAdapter.notifyDataSetChanged();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    /**
-     * On No Children Found
-     */
-    @Override
-    public void onNoChildrenFound() {
-        Timber.d("No Children Found");
-    }
 
     /**
      * Get Layout Res
@@ -226,10 +160,10 @@ public class MyKidsActivityMvpFragment extends SupportMvpFragment<MyKidsFragment
     }
 
     /**
-     * On Refresh
+     * Add Child
      */
-    @Override
-    public void onRefresh() {
-        getPresenter().loadData();
+    @OnClick(R.id.addChild)
+    protected void addChild() {
+        activityHandler.navigateToAddChild();
     }
 }
