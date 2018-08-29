@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.MyKidsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.MyKidsActivityPresenter;
@@ -17,7 +18,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationFragme
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = { ActivityModule.class })
+@Component(dependencies = ApplicationComponent.class,
+        modules = { ActivityModule.class, ParentModule.class })
 public interface MyKidsComponent extends StatsComponent {
 
     /**

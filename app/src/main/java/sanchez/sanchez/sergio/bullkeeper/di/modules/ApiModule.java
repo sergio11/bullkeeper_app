@@ -7,10 +7,14 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
 import sanchez.sanchez.sergio.data.net.deserializers.BirthdayDeserializer;
+import sanchez.sanchez.sergio.data.net.interceptors.AuthTokenInterceptor;
 import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
+
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -22,19 +26,32 @@ import java.util.Date;
 public class ApiModule {
 
     /**
+     * Provide Auth Token Inteceptor
+     * @param authTokenAware
+     * @return
+     */
+    @Singleton
+    @Provides
+    public AuthTokenInterceptor provideAuthTokenInterceptor(final IAuthTokenAware authTokenAware) {
+        return new AuthTokenInterceptor(authTokenAware);
+    }
+
+    /**
      * Provide HTTP Client
      * @return
      */
     @Singleton
     @Provides
-    public OkHttpClient provideHttpClient(){
+    public OkHttpClient provideHttpClient(final AuthTokenInterceptor authTokenInterceptor){
         OkHttpClient client;
         if (BuildConfig.DEBUG) {
             client = new OkHttpClient.Builder()
+                    .addInterceptor(authTokenInterceptor)
                     .addNetworkInterceptor(new StethoInterceptor())
                     .build();
         }else{
             client = new OkHttpClient.Builder()
+                    .addInterceptor(authTokenInterceptor)
                     .build();
         }
         return client;

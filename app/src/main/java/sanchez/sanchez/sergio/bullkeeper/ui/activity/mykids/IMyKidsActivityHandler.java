@@ -31,4 +31,9 @@ public interface IMyKidsActivityHandler extends IBasicActivityHandler {
      */
     void navigateToKidsResults(final String identity);
 
+    /**
+     * Navigate To Add Child
+     */
+    void navigateToAddChild();
+
 }

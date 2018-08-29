@@ -15,15 +15,4 @@ public final class MyKidsActivityPresenter
         super();
     }
 
-    /**
-     * On Attach View
-     * @param view
-     */
-    @Override
-    protected void onAttachView(@NonNull final IMyKidsActivityView view) {
-        super.onAttachView(view);
-
-        view.showLongMessage("Hello World!!!");
-
-    }
 }

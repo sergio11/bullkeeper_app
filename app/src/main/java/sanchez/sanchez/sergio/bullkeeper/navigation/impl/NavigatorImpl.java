@@ -153,6 +153,14 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Add Kids
+     */
+    @Override
+    public void navigateToAddKids() {
+        context.startActivity(MyKidsProfileMvpActivity.getCallingIntent(context));
+    }
+
+    /**
      * Navigate To Comments
      * @param identity
      */

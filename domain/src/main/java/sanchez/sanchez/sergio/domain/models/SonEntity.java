@@ -13,7 +13,7 @@ public final class SonEntity implements Serializable {
     private String firstName;
     private String lastName;
     private Date birthdate;
-    private String age;
+    private int age;
     private SchoolEntity school;
     private String profileImage;
     private Map<AlertLevelEnum, Integer> alertStatistics;
@@ -51,11 +51,11 @@ public final class SonEntity implements Serializable {
         this.birthdate = birthdate;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

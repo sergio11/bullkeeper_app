@@ -62,6 +62,10 @@
     <string name="date_format_server_response">yyyy/MM/dd</string>
 
 
+    <string name="retry_again_btn">Retry Again</string>
+    <string name="no_data_found">No Data Found</string>
+
+
     <!-- fields error messages -->
     <string name="name_not_empty_error">You must specify your name</string>
     <string name="surname_not_empty_error">You must specify your last name</string>
@@ -123,6 +127,7 @@
     <!-- My Kids -->
     <string name="my_kids_title">My Kids</string>
     <string name="my_kids_content_description">My Kids</string>
+    <string name="loading_information_of_children">Loading information of registered children</string>
 
     <string name="content_not_be_loaded">The content could not be loaded</string>
 

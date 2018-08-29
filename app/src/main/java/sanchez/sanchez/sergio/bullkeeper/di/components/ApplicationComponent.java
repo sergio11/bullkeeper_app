@@ -4,6 +4,7 @@ import android.content.Context;
 import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -16,6 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.question.QuestionAppDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 /**
  * A component whose lifetime is the life of the application.
@@ -55,4 +57,6 @@ public interface ApplicationComponent {
     PreferencesManager preferencesManager();
     Retrofit retrofit();
     IAppUtils appUtils();
+    IAuthTokenAware authTokenAware();
+    ApiEndPointsHelper apiEndPointsHelper();
 }

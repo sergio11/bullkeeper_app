@@ -106,4 +106,12 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     public void navigateToKidsResults(String identity) {
         navigatorImpl.navigateToKidsResultsActivity(identity);
     }
+
+    /**
+     * Navigate To Add Child
+     */
+    @Override
+    public void navigateToAddChild() {
+        navigatorImpl.navigateToAddKids();
+    }
 }

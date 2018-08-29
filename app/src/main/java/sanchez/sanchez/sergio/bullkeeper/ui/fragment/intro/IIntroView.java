@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.intro;
 
-import net.grandcentrix.thirtyinch.TiView;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
 
-public interface IIntroView extends TiView {
-}
+public interface IIntroView extends ISupportView { }

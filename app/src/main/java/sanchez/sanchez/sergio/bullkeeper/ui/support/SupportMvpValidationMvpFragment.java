@@ -15,7 +15,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
 /**
  * Support Fragment
  */
-public abstract class SupportMvpValidationMvpFragment<P extends TiPresenter<V>, V extends TiView,
+public abstract class SupportMvpValidationMvpFragment<P extends TiPresenter<V>, V extends ISupportView,
         H extends IBasicActivityHandler, C extends ActivityComponent>
         extends SupportMvpFragment<P, V, H, C>
     implements Validator.ValidationListener {
