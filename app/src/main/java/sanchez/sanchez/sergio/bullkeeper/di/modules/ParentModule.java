@@ -19,6 +19,7 @@ import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.data.repository.ParentRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.parents.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.UpdateSelfInformationInteract;
@@ -135,6 +136,22 @@ public class ParentModule {
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
         return new UpdateSelfInformationInteract(threadExecutor, postExecutionThread, parentRepository);
+    }
+
+    /**
+     * Provide Delete Account Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param parentRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public DeleteAccountInteract provideDeleteAccountInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                              final IParentRepository parentRepository){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
+        return new DeleteAccountInteract(threadExecutor, postExecutionThread, parentRepository);
     }
 
 }

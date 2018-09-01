@@ -53,23 +53,14 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
             getView().showProgressDialog(R.string.home_load_profile_information_progress);
         }
 
-        getParentInformationInteract.execute(new LoadProfileObserver(GetParentInformationInteract.GetParentInformationApiErrors.class), null);
+        getParentInformationInteract.execute(new LoadProfileObserver(), null);
         getSelfChildrenInteract.execute(new LoadChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
     }
 
     /**
      * Load Profile Observer
      */
-    public class LoadProfileObserver extends CommandCallBackWrapper<ParentEntity, GetParentInformationInteract.GetParentInformationApiErrors.IGetSelfInformationApiErrorVisitor,
-            GetParentInformationInteract.GetParentInformationApiErrors> implements GetParentInformationInteract.GetParentInformationApiErrors.IGetSelfInformationApiErrorVisitor {
-
-        /**
-         * Load Profile Observer
-         * @param apiErrors
-         */
-        public LoadProfileObserver(Class<GetParentInformationInteract.GetParentInformationApiErrors> apiErrors) {
-            super(apiErrors);
-        }
+    public class LoadProfileObserver extends BasicCommandCallBackWrapper<ParentEntity>  {
 
         /**
          * On Success
@@ -81,11 +72,6 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
                 getView().hideProgressDialog();
                 getView().onUserProfileLoaded(parentEntity);
             }
-        }
-
-        @Override
-        public void visitNoChildrenFoundForSelfParent(GetParentInformationInteract.GetParentInformationApiErrors error) {
-
         }
     }
 

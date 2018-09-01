@@ -6,9 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.domain.interactor.parents.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.UpdateSelfInformationInteract;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import timber.log.Timber;
 
 /**
  * User Profile Presenter
@@ -26,14 +28,21 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     private final UpdateSelfInformationInteract updateSelfInformationInteract;
 
     /**
+     * Delete Account Interact
+     */
+    private final DeleteAccountInteract deleteAccountInteract;
+
+    /**
      * User Profile Presenter
      * @param getParentInformationInteract
      */
     @Inject
     public UserProfilePresenter(final GetParentInformationInteract getParentInformationInteract,
-                                final UpdateSelfInformationInteract updateSelfInformationInteract) {
+                                final UpdateSelfInformationInteract updateSelfInformationInteract,
+                                final DeleteAccountInteract deleteAccountInteract) {
         this.getParentInformationInteract = getParentInformationInteract;
         this.updateSelfInformationInteract = updateSelfInformationInteract;
+        this.deleteAccountInteract = deleteAccountInteract;
     }
 
 
@@ -45,6 +54,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         super.init();
         this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
         this.updateSelfInformationInteract.attachDisposablesTo(compositeDisposable);
+        this.deleteAccountInteract.attachDisposablesTo(compositeDisposable);
 
     }
 
@@ -56,7 +66,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_profile_information);
 
-        getParentInformationInteract.execute(new GetParentInformationObserver(GetParentInformationInteract.GetParentInformationApiErrors.class), null);
+        getParentInformationInteract.execute(new GetParentInformationObserver(), null);
     }
 
     /**
@@ -103,24 +113,22 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     }
 
     /**
+     * Delete Account
+     */
+    public void deleteAccount(){
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.delete_account_in_progress);
+
+
+        deleteAccountInteract.execute(new DeleteAccountObserver(), null);
+
+    }
+
+    /**
      * Get Self Information Observer
      */
-    private final class GetParentInformationObserver extends CommandCallBackWrapper<ParentEntity, GetParentInformationInteract.GetParentInformationApiErrors.IGetSelfInformationApiErrorVisitor,
-            GetParentInformationInteract.GetParentInformationApiErrors> implements GetParentInformationInteract.GetParentInformationApiErrors.IGetSelfInformationApiErrorVisitor {
-
-
-        public GetParentInformationObserver(Class<GetParentInformationInteract.GetParentInformationApiErrors> apiErrors) {
-            super(apiErrors);
-        }
-
-        /**
-         * Visit No
-         * @param error
-         */
-        @Override
-        public void visitNoChildrenFoundForSelfParent(GetParentInformationInteract.GetParentInformationApiErrors error) {
-
-        }
+    private final class GetParentInformationObserver extends BasicCommandCallBackWrapper<ParentEntity> {
 
         /**
          * On Success
@@ -197,6 +205,27 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.profile_image_is_too_large);
             }
+        }
+    }
+
+
+    /**
+     * Delete Account Observer
+     */
+    private final class DeleteAccountObserver extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Success
+         * @param message
+         */
+        @Override
+        protected void onSuccess(String message) {
+            Timber.d("Message -> %s", message);
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onAccountDeleted();
+            }
+
         }
     }
 

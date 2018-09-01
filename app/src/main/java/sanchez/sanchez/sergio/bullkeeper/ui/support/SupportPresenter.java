@@ -198,6 +198,121 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
 
     }
 
+    /**
+     * Basic Command Callback Wrapper
+     * @param <T>
+     */
+    public abstract class BasicCommandCallBackWrapper<T>
+            extends CallbackWrapper<T> implements CommonApiErrors.ICommonApiErrorVisitor {
+
+        private final Set<CommonApiErrors> commonApiErrors;
+
+        public BasicCommandCallBackWrapper()
+        {
+            commonApiErrors = EnumSet.allOf(CommonApiErrors.class);
+        }
+
+        /**
+         * Find Common Api Error From Code Name
+         * @param codeName
+         * @return
+         */
+        private CommonApiErrors findCommonApiErrorFromCodeName(final String codeName) {
+
+            CommonApiErrors commonApiError = null;
+
+            for(final CommonApiErrors ce: commonApiErrors) {
+                if (ce.name().equalsIgnoreCase(codeName)) {
+                    commonApiError = ce;
+                    break;
+                }
+            }
+
+            return commonApiError;
+
+        }
+
+
+        /**
+         * On Next
+         * @param t
+         */
+        @Override
+        public void onNext(T t) {
+            super.onNext(t);
+            onSuccess(t);
+        }
+
+        @Override
+        protected void onNetworkError() {
+            Timber.e("On Network Error");
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onNetworkError();
+            }
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            Timber.e("On Other Error -> %s", ex.getMessage());
+            notifyUnexpectedException();
+        }
+
+        @Override
+        protected void onApiException(APIResponse response) {
+            if (response != null) {
+                Timber.e("On Api Exception -> %s - %s", response.getCode(), response.getCodeName());
+
+                final CommonApiErrors commonApiError = findCommonApiErrorFromCodeName(response.getCodeName());
+
+                if(commonApiError != null) {
+
+                    commonApiError.accept(this, response.getData());
+
+                } else {
+
+                    Timber.e("No Api Code Name Founded");
+                    notifyUnexpectedException();
+
+                }
+
+            } else {
+
+                Timber.e("Response is null");
+                notifyUnexpectedException();
+            }
+        }
+
+        /**
+         * Visit Generic Error
+         * @param errors
+         */
+        @Override
+        public void visitGenericError(CommonApiErrors errors) {
+            notifyUnexpectedException();
+        }
+
+        /**
+         * Visit Message Not Readable
+         * @param errors
+         */
+        @Override
+        public void visitMessageNotReadable(CommonApiErrors errors) {
+            notifyUnexpectedException();
+        }
+
+        /**
+         * On Success
+         * @param response
+         */
+        protected abstract void onSuccess(final T response);
+
+    }
+
 
     /**
      * Signup Api Errors

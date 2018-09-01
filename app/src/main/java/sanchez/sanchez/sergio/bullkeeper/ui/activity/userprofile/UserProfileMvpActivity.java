@@ -139,6 +139,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Inject
     protected Picasso picasso;
 
+
     private ParentEntity parentEntity;
 
     /**
@@ -316,12 +317,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
             @Override
             public void onAccepted(DialogFragment dialog) {
 
-                showNoticeDialog(R.string.user_profile_delete_account_check_email, new NoticeDialogFragment.NoticeDialogListener() {
-                    @Override
-                    public void onAccepted(DialogFragment dialog) {
-                        closeActivity();
-                    }
-                });
+                getPresenter().deleteAccount();
 
             }
 
@@ -484,5 +480,20 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+    /**
+     * On Account Deleted
+     */
+    @Override
+    public void onAccountDeleted() {
+
+        showNoticeDialog(R.string.user_profile_delete_account_check_email, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeSession();
+            }
+        });
+
     }
 }

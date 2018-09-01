@@ -80,7 +80,7 @@
 
     <!-- Signin -->
     <string name="account_is_not_activated">The account is not activated, please check your email to activate it.</string>
-
+    <string name="account_pending_to_be_deleted">The account is pending to be deleted, check your email for more information</string>
 
     <!-- Sign up -->
     <string name="signup_in_progress">Sign up in progress, please wait ...</string>
@@ -225,6 +225,9 @@
     <string name="profile_image_is_too_large">The specified image is too large</string>
     <string name="updating_profile_data_progress">Updating profile data, please wait ...</string>
     <string name="loading_profile_information">Loading profile information ...</string>
+    <string name="delete_account_in_progress">Deleting account, please wait ...</string>
+    <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
+    <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
 
 
     <!-- My Kids Profile -->
@@ -287,8 +290,7 @@
     <string name="user_profile_save_changes">Save Changes</string>
     <string name="user_profile_delete_account">Delete account</string>
 
-    <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
-    <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
+
 
     <!-- Home -->
     <string name="home_last_alerts">Last Alerts</string>

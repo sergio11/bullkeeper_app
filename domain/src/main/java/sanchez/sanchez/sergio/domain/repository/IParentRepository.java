@@ -42,5 +42,11 @@ public interface IParentRepository {
      */
     Observable<ImageEntity> uploadProfileImage(final String profileImageUri);
 
+    /**
+     * Delete Self Account
+     * @return
+     */
+    Observable<String> deleteSelfAccount();
+
 
 }

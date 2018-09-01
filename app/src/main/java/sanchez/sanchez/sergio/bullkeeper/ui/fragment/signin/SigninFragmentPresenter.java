@@ -131,6 +131,15 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
                 getView().onAccountDisabled();
             }
         }
+
+        @Override
+        public void visitAccountPendingToBeRemove(SigninInteract.SigninApiErrors error) {
+            Timber.e("Account Pending To Be Remove");
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().showNoticeDialog(R.string.account_pending_to_be_deleted);
+            }
+        }
     }
 
 
