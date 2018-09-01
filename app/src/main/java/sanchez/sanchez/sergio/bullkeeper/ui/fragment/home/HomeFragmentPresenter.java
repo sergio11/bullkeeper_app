@@ -121,7 +121,9 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
          */
         @Override
         public void visitNoChildrenFoundForSelfParent(GetSelfChildrenInteract.GetChildrenApiErrors error) {
-
+            if (isViewAttached() && getView() != null) {
+                getView().onNoChildrenFounded();
+            }
         }
     }
 

@@ -21,13 +21,15 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
 
     private OnMyKidsListener listener;
 
+    private final static Integer MIN_KIDS_COUNT = 3;
+
     /**
      *
      * @param context
      * @param data
      */
     public MyKidsStatusAdapter(Context context, ArrayList<SonEntity> data) {
-        super(context, data);
+        super(context, data, MIN_KIDS_COUNT);
     }
 
 
@@ -50,6 +52,16 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
         return new MyKidsViewHolder(view);
     }
 
+    /**
+     * On Create Item Default View Holder
+     * @param viewGroup
+     * @return
+     */
+    @Override
+    protected RecyclerView.ViewHolder onCreateItemDefaultViewHolder(ViewGroup viewGroup) {
+        View view = inflater.inflate(R.layout.my_kids_status_item_default_layout, viewGroup, false);
+        return new AddKidsDefaultViewHolder(view);
+    }
 
 
     /**
@@ -82,8 +94,8 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
 
             // Set Child Image
             Picasso.with(context).load(sonEntity.getProfileImage())
-                    .placeholder(R.drawable.user_default)
-                    .error(R.drawable.user_default)
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
                     .into(childImage);
 
 
@@ -109,5 +121,28 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
          * @param sonEntity
          */
         void onDetailActionClicked(final SonEntity sonEntity);
+
+        /**
+         * On Default Item Clicked
+         */
+        void onDefaultItemClicked();
+    }
+
+    /**
+     * Add Kids Default View Holder
+     */
+    public class AddKidsDefaultViewHolder extends RecyclerView.ViewHolder {
+
+        public AddKidsDefaultViewHolder(View itemView) {
+            super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null)
+                        listener.onDefaultItemClicked();
+                }
+            });
+        }
     }
 }

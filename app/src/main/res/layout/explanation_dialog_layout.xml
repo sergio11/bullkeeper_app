@@ -15,10 +15,11 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/explanationTitle"
             style="@style/CommonStrongText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/what_are_your_questions"
+            android:text="-"
             android:textColor="@color/cyanBrilliant"
             android:textAlignment="center"
             android:textStyle="bold" />

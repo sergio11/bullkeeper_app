@@ -86,7 +86,7 @@ public class SupportToolbarApp {
                 questionBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        basicActivityHandler.showQuestionDialog();
+                        basicActivityHandler.showAppHelpDialog();
                     }
                 });
 

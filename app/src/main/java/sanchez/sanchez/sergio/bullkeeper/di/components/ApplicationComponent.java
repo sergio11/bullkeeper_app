@@ -17,7 +17,6 @@ import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.splash.SplashScreenActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.question.QuestionAppDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
 import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
@@ -40,13 +39,6 @@ public interface ApplicationComponent {
      * @param menuDialogFragment
      */
     void inject(MenuDialogFragment menuDialogFragment);
-
-    /**
-     * Inject on Question App Dialog
-     * @param questionAppDialog
-     */
-    void inject(final QuestionAppDialog questionAppDialog);
-
 
 
     //Exposed to sub-graphs.

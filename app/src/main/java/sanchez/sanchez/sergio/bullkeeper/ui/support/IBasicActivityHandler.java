@@ -118,9 +118,9 @@ public interface IBasicActivityHandler {
     void showAppMenu();
 
     /**
-     * Show Question Dialog
+     * Show App Help Dialog
      */
-    void showQuestionDialog();
+    void showAppHelpDialog();
 
     /**
      * Navigate To Home

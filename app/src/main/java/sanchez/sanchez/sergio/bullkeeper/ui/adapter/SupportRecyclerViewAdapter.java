@@ -28,7 +28,8 @@ public abstract class SupportRecyclerViewAdapter<T>
      */
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
-    private static final int TYPE_FOOTER = 2;
+    private static final int TYPE_ITEM_DEFAULT = 2;
+    private static final int TYPE_FOOTER = 3;
 
 
     protected Context context;
@@ -39,6 +40,8 @@ public abstract class SupportRecyclerViewAdapter<T>
     protected boolean hasHeader = false;
     protected boolean hasFooter = false;
 
+    private int minItemsCount;
+
     private OnSupportRecyclerViewListener<T> listener;
 
     /**
@@ -46,10 +49,20 @@ public abstract class SupportRecyclerViewAdapter<T>
      * @param context
      * @param data
      */
-    public SupportRecyclerViewAdapter(final Context context, final ArrayList<T> data){
+    public SupportRecyclerViewAdapter(final Context context, final ArrayList<T> data, final int minItemsCount){
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.data = data;
+        this.minItemsCount = minItemsCount;
+    }
+
+    /**
+     *
+     * @param context
+     * @param data
+     */
+    public SupportRecyclerViewAdapter(final Context context, final ArrayList<T> data){
+        this(context, data, data.size() - 1);
     }
 
     /**
@@ -175,14 +188,20 @@ public abstract class SupportRecyclerViewAdapter<T>
      */
     @Override
     public int getItemViewType(int position) {
-        if (isPositionHeader(position)) {
-            return TYPE_HEADER;
 
+        int viewType;
+
+        if (isPositionHeader(position)) {
+            viewType = TYPE_HEADER;
         } else if (isPositionFooter(position)) {
-            return TYPE_FOOTER;
+            viewType = TYPE_FOOTER;
+        } else  if(position >= data.size()) {
+            viewType = TYPE_ITEM_DEFAULT;
+        } else {
+            viewType = TYPE_ITEM;
         }
 
-        return TYPE_ITEM;
+        return viewType;
     }
 
     /**
@@ -192,7 +211,7 @@ public abstract class SupportRecyclerViewAdapter<T>
     @Override
     public int getItemCount() {
 
-        int itemCount = data.size();
+        int itemCount = Math.max(data.size(), minItemsCount);
 
         if (hasHeader && hasFooter) {
             itemCount = itemCount + 2;
@@ -230,6 +249,8 @@ public abstract class SupportRecyclerViewAdapter<T>
             viewHolder = onCreateHeaderViewHolder(viewGroup);
         } else if (viewType == TYPE_FOOTER) {
             viewHolder = onCreateFooterViewHolder(viewGroup);
+        } else if( viewType == TYPE_ITEM_DEFAULT) {
+            viewHolder = onCreateItemDefaultViewHolder(viewGroup);
         } else {
             throw new RuntimeException("Type of view not supported");
         }
@@ -246,6 +267,7 @@ public abstract class SupportRecyclerViewAdapter<T>
             if (hasHeader) position -= 1;
 
             ((SupportItemViewHolder)holder).bind(data.get(position));
+
         }
 
     }
@@ -272,6 +294,14 @@ public abstract class SupportRecyclerViewAdapter<T>
     protected RecyclerView.ViewHolder onCreateFooterViewHolder(final ViewGroup viewGroup){
         throw new UnsupportedOperationException("Footer not implemented");
     }
+
+    /**
+     * On Create Item Default View Holder
+     * @param viewGroup
+     */
+    protected RecyclerView.ViewHolder onCreateItemDefaultViewHolder(final ViewGroup viewGroup) {
+        throw new UnsupportedOperationException("Default Item not implemented");
+    };
 
     /**
      * Remove Item

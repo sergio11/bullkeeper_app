@@ -62,9 +62,9 @@ public interface INavigator {
     void navigateToUserSettings();
 
     /**
-     * Show Question App Dialog
+     * Show App Help App Dialog
      */
-    void showQuestionAppDialog(final AppCompatActivity appCompatActivity);
+    void showAppHelpDialog(final AppCompatActivity appCompatActivity, final String title, final String cueVideo);
 
     /**
      * Navigate to User Profile

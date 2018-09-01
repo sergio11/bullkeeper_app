@@ -54,7 +54,6 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
         return new LastAlertsHeaderViewHolder(view);
     }
 
-
     /**
      * Last Alerts Header VIew Holder
      */

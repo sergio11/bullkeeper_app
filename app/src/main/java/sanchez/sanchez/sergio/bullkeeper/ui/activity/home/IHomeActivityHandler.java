@@ -40,4 +40,9 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
      */
     void goToAddChild();
 
+    /**
+     * Show How add Child Help Dialog
+     */
+    void showHowAddChildHelpDialog();
+
 }

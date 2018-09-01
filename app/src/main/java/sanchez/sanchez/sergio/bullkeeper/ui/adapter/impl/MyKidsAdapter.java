@@ -188,9 +188,8 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
             // Set Child Image
             Picasso.with(context).load(sonEntity.getProfileImage())
-                    .placeholder(R.drawable.user_default)
-                    .error(R.drawable.user_default)
-                    .transform(new CircleTransform())
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
                     .into(childImage);
 
 

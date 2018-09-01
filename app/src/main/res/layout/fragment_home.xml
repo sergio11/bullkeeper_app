@@ -75,8 +75,8 @@
                             android:id="@+id/userProfileImage"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/user_default"
-                            app:civ_border_color="@color/commonWhite"
+                            android:src="@drawable/parent_default"
+                            app:civ_border_color="@color/cyanBrilliant"
                             app:civ_border_width="@dimen/common_image_stroke_width" />
 
                         <TextView
@@ -141,6 +141,18 @@
                         android:paddingEnd="5dp"
                         android:background="@android:color/transparent"
                         android:src="@drawable/plus_circle_solid_white"/>
+
+
+                    <ImageButton
+                        android:id="@+id/infoChildBtn"
+                        android:contentDescription="@string/content_not_be_loaded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/info_solid_white"/>
 
                 </LinearLayout>
 

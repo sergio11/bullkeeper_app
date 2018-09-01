@@ -7,7 +7,7 @@
 
 
     <!-- Child Image -->
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/childImage"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -19,7 +19,10 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/content_not_be_loaded" />
+        android:contentDescription="@string/content_not_be_loaded"
+        android:src="@drawable/kid_default_image"
+        app:civ_border_color="@color/cyanBrilliant"
+        app:civ_border_width="@dimen/common_image_stroke_width" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"

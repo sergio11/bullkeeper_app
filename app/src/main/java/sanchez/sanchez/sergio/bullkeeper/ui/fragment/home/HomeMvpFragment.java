@@ -18,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
+import timber.log.Timber;
 
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
@@ -54,6 +57,7 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         SwipeRefreshLayout.OnRefreshListener, MyKidsStatusAdapter.OnMyKidsListener {
 
     public static String TAG = "HOME_FRAGMENT";
+    private final static Integer MIN_KIDS_COUNT = 3;
 
 
     @Inject
@@ -126,6 +130,12 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
      */
     @BindView(R.id.alertsList)
     protected RecyclerView alertsList;
+
+    /**
+     * Info Child Btn
+     */
+    @BindView(R.id.infoChildBtn)
+    protected ImageButton infoChildBtn;
 
 
     /**
@@ -271,6 +281,15 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     }
 
     /**
+     * On Info Child
+     */
+    @OnClick(R.id.infoChildBtn)
+    protected void onInfoChildBtn(){
+        activityHandler.showHowAddChildHelpDialog();
+    }
+
+
+    /**
      * On Children Action
      */
     @OnClick(R.id.childrenAction)
@@ -304,7 +323,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     @Override
     public void onItemClick(final AlertEntity alertEntity) {
         showShortMessage(String.format(Locale.getDefault(), "Alert %s clicked ", alertEntity.getTitle()));
-
         activityHandler.goToAlertDetail("123456");
     }
 
@@ -322,8 +340,8 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
 
         userProfileText.setText(parentEntity.getFullName());
 
-        picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
+        picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
+                .error(R.drawable.parent_default)
                 .into(userProfileImage);
     }
 
@@ -343,12 +361,32 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
      */
     @Override
     public void onChildrenLoaded(List<SonEntity> children) {
+        Preconditions.checkNotNull(children, "Children can not be null");
+        Preconditions.checkState(!children.isEmpty(), "Children can not be empty");
+
+        if(children.size() >= MIN_KIDS_COUNT) {
+            addChildBtn.setVisibility(View.VISIBLE);
+            infoChildBtn.setVisibility(View.GONE);
+        } else {
+            addChildBtn.setVisibility(View.GONE);
+            infoChildBtn.setVisibility(View.VISIBLE);
+        }
+
         myKidsStatusAdapter.setData(children);
         myKidsStatusAdapter.notifyDataSetChanged();
         final LayoutAnimationController controller =
                 AnimationUtils.loadLayoutAnimation(appContext, R.anim.layout_animation_fall_down);
         myChildList.setLayoutAnimation(controller);
         myChildList.scheduleLayoutAnimation();
+    }
+
+    /**
+     * On No Children Founded
+     */
+    @Override
+    public void onNoChildrenFounded() {
+        addChildBtn.setVisibility(View.GONE);
+        infoChildBtn.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -409,5 +447,13 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     @Override
     public void onDetailActionClicked(SonEntity sonEntity) {
         activityHandler.goToChildDetail(sonEntity.getIdentity());
+    }
+
+    /**
+     * On Default Item Clicked
+     */
+    @Override
+    public void onDefaultItemClicked() {
+        activityHandler.goToAddChild();
     }
 }

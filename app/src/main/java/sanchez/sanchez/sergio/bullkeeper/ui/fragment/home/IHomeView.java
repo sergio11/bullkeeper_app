@@ -29,4 +29,9 @@ public interface IHomeView extends ISupportView {
      */
     void onChildrenLoaded(final List<SonEntity> children);
 
+    /**
+     * On No Children Founded
+     */
+    void onNoChildrenFounded();
+
 }
