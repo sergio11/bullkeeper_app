@@ -50,6 +50,8 @@ public final class NoticeDialogFragment extends SupportDialog
     public void onClick(DialogInterface dialogInterface, int i) {
         if(noticeDialogListener != null)
             noticeDialogListener.onAccepted(this);
+        dismiss();
+
     }
 
 

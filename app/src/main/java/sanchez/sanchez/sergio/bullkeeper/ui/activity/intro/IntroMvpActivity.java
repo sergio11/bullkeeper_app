@@ -9,9 +9,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerIntroComponent;
@@ -178,14 +176,6 @@ public class IntroMvpActivity
         replaceFragment(R.id.fragmentContainer, ForgotPasswordMvpFragment.newInstance(), true,
                 ForgotPasswordMvpFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
     }
-
-    @Override
-    public void openMailApp() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-        startActivity(Intent.createChooser(intent, ""));
-    }
-
 
     /**
      * Making notification bar transparent

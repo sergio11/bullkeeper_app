@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
+import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
 import timber.log.Timber;
 
 /**
@@ -65,6 +67,12 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Inject
     protected INotificationHelper notificationHelper;
+
+    /**
+     * Preferences Manager
+     */
+    @Inject
+    protected PreferencesManager preferencesManager;
 
 
     /**
@@ -513,5 +521,25 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public void setSupportToolbarApp(SupportToolbarApp supportToolbarApp) {
         this.supportToolbarApp = supportToolbarApp;
+    }
+
+    /**
+     * Open Mail
+     */
+    @Override
+    public void openMailApp() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+        startActivity(Intent.createChooser(intent, ""));
+    }
+
+    /**
+     * Close Session
+     */
+    @Override
+    public void closeSession() {
+        preferencesManager.setAuthToken(PreferencesManager.AUTH_TOKEN_DEFAULT_VALUE);
+        preferencesManager.setPrefCurrentUserIdentity(PreferencesManager.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+        navigatorImpl.navigateToIntro(true);
     }
 }

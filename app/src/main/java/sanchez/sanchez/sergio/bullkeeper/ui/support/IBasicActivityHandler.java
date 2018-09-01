@@ -133,4 +133,14 @@ public interface IBasicActivityHandler {
      */
     void setSupportToolbarApp(final SupportToolbarApp supportToolbarApp);
 
+    /**
+     * Open Mail App
+     */
+    void openMailApp();
+
+    /**
+     * Close Session
+     */
+    void closeSession();
+
 }

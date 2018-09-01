@@ -42,9 +42,5 @@ public interface IIntroActivityHandler extends IBasicActivityHandler {
      */
     void goToForgetPassword();
 
-    /**
-     * Open Mail App
-     */
-    void openMailApp();
 
 }

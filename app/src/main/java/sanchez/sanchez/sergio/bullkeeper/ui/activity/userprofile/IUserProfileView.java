@@ -31,4 +31,9 @@ public interface IUserProfileView extends ISupportView {
      */
     void onValidationErrors(final List<LinkedHashMap<String, String>> errors);
 
+    /**
+     * On Account Deleted
+     */
+    void onAccountDeleted();
+
 }

@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.domain.interactor.accounts;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -89,11 +88,22 @@ public final class SigninInteract extends UseCase<String, SigninInteract.Params>
                 visitor.visitBadCredentials(this);
             }
         },
-
+        /**
+         * Account Disabled
+         */
         ACCOUNT_DISABLED() {
             @Override
             public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
                 visitor.visitAccountDisabled(this);
+            }
+        },
+        /**
+         * Account Pending To Be Remove
+         */
+        ACCOUNT_PENDING_TO_BE_REMOVE() {
+            @Override
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
+                visitor.visitAccountPendingToBeRemove(this);
             }
         };
 
@@ -113,6 +123,12 @@ public final class SigninInteract extends UseCase<String, SigninInteract.Params>
              * @param errors
              */
             void visitAccountDisabled(final SigninApiErrors errors);
+
+            /**
+             * Visit Account Pending To Be Remove
+             * @param error
+             */
+            void visitAccountPendingToBeRemove(final SigninApiErrors error);
         }
 
     }

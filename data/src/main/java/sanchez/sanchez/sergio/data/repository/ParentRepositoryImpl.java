@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -122,11 +121,16 @@ public final class ParentRepositoryImpl implements IParentRepository {
 
         return parentsService.uploadProfileImage(requestPart).map(imageDTOAPIResponse ->
                 imageDTOAPIResponse != null && imageDTOAPIResponse.getData() != null ? imageDTOAPIResponse.getData() : null)
-                .map(imageDataMapper::transform).doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Timber.e(throwable);
-                    }
-                });
+                .map(imageDataMapper::transform).doOnError(throwable -> Timber.e(throwable));
+    }
+
+    /**
+     * Delete Self Account
+     * @return
+     */
+    @Override
+    public Observable<String> deleteSelfAccount() {
+        return parentsService.deleteSelfAccount().map(response ->
+                response != null && response.getData() != null ? response.getData() : null);
     }
 }
