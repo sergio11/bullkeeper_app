@@ -8,6 +8,7 @@ import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
+import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.data.repository.AccountsRepositoryImpl;
 import sanchez.sanchez.sergio.data.net.services.IAuthenticationService;
 import sanchez.sanchez.sergio.data.net.services.IParentsService;
@@ -33,8 +34,8 @@ public class AccountsModule {
      * @return
      */
     @Provides @PerActivity
-    public AbstractDataMapper<ParentDTO, ParentEntity> provideParentEntityDataMapper() {
-        return new ParentEntityDataMapper();
+    public AbstractDataMapper<ParentDTO, ParentEntity> provideParentEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper) {
+        return new ParentEntityDataMapper(apiEndPointsHelper);
     }
 
     /**

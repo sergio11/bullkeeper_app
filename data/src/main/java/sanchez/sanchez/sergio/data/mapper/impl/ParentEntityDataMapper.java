@@ -2,12 +2,23 @@ package sanchez.sanchez.sergio.data.mapper.impl;
 
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
+import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 
 /**
  * Parent Entity Data Mapper
  */
 public final class ParentEntityDataMapper extends AbstractDataMapper<ParentDTO, ParentEntity> {
+
+    private final ApiEndPointsHelper apiEndPointsHelper;
+
+    /**
+     * Parent Entity Data Mapper
+     * @param apiEndPointsHelper
+     */
+    public ParentEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper) {
+        this.apiEndPointsHelper = apiEndPointsHelper;
+    }
 
     /**
      * Transform
@@ -27,7 +38,8 @@ public final class ParentEntityDataMapper extends AbstractDataMapper<ParentDTO, 
         parentEntity.setLocale(originModel.getLocale());
         parentEntity.setPhoneNumber(originModel.getPhoneNumber());
         parentEntity.setPhonePrefix(originModel.getPhonePrefix());
-        parentEntity.setProfileImage(originModel.getProfileImage());
+        parentEntity.setProfileImage(apiEndPointsHelper
+                .getParentProfileUrl(originModel.getProfileImage()));
         return parentEntity;
     }
 }

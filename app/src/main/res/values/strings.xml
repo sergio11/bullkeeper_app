@@ -56,6 +56,7 @@
     <string name="confirm_password_hint">Confirm Password</string>
     <!-- Tfno -->
     <string name="tfno_hint">Tfno</string>
+    <string name="tfno_prefix">+34 </string>
 
     <!-- Date Format -->
     <string name="date_format">yyyy-MM-dd</string>
@@ -219,6 +220,12 @@
 
     <!-- User Profile -->
     <string name="user_profile_title">Profile</string>
+    <string name="profile_information_updated_successfully">Profile information updated successfully</string>
+    <string name="upload_profile_image_error">Error uploading profile image</string>
+    <string name="profile_image_is_too_large">The specified image is too large</string>
+    <string name="updating_profile_data_progress">Updating profile data, please wait ...</string>
+    <string name="loading_profile_information">Loading profile information ...</string>
+
 
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>

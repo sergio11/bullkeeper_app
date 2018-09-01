@@ -46,7 +46,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     private final static String EMAIL_FIELD_NAME = "email";
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
-    private final static String LAST_NAME_FIELD_NAME = "lastName";
+    private final static String LAST_NAME_FIELD_NAME = "last_name";
     private final static String BIRTHDATE_FIELD_NAME = "birthdate";
 
 

@@ -22,8 +22,17 @@ public final class ApiEndPointsHelper {
      * @return
      */
     public String getSonProfileUrl(final String identity) {
-        return baseUrl + String.format("/images/children/%s", identity);
+        return baseUrl + String.format("images/children/%s", identity);
     }
 
+
+    /**
+     * Get Parent Profile Url
+     * @param identity
+     * @return
+     */
+    public String getParentProfileUrl(final String identity) {
+        return baseUrl + String.format("images/parents/%s", identity);
+    }
 
 }

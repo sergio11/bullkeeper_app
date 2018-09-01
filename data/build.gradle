@@ -60,6 +60,8 @@ dependencies {
     implementation dataDependencies.rxJava
     implementation dataDependencies.rxAndroid
     implementation dataDependencies.androidAnnotations
+    implementation dataDependencies.arrowPreconditions
+    implementation dataDependencies.timber
     // Retrofit 2
     api dataDependencies.retrofit2
     api dataDependencies.converterJackson

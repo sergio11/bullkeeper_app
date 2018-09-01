@@ -20,6 +20,19 @@ public final class UpdateParentDTO implements Serializable {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("telephone")
+    private String telephone;
+
+    public UpdateParentDTO(){}
+
+    public UpdateParentDTO(String firstName, String lastName, String birthdate, String email, String telephone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.telephone = telephone;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -52,6 +65,14 @@ public final class UpdateParentDTO implements Serializable {
         this.email = email;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     @Override
     public String toString() {
         return "UpdateParentDTO{" +
@@ -59,6 +80,7 @@ public final class UpdateParentDTO implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", birthdate='" + birthdate + '\'' +
                 ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
                 '}';
     }
 }

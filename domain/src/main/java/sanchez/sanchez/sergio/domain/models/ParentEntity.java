@@ -86,6 +86,12 @@ public final class ParentEntity implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getPhone() {
+        return phonePrefix != null && !phonePrefix.isEmpty() &&
+                phoneNumber != null && !phoneNumber.isEmpty() ?
+                         phonePrefix + "" + phoneNumber : null;
+    }
+
     public String getFbId() {
         return fbId;
     }

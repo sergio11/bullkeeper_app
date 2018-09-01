@@ -8,15 +8,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
-
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
-
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,6 +35,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.utils.imagepicker.ImagePicker;
+import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import timber.log.Timber;
 
 /**
@@ -41,6 +45,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         implements HasComponent<UserProfileComponent>, IUserProfileView,
         PhotoViewerDialog.IPhotoViewerListener{
 
+    private final static String FIRST_NAME_FIELD_NAME = "first_name";
+    private final static String LAST_NAME_FIELD_NAME = "last_name";
+    private final static String BIRTHDATE_FIELD_NAME = "birthdate";
+    private final static String EMAIL_FIELD_NAME = "email";
+    private final static String TELEPHONE_FIELD_NAME = "telephone";
 
     /**
      * User Profile Component
@@ -48,7 +57,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     private UserProfileComponent userProfileComponent;
 
 
-    private String currentImagePath = "https://avatars3.githubusercontent.com/u/831538?s=460&v=4";
+    private String currentImagePath;
 
     /**
      * Profile Image View
@@ -95,7 +104,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @BindView(R.id.birthdayInput)
     @NotEmpty(messageResId = R.string.birthday_not_empty_error)
-    @Past(dateFormat = "yyyy/MM/dd")
+    @Past(dateFormatResId = R.string.date_format)
     protected AppCompatEditText birthdayInput;
 
     /**
@@ -123,6 +132,14 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @BindView(R.id.tfnoInput)
     protected AppCompatEditText tfnoInput;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
+
+    private ParentEntity parentEntity;
 
     /**
      * Get Calling Intent
@@ -192,14 +209,10 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected void onViewReady(final Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        Picasso.with(getApplicationContext()).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
-                .noFade()
-                .into(profileImageView);
-
         // width and height will be at least 300px long (optional).
         ImagePicker.setMinQuality(300, 300);
+
+        getPresenter().loadProfileInfo();
     }
 
     /**
@@ -242,9 +255,16 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getText().toString();
         final String email = emailInput.getText().toString();
-        final String tfno = tfnoInput.getText().toString();
+        final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
+
         // Update Profile
-        getPresenter().updateProfile(name, surname, birthday, email, tfno);
+        if(currentImagePath != null) {
+            getPresenter().updateProfile(name, surname, birthday, email, tfno, currentImagePath);
+        } else {
+            getPresenter().updateProfile(name, surname, birthday, email, tfno);
+        }
+
+
     }
 
     /**
@@ -254,11 +274,13 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected void onResetFields() {
         super.onResetFields();
 
-        nameInput.setText("");
-        surnameInput.setText("");
-        birthdayInput.setText("");
-        emailInput.setText("");
-        tfnoInput.setText("");
+        nameInput.setText(parentEntity.getFirstName());
+        surnameInput.setText(parentEntity.getLastName());
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format));
+        final String birthdateformated =  format.format(parentEntity.getBirthdate());
+        birthdayInput.setText(birthdateformated);
+        emailInput.setText(parentEntity.getEmail());
+        tfnoInput.setText(parentEntity.getPhone());
     }
 
     /**
@@ -317,7 +339,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @OnClick(R.id.profileImage)
     protected void onClickProfileImage() {
         navigatorImpl.showPhotoViewerDialog(this,
-                currentImagePath);
+                parentEntity.getProfileImage());
     }
 
 
@@ -327,7 +349,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
         ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), "Sergio Sánchez"));
+                getString(R.string.change_profile_picture), parentEntity.getFullName()));
         return true;
     }
 
@@ -345,7 +367,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Override
     public void onChangePhoto() {
         ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), "Sergio Sánchez"));
+                getString(R.string.change_profile_picture), parentEntity.getFullName()));
     }
 
     /**
@@ -368,5 +390,99 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
                 profileImageView.setImageURI(imageUri);
             }
         }
+    }
+
+    /**
+     * Update Profile Form
+     */
+    private void updateProfileForm() {
+
+        if(parentEntity.getFirstName() != null &&
+                !parentEntity.getFirstName().isEmpty())
+            nameInput.setText(parentEntity.getFirstName());
+
+        if(parentEntity.getLastName() != null &&
+                !parentEntity.getLastName().isEmpty())
+            surnameInput.setText(parentEntity.getLastName());
+
+        if (parentEntity.getEmail() != null &&
+                !parentEntity.getEmail().isEmpty())
+            emailInput.setText(parentEntity.getEmail());
+
+
+        if(parentEntity.getPhone() != null && !parentEntity.getPhone().isEmpty())
+            tfnoInput.setText(parentEntity.getPhoneNumber());
+
+        if(parentEntity.getBirthdate() != null) {
+            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format));
+            final String birthdateFormated =  format.format(parentEntity.getBirthdate());
+            birthdayInput.setText(birthdateFormated);
+        }
+
+        // Reset Current Image Path
+        currentImagePath = null;
+
+        Timber.d("Profile Image -> %s", parentEntity.getProfileImage());
+
+        picasso.load(parentEntity.getProfileImage())
+                .placeholder(R.drawable.user_default)
+                .error(R.drawable.user_default)
+                .noFade()
+                .into(profileImageView);
+    }
+
+    /**
+     * On Self Information Loaded
+     * @param parentEntity
+     */
+    @Override
+    public void onSelfInformationLoaded(final ParentEntity parentEntity) {
+        this.parentEntity = parentEntity;
+        updateProfileForm();
+    }
+
+    /**
+     * On Self Information Update
+     * @param parentEntity
+     */
+    @Override
+    public void onSelfInformationUpdate(final ParentEntity parentEntity) {
+        this.parentEntity = parentEntity;
+        updateProfileForm();
+
+        showNoticeDialog(R.string.profile_information_updated_successfully);
+    }
+
+    /**
+     * On Validations Errors
+     * @param errors
+     */
+    @Override
+    public void onValidationErrors(List<LinkedHashMap<String, String>> errors) {
+        for (LinkedHashMap<String, String> error : errors) {
+
+            Timber.d("Field -> %s, Message -> %s", error.get("field"), error.get("message"));
+
+            switch (error.get("field")) {
+                case EMAIL_FIELD_NAME:
+                    emailInputLayout.setError(error.get("message"));
+                    break;
+                case FIRST_NAME_FIELD_NAME:
+                    nameInputLayout.setError(error.get("message"));
+                    break;
+                case LAST_NAME_FIELD_NAME:
+                    surnameInputLayout.setError(error.get("message"));
+                    break;
+                case BIRTHDATE_FIELD_NAME:
+                    birthdayInputLayout.setError(error.get("message"));
+                    break;
+                case TELEPHONE_FIELD_NAME:
+                    tfnoInputLayout.setError(error.get("message"));
+                    break;
+            }
+
+        }
+
+        showNoticeDialog(R.string.forms_is_not_valid);
     }
 }

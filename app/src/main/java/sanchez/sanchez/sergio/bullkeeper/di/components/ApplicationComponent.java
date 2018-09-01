@@ -1,6 +1,9 @@
 package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import android.content.Context;
+
+import com.squareup.picasso.Picasso;
+
 import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
@@ -59,4 +62,5 @@ public interface ApplicationComponent {
     IAppUtils appUtils();
     IAuthTokenAware authTokenAware();
     ApiEndPointsHelper apiEndPointsHelper();
+    Picasso picasso();
 }

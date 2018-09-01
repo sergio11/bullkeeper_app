@@ -22,6 +22,9 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
         this.getSelfChildrenInteract = getSelfChildrenInteract;
     }
 
+    /**
+     * Init
+     */
     @Override
     public void init() {
         super.init();

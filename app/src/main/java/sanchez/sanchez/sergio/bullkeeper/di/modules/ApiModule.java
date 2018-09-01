@@ -7,7 +7,6 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
 import sanchez.sanchez.sergio.data.net.deserializers.BirthdayDeserializer;
 import sanchez.sanchez.sergio.data.net.interceptors.AuthTokenInterceptor;
 import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
@@ -18,6 +17,9 @@ import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -86,6 +88,20 @@ public class ApiModule {
                 .addCallAdapterFactory(RxJava2ErrorHandlingCallAdapterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(client)
+                .build();
+    }
+
+    /**
+     * Provide Picasso
+     * @param client
+     * @param context
+     * @return
+     */
+    @Singleton
+    @Provides
+    public Picasso providePicasso(final OkHttpClient client, final Context context) {
+        return new Picasso.Builder(context)
+                .downloader(new OkHttp3Downloader(client))
                 .build();
     }
 }
