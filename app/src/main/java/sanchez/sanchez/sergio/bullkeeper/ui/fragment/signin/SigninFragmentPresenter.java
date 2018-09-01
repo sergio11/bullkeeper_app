@@ -66,7 +66,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
             getView().showProgressDialog(R.string.authenticating_wait);
 
         // Execute Signin Interact
-        signinInteract.execute(new SigninObserver(SigninApiErrors.class), SigninInteract.Params.create(mail, password));
+        signinInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class), SigninInteract.Params.create(mail, password));
 
     }
 
@@ -82,21 +82,21 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
             getView().showProgressDialog(R.string.authenticating_wait);
 
         // Execute Signin Facebook
-        signinFacebookInteract.execute(new SigninObserver(SigninApiErrors.class), SigninFacebookInteract.Params.create(accessToken.getToken()));
+        signinFacebookInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class), SigninFacebookInteract.Params.create(accessToken.getToken()));
     }
 
 
     /**
      * Signin Observer
      */
-    private final class SigninObserver extends CommandCallBackWrapper<String, SigninApiErrors.ISigninApiErrorVisitor,
-            SigninApiErrors> implements SigninApiErrors.ISigninApiErrorVisitor {
+    private final class SigninObserver extends CommandCallBackWrapper<String, SigninInteract.SigninApiErrors.ISigninApiErrorVisitor,
+            SigninInteract.SigninApiErrors> implements SigninInteract.SigninApiErrors.ISigninApiErrorVisitor {
 
         /**
          *
          * @param apiErrors
          */
-        public SigninObserver(Class<SigninApiErrors> apiErrors) {
+        public SigninObserver(Class<SigninInteract.SigninApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -115,7 +115,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
         }
 
         @Override
-        public void visitBadCredentials(SigninApiErrors error) {
+        public void visitBadCredentials(SigninInteract.SigninApiErrors error) {
             Timber.e("Bad Credentials Error");
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
@@ -124,55 +124,13 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
         }
 
         @Override
-        public void visitAccountDisabled(SigninApiErrors errors) {
+        public void visitAccountDisabled(SigninInteract.SigninApiErrors errors) {
             Timber.e("Account Disabled");
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onAccountDisabled();
             }
         }
-    }
-
-    /**
-     * Signin Api Errors
-     */
-    public enum SigninApiErrors implements ISupportVisitable<SigninApiErrors.ISigninApiErrorVisitor> {
-
-        /**
-         * Bad Credentials Error
-         */
-        BAD_CREDENTIALS(){
-            @Override
-            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
-                visitor.visitBadCredentials(this);
-            }
-        },
-
-        ACCOUNT_DISABLED() {
-            @Override
-            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
-                visitor.visitAccountDisabled(this);
-            }
-        };
-
-
-        /**
-         * Signin Api Error Visitor
-         */
-        public interface ISigninApiErrorVisitor extends ISupportVisitor {
-            /**
-             * Visit Bad Credentials
-             * @param error
-             */
-            void visitBadCredentials(final SigninApiErrors error);
-
-            /**
-             * Visit Account Disabled
-             * @param errors
-             */
-            void visitAccountDisabled(final SigninApiErrors errors);
-        }
-
     }
 
 

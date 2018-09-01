@@ -216,7 +216,7 @@
     <!-- Save Preferences Btn -->
     <string name="save_preferences_btn">Save Preferences</string>
 
-    <string name="what_are_your_questions">What are your questions?</string>
+    <string name="how_can_bullkeeper_help_you">How can BullKeeper help you?</string>
 
     <!-- User Profile -->
     <string name="user_profile_title">Profile</string>
@@ -292,7 +292,8 @@
 
     <!-- Home -->
     <string name="home_last_alerts">Last Alerts</string>
-
+    <string name="home_load_profile_information_progress">Loading profile information ...</string>
+    <string name="home_how_add_child_title">How to add a child?</string>
 
     <string name="kid_detail_dimensions_title">Four Dimensions</string>
     <string name="kid_detail_dimensions_description">Data of the four dimensions analyzed</string>

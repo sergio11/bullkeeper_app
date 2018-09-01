@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -26,7 +27,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.SocialMediaStatusDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.question.QuestionAppDialog;
 
 /**
  * Class used to navigate through the application.
@@ -128,11 +128,14 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
-     * Show Question App Dialog
+     * Show App Help Dialog
+     * @param appCompatActivity
+     * @param title
+     * @param cueVideo
      */
     @Override
-    public void showQuestionAppDialog(final AppCompatActivity appCompatActivity) {
-        QuestionAppDialog.show(appCompatActivity);
+    public void showAppHelpDialog(AppCompatActivity appCompatActivity, String title, String cueVideo) {
+        AppHelpDialog.show(appCompatActivity, title, cueVideo);
     }
 
 

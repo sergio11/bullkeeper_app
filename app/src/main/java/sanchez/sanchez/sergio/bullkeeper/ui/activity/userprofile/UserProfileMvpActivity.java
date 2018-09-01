@@ -425,8 +425,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         Timber.d("Profile Image -> %s", parentEntity.getProfileImage());
 
         picasso.load(parentEntity.getProfileImage())
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
+                .placeholder(R.drawable.parent_default)
+                .error(R.drawable.parent_default)
                 .noFade()
                 .into(profileImageView);
     }

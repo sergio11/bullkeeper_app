@@ -38,20 +38,20 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.resetting_password_wait);
         // Execute Reset Password Interact
-        resetPasswordInteract.execute(new ResetPasswordObserver(ResetPasswordApiErrors.class), ResetPasswordInteract.Params.create(mail));
+        resetPasswordInteract.execute(new ResetPasswordObserver(ResetPasswordInteract.ResetPasswordApiErrors.class), ResetPasswordInteract.Params.create(mail));
     }
 
     /**
      * Reset Password Observer
      */
-    private final class ResetPasswordObserver extends CommandCallBackWrapper<String, ResetPasswordApiErrors.IResetPasswordApiErrorVisitor,
-            ResetPasswordApiErrors> implements ResetPasswordApiErrors.IResetPasswordApiErrorVisitor {
+    private final class ResetPasswordObserver extends CommandCallBackWrapper<String, ResetPasswordInteract.ResetPasswordApiErrors.IResetPasswordApiErrorVisitor,
+            ResetPasswordInteract.ResetPasswordApiErrors> implements ResetPasswordInteract.ResetPasswordApiErrors.IResetPasswordApiErrorVisitor {
 
         /**
          * Reset Password Observer
          * @param apiErrors
          */
-        public ResetPasswordObserver(final Class<ResetPasswordApiErrors> apiErrors) {
+        public ResetPasswordObserver(final Class<ResetPasswordInteract.ResetPasswordApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -72,7 +72,7 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
          * @param errors
          */
         @Override
-        public void visitValidationError(ResetPasswordApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+        public void visitValidationError(ResetPasswordInteract.ResetPasswordApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
@@ -85,32 +85,5 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
 
     }
 
-    /**
-     * Reset Password Api Errors
-     */
-    public enum ResetPasswordApiErrors  implements ISupportVisitable<ResetPasswordApiErrors.IResetPasswordApiErrorVisitor> {
-
-        /**
-         * Validation Errors
-         */
-        VALIDATION_ERROR(){
-            @Override
-            public <E> void accept(IResetPasswordApiErrorVisitor visitor, E data) {
-                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
-            }
-        };
-
-        /**
-         * Reset Password Api Error Visitor
-         */
-        public interface IResetPasswordApiErrorVisitor extends SupportPresenter.ISupportVisitor {
-            /**
-             * Visit Bad Credentials
-             * @param apiErrors
-             */
-            void visitValidationError(final ResetPasswordApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
-        }
-
-    }
 
 }

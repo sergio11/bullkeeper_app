@@ -97,4 +97,38 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     public void goToAlerts() {
         navigatorImpl.navigateToAlertList();
     }
+
+    /**
+     * Go To User Profile
+     */
+    @Override
+    public void goToUserProfile() {
+        navigatorImpl.navigateToUserProfile();
+    }
+
+    /**
+     * Go To Child Detail
+     * @param identity
+     */
+    @Override
+    public void goToChildDetail(String identity) {
+        navigatorImpl.navigateToMyKidsDetail(identity);
+    }
+
+    /**
+     * Go To Add Child
+     */
+    @Override
+    public void goToAddChild() {
+        navigatorImpl.navigateToAddKids();
+    }
+
+    /**
+     * Show How Add Child Help Dialog
+     */
+    @Override
+    public void showHowAddChildHelpDialog() {
+        navigatorImpl.showAppHelpDialog(this, getString(R.string.home_how_add_child_title),
+                getString(R.string.youtube_video_cue));
+    }
 }

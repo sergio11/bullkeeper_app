@@ -8,6 +8,8 @@ import java.util.Set;
 import io.reactivex.disposables.CompositeDisposable;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.utils.CallbackWrapper;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 import timber.log.Timber;
 
 /**
@@ -242,21 +244,8 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     }
 
 
-    /**
-     * Support Visitable
-     */
-    public interface ISupportVisitable<T extends ISupportVisitor> {
-        /**
-         * Accept
-         * @param visitor
-         */
-        <E> void accept(T visitor, final E data);
-    }
 
-    /**
-     * Support Visitor
-     */
-    public interface ISupportVisitor{}
+
 
 
 }
