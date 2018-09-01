@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile;
 
-import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_profile_information);
 
-        getParentInformationInteract.execute(new GetSelfInformationObserver(GetSelfInformationApiErrors.class), null);
+        getParentInformationInteract.execute(new GetParentInformationObserver(GetParentInformationInteract.GetParentInformationApiErrors.class), null);
     }
 
     /**
@@ -75,7 +74,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
             getView().showProgressDialog(R.string.updating_profile_data_progress);
 
 
-        updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationApiErrors.class),
+        updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.class),
                 UpdateSelfInformationInteract.Params.create(name, surname, birthday, email,
                         tfno));
 
@@ -97,7 +96,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
             getView().showProgressDialog(R.string.updating_profile_data_progress);
 
 
-        updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationApiErrors.class),
+        updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.class),
                 UpdateSelfInformationInteract.Params.create(name, surname, birthday, email,
                         tfno, profileImage));
 
@@ -106,16 +105,20 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     /**
      * Get Self Information Observer
      */
-    private final class GetSelfInformationObserver extends CommandCallBackWrapper<ParentEntity, GetSelfInformationApiErrors.IGetSelfInformationApiErrorVisitor,
-            GetSelfInformationApiErrors> implements GetSelfInformationApiErrors.IGetSelfInformationApiErrorVisitor {
+    private final class GetParentInformationObserver extends CommandCallBackWrapper<ParentEntity, GetParentInformationInteract.GetParentInformationApiErrors.IGetSelfInformationApiErrorVisitor,
+            GetParentInformationInteract.GetParentInformationApiErrors> implements GetParentInformationInteract.GetParentInformationApiErrors.IGetSelfInformationApiErrorVisitor {
 
 
-        public GetSelfInformationObserver(Class<GetSelfInformationApiErrors> apiErrors) {
+        public GetParentInformationObserver(Class<GetParentInformationInteract.GetParentInformationApiErrors> apiErrors) {
             super(apiErrors);
         }
 
+        /**
+         * Visit No
+         * @param error
+         */
         @Override
-        public void visitNoChildrenFoundForSelfParent(GetSelfInformationApiErrors error) {
+        public void visitNoChildrenFoundForSelfParent(GetParentInformationInteract.GetParentInformationApiErrors error) {
 
         }
 
@@ -133,44 +136,16 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         }
     }
 
-    /**
-     * Signin Api Errors
-     */
-    public enum GetSelfInformationApiErrors implements ISupportVisitable<GetSelfInformationApiErrors.IGetSelfInformationApiErrorVisitor> {
-
-        /**
-         * No Children Found For Self Parent
-         */
-        NO_CHILDREN_FOUND_FOR_SELF_PARENT() {
-            @Override
-            public <E> void accept(IGetSelfInformationApiErrorVisitor visitor, E data) {
-                visitor.visitNoChildrenFoundForSelfParent(this);
-            }
-        };
-
-        /**
-         * Get Self Information API Error Visitor
-         */
-        public interface IGetSelfInformationApiErrorVisitor extends ISupportVisitor {
-            /**
-             * Visit No Children Found For Self Parent
-             *
-             * @param error
-             */
-            void visitNoChildrenFoundForSelfParent(final GetSelfInformationApiErrors error);
-
-        }
-    }
 
 
     /**
      * Update Self Information Observer
      */
-    private final class UpdateSelfInformationObserver extends CommandCallBackWrapper<ParentEntity, UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor,
-            UpdateSelfInformationApiErrors> implements UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor {
+    private final class UpdateSelfInformationObserver extends CommandCallBackWrapper<ParentEntity, UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor,
+            UpdateSelfInformationInteract.UpdateSelfInformationApiErrors> implements UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor {
 
 
-        public UpdateSelfInformationObserver(Class<UpdateSelfInformationApiErrors> apiErrors) {
+        public UpdateSelfInformationObserver(Class<UpdateSelfInformationInteract.UpdateSelfInformationApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -189,7 +164,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
          * @param errors
          */
         @Override
-        public void visitValidationError(UpdateSelfInformationApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+        public void visitValidationError(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
@@ -205,7 +180,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
          * @param apiErrors
          */
         @Override
-        public void visitFailedToUploadImage(final UpdateSelfInformationApiErrors apiErrors) {
+        public void visitFailedToUploadImage(final UpdateSelfInformationInteract.UpdateSelfInformationApiErrors apiErrors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.upload_profile_image_error);
@@ -217,7 +192,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
          * @param apiErrors
          */
         @Override
-        public void visitUploadFileIsTooLarge(final UpdateSelfInformationApiErrors apiErrors) {
+        public void visitUploadFileIsTooLarge(final UpdateSelfInformationInteract.UpdateSelfInformationApiErrors apiErrors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.profile_image_is_too_large);
@@ -225,65 +200,6 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         }
     }
 
-    /**
-     * Update Api Errors
-     */
-    public enum UpdateSelfInformationApiErrors implements ISupportVisitable<UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor> {
 
-        /**
-         * Validation Errors
-         */
-        VALIDATION_ERROR(){
-            @Override
-            public <E> void accept(IUpdateSelfInformationApiErrorVisitor visitor, E data) {
-                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
-            }
-        },
-        /**
-         * Failed To Upload Image
-         */
-        FAILED_TO_UPLOAD_IMAGE() {
-            @Override
-            public <E> void accept(IUpdateSelfInformationApiErrorVisitor visitor, E data) {
-                visitor.visitFailedToUploadImage(this);
-            }
-        },
-
-        /**
-         * Upload File Is Too Large
-         */
-        UPLOAD_FILE_IS_TOO_LARGE(){
-            @Override
-            public <E> void accept(IUpdateSelfInformationApiErrorVisitor visitor, E data) {
-                visitor.visitUploadFileIsTooLarge(this);
-            }
-        };
-
-        /**
-         * Update Self Information API Error Visitor
-         */
-        public interface IUpdateSelfInformationApiErrorVisitor extends ISupportVisitor {
-
-            /**
-             * Visit Validation Error
-             * @param apiErrors
-             * @param errors
-             */
-            void visitValidationError(final UpdateSelfInformationApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
-
-            /**
-             * Visit Failed To Upload Image
-             * @param apiErrors
-             */
-            void visitFailedToUploadImage(final UpdateSelfInformationApiErrors apiErrors);
-
-            /**
-             * Visit Upload File Is Too Large
-             * @param apiErrors
-             */
-            void visitUploadFileIsTooLarge(final UpdateSelfInformationApiErrors apiErrors);
-
-        }
-    }
 
 }

@@ -91,7 +91,6 @@ public interface IChildrenService {
     Observable<APIResponse<SocialMediaDTO>> deleteSocialMedia(@Path("son") final String son,
                                                               @Path("social") final String idSocial);
 
-    //Observable<APIResponse<ImageDTO>> UploadProfileImage(String id, Stream stream);
 
     /**
      * Delete Son By Id

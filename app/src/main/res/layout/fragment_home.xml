@@ -63,13 +63,36 @@
                     android:layout_height="100dp"
                     style="@style/CommonSection">
 
-                    <!-- User Profile Image -->
-                    <ImageView
-                        android:id="@+id/userProfileImage"
-                        android:contentDescription="@string/content_not_be_loaded"
-                        android:layout_marginStart="10dp"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <!-- User Profile Image -->
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/userProfileImage"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/user_default"
+                            app:civ_border_color="@color/commonWhite"
+                            app:civ_border_width="@dimen/common_image_stroke_width" />
+
+                        <TextView
+                            android:id="@+id/userProfileText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="-"
+                            style="@style/CommonStrongText.Medium"
+                            android:padding="0dp"
+                            android:textColor="@color/commonWhite"/>
+
+
+                    </LinearLayout>
+
+
 
                     <!-- Actions -->
                     <LinearLayout
@@ -103,43 +126,11 @@
                     android:layout_below="@id/userMenu"
                     style="@style/CommonSection">
 
-                    <HorizontalScrollView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/myKidsList"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/firstChildImage"
-                                android:contentDescription="@string/content_not_be_loaded"
-                                android:layout_marginStart="15dp"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"/>
-
-                            <ImageView
-                                android:id="@+id/secondChildImage"
-                                android:contentDescription="@string/content_not_be_loaded"
-                                android:layout_marginStart="15dp"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"/>
-
-                            <ImageView
-                                android:id="@+id/thirdChildImage"
-                                android:contentDescription="@string/content_not_be_loaded"
-                                android:layout_marginStart="15dp"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"/>
-
-                        </LinearLayout>
-
-                    </HorizontalScrollView>
-
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/addChildBtn"

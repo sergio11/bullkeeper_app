@@ -24,4 +24,20 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
      */
     void goToAlerts();
 
+    /**
+     * Go To User Profile
+     */
+    void goToUserProfile();
+
+    /**
+     * Go To Child Detail
+     * @param identity
+     */
+    void goToChildDetail(final String identity);
+
+    /**
+     * Go To Add Child
+     */
+    void goToAddChild();
+
 }

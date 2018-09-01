@@ -42,20 +42,20 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
             getView().showProgressDialog(R.string.loading_information_of_children);
         }
         // Execute Get Self Children
-        getSelfChildrenInteract.execute(new GetChildrenObserver(GetChildrenApiErrors.class), null);
+        getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
     }
 
 
     /**
      * Get Children Observer
      */
-    private final class GetChildrenObserver extends CommandCallBackWrapper<List<SonEntity>, GetChildrenApiErrors.IGetChildrenApiErrorVisitor,
-            GetChildrenApiErrors> implements GetChildrenApiErrors.IGetChildrenApiErrorVisitor {
+    private final class GetChildrenObserver extends CommandCallBackWrapper<List<SonEntity>, GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor,
+            GetSelfChildrenInteract.GetChildrenApiErrors> implements GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor {
 
         /**
          * @param apiErrors
          */
-        public GetChildrenObserver(Class<GetChildrenApiErrors> apiErrors) {
+        public GetChildrenObserver(Class<GetSelfChildrenInteract.GetChildrenApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -76,7 +76,7 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
          * @param error
          */
         @Override
-        public void visitNoChildrenFoundForSelfParent(GetChildrenApiErrors error) {
+        public void visitNoChildrenFoundForSelfParent(GetSelfChildrenInteract.GetChildrenApiErrors error) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
@@ -84,33 +84,5 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
         }
     }
 
-    /**
-     * Signin Api Errors
-     */
-    public enum GetChildrenApiErrors implements ISupportVisitable<GetChildrenApiErrors.IGetChildrenApiErrorVisitor> {
-
-        /**
-         * No Children Found For Self Parent
-         */
-        NO_CHILDREN_FOUND_FOR_SELF_PARENT() {
-            @Override
-            public <E> void accept(IGetChildrenApiErrorVisitor visitor, E data) {
-                visitor.visitNoChildrenFoundForSelfParent(this);
-            }
-        };
-
-        /**
-         * Get Children Api Error Visitor
-         */
-        public interface IGetChildrenApiErrorVisitor extends ISupportVisitor {
-            /**
-             * Visit No Children Found For Self Parent
-             *
-             * @param error
-             */
-            void visitNoChildrenFoundForSelfParent(final GetChildrenApiErrors error);
-
-        }
-    }
 
 }

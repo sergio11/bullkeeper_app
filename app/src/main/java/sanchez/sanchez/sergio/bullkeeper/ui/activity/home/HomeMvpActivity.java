@@ -97,4 +97,29 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     public void goToAlerts() {
         navigatorImpl.navigateToAlertList();
     }
+
+    /**
+     * Go To User Profile
+     */
+    @Override
+    public void goToUserProfile() {
+        navigatorImpl.navigateToUserProfile();
+    }
+
+    /**
+     * Go To Child Detail
+     * @param identity
+     */
+    @Override
+    public void goToChildDetail(String identity) {
+        navigatorImpl.navigateToMyKidsDetail(identity);
+    }
+
+    /**
+     * Go To Add Child
+     */
+    @Override
+    public void goToAddChild() {
+        navigatorImpl.navigateToAddKids();
+    }
 }

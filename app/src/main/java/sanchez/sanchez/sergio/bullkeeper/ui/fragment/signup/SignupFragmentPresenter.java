@@ -43,7 +43,7 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.signup_in_progress);
 
-        registerParentInteract.execute(new SignupObserver(SignupApiErrors.class),
+        registerParentInteract.execute(new SignupObserver(RegisterParentInteract.SignupApiErrors.class),
                 RegisterParentInteract.Params.create(name, surname, birthday, email, password, confirmPassword,
                         telephone));
 
@@ -52,14 +52,14 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
     /**
      * Signup Observer
      */
-    private final class SignupObserver extends CommandCallBackWrapper<ParentEntity, SignupApiErrors.ISignupApiErrorVisitor,
-            SignupApiErrors> implements SignupApiErrors.ISignupApiErrorVisitor {
+    private final class SignupObserver extends CommandCallBackWrapper<ParentEntity, RegisterParentInteract.SignupApiErrors.ISignupApiErrorVisitor,
+            RegisterParentInteract.SignupApiErrors> implements RegisterParentInteract.SignupApiErrors.ISignupApiErrorVisitor {
 
         /**
          *
          * @param apiErrors
          */
-        public SignupObserver(Class<SignupApiErrors> apiErrors) {
+        public SignupObserver(Class<RegisterParentInteract.SignupApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -81,7 +81,7 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
          * @param errors
          */
         @Override
-        public void visitValidationError(SignupApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+        public void visitValidationError(RegisterParentInteract.SignupApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
@@ -93,34 +93,6 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
         }
     }
 
-    /**
-     * Signup Api Errors
-     */
-    public enum SignupApiErrors implements ISupportVisitable<SignupApiErrors.ISignupApiErrorVisitor> {
-
-        /**
-         * Validation Errors
-         */
-        VALIDATION_ERROR(){
-            @Override
-            public <E> void accept(ISignupApiErrorVisitor visitor, E data) {
-                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
-            }
-        };
-
-
-        /**
-         * Signup Api Error Visitor
-         */
-        public interface ISignupApiErrorVisitor extends ISupportVisitor {
-            /**
-             * Visit Validation Errors
-             * @param apiErrors
-             */
-            void visitValidationError(final SignupApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
-        }
-
-    }
 
 
 }

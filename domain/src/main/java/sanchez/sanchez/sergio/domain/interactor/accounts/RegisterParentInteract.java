@@ -2,6 +2,9 @@ package sanchez.sanchez.sergio.domain.interactor.accounts;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -9,6 +12,8 @@ import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
  * Register Parent Interact
@@ -115,6 +120,36 @@ public final class RegisterParentInteract extends UseCase<ParentEntity, Register
                                     final String passwordClear, final String confirmPassword, final String telephone) {
             return new Params(firstName, lastName, birthdate, email, passwordClear, confirmPassword, telephone);
         }
+    }
+
+
+    /**
+     * Signup Api Errors
+     */
+    public enum SignupApiErrors implements ISupportVisitable<SignupApiErrors.ISignupApiErrorVisitor> {
+
+        /**
+         * Validation Errors
+         */
+        VALIDATION_ERROR(){
+            @Override
+            public <E> void accept(ISignupApiErrorVisitor visitor, E data) {
+                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
+            }
+        };
+
+
+        /**
+         * Signup Api Error Visitor
+         */
+        public interface ISignupApiErrorVisitor extends ISupportVisitor {
+            /**
+             * Visit Validation Errors
+             * @param apiErrors
+             */
+            void visitValidationError(final SignupApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
+        }
+
     }
 
 
