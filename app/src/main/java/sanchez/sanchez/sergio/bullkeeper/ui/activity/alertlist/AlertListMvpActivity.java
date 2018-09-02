@@ -200,7 +200,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @Override
     public void onItemClick(AlertEntity alertEntity) {
         Timber.d("Go to Alert Detail -> %s", alertEntity.getIdentity());
-        goToAlertDetail(alertEntity.getIdentity());
+        goToAlertDetail(alertEntity.getIdentity(), alertEntity.getSon().getIdentity());
     }
 
     /**
@@ -312,11 +312,12 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
 
     /**
      * Go to Alert Detail
-     * @param identity
+     * @param alertId
+     * @param sonId
      */
     @Override
-    public void goToAlertDetail(String identity) {
-        navigatorImpl.navigateToAlertDetail(identity);
+    public void goToAlertDetail(final String alertId, final String sonId) {
+        navigatorImpl.navigateToAlertDetail(alertId, sonId);
     }
 
     /**
@@ -387,27 +388,31 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     public void onDataLoaded(List<AlertEntity> dataLoaded) {
         super.onDataLoaded(dataLoaded);
 
-        if(!dataLoaded.isEmpty()) {
 
-            if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
-                filterAlertsButton.setVisibility(View.VISIBLE);
-                filterAlertsButton.setEnabled(true);
-            }
-
-            clearAlertsButton.setVisibility(View.VISIBLE);
-            clearAlertsButton.setEnabled(true);
-            alertsHeaderTitle.setText(String.format(Locale.getDefault(),
-                    getString(R.string.my_alerts_count),dataLoaded.size()));
-        } else {
-            filterAlertsButton.setVisibility(View.GONE);
-            filterAlertsButton.setEnabled(false);
-            clearAlertsButton.setVisibility(View.GONE);
-            clearAlertsButton.setEnabled(false);
-            alertsHeaderTitle.setText(getString(R.string.my_alerts));
+        if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
+            filterAlertsButton.setVisibility(View.VISIBLE);
+            filterAlertsButton.setEnabled(true);
         }
+
+        clearAlertsButton.setVisibility(View.VISIBLE);
+        clearAlertsButton.setEnabled(true);
+        alertsHeaderTitle.setText(String.format(Locale.getDefault(),
+                getString(R.string.my_alerts_count),dataLoaded.size()));
+
     }
 
-
+    /**
+     * On No Data Found
+     */
+    @Override
+    public void onNoDataFound() {
+        super.onNoDataFound();
+        filterAlertsButton.setVisibility(View.GONE);
+        filterAlertsButton.setEnabled(false);
+        clearAlertsButton.setVisibility(View.GONE);
+        clearAlertsButton.setEnabled(false);
+        alertsHeaderTitle.setText(getString(R.string.my_alerts));
+    }
 
     /**
      * Get Adapter

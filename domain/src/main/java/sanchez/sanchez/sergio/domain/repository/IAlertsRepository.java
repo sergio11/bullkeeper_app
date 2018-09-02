@@ -44,4 +44,12 @@ public interface IAlertsRepository {
      * @return
      */
     Observable<String> clearAlertsOfSon(final String sonIdentity);
+
+    /**
+     * Get Alert By Id
+     * @param sonId
+     * @param alertId
+     * @return
+     */
+    Observable<AlertEntity> getAlertById(final String sonId, final String alertId);
 }

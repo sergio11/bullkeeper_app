@@ -33,7 +33,7 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     @Override
     protected void onAttachView(@NonNull T view) {
         super.onAttachView(view);
-
+        Timber.d("On Attach View");
         args = view.getArgs();
         if(args != null && !args.isEmpty()) {
             onInit(args);
@@ -48,6 +48,7 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     @Override
     protected void onDetachView() {
         super.onDetachView();
+        Timber.d("On Detach View");
         releaseSubscription();
     }
 

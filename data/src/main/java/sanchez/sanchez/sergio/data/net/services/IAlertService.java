@@ -42,6 +42,16 @@ public interface IAlertService {
                                                      @Path("alert") String alert);
 
     /**
+     * Get Alert By Id
+     * @param son
+     * @param alert
+     * @return
+     */
+    @GET("children/{son}/alerts/{alert}")
+    Observable<APIResponse<AlertDTO>> getAlertById(@Path("son") final String son,
+                                                   @Path("alert") final String alert);
+
+    /**
      * Clear Self Alerts
      * @return
      */

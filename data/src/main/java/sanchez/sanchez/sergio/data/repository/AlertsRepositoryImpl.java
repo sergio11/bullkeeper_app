@@ -89,5 +89,21 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
             response != null && response.getData() != null ? response.getData() : null);
     }
 
+    /**
+     * Get Alert By Id
+     * @param sonId
+     * @param alertId
+     * @return
+     */
+    @Override
+    public Observable<AlertEntity> getAlertById(String sonId, String alertId) {
+        Preconditions.checkNotNull(sonId, "Son Id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son id can no be empty");
+        Preconditions.checkNotNull(alertId, "Son Id can not be null");
+        Preconditions.checkState(!alertId.isEmpty(), "Son id can no be empty");
+        return alertService.getAlertById(sonId, alertId).map(response ->
+            response != null && response.getData() != null ? response.getData() : null)
+                .map(alertDataMapper::transform);
+    }
 
 }

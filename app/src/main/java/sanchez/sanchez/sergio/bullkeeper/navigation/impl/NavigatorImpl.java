@@ -89,8 +89,8 @@ public class NavigatorImpl implements INavigator {
      * Navigate to Alert Detail
      */
     @Override
-    public void navigateToAlertDetail(final String identity) {
-        final Intent intentToAlertDetail = AlertDetailMvpActivity.getCallingIntent(context, identity);
+    public void navigateToAlertDetail(final String alertId, final String sonId) {
+        final Intent intentToAlertDetail = AlertDetailMvpActivity.getCallingIntent(context, alertId, sonId);
         context.startActivity(intentToAlertDetail);
     }
 

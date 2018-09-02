@@ -30,12 +30,25 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
         IAlertDetailView, IAlertDetailActivityHandler, AlertsComponent> implements IAlertDetailView {
 
     public static String ALERT_ID_ARG = "ALERT_ID_ARG";
+    public static String SON_ID_ARG = "SON_ID_ARG";
 
     /**
      * Alert Detail Background
      */
     @BindView(R.id.alertDetailBackground)
     protected ImageView alertDetailBackground;
+
+    /**
+     * Alert Title View
+     */
+    @BindView(R.id.alertTitle)
+    protected TextView alertTitleView;
+
+    /**
+     * Son Full Name
+     */
+    @BindView(R.id.sonFullName)
+    protected TextView sonFullNameView;
 
 
     /**
@@ -98,8 +111,17 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
     @BindView(R.id.alertSince)
     protected TextView alertSince;
 
+    /**
+     * App Context
+     */
     @Inject
     protected Context appContext;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
     public AlertDetailActivityMvpFragment() { }
 
@@ -107,13 +129,23 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
      * New Instance
      * @param alertId
      */
-    public static AlertDetailActivityMvpFragment newInstance(final String alertId) {
+    public static AlertDetailActivityMvpFragment newInstance(final String alertId, final String sonId) {
         final AlertDetailActivityMvpFragment alertDetailActivityFragment =
                 new AlertDetailActivityMvpFragment();
         final Bundle args = new Bundle();
         args.putString(ALERT_ID_ARG, alertId);
+        args.putString(SON_ID_ARG, sonId);
         alertDetailActivityFragment.setArguments(args);
         return alertDetailActivityFragment;
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        return getArguments();
     }
 
     /**
@@ -123,10 +155,22 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
     @Override
     public void onAlertInfoLoaded(AlertEntity alertEntity) {
 
-        Picasso.with(appContext).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
+        picasso.load(alertEntity.getSon().getProfileImage())
+                .placeholder(R.drawable.kid_default_image)
+                .error(R.drawable.kid_default_image)
                 .into(alertDetailBackground);
+
+        // Alert Title
+        alertTitleView.setText(alertEntity.getTitle());
+
+        // Son Full Name
+        sonFullNameView.setText(alertEntity.getSon().getFullName());
+
+        // Alert Since
+        alertSince.setText(alertEntity.getSince());
+
+        // Alert Payload
+        alertDetailMessage.setText(alertEntity.getPayload());
 
         switch (alertEntity.getLevel()) {
 
@@ -258,6 +302,71 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
 
         }
 
+
+        // Alert Category
+        switch (alertEntity.getCategory()) {
+
+            case DEFAULT:
+                // Alert Category Default
+                alertDetailActions.setText(getString(R.string.alert_category_default));
+                actionButton.setVisibility(View.GONE);
+                break;
+
+            case STATISTICS_SON:
+                // Statistics Son Category
+                alertDetailActions.setText(getString(R.string.alert_category_statistics_son_desc));
+                actionButton.setText(getString(R.string.alert_category_statistics_son_action_text));
+                break;
+
+            case INFORMATION_SON:
+                // Information Son Category
+                alertDetailActions.setText(getString(R.string.alert_category_information_son_desc));
+                actionButton.setText(getString(R.string.alert_category_information_son_action_text));
+                break;
+
+            case GENERAL_STATISTICS:
+                // General Statistics
+                alertDetailActions.setText(getString(R.string.alert_category_general_statistics_desc));
+                actionButton.setText(getString(R.string.alert_category_general_statistics_action_text));
+                break;
+
+            case INFORMATION_EXTRACTION:
+                // Information Extraction
+                alertDetailActions.setText(getString(R.string.alert_category_information_extraction_desc));
+                actionButton.setText(getString(R.string.alert_category_information_extraction_action_text));
+                break;
+
+
+        }
+
+    }
+
+    /**
+     * On Alert Not Founds
+     */
+    @Override
+    public void onAlertNotFound() {
+
+        showNoticeDialog(R.string.alert_not_found, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
+
+    }
+
+    /**
+     * On Alert Deleted
+     */
+    @Override
+    public void onAlertDeleted() {
+        showNoticeDialog(R.string.alert_removed_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
     }
 
     /**
@@ -298,12 +407,7 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
             @Override
             public void onAccepted(DialogFragment dialog) {
 
-                showNoticeDialog(R.string.alert_removed_successfully, new NoticeDialogFragment.NoticeDialogListener() {
-                    @Override
-                    public void onAccepted(DialogFragment dialog) {
-                        activityHandler.closeActivity();
-                    }
-                });
+                getPresenter().deleteAlert();
 
             }
 
@@ -330,4 +434,31 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
     protected int getToolbarType() {
         return TOOLBAR_WITH_MENU;
     }
+
+    /**
+     * On Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        activityHandler.showNoticeDialog(R.string.network_error_ocurred, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
+    }
+
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        activityHandler.showNoticeDialog(R.string.unexpected_error_ocurred, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
+    }
+
 }

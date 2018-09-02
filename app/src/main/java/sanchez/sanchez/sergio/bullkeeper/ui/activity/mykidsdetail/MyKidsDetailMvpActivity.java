@@ -243,13 +243,14 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         navigatorImpl.navigateToAlertList();
     }
 
-    /***
+    /**
      * Navigate To Alerts Detail
-     * @param identity
+     * @param alertId
+     * @param sonId
      */
     @Override
-    public void navigateToAlertDetail(String identity) {
-        navigatorImpl.navigateToAlertDetail(identity);
+    public void navigateToAlertDetail(final String alertId, final String sonId) {
+        navigatorImpl.navigateToAlertDetail(alertId, sonId);
     }
 
     /**

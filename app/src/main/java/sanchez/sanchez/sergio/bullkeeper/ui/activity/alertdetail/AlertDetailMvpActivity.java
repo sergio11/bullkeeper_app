@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AlertsComponent;
@@ -20,6 +19,7 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
         , IAlertDetailView  {
 
     public static String ALERT_ID_ARG = "ALERT_ID_ARG";
+    public static String SON_ID_ARG = "SON_ID_ARG";
 
     private AlertsComponent alertsComponent;
 
@@ -28,9 +28,10 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String identity) {
+    public static Intent getCallingIntent(final Context context, final String alertId, final String sonId) {
         final Intent intent = new Intent(context, AlertDetailMvpActivity.class);
-        intent.putExtra(ALERT_ID_ARG, identity);
+        intent.putExtra(ALERT_ID_ARG, alertId);
+        intent.putExtra(SON_ID_ARG, sonId);
         return intent;
     }
 
@@ -61,9 +62,13 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
             if(!getIntent().hasExtra(ALERT_ID_ARG))
                 throw new IllegalArgumentException("It is necessary to specify an alert identifier");
 
+            if (!getIntent().hasExtra(SON_ID_ARG))
+                throw new IllegalArgumentException("It is necessary to specify an son identifier");
+
             final String alertId = getIntent().getStringExtra(ALERT_ID_ARG);
+            final String sonId = getIntent().getStringExtra(SON_ID_ARG);
             addFragment(R.id.mainContainer,
-                    AlertDetailActivityMvpFragment.newInstance(alertId), false);
+                    AlertDetailActivityMvpFragment.newInstance(alertId, sonId), false);
         }
     }
 

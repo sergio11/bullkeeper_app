@@ -155,7 +155,26 @@
     <string name="loading_alerts_please_wait">Loading alerts, please wait ...</string>
     <string name="deleting_alerts_please_wait">Deleting alerts, please wait ...</string>
     <string name="deleting_alerts_for_this_child">Clear all alerts for this child?</string>
+    <string name="loading_alert_detail">Loading alert detail, wait please</string>
+    <string name="alert_not_found">The information of the alert could not be obtained</string>
+    <string name="deleting_alert_in_progress">Deleting alert, wait please ...</string>
 
+    <!-- Alert Category -->
+
+    <!-- Information Extraction -->
+    <string name="alert_category_information_extraction_desc">Go to the comments list to see them</string>
+    <string name="alert_category_information_extraction_action_text">Go to the list of comments</string>
+    <!-- Statistics Son -->
+    <string name="alert_category_statistics_son_desc">Go to the child\'s statistics section for more information</string>
+    <string name="alert_category_statistics_son_action_text">Go to the son\'s statistics</string>
+    <!-- General Statistics -->
+    <string name="alert_category_general_statistics_desc">Go to the Results section to get more information</string>
+    <string name="alert_category_general_statistics_action_text">Go to general statistics</string>
+    <!-- Information Son -->
+    <string name="alert_category_information_son_desc">Go to the child\'s editing section for more information</string>
+    <string name="alert_category_information_son_action_text">Go to edit son</string>
+    <!-- Default -->
+    <string name="alert_category_default">No action required</string>
 
 
     <!-- Preferences -->

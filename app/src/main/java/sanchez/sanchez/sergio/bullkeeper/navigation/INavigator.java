@@ -40,7 +40,7 @@ public interface INavigator {
     /**
      * Navigate To Alert Detail
      */
-    void navigateToAlertDetail(final String identity);
+    void navigateToAlertDetail(final String alertId, final String sonId);
 
     /**
      * Navigate to Alert List

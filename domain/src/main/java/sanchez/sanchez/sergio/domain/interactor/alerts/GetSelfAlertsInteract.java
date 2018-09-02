@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.domain.interactor.alerts;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;

@@ -323,7 +323,7 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     @Override
     public void onItemClick(final AlertEntity alertEntity) {
         showShortMessage(String.format(Locale.getDefault(), "Alert %s clicked ", alertEntity.getTitle()));
-        activityHandler.goToAlertDetail("123456");
+        activityHandler.goToAlertDetail(alertEntity.getIdentity(), alertEntity.getSon().getIdentity());
     }
 
 

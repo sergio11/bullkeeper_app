@@ -9,6 +9,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -145,7 +148,8 @@ public class ImportantAlertsMvpFragment extends SupportMvpFragment<ImportantAler
      */
     @Override
     public void onItemClick(AlertEntity alertEntity) {
-        activityHandler.navigateToAlertDetail(alertEntity.getIdentity());
+        Preconditions.checkNotNull(alertEntity, "Alert Entity can not be null");
+        activityHandler.navigateToAlertDetail(alertEntity.getIdentity(), alertEntity.getSon().getIdentity());
     }
 
     @Override

@@ -83,11 +83,12 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
 
     /**
      * Go to Alert Detail
-     * @param identity
+     * @param alertId
+     * @param sonId
      */
     @Override
-    public void goToAlertDetail(String identity) {
-        navigatorImpl.navigateToAlertDetail(identity);
+    public void goToAlertDetail(final String alertId, final String sonId) {
+        navigatorImpl.navigateToAlertDetail(alertId, sonId);
     }
 
     /**

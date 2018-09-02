@@ -13,6 +13,7 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
@@ -115,6 +116,20 @@ public class AlertsModule {
     public ClearAlertsBySonInteract provideClearAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                     final IAlertsRepository alertsRepository){
         return new ClearAlertsBySonInteract(threadExecutor, postExecutionThread, alertsRepository);
+    }
+
+    /**
+     * Provide Get Alert Detail Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param alertsRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetAlertDetailInteract provideGetAlertDetailInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                final IAlertsRepository alertsRepository) {
+        return new GetAlertDetailInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
 
 

@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist;
 
-import android.os.Bundle;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
