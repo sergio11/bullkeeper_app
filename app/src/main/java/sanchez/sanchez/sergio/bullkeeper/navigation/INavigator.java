@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 
 import android.support.v7.app.AppCompatActivity;
 
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -45,6 +46,25 @@ public interface INavigator {
      * Navigate to Alert List
      */
     void navigateToAlertList();
+
+    /**
+     * Navigate To Alert List
+     * @param alertLevelEnum
+     */
+    void navigateToAlertList(final AlertLevelEnum alertLevelEnum);
+
+    /**
+     * Navigate to Alert List
+     * @param sonIdentity
+     */
+    void navigateToAlertList(final String sonIdentity);
+
+    /**
+     * Navigate to Alert List
+     * @param alertLevelEnum
+     * @param sonIdentity
+     */
+    void navigateToAlertList(final AlertLevelEnum alertLevelEnum, final String sonIdentity);
 
     /**
      * Show Filter Alerts Dialog

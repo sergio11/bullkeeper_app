@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
+import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -171,5 +172,13 @@ public interface ISupportView extends TiView {
     @DistinctUntilChanged
     void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText,
                            final View.OnClickListener onClickListener, final Snackbar.Callback snackbarCallback);
+
+
+    /**
+     * Get Args
+     * @return
+     */
+    @CallOnMainThread
+    Bundle getArgs();
 
 }

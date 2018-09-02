@@ -23,6 +23,14 @@ public interface IAlertService {
     @DELETE("children/{son}/alerts")
     Observable<APIResponse<String>> clearAlertsOfSon(@Path("son") String son);
 
+
+    /**
+     * Get Alerts By Son
+     * @return
+     */
+    @GET("children/{son}/alerts")
+    Observable<APIResponse<List<AlertDTO>>> getAlertsBySon(@Path("son") final String sonIdentity);
+
     /**
      * Delete Alerts Of Son
      * @param son
@@ -39,6 +47,16 @@ public interface IAlertService {
      */
     @DELETE("parents/self/alerts")
     Observable<APIResponse<String>> clearSelfAlerts();
+
+    /**
+     * Get Self Alerts
+     * @return
+     */
+    /*@GET("parents/self/alerts")
+    Observable<APIResponse<List<AlertDTO>>> getSelfAlerts(
+            @Query("count") int count,
+            @Query("days_ago") int daysAgo,
+            @Query("levels") String[] levels);*/
 
     /**
      * Get Self Alerts

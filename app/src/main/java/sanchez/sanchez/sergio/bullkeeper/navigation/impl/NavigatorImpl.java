@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -99,6 +100,37 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToAlertList() {
         final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context);
+        context.startActivity(intentToAlertList);
+    }
+
+    /**
+     * Navigate To Alert List
+     * @param alertLevelEnum
+     */
+    @Override
+    public void navigateToAlertList(AlertLevelEnum alertLevelEnum) {
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, alertLevelEnum);
+        context.startActivity(intentToAlertList);
+    }
+
+    /**
+     * Navigate To Alert List
+     * @param sonIdentity
+     */
+    @Override
+    public void navigateToAlertList(String sonIdentity) {
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, sonIdentity);
+        context.startActivity(intentToAlertList);
+    }
+
+    /**
+     * Navigate To Alert List
+     * @param alertLevelEnum
+     * @param sonIdentity
+     */
+    @Override
+    public void navigateToAlertList(AlertLevelEnum alertLevelEnum, String sonIdentity) {
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, alertLevelEnum, sonIdentity);
         context.startActivity(intentToAlertList);
     }
 

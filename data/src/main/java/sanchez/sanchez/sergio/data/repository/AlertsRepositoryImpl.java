@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.data.repository;
 
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -59,4 +61,33 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
         return alertService.clearSelfAlerts().map(response ->
             response != null && response.getData() != null ? response.getData() : null);
     }
+
+    /**
+     * Get Alerts By Son
+     * @param sonIdentity
+     * @return
+     */
+    @Override
+    public Observable<List<AlertEntity>> getAlertsBySon(final String sonIdentity) {
+        Preconditions.checkNotNull(sonIdentity, "Son Identity can not be null");
+        return alertService.getAlertsBySon(sonIdentity).map(response ->
+        response != null && response.getData() != null ? response.getData() : null)
+                .map(alertDataMapper::transform);
+    }
+
+    /**
+     * Clear Alerts Of Son
+     * @param sonIdentity
+     * @return
+     */
+    @Override
+    public Observable<String> clearAlertsOfSon(final String sonIdentity) {
+        Preconditions.checkNotNull(sonIdentity, "Identity can not be null");
+        Preconditions.checkState(!sonIdentity.isEmpty(), "Identity can not be empty");
+
+        return alertService.clearAlertsOfSon(sonIdentity).map(response ->
+            response != null && response.getData() != null ? response.getData() : null);
+    }
+
+
 }

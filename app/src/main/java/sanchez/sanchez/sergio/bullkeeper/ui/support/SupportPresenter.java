@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import net.grandcentrix.thirtyinch.TiPresenter;
 import java.util.EnumSet;
 import java.util.Set;
@@ -21,6 +20,8 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
 
     protected CompositeDisposable compositeDisposable;
 
+    protected Bundle args;
+
     public SupportPresenter() {
         this.compositeDisposable = new CompositeDisposable();
     }
@@ -32,7 +33,13 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     @Override
     protected void onAttachView(@NonNull T view) {
         super.onAttachView(view);
-        onInit();
+
+        args = view.getArgs();
+        if(args != null && !args.isEmpty()) {
+            onInit(args);
+        } else {
+            onInit();
+        }
     }
 
     /**

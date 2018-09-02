@@ -145,6 +145,7 @@
 
     <!-- My Alerts -->
     <string name="my_alerts">My Alerts</string>
+    <string name="my_alerts_count" formatted="true">My Alerts (%d)</string>
     <string name="my_alerts_clear_all">Delete all alerts?</string>
     <string name="my_alerts_cleared_successfully">All alerts cleared successfully</string>
 
@@ -153,6 +154,7 @@
     <string name="apply_changes">Apply Changes</string>
     <string name="loading_alerts_please_wait">Loading alerts, please wait ...</string>
     <string name="deleting_alerts_please_wait">Deleting alerts, please wait ...</string>
+    <string name="deleting_alerts_for_this_child">Clear all alerts for this child?</string>
 
 
 

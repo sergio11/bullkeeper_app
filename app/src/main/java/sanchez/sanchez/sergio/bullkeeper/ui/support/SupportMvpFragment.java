@@ -342,4 +342,13 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
         return SupportToolbarApp.INFORMATIVE_TOOLBAR;
     }
 
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        return null;
+    }
 }

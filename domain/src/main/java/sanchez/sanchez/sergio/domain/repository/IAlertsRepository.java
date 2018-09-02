@@ -30,4 +30,18 @@ public interface IAlertsRepository {
      * @return
      */
     Observable<String> clearSelfAlerts();
+
+    /**
+     * Get Alerts By Son
+     * @param sonIdentity
+     * @return
+     */
+    Observable<List<AlertEntity>> getAlertsBySon(final String sonIdentity);
+
+    /**
+     * Clear Alerts Of Son
+     * @param sonIdentity
+     * @return
+     */
+    Observable<String> clearAlertsOfSon(final String sonIdentity);
 }

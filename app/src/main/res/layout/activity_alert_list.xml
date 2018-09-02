@@ -51,6 +51,7 @@
 
         <!-- Alert Message -->
         <TextView
+            android:id="@+id/alertsHeaderTitle"
             style="@style/CommonStrongText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

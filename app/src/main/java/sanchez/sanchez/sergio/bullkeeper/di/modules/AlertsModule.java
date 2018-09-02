@@ -10,8 +10,10 @@ import sanchez.sanchez.sergio.data.net.services.IAlertService;
 import sanchez.sanchez.sergio.data.repository.AlertsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
@@ -86,5 +88,34 @@ public class AlertsModule {
                                                                   final IAlertsRepository alertsRepository){
         return new ClearSelfAlertsInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
+
+    /**
+     * Provide Get Alerts By Son Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param alertsRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetAlertsBySonInteract provideGetAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                final IAlertsRepository alertsRepository) {
+        return new GetAlertsBySonInteract(threadExecutor, postExecutionThread, alertsRepository);
+    }
+
+    /**
+     * Provide Clear Alerts By Son Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param alertsRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public ClearAlertsBySonInteract provideClearAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                    final IAlertsRepository alertsRepository){
+        return new ClearAlertsBySonInteract(threadExecutor, postExecutionThread, alertsRepository);
+    }
+
 
 }

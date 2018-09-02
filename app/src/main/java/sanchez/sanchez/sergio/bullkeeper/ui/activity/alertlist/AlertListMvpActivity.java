@@ -4,16 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.fernandocejas.arrow.checks.Preconditions;
 
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,8 +33,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import timber.log.Timber;
-
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
@@ -39,6 +44,14 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         implements HasComponent<AlertsComponent>, IAlertListActivityHandler
         , IAlertListView,
         SupportItemTouchHelper.ItemTouchHelperListener {
+
+    public enum AlertsListModeEnum { ALERTS_BY_SON, ALERTS_BY_SON_AND_LEVEL,
+        ALERTS_BY_LEVEL, ALERTS_BY_PREFERENCES }
+
+
+    public static final String SON_IDENTITY_ARG = "SON_IDENTITY";
+    public static final String ALERT_LEVEL_ARG = "ALERT_LEVEL";
+    public static final String ALERT_LIST_MODE_ARG = "ALERT_LIST_MODE";
 
     /**
      * Alerts Component
@@ -57,6 +70,21 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @BindView(R.id.filterAlerts)
     protected ImageButton filterAlertsButton;
 
+    /**
+     * Alerts Header Title
+     */
+    @BindView(R.id.alertsHeaderTitle)
+    protected TextView alertsHeaderTitle;
+
+
+    /**
+     * State
+     */
+
+    private String sonIndentity;
+    private AlertLevelEnum alertLevelEnum;
+    private AlertsListModeEnum alertsListMode = AlertsListModeEnum.ALERTS_BY_PREFERENCES;
+
 
     /**
      * Get Calling Intent
@@ -65,6 +93,50 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     public static Intent getCallingIntent(final Context context) {
         return new Intent(context, AlertListMvpActivity.class);
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param alertLevel
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final AlertLevelEnum alertLevel) {
+        Preconditions.checkNotNull(alertLevel, "Alert Level can not be null");
+        final Intent callingIntent = new Intent(context, AlertListMvpActivity.class);
+        callingIntent.putExtra(ALERT_LEVEL_ARG, alertLevel);
+        callingIntent.putExtra(ALERT_LIST_MODE_ARG, AlertsListModeEnum.ALERTS_BY_LEVEL);
+        return callingIntent;
+    }
+
+    /**
+     * Get calling Intent
+     * @param context
+     * @param alertLevel
+     * @param sonIdentity
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final AlertLevelEnum alertLevel, final String sonIdentity) {
+        Preconditions.checkNotNull(alertLevel, "Alert Level can not be null");
+        Preconditions.checkNotNull(sonIdentity, "Son Identity can not be null");
+        final Intent callingIntent = new Intent(context, AlertListMvpActivity.class);
+        callingIntent.putExtra(ALERT_LEVEL_ARG, alertLevel);
+        callingIntent.putExtra(SON_IDENTITY_ARG, sonIdentity);
+        callingIntent.putExtra(ALERT_LIST_MODE_ARG, AlertsListModeEnum.ALERTS_BY_SON_AND_LEVEL);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String sonIdentity) {
+        Preconditions.checkNotNull(sonIdentity, "Son Identity can not be null");
+        final Intent callingIntent = new Intent(context, AlertListMvpActivity.class);
+        callingIntent.putExtra(SON_IDENTITY_ARG, sonIdentity);
+        callingIntent.putExtra(ALERT_LIST_MODE_ARG, AlertsListModeEnum.ALERTS_BY_SON);
+        return callingIntent;
     }
 
 
@@ -78,6 +150,21 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                 .activityModule(getActivityModule())
                 .build();
         this.alertsComponent.inject(this);
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+
+        final Bundle args  = new Bundle();
+        if(sonIndentity != null && !sonIndentity.isEmpty())
+            args.putString(SON_IDENTITY_ARG, sonIndentity);
+        if(alertLevelEnum != null)
+            args.putSerializable(ALERT_LEVEL_ARG, alertLevelEnum);
+        return args;
     }
 
     /**
@@ -104,9 +191,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      * On Header Click
      */
     @Override
-    public void onHeaderClick() {
-
-    }
+    public void onHeaderClick() {}
 
     /**
      * On Item Click
@@ -132,9 +217,23 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @OnClick(R.id.clearAlerts)
     public void onClearAllAlerts() {
 
+        @StringRes
+        int confirmationTitle = R.string.my_alerts_clear_all;
+
+        switch (alertsListMode) {
+            case ALERTS_BY_SON:
+                confirmationTitle = R.string.deleting_alerts_for_this_child;
+                break;
+            case ALERTS_BY_LEVEL:
+                break;
+            case ALERTS_BY_SON_AND_LEVEL:
+                break;
+            default:
+        }
+
 
         // Show Confirmation Dialog
-        showConfirmationDialog(R.string.my_alerts_clear_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+        showConfirmationDialog(confirmationTitle, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
             /**
              * On Accepted
@@ -142,7 +241,16 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
              */
             @Override
             public void onAccepted(DialogFragment dialog) {
-                getPresenter().clearAlerts();
+
+                switch (alertsListMode) {
+                    case ALERTS_BY_SON:
+                        getPresenter().clearAlertsBySon(sonIndentity);
+                        break;
+                    default:
+                        getPresenter().clearAlerts();
+
+                }
+
             }
 
             /**
@@ -250,6 +358,25 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                 new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
+
+        if (getIntent().getExtras() != null) {
+
+            final Bundle extras = getIntent().getExtras();
+
+            if(extras.containsKey(SON_IDENTITY_ARG)){
+                sonIndentity = extras.getString(SON_IDENTITY_ARG);
+            }
+
+            if(extras.containsKey(ALERT_LEVEL_ARG)) {
+                alertLevelEnum = (AlertLevelEnum) extras.getSerializable(ALERT_LEVEL_ARG);
+            }
+
+            if (extras.containsKey(ALERT_LIST_MODE_ARG)) {
+                alertsListMode = (AlertsListModeEnum) extras.getSerializable(ALERT_LIST_MODE_ARG);
+            }
+
+        }
+
     }
 
     /**
@@ -261,17 +388,26 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         super.onDataLoaded(dataLoaded);
 
         if(!dataLoaded.isEmpty()) {
-            filterAlertsButton.setVisibility(View.VISIBLE);
-            filterAlertsButton.setEnabled(true);
+
+            if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
+                filterAlertsButton.setVisibility(View.VISIBLE);
+                filterAlertsButton.setEnabled(true);
+            }
+
             clearAlertsButton.setVisibility(View.VISIBLE);
             clearAlertsButton.setEnabled(true);
+            alertsHeaderTitle.setText(String.format(Locale.getDefault(),
+                    getString(R.string.my_alerts_count),dataLoaded.size()));
         } else {
             filterAlertsButton.setVisibility(View.GONE);
             filterAlertsButton.setEnabled(false);
             clearAlertsButton.setVisibility(View.GONE);
             clearAlertsButton.setEnabled(false);
+            alertsHeaderTitle.setText(getString(R.string.my_alerts));
         }
     }
+
+
 
     /**
      * Get Adapter

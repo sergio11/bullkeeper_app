@@ -559,4 +559,13 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         preferencesManager.setPrefCurrentUserIdentity(PreferencesManager.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
         navigatorImpl.navigateToIntro(true);
     }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        return null;
+    }
 }

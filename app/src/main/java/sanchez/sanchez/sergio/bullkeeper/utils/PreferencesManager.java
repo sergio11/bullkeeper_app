@@ -57,6 +57,18 @@ public class PreferencesManager implements IAuthTokenAware{
     public static final String PREF_CURRENT_USER_IDENTITY = "identity";
     public static final String CURRENT_USER_IDENTITY_DEFAULT_VALUE = "";
 
+    // Count Alerts
+    public static final String PREF_COUNT_ALERTS = "count_alerts";
+    public static final int COUNT_ALERTS_DEFAULT_VALUE = 20;
+
+    // Alerts Days Ago
+    public static final String PREF_ALERTS_DAYS_AGO = "alerts_days_ago";
+    public static final int ALERTS_DAYS_AGO_DEFAULT_VALUE = 1;
+
+    // Alerts Levels
+    public static final String PREF_ALERTS_LEVELS = "alerts_levels";
+    public static final String ALERTS_LEVELS_DEFAULT_VALUE = "";
+
     private final SharedPreferences mPref;
 
     /**
@@ -285,4 +297,60 @@ public class PreferencesManager implements IAuthTokenAware{
                 .putString(PREF_CURRENT_USER_IDENTITY, identity)
                 .apply();
     }
+
+    /**
+     * Get Count Alerts
+     * @return
+     */
+    public int getPrefCountAlerts() {
+        return mPref.getInt(PREF_COUNT_ALERTS, COUNT_ALERTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Count Alerts
+     * @param countAlerts
+     */
+    public void setPrefCountAlerts(final int countAlerts) {
+        mPref.edit()
+                .putInt(PREF_COUNT_ALERTS, countAlerts)
+                .apply();
+    }
+
+    /**
+     * Get Alerts Days Ago
+     * @return
+     */
+    public int getPrefAlertsDaysAgo() {
+        return mPref.getInt(PREF_ALERTS_DAYS_AGO, ALERTS_DAYS_AGO_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Alerts Days Ago
+     * @param daysAgo
+     */
+    public void setPrefAlertsDaysAgo(final int daysAgo) {
+        mPref.edit()
+                .putInt(PREF_ALERTS_DAYS_AGO, daysAgo)
+                .apply();
+    }
+
+
+    /**
+     * Get Alerts Level
+     * @return
+     */
+    public String getPrefAlertsLevel() {
+        return mPref.getString(PREF_ALERTS_LEVELS, ALERTS_LEVELS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Alerts Level
+     * @param alertsLevel
+     */
+    public void setPrefAlertsLevel(final String alertsLevel) {
+        mPref.edit()
+                .putString(PREF_ALERTS_LEVELS, alertsLevel)
+                .apply();
+    }
+
 }

@@ -16,6 +16,9 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
  */
 public final class GetSelfAlertsInteract extends UseCase<List<AlertEntity>, Void> {
 
+    /**
+     * Alerts Repository
+     */
     private final IAlertsRepository alertsRepository;
 
     /**

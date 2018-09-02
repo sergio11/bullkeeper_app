@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"
+            android:singleLine="true"
             android:text="-"
             android:textColor="@color/cyanBrilliant"
             app:layout_constraintBottom_toTopOf="@id/alertMessage"
