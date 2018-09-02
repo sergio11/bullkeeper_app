@@ -15,6 +15,7 @@ import sanchez.sanchez.sergio.data.net.models.request.RegisterParentDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateParentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
@@ -75,6 +76,5 @@ public interface IParentsService {
      */
     @DELETE("parents/self/delete")
     Observable<APIResponse<String>> deleteSelfAccount();
-
 
 }

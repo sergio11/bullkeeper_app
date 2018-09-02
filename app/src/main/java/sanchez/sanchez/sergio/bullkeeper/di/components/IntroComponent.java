@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AccountsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IntroMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IntroPresenter;
@@ -18,7 +19,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup.SignupFragmentPresen
 @PerActivity
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class, AccountsModule.class })
+        modules = { ActivityModule.class, DataMapperModule.class, AccountsModule.class })
 public interface IntroComponent extends ActivityComponent {
 
     /**

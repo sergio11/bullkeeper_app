@@ -50,8 +50,8 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
      * Init
      */
     @Override
-    public void init() {
-        super.init();
+    public void onInit() {
+        super.onInit();
         this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
         this.updateSelfInformationInteract.attachDisposablesTo(compositeDisposable);
         this.deleteAccountInteract.attachDisposablesTo(compositeDisposable);

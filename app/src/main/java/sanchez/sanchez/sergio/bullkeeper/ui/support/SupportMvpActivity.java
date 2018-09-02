@@ -418,12 +418,26 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * Show Long Simple Snackbar
+     * @param viewRoot
+     * @param description
+     * @param actionText
+     * @param onClickListener
+     */
+    @Override
+    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText,
+                                       final View.OnClickListener onClickListener){
+        showLongSimpleSnackbar(viewRoot, description, actionText, onClickListener, null);
+    }
+
+    /**
      * Show Simple Snackbar
      * @param actionText
      * @param onClickListener
      */
     @Override
-    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText, final View.OnClickListener onClickListener) {
+    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText,
+                                       final View.OnClickListener onClickListener, final Snackbar.Callback snackbarCallback) {
         Preconditions.checkNotNull(viewRoot, "View Root can not be null");
         Preconditions.checkNotNull(actionText, "Action Text can not be null");
         Preconditions.checkNotNull(onClickListener, "Click Listener can not be null");
@@ -431,6 +445,9 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         Snackbar snackbar = Snackbar.make(viewRoot,description , Snackbar.LENGTH_LONG);
 
         snackbar.setAction(actionText, onClickListener);
+
+        if(snackbarCallback != null)
+            snackbar.addCallback(snackbarCallback);
 
         snackbar.show();
     }

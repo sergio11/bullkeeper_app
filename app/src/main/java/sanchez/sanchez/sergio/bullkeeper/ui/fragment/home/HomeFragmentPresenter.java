@@ -38,8 +38,8 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
      * Init
      */
     @Override
-    public void init() {
-        super.init();
+    public void onInit() {
+        super.onInit();
         this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
         this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
     }

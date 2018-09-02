@@ -62,7 +62,7 @@ public abstract class SupportRecyclerViewAdapter<T>
      * @param data
      */
     public SupportRecyclerViewAdapter(final Context context, final ArrayList<T> data){
-        this(context, data, data.size() - 1);
+        this(context, data, data.size() > 0 ? data.size() - 1 : 0);
     }
 
     /**
@@ -173,6 +173,21 @@ public abstract class SupportRecyclerViewAdapter<T>
     }
 
     /**
+     * Is Default Item
+     * @param position
+     * @return
+     */
+    private boolean isDefaultItem(int position) {
+
+        if (hasHeader)
+            position -= 1;
+
+        return position >= data.size() && position <= minItemsCount;
+
+    }
+
+
+    /**
      * Get Item by adapter position
      * @return
      */
@@ -195,7 +210,7 @@ public abstract class SupportRecyclerViewAdapter<T>
             viewType = TYPE_HEADER;
         } else if (isPositionFooter(position)) {
             viewType = TYPE_FOOTER;
-        } else  if(position >= data.size()) {
+        } else  if(isDefaultItem(position)) {
             viewType = TYPE_ITEM_DEFAULT;
         } else {
             viewType = TYPE_ITEM;
@@ -210,6 +225,12 @@ public abstract class SupportRecyclerViewAdapter<T>
      */
     @Override
     public int getItemCount() {
+
+
+        // 4 (0-3)
+        // 6
+        // item count -> 6
+        // has header -> 7
 
         int itemCount = Math.max(data.size(), minItemsCount);
 
@@ -323,6 +344,12 @@ public abstract class SupportRecyclerViewAdapter<T>
         notifyItemInserted(position);
     }
 
+    /**
+     * Remove All
+     */
+    public void removeAll(){
+        notifyItemRangeRemoved(0, data.size());
+    }
 
     public void setOnSupportRecyclerViewListener(OnSupportRecyclerViewListener<T> listener){
         this.listener = listener;

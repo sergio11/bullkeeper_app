@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
+import butterknife.OnClick;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -25,18 +28,17 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import timber.log.Timber;
 
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Alert List Activity
  */
-public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter, IAlertListView>
+public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresenter, IAlertListView, AlertEntity>
         implements HasComponent<AlertsComponent>, IAlertListActivityHandler
-        , IAlertListView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
-        SupportItemTouchHelper.ItemTouchHelperListener ,
-        AlertsAdapter.OnAlertsViewListener {
+        , IAlertListView,
+        SupportItemTouchHelper.ItemTouchHelperListener {
 
     /**
      * Alerts Component
@@ -44,27 +46,17 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
     private AlertsComponent alertsComponent;
 
     /**
-     * Alerts Adapter
+     * Clear Alerts Button
      */
-    private AlertsAdapter alertsAdapter;
+    @BindView(R.id.clearAlerts)
+    protected ImageButton clearAlertsButton;
 
     /**
-     * Main Container
+     * Filter Alerts Button
      */
-    @BindView(R.id.mainContainer)
-    protected ViewGroup mainContainer;
+    @BindView(R.id.filterAlerts)
+    protected ImageButton filterAlertsButton;
 
-    /**
-     * Refresh Layout
-     */
-    @BindView(R.id.swipeContainer)
-    protected SwipeRefreshLayout refreshLayout;
-
-    /**
-     * Alerts List
-     */
-    @BindView(R.id.alertsList)
-    protected RecyclerView alertsList;
 
     /**
      * Get Calling Intent
@@ -107,15 +99,6 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
         return alertsComponent;
     }
 
-    /**
-     * On Alerts Loaded
-     * @param alertsList
-     */
-    @Override
-    public void onAlertsLoaded(List<AlertEntity> alertsList) {
-        alertsAdapter.setData(new ArrayList<>(alertsList));
-        alertsAdapter.notifyDataSetChanged();
-    }
 
     /**
      * On Header Click
@@ -131,7 +114,8 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
      */
     @Override
     public void onItemClick(AlertEntity alertEntity) {
-        goToAlertDetail("123456");
+        Timber.d("Go to Alert Detail -> %s", alertEntity.getIdentity());
+        goToAlertDetail(alertEntity.getIdentity());
     }
 
     /**
@@ -145,8 +129,9 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
     /**
      * On Clear All Alerts
      */
-    @Override
+    @OnClick(R.id.clearAlerts)
     public void onClearAllAlerts() {
+
 
         // Show Confirmation Dialog
         showConfirmationDialog(R.string.my_alerts_clear_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
@@ -157,13 +142,7 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
              */
             @Override
             public void onAccepted(DialogFragment dialog) {
-
-                showNoticeDialog(R.string.my_alerts_cleared_successfully, new NoticeDialogFragment.NoticeDialogListener() {
-                    @Override
-                    public void onAccepted(DialogFragment dialog) {
-                        closeActivity();
-                    }
-                });
+                getPresenter().clearAlerts();
             }
 
             /**
@@ -181,7 +160,7 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
     /**
      * On Filter Alerts
      */
-    @Override
+    @OnClick(R.id.filterAlerts)
     public void onFilterAlerts() {
         // Show Filter Alerts Dialog
         navigatorImpl.showFilterAlertsDialog(this);
@@ -198,15 +177,25 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
         if (viewHolder instanceof AlertsAdapter.AlertsViewHolder) {
 
             final Integer deletedIndex = viewHolder.getAdapterPosition();
-            final AlertEntity alertEntity = alertsAdapter.getItemByAdapterPosition(deletedIndex);
+            final AlertEntity alertEntity = recyclerViewAdapter.getItemByAdapterPosition(deletedIndex);
 
             // Delete item from adapter
-            alertsAdapter.removeItem(deletedIndex);
+            recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(mainContainer, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+            showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    alertsAdapter.restoreItem(alertEntity, deletedIndex);
+                    recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
+                }
+            }, new Snackbar.Callback(){
+                @Override
+                public void onDismissed(Snackbar transientBottomBar, int event) {
+                    super.onDismissed(transientBottomBar, event);
+                    if(event == DISMISS_EVENT_TIMEOUT) {
+                        // Delete Alert Of Son
+                        getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
+                                alertEntity.getIdentity());
+                    }
                 }
             });
 
@@ -254,21 +243,57 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
-        refreshLayout.setColorSchemeResources(R.color.commonWhite);
-        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
-
-        alertsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        alertsList.setNestedScrollingEnabled(false);
-        alertsAdapter = new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
-        alertsAdapter.setOnSupportRecyclerViewListener(this);
-        alertsAdapter.setOnAlertsViewListener(this);
-        // Set Animator
-        alertsList.setItemAnimator(new DefaultItemAnimator());
-        alertsList.setAdapter(alertsAdapter);
+        super.onViewReady(savedInstanceState);
 
         // adding item touch helper
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
                 new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+    }
+
+    /**
+     * On Data Loaded
+     * @param dataLoaded
+     */
+    @Override
+    public void onDataLoaded(List<AlertEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+
+        if(!dataLoaded.isEmpty()) {
+            filterAlertsButton.setVisibility(View.VISIBLE);
+            filterAlertsButton.setEnabled(true);
+            clearAlertsButton.setVisibility(View.VISIBLE);
+            clearAlertsButton.setEnabled(true);
+        } else {
+            filterAlertsButton.setVisibility(View.GONE);
+            filterAlertsButton.setEnabled(false);
+            clearAlertsButton.setVisibility(View.GONE);
+            clearAlertsButton.setEnabled(false);
+        }
+    }
+
+    /**
+     * Get Adapter
+     * @return
+     */
+    @NotNull
+    @Override
+    protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
+        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
+    }
+
+    /**
+     * On Alerts Cleared
+     */
+    @Override
+    public void onAlertsCleared() {
+        showNoticeDialog(R.string.my_alerts_cleared_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                recyclerViewAdapter.removeAll();
+                closeActivity();
+            }
+        });
     }
 }

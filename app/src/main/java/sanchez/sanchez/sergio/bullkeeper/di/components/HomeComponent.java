@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.HomeMvpActivity;
@@ -12,7 +13,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.home.HomeFragmentPresenter;
 @PerActivity
 @Component(
         dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class, ParentModule.class})
+        modules = { ActivityModule.class, DataMapperModule.class, ParentModule.class})
 public interface HomeComponent extends ActivityComponent {
 
     /**

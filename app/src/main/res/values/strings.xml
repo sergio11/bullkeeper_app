@@ -151,6 +151,10 @@
     <string name="operation_cancelled">Operation cancelled</string>
     <string name="my_alerts_filter">Filter Alerts</string>
     <string name="apply_changes">Apply Changes</string>
+    <string name="loading_alerts_please_wait">Loading alerts, please wait ...</string>
+    <string name="deleting_alerts_please_wait">Deleting alerts, please wait ...</string>
+
+
 
     <!-- Preferences -->
 

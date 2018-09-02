@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -111,6 +112,14 @@ public interface IBasicActivityHandler {
      * @param onClickListener
      */
     void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText, final View.OnClickListener onClickListener);
+
+    /**
+     * Show Simple Snackbar
+     * @param actionText
+     * @param onClickListener
+     */
+    void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText,
+                                final View.OnClickListener onClickListener, final Snackbar.Callback snackbarCallback);
 
     /**
      * Show App Menu

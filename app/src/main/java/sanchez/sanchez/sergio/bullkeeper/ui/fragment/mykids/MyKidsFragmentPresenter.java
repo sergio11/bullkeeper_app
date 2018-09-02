@@ -26,8 +26,8 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
      * Init
      */
     @Override
-    public void init() {
-        super.init();
+    public void onInit() {
+        super.onInit();
         this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
     }
 
