@@ -3,8 +3,11 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsActivityPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.settings.UserSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.settings.UserSettingsActivityPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.AlertsSettingsActivityFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.settings.UserSettingsActivityFragment;
 
 /**
@@ -26,7 +29,20 @@ public interface SettingsComponent extends ActivityComponent {
      */
     void inject(final UserSettingsActivityFragment userSettingsActivityFragment);
 
+    /**
+     * Inject into Alerts Settings Mvp Activity
+     * @param alertsSettingsMvpActivity
+     */
+    void inject(final AlertsSettingsMvpActivity alertsSettingsMvpActivity);
+
+    /**
+     * Alerts Settings Fragment
+     * @param alertsSettingsFragment
+     */
+    void inject(final AlertsSettingsActivityFragment alertsSettingsFragment);
+
 
     UserSettingsActivityPresenter userSettingsActivityPresenter();
+    AlertsSettingsActivityPresenter alertsSettingsActivityPresenter();
 
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- General Configuration -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_general_configuration_category"
+        android:layout="@layout/preferences_category_layout">
+
+        <!-- Number of alerts -->
+        <android.support.v7.preference.ListPreference
+            android:key="filter_alerts_count"
+            android:title="@string/number_of_alerts_preference_title"
+            android:summary="@string/filter_alerts_count_preference_summary"
+            android:entries="@array/number_of_alerts"
+            android:layout="@layout/common_list_item_preference_layout"
+            android:entryValues="@array/number_of_alerts_values"
+            android:defaultValue="@integer/number_of_alerts_default_value"/>
+
+        <!-- Age of alerts -->
+        <android.support.v7.preference.ListPreference
+            android:key="filter_age_of_alerts"
+            android:title="@string/age_of_alerts_preference_title"
+            android:summary="@string/filter_age_of_alerts_preference_summary"
+            android:entries="@array/age_of_alerts"
+            android:layout="@layout/common_list_item_preference_layout"
+            android:entryValues="@array/age_of_alerts_values"
+            android:defaultValue="@integer/age_of_alerts_default_value"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+
+    <!-- Category of Alerts -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_category_of_alerts"
+        android:layout="@layout/preferences_category_layout">
+
+
+        <!-- Enable All Alert Categories -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="filter_alerts_enable_all_categories"
+            android:title="@string/all_alert_categories_title"
+            android:summary="@string/all_alert_categories_summary"
+            android:layout="@layout/preference_switch_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+
+        <!-- Enable Success Category -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="filter_alerts_enable_success_category"
+            android:title="@string/success_alerts_title"
+            android:summary="@string/success_alerts_summary"
+            android:layout="@layout/preference_success_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Enable Information Category -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="filter_alerts_enable_information_category"
+            android:title="@string/information_alerts_title"
+            android:summary="@string/information_alerts_summary"
+            android:layout="@layout/preference_informative_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Enable Warning Category -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="filter_alerts_enable_warning_category"
+            android:title="@string/warning_alerts_title"
+            android:summary="@string/warning_alerts_summary"
+            android:layout="@layout/preference_warning_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Enable Danger Category -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="filter_alerts_enable_danger_category"
+            android:title="@string/danger_alerts_title"
+            android:summary="@string/danger_alerts_summary"
+            android:layout="@layout/preference_danger_alert_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+
+    </android.support.v7.preference.PreferenceCategory>
+
+</PreferenceScreen>

@@ -21,7 +21,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 /**
@@ -52,7 +52,7 @@ public final class MenuDialogFragment extends SupportDialogFragment
      * Preference Manager
      */
     @Inject
-    protected PreferencesManager preferencesManager;
+    protected IPreferenceRepository preferencesRepositoryImpl;
 
     /**
      * Show
@@ -140,8 +140,8 @@ public final class MenuDialogFragment extends SupportDialogFragment
 
             case CLOSE_SESSION_POSITION:
                 // Close Session
-                preferencesManager.setAuthToken(PreferencesManager.AUTH_TOKEN_DEFAULT_VALUE);
-                preferencesManager.setPrefCurrentUserIdentity(PreferencesManager.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+                preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
+                preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
                 navigator.navigateToIntro(true);
                 break;
 

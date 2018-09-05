@@ -8,19 +8,17 @@ import android.support.annotation.XmlRes;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
-
 import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Support Preference Fragment
  */
 public abstract class SupportPreferenceFragment<H> extends PreferenceFragmentCompat
-        implements Preference.OnPreferenceChangeListener {
+        implements Preference.OnPreferenceChangeListener, IDataManagement {
 
     /**
      * Activity Handler
@@ -36,7 +34,7 @@ public abstract class SupportPreferenceFragment<H> extends PreferenceFragmentCom
      * Preferences Manager
      */
     @Inject
-    protected PreferencesManager preferencesManager;
+    protected IPreferenceRepository preferencesRepositoryImpl;
 
     @Override
     public void onAttach(final Context context) {

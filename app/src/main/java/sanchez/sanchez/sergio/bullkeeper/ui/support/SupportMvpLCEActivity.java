@@ -20,6 +20,7 @@ import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -32,7 +33,7 @@ import timber.log.Timber;
  * @param <E>
  */
 public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E extends ISupportLCEView, F>
-        extends SupportMvpActivity<T, E> implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener,
+        extends SupportMvpActivity<T, E> implements SwipeRefreshLayout.OnRefreshListener,
         SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<F> , ISupportLCEView<F>{
 
     public static String TAG = "SUPPORT_MVP_LCE_ACTIVITY";
@@ -126,8 +127,6 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.setOnSupportRecyclerViewListener(this);
 
-        errorOccurredLayout.getRetryAgain().setOnClickListener(this);
-
     }
 
     /**
@@ -198,6 +197,9 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         Preconditions.checkNotNull(dataLoaded, "Data Loaded can not be null");
         Preconditions.checkState(!dataLoaded.isEmpty(), "Data Loaded can not be empty");
 
+        errorOccurredLayout.hide();
+        notDataFoundLayout.hide();
+
         Timber.d("Data Loaded -> %d", dataLoaded.size());
 
         content.setVisibility(View.VISIBLE);
@@ -211,16 +213,6 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
                 AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
         recyclerView.setLayoutAnimation(controller);
         recyclerView.scheduleLayoutAnimation();
-    }
-
-    /**
-     * On Click
-     * @param view
-     */
-    @Override
-    public void onClick(View view) {
-        content.setVisibility(View.VISIBLE);
-        getPresenter().loadData();
     }
 
     /**
@@ -264,6 +256,8 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         public void show(final String errorText) {
             errorMessage.setText(errorText);
             source.setVisibility(View.VISIBLE);
+            retryAgain.setEnabled(true);
+            retryAgain.setVisibility(View.VISIBLE);
         }
 
         /**
@@ -272,6 +266,8 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         public void hide() {
             errorMessage.setText("-");
             source.setVisibility(View.GONE);
+            retryAgain.setEnabled(false);
+            retryAgain.setVisibility(View.GONE);
         }
 
 
@@ -284,10 +280,14 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
                 unbinder.unbind();
         }
 
-        /**
-         *
-         * @return
-         */
+        @OnClick(R.id.retryAgain)
+        protected void onRetryAgain(){
+            content.setVisibility(View.VISIBLE);
+            retryAgain.setEnabled(false);
+            retryAgain.setVisibility(View.GONE);
+            getPresenter().loadData();
+        }
+
         public Button getRetryAgain() {
             return retryAgain;
         }

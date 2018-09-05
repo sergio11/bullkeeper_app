@@ -8,10 +8,12 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
+import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesRepositoryImpl;
 import sanchez.sanchez.sergio.data.executor.JobExecutor;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.UIThread;
@@ -22,7 +24,6 @@ import sanchez.sanchez.sergio.bullkeeper.notification.local.impl.LocalSystemNoti
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.impl.NotificationHelperImpl;
 import sanchez.sanchez.sergio.data.utils.AppUtils;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
 import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 /**
@@ -104,18 +105,18 @@ public class ApplicationModule {
      * @return
      */
     @Provides @Singleton
-    PreferencesManager providePreferencesManager(final Context appContext) {
-        return new PreferencesManager(appContext);
+    IPreferenceRepository providePreferencesManager(final Context appContext) {
+        return new PreferencesRepositoryImpl(appContext);
     }
 
     /**
      * Provide Auth Token Aware
-     * @param preferencesManager
+     * @param preferencesRepositoryImpl
      * @return
      */
     @Provides @Singleton
-    IAuthTokenAware provideAuthTokenAware(final PreferencesManager preferencesManager) {
-        return preferencesManager;
+    IAuthTokenAware provideAuthTokenAware(final PreferencesRepositoryImpl preferencesRepositoryImpl) {
+        return preferencesRepositoryImpl;
     }
 
     /**

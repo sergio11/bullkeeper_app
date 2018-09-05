@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
@@ -25,7 +26,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.tutorial.AppTutorialActivit
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile.UserProfileMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.SocialMediaStatusDialog;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
 
@@ -134,14 +134,6 @@ public class NavigatorImpl implements INavigator {
         context.startActivity(intentToAlertList);
     }
 
-    /**
-     * Show Filter Alerts Dialog
-     * @param appCompatActivity
-     */
-    @Override
-    public void showFilterAlertsDialog(AppCompatActivity appCompatActivity) {
-        FilterAlertsDialog.show(appCompatActivity);
-    }
 
     /**
      * Navigate To App Tutorial
@@ -157,6 +149,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToUserSettings() {
         context.startActivity(UserSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate to Alerts Settings
+     */
+    @Override
+    public void navigateToAlertsSettings() {
+        context.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**

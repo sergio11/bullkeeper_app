@@ -159,6 +159,12 @@
     <string name="alert_not_found">The information of the alert could not be obtained</string>
     <string name="deleting_alert_in_progress">Deleting alert, wait please ...</string>
 
+    <string name="filter_alerts_count_preference_summary">Number of alerts to be displayed.</string>
+    <string name="filter_age_of_alerts_preference_summary">Age of alerts to show.</string>
+
+    <string name="preferences_saved_successfully_message">Preferences saved successfully.</string>
+    <string name="has_pending_changes">The changes will be discarded. Do you want to save before close?</string>
+
     <!-- Alert Category -->
 
     <!-- Information Extraction -->

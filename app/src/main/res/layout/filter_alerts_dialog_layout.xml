@@ -1,43 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/commonWhite">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/CommonStrongText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/CommonStrongText"
             android:text="@string/my_alerts_filter"
-            android:textStyle="bold"
             android:textColor="@color/cyanBrilliant"
-            />
+            android:textStyle="bold" />
 
         <View
             android:layout_width="@dimen/common_divider_small"
             android:layout_height="@dimen/common_divider_height"
-            android:background="@color/cyanBrilliant"/>
-
-
-        <Button
-            android:id="@+id/applyChanges"
-            style="@style/CommonActionButton.Inverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/common_padding"
-            android:text="@string/apply_changes" />
-
-
+            android:background="@color/cyanBrilliant" />
 
     </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/applyChanges"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/cyanBrilliant"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <fragment
+            android:id="@+id/settings_fragment"
+            android:name="sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.AlertsSettingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </ScrollView>
+
+
+
+
+    <Button
+        android:id="@+id/applyChanges"
+        style="@style/CommonActionButton.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/common_padding"
+        android:text="@string/apply_changes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 
 

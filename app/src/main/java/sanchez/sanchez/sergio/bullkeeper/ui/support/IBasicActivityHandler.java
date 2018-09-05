@@ -15,6 +15,10 @@ public interface IBasicActivityHandler {
      */
     void closeActivity();
 
+    /**
+     * Safe Close Activity
+     */
+    void safeCloseActivity();
 
     /**
      * Show Short Message

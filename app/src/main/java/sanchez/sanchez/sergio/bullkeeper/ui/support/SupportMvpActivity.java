@@ -9,6 +9,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -39,7 +40,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 /**
@@ -48,7 +49,7 @@ import timber.log.Timber;
 public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiView>
         extends TiActivity<T, E>
         implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
-        ILocalSystemNotificationVisitor, ISupportView{
+        ILocalSystemNotificationVisitor, ISupportView, IDataManagement {
 
     /**
      * NavigatorImpl
@@ -72,7 +73,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      * Preferences Manager
      */
     @Inject
-    protected PreferencesManager preferencesManager;
+    protected IPreferenceRepository preferencesRepositoryImpl;
 
 
     /**
@@ -478,6 +479,53 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * Safe Close Activity
+     */
+    @Override
+    public void safeCloseActivity() {
+        if(hasPendingChanges()) {
+
+            showConfirmationDialog(R.string.has_pending_changes, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    onSavedPendingChanges();
+                    closeActivity();
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                    onDiscardPendingChanges();
+                    closeActivity();
+                }
+            });
+
+        } else {
+            closeActivity();
+        }
+    }
+
+    /**
+     * Has Pending Changes
+     * @return
+     */
+    @Override
+    public Boolean hasPendingChanges() {
+        return Boolean.FALSE;
+    }
+
+    /**
+     * On Saved Pending Changes
+     */
+    @Override
+    public void onSavedPendingChanges() {}
+
+    /**
+     * On Discard Pending Changes
+     */
+    @Override
+    public void onDiscardPendingChanges() {}
+
+    /**
      * Show Question Dialog
      */
     @Override
@@ -555,8 +603,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void closeSession() {
-        preferencesManager.setAuthToken(PreferencesManager.AUTH_TOKEN_DEFAULT_VALUE);
-        preferencesManager.setPrefCurrentUserIdentity(PreferencesManager.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+        preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
+        preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
         navigatorImpl.navigateToIntro(true);
     }
 
@@ -567,5 +615,13 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public Bundle getArgs() {
         return null;
+    }
+
+    /**
+     * On Back Pressed
+     */
+    @Override
+    public void onBackPressed() {
+        safeCloseActivity();
     }
 }

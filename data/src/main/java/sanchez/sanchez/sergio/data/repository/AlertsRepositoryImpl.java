@@ -2,6 +2,10 @@ package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -38,6 +42,29 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
         return alertService.getSelfAlerts().map(listAPIResponse ->
         listAPIResponse != null && listAPIResponse.getData() != null ? listAPIResponse.getData() : null)
                 .map(alertDataMapper::transform);
+    }
+
+    /**
+     * Get Self Alerts
+     * @param count
+     * @param daysAgo
+     * @param levelsCsv
+     * @return
+     */
+    @Override
+    public Observable<List<AlertEntity>> getSelfAlerts(final String count, final String daysAgo, final String levelsCsv) {
+
+        Observable<List<AlertEntity>> observable;
+
+        try {
+            observable = alertService.getSelfAlerts(count, daysAgo, URLDecoder.decode(levelsCsv, "UTF-8")).map(listAPIResponse ->
+                    listAPIResponse != null && listAPIResponse.getData() != null ? listAPIResponse.getData() : null)
+                    .map(alertDataMapper::transform);
+        } catch (UnsupportedEncodingException e) {
+            observable = Observable.empty();
+        }
+
+        return observable;
     }
 
     /**

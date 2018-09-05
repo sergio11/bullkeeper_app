@@ -116,7 +116,7 @@ public class SupportToolbarApp {
                 closeBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        basicActivityHandler.closeActivity();
+                        basicActivityHandler.safeCloseActivity();
                     }
                 });
 

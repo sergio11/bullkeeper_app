@@ -66,10 +66,6 @@ public interface INavigator {
      */
     void navigateToAlertList(final AlertLevelEnum alertLevelEnum, final String sonIdentity);
 
-    /**
-     * Show Filter Alerts Dialog
-     */
-    void showFilterAlertsDialog(final AppCompatActivity appCompatActivity);
 
     /**
      * Navigate To App Tutorial
@@ -80,6 +76,11 @@ public interface INavigator {
      * Navigate to User Settings
      */
     void navigateToUserSettings();
+
+    /**
+     * Navigate to alerts Settings
+     */
+    void navigateToAlertsSettings();
 
     /**
      * Show App Help App Dialog

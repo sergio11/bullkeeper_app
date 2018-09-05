@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 
@@ -62,11 +63,11 @@ public interface IAlertService {
      * Get Self Alerts
      * @return
      */
-    /*@GET("parents/self/alerts")
+    @GET("parents/self/alerts")
     Observable<APIResponse<List<AlertDTO>>> getSelfAlerts(
-            @Query("count") int count,
-            @Query("days_ago") int daysAgo,
-            @Query("levels") String[] levels);*/
+            @Query("count") String count,
+            @Query("days_ago") String daysAgo,
+            @Query("levels") String levelsCsv);
 
     /**
      * Get Self Alerts

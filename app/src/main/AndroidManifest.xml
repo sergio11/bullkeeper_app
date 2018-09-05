@@ -113,6 +113,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Preferences" />
 
+        <!-- Alerts Settings Activity -->
+        <activity
+            android:name=".ui.activity.alertlist.AlertsSettingsMvpActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Preferences" />
+
         <!-- User Profile -->
         <activity
             android:name=".ui.activity.userprofile.UserProfileMvpActivity"

@@ -11,7 +11,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertListMvpActiv
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertListPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertdetail.AlertDetailActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertdetail.AlertDetailFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.FilterAlertsDialog;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
@@ -36,11 +35,6 @@ public interface AlertsComponent extends ActivityComponent {
      */
     void inject(final AlertListMvpActivity alertListActivity);
 
-    /**
-     * Inject on Filter Alerts Dialog
-     * @param FilterAlertsDialog
-     */
-    void inject(final FilterAlertsDialog FilterAlertsDialog);
 
     AlertDetailPresenter alertDetailPresenter();
     AlertDetailFragmentPresenter alertDetailFragmentPresenter();

@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesRepositoryImpl;
 import timber.log.Timber;
 
 /**
@@ -23,7 +23,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
     /**
      * Preferences Manager
      */
-    private final PreferencesManager preferencesManager;
+    private final PreferencesRepositoryImpl preferencesRepositoryImpl;
 
     /**
      * Signin Facebook Interact
@@ -35,10 +35,10 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
      * @param signinInteract
      */
     @Inject
-    public SigninFragmentPresenter(final SigninInteract signinInteract, final PreferencesManager preferencesManager,
+    public SigninFragmentPresenter(final SigninInteract signinInteract, final PreferencesRepositoryImpl preferencesRepositoryImpl,
                                    final SigninFacebookInteract signinFacebookInteract){
         this.signinInteract = signinInteract;
-        this.preferencesManager = preferencesManager;
+        this.preferencesRepositoryImpl = preferencesRepositoryImpl;
         this.signinFacebookInteract = signinFacebookInteract;
     }
 
@@ -107,7 +107,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
         @Override
         protected void onSuccess(String authToken) {
             // Save Token on preferences
-            preferencesManager.setAuthToken(authToken);
+            preferencesRepositoryImpl.setAuthToken(authToken);
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onLoginSuccess();

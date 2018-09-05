@@ -17,6 +17,15 @@ public interface IAlertsRepository {
     Observable<List<AlertEntity>> getSelfAlerts();
 
     /**
+     * Get Self Alerts
+     * @param count
+     * @param daysAgo
+     * @param levelsCsv
+     * @return
+     */
+    Observable<List<AlertEntity>> getSelfAlerts(String count, String daysAgo, final String levelsCsv);
+
+    /**
      * Delete Alert of Son
      * @param son
      * @param alert

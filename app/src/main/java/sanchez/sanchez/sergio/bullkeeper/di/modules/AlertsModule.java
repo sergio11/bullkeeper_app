@@ -18,6 +18,7 @@ import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Alerts Module
@@ -58,8 +59,8 @@ public class AlertsModule {
     @Provides
     @PerActivity
     public GetSelfAlertsInteract provideGetSelfAlertsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                              final IAlertsRepository alertsRepository){
-        return new GetSelfAlertsInteract(threadExecutor, postExecutionThread, alertsRepository);
+                                                              final IAlertsRepository alertsRepository, final IPreferenceRepository preferenceRepository){
+        return new GetSelfAlertsInteract(threadExecutor, postExecutionThread, alertsRepository, preferenceRepository);
     }
 
     /**

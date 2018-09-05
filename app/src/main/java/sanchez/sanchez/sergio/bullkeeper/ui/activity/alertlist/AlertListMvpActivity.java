@@ -271,8 +271,9 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @OnClick(R.id.filterAlerts)
     public void onFilterAlerts() {
         // Show Filter Alerts Dialog
-        navigatorImpl.showFilterAlertsDialog(this);
+        navigatorImpl.navigateToAlertsSettings();
     }
+
 
     /**
      * On Swiped
@@ -437,4 +438,5 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
             }
         });
     }
+
 }
