@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.AlertsSettingsActivityFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IDataManagement;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 
@@ -21,6 +19,7 @@ public class AlertsSettingsMvpActivity extends SupportMvpActivity<AlertsSettings
         implements HasComponent<SettingsComponent>, IAlertsSettingsActivityHandler
         , IAlertsSettingsView {
 
+    private final static String ENABLE_ALERTS_CATEGORY_ARGS = "ENABLE_ALERTS_CATEGORY_ARGS";
 
     /**
      * Settings Component
@@ -36,6 +35,18 @@ public class AlertsSettingsMvpActivity extends SupportMvpActivity<AlertsSettings
      */
     public static Intent getCallingIntent(final Context context) {
         return new Intent(context, AlertsSettingsMvpActivity.class);
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param enableAlertsCategory
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final Boolean enableAlertsCategory) {
+        final Intent callingIntent = new Intent(context, AlertsSettingsMvpActivity.class);
+        callingIntent.putExtra(ENABLE_ALERTS_CATEGORY_ARGS, enableAlertsCategory);
+        return callingIntent;
     }
 
 
@@ -94,7 +105,14 @@ public class AlertsSettingsMvpActivity extends SupportMvpActivity<AlertsSettings
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
-        alertsSettingsActivityFragment = new AlertsSettingsActivityFragment();
+
+        if(getIntent().getExtras() != null &&
+                getIntent().getExtras().getBoolean(ENABLE_ALERTS_CATEGORY_ARGS, false)) {
+            alertsSettingsActivityFragment = AlertsSettingsActivityFragment.newInstance(true);
+        } else {
+            alertsSettingsActivityFragment = AlertsSettingsActivityFragment.newInstance();
+        }
+
         if (savedInstanceState == null)
             addFragment(R.id.mainContainer, alertsSettingsActivityFragment,
                     false, AlertsSettingsActivityFragment.TAG);

@@ -6,8 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
+
+import java.util.Date;
+
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -27,6 +32,8 @@ public class AlertsSettingsActivityFragment extends
 
     public static final String TAG = "ALERTS_SETTINGS_ACTIVITY_FRAGMENT";
 
+    public static final String ENABLE_ALERTS_CATEGORY_ARG = "ENABLE_ALERTS_CATEGORY_ARG";
+
     /**
      * Settings Component
      */
@@ -39,6 +46,30 @@ public class AlertsSettingsActivityFragment extends
     private Boolean enableInformation;
     private Boolean enableWarning;
     private Boolean enableDanger;
+
+    /**
+     * New Instance
+     * @return
+     */
+    public static AlertsSettingsActivityFragment newInstance() {
+        final AlertsSettingsActivityFragment alertDetailActivityFragment =
+                new AlertsSettingsActivityFragment();
+        return alertDetailActivityFragment;
+    }
+
+    /**
+     * New Instance
+     * @param enableAlertsCategory
+     * @return
+     */
+    public static AlertsSettingsActivityFragment newInstance(final Boolean enableAlertsCategory) {
+        final AlertsSettingsActivityFragment alertSettingsActivityFragment =
+                new AlertsSettingsActivityFragment();
+        final Bundle args = new Bundle();
+        args.putBoolean(ENABLE_ALERTS_CATEGORY_ARG, enableAlertsCategory);
+        alertSettingsActivityFragment.setArguments(args);
+        return alertSettingsActivityFragment;
+    }
 
 
     /**
@@ -82,40 +113,55 @@ public class AlertsSettingsActivityFragment extends
 
         ageOfAlerts = preferencesRepositoryImpl.getFilterAgeOfAlerts();
 
-        // Enable All Alerts Categories
-        final SwitchPreferenceCompat enableAllAlertCategories = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_ALL_CATEGORIES);
-        enableAllAlertCategories.setOnPreferenceChangeListener(this);
 
-        enableAllAlert = preferencesRepositoryImpl.isFilterAlertsEnableAllCategories();
+        if(getArguments() != null && getArguments().getBoolean(ENABLE_ALERTS_CATEGORY_ARG, false)) {
 
-        // Enable Success Alerts
-        final SwitchPreferenceCompat enableSuccessAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_SUCCESS_CATEGORY);
-        enableSuccessAlerts.setOnPreferenceChangeListener(this);
-        enableSuccessAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+            // Enable All Alerts Categories
+            final SwitchPreferenceCompat enableAllAlertCategories = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_ALL_CATEGORIES);
+            enableAllAlertCategories.setOnPreferenceChangeListener(this);
 
-        enableSuccess = preferencesRepositoryImpl.isFilterAlertsEnableSuccessCategory();
+            enableAllAlert = preferencesRepositoryImpl.isFilterAlertsEnableAllCategories();
 
-        // Enable Information Alerts
-        final SwitchPreferenceCompat enableInformationAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_INFORMATION_CATEGORY);
-        enableInformationAlerts.setOnPreferenceChangeListener(this);
-        enableInformationAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+            // Enable Success Alerts
+            final SwitchPreferenceCompat enableSuccessAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_SUCCESS_CATEGORY);
+            enableSuccessAlerts.setOnPreferenceChangeListener(this);
+            enableSuccessAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
 
-        enableInformation = preferencesRepositoryImpl.isFilterAlertsEnableInformationCategory();
+            enableSuccess = preferencesRepositoryImpl.isFilterAlertsEnableSuccessCategory();
 
-        // Enable Warning Alerts
-        final SwitchPreferenceCompat enableWarningAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_WARNING_CATEGORY);
-        enableWarningAlerts.setOnPreferenceChangeListener(this);
-        enableWarningAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+            // Enable Information Alerts
+            final SwitchPreferenceCompat enableInformationAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_INFORMATION_CATEGORY);
+            enableInformationAlerts.setOnPreferenceChangeListener(this);
+            enableInformationAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
 
-        enableWarning = preferencesRepositoryImpl.isFilterAlertsEnableWarningCategory();
+            enableInformation = preferencesRepositoryImpl.isFilterAlertsEnableInformationCategory();
 
-        // Enable Danger Alerts
-        final SwitchPreferenceCompat enableDangerAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_DANGER_CATEGORY);
-        enableDangerAlerts.setOnPreferenceChangeListener(this);
-        enableDangerAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+            // Enable Warning Alerts
+            final SwitchPreferenceCompat enableWarningAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_WARNING_CATEGORY);
+            enableWarningAlerts.setOnPreferenceChangeListener(this);
+            enableWarningAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
 
-        enableDanger = preferencesRepositoryImpl.isFilterAlertsEnableDangerCategory();
+            enableWarning = preferencesRepositoryImpl.isFilterAlertsEnableWarningCategory();
 
+            // Enable Danger Alerts
+            final SwitchPreferenceCompat enableDangerAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_DANGER_CATEGORY);
+            enableDangerAlerts.setOnPreferenceChangeListener(this);
+            enableDangerAlerts.setEnabled(!enableAllAlertCategories.isEnabled());
+
+            enableDanger = preferencesRepositoryImpl.isFilterAlertsEnableDangerCategory();
+
+        } else {
+
+            // Get Preference Screen
+            final PreferenceScreen preferenceScreen = (PreferenceScreen)
+                    findPreference(IPreferenceRepository.ALERTS_SETTINGS_PREFERENCE_SCREEN);
+
+            // Alerts Category
+            final PreferenceCategory alertsCategoryGroup = (PreferenceCategory)
+                    findPreference(IPreferenceRepository.ALERTS_CATEGORY_GROUP_KEY);
+
+            preferenceScreen.removePreference(alertsCategoryGroup);
+        }
     }
 
 
@@ -191,20 +237,45 @@ public class AlertsSettingsActivityFragment extends
     @Override
     public Boolean hasPendingChanges() {
 
-        Boolean hasPendingChanges = Boolean.FALSE;
-
         final ListPreference numberOfAlertsListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_COUNT);
 
-        if(!numberOfAlertsListPreference.getValue().equals(numberOfAlerts))
-            hasPendingChanges = Boolean.TRUE;
+        if(!numberOfAlertsListPreference.getValue().equals(numberOfAlerts)) return true;
 
         final ListPreference ageOfAlertsPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_FILTER_AGE_OF_ALERTS);
 
-        if(!ageOfAlertsPreference.getValue().equals(ageOfAlerts))
-            hasPendingChanges = Boolean.TRUE;
+        if(!ageOfAlertsPreference.getValue().equals(ageOfAlerts)) return true;
 
-        Timber.d("Has Pending Changes");
-        return hasPendingChanges;
+
+        if(getArguments() != null && getArguments().getBoolean(ENABLE_ALERTS_CATEGORY_ARG, false)) {
+
+            final SwitchPreferenceCompat enableAllAlertCategories =
+                    (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_ALL_CATEGORIES);
+
+            if(!enableAllAlert.equals(enableAllAlertCategories.isChecked())) return true;
+
+            final SwitchPreferenceCompat enableSuccessAlerts =
+                    (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_SUCCESS_CATEGORY);
+
+            if(!enableSuccess.equals(enableSuccessAlerts.isChecked())) return true;
+
+            final SwitchPreferenceCompat enableInformationAlerts =
+                    (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_INFORMATION_CATEGORY);
+
+            if(!enableInformation.equals(enableInformationAlerts.isChecked())) return true;
+
+            final SwitchPreferenceCompat enableWarningAlerts =
+                    (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_WARNING_CATEGORY);
+
+            if(!enableWarning.equals(enableWarningAlerts.isChecked())) return true;
+
+            final SwitchPreferenceCompat enableDangerAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_DANGER_CATEGORY);
+
+            if(!enableDanger.equals(enableDangerAlerts.isChecked())) return true;
+
+        }
+
+        return false;
+
     }
 
     /**
@@ -213,6 +284,7 @@ public class AlertsSettingsActivityFragment extends
     @Override
     public void onSavedPendingChanges() {
         Timber.d("On Saved Pending Changes");
+        preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
     }
 
     /**
@@ -224,10 +296,13 @@ public class AlertsSettingsActivityFragment extends
 
         preferencesRepositoryImpl.setFilterAlertsCount(numberOfAlerts);
         preferencesRepositoryImpl.setFilterAgeOfAlerts(ageOfAlerts);
-        preferencesRepositoryImpl.setFilterEnableAllAlertCategories(enableAllAlert);
-        preferencesRepositoryImpl.setPrefFilterAlertsEnableSuccessCategory(enableSuccess);
-        preferencesRepositoryImpl.setPrefFilterAlertsEnableInformationCategory(enableInformation);
-        preferencesRepositoryImpl.setPrefFilterAlertsEnableDangerCategory(enableDanger);
-        preferencesRepositoryImpl.setPrefFilterAlertsEnableWarningCategory(enableWarning);
+
+        if(getArguments() != null && getArguments().getBoolean(ENABLE_ALERTS_CATEGORY_ARG, false)) {
+            preferencesRepositoryImpl.setFilterEnableAllAlertCategories(enableAllAlert);
+            preferencesRepositoryImpl.setPrefFilterAlertsEnableSuccessCategory(enableSuccess);
+            preferencesRepositoryImpl.setPrefFilterAlertsEnableInformationCategory(enableInformation);
+            preferencesRepositoryImpl.setPrefFilterAlertsEnableDangerCategory(enableDanger);
+            preferencesRepositoryImpl.setPrefFilterAlertsEnableWarningCategory(enableWarning);
+        }
     }
 }

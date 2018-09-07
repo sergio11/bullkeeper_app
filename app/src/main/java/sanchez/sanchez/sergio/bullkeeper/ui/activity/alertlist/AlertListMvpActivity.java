@@ -12,14 +12,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEActivity;
@@ -270,8 +267,15 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     @OnClick(R.id.filterAlerts)
     public void onFilterAlerts() {
-        // Show Filter Alerts Dialog
-        navigatorImpl.navigateToAlertsSettings();
+
+        if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
+            // Show Filter Alerts Dialog with Alert Category Filter Enable
+            navigatorImpl.navigateToAlertsSettingsWithAlertLevelFilterEnabled();
+        } else {
+            // Show Filter Alerts Dialog
+            navigatorImpl.navigateToAlertsSettings();
+        }
+
     }
 
 
@@ -360,6 +364,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                 new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
+        filterAlertsButton.setVisibility(View.VISIBLE);
 
         if (getIntent().getExtras() != null) {
 
@@ -389,12 +394,6 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     public void onDataLoaded(List<AlertEntity> dataLoaded) {
         super.onDataLoaded(dataLoaded);
 
-
-        if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
-            filterAlertsButton.setVisibility(View.VISIBLE);
-            filterAlertsButton.setEnabled(true);
-        }
-
         clearAlertsButton.setVisibility(View.VISIBLE);
         clearAlertsButton.setEnabled(true);
         alertsHeaderTitle.setText(String.format(Locale.getDefault(),
@@ -408,8 +407,6 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @Override
     public void onNoDataFound() {
         super.onNoDataFound();
-        filterAlertsButton.setVisibility(View.GONE);
-        filterAlertsButton.setEnabled(false);
         clearAlertsButton.setVisibility(View.GONE);
         clearAlertsButton.setEnabled(false);
         alertsHeaderTitle.setText(getString(R.string.my_alerts));
@@ -439,4 +436,14 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         });
     }
 
+    /**
+     * On Preferences Updated
+     */
+    @Override
+    protected void onPreferencesUpdated() {
+        super.onPreferencesUpdated();
+        Timber.d("On Preferences Updated ...");
+        // Load Data
+        getPresenter().loadData();
+    }
 }

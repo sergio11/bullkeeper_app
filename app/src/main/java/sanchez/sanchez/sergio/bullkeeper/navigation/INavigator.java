@@ -83,6 +83,11 @@ public interface INavigator {
     void navigateToAlertsSettings();
 
     /**
+     * Navigate To Alerts Settings With Alert Level Filter Enabled
+     */
+    void navigateToAlertsSettingsWithAlertLevelFilterEnabled();
+
+    /**
      * Show App Help App Dialog
      */
     void showAppHelpDialog(final AppCompatActivity appCompatActivity, final String title, final String cueVideo);

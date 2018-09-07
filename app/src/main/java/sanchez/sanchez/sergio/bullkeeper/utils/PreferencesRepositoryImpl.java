@@ -476,4 +476,24 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
                 .apply();
     }
 
+    /**
+     * Set Preferences Update At
+     * @param updateAt
+     */
+    @Override
+    public void setPreferencesUpdateAt(final long updateAt) {
+        mPref.edit()
+                .putLong(PREF_PREFERENCES_UPDATE_AT, updateAt)
+                .apply();
+    }
+
+    /**
+     * Get Preferences Update At
+     * @return
+     */
+    @Override
+    public long getPreferencesUpdateAt() {
+        return mPref.getLong(PREF_PREFERENCES_UPDATE_AT, PREF_PREFERENCES_UPDATE_AT_DEFAULT_VALUE);
+    }
+
 }

@@ -91,6 +91,17 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_FILTER_ALERTS_ENABLE_DANGER_CATEGORY = "filter_alerts_enable_danger_category";
     boolean FILTER_ALERTS_ENABLE_DANGER_CATEGORY_DEFAULT_VALUE = true;
 
+
+    String PREF_PREFERENCES_UPDATE_AT = "preferences_update_at";
+    long PREF_PREFERENCES_UPDATE_AT_DEFAULT_VALUE = 0L;
+
+
+    String ALERTS_CATEGORY_GROUP_KEY = "alertsCategoryGroup";
+
+    String ALERTS_SETTINGS_PREFERENCE_SCREEN = "alertsSettingsPreferenceScreen";
+
+
+
     /**
      * Get Filter Alerts Count
      * @return
@@ -98,7 +109,7 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String getFilterAlertsCount();
 
     /**
-     * Set Filter Alerts Count
+     * Set Filter Alerts CountN
      * @param value
      */
     void setFilterAlertsCount(final String value);
@@ -313,11 +324,35 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      */
     boolean isFilterAlertsEnableWarningCategory();
 
+    /**
+     * Set Pref Filter Alerts Enable Warning Category
+     * @param enableWarningAlerts
+     */
     void setPrefFilterAlertsEnableWarningCategory(boolean enableWarningAlerts);
 
+    /**
+     * Is Filter Alerts Enable Danger Category
+     * @return
+     */
     boolean isFilterAlertsEnableDangerCategory();
 
+    /**
+     * Set Pref Filter Alerts Enable Danger Category
+     * @param enableDangerAlerts
+     */
     void setPrefFilterAlertsEnableDangerCategory(boolean enableDangerAlerts);
+
+    /**
+     * Set Preferences Update At
+     * @param updateAt
+     */
+    void setPreferencesUpdateAt(final long updateAt);
+
+    /**
+     * Get Preferences Update At
+     * @return
+     */
+    long getPreferencesUpdateAt();
 
 
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="alertsSettingsPreferenceScreen">
 
     <!-- General Configuration -->
     <android.support.v7.preference.PreferenceCategory
@@ -31,6 +33,7 @@
 
     <!-- Category of Alerts -->
     <android.support.v7.preference.PreferenceCategory
+        android:key="alertsCategoryGroup"
         android:title="@string/app_preferences_category_of_alerts"
         android:layout="@layout/preferences_category_layout">
 

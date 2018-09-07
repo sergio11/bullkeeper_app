@@ -64,35 +64,39 @@
             android:textColor="@color/commonWhite" />
 
 
-        <!-- Filter Alerts -->
-        <ImageButton
-            android:id="@+id/filterAlerts"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:src="@drawable/filter_solid_white"
-            android:background="@android:color/transparent"
-            android:layout_toStartOf="@id/clearAlerts"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/content_not_be_loaded" />
-
-        <!-- Clear Alerts -->
-        <ImageButton
-            android:id="@+id/clearAlerts"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:src="@drawable/trash_white"
-            android:background="@android:color/transparent"
-            android:layout_alignParentEnd="true"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/content_not_be_loaded" />
+            android:layout_alignParentEnd="true">
+
+            <!-- Filter Alerts -->
+            <ImageButton
+                android:id="@+id/filterAlerts"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/filter_solid_white"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Clear Alerts -->
+            <ImageButton
+                android:id="@+id/clearAlerts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:src="@drawable/trash_white"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

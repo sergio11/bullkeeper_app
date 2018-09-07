@@ -160,6 +160,14 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Alerts Settings With Alert Level Filter Enabled
+     */
+    @Override
+    public void navigateToAlertsSettingsWithAlertLevelFilterEnabled() {
+        context.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context, true));
+    }
+
+    /**
      * Show App Help Dialog
      * @param appCompatActivity
      * @param title

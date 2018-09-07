@@ -19,6 +19,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
+import java.util.Date;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,6 +90,10 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     private SupportToolbarApp supportToolbarApp;
 
+    /**
+     * Create At
+     */
+    private Date createAt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +119,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
         // On View Ready
         onViewReady(savedInstanceState);
+
+        createAt = new Date();
     }
 
     /**
@@ -123,6 +130,18 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     protected void onResume() {
         super.onResume();
         localSystemNotification.registerVisitor(this);
+
+        Timber.d("Preferences Update At -> %d, Create At -> %d",
+                preferencesRepositoryImpl.getPreferencesUpdateAt(), createAt.getTime());
+
+        if(preferencesRepositoryImpl.getPreferencesUpdateAt() > 0) {
+
+            final long updateAt = preferencesRepositoryImpl.getPreferencesUpdateAt();
+
+            if(new Date(updateAt).after(createAt)) {
+                onPreferencesUpdated();
+            }
+        }
     }
 
     /**
@@ -577,6 +596,11 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      * On View Ready
      */
     protected void onViewReady(final Bundle savedInstanceState){}
+
+    /**
+     * On Preferences Updated
+     */
+    protected void onPreferencesUpdated(){}
 
 
     /**
