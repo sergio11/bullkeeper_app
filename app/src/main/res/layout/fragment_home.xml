@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:background="@color/cyanBrilliant"
     tools:context=".ui.fragment.home.HomeMvpFragment">
 
     <!-- App Bar Layout -->
@@ -163,39 +164,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <!-- Swipe Refresh Layout -->
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeContainer"
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <!-- Nested Scroll View -->
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:focusableInTouchMode="true">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/alertsList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/cyanBrilliant"
-                    android:scrollbars="vertical" />
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:name="sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

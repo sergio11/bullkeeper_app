@@ -4,15 +4,14 @@ import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.services.IAlertService;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
+import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 
 /**
@@ -22,15 +21,20 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
 
     private final IAlertService alertService;
     private final AbstractDataMapper<AlertDTO, AlertEntity> alertDataMapper;
+    private final AbstractDataMapper<AlertsPageDTO, AlertsPageEntity> alertsPageEntityDataMapper;
 
     /**
      *
      * @param alertService
      * @param alertDataMapper
+     * @param alertsPageEntityDataMapper
      */
-    public AlertsRepositoryImpl(IAlertService alertService, AbstractDataMapper<AlertDTO, AlertEntity> alertDataMapper) {
+    public AlertsRepositoryImpl(IAlertService alertService,
+                                AbstractDataMapper<AlertDTO, AlertEntity> alertDataMapper,
+                                final AbstractDataMapper<AlertsPageDTO, AlertsPageEntity> alertsPageEntityDataMapper) {
         this.alertService = alertService;
         this.alertDataMapper = alertDataMapper;
+        this.alertsPageEntityDataMapper = alertsPageEntityDataMapper;
     }
 
     /**
@@ -132,5 +136,37 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
             response != null && response.getData() != null ? response.getData() : null)
                 .map(alertDataMapper::transform);
     }
+
+    /**
+     * Get Self Alerts Last
+     * @return
+     */
+    @Override
+    public Observable<AlertsPageEntity> getSelfAlertsLast() {
+        return alertService.getSelfAlertsLast().map(response ->
+                response != null && response.getData() != null ? response.getData() : null)
+                .map(alertsPageEntityDataMapper::transform);
+    }
+
+    /**
+     * Get Self Alerts Last
+     * @param count
+     * @param lastMinutes
+     * @param levels
+     * @return
+     */
+    @Override
+    public Observable<AlertsPageEntity> getSelfAlertsLast(String count, String lastMinutes, String levels) {
+        Preconditions.checkNotNull(count, "Count can not be null");
+        Preconditions.checkState(!count.isEmpty(), "Count can not be empty");
+        Preconditions.checkNotNull(lastMinutes, "Last Minutes can not be null");
+        Preconditions.checkState(!lastMinutes.isEmpty(), "Last Minutes can not be empty");
+        Preconditions.checkNotNull(levels, "Levels can not be null");
+        Preconditions.checkState(!levels.isEmpty(), "Levels can not be empty");
+        return alertService.getSelfAlertsLast(count, lastMinutes, levels).map(response ->
+                response != null && response.getData() != null ? response.getData() : null)
+                .map(alertsPageEntityDataMapper::transform);
+    }
+
 
 }

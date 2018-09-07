@@ -61,7 +61,7 @@ public interface IPreferenceRepository extends IAuthTokenAware {
 
     // Count Alerts
     String PREF_COUNT_ALERTS = "count_alerts";
-    int COUNT_ALERTS_DEFAULT_VALUE = 20;
+    String COUNT_ALERTS_DEFAULT_VALUE = "20";
 
     // Alerts Days Ago
     String PREF_ALERTS_DAYS_AGO = "alerts_days_ago";
@@ -250,7 +250,7 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * Get Pref Count Alerts
      * @return
      */
-    int getPrefCountAlerts();
+    String getPrefCountAlerts();
 
     /**
      * Set Pref Count Alerts

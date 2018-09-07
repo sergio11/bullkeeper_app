@@ -309,8 +309,8 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
      * @return
      */
     @Override
-    public int getPrefCountAlerts() {
-        return mPref.getInt(PREF_COUNT_ALERTS, COUNT_ALERTS_DEFAULT_VALUE);
+    public String getPrefCountAlerts() {
+        return mPref.getString(PREF_COUNT_ALERTS, COUNT_ALERTS_DEFAULT_VALUE);
     }
 
     /**

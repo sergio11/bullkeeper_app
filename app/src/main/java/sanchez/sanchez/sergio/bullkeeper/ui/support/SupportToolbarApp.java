@@ -16,6 +16,7 @@ public class SupportToolbarApp {
     public final static int INFORMATIVE_TOOLBAR = 0;
     public final static int TOOLBAR_WITH_MENU = 1;
     public final static int RETURN_TOOLBAR = 2;
+    public final static int NOT_TOOLBAR = 3;
 
     private final int toolbarType;
     private final View toolbarLayout;
@@ -120,6 +121,10 @@ public class SupportToolbarApp {
                     }
                 });
 
+                break;
+
+            case NOT_TOOLBAR:
+                toolbarLayout.setVisibility(View.GONE);
                 break;
         }
 

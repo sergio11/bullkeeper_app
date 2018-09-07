@@ -6,6 +6,7 @@ import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.services.IAlertService;
 import sanchez.sanchez.sergio.data.repository.AlertsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -16,7 +17,9 @@ import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
+import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
@@ -45,8 +48,9 @@ public class AlertsModule {
     @Provides
     @PerActivity
     public IAlertsRepository provideAlertsRepository(final IAlertService alertService,
-                                                     final AbstractDataMapper<AlertDTO, AlertEntity> alertDataMapper) {
-        return new AlertsRepositoryImpl(alertService, alertDataMapper);
+                                                     final AbstractDataMapper<AlertDTO, AlertEntity> alertDataMapper,
+                                                     final AbstractDataMapper<AlertsPageDTO, AlertsPageEntity> alertsPageDataMapper) {
+        return new AlertsRepositoryImpl(alertService, alertDataMapper, alertsPageDataMapper);
     }
 
     /**
@@ -131,6 +135,20 @@ public class AlertsModule {
     public GetAlertDetailInteract provideGetAlertDetailInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                 final IAlertsRepository alertsRepository) {
         return new GetAlertDetailInteract(threadExecutor, postExecutionThread, alertsRepository);
+    }
+
+    /**
+     * Provide Get Self Last Alerts Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param alertsRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetSelfLastAlertsInteract provideGetSelfLastAlertsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                      final IAlertsRepository alertsRepository, final IPreferenceRepository preferenceRepository){
+        return new GetSelfLastAlertsInteract(threadExecutor, postExecutionThread, alertsRepository, preferenceRepository);
     }
 
 

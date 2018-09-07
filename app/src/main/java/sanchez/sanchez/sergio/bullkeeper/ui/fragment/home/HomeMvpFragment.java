@@ -6,44 +6,30 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsStatusAdapter;
-import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.LastAlertsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
-import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
-import timber.log.Timber;
-
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
@@ -51,14 +37,14 @@ import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOO
  */
 public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         IHomeView, IHomeActivityHandler, HomeComponent> implements IHomeView,
-        SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
-        SupportItemTouchHelper.ItemTouchHelperListener,
-        SwipeRefreshLayout.OnRefreshListener, MyKidsStatusAdapter.OnMyKidsListener {
+        MyKidsStatusAdapter.OnMyKidsListener {
 
     public static String TAG = "HOME_FRAGMENT";
     private final static Integer MIN_KIDS_COUNT = 3;
 
-
+    /**
+     * App Context
+     */
     @Inject
     protected Context appContext;
 
@@ -85,12 +71,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
      */
     @BindView(R.id.mainContainer)
     protected ViewGroup mainContainer;
-
-    /**
-     * Swipe Refresh Layout
-     */
-    @BindView(R.id.swipeContainer)
-    protected SwipeRefreshLayout swipeRefreshLayout;
 
 
     /**
@@ -124,11 +104,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     @BindView(R.id.myKidsList)
     protected RecyclerView myChildList;
 
-    /**
-     * Alerts List
-     */
-    @BindView(R.id.alertsList)
-    protected RecyclerView alertsList;
 
     /**
      * Info Child Btn
@@ -136,11 +111,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     @BindView(R.id.infoChildBtn)
     protected ImageButton infoChildBtn;
 
-
-    /**
-     * Last Alerts Adapter
-     */
-    private LastAlertsAdapter lastAlertsAdapter;
 
     /**
      * My Kids Home Adapter
@@ -158,8 +128,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         HomeMvpFragment fragment = new HomeMvpFragment();
         return fragment;
     }
-
-
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -211,10 +179,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         });
 
 
-        swipeRefreshLayout.setColorSchemeResources(R.color.commonWhite);
-        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
-
-
         /**
          * My Kids Status Adapter
          */
@@ -225,25 +189,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);
-
-        /**
-         * Last Alerts Adapter
-         */
-        ViewCompat.setNestedScrollingEnabled(alertsList, false);
-        alertsList.setLayoutManager(new LinearLayoutManager(appContext));
-        alertsList.setNestedScrollingEnabled(false);
-        lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
-        lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
-        // Set Animator
-        alertsList.setItemAnimator(new DefaultItemAnimator());
-        alertsList.setAdapter(lastAlertsAdapter);
-
-        // adding item touch helper
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new SupportItemTouchHelper<LastAlertsAdapter.LastAlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
-
-        getPresenter().loadProfileInformation();
 
     }
 
@@ -296,39 +241,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         activityHandler.goToMyKids();
     }
 
-    /**
-     * On Alerts Action
-     */
-    @OnClick(R.id.alertsAction)
-    protected void onAlertsAction(){
-        activityHandler.goToAlerts();
-    }
-
-
-    /**
-     * On Header Click
-     */
-    @Override
-    public void onHeaderClick() {
-        showShortMessage("Header Clicked ...");
-        activityHandler.goToAlerts();
-
-    }
-
-    /**
-     * On Item Click
-     * @param alertEntity
-     */
-    @Override
-    public void onItemClick(final AlertEntity alertEntity) {
-        showShortMessage(String.format(Locale.getDefault(), "Alert %s clicked ", alertEntity.getTitle()));
-        activityHandler.goToAlertDetail(alertEntity.getIdentity(), alertEntity.getSon().getIdentity());
-    }
-
-
-
-    @Override
-    public void onFooterClick() { }
 
     /**
      * On User Profile Loaded
@@ -342,16 +254,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
                 .error(R.drawable.parent_default)
                 .into(userProfileImage);
-    }
-
-    /**
-     * On Last Alerts Loaded
-     * @param lastAlerts
-     */
-    @Override
-    public void onLastAlertsLoaded(List<AlertEntity> lastAlerts) {
-        lastAlertsAdapter.setData(new ArrayList<>(lastAlerts));
-        lastAlertsAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -389,40 +291,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     }
 
     /**
-     * On Swiped
-     * @param viewHolder
-     * @param direction
-     * @param position
-     */
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof LastAlertsAdapter.LastAlertsViewHolder) {
-
-            final Integer deletedIndex = viewHolder.getAdapterPosition();
-            final AlertEntity alertEntity = lastAlertsAdapter.getItemByAdapterPosition(deletedIndex);
-
-            // Delete item from adapter
-            lastAlertsAdapter.removeItem(deletedIndex);
-
-            showLongSimpleSnackbar(mainContainer, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    lastAlertsAdapter.restoreItem(alertEntity, deletedIndex);
-                }
-            });
-
-        }
-    }
-
-    /**
-     * On Refresh
-     */
-    @Override
-    public void onRefresh() {
-        showShortMessage("Refresh Alerts!!");
-    }
-
-    /**
      * Get Toolbar Type
      * @return
      */
@@ -455,4 +323,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     public void onDefaultItemClicked() {
         activityHandler.goToAddChild();
     }
+
+
 }

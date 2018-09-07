@@ -222,6 +222,7 @@ public class AlertsSettingsActivityFragment extends
      */
     @OnClick(R.id.savePreferences)
     protected void onSavePreferences(){
+        preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
         activityHandler.showNoticeDialog(R.string.preferences_saved_successfully_message, new NoticeDialogFragment.NoticeDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {

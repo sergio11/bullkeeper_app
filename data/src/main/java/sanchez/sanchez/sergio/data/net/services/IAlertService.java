@@ -9,6 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 
 /**
  * Alert Service
@@ -75,5 +76,21 @@ public interface IAlertService {
      */
     @GET("parents/self/alerts")
     Observable<APIResponse<List<AlertDTO>>> getSelfAlerts();
+
+    /**
+     * Get Self Alerts Last
+     * @return
+     */
+    @GET("parents/self/alerts/last")
+    Observable<APIResponse<AlertsPageDTO>> getSelfAlertsLast();
+
+    /**
+     * Get Self Alerts Last
+     * @return
+     */
+    @GET("parents/self/alerts/last")
+    Observable<APIResponse<AlertsPageDTO>> getSelfAlertsLast(final @Query("count") String count,
+                                                             final @Query("last_minutes") String lastMinutes,
+                                                             final @Query("levels") String levels);
 
 }
