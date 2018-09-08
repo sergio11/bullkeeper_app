@@ -9,6 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesRepositoryImpl;
+import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
 import sanchez.sanchez.sergio.data.executor.JobExecutor;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -136,6 +137,15 @@ public class ApplicationModule {
     @Provides @Singleton
     ApiEndPointsHelper provideApiEndPointsHelper(){
         return new ApiEndPointsHelper(BuildConfig.BASE_URL);
+    }
+
+    /**
+     * Provide Screen Manager
+     * @return
+     */
+    @Provides @Singleton
+    ScreenManager provideScreenManager(final Context appContext){
+        return new ScreenManager(appContext);
     }
 
 }

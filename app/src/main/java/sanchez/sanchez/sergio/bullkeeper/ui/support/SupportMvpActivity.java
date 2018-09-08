@@ -4,6 +4,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.support;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -470,6 +472,37 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
             snackbar.addCallback(snackbarCallback);
 
         snackbar.show();
+    }
+
+    /**
+     * Set Dimensions
+     * @param view
+     * @param widthInDp
+     * @param heightInDp
+     */
+    @Override
+    public void setDimensions(final View view, int widthInDp, int heightInDp){
+        final Resources resources = getResources();
+        int widthInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp, resources.getDisplayMetrics());
+        int heightInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightInDp, resources.getDisplayMetrics());
+        Timber.d("Set Dimensions: width  -> %d dp (%d px), height -> %d dp (%d px)", widthInDp,
+                widthInPx, heightInDp, heightInPx);
+        final ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = widthInPx;
+        layoutParams.height = heightInPx;
+        view.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * Set Dimensions To Match Parent
+     * @param view
+     */
+    @Override
+    public void setDimensionsToMatchParent(final View view) {
+        final ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        view.setLayoutParams(layoutParams);
     }
 
     /**

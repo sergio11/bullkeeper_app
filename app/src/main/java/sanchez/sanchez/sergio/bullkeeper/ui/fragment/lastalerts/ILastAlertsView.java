@@ -6,4 +6,11 @@ import sanchez.sanchez.sergio.domain.models.AlertEntity;
 /**
  * Last Alerts View
  */
-public interface ILastAlertsView extends ISupportLCEView<AlertEntity> {}
+public interface ILastAlertsView extends ISupportLCEView<AlertEntity> {
+
+    /**
+     * On Alert Deleted
+     */
+    void onAlertDeleted();
+
+}

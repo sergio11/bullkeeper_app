@@ -300,6 +300,16 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
     }
 
     /**
+     *
+     * @param view
+     * @param width
+     * @param height
+     */
+    public void setDimensions(final View view, int width, int height) {
+        activityHandler.setDimensions(view, width, height);
+    }
+
+    /**
      * Gets a component for dependency injection by its type.
      */
     @SuppressWarnings("unchecked")

@@ -1,11 +1,9 @@
 package sanchez.sanchez.sergio.domain.interactor.alerts;
 
-import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
@@ -87,7 +85,7 @@ public final class GetSelfLastAlertsInteract extends UseCase<AlertsPageEntity, V
     @Override
     protected Observable<AlertsPageEntity> buildUseCaseObservable(Void aVoid) {
         return alertsRepository.getSelfAlertsLast(preferenceRepository.getPrefCountAlerts(),
-                preferenceRepository.getPrefAlertsDaysAgo(), getLevelsCsv());
+                preferenceRepository.getAgeOfAlerts(), getLevelsCsv());
     }
 
     /**

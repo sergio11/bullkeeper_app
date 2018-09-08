@@ -1,15 +1,14 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.home;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
 import java.util.List;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
-import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
  * Home View
  */
-public interface IHomeView extends ISupportView {
+public interface IProfileView extends ISupportView {
 
     /**
      * On User Profile Loaded

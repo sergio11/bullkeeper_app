@@ -125,6 +125,21 @@ public interface IBasicActivityHandler {
     void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText,
                                 final View.OnClickListener onClickListener, final Snackbar.Callback snackbarCallback);
 
+
+    /**
+     * Set Dimensions
+     * @param view
+     * @param width
+     * @param height
+     */
+    void setDimensions(final View view, int width, int height);
+
+    /**
+     * Set Dimensions To Match Parent
+     * @param view
+     */
+    void setDimensionsToMatchParent(final View view);
+
     /**
      * Show App Menu
      */

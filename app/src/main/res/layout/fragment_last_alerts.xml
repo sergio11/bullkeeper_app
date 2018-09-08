@@ -1,68 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/cyanBrilliant"
+    android:orientation="vertical"
     tools:context=".ui.fragment.lastalerts.LastAlertsActivityMvpFragment">
 
-
-    <!-- Swipe Refresh Layout -->
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- Nested Scroll View -->
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:focusableInTouchMode="true">
-
-                <!-- Alerts List -->
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/cyanBrilliant"
-                    android:scrollbars="vertical" />
-
-                <!-- Error Occurred -->
-                <include android:id="@+id/errorOccurred"
-                    layout="@layout/error_ocurred_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"/>
-
-                <!-- No Data Found -->
-                <include android:id="@+id/noDataFound"
-                    layout="@layout/no_data_found_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    />
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
+    <!-- No Data Found -->
+    <include android:id="@+id/noDataFound"
+        layout="@layout/no_data_found_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp" />
 
     <!-- Error Ocurred -->
     <include android:id="@+id/errorOccurred"
@@ -81,22 +40,88 @@
         android:layout_marginTop="8dp"/>
 
 
-    <!-- No Data Found -->
-    <include android:id="@+id/noDataFound"
-        layout="@layout/no_data_found_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.508"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        />
+    <!-- Swipe Refresh Layout -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Nested Scroll View -->
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:focusableInTouchMode="true">
+
+                <!-- Last Alerts Header -->
+                <RelativeLayout
+                    android:id="@+id/lastAlertsHeader"
+                    style="@style/CommonSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp">
+
+                    <ImageView
+                        android:id="@+id/bellIcon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/content_not_be_loaded"
+                        android:src="@drawable/bell_solid_white"
+                        android:layout_alignParentStart="true"/>
+
+                    <TextView
+                        android:id="@+id/lastAlertsTitle"
+                        style="@style/CommonStrongText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_centerVertical="true"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@string/last_alerts_title_default"
+                        android:textColor="@color/commonWhite"
+                        android:layout_toEndOf="@id/bellIcon"/>
+
+
+                    <ImageView
+                        android:id="@+id/showAlerts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/content_not_be_loaded"
+                        android:src="@drawable/arrow_alt_circle_right_regular_52"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+
+                <!-- Alerts List -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>

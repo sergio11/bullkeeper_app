@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.home;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -11,9 +11,9 @@ import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
- * Home Presenter
+ * Profile Presenter
  */
-public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
+public final class ProfileFragmentPresenter extends SupportPresenter<IProfileView> {
 
     /**
      * Get Self Information Interact
@@ -24,22 +24,16 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
      */
     private final GetParentInformationInteract getParentInformationInteract;
 
-    /**
-     * Get Self Last Alerts Interact
-     */
-    private final GetSelfLastAlertsInteract getSelfLastAlertsInteract;
 
     /**
      * @param getSelfChildrenInteract
      * @param getParentInformationInteract
      */
     @Inject
-    public HomeFragmentPresenter(final GetSelfChildrenInteract getSelfChildrenInteract,
-                                 final GetParentInformationInteract getParentInformationInteract,
-                                 final GetSelfLastAlertsInteract getSelfLastAlertsInteract){
+    public ProfileFragmentPresenter(final GetSelfChildrenInteract getSelfChildrenInteract,
+                                    final GetParentInformationInteract getParentInformationInteract){
         this.getParentInformationInteract = getParentInformationInteract;
         this.getSelfChildrenInteract = getSelfChildrenInteract;
-        this.getSelfLastAlertsInteract = getSelfLastAlertsInteract;
     }
 
     /**
@@ -50,7 +44,6 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
         super.onInit();
         this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
         this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
-        this.getSelfLastAlertsInteract.attachDisposablesTo(compositeDisposable);
 
         loadProfileInformation();
 

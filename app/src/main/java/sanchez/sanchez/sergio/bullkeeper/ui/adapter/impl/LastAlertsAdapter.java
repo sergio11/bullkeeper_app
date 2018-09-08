@@ -27,8 +27,6 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
      */
     public LastAlertsAdapter(Context context, ArrayList<AlertEntity> data) {
         super(context, data);
-        // enable header
-        hasHeader = true;
 
     }
 
@@ -43,27 +41,6 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
         return new LastAlertsViewHolder(view);
     }
 
-    /**
-     * On Create Header View Holder
-     * @param viewGroup
-     * @return
-     */
-    @Override
-    protected RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.last_alert_header_layout, viewGroup, false);
-        return new LastAlertsHeaderViewHolder(view);
-    }
-
-    /**
-     * Last Alerts Header VIew Holder
-     */
-    public class LastAlertsHeaderViewHolder extends SupportHeaderViewHolder {
-
-        public LastAlertsHeaderViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
 
     /**
      * Last Alerts View Holder
@@ -71,15 +48,16 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
     public class LastAlertsViewHolder
             extends SupportRecyclerViewAdapter<AlertEntity>.SupportItemSwipedViewHolder<AlertEntity>{
 
-        private ImageView alertIcon;
-        private ImageView childImage;
-        private TextView alertMessage;
+        private ImageView alertIcon, childImage;
+        private TextView alertMessage, alertSince, alertSonName;
 
         LastAlertsViewHolder(View itemView) {
             super(itemView);
-            alertIcon = itemView.findViewById(R.id.alertIcon);
-            childImage = itemView.findViewById(R.id.childImage);
-            alertMessage = itemView.findViewById(R.id.alertMessage);
+            this.alertIcon = itemView.findViewById(R.id.alertIcon);
+            this.childImage = itemView.findViewById(R.id.childImage);
+            this.alertMessage = itemView.findViewById(R.id.alertMessage);
+            this.alertSince = itemView.findViewById(R.id.alertSince);
+            this.alertSonName = itemView.findViewById(R.id.alertSonName);
         }
 
         /**
@@ -121,12 +99,22 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
             alertIcon.setImageDrawable(alertIconDrawable);
             // Text Color
             alertMessage.setTextColor(alertColor);
-            // Set Child Image
-            Picasso.with(context).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                    .placeholder(R.drawable.user_default)
-                    .error(R.drawable.user_default)
-                    .transform(new CircleTransform(alertColor))
-                    .into(childImage);
+            // Set Alert Since
+            alertSince.setText(alertEntity.getSince());
+            // Set Alert Payload
+            alertMessage.setText(alertEntity.getPayload());
+            // Set Son Full name
+            alertSonName.setText(alertEntity.getSon().getFullName());
+
+            if(alertEntity.getSon() != null) {
+
+                // Set Child Image
+                Picasso.with(context).load(alertEntity.getSon().getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImage);
+            }
+
         }
 
         public ImageView getAlertIcon() {

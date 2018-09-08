@@ -7,6 +7,7 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -55,4 +56,5 @@ public interface ApplicationComponent {
     IAuthTokenAware authTokenAware();
     ApiEndPointsHelper apiEndPointsHelper();
     Picasso picasso();
+    ScreenManager screenManager();
 }

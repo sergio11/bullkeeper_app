@@ -1,10 +1,16 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts;
 
 
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertListPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
+import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
+import timber.log.Timber;
 
 /**
  * Last Alerts Fragment Presenter
@@ -17,11 +23,18 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
     private final GetSelfLastAlertsInteract getSelfLastAlertsInteract;
 
     /**
+     * Delete Alert Of Son Interact
+     */
+    private final DeleteAlertOfSonInteract deleteAlertOfSonInteract;
+
+    /**
      * @param getSelfLastAlertsInteract
      */
     @Inject
-    public LastAlertsFragmentPresenter(final GetSelfLastAlertsInteract getSelfLastAlertsInteract) {
+    public LastAlertsFragmentPresenter(final GetSelfLastAlertsInteract getSelfLastAlertsInteract,
+                                       final DeleteAlertOfSonInteract deleteAlertOfSonInteract) {
         this.getSelfLastAlertsInteract = getSelfLastAlertsInteract;
+        this.deleteAlertOfSonInteract = deleteAlertOfSonInteract;
     }
 
     /**
@@ -31,6 +44,7 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
     public void onInit() {
         super.onInit();
         this.getSelfLastAlertsInteract.attachDisposablesTo(compositeDisposable);
+        this.deleteAlertOfSonInteract.attachDisposablesTo(compositeDisposable);
     }
 
 
@@ -42,6 +56,19 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
 
         // Execute Get Self Children
         getSelfLastAlertsInteract.execute(new LoadLastAlertsObserver(GetSelfLastAlertsInteract.GetSelfLastAlertsApiErrors.class), null);
+    }
+
+    /**
+     * Delete Alert Of Son
+     * @param sonIdentity
+     * @param alertIdentity
+     */
+    public void deleteAlertOfSon(final String sonIdentity, final String alertIdentity) {
+        Preconditions.checkState(!sonIdentity.isEmpty(), "Son Identity can not be null");
+        Preconditions.checkState(!alertIdentity.isEmpty(), "Alert Identity can not be null");
+        Timber.d("Delete Alert Of Son");
+        deleteAlertOfSonInteract.execute(new DeleteAlertOfSonObservable(),
+                DeleteAlertOfSonInteract.Params.create(sonIdentity, alertIdentity));
     }
 
 
@@ -66,9 +93,11 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
         @Override
         protected void onSuccess(final AlertsPageEntity alertsPageEntity) {
             if (isViewAttached() && getView() != null)
-                if(alertsPageEntity != null && alertsPageEntity.getAlerts() != null
+               if(alertsPageEntity != null && alertsPageEntity.getAlerts() != null
                         && !alertsPageEntity.getAlerts().isEmpty())
                     getView().onDataLoaded(alertsPageEntity.getAlerts());
+                else
+                    getView().onNoDataFound();
         }
 
         /**
@@ -79,6 +108,24 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
         public void visitNoAlertsFounded(final GetSelfLastAlertsInteract.GetSelfLastAlertsApiErrors error) {
             if(isViewAttached() && getView() != null)
                 getView().onNoDataFound();
+        }
+    }
+
+    /**
+     * Delete Alert Of Son Observable
+     */
+    public class DeleteAlertOfSonObservable extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            Timber.d("Response -> %s", response);
+            if(isViewAttached() && getView() != null)
+                getView().onAlertDeleted();
+
         }
     }
 

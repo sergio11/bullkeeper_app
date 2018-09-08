@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.home;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
 
 import android.annotation.SuppressLint;
@@ -30,13 +30,13 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+
 
 /**
  * Home Fragment
  */
-public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
-        IHomeView, IHomeActivityHandler, HomeComponent> implements IHomeView,
+public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresenter,
+        IProfileView, IHomeActivityHandler, HomeComponent> implements IProfileView,
         MyKidsStatusAdapter.OnMyKidsListener {
 
     public static String TAG = "HOME_FRAGMENT";
@@ -65,12 +65,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
      */
     @BindView(R.id.userProfileText)
     protected TextView userProfileText;
-
-    /**
-     * Main Container
-     */
-    @BindView(R.id.mainContainer)
-    protected ViewGroup mainContainer;
 
 
     /**
@@ -111,21 +105,20 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     @BindView(R.id.infoChildBtn)
     protected ImageButton infoChildBtn;
 
-
     /**
      * My Kids Home Adapter
      */
     private MyKidsStatusAdapter myKidsStatusAdapter;
 
 
-    public HomeMvpFragment() { }
+    public ProfileMvpFragment() { }
 
     /**
      * New Instance
      * @return
      */
-    public static HomeMvpFragment newInstance() {
-        HomeMvpFragment fragment = new HomeMvpFragment();
+    public static ProfileMvpFragment newInstance() {
+        ProfileMvpFragment fragment = new ProfileMvpFragment();
         return fragment;
     }
 
@@ -189,12 +182,11 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);
-
     }
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_profile;
     }
 
     /**
@@ -212,7 +204,7 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
      */
     @NonNull
     @Override
-    public HomeFragmentPresenter providePresenter() {
+    public ProfileFragmentPresenter providePresenter() {
         return component.homeFragmentPresenter();
     }
 
@@ -241,6 +233,13 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
         activityHandler.goToMyKids();
     }
 
+    /**
+     * On Alerts Action
+     */
+    @OnClick(R.id.alertsAction)
+    protected void onAlertsAction() {
+        activityHandler.goToAlerts();
+    }
 
     /**
      * On User Profile Loaded
@@ -291,15 +290,6 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     }
 
     /**
-     * Get Toolbar Type
-     * @return
-     */
-    @Override
-    protected int getToolbarType() {
-        return TOOLBAR_WITH_MENU;
-    }
-
-    /**
      * On User Profile Image Clicked
      */
     @OnClick(R.id.userProfileImage)
@@ -323,6 +313,5 @@ public class HomeMvpFragment extends SupportMvpFragment<HomeFragmentPresenter,
     public void onDefaultItemClicked() {
         activityHandler.goToAddChild();
     }
-
 
 }

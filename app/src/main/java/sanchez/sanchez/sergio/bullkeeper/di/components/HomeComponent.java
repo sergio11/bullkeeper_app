@@ -8,8 +8,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.HomeMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.HomePresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.home.HomeMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.home.HomeFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ProfileMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ProfileFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsFragmentPresenter;
 
@@ -30,7 +30,7 @@ public interface HomeComponent extends ActivityComponent {
      * Inject into Home Fragment
      * @param homeFragment
      */
-    void inject(final HomeMvpFragment homeFragment);
+    void inject(final ProfileMvpFragment homeFragment);
 
     /**
      * Inject into Last Alerts Activity Mvp Fragment
@@ -40,7 +40,7 @@ public interface HomeComponent extends ActivityComponent {
 
 
     HomePresenter homePresenter();
-    HomeFragmentPresenter homeFragmentPresenter();
+    ProfileFragmentPresenter homeFragmentPresenter();
     LastAlertsFragmentPresenter lastAlertsFragmentPresenter();
 
 }
