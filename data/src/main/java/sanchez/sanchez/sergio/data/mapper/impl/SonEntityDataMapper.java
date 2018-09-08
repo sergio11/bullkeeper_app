@@ -44,4 +44,23 @@ public final class SonEntityDataMapper extends AbstractDataMapper<SonDTO, SonEnt
         sonEntity.setAlertStatistics(originModel.getAlertStatistics());
         return sonEntity;
     }
+
+    /**
+     * Transform Inverse
+     * @param originModel
+     * @return
+     */
+    @Override
+    public SonDTO transformInverse(SonEntity originModel) {
+        final SonDTO sonDTO = new SonDTO();
+        sonDTO.setIdentity(originModel.getIdentity());
+        sonDTO.setAge(originModel.getAge());
+        sonDTO.setBirthdate(originModel.getBirthdate());
+        sonDTO.setFirstName(originModel.getFirstName());
+        sonDTO.setLastName(originModel.getLastName());
+        sonDTO.setProfileImage(originModel.getProfileImage());
+        sonDTO.setSchoolDTO(schoolDataMapper.transformInverse(originModel.getSchool()));
+        sonDTO.setAlertStatistics(originModel.getAlertStatistics());
+        return sonDTO;
+    }
 }

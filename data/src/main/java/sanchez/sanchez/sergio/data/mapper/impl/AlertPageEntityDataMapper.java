@@ -39,4 +39,20 @@ public final class AlertPageEntityDataMapper extends AbstractDataMapper<AlertsPa
         alertsPageEntity.setTotal(originModel.getTotal());
         return alertsPageEntity;
     }
+
+    /**
+     * Transform Inverse
+     * @param originModel
+     * @return
+     */
+    @Override
+    public AlertsPageDTO transformInverse(AlertsPageEntity originModel) {
+       final AlertsPageDTO alertsPageDTO = new AlertsPageDTO();
+       alertsPageDTO.setTotal(originModel.getTotal());
+       alertsPageDTO.setLastQuery(originModel.getLastQuery());
+       alertsPageDTO.setRemaining(originModel.getRemaining());
+       alertsPageDTO.setReturned(originModel.getReturned());
+       alertsPageDTO.setAlerts(alertDataMapper.transformInverse(originModel.getAlerts()));
+       return alertsPageDTO;
+    }
 }

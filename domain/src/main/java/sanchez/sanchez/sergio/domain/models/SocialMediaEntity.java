@@ -1,39 +1,33 @@
-package sanchez.sanchez.sergio.data.net.models.response;
+package sanchez.sanchez.sergio.domain.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * Social Media DTO
+ * Social Media Entity
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public final class SocialMediaDTO implements Serializable {
+public final class SocialMediaEntity implements Serializable {
 
-    @JsonProperty("identity")
     private String identity;
-
-    @JsonProperty("access_token")
     private String accessToken;
-
-    @JsonProperty("refresh_token")
     private String refreshToken;
-
-    @JsonProperty("type")
-    private String type;
-
-    @JsonProperty("invalid_token")
-    private boolean invalidToken;
-
-    @JsonProperty("user_social_name")
+    private SocialMediaTypeEnum type;
+    private Boolean invalidToken;
     private String userSocialName;
-
-    @JsonProperty("user_picture")
     private String userPicture;
+    private String sonFullName;
 
-    @JsonProperty("user")
-    private String son;
+    public SocialMediaEntity(){}
 
+    public SocialMediaEntity(String identity, String accessToken, String refreshToken, SocialMediaTypeEnum type, Boolean invalidToken, String userSocialName, String userPicture, String sonFullName) {
+        this.identity = identity;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.type = type;
+        this.invalidToken = invalidToken;
+        this.userSocialName = userSocialName;
+        this.userPicture = userPicture;
+        this.sonFullName = sonFullName;
+    }
 
     public String getIdentity() {
         return identity;
@@ -59,19 +53,19 @@ public final class SocialMediaDTO implements Serializable {
         this.refreshToken = refreshToken;
     }
 
-    public String getType() {
+    public SocialMediaTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(SocialMediaTypeEnum type) {
         this.type = type;
     }
 
-    public boolean getInvalidToken() {
+    public Boolean getInvalidToken() {
         return invalidToken;
     }
 
-    public void setInvalidToken(boolean invalidToken) {
+    public void setInvalidToken(Boolean invalidToken) {
         this.invalidToken = invalidToken;
     }
 
@@ -91,25 +85,25 @@ public final class SocialMediaDTO implements Serializable {
         this.userPicture = userPicture;
     }
 
-    public String getSon() {
-        return son;
+    public String getSonFullName() {
+        return sonFullName;
     }
 
-    public void setSon(String son) {
-        this.son = son;
+    public void setSonFullName(String sonFullName) {
+        this.sonFullName = sonFullName;
     }
 
     @Override
     public String toString() {
-        return "SocialMediaDTO{" +
+        return "SocialMediaEntity{" +
                 "identity='" + identity + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", refreshToken='" + refreshToken + '\'' +
-                ", type='" + type + '\'' +
-                ", invalidToken='" + invalidToken + '\'' +
+                ", type=" + type +
+                ", invalidToken=" + invalidToken +
                 ", userSocialName='" + userSocialName + '\'' +
                 ", userPicture='" + userPicture + '\'' +
-                ", son='" + son + '\'' +
+                ", sonFullName='" + sonFullName + '\'' +
                 '}';
     }
 }

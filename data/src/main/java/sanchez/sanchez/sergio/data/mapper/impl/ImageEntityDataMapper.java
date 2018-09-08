@@ -8,6 +8,11 @@ import sanchez.sanchez.sergio.domain.models.ImageEntity;
  */
 public final class ImageEntityDataMapper extends AbstractDataMapper<ImageDTO, ImageEntity> {
 
+    /**
+     * Transform
+     * @param originModel
+     * @return
+     */
     @Override
     public ImageEntity transform(ImageDTO originModel) {
         final ImageEntity imageEntity = new ImageEntity();
@@ -15,5 +20,19 @@ public final class ImageEntityDataMapper extends AbstractDataMapper<ImageDTO, Im
         imageEntity.setContentType(originModel.getContentType());
         imageEntity.setSize(originModel.getSize());
         return imageEntity;
+    }
+
+    /**
+     * Transform Inverse
+     * @param originModel
+     * @return
+     */
+    @Override
+    public ImageDTO transformInverse(ImageEntity originModel) {
+        final ImageDTO imageDTO = new ImageDTO();
+        imageDTO.setIdentity(originModel.getIdentity());
+        imageDTO.setContentType(originModel.getContentType());
+        imageDTO.setSize(originModel.getSize());
+        return imageDTO;
     }
 }

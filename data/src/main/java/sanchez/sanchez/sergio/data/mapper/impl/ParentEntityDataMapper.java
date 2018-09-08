@@ -42,4 +42,27 @@ public final class ParentEntityDataMapper extends AbstractDataMapper<ParentDTO, 
                 .getParentProfileUrl(originModel.getProfileImage()));
         return parentEntity;
     }
+
+    /**
+     * Transform
+     * @param originModel
+     * @return
+     */
+    @Override
+    public ParentDTO transformInverse(ParentEntity originModel) {
+        final ParentDTO parentDTO = new ParentDTO();
+        parentDTO.setIdentity(originModel.getIdentity());
+        parentDTO.setAge(originModel.getAge());
+        parentDTO.setBirthdate(originModel.getBirthdate());
+        parentDTO.setChildren(originModel.getChildren());
+        parentDTO.setEmail(originModel.getEmail());
+        parentDTO.setFbId(originModel.getFbId());
+        parentDTO.setFirstName(originModel.getFirstName());
+        parentDTO.setLastName(originModel.getLastName());
+        parentDTO.setLocale(originModel.getLocale());
+        parentDTO.setPhoneNumber(originModel.getPhoneNumber());
+        parentDTO.setPhonePrefix(originModel.getPhonePrefix());
+        parentDTO.setProfileImage(originModel.getProfileImage());
+        return parentDTO;
+    }
 }

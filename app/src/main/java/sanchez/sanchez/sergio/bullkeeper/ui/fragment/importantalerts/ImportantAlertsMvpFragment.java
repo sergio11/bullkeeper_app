@@ -112,14 +112,18 @@ public class ImportantAlertsMvpFragment extends SupportMvpFragment<ImportantAler
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(getArguments() == null || !getArguments().containsKey(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide a child identifier");
+
+        kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
 
         ViewCompat.setNestedScrollingEnabled(alertsList, false);
         alertsList.setLayoutManager(new LinearLayoutManager(appContext));
-        lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
+        /*lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
         lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
         // Set Animator
         alertsList.setItemAnimator(new DefaultItemAnimator());
-        alertsList.setAdapter(lastAlertsAdapter);
+        alertsList.setAdapter(lastAlertsAdapter);*/
     }
 
     /**

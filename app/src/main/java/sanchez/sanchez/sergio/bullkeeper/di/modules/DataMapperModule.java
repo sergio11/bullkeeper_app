@@ -9,12 +9,14 @@ import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
@@ -22,6 +24,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
@@ -86,6 +89,15 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<AlertsPageDTO, AlertsPageEntity> provideAlertsPageEntityDataMapper(final AbstractDataMapper<AlertDTO, AlertEntity> alertsDataMapper){
         return new AlertPageEntityDataMapper(alertsDataMapper);
+    }
+
+    /**
+     * Provide Social Media Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> provideSocialMediaDataMapper(){
+        return new SocialMediaDataMapper();
     }
 
 }

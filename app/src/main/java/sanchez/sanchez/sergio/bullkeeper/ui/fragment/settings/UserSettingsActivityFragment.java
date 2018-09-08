@@ -99,25 +99,26 @@ public class UserSettingsActivityFragment extends
         // Enable Success Alerts
         final SwitchPreferenceCompat enableSuccessAlertsPreferences = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_SUCCESS_ALERTS);
         enableSuccessAlertsPreferences.setOnPreferenceChangeListener(this);
+        enableSuccessAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isChecked());
         // Get current value
         enableSuccessAlerts = enableSuccessAlertsPreferences.isChecked();
-        enableSuccessAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isEnabled());
+
         // Enable Information Alerts
         final SwitchPreferenceCompat enableInformationAlertsPreferences = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_INFORMATION_ALERTS);
         enableInformationAlertsPreferences.setOnPreferenceChangeListener(this);
-        enableInformationAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isEnabled());
+        enableInformationAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isChecked());
         // Get Current Value
         enableInformationAlerts = enableInformationAlertsPreferences.isChecked();
         // Enable Warning Alerts
         final SwitchPreferenceCompat enableWarningAlertsPreferences = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_WARNING_ALERTS);
         enableWarningAlertsPreferences.setOnPreferenceChangeListener(this);
-        enableWarningAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isEnabled());
+        enableWarningAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isChecked());
         // Get Current Value
         enableWarningAlerts = enableWarningAlertsPreferences.isChecked();
         // Enable Danger Alerts
         final SwitchPreferenceCompat enableDangerAlertsPreferences = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_DANGER_ALERTS);
         enableDangerAlertsPreferences.setOnPreferenceChangeListener(this);
-        enableDangerAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isEnabled());
+        enableDangerAlertsPreferences.setEnabled(!enableAllAlertCategoriesPreferences.isChecked());
 
         enableDangerAlerts = enableDangerAlertsPreferences.isChecked();
 
@@ -238,26 +239,27 @@ public class UserSettingsActivityFragment extends
         if(!removeAlertsEveryPreference.getValue().equals(removeAlertsEvery)) return true;
 
         final SwitchPreferenceCompat enableAllAlertCategoriesPreferences =
-                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_ALL_CATEGORIES);
+                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_ALL_ALERT_CATEGORIES);
 
         if(enableAllAlertCategories != enableAllAlertCategoriesPreferences.isChecked()) return true;
 
         final SwitchPreferenceCompat enableSuccessAlertsPreferences =
-                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_SUCCESS_CATEGORY);
+                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_SUCCESS_ALERTS);
 
         if(enableSuccessAlerts != enableSuccessAlertsPreferences.isChecked()) return true;
 
         final SwitchPreferenceCompat enableInformationAlertsPreferences =
-                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_INFORMATION_CATEGORY);
+                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_INFORMATION_ALERTS);
 
         if(enableInformationAlerts != enableInformationAlertsPreferences.isChecked()) return true;
 
         final SwitchPreferenceCompat enableWarningAlertsPreferences =
-                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_WARNING_CATEGORY);
+                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_WARNING_ALERTS);
 
         if(enableWarningAlerts != enableWarningAlertsPreferences.isChecked()) return true;
 
-        final SwitchPreferenceCompat enableDangerAlertsPreferences = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_FILTER_ALERTS_ENABLE_DANGER_CATEGORY);
+        final SwitchPreferenceCompat enableDangerAlertsPreferences =
+                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_DANGER_ALERTS);
 
         if(enableDangerAlerts != enableDangerAlertsPreferences.isChecked()) return true;
 

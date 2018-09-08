@@ -41,4 +41,23 @@ public final class AlertEntityDataMapper extends AbstractDataMapper<AlertDTO, Al
         alertEntity.setSon(sonEntityDataMapper.transform(originModel.getSon()));
         return alertEntity;
     }
+
+    /**
+     * Transform Inverse
+     * @param originModel
+     * @return
+     */
+    @Override
+    public AlertDTO transformInverse(AlertEntity originModel) {
+        final AlertDTO alertDTO = new AlertDTO();
+        alertDTO.setIdentity(originModel.getIdentity());
+        alertDTO.setCategory(originModel.getCategory().name());
+        alertDTO.setCreateAt(originModel.getCreateAt());
+        alertDTO.setLevel(originModel.getLevel().name());
+        alertDTO.setPayload(originModel.getPayload());
+        alertDTO.setTitle(originModel.getTitle());
+        alertDTO.setSince(originModel.getSince());
+        alertDTO.setSon(sonEntityDataMapper.transformInverse(originModel.getSon()));
+        return alertDTO;
+    }
 }

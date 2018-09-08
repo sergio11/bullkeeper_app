@@ -12,6 +12,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
@@ -21,6 +23,9 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
@@ -35,6 +40,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.utils.imagepicker.ImagePicker;
+import sanchez.sanchez.sergio.domain.models.SonEntity;
 import timber.log.Timber;
 
 /**
@@ -45,16 +51,20 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         IMyKidsProfileView, DatePickerDialog.OnDateSetListener,
         PhotoViewerDialog.IPhotoViewerListener {
 
-    protected MyKidsComponent myKidsComponent;
 
     public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+
+    protected MyKidsComponent myKidsComponent;
 
     /**
      * My Kid Identity
      */
     private String myKidIdentity;
 
-    private String currentImagePath = "https://avatars3.githubusercontent.com/u/831538?s=460&v=4";
+    /**
+     * Current Image Path
+     */
+    private String currentImagePath;
 
     /**
      * My Kids Profile Title
@@ -135,6 +145,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     private DatePickerDialog datePickerDialog;
 
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
+
 
     /**
      * Get Calling Intent
@@ -153,8 +169,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        final Intent callingIntent = new Intent(context, MyKidsProfileMvpActivity.class);
-        return callingIntent;
+        return new Intent(context, MyKidsProfileMvpActivity.class);
     }
 
     /**
@@ -203,9 +218,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         // width and height will be at least 300px long (optional).
         ImagePicker.setMinQuality(300, 300);
 
-
-        myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), "Sergio Sánchez"));
-
+        myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
 
         Integer START_YEAR = 1970;
         Integer START_MONTH = 1;
@@ -238,13 +251,18 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             }
         });
 
-        Picasso.with(getApplicationContext()).load(currentImagePath)
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
-                .noFade()
-                .into(profileImageView);
+    }
 
-
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if(myKidIdentity != null && !myKidIdentity.isEmpty())
+            args.putString(KIDS_IDENTITY_ARG, myKidIdentity);
+        return args;
     }
 
     /**
@@ -446,4 +464,20 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 SocialMediaStatusEnum.DISABLED);
     }
 
+    /**
+     * On Son Profile Loaded
+     * @param sonEntity
+     */
+    @Override
+    public void onSonProfileLoaded(final SonEntity sonEntity) {
+        Preconditions.checkNotNull(sonEntity, "Son Entity can not be null");
+
+        myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), sonEntity.getFullName()));
+
+        picasso.load(sonEntity.getProfileImage())
+                .placeholder(R.drawable.kid_default_image)
+                .error(R.drawable.kid_default_image)
+                .noFade()
+                .into(profileImageView);
+    }
 }

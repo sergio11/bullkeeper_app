@@ -6,12 +6,13 @@ import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import sanchez.sanchez.sergio.data.net.models.request.RegisterSonDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.request.UpdateSonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
@@ -43,53 +44,12 @@ public interface IChildrenService {
 
 
     /**
-     * Get All Social Media By Son Id
-     * @param id
-     * @return
-     */
-    @GET("/children/:id/social")
-    Observable<APIResponse<List<SocialMediaDTO>>> getAllSocialMediaBySonId(@Path("id") final String id);
-
-    /**
      * Get Invalid Social Media By Son Id
      * @param id
      * @return
      */
     @GET("/children/:id/social/invalid")
     Observable<APIResponse<List<SocialMediaDTO>>> getInvalidSocialMediaBySonId(@Path("id") final String id);
-
-    /**
-     * Save Social Media
-     * @param socialMedia
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("/children/social/save")
-    Observable<APIResponse<SocialMediaDTO>> saveSocialMedia(
-            @Body final SaveSocialMediaDTO socialMedia);
-
-
-    /**
-     * Save All Social Media
-     * @param idSon
-     * @param socialMedias
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("/children/:id/social/save/all")
-    Observable<APIResponse<List<SocialMediaDTO>>> saveAllSocialMedia(
-            @Path("id") final String idSon, @Body final List<SaveSocialMediaDTO> socialMedias);
-
-
-    /**
-     * Delete Social Media
-     * @param son
-     * @param idSocial
-     * @return
-     */
-    @DELETE("/:son/social/delete/:social")
-    Observable<APIResponse<SocialMediaDTO>> deleteSocialMedia(@Path("son") final String son,
-                                                              @Path("social") final String idSocial);
 
 
     /**
@@ -206,4 +166,20 @@ public interface IChildrenService {
     Observable<APIResponse<List<CommentDTO>>> getCommentsBySon(@Path("id") final String sonId, @Query("author") final String authorId,
                                                                @Query("days_ago") final Integer daysAgo, @Query("social_media") final List<SocialMediaTypeEnum> SocialMedia,
                                                                final Map<DimensionCategoryEnum, String> dimensions);
+
+    /**
+     * Add Son To Self Parent
+     * @param registerSonDTO
+     * @return
+     */
+    @POST("/parents/self/children/add")
+    Observable<APIResponse<SonDTO>> addSonToSelfParent(final @Body RegisterSonDTO registerSonDTO);
+
+    /**
+     * Save Son Information
+     * @param updateSonDTO
+     * @return
+     */
+    @POST("/parents/self/children/update")
+    Observable<APIResponse<SonDTO>> saveSonInformation(final @Body UpdateSonDTO updateSonDTO);
 }

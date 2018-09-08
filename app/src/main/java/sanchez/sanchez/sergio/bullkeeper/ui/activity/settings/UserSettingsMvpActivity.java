@@ -25,6 +25,8 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
      */
     private SettingsComponent settingsComponent;
 
+    private UserSettingsActivityFragment userSettingsActivityFragment;
+
     /**
      * Get Calling Intent
      * @param context
@@ -90,7 +92,36 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
+        userSettingsActivityFragment = new UserSettingsActivityFragment();
         if (savedInstanceState == null)
-            addFragment(R.id.mainContainer, new UserSettingsActivityFragment(), false);
+            addFragment(R.id.mainContainer, userSettingsActivityFragment, false);
+    }
+
+    /**
+     * Has Pending Changes
+     * @return
+     */
+    @Override
+    public Boolean hasPendingChanges() {
+        super.hasPendingChanges();
+        return userSettingsActivityFragment.hasPendingChanges();
+    }
+
+    /**
+     * On Save Pending Changes
+     */
+    @Override
+    public void onSavedPendingChanges() {
+        super.onSavedPendingChanges();
+        userSettingsActivityFragment.onSavedPendingChanges();
+    }
+
+    /**
+     * On Discard Pending Changes
+     */
+    @Override
+    public void onDiscardPendingChanges() {
+        super.onDiscardPendingChanges();
+        userSettingsActivityFragment.onDiscardPendingChanges();
     }
 }

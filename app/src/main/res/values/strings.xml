@@ -302,6 +302,8 @@
     <string name="comment_detail_bullying_level_positive">The comment has relation to bullying.</string>
     <string name="comment_detail_bullying_level_negative">The comment has no relation to bullying.</string>
 
+    <!-- Son Detail -->
+    <string name="loading_son_information">Loading child information</string>
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
