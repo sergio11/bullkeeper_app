@@ -155,6 +155,8 @@
     <string name="loading_alerts_please_wait">Loading alerts, please wait ...</string>
     <string name="deleting_alerts_please_wait">Deleting alerts, please wait ...</string>
     <string name="deleting_alerts_for_this_child">Clear all alerts for this child?</string>
+    <string name="deleting_alerts_for_this_level">Clear all alerts for this level?</string>
+    <string name="deleting_alerts_for_this_level_and_child">Clear all alerts for this child for this level?</string>
     <string name="loading_alert_detail">Loading alert detail, wait please</string>
     <string name="alert_not_found">The information of the alert could not be obtained</string>
     <string name="deleting_alert_in_progress">Deleting alert, wait please ...</string>

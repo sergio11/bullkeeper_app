@@ -61,6 +61,35 @@ public interface IAlertService {
     Observable<APIResponse<String>> clearSelfAlerts();
 
     /**
+     * Clear Self Warning Alerts
+     * @return
+     */
+    @DELETE("parents/self/alerts/warning")
+    Observable<APIResponse<String>> clearSelfWarningAlerts();
+
+    /**
+     * Clear Self Information Alerts
+     * @return
+     */
+    @DELETE("parents/self/alerts/info")
+    Observable<APIResponse<String>> clearSelfInformationAlerts();
+
+
+    /**
+     * Clear Self Danger Alerts
+     * @return
+     */
+    @DELETE("parents/self/alerts/danger")
+    Observable<APIResponse<String>> clearSelfDangerAlerts();
+
+    /**
+     * Clear Self Success Alerts
+     * @return
+     */
+    @DELETE("parents/self/alerts/success")
+    Observable<APIResponse<String>> clearSelfSuccessAlerts();
+
+    /**
      * Get Self Alerts
      * @return
      */
@@ -93,4 +122,107 @@ public interface IAlertService {
                                                              final @Query("last_minutes") String lastMinutes,
                                                              final @Query("levels") String levels);
 
+
+    /**
+     * Get Danger Alerts for self parent
+     * @return
+     */
+    @GET("parents/self/alerts/danger")
+    Observable<APIResponse<List<AlertDTO>>> getDangerAlertsForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
+
+    /**
+     * Get Information Alerts for self parent
+     * @return
+     */
+    @GET("parents/self/alerts/info")
+    Observable<APIResponse<List<AlertDTO>>> getInformationAlertsForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
+
+
+    /**
+     * Get success alerts for self parent
+     * @return
+     */
+    @GET("parents/self/alerts/success")
+    Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
+
+
+    /**
+     * Get warning alerts for self parent
+     * @return
+     */
+    @GET("parents/self/alerts/warning")
+    Observable<APIResponse<List<AlertDTO>>> getWarningAlertsForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
+
+    /**
+     * Get warning alerts for self parent
+     * @return
+     */
+    @GET("children/{id}/alerts/warning")
+    Observable<APIResponse<List<AlertDTO>>> getWarningAlertsOfSonForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
+            final @Path("id") String id);
+
+    /**
+     * Get info alerts for self parent
+     * @return
+     */
+    @GET("children/{id}/alerts/info")
+    Observable<APIResponse<List<AlertDTO>>> getInfoAlertsOfSonForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
+            final @Path("id") String id);
+
+
+    /**
+     * Get danger alerts for self parent
+     * @return
+     */
+    @GET("children/{id}/alerts/danger")
+    Observable<APIResponse<List<AlertDTO>>> getDangerAlertsOfSonForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
+            final @Path("id") String id);
+
+
+    /**
+     * Get success alerts for self parent
+     * @return
+     */
+    @GET("children/{id}/alerts/success")
+    Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsOfSonForSelfParent(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
+            final @Path("id") String id);
+
+
+    /**
+     * Clear warning alerts for self parent
+     * @return
+     */
+    @DELETE("children/{id}/alerts/warning")
+    Observable<APIResponse<String>> clearWarningAlertsOfSonForSelfParent(final @Path("id") String id);
+
+    /**
+     * Delete info alerts for self parent
+     * @return
+     */
+    @DELETE("children/{id}/alerts/info")
+    Observable<APIResponse<String>> clearInfoAlertsOfSonForSelfParent(final @Path("id") String id);
+
+
+    /**
+     * Delete danger alerts for self parent
+     * @return
+     */
+    @GET("children/{id}/alerts/danger")
+    Observable<APIResponse<String>> clearDangerAlertsOfSonForSelfParent(final @Path("id") String id);
+
+
+    /**
+     * Delete success alerts for self parent
+     * @return
+     */
+    @GET("children/{id}/alerts/success")
+    Observable<APIResponse<String>> clearSuccessAlertsOfSonForSelfParent(final @Path("id") String id);
 }

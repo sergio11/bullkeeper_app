@@ -7,10 +7,12 @@ import java.net.URLDecoder;
 import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.services.IAlertService;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 
@@ -94,6 +96,34 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
     }
 
     /**
+     * Clear Self Alerts By Level
+     * @return
+     */
+    @Override
+    public Observable<String> clearSelfAlertsByLevel(final AlertLevelEnum alertLevelEnum) {
+        Preconditions.checkNotNull(alertLevelEnum, "Alert Level enum can not be null");
+
+        Observable<APIResponse<String>> observable;
+
+        switch (alertLevelEnum) {
+            case DANGER:
+                observable = alertService.clearSelfDangerAlerts();
+                break;
+            case SUCCESS:
+                observable = alertService.clearSelfSuccessAlerts();
+                break;
+            case WARNING:
+                observable = alertService.clearSelfWarningAlerts();
+                break;
+            default:
+                observable = alertService.clearSelfInformationAlerts();
+        }
+
+        return observable.map(response -> response != null
+                && response.getData() != null ? response.getData() : null);
+    }
+
+    /**
      * Get Alerts By Son
      * @param sonIdentity
      * @return
@@ -118,6 +148,41 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
 
         return alertService.clearAlertsOfSon(sonIdentity).map(response ->
             response != null && response.getData() != null ? response.getData() : null);
+    }
+
+    /**
+     * Clear Alerts Of Son By Level
+     * @param sonIdentity
+     * @param alertLevelEnum
+     * @return
+     */
+    @Override
+    public Observable<String> clearAlertsOfSonByLevel(final String sonIdentity, final AlertLevelEnum alertLevelEnum) {
+        Preconditions.checkNotNull(sonIdentity, "Identity can not be null");
+        Preconditions.checkState(!sonIdentity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(alertLevelEnum, "Alert Level can not be empty");
+
+        Observable<APIResponse<String>> observable;
+
+        switch (alertLevelEnum) {
+            case WARNING:
+                observable = alertService.clearWarningAlertsOfSonForSelfParent(sonIdentity);
+                break;
+            case DANGER:
+                observable = alertService.clearDangerAlertsOfSonForSelfParent(sonIdentity);
+                break;
+            case SUCCESS:
+                observable = alertService.clearSuccessAlertsOfSonForSelfParent(sonIdentity);
+                break;
+                default:
+                    observable = alertService.clearInfoAlertsOfSonForSelfParent(sonIdentity);
+
+        }
+
+        return observable.map(response -> response != null
+                && response.getData() != null ? response.getData(): null);
+
+
     }
 
     /**
@@ -166,6 +231,85 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
         return alertService.getSelfAlertsLast(count, lastMinutes, levels).map(response ->
                 response != null && response.getData() != null ? response.getData() : null)
                 .map(alertsPageEntityDataMapper::transform);
+    }
+
+    /**
+     * Get Self Alerts By Level
+     * @param count
+     * @param lastMinutes
+     * @param alertLevelEnum
+     * @return
+     */
+    @Override
+    public Observable<List<AlertEntity>> getSelfAlertsByLevel(String count, String lastMinutes, AlertLevelEnum alertLevelEnum) {
+        Preconditions.checkNotNull(count, "Count can not be null");
+        Preconditions.checkState(!count.isEmpty(), "Count can not be empty");
+        Preconditions.checkNotNull(lastMinutes, "Last Minutes can not be null");
+        Preconditions.checkState(!lastMinutes.isEmpty(), "Last Minutes can not be empty");
+        Preconditions.checkNotNull(alertLevelEnum, "Alert level enum can not be null");
+
+        Observable<APIResponse<List<AlertDTO>>> observable;
+
+        switch (alertLevelEnum) {
+            case WARNING:
+                observable = alertService.getWarningAlertsForSelfParent(count, lastMinutes);
+                break;
+            case SUCCESS:
+                observable = alertService.getSuccessAlertsForSelfParent(count, lastMinutes);
+                break;
+            case DANGER:
+                observable = alertService.getDangerAlertsForSelfParent(count, lastMinutes);
+                break;
+            default:
+                observable = alertService.getInformationAlertsForSelfParent(count, lastMinutes);
+
+        }
+
+        return observable.map(response -> response != null
+                && response.getData() != null ? response.getData() : null)
+                .map(alertDataMapper::transform);
+
+
+    }
+
+    /**
+     * Get Self Alerts Of Son By Level
+     * @param count
+     * @param lastMinutes
+     * @param sonId
+     * @param alertLevelEnum
+     * @return
+     */
+    @Override
+    public Observable<List<AlertEntity>> getSelfAlertsOfSonByLevel(String count, String lastMinutes, String sonId, AlertLevelEnum alertLevelEnum) {
+        Preconditions.checkNotNull(count, "Count can not be null");
+        Preconditions.checkState(!count.isEmpty(), "Count can not be empty");
+        Preconditions.checkNotNull(lastMinutes, "Last Minutes can not be null");
+        Preconditions.checkState(!lastMinutes.isEmpty(), "Last Minutes can not be empty");
+        Preconditions.checkNotNull(sonId, "Son Id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
+        Preconditions.checkNotNull(alertLevelEnum, "Alert level enum can not be null");
+
+        Observable<APIResponse<List<AlertDTO>>> observable;
+
+        switch (alertLevelEnum) {
+            case WARNING:
+                observable = alertService.getWarningAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                break;
+            case SUCCESS:
+                observable = alertService.getSuccessAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                break;
+            case DANGER:
+                observable = alertService.getDangerAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                break;
+            default:
+                observable = alertService.getInfoAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                break;
+        }
+
+        return observable.map(response -> response != null
+                && response.getData() != null ? response.getData() : null)
+                .map(alertDataMapper::transform);
     }
 
 

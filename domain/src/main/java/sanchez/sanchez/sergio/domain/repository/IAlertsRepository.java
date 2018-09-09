@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 
 /**
@@ -42,6 +43,12 @@ public interface IAlertsRepository {
     Observable<String> clearSelfAlerts();
 
     /**
+     * Clear Self Alerts By Level
+     * @return
+     */
+    Observable<String> clearSelfAlertsByLevel(final AlertLevelEnum alertLevelEnum);
+
+    /**
      * Get Alerts By Son
      * @param sonIdentity
      * @return
@@ -54,6 +61,13 @@ public interface IAlertsRepository {
      * @return
      */
     Observable<String> clearAlertsOfSon(final String sonIdentity);
+
+    /**
+     * Clear Alerts Of Son by level
+     * @param sonIdentity
+     * @return
+     */
+    Observable<String> clearAlertsOfSonByLevel(final String sonIdentity, final AlertLevelEnum alertLevelEnum);
 
     /**
      * Get Alert By Id
@@ -79,4 +93,25 @@ public interface IAlertsRepository {
     Observable<AlertsPageEntity> getSelfAlertsLast(final String count,
                                                    final String lastMinutes,
                                                    final String levels);
+
+    /**
+     * Get Self Alerts By level
+     * @param count
+     * @param lastMinutes
+     * @param alertLevelEnum
+     * @return
+     */
+    Observable<List<AlertEntity>> getSelfAlertsByLevel(final String count, final String lastMinutes,
+                                                       final AlertLevelEnum alertLevelEnum);
+
+
+    /**
+     * Get Self Alerts of Son By level
+     * @param count
+     * @param lastMinutes
+     * @param alertLevelEnum
+     * @return
+     */
+    Observable<List<AlertEntity>> getSelfAlertsOfSonByLevel(final String count, final String lastMinutes,
+                                                       final String sonId, final AlertLevelEnum alertLevelEnum);
 }

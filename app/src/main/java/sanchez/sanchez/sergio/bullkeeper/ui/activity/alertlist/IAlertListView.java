@@ -13,5 +13,10 @@ public interface IAlertListView extends ISupportLCEView<AlertEntity> {
      */
     void onAlertsCleared();
 
+    /**
+     * On Alert Cleared
+     */
+    void onAlertCleared();
+
 
 }

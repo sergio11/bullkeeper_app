@@ -222,8 +222,10 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                 confirmationTitle = R.string.deleting_alerts_for_this_child;
                 break;
             case ALERTS_BY_LEVEL:
+                confirmationTitle = R.string.deleting_alerts_for_this_level;
                 break;
             case ALERTS_BY_SON_AND_LEVEL:
+                confirmationTitle = R.string.deleting_alerts_for_this_level_and_child;
                 break;
             default:
         }
@@ -243,9 +245,14 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                     case ALERTS_BY_SON:
                         getPresenter().clearAlertsBySon(sonIndentity);
                         break;
+                    case ALERTS_BY_LEVEL:
+                        getPresenter().clearAlertsByLevel(alertLevelEnum);
+                        break;
+                    case ALERTS_BY_SON_AND_LEVEL:
+                        getPresenter().clearAlertsOfSonByLevel(sonIndentity, alertLevelEnum);
+                        break;
                     default:
                         getPresenter().clearAlerts();
-
                 }
 
             }
@@ -267,7 +274,6 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     @OnClick(R.id.filterAlerts)
     public void onFilterAlerts() {
-
         if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
             // Show Filter Alerts Dialog with Alert Category Filter Enable
             navigatorImpl.navigateToAlertsSettingsWithAlertLevelFilterEnabled();
@@ -275,7 +281,6 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
             // Show Filter Alerts Dialog
             navigatorImpl.navigateToAlertsSettings();
         }
-
     }
 
 
@@ -434,6 +439,15 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                 closeActivity();
             }
         });
+    }
+
+    /**
+     * On Alert Cleared
+     */
+    @Override
+    public void onAlertCleared() {
+        alertsHeaderTitle.setText(String.format(Locale.getDefault(),
+                getString(R.string.my_alerts_count), recyclerView.getAdapter().getItemCount()));
     }
 
     /**
