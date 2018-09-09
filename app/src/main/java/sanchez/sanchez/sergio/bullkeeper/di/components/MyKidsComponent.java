@@ -2,7 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
-import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
@@ -22,7 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFr
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
-                ParentModule.class, ChildrenModule.class})
+                ParentModule.class, ChildrenProfileModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**

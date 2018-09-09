@@ -21,7 +21,7 @@ public interface ISocialMediaService {
      * @param id
      * @return
      */
-    @GET("/children/:id/social")
+    @GET("children/{id}/social")
     Observable<APIResponse<List<SocialMediaDTO>>> getAllSocialMediaBySonId(@Path("id") final String id);
 
 
@@ -31,7 +31,7 @@ public interface ISocialMediaService {
      * @param socialMedias
      * @return
      */
-    @POST("/children/:id/social/save/all")
+    @POST("children/{id}/social/save/all")
     Observable<APIResponse<List<SocialMediaDTO>>> saveAllSocialMedia(
             @Path("id") final String idSon, @Body final List<SaveSocialMediaDTO> socialMedias);
 
@@ -41,7 +41,7 @@ public interface ISocialMediaService {
      * @param idSocial
      * @return
      */
-    @DELETE("/:son/social/delete/:social")
+    @DELETE("{son}/social/delete/{social}")
     Observable<APIResponse<SocialMediaDTO>> deleteSocialMedia(@Path("son") final String son,
                                                               @Path("social") final String idSocial);
 

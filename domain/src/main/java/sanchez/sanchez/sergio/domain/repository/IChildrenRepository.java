@@ -1,8 +1,7 @@
 package sanchez.sanchez.sergio.domain.repository;
 
-import java.util.Date;
-
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
@@ -26,7 +25,7 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<SonEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
-                                                     final Date birthdate, final String school);
+                                                     final String birthdate, final String school);
 
     /**
      * Save Son Information
@@ -38,7 +37,15 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<SonEntity> saveSonInformation(final String identity, final String firstName,
-                                             final String lastName, final Date birthdate, final String school);
+                                             final String lastName, final String birthdate, final String school);
 
+
+    /**
+     * Upload Profile Image
+     * @param sonId
+     * @param profileImageUri
+     * @return
+     */
+    Observable<ImageEntity> uploadProfileImage(final String sonId, final String profileImageUri);
 
 }

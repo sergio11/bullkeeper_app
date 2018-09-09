@@ -28,4 +28,15 @@ public final class AppUtils implements IAppUtils{
             return context.getResources().getConfiguration().locale;
         }
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Boolean isValidString(final String text) {
+        return text != null && !text.isEmpty();
+    }
+
+
 }

@@ -38,7 +38,7 @@ public final class SocialMediaDataMapper extends AbstractDataMapper<SocialMediaD
         final SocialMediaDTO socialMediaDTO = new SocialMediaDTO();
         socialMediaDTO.setIdentity(originModel.getIdentity());
         socialMediaDTO.setAccessToken(originModel.getAccessToken());
-        socialMediaDTO.setInvalidToken(originModel.getInvalidToken());
+        socialMediaDTO.setInvalidToken(originModel.hasInvalidToken());
         socialMediaDTO.setRefreshToken(originModel.getRefreshToken());
         socialMediaDTO.setSon(originModel.getSonFullName());
         socialMediaDTO.setType(originModel.getType().name());

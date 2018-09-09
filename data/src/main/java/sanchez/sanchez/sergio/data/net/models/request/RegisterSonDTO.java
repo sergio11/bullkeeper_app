@@ -16,14 +16,14 @@ public final class RegisterSonDTO implements Serializable {
     private String lastName;
 
     @JsonProperty("birthdate")
-    private Date birthdate;
+    private String birthdate;
 
     @JsonProperty("school")
     private String school;
 
     public RegisterSonDTO(){}
 
-    public RegisterSonDTO(String firstName, String lastName, Date birthdate, String school) {
+    public RegisterSonDTO(String firstName, String lastName, String birthdate, String school) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -46,11 +46,11 @@ public final class RegisterSonDTO implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

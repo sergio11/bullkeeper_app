@@ -79,6 +79,98 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <!-- Profile Image -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:src="@drawable/kid_default_image"
+                    app:civ_border_color="@color/commonWhite"
+                    app:civ_border_width="@dimen/common_image_stroke_width" />
+
+
+                <!-- name input -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/nameInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textColorHint="@color/commonWhite"
+                    android:theme="@style/CommonTextInputLayout"
+                    app:counterEnabled="true"
+                    app:errorEnabled="true"
+                    app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/nameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name_hint"
+                        android:inputType="text"
+                        android:lines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <!-- surname input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/surnameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/surnameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/surname_hint"
+                    android:inputType="text"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- birthday -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/birthdayInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/birthdayInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:hint="@string/birthday_hint"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -93,14 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <!-- Profile Image -->
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profileImage"
-                        android:layout_width="92dp"
-                        android:layout_height="92dp"
-                        android:src="@drawable/user_default"
-                        app:civ_border_color="@color/commonWhite"
-                        app:civ_border_width="@dimen/common_image_stroke_width" />
+
 
 
                     <LinearLayout
@@ -108,78 +193,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- name input -->
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/nameInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginStart="8dp"
-                            android:textColorHint="@color/commonWhite"
-                            android:theme="@style/CommonTextInputLayout"
-                            app:counterEnabled="true"
-                            app:errorEnabled="true"
-                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
-                            <android.support.v7.widget.AppCompatEditText
-                                android:id="@+id/nameInput"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/name_hint"
-                                android:inputType="text"
-                                android:lines="1" />
 
-                        </android.support.design.widget.TextInputLayout>
 
-                        <!-- surname input -->
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/surnameInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:textColorHint="@color/commonWhite"
-                            android:theme="@style/CommonTextInputLayout"
-                            app:counterEnabled="true"
-                            app:errorEnabled="true"
-                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
-
-                            <android.support.v7.widget.AppCompatEditText
-                                android:id="@+id/surnameInput"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/surname_hint"
-                                android:inputType="text"
-                                android:lines="1" />
-
-                        </android.support.design.widget.TextInputLayout>
-
-                        <!-- birthday -->
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/birthdayInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:textColorHint="@color/commonWhite"
-                            android:theme="@style/CommonTextInputLayout"
-                            app:counterEnabled="true"
-                            app:errorEnabled="true"
-                            app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
-
-                            <android.support.v7.widget.AppCompatEditText
-                                android:id="@+id/birthdayInput"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="true"
-                                android:editable="false"
-                                android:hint="@string/birthday_hint"
-                                android:lines="1" />
-
-                        </android.support.design.widget.TextInputLayout>
 
 
                     </LinearLayout>
@@ -206,18 +222,18 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/instagramIcon"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:contentDescription="@string/content_not_be_loaded"
                         android:src="@drawable/instagram_brands" />
 
                     <TextView
+                        android:id="@+id/instagramStatus"
                         style="@style/CommonStrongText.Medium"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/common_padding"
-                        android:singleLine="true"
-                        android:text="El medio social no está habilitado"
                         android:textColor="@color/commonWhite"
                         android:textStyle="bold" />
 
@@ -244,20 +260,19 @@
 
                     <!-- Facebook -->
                     <ImageView
+                        android:id="@+id/facebookIcon"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:src="@drawable/facebook_square_brands"
                         android:contentDescription="@string/content_not_be_loaded"/>
 
-
                     <TextView
+                        android:id="@+id/facebookStatus"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         style="@style/CommonStrongText.Medium"
                         android:textColor="@color/commonWhite"
-                        android:textStyle="bold"
-                        android:singleLine="true"
-                        android:text="El medio social no está habilitado"/>
+                        android:textStyle="bold"/>
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/facebookSwitchWidget"
@@ -281,19 +296,19 @@
 
                     <!-- Youtube -->
                     <ImageView
+                        android:id="@+id/youtubeIcon"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:src="@drawable/youtube_brands_solid_white"
                         android:contentDescription="@string/content_not_be_loaded"/>
 
                     <TextView
+                        android:id="@+id/youtubeStatus"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         style="@style/CommonStrongText.Medium"
                         android:textColor="@color/commonWhite"
-                        android:textStyle="bold"
-                        android:singleLine="true"
-                        android:text="El medio social no está habilitado"/>
+                        android:textStyle="bold"/>
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/youtubeSwitchWidget"

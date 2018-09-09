@@ -5,12 +5,14 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.data.repository.ChildrenRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
+import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 
@@ -36,8 +38,9 @@ public class ChildrenModule {
      */
     @Provides @PerActivity
     IChildrenRepository provideChildrenRepository(final IChildrenService childrenService,
-                                                  final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper) {
-        return new ChildrenRepositoryImpl(childrenService, sonDataMapper);
+                                                  final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
+                                                  final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper) {
+        return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper);
     }
 
     /**

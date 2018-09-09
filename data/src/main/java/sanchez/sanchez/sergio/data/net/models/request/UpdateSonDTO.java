@@ -19,14 +19,14 @@ public final class UpdateSonDTO implements Serializable{
     private String lastName;
 
     @JsonProperty("birthdate")
-    private Date birthdate;
+    private String birthdate;
 
     @JsonProperty("school")
     private String school;
 
     public UpdateSonDTO(){}
 
-    public UpdateSonDTO(String identity, String firstName, String lastName, Date birthdate, String school) {
+    public UpdateSonDTO(String identity, String firstName, String lastName, String birthdate, String school) {
         this.identity = identity;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,11 +58,11 @@ public final class UpdateSonDTO implements Serializable{
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

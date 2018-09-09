@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
+import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -57,4 +58,5 @@ public interface ApplicationComponent {
     ApiEndPointsHelper apiEndPointsHelper();
     Picasso picasso();
     ScreenManager screenManager();
+    UiUtils uiUtils();
 }

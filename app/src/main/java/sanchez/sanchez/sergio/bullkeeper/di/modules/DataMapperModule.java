@@ -8,9 +8,11 @@ import sanchez.sanchez.sergio.data.mapper.impl.AlertEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
+import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
@@ -26,6 +28,7 @@ import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
  * Data Mapper Module
@@ -67,8 +70,9 @@ public class DataMapperModule {
      */
     @Provides @PerActivity
     public AbstractDataMapper<SonDTO, SonEntity> provideSonEntityDataMapper(final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolEntityDataMapper,
-                                                                            final ApiEndPointsHelper apiEndPointsHelper){
-        return new SonEntityDataMapper(schoolEntityDataMapper, apiEndPointsHelper);
+                                                                            final ApiEndPointsHelper apiEndPointsHelper,
+                                                                            final IAppUtils appUtils){
+        return new SonEntityDataMapper(schoolEntityDataMapper, apiEndPointsHelper, appUtils);
     }
 
     /**
@@ -98,6 +102,15 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> provideSocialMediaDataMapper(){
         return new SocialMediaDataMapper();
+    }
+
+    /**
+     * Provide Save Social Media Media Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SaveSocialMediaDTO, SocialMediaEntity> provideSaveSocialMediaDataMapper(){
+        return new SaveSocialMediaDataMapper();
     }
 
 }

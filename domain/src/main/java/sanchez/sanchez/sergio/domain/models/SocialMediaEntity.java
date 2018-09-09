@@ -61,7 +61,7 @@ public final class SocialMediaEntity implements Serializable {
         this.type = type;
     }
 
-    public Boolean getInvalidToken() {
+    public Boolean hasInvalidToken() {
         return invalidToken;
     }
 
