@@ -8,7 +8,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-public final class ConfirmationDialogFragment extends SupportDialog {
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
+
+public final class ConfirmationDialogFragment extends SupportDialogFragment {
 
     public static final String TAG = "CONFIRMATION_DIALOG_FRAGMENT";
 
@@ -79,6 +81,16 @@ public final class ConfirmationDialogFragment extends SupportDialog {
      */
     public static ConfirmationDialogFragment showDialog(final AppCompatActivity activity, final String title) {
         return showDialog(activity, title, null);
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return 0;
+    }
+
+    @Override
+    protected void initializeInjector() {
+
     }
 
 

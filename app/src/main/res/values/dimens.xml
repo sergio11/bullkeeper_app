@@ -75,5 +75,11 @@
     <dimen name="common_table_row_margin_bottom">5dp</dimen>
     <!-- Common Tab Layout HEight -->
     <dimen name="common_tab_layout_height">70dp</dimen>
+    <!-- Common Dialog Border -->
+    <dimen name="common_dialog_border">5dp</dimen>
+    <!-- Common Dialog Corners -->
+    <dimen name="common_dialog_corners">10dp</dimen>
+    <!-- Common Dialog Height -->
+    <dimen name="common_dialog_height">250dp</dimen>
 
 </resources>

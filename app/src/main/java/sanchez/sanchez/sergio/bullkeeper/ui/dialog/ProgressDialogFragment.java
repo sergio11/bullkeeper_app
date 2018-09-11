@@ -1,54 +1,36 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.dialog;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
 
 /**
  * Progress Dialog Fragment
  */
-public final class ProgressDialogFragment extends SupportDialog {
+public final class ProgressDialogFragment extends SupportDialogFragment {
 
     private static WeakReference<ProgressDialogFragment> currentProgressDialog = null;
 
 
     public static final String TAG = "PROGRESS_DIALOG_FRAGMENT";
 
-
     /**
-     * on Create Dialog
-     * @param savedInstanceState
-     * @return
+     * Dialog Title Text View
      */
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        final LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-
-        final View dialogView = layoutInflater.inflate(R.layout.progress_dialog_fragment, null);
-
-        final TextView progressText = dialogView.findViewById(R.id.progressText);
-
-        progressText.setText(title);
-
-        // Create Dialog
-        final AlertDialog alertDialog =  new AlertDialog.Builder(getActivity())
-                .setView(dialogView)
-                .create();
-
-        alertDialog.setCanceledOnTouchOutside(Boolean.FALSE);
-        alertDialog.setCancelable(Boolean.FALSE);
-
-        return alertDialog;
-    }
+    @BindView(R.id.dialogTitle)
+    protected TextView dialogTitleTextView;
 
     /**
      * Show Dialog
@@ -57,12 +39,14 @@ public final class ProgressDialogFragment extends SupportDialog {
      */
     public static ProgressDialogFragment showDialog(final AppCompatActivity activity, final String title){
         final ProgressDialogFragment progressDialog = new ProgressDialogFragment();
+        progressDialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
         // Config Arguments
         final Bundle args = new Bundle();
         args.putString(TITLE_ARG, title);
         progressDialog.setArguments(args);
         progressDialog.show(activity.getSupportFragmentManager(), TAG);
         currentProgressDialog = new WeakReference<>(progressDialog);
+        progressDialog.setCancelable(false);
         return progressDialog;
     }
 
@@ -79,4 +63,31 @@ public final class ProgressDialogFragment extends SupportDialog {
         }
     }
 
+    /**
+     * Get Layout Res
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.progress_dialog_layout;
+    }
+
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set Dialog Title Text View
+        dialogTitleTextView.setText(title);
+
+    }
+
+    @Override
+    protected void initializeInjector() {
+
+    }
 }
