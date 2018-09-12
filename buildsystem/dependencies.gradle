@@ -39,9 +39,11 @@ ext {
     androidSaripaarVersion = '2.0.3'
     retrofitVersion = '2.4.0'
     rxjava2AdapterVersion = '1.0.0'
+    facebookSdkVersion = '[4,5)'
 
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
+    picassoDownloaderVersion = '1.1.0'
     stethoVersion = '1.5.0'
     circleimageviewVersion = '2.2.0'
     mpAndroidChartVerion = 'v3.0.3'
@@ -92,11 +94,14 @@ ext {
             slidingtutorial:    "com.cleveroad:slidingtutorial:${slidingtutorialVersion}",
             androidSaripaar: "com.mobsandgeeks:android-saripaar:${androidSaripaarVersion}",
             picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
+            picassoDownloader: "com.jakewharton.picasso:picasso2-okhttp3-downloader:${picassoDownloaderVersion}",
             stetho:             "com.facebook.stetho:stetho:${stethoVersion}",
             stethoOkHttp:       "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
             circleimageview:    "de.hdodenhof:circleimageview:${circleimageviewVersion}",
             MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
-            viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar"
+            viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar",
+            facebookSdk:        "com.facebook.android:facebook-login:${facebookSdkVersion}",
+            arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}"
     ]
 
     presentationTestDependencies = [
@@ -111,7 +116,8 @@ ext {
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            arrow:              "com.fernandocejas:arrow:${arrowVersion}"
+            arrowPreconditions:  "com.fernandocejas:arrow:${arrowVersion}",
+            timber:             "com.jakewharton.timber:timber:${timberVersion}"
     ]
 
     domainTestDependencies = [
@@ -135,7 +141,9 @@ ext {
             adapterRxjava:      "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxjava2AdapterVersion}",
             jacksonCore:        "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
-            jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+            jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            arrowPreconditions:  "com.fernandocejas:arrow:${arrowVersion}",
+            timber:             "com.jakewharton.timber:timber:${timberVersion}"
     ]
 
     dataTestDependencies = [

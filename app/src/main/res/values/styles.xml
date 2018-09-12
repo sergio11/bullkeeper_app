@@ -42,15 +42,14 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- My Kids Theme. -->
+    <style name="AppTheme.MyKids">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
 
     <!-- User Preferences Theme -->
     <style name="AppTheme.Preferences">
         <item name="preferenceTheme">@style/UserPreferenceTheme</item>
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- Questions -->
-    <style name="AppTheme.Questions">
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
@@ -63,6 +62,13 @@
     <style name="AppTheme.CommentDetail">
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
+
+    <!-- My Alerts -->
+    <style name="AppTheme.MyAlerts">
+        <item name="preferenceTheme">@style/UserPreferenceTheme</item>
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
 
 
     <style name="AppTheme.Widget"/>
@@ -118,9 +124,22 @@
         <item name="android:background">@drawable/common_action_button_state</item>
     </style>
 
+    <!-- Common Action Button -->
     <style name="CommonActionButton.Inverse" parent="@style/CommonActionButton">
         <item name="android:textColor">@color/common_btn_text_color_inverse</item>
         <item name="android:background">@drawable/common_action_button_state_inverse</item>
+    </style>
+
+    <!-- Accept Action Button -->
+    <style name="AcceptActionButton" parent="@style/CommonActionButton">
+        <item name="android:textColor">@color/common_btn_text_color_inverse</item>
+        <item name="android:background">@drawable/accept_action_button_state</item>
+    </style>
+
+    <!-- Cancel Action Button -->
+    <style name="CancelActionButton" parent="@style/CommonActionButton">
+        <item name="android:textColor">@color/common_btn_text_color_inverse</item>
+        <item name="android:background">@drawable/cancel_action_button_state</item>
     </style>
 
     <style name="DimensionActionButton" parent="@style/AppTheme.Button">
@@ -248,7 +267,7 @@
     <!-- Menu Theme -->
     <style name="CommonDialogFragmentTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/CommonDialogWindow.Window</item>
-        <item name="android:background">@color/translucentWhite</item>
+        <item name="android:windowBackground">@drawable/common_dialog_drawable</item>
     </style>
 
     <style name="CommonDialogWindow.Window" parent="@android:style/Animation.Activity">

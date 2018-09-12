@@ -58,20 +58,22 @@
 
                 <!-- Alert Title -->
                 <TextView
+                    android:id="@+id/alertTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CommonStrongText"
                     android:textColor="@color/commonWhite"
                     android:textStyle="bold"
-                    android:text="Nueva información acerca del sentimiento de los comentarios"/>
+                    android:text="-"/>
 
                 <!-- Son name -->
                 <TextView
+                    android:id="@+id/sonFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CommonStrongText.Medium"
                     android:textColor="@color/commonWhite"
-                    android:text="Sergio Martín"/>
+                    android:text="-"/>
 
                 <View
                     android:layout_width="@dimen/common_divider_small"
@@ -130,7 +132,7 @@
                     android:gravity="center"
                     android:layout_alignParentEnd="true"
                     style="@style/CommonStrongText.Medium"
-                    android:text="3 hours ago"/>
+                    android:text="-"/>
             </RelativeLayout>
 
             <!-- Message -->
@@ -171,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="Sólo el 23% de los comentarios analaizados tiene un sentimiento negativo" />
+                        android:text="-" />
 
                 </LinearLayout>
 
@@ -215,7 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="Vaya a la sección de estadísticas del niño para obtener más informació" />
+                        android:text="-" />
 
                     <!-- Action Button -->
                     <Button
@@ -226,7 +228,7 @@
                         android:padding="5dp"
                         android:drawablePadding="5dp"
                         android:drawableEnd="@drawable/arrow_alt_circle_right_regular_green_52"
-                        android:text="Ir a estadísticas del hijo"
+                        android:text="-"
                         android:textColor="@color/greenSuccess"/>
 
 

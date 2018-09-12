@@ -91,7 +91,7 @@
                     android:id="@+id/profileImage"
                     android:layout_width="@dimen/common_image_big_width"
                     android:layout_height="@dimen/common_image_big_height"
-                    android:src="@drawable/user_default"
+                    android:src="@drawable/parent_default"
                     app:civ_border_color="@color/commonWhite"
                     app:civ_border_width="@dimen/common_image_stroke_width" />
 
@@ -234,13 +234,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/emailInputLayout">
 
-                    <android.support.v7.widget.AppCompatEditText
+                    <sanchez.sanchez.sergio.bullkeeper.ui.support.components.PrefixEditText
                         android:id="@+id/tfnoInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tfno_hint"
                         android:inputType="number"
-                        android:lines="1" />
+                        android:lines="1"
+                        android:tag="@string/tfno_prefix"
+                     />
 
                 </android.support.design.widget.TextInputLayout>
 

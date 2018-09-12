@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.data.net.models.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 
@@ -22,7 +23,7 @@ public final class SonDTO implements Serializable {
     private String lastName;
 
     @JsonProperty("birthdate")
-    private String birthdate;
+    private Date birthdate;
 
     @JsonProperty("age")
     private Integer age;
@@ -61,11 +62,11 @@ public final class SonDTO implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

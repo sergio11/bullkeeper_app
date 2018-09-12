@@ -22,8 +22,12 @@
     <color name="commonWhite">#FFFFFF</color>
     <!-- Green Success -->
     <color name="greenSuccess">#4BB543</color>
+    <!-- Translucent Green Success -->
+    <color name="translucentGreenSuccess">#904BB543</color>
     <!-- Red Danger -->
     <color name="redDanger">#ff2323</color>
+    <!-- Translucent Red Danger -->
+    <color name="translucentRedDanger">#90ff2323</color>
     <!-- Yellow Warning -->
     <color name="yellowWarning">#FFCC00</color>
     <!-- Bullying Color -->

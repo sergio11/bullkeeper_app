@@ -13,4 +13,10 @@ public interface IAppUtils {
      */
     Locale getCurrentLocale();
 
+    /**
+     * Is Valid String
+     * @return
+     */
+    Boolean isValidString(final String text);
+
 }

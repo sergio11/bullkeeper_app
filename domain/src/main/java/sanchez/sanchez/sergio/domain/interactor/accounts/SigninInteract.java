@@ -1,12 +1,13 @@
 package sanchez.sanchez.sergio.domain.interactor.accounts;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
  * Signin Interact
@@ -73,5 +74,63 @@ public final class SigninInteract extends UseCase<String, SigninInteract.Params>
         }
     }
 
+    /**
+     * Signin Api Errors
+     */
+    public enum SigninApiErrors implements ISupportVisitable<SigninApiErrors.ISigninApiErrorVisitor> {
+
+        /**
+         * Bad Credentials Error
+         */
+        BAD_CREDENTIALS(){
+            @Override
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
+                visitor.visitBadCredentials(this);
+            }
+        },
+        /**
+         * Account Disabled
+         */
+        ACCOUNT_DISABLED() {
+            @Override
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
+                visitor.visitAccountDisabled(this);
+            }
+        },
+        /**
+         * Account Pending To Be Remove
+         */
+        ACCOUNT_PENDING_TO_BE_REMOVE() {
+            @Override
+            public <E> void accept(ISigninApiErrorVisitor visitor, E data) {
+                visitor.visitAccountPendingToBeRemove(this);
+            }
+        };
+
+
+        /**
+         * Signin Api Error Visitor
+         */
+        public interface ISigninApiErrorVisitor extends ISupportVisitor {
+            /**
+             * Visit Bad Credentials
+             * @param error
+             */
+            void visitBadCredentials(final SigninApiErrors error);
+
+            /**
+             * Visit Account Disabled
+             * @param errors
+             */
+            void visitAccountDisabled(final SigninApiErrors errors);
+
+            /**
+             * Visit Account Pending To Be Remove
+             * @param error
+             */
+            void visitAccountPendingToBeRemove(final SigninApiErrors error);
+        }
+
+    }
 
 }

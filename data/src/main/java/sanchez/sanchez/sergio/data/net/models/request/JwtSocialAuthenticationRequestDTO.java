@@ -10,6 +10,12 @@ public final class JwtSocialAuthenticationRequestDTO {
     @JsonProperty("token")
     private String token;
 
+    public JwtSocialAuthenticationRequestDTO(){}
+
+    public JwtSocialAuthenticationRequestDTO(String token) {
+        this.token = token;
+    }
+
     public String getToken() {
         return token;
     }

@@ -3,8 +3,10 @@ package sanchez.sanchez.sergio.domain.interactor;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -37,16 +39,16 @@ public abstract class UseCase<T, Params> {
     }
 
     /**
-     * Builds an {@link Observable} which will be used when executing the current {@link UseCase}.
+     * Build Use Case Observable
+     * @param params
+     * @return
      */
     protected abstract Observable<T> buildUseCaseObservable(Params params);
 
     /**
-     * Executes the current use case.
-     *
-     * @param observer {@link DisposableObserver} which will be listening to the observable build
-     * by {@link #buildUseCaseObservable(Params)} ()} method.
-     * @param params Parameters (Optional) used to build/execute this use case.
+     * Execute
+     * @param observer
+     * @param params
      */
     public void execute(DisposableObserver<T> observer, Params params) {
         Preconditions.checkNotNull(observer);

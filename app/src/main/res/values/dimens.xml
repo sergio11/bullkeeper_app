@@ -68,12 +68,18 @@
     <!-- Common Image Big Height -->
     <dimen name="common_image_big_height">120dp</dimen>
     <!-- Common Image stroke Width -->
-    <dimen name="common_image_stroke_width">5dp</dimen>
+    <dimen name="common_image_stroke_width">3dp</dimen>
     <!-- Common Table Layout Margin -->
     <dimen name="common_table_layout_margin">10dp</dimen>
     <!-- Common Table Row Margin Bottom -->
     <dimen name="common_table_row_margin_bottom">5dp</dimen>
     <!-- Common Tab Layout HEight -->
     <dimen name="common_tab_layout_height">70dp</dimen>
+    <!-- Common Dialog Border -->
+    <dimen name="common_dialog_border">5dp</dimen>
+    <!-- Common Dialog Corners -->
+    <dimen name="common_dialog_corners">10dp</dimen>
+    <!-- Common Dialog Height -->
+    <dimen name="common_dialog_height">250dp</dimen>
 
 </resources>

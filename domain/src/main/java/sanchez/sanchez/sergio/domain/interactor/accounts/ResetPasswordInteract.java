@@ -2,11 +2,16 @@ package sanchez.sanchez.sergio.domain.interactor.accounts;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
  * Reset Password Interact
@@ -65,6 +70,34 @@ public final class ResetPasswordInteract extends UseCase<String, ResetPasswordIn
         public static Params create(final String email) {
             return new Params(email);
         }
+    }
+
+    /**
+     * Reset Password Api Errors
+     */
+    public enum ResetPasswordApiErrors  implements ISupportVisitable<ResetPasswordApiErrors.IResetPasswordApiErrorVisitor> {
+
+        /**
+         * Validation Errors
+         */
+        VALIDATION_ERROR(){
+            @Override
+            public <E> void accept(IResetPasswordApiErrorVisitor visitor, E data) {
+                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
+            }
+        };
+
+        /**
+         * Reset Password Api Error Visitor
+         */
+        public interface IResetPasswordApiErrorVisitor extends ISupportVisitor {
+            /**
+             * Visit Bad Credentials
+             * @param apiErrors
+             */
+            void visitValidationError(final ResetPasswordApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
+        }
+
     }
 
 }

@@ -110,17 +110,19 @@
     <!-- Facebook Login Button -->
     <Button
         android:id="@+id/loginFacebook"
-        style="@style/CommonStrongText"
+        style="@style/CommonStrongText.Medium"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/facebook_action_button_state"
         android:drawablePadding="5dp"
         android:drawableStart="@drawable/facebook_square_brands_66_75"
         android:text="@string/sign_in_facebook"
         android:textColor="@color/commonWhite"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
     <!-- End Facebook login button -->
 
