@@ -442,5 +442,7 @@
     <string name="login_facebook_canceled">The login was canceled by the user</string>
     <string name="login_facebook_error">There was an error when logging in through Facebook</string>
 
+    <!-- Confirm Close Session -->
+    <string name="confirm_close_session">Do you want to close the session?</string>
 
 </resources>

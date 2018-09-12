@@ -3,14 +3,18 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerHomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
@@ -188,4 +192,23 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
         return TOOLBAR_WITH_MENU;
     }
 
+    /**
+     * On Back Pressed
+     */
+    @Override
+    public void onBackPressed() {
+        // Confirm close session
+        showConfirmationDialog(R.string.confirm_close_session, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
+                preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+                navigatorImpl.navigateToIntro(true);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
+
+    }
 }
