@@ -9,6 +9,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -109,14 +112,18 @@ public class ImportantAlertsMvpFragment extends SupportMvpFragment<ImportantAler
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(getArguments() == null || !getArguments().containsKey(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide a child identifier");
+
+        kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
 
         ViewCompat.setNestedScrollingEnabled(alertsList, false);
         alertsList.setLayoutManager(new LinearLayoutManager(appContext));
-        lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
+        /*lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
         lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
         // Set Animator
         alertsList.setItemAnimator(new DefaultItemAnimator());
-        alertsList.setAdapter(lastAlertsAdapter);
+        alertsList.setAdapter(lastAlertsAdapter);*/
     }
 
     /**
@@ -145,7 +152,8 @@ public class ImportantAlertsMvpFragment extends SupportMvpFragment<ImportantAler
      */
     @Override
     public void onItemClick(AlertEntity alertEntity) {
-        activityHandler.navigateToAlertDetail(alertEntity.getIdentity());
+        Preconditions.checkNotNull(alertEntity, "Alert Entity can not be null");
+        activityHandler.navigateToAlertDetail(alertEntity.getIdentity(), alertEntity.getSon().getIdentity());
     }
 
     @Override

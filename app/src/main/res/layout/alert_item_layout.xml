@@ -22,7 +22,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/trash_white" />
+            android:src="@drawable/trash_white"
+            android:contentDescription="@string/content_not_be_loaded" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,6 +38,7 @@
 
     </RelativeLayout>
 
+    <!-- Foreground -->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/item_foreground"
         android:layout_width="match_parent"
@@ -46,13 +48,16 @@
         <!-- Alert Icon -->
         <ImageView
             android:id="@+id/alertIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
             android:src="@drawable/alert_cyan"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/separator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,13 +66,13 @@
             android:id="@+id/separator"
             android:layout_width="4dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
             android:background="@color/commonWhite"
-            app:layout_constraintStart_toEndOf="@+id/alertIcon" />
+            app:layout_constraintStart_toEndOf="@id/alertIcon"
+            app:layout_constraintEnd_toStartOf="@id/childImage"/>
 
 
         <!-- Child Image -->
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/childImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -76,6 +81,42 @@
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/separator"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/kid_default_image"
+            app:civ_border_color="@color/cyanBrilliant"
+            app:civ_border_width="@dimen/common_image_stroke_width" />
+
+        <!-- Since -->
+        <TextView
+            android:id="@+id/alertSonName"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="-"
+            android:textColor="@color/cyanBrilliant"
+            app:layout_constraintBottom_toTopOf="@id/alertMessage"
+            app:layout_constraintEnd_toStartOf="@id/alertSince"
+            app:layout_constraintStart_toEndOf="@id/childImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Since -->
+        <TextView
+            android:id="@+id/alertSince"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/cyanBrilliant"
+            app:layout_constraintBottom_toTopOf="@id/alertMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/alertSonName"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -83,19 +124,16 @@
         <TextView
             android:id="@+id/alertMessage"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/cyanBrilliant"
             style="@style/CommonStrongText.Medium"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
+            android:text="-"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/childImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/childImage" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -40,4 +40,5 @@ public final class ImageEntity implements Serializable {
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
+
 }

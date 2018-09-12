@@ -15,9 +15,10 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
 
     /**
      * Go to Alert Detail
-     * @param identity
+     * @param alertId
+     * @param sonId
      */
-    void goToAlertDetail(final String identity);
+    void goToAlertDetail(final String alertId, final String sonId);
 
     /**
      * Go To Alerts

@@ -1,18 +1,19 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.home;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
- * Home Presenter
+ * Profile Presenter
  */
-public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
+public final class ProfileFragmentPresenter extends SupportPresenter<IProfileView> {
 
     /**
      * Get Self Information Interact
@@ -23,13 +24,14 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
      */
     private final GetParentInformationInteract getParentInformationInteract;
 
+
     /**
      * @param getSelfChildrenInteract
      * @param getParentInformationInteract
      */
     @Inject
-    public HomeFragmentPresenter(final GetSelfChildrenInteract getSelfChildrenInteract,
-                                 final GetParentInformationInteract getParentInformationInteract){
+    public ProfileFragmentPresenter(final GetSelfChildrenInteract getSelfChildrenInteract,
+                                    final GetParentInformationInteract getParentInformationInteract){
         this.getParentInformationInteract = getParentInformationInteract;
         this.getSelfChildrenInteract = getSelfChildrenInteract;
     }
@@ -38,10 +40,13 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
      * Init
      */
     @Override
-    public void init() {
-        super.init();
+    public void onInit() {
+        super.onInit();
         this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
         this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
+
+        loadProfileInformation();
+
     }
 
     /**
@@ -112,6 +117,7 @@ public final class HomeFragmentPresenter extends SupportPresenter<IHomeView> {
             }
         }
     }
+
 
 
 }

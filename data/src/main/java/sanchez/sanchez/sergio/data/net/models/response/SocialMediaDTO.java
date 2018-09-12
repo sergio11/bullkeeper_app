@@ -23,7 +23,7 @@ public final class SocialMediaDTO implements Serializable {
     private String type;
 
     @JsonProperty("invalid_token")
-    private String invalidToken;
+    private boolean invalidToken;
 
     @JsonProperty("user_social_name")
     private String userSocialName;
@@ -67,11 +67,11 @@ public final class SocialMediaDTO implements Serializable {
         this.type = type;
     }
 
-    public String getInvalidToken() {
+    public boolean getInvalidToken() {
         return invalidToken;
     }
 
-    public void setInvalidToken(String invalidToken) {
+    public void setInvalidToken(boolean invalidToken) {
         this.invalidToken = invalidToken;
     }
 

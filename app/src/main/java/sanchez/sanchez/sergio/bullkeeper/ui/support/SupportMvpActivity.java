@@ -4,13 +4,16 @@ package sanchez.sanchez.sergio.bullkeeper.ui.support;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
+import java.util.Date;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +43,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesManager;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 /**
@@ -48,7 +52,7 @@ import timber.log.Timber;
 public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiView>
         extends TiActivity<T, E>
         implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
-        ILocalSystemNotificationVisitor, ISupportView{
+        ILocalSystemNotificationVisitor, ISupportView, IDataManagement {
 
     /**
      * NavigatorImpl
@@ -72,7 +76,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      * Preferences Manager
      */
     @Inject
-    protected PreferencesManager preferencesManager;
+    protected IPreferenceRepository preferencesRepositoryImpl;
 
 
     /**
@@ -88,6 +92,10 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     private SupportToolbarApp supportToolbarApp;
 
+    /**
+     * Create At
+     */
+    private Date createAt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +121,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
         // On View Ready
         onViewReady(savedInstanceState);
+
+        createAt = new Date();
     }
 
     /**
@@ -122,6 +132,18 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     protected void onResume() {
         super.onResume();
         localSystemNotification.registerVisitor(this);
+
+        Timber.d("Preferences Update At -> %d, Create At -> %d",
+                preferencesRepositoryImpl.getPreferencesUpdateAt(), createAt.getTime());
+
+        if(preferencesRepositoryImpl.getPreferencesUpdateAt() > 0) {
+
+            final long updateAt = preferencesRepositoryImpl.getPreferencesUpdateAt();
+
+            if(new Date(updateAt).after(createAt)) {
+                onPreferencesUpdated();
+            }
+        }
     }
 
     /**
@@ -418,12 +440,26 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * Show Long Simple Snackbar
+     * @param viewRoot
+     * @param description
+     * @param actionText
+     * @param onClickListener
+     */
+    @Override
+    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText,
+                                       final View.OnClickListener onClickListener){
+        showLongSimpleSnackbar(viewRoot, description, actionText, onClickListener, null);
+    }
+
+    /**
      * Show Simple Snackbar
      * @param actionText
      * @param onClickListener
      */
     @Override
-    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText, final View.OnClickListener onClickListener) {
+    public void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText,
+                                       final View.OnClickListener onClickListener, final Snackbar.Callback snackbarCallback) {
         Preconditions.checkNotNull(viewRoot, "View Root can not be null");
         Preconditions.checkNotNull(actionText, "Action Text can not be null");
         Preconditions.checkNotNull(onClickListener, "Click Listener can not be null");
@@ -432,7 +468,41 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
         snackbar.setAction(actionText, onClickListener);
 
+        if(snackbarCallback != null)
+            snackbar.addCallback(snackbarCallback);
+
         snackbar.show();
+    }
+
+    /**
+     * Set Dimensions
+     * @param view
+     * @param widthInDp
+     * @param heightInDp
+     */
+    @Override
+    public void setDimensions(final View view, int widthInDp, int heightInDp){
+        final Resources resources = getResources();
+        int widthInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp, resources.getDisplayMetrics());
+        int heightInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightInDp, resources.getDisplayMetrics());
+        Timber.d("Set Dimensions: width  -> %d dp (%d px), height -> %d dp (%d px)", widthInDp,
+                widthInPx, heightInDp, heightInPx);
+        final ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = widthInPx;
+        layoutParams.height = heightInPx;
+        view.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * Set Dimensions To Match Parent
+     * @param view
+     */
+    @Override
+    public void setDimensionsToMatchParent(final View view) {
+        final ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        view.setLayoutParams(layoutParams);
     }
 
     /**
@@ -459,6 +529,53 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     public void closeActivity() {
         finish();
     }
+
+    /**
+     * Safe Close Activity
+     */
+    @Override
+    public void safeCloseActivity() {
+        if(hasPendingChanges()) {
+
+            showConfirmationDialog(R.string.has_pending_changes, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    onSavedPendingChanges();
+                    closeActivity();
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                    onDiscardPendingChanges();
+                    closeActivity();
+                }
+            });
+
+        } else {
+            closeActivity();
+        }
+    }
+
+    /**
+     * Has Pending Changes
+     * @return
+     */
+    @Override
+    public Boolean hasPendingChanges() {
+        return Boolean.FALSE;
+    }
+
+    /**
+     * On Saved Pending Changes
+     */
+    @Override
+    public void onSavedPendingChanges() {}
+
+    /**
+     * On Discard Pending Changes
+     */
+    @Override
+    public void onDiscardPendingChanges() {}
 
     /**
      * Show Question Dialog
@@ -513,6 +630,11 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     protected void onViewReady(final Bundle savedInstanceState){}
 
+    /**
+     * On Preferences Updated
+     */
+    protected void onPreferencesUpdated(){}
+
 
     /**
      * Set Support Toolbar App
@@ -538,8 +660,25 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void closeSession() {
-        preferencesManager.setAuthToken(PreferencesManager.AUTH_TOKEN_DEFAULT_VALUE);
-        preferencesManager.setPrefCurrentUserIdentity(PreferencesManager.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+        preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
+        preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
         navigatorImpl.navigateToIntro(true);
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        return null;
+    }
+
+    /**
+     * On Back Pressed
+     */
+    @Override
+    public void onBackPressed() {
+        safeCloseActivity();
     }
 }

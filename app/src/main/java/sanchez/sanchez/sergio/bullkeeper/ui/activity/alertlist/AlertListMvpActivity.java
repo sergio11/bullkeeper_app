@@ -4,17 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import com.fernandocejas.arrow.checks.Preconditions;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import butterknife.BindView;
+import butterknife.OnClick;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -25,18 +30,25 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
-
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import timber.log.Timber;
 import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Alert List Activity
  */
-public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter, IAlertListView>
+public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresenter, IAlertListView, AlertEntity>
         implements HasComponent<AlertsComponent>, IAlertListActivityHandler
-        , IAlertListView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<AlertEntity>,
-        SupportItemTouchHelper.ItemTouchHelperListener ,
-        AlertsAdapter.OnAlertsViewListener {
+        , IAlertListView,
+        SupportItemTouchHelper.ItemTouchHelperListener {
+
+    public enum AlertsListModeEnum { ALERTS_BY_SON, ALERTS_BY_SON_AND_LEVEL,
+        ALERTS_BY_LEVEL, ALERTS_BY_PREFERENCES }
+
+
+    public static final String SON_IDENTITY_ARG = "SON_IDENTITY";
+    public static final String ALERT_LEVEL_ARG = "ALERT_LEVEL";
+    public static final String ALERT_LIST_MODE_ARG = "ALERT_LIST_MODE";
 
     /**
      * Alerts Component
@@ -44,27 +56,32 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
     private AlertsComponent alertsComponent;
 
     /**
-     * Alerts Adapter
+     * Clear Alerts Button
      */
-    private AlertsAdapter alertsAdapter;
+    @BindView(R.id.clearAlerts)
+    protected ImageButton clearAlertsButton;
 
     /**
-     * Main Container
+     * Filter Alerts Button
      */
-    @BindView(R.id.mainContainer)
-    protected ViewGroup mainContainer;
+    @BindView(R.id.filterAlerts)
+    protected ImageButton filterAlertsButton;
 
     /**
-     * Refresh Layout
+     * Alerts Header Title
      */
-    @BindView(R.id.swipeContainer)
-    protected SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.alertsHeaderTitle)
+    protected TextView alertsHeaderTitle;
+
 
     /**
-     * Alerts List
+     * State
      */
-    @BindView(R.id.alertsList)
-    protected RecyclerView alertsList;
+
+    private String sonIndentity;
+    private AlertLevelEnum alertLevelEnum;
+    private AlertsListModeEnum alertsListMode = AlertsListModeEnum.ALERTS_BY_PREFERENCES;
+
 
     /**
      * Get Calling Intent
@@ -73,6 +90,50 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
      */
     public static Intent getCallingIntent(final Context context) {
         return new Intent(context, AlertListMvpActivity.class);
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param alertLevel
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final AlertLevelEnum alertLevel) {
+        Preconditions.checkNotNull(alertLevel, "Alert Level can not be null");
+        final Intent callingIntent = new Intent(context, AlertListMvpActivity.class);
+        callingIntent.putExtra(ALERT_LEVEL_ARG, alertLevel);
+        callingIntent.putExtra(ALERT_LIST_MODE_ARG, AlertsListModeEnum.ALERTS_BY_LEVEL);
+        return callingIntent;
+    }
+
+    /**
+     * Get calling Intent
+     * @param context
+     * @param alertLevel
+     * @param sonIdentity
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final AlertLevelEnum alertLevel, final String sonIdentity) {
+        Preconditions.checkNotNull(alertLevel, "Alert Level can not be null");
+        Preconditions.checkNotNull(sonIdentity, "Son Identity can not be null");
+        final Intent callingIntent = new Intent(context, AlertListMvpActivity.class);
+        callingIntent.putExtra(ALERT_LEVEL_ARG, alertLevel);
+        callingIntent.putExtra(SON_IDENTITY_ARG, sonIdentity);
+        callingIntent.putExtra(ALERT_LIST_MODE_ARG, AlertsListModeEnum.ALERTS_BY_SON_AND_LEVEL);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String sonIdentity) {
+        Preconditions.checkNotNull(sonIdentity, "Son Identity can not be null");
+        final Intent callingIntent = new Intent(context, AlertListMvpActivity.class);
+        callingIntent.putExtra(SON_IDENTITY_ARG, sonIdentity);
+        callingIntent.putExtra(ALERT_LIST_MODE_ARG, AlertsListModeEnum.ALERTS_BY_SON);
+        return callingIntent;
     }
 
 
@@ -86,6 +147,21 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
                 .activityModule(getActivityModule())
                 .build();
         this.alertsComponent.inject(this);
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+
+        final Bundle args  = new Bundle();
+        if(sonIndentity != null && !sonIndentity.isEmpty())
+            args.putString(SON_IDENTITY_ARG, sonIndentity);
+        if(alertLevelEnum != null)
+            args.putSerializable(ALERT_LEVEL_ARG, alertLevelEnum);
+        return args;
     }
 
     /**
@@ -107,23 +183,12 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
         return alertsComponent;
     }
 
-    /**
-     * On Alerts Loaded
-     * @param alertsList
-     */
-    @Override
-    public void onAlertsLoaded(List<AlertEntity> alertsList) {
-        alertsAdapter.setData(new ArrayList<>(alertsList));
-        alertsAdapter.notifyDataSetChanged();
-    }
 
     /**
      * On Header Click
      */
     @Override
-    public void onHeaderClick() {
-
-    }
+    public void onHeaderClick() {}
 
     /**
      * On Item Click
@@ -131,7 +196,8 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
      */
     @Override
     public void onItemClick(AlertEntity alertEntity) {
-        goToAlertDetail("123456");
+        Timber.d("Go to Alert Detail -> %s", alertEntity.getIdentity());
+        goToAlertDetail(alertEntity.getIdentity(), alertEntity.getSon().getIdentity());
     }
 
     /**
@@ -145,11 +211,28 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
     /**
      * On Clear All Alerts
      */
-    @Override
+    @OnClick(R.id.clearAlerts)
     public void onClearAllAlerts() {
 
+        @StringRes
+        int confirmationTitle = R.string.my_alerts_clear_all;
+
+        switch (alertsListMode) {
+            case ALERTS_BY_SON:
+                confirmationTitle = R.string.deleting_alerts_for_this_child;
+                break;
+            case ALERTS_BY_LEVEL:
+                confirmationTitle = R.string.deleting_alerts_for_this_level;
+                break;
+            case ALERTS_BY_SON_AND_LEVEL:
+                confirmationTitle = R.string.deleting_alerts_for_this_level_and_child;
+                break;
+            default:
+        }
+
+
         // Show Confirmation Dialog
-        showConfirmationDialog(R.string.my_alerts_clear_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+        showConfirmationDialog(confirmationTitle, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
             /**
              * On Accepted
@@ -158,12 +241,20 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
             @Override
             public void onAccepted(DialogFragment dialog) {
 
-                showNoticeDialog(R.string.my_alerts_cleared_successfully, new NoticeDialogFragment.NoticeDialogListener() {
-                    @Override
-                    public void onAccepted(DialogFragment dialog) {
-                        closeActivity();
-                    }
-                });
+                switch (alertsListMode) {
+                    case ALERTS_BY_SON:
+                        getPresenter().clearAlertsBySon(sonIndentity);
+                        break;
+                    case ALERTS_BY_LEVEL:
+                        getPresenter().clearAlertsByLevel(alertLevelEnum);
+                        break;
+                    case ALERTS_BY_SON_AND_LEVEL:
+                        getPresenter().clearAlertsOfSonByLevel(sonIndentity, alertLevelEnum);
+                        break;
+                    default:
+                        getPresenter().clearAlerts();
+                }
+
             }
 
             /**
@@ -181,11 +272,17 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
     /**
      * On Filter Alerts
      */
-    @Override
+    @OnClick(R.id.filterAlerts)
     public void onFilterAlerts() {
-        // Show Filter Alerts Dialog
-        navigatorImpl.showFilterAlertsDialog(this);
+        if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
+            // Show Filter Alerts Dialog with Alert Category Filter Enable
+            navigatorImpl.navigateToAlertsSettingsWithAlertLevelFilterEnabled();
+        } else {
+            // Show Filter Alerts Dialog
+            navigatorImpl.navigateToAlertsSettings();
+        }
     }
+
 
     /**
      * On Swiped
@@ -198,15 +295,25 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
         if (viewHolder instanceof AlertsAdapter.AlertsViewHolder) {
 
             final Integer deletedIndex = viewHolder.getAdapterPosition();
-            final AlertEntity alertEntity = alertsAdapter.getItemByAdapterPosition(deletedIndex);
+            final AlertEntity alertEntity = recyclerViewAdapter.getItemByAdapterPosition(deletedIndex);
 
             // Delete item from adapter
-            alertsAdapter.removeItem(deletedIndex);
+            recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(mainContainer, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+            showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    alertsAdapter.restoreItem(alertEntity, deletedIndex);
+                    recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
+                }
+            }, new Snackbar.Callback(){
+                @Override
+                public void onDismissed(Snackbar transientBottomBar, int event) {
+                    super.onDismissed(transientBottomBar, event);
+                    if(event == DISMISS_EVENT_TIMEOUT) {
+                        // Delete Alert Of Son
+                        getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
+                                alertEntity.getIdentity());
+                    }
                 }
             });
 
@@ -215,11 +322,12 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
 
     /**
      * Go to Alert Detail
-     * @param identity
+     * @param alertId
+     * @param sonId
      */
     @Override
-    public void goToAlertDetail(String identity) {
-        navigatorImpl.navigateToAlertDetail(identity);
+    public void goToAlertDetail(final String alertId, final String sonId) {
+        navigatorImpl.navigateToAlertDetail(alertId, sonId);
     }
 
     /**
@@ -254,21 +362,102 @@ public class AlertListMvpActivity extends SupportMvpActivity<AlertListPresenter,
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
-        refreshLayout.setColorSchemeResources(R.color.commonWhite);
-        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
-
-        alertsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        alertsList.setNestedScrollingEnabled(false);
-        alertsAdapter = new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
-        alertsAdapter.setOnSupportRecyclerViewListener(this);
-        alertsAdapter.setOnAlertsViewListener(this);
-        // Set Animator
-        alertsList.setItemAnimator(new DefaultItemAnimator());
-        alertsList.setAdapter(alertsAdapter);
+        super.onViewReady(savedInstanceState);
 
         // adding item touch helper
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
                 new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(alertsList);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+        filterAlertsButton.setVisibility(View.VISIBLE);
+
+        if (getIntent().getExtras() != null) {
+
+            final Bundle extras = getIntent().getExtras();
+
+            if(extras.containsKey(SON_IDENTITY_ARG)){
+                sonIndentity = extras.getString(SON_IDENTITY_ARG);
+            }
+
+            if(extras.containsKey(ALERT_LEVEL_ARG)) {
+                alertLevelEnum = (AlertLevelEnum) extras.getSerializable(ALERT_LEVEL_ARG);
+            }
+
+            if (extras.containsKey(ALERT_LIST_MODE_ARG)) {
+                alertsListMode = (AlertsListModeEnum) extras.getSerializable(ALERT_LIST_MODE_ARG);
+            }
+
+        }
+
+    }
+
+    /**
+     * On Data Loaded
+     * @param dataLoaded
+     */
+    @Override
+    public void onDataLoaded(List<AlertEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+
+        clearAlertsButton.setVisibility(View.VISIBLE);
+        clearAlertsButton.setEnabled(true);
+        alertsHeaderTitle.setText(String.format(Locale.getDefault(),
+                getString(R.string.my_alerts_count),dataLoaded.size()));
+
+    }
+
+    /**
+     * On No Data Found
+     */
+    @Override
+    public void onNoDataFound() {
+        super.onNoDataFound();
+        clearAlertsButton.setVisibility(View.GONE);
+        clearAlertsButton.setEnabled(false);
+        alertsHeaderTitle.setText(getString(R.string.my_alerts));
+    }
+
+    /**
+     * Get Adapter
+     * @return
+     */
+    @NotNull
+    @Override
+    protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
+        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
+    }
+
+    /**
+     * On Alerts Cleared
+     */
+    @Override
+    public void onAlertsCleared() {
+        showNoticeDialog(R.string.my_alerts_cleared_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                recyclerViewAdapter.removeAll();
+                closeActivity();
+            }
+        });
+    }
+
+    /**
+     * On Alert Cleared
+     */
+    @Override
+    public void onAlertCleared() {
+        alertsHeaderTitle.setText(String.format(Locale.getDefault(),
+                getString(R.string.my_alerts_count), recyclerView.getAdapter().getItemCount()));
+    }
+
+    /**
+     * On Preferences Updated
+     */
+    @Override
+    protected void onPreferencesUpdated() {
+        super.onPreferencesUpdated();
+        Timber.d("On Preferences Updated ...");
+        // Load Data
+        getPresenter().loadData();
     }
 }

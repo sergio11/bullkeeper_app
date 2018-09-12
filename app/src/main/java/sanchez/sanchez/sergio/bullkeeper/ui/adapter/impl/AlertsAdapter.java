@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
@@ -14,14 +13,11 @@ import java.util.ArrayList;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 
 /**
- * Last Alerts Adapter
+ * Alerts Adapter
  */
 public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>{
-
-    private OnAlertsViewListener onAlertsViewListener;
 
     /**
      *
@@ -31,7 +27,7 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
     public AlertsAdapter(Context context, ArrayList<AlertEntity> data) {
         super(context, data);
         // enable header
-        hasHeader = true;
+        hasHeader = false;
         hasFooter = false;
 
     }
@@ -48,17 +44,6 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
     }
 
     /**
-     * On Create Header View Holder
-     * @param viewGroup
-     * @return
-     */
-    @Override
-    protected RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.alert_header_layout, viewGroup, false);
-        return new AlertsHeaderViewHolder(view);
-    }
-
-    /**
      * On Create Footer View Holder
      * @param viewGroup
      * @return
@@ -69,29 +54,6 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
         return new SupportFooterViewHolder(view);
     }
 
-    /**
-     * Set On Alerts View Listener
-     * @param onAlertsViewListener
-     */
-    public void setOnAlertsViewListener(OnAlertsViewListener onAlertsViewListener){
-        this.onAlertsViewListener = onAlertsViewListener;
-    }
-
-    /**
-     * On Alerts View Listener
-     */
-    public interface OnAlertsViewListener {
-
-        /**
-         * On Clear All Alerts
-         */
-        void onClearAllAlerts();
-
-        /**
-         * On Filter Alerts
-         */
-        void onFilterAlerts();
-    }
 
     /**
      * Alerts View Holder
@@ -102,9 +64,8 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
 
         private Context context;
 
-        private ImageView alertIcon;
-        private ImageView childImage;
-        private TextView alertMessage;
+        private ImageView alertIcon, childImage;
+        private TextView alertMessage, alertSince, alertSonName;
 
         /**
          * Alerts View Holder
@@ -117,6 +78,8 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
             this.alertIcon = itemView.findViewById(R.id.alertIcon);
             this.childImage = itemView.findViewById(R.id.childImage);
             this.alertMessage = itemView.findViewById(R.id.alertMessage);
+            this.alertSince = itemView.findViewById(R.id.alertSince);
+            this.alertSonName = itemView.findViewById(R.id.alertSonName);
         }
 
         /**
@@ -158,12 +121,22 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
             alertIcon.setImageDrawable(alertIconDrawable);
             // Text Color
             alertMessage.setTextColor(alertColor);
-            // Set Child Image
-            Picasso.with(context).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                    .placeholder(R.drawable.user_default)
-                    .error(R.drawable.user_default)
-                    .transform(new CircleTransform(alertColor))
-                    .into(childImage);
+            // Set Alert Since
+            alertSince.setText(alertEntity.getSince());
+            // Set Alert Payload
+            alertMessage.setText(alertEntity.getPayload());
+            // Set Son Full name
+            alertSonName.setText(alertEntity.getSon().getFullName());
+
+            if(alertEntity.getSon() != null) {
+
+                // Set Child Image
+                Picasso.with(context).load(alertEntity.getSon().getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImage);
+            }
+
         }
 
         public ImageView getAlertIcon() {
@@ -191,47 +164,5 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
         }
 
     }
-
-
-    /**
-     * Alerts Header View Holder
-     */
-    public class AlertsHeaderViewHolder extends SupportHeaderViewHolder {
-
-        private ImageButton filterAlerts, clearAlerts;
-
-        public AlertsHeaderViewHolder(View itemView) {
-            super(itemView);
-
-            this.filterAlerts = itemView.findViewById(R.id.filterAlerts);
-            this.clearAlerts = itemView.findViewById(R.id.clearAlerts);
-
-            clearAlerts.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(onAlertsViewListener != null)
-                        onAlertsViewListener.onClearAllAlerts();
-                }
-            });
-
-            filterAlerts.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(onAlertsViewListener != null)
-                        onAlertsViewListener.onFilterAlerts();
-                }
-            });
-
-        }
-
-        public ImageButton getFilterAlerts() {
-            return filterAlerts;
-        }
-
-        public ImageButton getClearAlerts() {
-            return clearAlerts;
-        }
-    }
-
 
 }

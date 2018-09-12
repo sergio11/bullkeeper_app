@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.data.net.models.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Register Son DTO
@@ -19,6 +20,15 @@ public final class RegisterSonDTO implements Serializable {
 
     @JsonProperty("school")
     private String school;
+
+    public RegisterSonDTO(){}
+
+    public RegisterSonDTO(String firstName, String lastName, String birthdate, String school) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.school = school;
+    }
 
     public String getFirstName() {
         return firstName;

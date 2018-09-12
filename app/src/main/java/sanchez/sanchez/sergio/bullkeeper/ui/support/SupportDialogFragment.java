@@ -13,6 +13,7 @@ import android.view.Window;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 
@@ -21,12 +22,27 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
  */
 public abstract class SupportDialogFragment extends DialogFragment {
 
+    public final static String TITLE_ARG = "DIALOG_TITLE";
+
     private Unbinder unbinder;
+
+    protected String title;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.initializeInjector();
         super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            onPrepareArgs(getArguments());
+        }
+    }
+
+    /**
+     * On Prepare Args
+     * @param args
+     */
+    protected void onPrepareArgs(final Bundle args) {
+        title = args.getString(TITLE_ARG, getString(R.string.default_notice_dialog_title));
     }
 
     /**

@@ -1,16 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertdetail;
 
-import android.support.annotation.NonNull;
-
-import net.grandcentrix.thirtyinch.TiPresenter;
-
+import android.os.Bundle;
 import javax.inject.Inject;
-
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
 /**
  * Alert Detail Presenter
  */
-public final class AlertDetailPresenter extends TiPresenter<IAlertDetailView> {
-
+public final class AlertDetailPresenter extends SupportPresenter<IAlertDetailView> {
 
     @Inject
     public AlertDetailPresenter() {
@@ -18,14 +14,13 @@ public final class AlertDetailPresenter extends TiPresenter<IAlertDetailView> {
     }
 
     /**
-     * On Attach View
-     * @param view
+     * On Init
+     * @param args
      */
     @Override
-    protected void onAttachView(@NonNull final IAlertDetailView view) {
-        super.onAttachView(view);
-
-        view.showLongMessage("Hello World!!!");
+    protected void onInit(Bundle args) {
+        super.onInit(args);
 
     }
+
 }

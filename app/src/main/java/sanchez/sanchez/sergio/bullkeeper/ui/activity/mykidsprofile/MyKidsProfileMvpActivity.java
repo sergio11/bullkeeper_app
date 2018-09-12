@@ -7,11 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
@@ -20,11 +24,16 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -35,6 +44,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.utils.imagepicker.ImagePicker;
+import sanchez.sanchez.sergio.domain.models.SonEntity;
 import timber.log.Timber;
 
 /**
@@ -45,16 +55,19 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         IMyKidsProfileView, DatePickerDialog.OnDateSetListener,
         PhotoViewerDialog.IPhotoViewerListener {
 
-    protected MyKidsComponent myKidsComponent;
+    public enum KidProfileMode { ADD_NEW_SON_MODE, EDIT_CURRENT_SON_MODE }
+
+    private final static String FIRST_NAME_FIELD_NAME = "first_name";
+    private final static String LAST_NAME_FIELD_NAME = "last_name";
+    private final static String BIRTHDATE_FIELD_NAME = "birthdate";
+    private final static String SCHOOL_FIELD_NAME = "school";
+
 
     public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+    private static final int MIN_AGE_ALLOWED = 5;
+    private static final int MAX_AGE_ALLOWED = 18;
 
-    /**
-     * My Kid Identity
-     */
-    private String myKidIdentity;
-
-    private String currentImagePath = "https://avatars3.githubusercontent.com/u/831538?s=460&v=4";
+    protected MyKidsComponent myKidsComponent;
 
     /**
      * My Kids Profile Title
@@ -107,8 +120,20 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @BindView(R.id.birthdayInput)
     @NotEmpty(messageResId = R.string.birthday_not_empty_error)
-    @Past(dateFormat = "yyyy/MM/dd")
+    @Past(dateFormatResId = R.string.date_format)
     protected AppCompatEditText birthdayInput;
+
+    /**
+     * Instagram Icon
+     */
+    @BindView(R.id.instagramIcon)
+    protected ImageView instagramImageView;
+
+    /**
+     * Instagram Status
+     */
+    @BindView(R.id.instagramStatus)
+    protected TextView instagramStatusTextView;
 
     /**
      * Instagram Switch Widget
@@ -117,11 +142,34 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected SwitchCompat instagramSwitchWidget;
 
     /**
+     * Facebook Icon
+     */
+    @BindView(R.id.facebookIcon)
+    protected ImageView facebookIconImageView;
+
+    /**
+     * Facebook Status
+     */
+    @BindView(R.id.facebookStatus)
+    protected TextView facebookStatusTextView;
+
+    /**
      * Facebook Switch Widget
      */
     @BindView(R.id.facebookSwitchWidget)
     protected SwitchCompat facebookSwitchWidget;
 
+    /**
+     * Youtube Icon
+     */
+    @BindView(R.id.youtubeIcon)
+    protected ImageView youtubeIconImageView;
+
+    /**
+     * Youtube Status
+     */
+    @BindView(R.id.youtubeStatus)
+    protected TextView youtubeStatusTextView;
 
     /**
      * YoutubeSwitchWidget
@@ -130,10 +178,58 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected SwitchCompat youtubeSwitchWidget;
 
 
+
     /**
      * Date Picker Dialog
      */
     private DatePickerDialog datePickerDialog;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
+
+    /**
+     * Ui Utils
+     */
+    @Inject
+    protected UiUtils uiUtils;
+
+
+    /**
+     * State
+     */
+
+    /**
+     * My Kid Identity
+     */
+    private String myKidIdentity;
+
+    /**
+     * Current Image Path
+     */
+    private String currentImagePath;
+
+    /**
+     * First Name
+     */
+    private String firstName;
+
+    /**
+     * Last Name
+     */
+    private String lastName;
+
+    /**
+     * School
+     */
+    private String school;
+
+    /**
+     * Profile Mode
+     */
+    private KidProfileMode profileMode = KidProfileMode.ADD_NEW_SON_MODE;
 
 
     /**
@@ -153,8 +249,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        final Intent callingIntent = new Intent(context, MyKidsProfileMvpActivity.class);
-        return callingIntent;
+        return new Intent(context, MyKidsProfileMvpActivity.class);
     }
 
     /**
@@ -188,6 +283,18 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
+     * Enable All Components
+     */
+    private void enableAllComponents(final boolean enable){
+        nameInput.setEnabled(enable);
+        surnameInput.setEnabled(enable);
+        birthdayInput.setEnabled(enable);
+        instagramSwitchWidget.setEnabled(enable);
+        facebookSwitchWidget.setEnabled(enable);
+        youtubeSwitchWidget.setEnabled(enable);
+    }
+
+    /**
      * On View Ready
      * @param savedInstanceState
      */
@@ -198,23 +305,17 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         if(getIntent() != null && getIntent().hasExtra(KIDS_IDENTITY_ARG)) {
             // Get Kid identity
             myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
+            // Disable All Components
+            enableAllComponents(false);
         }
 
         // width and height will be at least 300px long (optional).
         ImagePicker.setMinQuality(300, 300);
 
+        myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
 
-        myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), "Sergio Sánchez"));
-
-
-        Integer START_YEAR = 1970;
-        Integer START_MONTH = 1;
-        Integer START_DAY = 1;
-
-        datePickerDialog = new DatePickerDialog(
-                this, R.style.CommonDatePickerStyle, this, START_YEAR,
-                START_MONTH, START_DAY);
-
+        datePickerDialog = uiUtils.createBirthdayDataPickerDialog(this,
+                MIN_AGE_ALLOWED, MAX_AGE_ALLOWED, this);
         // On Focus Listener
         birthdayInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -238,13 +339,18 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             }
         });
 
-        Picasso.with(getApplicationContext()).load(currentImagePath)
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
-                .noFade()
-                .into(profileImageView);
+    }
 
-
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if(myKidIdentity != null && !myKidIdentity.isEmpty())
+            args.putString(KIDS_IDENTITY_ARG, myKidIdentity);
+        return args;
     }
 
     /**
@@ -310,10 +416,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Override
     protected void onResetErrors() {
-
-        nameInputLayout.setError("");
-        surnameInputLayout.setError("");
-        birthdayInputLayout.setError("");
+        nameInputLayout.setError(null);
+        surnameInputLayout.setError(null);
+        birthdayInputLayout.setError(null);
     }
 
     /**
@@ -322,11 +427,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     protected void onResetFields() {
         super.onResetFields();
-
-        nameInput.setText("");
-        surnameInput.setText("");
-        birthdayInput.setText("");
-
+        nameInput.getText().clear();
+        surnameInput.getText().clear();
+        birthdayInput.getText().clear();
     }
 
     /**
@@ -363,8 +466,11 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
-        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), "Sergio Sánchez"));
+        ImagePicker.pickImage(this,
+                profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
+                        String.format(Locale.getDefault(),
+                                getString(R.string.change_profile_picture), firstName) :
+                                getString(R.string.change_profile_picture_default));
         return true;
     }
 
@@ -381,7 +487,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd",
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format),
                 Locale.getDefault());
         String strDate = format.format(calendar.getTime());
         // Set Data format
@@ -398,6 +504,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String name = nameInput.getText().toString();
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getText().toString();
+
+        getPresenter().saveSon(myKidIdentity, name, surname, birthday, "5b94dde9082f6d1994d2e3bf", currentImagePath);
+
     }
 
     /**
@@ -413,8 +522,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Override
     public void onChangePhoto() {
-        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), "Sergio Sánchez"));
+        ImagePicker.pickImage(this,
+                profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
+                        String.format(Locale.getDefault(), getString(R.string.change_profile_picture), firstName) :
+                                getString(R.string.change_profile_picture_default));
     }
 
     /**
@@ -446,4 +557,166 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 SocialMediaStatusEnum.DISABLED);
     }
 
+    /**
+     * On Son Profile Loaded
+     * @param sonEntity
+     */
+    @Override
+    public void onSonProfileLoaded(final SonEntity sonEntity) {
+        Preconditions.checkNotNull(sonEntity, "Son Entity can not be null");
+
+        // Save Current State
+        myKidIdentity = sonEntity.getIdentity();
+        firstName = sonEntity.getFirstName();
+        lastName = sonEntity.getLastName();
+        currentImagePath = sonEntity.getProfileImage();
+        school = sonEntity.getSchool().getIdentity();
+        profileMode = KidProfileMode.EDIT_CURRENT_SON_MODE;
+
+        myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), sonEntity.getFullName()));
+
+        picasso.load(sonEntity.getProfileImage())
+                .placeholder(R.drawable.kid_default_image)
+                .error(R.drawable.kid_default_image)
+                .noFade()
+                .into(profileImageView);
+
+        if(sonEntity.getFirstName() != null &&
+                !sonEntity.getFirstName().isEmpty())
+            nameInput.setText(sonEntity.getFirstName());
+
+        if(sonEntity.getLastName() != null &&
+                !sonEntity.getLastName().isEmpty())
+            surnameInput.setText(sonEntity.getLastName());
+
+        if(sonEntity.getBirthdate() != null) {
+            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
+            final String birthday = format.format(sonEntity.getBirthdate());
+            birthdayInput.setText(birthday);
+
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTime(sonEntity.getBirthdate());
+            datePickerDialog.getDatePicker().updateDate(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        }
+
+
+        // Enable All Components
+        enableAllComponents(true);
+    }
+
+    /**
+     * On Social Media Loaded
+     * @param socialMediaEntities
+     */
+    @Override
+    public void onSocialMediaLoaded(List<SocialMediaEntity> socialMediaEntities) {
+        Timber.d("On Social Media Loaded -> %d", socialMediaEntities.size());
+
+        for(final SocialMediaTypeEnum socialMediaType: SocialMediaTypeEnum.values()) {
+
+            SocialMediaEntity socialMedia = null;
+            for(final SocialMediaEntity socialMediaEntity: socialMediaEntities) {
+                if(socialMediaEntity.getType().equals(socialMediaType)){
+                    socialMedia = socialMediaEntity;
+                    break;
+                }
+            }
+
+            int color; String socialMediaText;
+
+            if(socialMedia != null) {
+
+                if(socialMedia.hasInvalidToken()) {
+
+                    color = ContextCompat.getColor(getApplicationContext(), R.color.redDanger);
+                    socialMediaText = getString(R.string.social_media_is_not_valid);
+
+                } else {
+
+                    color = ContextCompat.getColor(getApplicationContext(), R.color.greenSuccess);
+                    socialMediaText = getString(R.string.social_media_is_enabled);
+
+                }
+
+
+            } else {
+                // Social Media not configured
+                color = ContextCompat.getColor(getApplicationContext(), R.color.yellowWarning);
+                socialMediaText = getString(R.string.social_media_is_not_enabled);
+
+            }
+
+            switch (socialMediaType) {
+
+                case YOUTUBE:
+
+                    youtubeStatusTextView.setText(socialMediaText);
+                    youtubeStatusTextView.setTextColor(color);
+                    break;
+
+                case INSTAGRAM:
+
+                    instagramStatusTextView.setText(socialMediaText);
+                    instagramStatusTextView.setTextColor(color);
+                    break;
+
+
+                case FACEBOOK:
+
+                    facebookStatusTextView.setText(socialMediaText);
+                    facebookStatusTextView.setTextColor(color);
+                    break;
+
+            }
+
+
+        }
+    }
+
+    /**
+     * On Validations Errors
+     * @param errors
+     */
+    @Override
+    public void onValidationErrors(List<LinkedHashMap<String, String>> errors) {
+        for (LinkedHashMap<String, String> error : errors) {
+
+            Timber.d("Field -> %s, Message -> %s", error.get("field"), error.get("message"));
+
+            switch (error.get("field")) {
+                case FIRST_NAME_FIELD_NAME:
+                    nameInputLayout.setError(error.get("message"));
+                    break;
+                case LAST_NAME_FIELD_NAME:
+                    surnameInputLayout.setError(error.get("message"));
+                    break;
+                case BIRTHDATE_FIELD_NAME:
+                    birthdayInputLayout.setError(error.get("message"));
+                    break;
+                case SCHOOL_FIELD_NAME:
+                    surnameInputLayout.setError(error.get("message"));
+                    break;
+            }
+
+        }
+
+        showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+
+    @Override
+    public Boolean hasPendingChanges() {
+        return super.hasPendingChanges();
+    }
+
+    @Override
+    public void onSavedPendingChanges() {
+        super.onSavedPendingChanges();
+    }
+
+    @Override
+    public void onDiscardPendingChanges() {
+        super.onDiscardPendingChanges();
+    }
 }

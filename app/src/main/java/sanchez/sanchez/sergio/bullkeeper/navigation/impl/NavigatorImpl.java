@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -24,7 +26,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.tutorial.AppTutorialActivit
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile.UserProfileMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.SocialMediaStatusDialog;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.FilterAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
 
@@ -88,8 +89,8 @@ public class NavigatorImpl implements INavigator {
      * Navigate to Alert Detail
      */
     @Override
-    public void navigateToAlertDetail(final String identity) {
-        final Intent intentToAlertDetail = AlertDetailMvpActivity.getCallingIntent(context, identity);
+    public void navigateToAlertDetail(final String alertId, final String sonId) {
+        final Intent intentToAlertDetail = AlertDetailMvpActivity.getCallingIntent(context, alertId, sonId);
         context.startActivity(intentToAlertDetail);
     }
 
@@ -103,13 +104,36 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
-     * Show Filter Alerts Dialog
-     * @param appCompatActivity
+     * Navigate To Alert List
+     * @param alertLevelEnum
      */
     @Override
-    public void showFilterAlertsDialog(AppCompatActivity appCompatActivity) {
-        FilterAlertsDialog.show(appCompatActivity);
+    public void navigateToAlertList(AlertLevelEnum alertLevelEnum) {
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, alertLevelEnum);
+        context.startActivity(intentToAlertList);
     }
+
+    /**
+     * Navigate To Alert List
+     * @param sonIdentity
+     */
+    @Override
+    public void navigateToAlertList(String sonIdentity) {
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, sonIdentity);
+        context.startActivity(intentToAlertList);
+    }
+
+    /**
+     * Navigate To Alert List
+     * @param alertLevelEnum
+     * @param sonIdentity
+     */
+    @Override
+    public void navigateToAlertList(AlertLevelEnum alertLevelEnum, String sonIdentity) {
+        final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, alertLevelEnum, sonIdentity);
+        context.startActivity(intentToAlertList);
+    }
+
 
     /**
      * Navigate To App Tutorial
@@ -125,6 +149,22 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToUserSettings() {
         context.startActivity(UserSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate to Alerts Settings
+     */
+    @Override
+    public void navigateToAlertsSettings() {
+        context.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate To Alerts Settings With Alert Level Filter Enabled
+     */
+    @Override
+    public void navigateToAlertsSettingsWithAlertLevelFilterEnabled() {
+        context.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context, true));
     }
 
     /**

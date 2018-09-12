@@ -81,6 +81,28 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     protected SupportRecyclerViewAdapter<F> recyclerViewAdapter;
 
     /**
+     * LCE Listener
+     */
+    private SupportLCEListener lceListener;
+
+    /**
+     * on Attach
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if(context instanceof SupportLCEListener) {
+            lceListener  = (SupportLCEListener) context;
+        } else {
+
+            Timber.d("Support LCE Listener not implemented");
+
+        }
+    }
+
+    /**
      * On View Created
      * @param view
      * @param savedInstanceState
@@ -142,6 +164,14 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     }
 
     /**
+     * Set LCE Listener
+     * @param lceListener
+     */
+    public void setLceListener(SupportLCEListener lceListener) {
+        this.lceListener = lceListener;
+    }
+
+    /**
      * Get Adapter
      * @return
      */
@@ -156,6 +186,8 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         content.setVisibility(View.GONE);
         notDataFoundLayout.hide();
         errorOccurredLayout.show(getString(R.string.network_error_ocurred));
+        if(lceListener != null)
+            lceListener.onErrorOcurred();
     }
 
     /**
@@ -166,6 +198,8 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         content.setVisibility(View.GONE);
         notDataFoundLayout.hide();
         errorOccurredLayout.show(getString(R.string.unexpected_error_ocurred));
+        if(lceListener != null)
+            lceListener.onErrorOcurred();
     }
 
     /**
@@ -185,6 +219,8 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         content.setVisibility(View.GONE);
         errorOccurredLayout.hide();
         notDataFoundLayout.show(getString(R.string.no_data_found));
+        if(lceListener != null)
+            lceListener.onNoDataFound();
     }
 
     /**
@@ -198,6 +234,9 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         Timber.d("Data Loaded -> %d", dataLoaded.size());
 
+        notDataFoundLayout.hide();
+        errorOccurredLayout.hide();
+
         content.setVisibility(View.VISIBLE);
         content.setRefreshing(false);
 
@@ -209,6 +248,9 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
                 AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
         recyclerView.setLayoutAnimation(controller);
         recyclerView.scheduleLayoutAnimation();
+
+        if(lceListener != null)
+            lceListener.onDataLoaded();
     }
 
     /**
@@ -217,8 +259,30 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onClick(View view) {
+        Timber.d("On Retry Again");
         content.setVisibility(View.VISIBLE);
         getPresenter().loadData();
+    }
+
+    /**
+     * Support LCE Listener
+     */
+    public interface  SupportLCEListener {
+
+        /**
+         * On No Data Found
+         */
+        void onNoDataFound();
+
+        /**
+         * On Data Loaded
+         */
+        void onDataLoaded();
+
+        /**
+         * On Error Ocurred
+         */
+        void onErrorOcurred();
     }
 
     /**
@@ -288,6 +352,10 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
          */
         public Button getRetryAgain() {
             return retryAgain;
+        }
+
+        public View getSource() {
+            return source;
         }
     }
 
@@ -366,6 +434,10 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
          */
         public TextView getErrorMessage() {
             return errorMessage;
+        }
+
+        public View getSource() {
+            return source;
         }
     }
 

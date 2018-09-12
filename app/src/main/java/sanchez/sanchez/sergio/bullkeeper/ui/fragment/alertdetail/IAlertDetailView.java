@@ -11,4 +11,14 @@ public interface IAlertDetailView extends ISupportView {
      */
     void onAlertInfoLoaded(final AlertEntity alertEntity);
 
+    /**
+     * On Alert not found
+     */
+    void onAlertNotFound();
+
+    /**
+     * On Alert Deleted
+     */
+    void onAlertDeleted();
+
 }

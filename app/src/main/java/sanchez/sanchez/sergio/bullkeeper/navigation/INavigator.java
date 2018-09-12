@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 
 import android.support.v7.app.AppCompatActivity;
 
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -39,7 +40,7 @@ public interface INavigator {
     /**
      * Navigate To Alert Detail
      */
-    void navigateToAlertDetail(final String identity);
+    void navigateToAlertDetail(final String alertId, final String sonId);
 
     /**
      * Navigate to Alert List
@@ -47,9 +48,24 @@ public interface INavigator {
     void navigateToAlertList();
 
     /**
-     * Show Filter Alerts Dialog
+     * Navigate To Alert List
+     * @param alertLevelEnum
      */
-    void showFilterAlertsDialog(final AppCompatActivity appCompatActivity);
+    void navigateToAlertList(final AlertLevelEnum alertLevelEnum);
+
+    /**
+     * Navigate to Alert List
+     * @param sonIdentity
+     */
+    void navigateToAlertList(final String sonIdentity);
+
+    /**
+     * Navigate to Alert List
+     * @param alertLevelEnum
+     * @param sonIdentity
+     */
+    void navigateToAlertList(final AlertLevelEnum alertLevelEnum, final String sonIdentity);
+
 
     /**
      * Navigate To App Tutorial
@@ -60,6 +76,16 @@ public interface INavigator {
      * Navigate to User Settings
      */
     void navigateToUserSettings();
+
+    /**
+     * Navigate to alerts Settings
+     */
+    void navigateToAlertsSettings();
+
+    /**
+     * Navigate To Alerts Settings With Alert Level Filter Enabled
+     */
+    void navigateToAlertsSettingsWithAlertLevelFilterEnabled();
 
     /**
      * Show App Help App Dialog

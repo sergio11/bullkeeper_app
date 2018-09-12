@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -286,6 +287,29 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
     }
 
     /**
+     * show Long Simple Snackbar
+     * @param viewRoot
+     * @param description
+     * @param actionText
+     * @param onClickListener
+     */
+    @Override
+    public void showLongSimpleSnackbar(ViewGroup viewRoot, String description, String actionText, View.OnClickListener onClickListener,
+                                       final Snackbar.Callback snackbarCallback) {
+        activityHandler.showLongSimpleSnackbar(viewRoot, description, actionText, onClickListener, snackbarCallback);
+    }
+
+    /**
+     *
+     * @param view
+     * @param width
+     * @param height
+     */
+    public void setDimensions(final View view, int width, int height) {
+        activityHandler.setDimensions(view, width, height);
+    }
+
+    /**
      * Gets a component for dependency injection by its type.
      */
     @SuppressWarnings("unchecked")
@@ -328,4 +352,13 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
         return SupportToolbarApp.INFORMATIVE_TOOLBAR;
     }
 
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        return null;
+    }
 }

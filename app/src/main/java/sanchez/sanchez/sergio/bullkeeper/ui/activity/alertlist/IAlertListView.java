@@ -1,18 +1,22 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist;
 
-import java.util.List;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportLCEView;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
 
 /**
  * Alert List View
  */
-public interface IAlertListView extends ISupportView {
+public interface IAlertListView extends ISupportLCEView<AlertEntity> {
 
     /**
-     * On Alerts Loaded
-     * @param lastAlerts
+     * On Alerts Cleared
      */
-    void onAlertsLoaded(final List<AlertEntity> lastAlerts);
+    void onAlertsCleared();
+
+    /**
+     * On Alert Cleared
+     */
+    void onAlertCleared();
+
 
 }

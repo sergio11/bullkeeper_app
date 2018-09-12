@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -27,6 +29,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
  * My Kids Detail Activity
@@ -105,6 +108,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @BindView(R.id.kidSchool)
     protected TextView kidSchoolTextView;
 
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
+
 
     /**
      * Get Calling Intent
@@ -149,29 +158,13 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        if(getIntent() != null && getIntent().hasExtra(KID_IDENTITY_ARG)) {
-            // Get Kid Identity
-            kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
-        }
+        if(!getIntent().hasExtra(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide a child identifier");
 
-        // Set Author Image
-        Picasso.with(getApplicationContext()).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
-                .noFade()
-                .into(profileImage);
+        // Get Kid Identity
+        kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
-        kidNameTextView.setText("Sergio Sánchez Sánchez");
-
-        // Set Kid Birthday
-        kidBirthdayTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.kid_detail_birthday), "23 Mayo, 2005"));
-
-        kidSchoolTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.kid_detail_school), "C.E.I.P Fernando Gavilán"));
-
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), kidIdentity);
         viewpager.setAdapter(sectionsPagerAdapter);
 
         tabLayout.setupWithViewPager(viewpager);
@@ -243,13 +236,14 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         navigatorImpl.navigateToAlertList();
     }
 
-    /***
+    /**
      * Navigate To Alerts Detail
-     * @param identity
+     * @param alertId
+     * @param sonId
      */
     @Override
-    public void navigateToAlertDetail(String identity) {
-        navigatorImpl.navigateToAlertDetail(identity);
+    public void navigateToAlertDetail(final String alertId, final String sonId) {
+        navigatorImpl.navigateToAlertDetail(alertId, sonId);
     }
 
     /**
@@ -266,6 +260,31 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * On Son Loaded
+     * @param sonEntity
+     */
+    @Override
+    public void onSonLoaded(SonEntity sonEntity) {
+
+        // Set Author Image
+        picasso.load(sonEntity.getProfileImage())
+                .placeholder(R.drawable.kid_default_image)
+                .error(R.drawable.kid_default_image)
+                .noFade()
+                .into(profileImage);
+
+        kidNameTextView.setText(sonEntity.getFullName());
+
+        // Set Kid Birthday
+        kidBirthdayTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.kid_detail_birthday), sonEntity.getBirthdate()));
+
+        kidSchoolTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.kid_detail_school), sonEntity.getSchool().getName()));
+
+    }
+
+    /**
      * Sections Page Adapter
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -275,11 +294,16 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int RELATIONS_TAB = 2;
         private final static int SECTION_COUNT = 3;
 
+        private final String kidIdentity;
+
         /**
          * Sections Pager Adapter
          * @param fm
          */
-        public SectionsPagerAdapter(FragmentManager fm) { super(fm); }
+        public SectionsPagerAdapter(FragmentManager fm, final String kidIdentity) {
+            super(fm);
+            this.kidIdentity = kidIdentity;
+        }
 
 
         @Override

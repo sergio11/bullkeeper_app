@@ -6,9 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
-import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
-import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.data.repository.AccountsRepositoryImpl;
 import sanchez.sanchez.sergio.data.net.services.IAuthenticationService;
 import sanchez.sanchez.sergio.data.net.services.IParentsService;
@@ -28,15 +26,6 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
  */
 @Module
 public class AccountsModule {
-
-    /**
-     * Provide Parent Entity Data Mapper
-     * @return
-     */
-    @Provides @PerActivity
-    public AbstractDataMapper<ParentDTO, ParentEntity> provideParentEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper) {
-        return new ParentEntityDataMapper(apiEndPointsHelper);
-    }
 
     /**
      * Provide Authentication Service

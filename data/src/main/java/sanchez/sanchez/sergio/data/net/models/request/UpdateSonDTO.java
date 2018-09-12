@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.data.net.models.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Update Son DTO
@@ -22,6 +23,16 @@ public final class UpdateSonDTO implements Serializable{
 
     @JsonProperty("school")
     private String school;
+
+    public UpdateSonDTO(){}
+
+    public UpdateSonDTO(String identity, String firstName, String lastName, String birthdate, String school) {
+        this.identity = identity;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.school = school;
+    }
 
     public String getIdentity() {
         return identity;

@@ -126,7 +126,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     @Override
     public void onAlertsActionClicked(final SonEntity sonEntity) {
         Timber.d("On Alerts for -> %s ", sonEntity.getIdentity());
-        showLongMessage("On Alerts Action");
+        activityHandler.navigateToSonAlerts(sonEntity.getIdentity());
     }
 
     /**

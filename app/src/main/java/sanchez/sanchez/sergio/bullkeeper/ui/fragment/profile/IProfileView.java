@@ -1,7 +1,6 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.home;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
 import java.util.List;
-import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
@@ -9,19 +8,13 @@ import sanchez.sanchez.sergio.domain.models.SonEntity;
 /**
  * Home View
  */
-public interface IHomeView extends ISupportView {
+public interface IProfileView extends ISupportView {
 
     /**
      * On User Profile Loaded
      * @param parentEntity
      */
     void onUserProfileLoaded(final ParentEntity parentEntity);
-
-    /**
-     * On Last Alerts Loaded
-     * @param lastAlerts
-     */
-    void onLastAlertsLoaded(final List<AlertEntity> lastAlerts);
 
     /**
      * On Children Loaded

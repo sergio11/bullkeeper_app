@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="@color/cyanBrilliant"
+    android:background="@android:color/transparent"
     tools:context=".ui.activity.alertlist.AlertListMvpActivity">
 
     <!-- Include Toolbar -->
@@ -24,37 +24,138 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/alertsContainer"
+    <!-- Alerts Header -->
+    <RelativeLayout
+        android:id="@+id/myAlertsHeader"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appToolbarInclude"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/common_section_translucent_background"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/bellIcon"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/bell_solid_white"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <!-- Alert Message -->
+        <TextView
+            android:id="@+id/alertsHeaderTitle"
+            style="@style/CommonStrongText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/bellIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/my_alerts"
+            android:textColor="@color/commonWhite" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true">
+
+            <!-- Filter Alerts -->
+            <ImageButton
+                android:id="@+id/filterAlerts"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/filter_solid_white"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Clear Alerts -->
+            <ImageButton
+                android:id="@+id/clearAlerts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:src="@drawable/trash_white"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- Swipe Refresh Layout -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude">
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
+        app:layout_constraintVertical_bias="0.508"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
 
-        <!-- Swipe Refresh Layout -->
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeContainer"
+        <!-- My Kids List -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp">
+            android:scrollbarThumbVertical="@android:color/white"
+            android:scrollbars="vertical"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/alertsList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/cyanBrilliant"
-                android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+    <!-- Error Occurred -->
+    <include android:id="@+id/errorOccurred"
+        layout="@layout/error_ocurred_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
+        app:layout_constraintVertical_bias="0.508"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
 
-    </FrameLayout>
+    <!-- No Data Found -->
+    <include android:id="@+id/noDataFound"
+        layout="@layout/no_data_found_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
+        app:layout_constraintVertical_bias="0.508"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        />
 
 </android.support.constraint.ConstraintLayout>

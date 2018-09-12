@@ -24,8 +24,8 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
      * Init
      */
     @Override
-    public void init() {
-        super.init();
+    public void onInit() {
+        super.onInit();
         this.resetPasswordInteract.attachDisposablesTo(compositeDisposable);
     }
 
