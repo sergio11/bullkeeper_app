@@ -124,9 +124,22 @@
         <item name="android:background">@drawable/common_action_button_state</item>
     </style>
 
+    <!-- Common Action Button -->
     <style name="CommonActionButton.Inverse" parent="@style/CommonActionButton">
         <item name="android:textColor">@color/common_btn_text_color_inverse</item>
         <item name="android:background">@drawable/common_action_button_state_inverse</item>
+    </style>
+
+    <!-- Accept Action Button -->
+    <style name="AcceptActionButton" parent="@style/CommonActionButton">
+        <item name="android:textColor">@color/common_btn_text_color_inverse</item>
+        <item name="android:background">@drawable/accept_action_button_state</item>
+    </style>
+
+    <!-- Cancel Action Button -->
+    <style name="CancelActionButton" parent="@style/CommonActionButton">
+        <item name="android:textColor">@color/common_btn_text_color_inverse</item>
+        <item name="android:background">@drawable/cancel_action_button_state</item>
     </style>
 
     <style name="DimensionActionButton" parent="@style/AppTheme.Button">

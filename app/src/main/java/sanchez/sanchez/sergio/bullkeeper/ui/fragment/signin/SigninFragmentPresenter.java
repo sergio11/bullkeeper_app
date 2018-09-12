@@ -66,7 +66,7 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
             getView().showProgressDialog(R.string.authenticating_wait);
 
         // Execute Signin Interact
-        //signinInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class), SigninInteract.Params.create(mail, password));
+        signinInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class), SigninInteract.Params.create(mail, password));
 
     }
 
