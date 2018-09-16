@@ -66,6 +66,12 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     protected View noDataFoundView;
 
     /**
+     * Loading View
+     */
+    @BindView(R.id.loading)
+    protected View loadingView;
+
+    /**
      * Error Occurred Layout
      */
     private ErrorOccurredLayout errorOccurredLayout;
@@ -138,6 +144,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         noDataFoundView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showLoadingState();
                 getPresenter().loadData();
             }
         });
@@ -147,8 +154,56 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         errorOccurredLayout.getRetryAgain().setOnClickListener(this);
 
+        // Loading View
+        showLoadingState();
         getPresenter().loadData();
 
+    }
+
+    /**
+     * Show Loading State
+     */
+    private void showLoadingState(){
+        errorOccurredLayout.hide();
+        notDataFoundLayout.hide();
+        content.setVisibility(View.GONE);
+        content.setEnabled(false);
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Show Not Found State
+     */
+    private void showNotFoundState(){
+        errorOccurredLayout.hide();
+        notDataFoundLayout.show(getString(R.string.no_data_found));
+        content.setVisibility(View.GONE);
+        content.setEnabled(false);
+        loadingView.setVisibility(View.GONE);
+    }
+
+    /**
+     * Show Error State
+     * @param message
+     */
+    private void showErrorState(final String message){
+        content.setEnabled(false);
+        loadingView.setVisibility(View.GONE);
+        content.setVisibility(View.GONE);
+        notDataFoundLayout.hide();
+        errorOccurredLayout.show(message);
+    }
+
+    /**
+     * Show Data Founded State
+     */
+    private void showDataFoundedState(){
+        loadingView.setVisibility(View.GONE);
+        notDataFoundLayout.hide();
+        errorOccurredLayout.hide();
+        content.setVisibility(View.VISIBLE);
+        content.setEnabled(true);
+        content.setRefreshing(false);
     }
 
     /**
@@ -183,9 +238,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onNetworkError() {
-        content.setVisibility(View.GONE);
-        notDataFoundLayout.hide();
-        errorOccurredLayout.show(getString(R.string.network_error_ocurred));
+        showErrorState(getString(R.string.network_error_ocurred));
         if(lceListener != null)
             lceListener.onErrorOcurred();
     }
@@ -195,9 +248,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onOtherException() {
-        content.setVisibility(View.GONE);
-        notDataFoundLayout.hide();
-        errorOccurredLayout.show(getString(R.string.unexpected_error_ocurred));
+        showErrorState(getString(R.string.unexpected_error_ocurred));
         if(lceListener != null)
             lceListener.onErrorOcurred();
     }
@@ -207,6 +258,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onRefresh() {
+        showLoadingState();
         getPresenter().loadData();
     }
 
@@ -216,9 +268,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     @Override
     public void onNoDataFound() {
         Timber.d("On No Data Found");
-        content.setVisibility(View.GONE);
-        errorOccurredLayout.hide();
-        notDataFoundLayout.show(getString(R.string.no_data_found));
+        showNotFoundState();
         if(lceListener != null)
             lceListener.onNoDataFound();
     }
@@ -234,11 +284,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         Timber.d("Data Loaded -> %d", dataLoaded.size());
 
-        notDataFoundLayout.hide();
-        errorOccurredLayout.hide();
-
-        content.setVisibility(View.VISIBLE);
-        content.setRefreshing(false);
+        showDataFoundedState();
 
         recyclerViewAdapter.setData(dataLoaded);
         recyclerViewAdapter.notifyDataSetChanged();
@@ -260,7 +306,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     @Override
     public void onClick(View view) {
         Timber.d("On Retry Again");
-        content.setVisibility(View.VISIBLE);
+        showLoadingState();
         getPresenter().loadData();
     }
 

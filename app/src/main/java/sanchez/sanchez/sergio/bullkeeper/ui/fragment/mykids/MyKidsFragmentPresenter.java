@@ -28,9 +28,6 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
     @Override
     public void loadData() {
 
-        if (isViewAttached() && getView() != null) {
-            getView().showProgressDialog(R.string.loading_information_of_children);
-        }
         // Execute Get Self Children
         getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
     }

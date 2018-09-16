@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Support Loading Spinner -->
+    <sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportLoadingSpinner
+        android:id="@+id/loadingSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/child_white"
+        android:layout_toStartOf="@id/message"/>
+
+    <!-- Message -->
+    <TextView
+        android:id="@+id/message"
+        style="@style/CommonStrongText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_centerInParent="true"
+        android:text="@string/loading_data"
+        android:textAlignment="center"
+        android:textColor="@color/commonWhite" />
+
+
+
+
+</RelativeLayout>

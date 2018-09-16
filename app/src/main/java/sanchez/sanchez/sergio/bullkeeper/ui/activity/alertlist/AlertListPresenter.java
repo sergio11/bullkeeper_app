@@ -106,10 +106,6 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
     @Override
     public void loadData() {
 
-        if (isViewAttached() && getView() != null) {
-            getView().showProgressDialog(R.string.loading_alerts_please_wait);
-        }
-
         // Load Alerts for Son and level
         if(args.containsKey(SON_IDENTITY_ARG) && args.containsKey(ALERT_LEVEL_ARG)) {
             final String sonIdentity = args.getString(SON_IDENTITY_ARG);

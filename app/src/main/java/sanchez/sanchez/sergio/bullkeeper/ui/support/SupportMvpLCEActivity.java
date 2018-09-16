@@ -70,6 +70,12 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
     protected View noDataFoundView;
 
     /**
+     * Loading View
+     */
+    @BindView(R.id.loading)
+    protected View loadingView;
+
+    /**
      * Error Occurred Layout
      */
     private ErrorOccurredLayout errorOccurredLayout;
@@ -83,6 +89,52 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      * Recycler View Adapter
      */
     protected SupportRecyclerViewAdapter<F> recyclerViewAdapter;
+
+    /**
+     * Show Loading State
+     */
+    private void showLoadingState(){
+        errorOccurredLayout.hide();
+        notDataFoundLayout.hide();
+        content.setVisibility(View.GONE);
+        content.setEnabled(false);
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Show Not Found State
+     */
+    private void showNotFoundState(){
+        errorOccurredLayout.hide();
+        notDataFoundLayout.show(getString(R.string.no_data_found));
+        content.setVisibility(View.GONE);
+        content.setEnabled(false);
+        loadingView.setVisibility(View.GONE);
+    }
+
+    /**
+     * Show Error State
+     * @param message
+     */
+    private void showErrorState(final String message){
+        content.setEnabled(false);
+        loadingView.setVisibility(View.GONE);
+        content.setVisibility(View.GONE);
+        notDataFoundLayout.hide();
+        errorOccurredLayout.show(message);
+    }
+
+    /**
+     * Show Data Founded State
+     */
+    private void showDataFoundedState(){
+        loadingView.setVisibility(View.GONE);
+        notDataFoundLayout.hide();
+        errorOccurredLayout.hide();
+        content.setVisibility(View.VISIBLE);
+        content.setEnabled(true);
+        content.setRefreshing(false);
+    }
 
     /**
      * On View Ready
@@ -119,6 +171,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         noDataFoundView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showLoadingState();
                 getPresenter().loadData();
             }
         });
@@ -126,6 +179,8 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         recyclerViewAdapter = getAdapter();
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.setOnSupportRecyclerViewListener(this);
+
+        showLoadingState();
 
     }
 
@@ -153,9 +208,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onNetworkError() {
-        content.setVisibility(View.GONE);
-        notDataFoundLayout.hide();
-        errorOccurredLayout.show(getString(R.string.network_error_ocurred));
+        showErrorState(getString(R.string.network_error_ocurred));
     }
 
     /**
@@ -163,9 +216,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onOtherException() {
-        content.setVisibility(View.GONE);
-        notDataFoundLayout.hide();
-        errorOccurredLayout.show(getString(R.string.unexpected_error_ocurred));
+        showErrorState(getString(R.string.unexpected_error_ocurred));
     }
 
     /**
@@ -173,6 +224,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onRefresh() {
+        showLoadingState();
         getPresenter().loadData();
     }
 
@@ -181,10 +233,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onNoDataFound() {
-        Timber.d("On No Data Found");
-        content.setVisibility(View.GONE);
-        errorOccurredLayout.hide();
-        notDataFoundLayout.show(getString(R.string.no_data_found));
+        showNotFoundState();
     }
 
 
@@ -197,13 +246,10 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         Preconditions.checkNotNull(dataLoaded, "Data Loaded can not be null");
         Preconditions.checkState(!dataLoaded.isEmpty(), "Data Loaded can not be empty");
 
-        errorOccurredLayout.hide();
-        notDataFoundLayout.hide();
-
         Timber.d("Data Loaded -> %d", dataLoaded.size());
 
-        content.setVisibility(View.VISIBLE);
-        content.setRefreshing(false);
+        showDataFoundedState();
+
 
         recyclerViewAdapter.setData(dataLoaded);
         recyclerViewAdapter.notifyDataSetChanged();
@@ -282,9 +328,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
 
         @OnClick(R.id.retryAgain)
         protected void onRetryAgain(){
-            content.setVisibility(View.VISIBLE);
-            retryAgain.setEnabled(false);
-            retryAgain.setVisibility(View.GONE);
+            showLoadingState();
             getPresenter().loadData();
         }
 

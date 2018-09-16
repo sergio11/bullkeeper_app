@@ -65,6 +65,7 @@
 
     <string name="retry_again_btn">Retry Again</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="loading_data">Loading Data ...</string>
 
 
     <!-- fields error messages -->
