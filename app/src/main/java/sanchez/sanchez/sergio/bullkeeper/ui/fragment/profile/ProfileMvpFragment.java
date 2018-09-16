@@ -178,7 +178,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         myChildList.setLayoutManager(new LinearLayoutManager(appContext,
                 LinearLayoutManager.HORIZONTAL, false));
-        myKidsStatusAdapter = new MyKidsStatusAdapter(appContext, new ArrayList<SonEntity>());
+        myKidsStatusAdapter = new MyKidsStatusAdapter(appContext, new ArrayList<SonEntity>(), picasso);
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);

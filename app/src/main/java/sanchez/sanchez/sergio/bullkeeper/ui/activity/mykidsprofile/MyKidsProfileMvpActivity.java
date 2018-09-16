@@ -20,8 +20,6 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
@@ -32,6 +30,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -62,7 +61,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
 
     public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
-    private static final int MIN_AGE_ALLOWED = 5;
+    private static final int MIN_AGE_ALLOWED = 8;
     private static final int MAX_AGE_ALLOWED = 18;
 
     protected MyKidsComponent myKidsComponent;
@@ -188,6 +187,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Inject
     protected Picasso picasso;
 
+    /**
+     * Support Image Picker
+     */
+    @Inject
+    protected SupportImagePicker supportImagePicker;
+
 
     /**
      * State
@@ -297,6 +302,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         if(getIntent() != null && getIntent().hasExtra(KIDS_IDENTITY_ARG)) {
             // Get Kid identity
             myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
+            // Load Son Data
+            getPresenter().loadSonData(myKidIdentity);
             // Disable All Components
             enableAllComponents(false);
         }
@@ -351,16 +358,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String imagePathFromResult = ""; //ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
+        String imagePathFromResult = supportImagePicker
+                .getImagePathFromResult(requestCode, resultCode, data);
         if(imagePathFromResult != null) {
-            final File imageFileDescriptor = new File(imagePathFromResult);
-            // We Check that file exists and can be read
-            if(imageFileDescriptor.exists() && imageFileDescriptor.canRead()) {
-                final Uri imageUri =  Uri.fromFile(imageFileDescriptor);
-                currentImagePath = imageUri.getEncodedPath();
-                Timber.d("Image Path -> %s", currentImagePath);
-                profileImageView.setImageURI(imageUri);
-            }
+            currentImagePath = imagePathFromResult;
+            Timber.d("Image Path -> %s", currentImagePath);
+            profileImageView.setImageURI(Uri.parse(currentImagePath));
         }
     }
 
@@ -445,8 +448,17 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnClick(R.id.profileImage)
     protected void onClickProfileImage() {
-        navigatorImpl.showPhotoViewerDialog(this,
-                currentImagePath);
+        Timber.d("Show Photo -> %s", currentImagePath);
+
+        if(currentImagePath != null) {
+            navigatorImpl.showPhotoViewerDialog(this,
+                    currentImagePath);
+        } else {
+            navigatorImpl.showPhotoViewerDialog(this,
+                    R.drawable.kid_default_image);
+        }
+
+
     }
 
 
@@ -455,11 +467,11 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
-        /*ImagePicker.pickImage(this,
+        supportImagePicker.pickImage(this,
                 profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
                         String.format(Locale.getDefault(),
                                 getString(R.string.change_profile_picture), firstName) :
-                                getString(R.string.change_profile_picture_default));*/
+                                getString(R.string.change_profile_picture_default));
         return true;
     }
 
@@ -494,7 +506,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getText().toString();
 
-        getPresenter().saveSon(myKidIdentity, name, surname, birthday, "5b94dde9082f6d1994d2e3bf", currentImagePath);
+        getPresenter().saveSon(myKidIdentity, name, surname, birthday,
+                "5b9e1db2082f6d1a400af3d5", currentImagePath);
 
     }
 
@@ -503,10 +516,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Override
     public void onChangePhoto() {
-        /*ImagePicker.pickImage(this,
+        supportImagePicker.pickImage(this,
                 profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
                         String.format(Locale.getDefault(), getString(R.string.change_profile_picture), firstName) :
-                                getString(R.string.change_profile_picture_default));*/
+                                getString(R.string.change_profile_picture_default));
     }
 
     /**
@@ -545,6 +558,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     public void onSonProfileLoaded(final SonEntity sonEntity) {
         Preconditions.checkNotNull(sonEntity, "Son Entity can not be null");
+
+        Timber.d("Son Profile Image Url -> %s", sonEntity.getProfileImage());
 
         // Save Current State
         myKidIdentity = sonEntity.getIdentity();

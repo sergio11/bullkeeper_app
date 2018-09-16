@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -26,6 +27,7 @@ public class PhotoViewerDialog extends SupportDialogFragment {
     public static final String TAG = "PHOTO_VIEWER_DIALOG";
 
     private static final String PHOTO_URL_ARG = "PHOTO_URL_ARG";
+    private static final String PHOTO_RES_ARG = "PHOTO_RES_ARG";
 
     private String photoUrl;
 
@@ -60,6 +62,23 @@ public class PhotoViewerDialog extends SupportDialogFragment {
         photoViewerDialog.show(appCompatActivity.getSupportFragmentManager(), TAG);
     }
 
+    /**
+     * Show Dialog
+     * @param appCompatActivity
+     * @param photoRes
+     */
+    public static void show(final AppCompatActivity appCompatActivity,
+                            final @DrawableRes int photoRes) {
+        final PhotoViewerDialog photoViewerDialog = new PhotoViewerDialog();
+        photoViewerDialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
+
+        final Bundle args = new Bundle();
+        args.putInt(PHOTO_RES_ARG, photoRes);
+        photoViewerDialog.setArguments(args);
+
+        photoViewerDialog.show(appCompatActivity.getSupportFragmentManager(), TAG);
+    }
+
 
     /**
      * On Attach
@@ -89,31 +108,42 @@ public class PhotoViewerDialog extends SupportDialogFragment {
         final Bundle args = getArguments();
 
         if (args != null) {
-            photoUrl = args.getString(PHOTO_URL_ARG);
-        }
 
-        if(photoUrl != null) {
+            if(args.containsKey(PHOTO_URL_ARG)) {
 
-            if(photoUrl.matches("^(http|https|ftp)://.*$")) {
+                photoUrl = args.getString(PHOTO_URL_ARG);
 
-                picasso.load(photoUrl)
-                        .placeholder(R.drawable.user_default)
-                        .error(R.drawable.user_default)
-                        .noFade()
-                        .into(imageView);
+                if(photoUrl != null && !photoUrl.isEmpty()) {
 
-            } else {
+                    if(photoUrl.matches("^(http|https|ftp)://.*$")) {
 
-                final File photoUrlFile = new File(photoUrl);
+                        picasso.load(photoUrl)
+                                .placeholder(R.drawable.user_default)
+                                .error(R.drawable.user_default)
+                                .noFade()
+                                .into(imageView);
 
-                if(photoUrlFile.exists() && photoUrlFile.canRead()) {
+                    } else {
 
-                    picasso.load(photoUrlFile)
-                            .placeholder(R.drawable.user_default)
-                            .error(R.drawable.user_default)
-                            .noFade()
-                            .into(imageView);
+                        final File photoUrlFile = new File(photoUrl);
+
+                        if(photoUrlFile.exists() && photoUrlFile.canRead()) {
+
+                            picasso.load(photoUrlFile)
+                                    .placeholder(R.drawable.user_default)
+                                    .error(R.drawable.user_default)
+                                    .noFade()
+                                    .into(imageView);
+                        }
+                    }
+
                 }
+
+            } else if(args.containsKey(PHOTO_RES_ARG)) {
+
+                @DrawableRes int photoRes = args.getInt(PHOTO_RES_ARG);
+                imageView.setImageResource(photoRes);
+
             }
 
         }

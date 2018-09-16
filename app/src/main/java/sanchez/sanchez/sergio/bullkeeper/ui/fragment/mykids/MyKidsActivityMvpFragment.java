@@ -1,8 +1,13 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import android.support.annotation.NonNull;
+
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEFragment;
@@ -24,6 +29,9 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
 
     public static String TAG = "MY_KIDS_ACTIVITY_FRAGMENT";
 
+    @Inject
+    protected Picasso picasso;
+
 
     public MyKidsActivityMvpFragment() {}
 
@@ -43,7 +51,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<SonEntity> getAdapter() {
-        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(appContext, new ArrayList<SonEntity>());
+        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(appContext, new ArrayList<SonEntity>(), picasso);
         myKidsAdapter.setOnSupportRecyclerViewListener(this);
         myKidsAdapter.setOnMyKidsListenerListener(this);
         return myKidsAdapter;

@@ -2,13 +2,10 @@ package sanchez.sanchez.sergio.domain.interactor.children;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -40,6 +37,26 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
     }
 
     /**
+     * Save Son Information
+     * @param params
+     * @return
+     */
+    private Observable<SonEntity> saveSonInformation(final Params params) {
+        return childrenRepository.saveSonInformation(params.getSonId(), params.getFirstname(), params.getLastName(),
+                params.getBirthday(), params.getSchool());
+    }
+
+    /**
+     * Add To Self Parent
+     * @param params
+     * @return
+     */
+    private Observable<SonEntity> addSonToSelfParent(final Params params){
+        return childrenRepository.addSonToSelfParentInteract(params.getFirstname(), params.getLastName(),
+                params.getBirthday(), params.getSchool());
+    }
+
+    /**
      *
      * @param params
      * @return
@@ -48,18 +65,8 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
     protected Observable<SonEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
-        return (appUtils.isValidString(params.getSonId()) ?
-                childrenRepository.saveSonInformation(params.getSonId(), params.getFirstname(), params.getLastName(),
-                        params.getBirthday(), params.getSchool()) :
-                childrenRepository.addSonToSelfParentInteract(params.getFirstname(), params.getLastName(),
-                        params.getBirthday(), params.getSchool())).doOnError(new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                throw new RuntimeException("Fail to upload");
-            }
-        });
-
-        /*.flatMap(new Function<SonEntity, ObservableSource<SonEntity>>() {
+        return (appUtils.isValidString(params.getSonId()) ? saveSonInformation(params):
+                addSonToSelfParent(params)).flatMap(new Function<SonEntity, ObservableSource<SonEntity>>() {
             @Override
             public ObservableSource<SonEntity> apply(final SonEntity sonEntity) throws Exception {
 
@@ -72,7 +79,7 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
                                 params.getProfileImage()).map(new Function<ImageEntity, SonEntity>() {
                             @Override
                             public SonEntity apply(ImageEntity imageEntity) throws Exception {
-                                sonEntity.setProfileImage(imageEntity.getIdentity());
+                                sonEntity.setProfileImage(imageEntity.getUrl());
                                 return sonEntity;
                             }
                         });
@@ -88,7 +95,7 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
                     return Observable.just(sonEntity);
                 }
             }
-        });*/
+        });
 
     }
 

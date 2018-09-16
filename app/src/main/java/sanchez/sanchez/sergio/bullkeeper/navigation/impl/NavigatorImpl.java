@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
@@ -249,6 +250,17 @@ public class NavigatorImpl implements INavigator {
     public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
                                       final String photoUrl) {
         PhotoViewerDialog.show(appCompatActivity, photoUrl);
+    }
+
+    /**
+     * Show Photo Viewer Dialog
+     * @param appCompatActivity
+     * @param photoRes
+     */
+    @Override
+    public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+                                      final @DrawableRes int photoRes) {
+        PhotoViewerDialog.show(appCompatActivity, photoRes);
     }
 
     /**

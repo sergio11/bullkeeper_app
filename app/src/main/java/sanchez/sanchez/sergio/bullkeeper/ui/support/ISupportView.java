@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import net.grandcentrix.thirtyinch.TiView;
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread;
-import net.grandcentrix.thirtyinch.distinctuntilchanged.DistinctUntilChanged;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
@@ -20,7 +19,6 @@ public interface ISupportView extends TiView {
      * @param message
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showShortMessage(final String message);
 
     /**
@@ -28,7 +26,6 @@ public interface ISupportView extends TiView {
      * @param messageResId
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showShortMessage(@StringRes final int messageResId);
 
     /**
@@ -36,7 +33,6 @@ public interface ISupportView extends TiView {
      * @param message
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showLongMessage(final String message);
 
 
@@ -45,7 +41,6 @@ public interface ISupportView extends TiView {
      * @param title
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showNoticeDialog(final String title);
 
     /**
@@ -65,7 +60,6 @@ public interface ISupportView extends TiView {
      * @param stringResId
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showNoticeDialog(final Integer stringResId);
 
 
@@ -75,7 +69,6 @@ public interface ISupportView extends TiView {
      * @param noticeDialogListener
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showNoticeDialog(final String title, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
     /**
@@ -84,7 +77,6 @@ public interface ISupportView extends TiView {
      * @param noticeDialogListener
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showNoticeDialog(final Integer stringResId, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
     /**
@@ -92,7 +84,6 @@ public interface ISupportView extends TiView {
      * @param title
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showProgressDialog(final String title);
 
 
@@ -101,7 +92,6 @@ public interface ISupportView extends TiView {
      * @param stringResId
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showProgressDialog(final Integer stringResId);
 
 
@@ -109,7 +99,6 @@ public interface ISupportView extends TiView {
      * Hide Progress Dialog
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void hideProgressDialog();
 
 
@@ -118,7 +107,6 @@ public interface ISupportView extends TiView {
      * @param title
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showConfirmationDialog(final String title);
 
     /**
@@ -126,7 +114,6 @@ public interface ISupportView extends TiView {
      * @param stringResId
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showConfirmationDialog(final Integer stringResId);
 
     /**
@@ -135,7 +122,6 @@ public interface ISupportView extends TiView {
      * @param confirmationDialogListener
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showConfirmationDialog(final String title, final ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener);
 
     /**
@@ -144,7 +130,6 @@ public interface ISupportView extends TiView {
      * @param confirmationDialogListener
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showConfirmationDialog(final Integer stringResId, final ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener);
 
 
@@ -156,7 +141,6 @@ public interface ISupportView extends TiView {
      * @param onClickListener
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description, final String actionText,
                                 final View.OnClickListener onClickListener);
 
@@ -169,7 +153,6 @@ public interface ISupportView extends TiView {
      * @param snackbarCallback
      */
     @CallOnMainThread
-    @DistinctUntilChanged
     void showLongSimpleSnackbar(final ViewGroup viewRoot, final String description,  final String actionText,
                            final View.OnClickListener onClickListener, final Snackbar.Callback snackbarCallback);
 

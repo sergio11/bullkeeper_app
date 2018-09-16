@@ -23,14 +23,17 @@ import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
     private OnMyKidsListener listener;
+    private final Picasso picasso;
 
     /**
      *
      * @param context
      * @param data
+     * @param picasso
      */
-    public MyKidsAdapter(Context context, ArrayList<SonEntity> data) {
+    public MyKidsAdapter(Context context, ArrayList<SonEntity> data, final Picasso picasso) {
         super(context, data);
+        this.picasso = picasso;
     }
 
 
@@ -187,7 +190,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
 
             // Set Child Image
-            Picasso.with(context).load(sonEntity.getProfileImage())
+            picasso.load(sonEntity.getProfileImage())
                     .placeholder(R.drawable.kid_default_image)
                     .error(R.drawable.kid_default_image)
                     .into(childImage);

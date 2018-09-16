@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.navigation;
 
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
@@ -141,6 +142,14 @@ public interface INavigator {
      */
     void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
                                final String photoUrl);
+
+    /**
+     * Show Photo Viewer Dialog
+     * @param appCompatActivity
+     * @param photoRes
+     */
+    void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+                          final @DrawableRes int photoRes);
 
     /**
      * Show Social Media Status Dialog

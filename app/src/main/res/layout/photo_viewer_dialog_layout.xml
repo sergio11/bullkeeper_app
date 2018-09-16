@@ -13,6 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:src="@drawable/user_default"
         android:background="@drawable/image_white_frame"
         android:contentDescription="@string/content_not_be_loaded"
         android:scaleType="fitXY"

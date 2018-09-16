@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile;
 
-import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetInformationAboutTheChildAndTheirSocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.SaveChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
-import static sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfileMvpActivity.KIDS_IDENTITY_ARG;
 
 /**
  * My Kids Profile Presenter
@@ -40,19 +38,6 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         this.saveChildrenInteract = saveChildrenInteract;
     }
 
-    /**
-     * On Init
-     * @param args
-     */
-    @Override
-    protected void onInit(Bundle args) {
-        super.onInit(args);
-        Preconditions.checkNotNull(args, "Args can not be null");
-        Preconditions.checkState(args.containsKey(KIDS_IDENTITY_ARG), "Args no contain son identity");
-        // Load Son Data
-        loadSonData(args.getString(KIDS_IDENTITY_ARG));
-
-    }
 
     /**
      * Load Son Data
@@ -127,8 +112,11 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
          */
         @Override
         protected void onSuccess(SonEntity sonEntity) {
-            if (isViewAttached() && getView() != null)
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().showNoticeDialog(R.string.child_information_saved);
                 getView().onSonProfileLoaded(sonEntity);
+            }
         }
 
         /**

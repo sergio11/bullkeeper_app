@@ -19,6 +19,7 @@ public interface IMyKidsProfileView extends ISupportView {
      */
     void onSonProfileLoaded(final SonEntity sonEntity);
 
+
     /**
      * On Social Media Loaded
      * @param socialMediaEntities
@@ -30,5 +31,8 @@ public interface IMyKidsProfileView extends ISupportView {
      * @param errors
      */
     void onValidationErrors(final List<LinkedHashMap<String, String>> errors);
+
+
+
 
 }

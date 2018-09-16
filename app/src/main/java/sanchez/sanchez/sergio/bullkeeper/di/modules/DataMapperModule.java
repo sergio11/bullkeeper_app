@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
@@ -12,6 +14,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
@@ -63,6 +66,17 @@ public class DataMapperModule {
     public AbstractDataMapper<ImageDTO, ImageEntity> provideImageEntityDataMapper(){
         return new ImageEntityDataMapper();
     }
+
+    /**
+     * Provide Image Entity DataMapper
+     * @return
+     */
+    @Provides @PerActivity @Named("SonImageEntity")
+    public AbstractDataMapper<ImageDTO, ImageEntity> provideSonImageEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper){
+        return new SonImageEntityDataMapper(apiEndPointsHelper);
+    }
+
+
 
     /**
      * Provide Son Entity Data Mapper

@@ -266,6 +266,7 @@
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
     <string name="my_kids_profile_name_default">My Kids Profile</string>
+    <string name="child_information_saved">Child information saved successfully</string>
 
     <!-- Comments -->
     <string name="comments_by_child_title" formatted="true">Comments of %s</string>
