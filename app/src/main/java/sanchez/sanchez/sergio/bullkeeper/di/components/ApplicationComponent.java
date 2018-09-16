@@ -7,6 +7,7 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
@@ -41,6 +42,12 @@ public interface ApplicationComponent {
      * @param menuDialogFragment
      */
     void inject(MenuDialogFragment menuDialogFragment);
+
+    /**
+     * Inject Photo View Dialog
+     * @param photoViewerDialog
+     */
+    void inject(final PhotoViewerDialog photoViewerDialog);
 
 
     //Exposed to sub-graphs.

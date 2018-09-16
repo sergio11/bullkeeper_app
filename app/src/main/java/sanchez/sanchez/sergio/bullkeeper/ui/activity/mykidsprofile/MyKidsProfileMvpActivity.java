@@ -499,14 +499,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
-     * On Show Profile
-     */
-    @Override
-    public void onShowDetail() {
-        navigatorImpl.navigateToMyKidsDetail("");
-    }
-
-    /**
      * On Change Photo
      */
     @Override

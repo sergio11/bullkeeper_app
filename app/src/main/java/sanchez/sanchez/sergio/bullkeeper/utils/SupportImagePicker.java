@@ -7,28 +7,26 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.Build;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -44,8 +42,8 @@ public class SupportImagePicker {
      * Default Request Code
      */
     private static final int DEFAULT_REQUEST_CODE = 213;
-    private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;        // min pixels
-    private static final int DEFAULT_MIN_HEIGHT_QUALITY = 400;
+    private static final int MAX_WIDTH = 400;        // min pixels
+    private static final int MAX_HEIGHT = 400;
     private static final String BASE_IMAGE_NAME = "i_prefix_";
 
     /**
@@ -53,15 +51,6 @@ public class SupportImagePicker {
      */
     private final Context appContext;
 
-    /**
-     * Min Width Quality
-     */
-    private static int minWidthQuality = DEFAULT_MIN_WIDTH_QUALITY;
-
-    /**
-     * Min Height Quality
-     */
-    private static int minHeightQuality = DEFAULT_MIN_HEIGHT_QUALITY;
 
     /**
      * Support Image Picker
@@ -154,18 +143,18 @@ public class SupportImagePicker {
                     .hasSystemFeature(PackageManager.FEATURE_CAMERA)
                     && !appManifestContainsPermission(Manifest.permission.CAMERA) || hasCameraAccess()) {
 
-                Timber.d("Take Camera Photo too!!");
-
                 Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 takePhotoIntent.putExtra("return-data", true);
+
+                final File tempFileToCameraPhoto = getTemporalFile(String.valueOf(DEFAULT_REQUEST_CODE));
+                Timber.d("Temp File To Camera Photo -> %s ", tempFileToCameraPhoto.getAbsolutePath());
                 takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         FileProvider.getUriForFile(appContext, BuildConfig.APPLICATION_ID + ".provider",
-                                SupportImageUtils.getTemporalFile(appContext, String.valueOf(DEFAULT_REQUEST_CODE))));
+                                tempFileToCameraPhoto));
 
                 intentList = addIntentsToList(intentList, takePhotoIntent);
 
-
-            }
+             }
         }
 
         if (intentList.size() > 0) {
@@ -177,50 +166,6 @@ public class SupportImagePicker {
 
         return chooserIntent;
     }
-
-    /**
-     * Loads a bitmap and avoids using too much memory loading big images (e.g.: 2560*1920)
-     */
-    private static Bitmap decodeBitmap(final Context context, final Uri theUri) {
-        Bitmap outputBitmap = null;
-        AssetFileDescriptor fileDescriptor = null;
-
-        try {
-            fileDescriptor = context.getContentResolver().openAssetFileDescriptor(theUri, "r");
-
-            // Get size of bitmap file
-            BitmapFactory.Options boundsOptions = new BitmapFactory.Options();
-            boundsOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, boundsOptions);
-
-            // Get desired sample size. Note that these must be powers-of-two.
-            int[] sampleSizes = new int[]{8, 4, 2, 1};
-            int selectedSampleSize = 1; // 1 by default (original image)
-
-            for (int sampleSize : sampleSizes) {
-                selectedSampleSize = sampleSize;
-                int targetWidth = boundsOptions.outWidth / sampleSize;
-                int targetHeight = boundsOptions.outHeight / sampleSize;
-                if (targetWidth >= minWidthQuality && targetHeight >= minHeightQuality) {
-                    break;
-                }
-            }
-
-            // Decode bitmap at desired size
-            BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-            decodeOptions.inSampleSize = selectedSampleSize;
-            outputBitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, decodeOptions);
-
-            fileDescriptor.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return outputBitmap;
-    }
-
 
     /**
      * Start Chooser
@@ -301,6 +246,150 @@ public class SupportImagePicker {
     }
 
     /**
+     * Open File Path
+     * @param filePath
+     * @return
+     */
+    private InputStream openFilePath(final Uri filePath) throws FileNotFoundException{
+        Preconditions.checkNotNull(filePath, "File Path can not be null");
+
+        return filePath.getAuthority() != null ?
+                appContext.getContentResolver().openInputStream(filePath) :
+                new FileInputStream(new File(filePath.toString()));
+
+    }
+
+    /**
+     * This method is responsible for solving the rotation issue if exist. Also scale the images to
+     * 1024x1024 resolution
+     * @param selectedImage
+     * @return
+     * @throws IOException
+     */
+    private Bitmap handleSamplingAndRotationBitmap(final Uri selectedImage)
+            throws IOException {
+
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        InputStream imageStream = null;
+        try {
+            imageStream = openFilePath(selectedImage);
+            BitmapFactory.decodeStream(imageStream, null, options);
+            if(imageStream != null)
+                imageStream.close();
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, MAX_WIDTH, MAX_HEIGHT);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+
+            imageStream = openFilePath(selectedImage);
+            Bitmap img = BitmapFactory.decodeStream(imageStream, null, options);
+            if(imageStream != null)
+                imageStream.close();
+            // Rotate Image If Required
+            img = rotateImageIfRequired(img, selectedImage);
+            return img;
+        } catch(Exception ex) {
+            Timber.e(ex);
+        } finally {
+            if(imageStream != null)
+                imageStream.close();
+        }
+
+        return null;
+
+    }
+
+
+    /**
+     * Calculate In Sample Size
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee a final image
+            // with both dimensions larger than or equal to the requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+
+            final float totalPixels = width * height;
+
+            // Anything more than 2x the requested pixels we'll sample down further
+            final float totalReqPixelsCap = reqWidth * reqHeight * 2;
+
+            while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
+                inSampleSize++;
+            }
+        }
+        return inSampleSize;
+    }
+
+    /**
+     * Rotate an image if required.
+     * @param img
+     * @param selectedImage
+     * @return
+     * @throws IOException
+     */
+    private Bitmap rotateImageIfRequired(final Bitmap img, final Uri selectedImage) throws IOException {
+
+
+        ExifInterface ei;
+        if (Build.VERSION.SDK_INT > 23) {
+            InputStream input = openFilePath(selectedImage);
+            ei = new ExifInterface(input);
+            if(input != null)
+                input.close();
+        } else {
+            ei = new ExifInterface(selectedImage.getPath());
+        }
+
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    /**
+     * Rote Image
+     * @param img
+     * @param degree
+     * @return
+     */
+    private Bitmap rotateImage(final Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
+
+    /**
      * Called after launching the picker with the same values of Activity.getImageFromResult
      * in order to resolve the result and get the image path.
      * @param requestCode
@@ -319,7 +408,7 @@ public class SupportImagePicker {
                     || imageReturnedIntent.getData() == null
                     || imageReturnedIntent.getData().toString().contains(imageFile.toString()));
             if (isCamera) {
-                return imageFile.getAbsolutePath();
+                selectedImage = Uri.parse(imageFile.getAbsolutePath());
             } else {
                 selectedImage = imageReturnedIntent.getData();
             }
@@ -327,33 +416,24 @@ public class SupportImagePicker {
         if (selectedImage == null) {
             return null;
         }
-        return getFilePathFromUri(selectedImage);
+
+        try {
+            return getFilePathFromBitmap(handleSamplingAndRotationBitmap(selectedImage),
+                    String.valueOf(selectedImage.getPath().hashCode()));
+        } catch (IOException e) {
+            Timber.e(e);
+            return null;
+        }
     }
 
     /**
      * Get stream, save the picture to the temp file and return path.
      *
-     * @param uri uri of the incoming file
+     * @param bitmap
      * @return path to the saved image.
      */
-    private String getFilePathFromUri(Uri uri) {
-        InputStream is = null;
-        if (uri.getAuthority() != null) {
-            try {
-                is = appContext.getContentResolver().openInputStream(uri);
-                Bitmap bmp = BitmapFactory.decodeStream(is);
-                return savePicture(bmp, String.valueOf(uri.getPath().hashCode()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
+    private String getFilePathFromBitmap(final Bitmap bitmap, final String suffix) {
+        return savePicture(bitmap, suffix);
     }
 
 

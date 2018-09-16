@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import java.io.File;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -25,6 +28,9 @@ public class PhotoViewerDialog extends SupportDialogFragment {
     private static final String PHOTO_URL_ARG = "PHOTO_URL_ARG";
 
     private String photoUrl;
+
+    @Inject
+    protected Picasso picasso;
 
     /**
      * Image View
@@ -45,10 +51,12 @@ public class PhotoViewerDialog extends SupportDialogFragment {
     public static void show(final AppCompatActivity appCompatActivity,
                             final String photoUrl) {
         final PhotoViewerDialog photoViewerDialog = new PhotoViewerDialog();
+        photoViewerDialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
+
         final Bundle args = new Bundle();
         args.putString(PHOTO_URL_ARG, photoUrl);
         photoViewerDialog.setArguments(args);
-        photoViewerDialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
+
         photoViewerDialog.show(appCompatActivity.getSupportFragmentManager(), TAG);
     }
 
@@ -88,7 +96,7 @@ public class PhotoViewerDialog extends SupportDialogFragment {
 
             if(photoUrl.matches("^(http|https|ftp)://.*$")) {
 
-                Picasso.with(getContext()).load(photoUrl)
+                picasso.load(photoUrl)
                         .placeholder(R.drawable.user_default)
                         .error(R.drawable.user_default)
                         .noFade()
@@ -100,7 +108,7 @@ public class PhotoViewerDialog extends SupportDialogFragment {
 
                 if(photoUrlFile.exists() && photoUrlFile.canRead()) {
 
-                    Picasso.with(getContext()).load(photoUrlFile)
+                    picasso.load(photoUrlFile)
                             .placeholder(R.drawable.user_default)
                             .error(R.drawable.user_default)
                             .noFade()
@@ -122,18 +130,12 @@ public class PhotoViewerDialog extends SupportDialogFragment {
         return R.layout.photo_viewer_dialog_layout;
     }
 
-    @Override
-    protected void initializeInjector() { }
-
     /**
-     * Show Profile
+     * initialize Injector
      */
-    @OnClick(R.id.showDetail)
-    protected void onShowDetail(){
-        dismiss();
-        if(photoViewerListener != null)
-            photoViewerListener.onShowDetail();
-
+    @Override
+    protected void initializeInjector() {
+        getApplicationComponent().inject(this);
     }
 
     /**
@@ -150,11 +152,6 @@ public class PhotoViewerDialog extends SupportDialogFragment {
      * Photo Viewer Listener
      */
     public interface IPhotoViewerListener {
-
-        /**
-         * On Show Detail
-         */
-        void onShowDetail();
 
         /**
          * On Change Photo

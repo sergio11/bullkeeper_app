@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -42,7 +40,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
-import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePickerOld;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import timber.log.Timber;
 
@@ -230,9 +227,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected void onViewReady(final Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        // width and height will be at least 300px long (optional).
-        SupportImagePickerOld.setMinQuality(300, 300);
-
         datePickerDialog = uiUtils.createBirthdayDataPickerDialog(this,
                 MIN_AGE_ALLOWED, MAX_AGE_ALLOWED, this);
         // On Focus Listener
@@ -382,6 +376,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @OnClick(R.id.profileImage)
     protected void onClickProfileImage() {
         navigatorImpl.showPhotoViewerDialog(this,
+                currentImagePath != null ? currentImagePath :
                 parentEntity.getProfileImage());
     }
 
@@ -396,13 +391,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         return true;
     }
 
-    /**
-     * On Show Detail
-     */
-    @Override
-    public void onShowDetail() {
-        navigatorImpl.navigateToHome();
-    }
 
     /**
      * On Change Photo
