@@ -43,16 +43,6 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
     }
 
     /**
-     * Init Presenter
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.signinInteract.attachDisposablesTo(compositeDisposable);
-        this.signinFacebookInteract.attachDisposablesTo(compositeDisposable);
-    }
-
-    /**
      * Sign in
      * @param mail
      * @param password

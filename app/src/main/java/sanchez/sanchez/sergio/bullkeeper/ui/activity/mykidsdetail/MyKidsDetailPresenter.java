@@ -32,13 +32,12 @@ public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailV
     @Override
     protected void onInit(final Bundle args) {
         super.onInit();
-        getSonByIdInteract.attachDisposablesTo(compositeDisposable);
-
         if(args != null && args.containsKey(KID_IDENTITY_ARG)) {
             // Load Son Data
             loadSonData(args.getString(KID_IDENTITY_ARG));
         }
     }
+
 
     /**
      * Load Son Data

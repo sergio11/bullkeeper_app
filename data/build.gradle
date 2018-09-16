@@ -66,6 +66,9 @@ dependencies {
     api dataDependencies.retrofit2
     api dataDependencies.converterJackson
     api dataDependencies.adapterRxjava
+    api (dataDependencies.logginInterceptor) {
+        exclude group: 'org.json', module: 'json'
+    }
     // Jackson
     api dataDependencies.jacksonCore
     api dataDependencies.jacksonAnnotations

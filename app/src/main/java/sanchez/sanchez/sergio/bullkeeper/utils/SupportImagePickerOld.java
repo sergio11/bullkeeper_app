@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.utils.imagepicker;
+package sanchez.sanchez.sergio.bullkeeper.utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -34,17 +34,13 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import timber.log.Timber;
 
 /**
- * Image Picker
+ * Support Image Picker
  */
-public final class ImagePicker {
-
-    private static final String TAG = ImagePicker.class.getSimpleName();
+public final class SupportImagePickerOld {
 
     private static final int DEFAULT_REQUEST_CODE = 234;
-
     private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;        // min pixels
     private static final int DEFAULT_MIN_HEIGHT_QUALITY = 400;        // min pixels
-
 
     private static final String TEMP_IMAGE_NAME = "tempImage";
 
@@ -73,7 +69,7 @@ public final class ImagePicker {
      */
     private static boolean mGalleryOnly = false;
 
-    private ImagePicker() {
+    private SupportImagePickerOld() {
         // not called
     }
 
@@ -253,7 +249,7 @@ public final class ImagePicker {
                 takePhotoIntent.putExtra("return-data", true);
                 takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",
-                                ImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode))));
+                                SupportImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode))));
                 //Uri.fromFile(ImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode))));
                 intentList = addIntentsToList(context, intentList, takePhotoIntent);
             }
@@ -344,7 +340,7 @@ public final class ImagePicker {
         Bitmap bm = null;
 
         if (resultCode == Activity.RESULT_OK && requestCode == mPickImageRequestCode) {
-            File imageFile = ImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode));
+            File imageFile = SupportImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode));
             Uri selectedImage;
 
             boolean isCamera = (imageReturnedIntent == null
@@ -361,8 +357,8 @@ public final class ImagePicker {
             }
 
             bm = decodeBitmap(context, selectedImage);
-            int rotation = ImageRotator.getRotation(context, selectedImage, isCamera);
-            bm = ImageRotator.rotate(bm, rotation);
+            int rotation = SupportImageRotator.getRotation(context, selectedImage, isCamera);
+            bm = SupportImageRotator.rotate(bm, rotation);
         }
         return bm;
     }
@@ -383,7 +379,7 @@ public final class ImagePicker {
 
         Uri selectedImage = null;
         if (resultCode == Activity.RESULT_OK && requestCode == mPickImageRequestCode) {
-            File imageFile = ImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode));
+            File imageFile = SupportImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode));
             boolean isCamera = (imageReturnedIntent == null
                     || imageReturnedIntent.getData() == null
                     || imageReturnedIntent.getData().toString().contains(imageFile.toString()));
@@ -412,7 +408,7 @@ public final class ImagePicker {
             try {
                 is = context.getContentResolver().openInputStream(uri);
                 Bitmap bmp = BitmapFactory.decodeStream(is);
-                return ImageUtils.savePicture(context, bmp, String.valueOf(uri.getPath().hashCode()));
+                return SupportImageUtils.savePicture(context, bmp, String.valueOf(uri.getPath().hashCode()));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } finally {
@@ -439,7 +435,7 @@ public final class ImagePicker {
     public static InputStream getInputStreamFromResult(Context context, int requestCode, int resultCode,
                                                        Intent imageReturnedIntent) {
         if (resultCode == Activity.RESULT_OK && requestCode == mPickImageRequestCode) {
-            File imageFile = ImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode));
+            File imageFile = SupportImageUtils.getTemporalFile(context, String.valueOf(mPickImageRequestCode));
             Uri selectedImage;
             boolean isCamera = (imageReturnedIntent == null
                     || imageReturnedIntent.getData() == null
@@ -517,7 +513,7 @@ public final class ImagePicker {
      */
 
     public static void setMinQuality(int minWidthQuality, int minHeightQuality) {
-        ImagePicker.minWidthQuality = minWidthQuality;
-        ImagePicker.minHeightQuality = minHeightQuality;
+        SupportImagePickerOld.minWidthQuality = minWidthQuality;
+        SupportImagePickerOld.minHeightQuality = minHeightQuality;
     }
 }

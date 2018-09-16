@@ -42,11 +42,7 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
     @Override
     public void onInit() {
         super.onInit();
-        this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
-        this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
-
         loadProfileInformation();
-
     }
 
     /**

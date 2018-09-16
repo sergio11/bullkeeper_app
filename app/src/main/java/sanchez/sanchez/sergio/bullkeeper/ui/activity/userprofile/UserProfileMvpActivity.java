@@ -1,20 +1,27 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile;
 
+import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
-import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +41,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
-import sanchez.sanchez.sergio.bullkeeper.utils.imagepicker.ImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePickerOld;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import timber.log.Timber;
 
@@ -43,13 +51,16 @@ import timber.log.Timber;
  */
 public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
         implements HasComponent<UserProfileComponent>, IUserProfileView,
-        PhotoViewerDialog.IPhotoViewerListener{
+        PhotoViewerDialog.IPhotoViewerListener, DatePickerDialog.OnDateSetListener{
 
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
     private final static String LAST_NAME_FIELD_NAME = "last_name";
     private final static String BIRTHDATE_FIELD_NAME = "birthdate";
     private final static String EMAIL_FIELD_NAME = "email";
     private final static String TELEPHONE_FIELD_NAME = "telephone";
+
+    private static final int MIN_AGE_ALLOWED = 18;
+    private static final int MAX_AGE_ALLOWED = 90;
 
     /**
      * User Profile Component
@@ -133,11 +144,20 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @BindView(R.id.tfnoInput)
     protected AppCompatEditText tfnoInput;
 
+
     /**
      * Picasso
      */
     @Inject
     protected Picasso picasso;
+
+    @Inject
+    protected SupportImagePicker supportImagePicker;
+
+    /**
+     * Date Picker Dialog
+     */
+    private DatePickerDialog datePickerDialog;
 
 
     private ParentEntity parentEntity;
@@ -211,8 +231,34 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         super.onViewReady(savedInstanceState);
 
         // width and height will be at least 300px long (optional).
-        ImagePicker.setMinQuality(300, 300);
+        SupportImagePickerOld.setMinQuality(300, 300);
 
+        datePickerDialog = uiUtils.createBirthdayDataPickerDialog(this,
+                MIN_AGE_ALLOWED, MAX_AGE_ALLOWED, this);
+        // On Focus Listener
+        birthdayInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+
+                if(datePickerDialog != null) {
+                    if(hasFocus)
+                        datePickerDialog.show();
+                    else
+                        datePickerDialog.dismiss();
+                }
+            }
+        });
+
+        // On Click Listener
+        birthdayInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(datePickerDialog != null)
+                    datePickerDialog.show();
+            }
+        });
+
+        // Load Profile Info
         getPresenter().loadProfileInfo();
     }
 
@@ -257,6 +303,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         final String birthday = birthdayInput.getText().toString();
         final String email = emailInput.getText().toString();
         final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
+
 
         // Update Profile
         if(currentImagePath != null) {
@@ -344,7 +391,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
-        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
+        supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
                 getString(R.string.change_profile_picture), parentEntity.getFullName()));
         return true;
     }
@@ -362,8 +409,43 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @Override
     public void onChangePhoto() {
-        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), parentEntity.getFullName()));
+
+        if(permissionManager.shouldAskPermission(Manifest.permission.CAMERA))
+            permissionManager.checkSinglePermission(Manifest.permission.CAMERA, "Title", "Description");
+        else
+            supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                    getString(R.string.change_profile_picture), parentEntity.getFullName()));
+
+    }
+
+    /**
+     * On Single Permission Granted
+     * @param permission
+     */
+    @Override
+    public void onSinglePermissionGranted(String permission) {
+        super.onSinglePermissionGranted(permission);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.CAMERA)) {
+            supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                    getString(R.string.change_profile_picture), parentEntity.getFullName()));
+        }
+
+    }
+
+    /**
+     * On Single Permission Rejected
+     * @param permission
+     */
+    @Override
+    public void onSinglePermissionRejected(String permission) {
+        super.onSinglePermissionRejected(permission);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.CAMERA)) {
+            supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                    getString(R.string.change_profile_picture), parentEntity.getFullName()), true);
+        }
+
     }
 
     /**
@@ -375,16 +457,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String imagePathFromResult = ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
+        final String imagePathFromResult = supportImagePicker.getImagePathFromResult(requestCode, resultCode, data);
         if(imagePathFromResult != null) {
-            final File imageFileDescriptor = new File(imagePathFromResult);
-            // We Check that file exists and can be read
-            if(imageFileDescriptor.exists() && imageFileDescriptor.canRead()) {
-                final Uri imageUri =  Uri.fromFile(imageFileDescriptor);
-                currentImagePath = imageUri.getEncodedPath();
-                Timber.d("Image Path -> %s", currentImagePath);
-                profileImageView.setImageURI(imageUri);
-            }
+            Timber.d("Image Path -> %s", imagePathFromResult);
+            currentImagePath = imagePathFromResult;
+            profileImageView.setImageURI(Uri.parse(imagePathFromResult));
         }
     }
 
@@ -413,6 +490,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
             SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format));
             final String birthdateFormated =  format.format(parentEntity.getBirthdate());
             birthdayInput.setText(birthdateFormated);
+
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parentEntity.getBirthdate());
+            datePickerDialog.getDatePicker().updateDate(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         }
 
         // Reset Current Image Path
@@ -495,5 +577,24 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
             }
         });
 
+    }
+
+    /**
+     * On Data Set
+     * @param datePicker
+     * @param year
+     * @param month
+     * @param day
+     */
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format),
+                Locale.getDefault());
+        String strDate = format.format(calendar.getTime());
+        // Set Data format
+        birthdayInput.setText(strDate);
     }
 }

@@ -84,7 +84,7 @@ public class IntroMvpActivity
         changeStatusBarColor();
 
         if (savedInstanceState == null)
-            addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), false);
+            addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), true);
 
         if(getIntent().hasExtra(CLOSE_SESSION_ARG)) {
             final boolean closeSession = getIntent().getBooleanExtra(CLOSE_SESSION_ARG, false);

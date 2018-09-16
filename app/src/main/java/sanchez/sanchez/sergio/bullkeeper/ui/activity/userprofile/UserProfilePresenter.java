@@ -47,18 +47,6 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
 
 
     /**
-     * Init
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
-        this.updateSelfInformationInteract.attachDisposablesTo(compositeDisposable);
-        this.deleteAccountInteract.attachDisposablesTo(compositeDisposable);
-
-    }
-
-    /**
      * load Profile Info
      */
     public void loadProfileInfo(){

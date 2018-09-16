@@ -18,12 +18,10 @@ import timber.log.Timber;
  */
 public abstract class SupportPresenter<T extends ISupportView> extends TiPresenter<T> {
 
-    protected CompositeDisposable compositeDisposable;
 
     protected Bundle args;
 
     public SupportPresenter() {
-        this.compositeDisposable = new CompositeDisposable();
     }
 
     /**
@@ -33,7 +31,7 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     @Override
     protected void onAttachView(@NonNull T view) {
         super.onAttachView(view);
-        Timber.d("On Attach View");
+        Timber.d("SupportPresenter -> On Attach View");
         args = view.getArgs();
         if(args != null && !args.isEmpty()) {
             onInit(args);
@@ -48,17 +46,9 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     @Override
     protected void onDetachView() {
         super.onDetachView();
-        Timber.d("On Detach View");
-        releaseSubscription();
+        Timber.d("SupportPresenter -> On Detach View");
     }
 
-    /**
-     * Release Subscriptions
-     */
-    private void releaseSubscription(){
-        if(compositeDisposable != null && !compositeDisposable.isDisposed())
-            compositeDisposable.dispose();
-    }
 
     /**
      * Notify Unexpected exception

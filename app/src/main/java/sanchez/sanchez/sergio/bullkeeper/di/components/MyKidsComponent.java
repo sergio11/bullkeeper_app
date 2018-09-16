@@ -22,7 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFr
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
-                ParentModule.class, ChildrenProfileModule.class})
+                 ParentModule.class, ChildrenProfileModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**

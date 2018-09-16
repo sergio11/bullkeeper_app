@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper;
 
 import android.app.Application;
+import android.os.StrictMode;
 import android.util.Log;
 
 import com.facebook.stetho.Stetho;
@@ -90,6 +91,20 @@ public final class AndroidApplication extends Application {
      * On Debug Config
      */
     protected void onDebugConfig(){
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()   // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .penaltyFlashScreen()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
 
         Timber.plant(new Timber.DebugTree());
 

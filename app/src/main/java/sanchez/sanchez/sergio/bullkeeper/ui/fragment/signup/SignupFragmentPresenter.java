@@ -21,11 +21,6 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
         this.registerParentInteract = registerParentInteract;
     }
 
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.registerParentInteract.attachDisposablesTo(compositeDisposable);
-    }
 
     /**
      *

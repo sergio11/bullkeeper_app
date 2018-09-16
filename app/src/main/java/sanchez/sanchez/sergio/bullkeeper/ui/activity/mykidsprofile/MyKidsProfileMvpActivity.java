@@ -32,7 +32,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -43,7 +42,6 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.utils.imagepicker.ImagePicker;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import timber.log.Timber;
 
@@ -190,12 +188,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Inject
     protected Picasso picasso;
 
-    /**
-     * Ui Utils
-     */
-    @Inject
-    protected UiUtils uiUtils;
-
 
     /**
      * State
@@ -309,9 +301,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             enableAllComponents(false);
         }
 
-        // width and height will be at least 300px long (optional).
-        ImagePicker.setMinQuality(300, 300);
-
         myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
 
         datePickerDialog = uiUtils.createBirthdayDataPickerDialog(this,
@@ -362,7 +351,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String imagePathFromResult = ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
+        String imagePathFromResult = ""; //ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
         if(imagePathFromResult != null) {
             final File imageFileDescriptor = new File(imagePathFromResult);
             // We Check that file exists and can be read
@@ -466,11 +455,11 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
-        ImagePicker.pickImage(this,
+        /*ImagePicker.pickImage(this,
                 profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
                         String.format(Locale.getDefault(),
                                 getString(R.string.change_profile_picture), firstName) :
-                                getString(R.string.change_profile_picture_default));
+                                getString(R.string.change_profile_picture_default));*/
         return true;
     }
 
@@ -522,10 +511,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Override
     public void onChangePhoto() {
-        ImagePicker.pickImage(this,
+        /*ImagePicker.pickImage(this,
                 profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
                         String.format(Locale.getDefault(), getString(R.string.change_profile_picture), firstName) :
-                                getString(R.string.change_profile_picture_default));
+                                getString(R.string.change_profile_picture_default));*/
     }
 
     /**

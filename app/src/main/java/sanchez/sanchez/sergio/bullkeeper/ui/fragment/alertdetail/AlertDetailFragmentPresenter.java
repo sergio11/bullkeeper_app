@@ -39,9 +39,6 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
     protected void onInit(Bundle args) {
         super.onInit(args);
 
-        getAlertDetailInteract.attachDisposablesTo(compositeDisposable);
-        deleteAlertOfSonInteract.attachDisposablesTo(compositeDisposable);
-
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_alert_detail);
 
@@ -50,6 +47,17 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
 
         getAlertDetailInteract.execute(new GetAlertDetailObserver(GetAlertDetailInteract.GetAlertDetailApiErrors.class),
                 GetAlertDetailInteract.Params.create(sonId, alertId));
+    }
+
+    /**
+     * On Detach View
+     */
+    @Override
+    protected void onDetachView() {
+        super.onDetachView();
+
+        this.getAlertDetailInteract.dispose();
+        this.deleteAlertOfSonInteract.dispose();
     }
 
     /**

@@ -1,10 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.permission.IPermissionManager;
 import sanchez.sanchez.sergio.bullkeeper.permission.impl.PermissionManagerImpl;
 
@@ -14,10 +16,19 @@ import sanchez.sanchez.sergio.bullkeeper.permission.impl.PermissionManagerImpl;
 @Module
 public class ActivityModule {
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
 
-    public ActivityModule(Activity activity) {
+    public ActivityModule(AppCompatActivity activity) {
         this.activity = activity;
+    }
+
+    /**
+     * Expose the activity to dependents in the graph.
+     */
+    @Provides
+    @PerActivity
+    AppCompatActivity provideActivityCompat() {
+        return this.activity;
     }
 
     /**
@@ -35,7 +46,7 @@ public class ActivityModule {
      */
     @Provides
     @PerActivity
-    IPermissionManager providePermissionManager(final Activity activity) {
-        return new PermissionManagerImpl(activity);
+    IPermissionManager providePermissionManager(final AppCompatActivity activity, final INavigator navigator) {
+        return new PermissionManagerImpl(activity, navigator);
     }
 }

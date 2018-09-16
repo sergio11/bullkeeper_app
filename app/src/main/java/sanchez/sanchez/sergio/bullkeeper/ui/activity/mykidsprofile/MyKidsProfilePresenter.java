@@ -41,23 +41,6 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
     }
 
     /**
-     * Attach Observable
-     */
-    protected void attachObservables(){
-        getInformationAboutTheChildAndTheirSocialMediaInteract.attachDisposablesTo(compositeDisposable);
-        saveChildrenInteract.attachDisposablesTo(compositeDisposable);
-    }
-
-    /**
-     * On Init
-     */
-    @Override
-    protected void onInit() {
-        super.onInit();
-        attachObservables();
-    }
-
-    /**
      * On Init
      * @param args
      */
@@ -66,7 +49,6 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         super.onInit(args);
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(KIDS_IDENTITY_ARG), "Args no contain son identity");
-        attachObservables();
         // Load Son Data
         loadSonData(args.getString(KIDS_IDENTITY_ARG));
 

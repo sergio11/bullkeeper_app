@@ -3,10 +3,11 @@ package sanchez.sanchez.sergio.bullkeeper.navigation.impl;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -268,5 +269,30 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToKidsResultsActivity(String identity) {
         context.startActivity(KidsResultsActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param title
+     */
+    @Override
+    public void showNoticeDialog(final AppCompatActivity activity, final String title) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        NoticeDialogFragment.showDialog(activity, title);
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(AppCompatActivity activity, String title, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
+        NoticeDialogFragment.showDialog(activity, title, noticeDialogListener);
     }
 }

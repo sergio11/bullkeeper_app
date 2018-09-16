@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 
 import android.support.v7.app.AppCompatActivity;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -156,5 +157,20 @@ public interface INavigator {
      * @param identity
      */
     void navigateToKidsResultsActivity(final String identity);
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     */
+    void showNoticeDialog(final AppCompatActivity activity, final String title);
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     */
+    void showNoticeDialog(final AppCompatActivity activity, final String title, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
+
 
 }

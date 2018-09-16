@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import sanchez.sanchez.sergio.data.net.deserializers.BirthdayDeserializer;
@@ -17,6 +18,8 @@ import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.ihsanbal.logging.Level;
+import com.ihsanbal.logging.LoggingInterceptor;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -47,8 +50,16 @@ public class ApiModule {
     public OkHttpClient provideHttpClient(final AuthTokenInterceptor authTokenInterceptor){
         OkHttpClient client;
         if (BuildConfig.DEBUG) {
+
             client = new OkHttpClient.Builder()
                     .addInterceptor(authTokenInterceptor)
+                    .addInterceptor(new LoggingInterceptor.Builder()
+                            .setLevel(Level.BASIC)
+                            .log(Platform.INFO)
+                            .request("Request")
+                            .response("Response")
+                            .addHeader("version", BuildConfig.VERSION_NAME)
+                            .addQueryParam("query", "0").build())
                     .addNetworkInterceptor(new StethoInterceptor())
                     .build();
         }else{

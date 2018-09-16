@@ -38,6 +38,7 @@ ext {
     slidingtutorialVersion = '1.0.8'
     androidSaripaarVersion = '2.0.3'
     retrofitVersion = '2.4.0'
+    logginInterceptorVersion= '2.0.7'
     rxjava2AdapterVersion = '1.0.0'
     facebookSdkVersion = '[4,5)'
 
@@ -138,6 +139,7 @@ ext {
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             converterJackson:   "com.squareup.retrofit2:converter-jackson:${retrofitVersion}",
+            logginInterceptor:  "com.github.ihsanbal:LoggingInterceptor:${logginInterceptorVersion}",
             adapterRxjava:      "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxjava2AdapterVersion}",
             jacksonCore:        "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",

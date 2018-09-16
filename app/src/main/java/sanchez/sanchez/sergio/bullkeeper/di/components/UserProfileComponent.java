@@ -13,7 +13,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile.UserProfilePres
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class, DataMapperModule.class, ParentModule.class})
+        modules = { ActivityModule.class, DataMapperModule.class,
+                 ParentModule.class })
 public interface UserProfileComponent extends ActivityComponent {
 
     /**

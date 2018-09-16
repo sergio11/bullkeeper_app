@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.io.File;
 import java.util.List;
 import javax.inject.Inject;
@@ -45,6 +44,7 @@ public final class ParentRepositoryImpl implements IParentRepository {
      * Image Data Mapper
      */
     private final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper;
+
 
     /**
      *
@@ -102,6 +102,7 @@ public final class ParentRepositoryImpl implements IParentRepository {
                 .map(parentDataMapper::transform);
     }
 
+
     /**
      * Upload Profile Image
      * @param profileImageUri
@@ -110,6 +111,7 @@ public final class ParentRepositoryImpl implements IParentRepository {
     @Override
     public Observable<ImageEntity> uploadProfileImage(final String profileImageUri) {
         Preconditions.checkNotNull(profileImageUri, "Profile Image Uri can not be null");
+
         final File profileImageFile = new File(profileImageUri);
         Preconditions.checkState(profileImageFile.exists()
                 && profileImageFile.canRead(), "File can not be read");

@@ -99,21 +99,6 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
         this.clearAlertsByLevelInteract = clearAlertsByLevelInteract;
     }
 
-    /**
-     *
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        getSelfAlertsInteract.attachDisposablesTo(compositeDisposable);
-        deleteAlertOfSonInteract.attachDisposablesTo(compositeDisposable);
-        getAlertsBySonInteract.attachDisposablesTo(compositeDisposable);
-        clearAlertsBySonInteract.attachDisposablesTo(compositeDisposable);
-        getSelfAlertsByLevelInteract.attachDisposablesTo(compositeDisposable);
-        getSelfAlertsOfSonByLevelInteract.attachDisposablesTo(compositeDisposable);
-        clearAlertsOfSonByLevelInteract.attachDisposablesTo(compositeDisposable);
-        clearAlertsByLevelInteract.attachDisposablesTo(compositeDisposable);
-    }
 
     /**
      * Load Data

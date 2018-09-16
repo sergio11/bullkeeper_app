@@ -38,11 +38,12 @@ import sanchez.sanchez.sergio.bullkeeper.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.bullkeeper.notification.local.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.notification.local.ILocalSystemNotificationVisitor;
 import sanchez.sanchez.sergio.bullkeeper.notification.model.impl.BasicNotification;
-import sanchez.sanchez.sergio.bullkeeper.permission.impl.PermissionManagerImpl;
+import sanchez.sanchez.sergio.bullkeeper.permission.IPermissionManager;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
+import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
@@ -51,7 +52,7 @@ import timber.log.Timber;
  */
 public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiView>
         extends TiActivity<T, E>
-        implements IBasicActivityHandler, PermissionManagerImpl.OnCheckPermissionListener,
+        implements IBasicActivityHandler, IPermissionManager.OnCheckPermissionListener,
         ILocalSystemNotificationVisitor, ISupportView, IDataManagement {
 
     /**
@@ -77,6 +78,18 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Inject
     protected IPreferenceRepository preferencesRepositoryImpl;
+
+    /**
+     * Permission Manager
+     */
+    @Inject
+    protected IPermissionManager permissionManager;
+
+    /**
+     * Ui Utils
+     */
+    @Inject
+    protected UiUtils uiUtils;
 
 
     /**
@@ -118,6 +131,9 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
             supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
             supportToolbarApp.bind(this);
         }
+
+        permissionManager.setCheckPermissionListener(this);
+
 
         // On View Ready
         onViewReady(savedInstanceState);
@@ -321,8 +337,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showNoticeDialog(final String title) {
-        // Create an instance of the dialog fragment and show it
-        NoticeDialogFragment.showDialog(this, title);
+        navigatorImpl.showNoticeDialog(this, title);
     }
 
     /**
@@ -342,7 +357,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public void showNoticeDialog(final String title,
                                  final NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
-        NoticeDialogFragment.showDialog(this, title, noticeDialogListener);
+        navigatorImpl.showNoticeDialog(this, title, noticeDialogListener);
     }
 
     /**
@@ -679,6 +694,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void onBackPressed() {
+
         safeCloseActivity();
     }
 }

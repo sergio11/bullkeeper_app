@@ -16,7 +16,7 @@ allprojects {
 
     ext {
         androidApplicationId = 'sanchez.sanchez.sergio.bullkeeper'
-        androidVersionCode = 27
+        androidVersionCode = 28
         androidVersionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.fernandocejas.android10.sample.presentation.test'
@@ -28,6 +28,7 @@ allprojects {
             url "https://maven.google.com"
         }
         maven { url 'https://jitpack.io' }
+        maven { url "http://jcenter.bintray.com"}
     }
 }
 

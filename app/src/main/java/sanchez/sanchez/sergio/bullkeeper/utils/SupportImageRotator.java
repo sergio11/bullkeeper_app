@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.utils.imagepicker;
+package sanchez.sanchez.sergio.bullkeeper.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,14 +11,11 @@ import android.provider.MediaStore;
 import timber.log.Timber;
 
 /**
- * Image Rotator
+ * Support Image Rotator
  */
-public final class ImageRotator {
+public final class SupportImageRotator {
 
-    private static final String TAG = ImageRotator.class.getSimpleName();
-
-
-    private ImageRotator() {
+    private SupportImageRotator() {
         // not called
     }
 

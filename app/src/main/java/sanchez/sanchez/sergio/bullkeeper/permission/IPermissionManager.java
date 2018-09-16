@@ -6,7 +6,7 @@ public interface IPermissionManager {
      * Check Single Permission
      * @param permission
      */
-    void checkSinglePermission(final String permission);
+    void checkSinglePermission(final String permission, final String title, final String text);
 
     /**
      * Should Ask Permission
@@ -14,4 +14,20 @@ public interface IPermissionManager {
      * @return
      */
     boolean shouldAskPermission(final String permission);
+
+    /**
+     * Set Check Permission Listener
+     * @param checkPermissionListener
+     */
+    void setCheckPermissionListener(final OnCheckPermissionListener checkPermissionListener);
+
+
+    /**
+     * On Check Permission Listener
+     */
+    interface OnCheckPermissionListener {
+        void onSinglePermissionGranted(final String permission);
+        void onSinglePermissionRejected(final String permission);
+        void onErrorOccurred(final String permission);
+    }
 }

@@ -1,10 +1,13 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
+import android.content.Context;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
@@ -21,6 +24,7 @@ import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IParentRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
  * Parent Module
@@ -35,6 +39,12 @@ public class ParentModule {
     @Provides @PerActivity
     public IParentsService provideParentsService(final Retrofit retrofit){
         return retrofit.create(IParentsService.class);
+    }
+
+
+    @Provides @PerActivity
+    public SupportImagePicker provideSupportImagePicker(final Context appContext) {
+        return new SupportImagePicker(appContext);
     }
 
     /**
@@ -87,11 +97,11 @@ public class ParentModule {
      */
     @Provides @PerActivity
     public UpdateSelfInformationInteract provideUpdateSelfInformationInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                              final IParentRepository parentRepository){
+                                                                              final IParentRepository parentRepository, final IAppUtils appUtils){
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
-        return new UpdateSelfInformationInteract(threadExecutor, postExecutionThread, parentRepository);
+        return new UpdateSelfInformationInteract(threadExecutor, postExecutionThread, parentRepository, appUtils);
     }
 
     /**

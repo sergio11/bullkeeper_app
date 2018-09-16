@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.utils.imagepicker;
+package sanchez.sanchez.sergio.bullkeeper.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,13 +8,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Image Utils
+ * Support Image Utils
  */
-public final class ImageUtils {
+public final class SupportImageUtils {
 
     private static final String BASE_IMAGE_NAME = "i_prefix_";
 
-    private ImageUtils() {
+    private SupportImageUtils() {
     }
 
     /**

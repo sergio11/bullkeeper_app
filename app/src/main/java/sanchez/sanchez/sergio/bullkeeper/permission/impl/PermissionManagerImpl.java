@@ -1,34 +1,34 @@
 package sanchez.sanchez.sergio.bullkeeper.permission.impl;
 
-import android.app.Activity;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
+
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.single.BasePermissionListener;
-import com.karumi.dexter.listener.single.CompositePermissionListener;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.R;
+
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.permission.IPermissionManager;
-import sanchez.sanchez.sergio.utils.ResourceUtils;
-import timber.log.Timber;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 
 /**
  * PermissionManagerImpl
  */
 public final class PermissionManagerImpl implements IPermissionManager {
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
 
-    /**
-     * Permissions Resource
-     */
-    private Map<String, Map<String, String>> permissionsResource = null;
+    private final INavigator navigator;
 
     /**
      * Check Permission Listener
@@ -36,15 +36,16 @@ public final class PermissionManagerImpl implements IPermissionManager {
     private OnCheckPermissionListener checkPermissionListener;
 
     @Inject
-    public PermissionManagerImpl(final Activity activity) {
+    public PermissionManagerImpl(final AppCompatActivity activity, final INavigator navigator) {
         this.activity = activity;
-        permissionsResource = ResourceUtils.getPermissionsResource(activity, R.xml.permissions_data);
+        this.navigator = navigator;
     }
 
     /**
      * Set Check Permission Listener
      * @param checkPermissionListener
      */
+    @Override
     public void setCheckPermissionListener(final OnCheckPermissionListener
                                                    checkPermissionListener) {
         this.checkPermissionListener = checkPermissionListener;
@@ -58,6 +59,37 @@ public final class PermissionManagerImpl implements IPermissionManager {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
     }
 
+    /**
+     * Checks if the androidmanifest.xml contains the given permission.
+     * @param permission
+     * @return
+     */
+    private boolean appManifestContainsPermission(final String permission) {
+
+        final PackageManager pm = activity.getPackageManager();
+
+        try {
+
+            final PackageInfo packageInfo = pm.getPackageInfo(activity.getPackageName(),
+                    PackageManager.GET_PERMISSIONS);
+
+            String[] requestedPermissions = null;
+            if (packageInfo != null) {
+                requestedPermissions = packageInfo.requestedPermissions;
+            }
+            if (requestedPermissions == null) {
+                return false;
+            }
+            if (requestedPermissions.length > 0) {
+                List<String> requestedPermissionsList = Arrays.asList(requestedPermissions);
+                return requestedPermissionsList.contains(permission);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     /**
      * Build Permission Listener
@@ -68,14 +100,8 @@ public final class PermissionManagerImpl implements IPermissionManager {
      */
     private PermissionListener buildPermissionListener(final String permission,
                                                        String title, String text) {
-        PermissionListener dialogOnDeniedPermissionListener =  DialogOnDeniedPermissionListener.Builder
-                .withContext(activity)
-                .withTitle(title)
-                .withMessage(text)
-                .withButtonText(android.R.string.ok)
-                .build();
 
-        PermissionListener basicPermissionListener = new BasePermissionListener() {
+        return  new BasePermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
                 super.onPermissionGranted(response);
@@ -86,12 +112,18 @@ public final class PermissionManagerImpl implements IPermissionManager {
             @Override
             public void onPermissionDenied(PermissionDeniedResponse response) {
                 super.onPermissionDenied(response);
-                if (checkPermissionListener != null)
-                    checkPermissionListener.onSinglePermissionRejected(permission);
+                navigator.showNoticeDialog(activity,
+                        "We can not customize the photo of your profile with a photo of the camera if you do not grant this permission",
+                        new NoticeDialogFragment.NoticeDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                if (checkPermissionListener != null)
+                                    checkPermissionListener.onSinglePermissionRejected(permission);
+                            }
+                        });
+
             }
         };
-
-        return new CompositePermissionListener(basicPermissionListener, dialogOnDeniedPermissionListener);
     }
 
     /**
@@ -99,20 +131,25 @@ public final class PermissionManagerImpl implements IPermissionManager {
      * @param permission
      */
     @Override
-    public void checkSinglePermission(final String permission) {
-        if(permissionsResource.containsKey(permission)) {
-            Map<String, String> permissionResourcesValues = permissionsResource.get(permission);
-            String title = permissionResourcesValues.get("title"), text = permissionResourcesValues.get("text");
+    public void checkSinglePermission(final String permission, final String title, final String text) {
+        Preconditions.checkNotNull(permission, "Permission can not be null");
+        Preconditions.checkNotNull(!permission.isEmpty(), "Permission can not be empty");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        Preconditions.checkNotNull(text, "Text can not be null");
+
+        if(shouldAskPermission(permission)) {
+
             PermissionListener permissionListener = buildPermissionListener(permission, title, text);
+
             Dexter.withActivity(activity)
                     .withPermission(permission)
                     .withListener(permissionListener)
                     .check();
         } else {
-            Timber.d("Recursos del Permiso no configurados");
             if(checkPermissionListener != null)
                 checkPermissionListener.onErrorOccurred(permission);
         }
+
     }
 
     /**
@@ -122,7 +159,7 @@ public final class PermissionManagerImpl implements IPermissionManager {
      */
     @Override
     public boolean shouldAskPermission(final String permission) {
-        if (shouldAskPermission()) {
+        if (shouldAskPermission() && appManifestContainsPermission(permission)) {
             int permissionResult = ActivityCompat.checkSelfPermission(activity, permission);
             if (permissionResult != PackageManager.PERMISSION_GRANTED) {
                 return Boolean.TRUE;
@@ -131,14 +168,4 @@ public final class PermissionManagerImpl implements IPermissionManager {
         return Boolean.FALSE;
     }
 
-
-
-    /**
-     * On Check Permission Listener
-     */
-    public interface OnCheckPermissionListener {
-        void onSinglePermissionGranted(final String permission);
-        void onSinglePermissionRejected(final String permission);
-        void onErrorOccurred(final String permission);
-    }
 }
