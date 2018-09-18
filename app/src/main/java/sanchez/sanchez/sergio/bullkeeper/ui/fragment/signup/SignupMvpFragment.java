@@ -1,14 +1,26 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.TextView;
+
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
@@ -23,6 +35,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -52,6 +66,12 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
     @Inject
     protected IAppUtils appUtils;
+
+    /**
+     * Navigator
+     */
+    @Inject
+    protected INavigator navigator;
 
     /**
      * Name Input Layout
@@ -137,6 +157,18 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @ConfirmPassword
     protected AppCompatEditText confirmPasswordInput;
 
+    /**
+     * Accept Terms And Conditions
+     */
+    @BindView(R.id.input_accept_terms)
+    protected CheckBox acceptTerms;
+
+    /**
+     * Create Account Button
+     */
+    @BindView(R.id.createAccountButton)
+    protected Button createAccountButton;
+
 
     public SignupMvpFragment() { }
 
@@ -154,12 +186,13 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      */
     private void resetErrors(){
 
-        nameInputLayout.setError("");
-        surnameInputLayout.setError("");
-        birthdayInputLayout.setError("");
-        emailInputLayout.setError("");
-        passwordInputLayout.setError("");
-        confirmPasswordInputLayout.setError("");
+        nameInputLayout.setError(null);
+        surnameInputLayout.setError(null);
+        birthdayInputLayout.setError(null);
+        emailInputLayout.setError(null);
+        passwordInputLayout.setError(null);
+        confirmPasswordInputLayout.setError(null);
+        acceptTerms.setError(null);
     }
 
     /**
@@ -175,6 +208,51 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         emailInput.setText("");
         passwordInput.setText("");
         confirmPasswordInput.setText("");
+
+    }
+
+    /**
+     * Configure Terms Of Service And Privacy Policy
+     */
+    private void configureTermsOfServiceAndPrivacyPolicy(){
+
+        final String termsOfService = getString(R.string.terms_of_service);
+        final String privacyPolicy = getString(R.string.privacy_policy);
+
+        final String acceptTermsText = String.format(Locale.getDefault(),
+                getString(R.string.registration_terms_and_conditions), termsOfService, privacyPolicy);
+
+        final int termsOfServicesStart = acceptTermsText.indexOf(termsOfService);
+        final int privacyPolicyStart = acceptTermsText.indexOf(privacyPolicy);
+
+        final SpannableStringBuilder spannable = new SpannableStringBuilder(acceptTermsText);
+
+        // Terms of Service Deep Link
+        spannable.setSpan(new DeepLinkSpan(acceptTerms, termsOfService, getContext()) {
+                              @Override
+                              public void onClick(View widget) {
+                                  super.onClick(widget);
+                                  // Show Terms Of Service
+                                  activityHandler.showLegalContent(LegalContentActivity
+                                          .LegalTypeEnum.TERMS_OF_SERVICE);
+                              }
+                          }, termsOfServicesStart,
+                termsOfServicesStart + termsOfService.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        // Privacy Policy Deep Link
+        spannable.setSpan(new DeepLinkSpan(acceptTerms, privacyPolicy, getContext()) {
+                              @Override
+                              public void onClick(View widget) {
+                                  super.onClick(widget);
+                                  // Show Privacy Policy
+                                  activityHandler.showLegalContent(LegalContentActivity
+                                          .LegalTypeEnum.PRIVACY_POLICY);
+                              }
+                          },  privacyPolicyStart,
+                privacyPolicyStart + privacyPolicy.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        acceptTerms.setText(spannable);
+        acceptTerms.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 
@@ -217,6 +295,8 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
                     datePickerDialog.show();
             }
         });
+
+        configureTermsOfServiceAndPrivacyPolicy();
 
     }
 
@@ -276,16 +356,25 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @Override
     public void onValidationSucceeded() {
 
-        resetErrors();
+        if (acceptTerms.isChecked()) {
 
-        final String name = nameInput.getText().toString();
-        final String surname = surnameInput.getText().toString();
-        final String birthday = birthdayInput.getText().toString();
-        final String email = emailInput.getText().toString();
-        final String password = passwordInput.getText().toString();
-        final String confirmPassword = confirmPasswordInput.getText().toString();
+            resetErrors();
 
-        getPresenter().signup(name, surname, birthday, email, password, confirmPassword, "+34673445695");
+            final String name = nameInput.getText().toString();
+            final String surname = surnameInput.getText().toString();
+            final String birthday = birthdayInput.getText().toString();
+            final String email = emailInput.getText().toString();
+            final String password = passwordInput.getText().toString();
+            final String confirmPassword = confirmPasswordInput.getText().toString();
+            // Disable Button
+            createAccountButton.setEnabled(false);
+            // Signup user
+            getPresenter().signup(name, surname, birthday, email, password, confirmPassword, "+34673445695");
+
+        } else {
+            acceptTerms.setError(getString(R.string.terms_of_service_not_accepted));
+        }
+
     }
 
     /**
@@ -362,6 +451,8 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
                 activityHandler.goToLogin(parentEntity.getEmail());
             }
         });
+
+        createAccountButton.setEnabled(true);
     }
 
     /**
@@ -393,5 +484,57 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+
+    /**
+     * Deep Link Span
+     */
+    public abstract class DeepLinkSpan extends ClickableSpan {
+
+        private final TextView textView;
+        private final String clickableText;
+        private final Context appContext;
+
+        public DeepLinkSpan(final TextView textView, final String clickableText,
+                            final Context appContext) {
+            this.textView = textView;
+            this.clickableText = clickableText;
+            this.appContext = appContext;
+        }
+
+        /**
+         * On Click
+         * @param widget
+         */
+        @Override
+        public void onClick(View widget) {
+
+            // Prevent CheckBox state from being toggled when link is clicked
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                widget.cancelPendingInputEvents();
+            }
+        }
+
+
+        /**
+         * Update Draw State
+         * @param ds
+         */
+        @Override
+        public void updateDrawState(TextPaint ds) {
+
+            ds.setUnderlineText(true);
+
+            if (textView.isPressed() && textView.getSelectionStart() != -1 && textView.getText()
+                    .toString()
+                    .substring(textView.getSelectionStart(), textView.getSelectionEnd())
+                    .equals(clickableText)) {
+                ds.setColor(ContextCompat.getColor(appContext, R.color.darkModerateBlue));
+            } else {
+                ds.setColor(ContextCompat.getColor(appContext, R.color.darkModerateBlue));
+            }
+        }
+
     }
 }

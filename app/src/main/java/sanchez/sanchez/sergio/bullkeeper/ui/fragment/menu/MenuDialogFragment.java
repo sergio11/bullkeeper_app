@@ -20,6 +20,7 @@ import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
@@ -34,6 +35,8 @@ public final class MenuDialogFragment extends SupportDialogFragment
     private final static int SETTINGS_ITEM_POSITION = 1;
     private final static int HOW_ITS_WORK_POSITION = 2;
     private final static int CLOSE_SESSION_POSITION = 3;
+    private final static int TERMS_OF_SERVICE_POSITION = 4;
+    private final static int PRIVACY_POLICY_POSITION = 5;
 
     public static final String TAG = "MENU_DIALOG_FRAGMENT";
 
@@ -143,6 +146,14 @@ public final class MenuDialogFragment extends SupportDialogFragment
                 preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
                 preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
                 navigator.navigateToIntro(true);
+                break;
+
+            case TERMS_OF_SERVICE_POSITION:
+                navigator.showLegalContentActivity(LegalContentActivity.LegalTypeEnum.TERMS_OF_SERVICE);
+                break;
+
+            case PRIVACY_POLICY_POSITION:
+                navigator.showLegalContentActivity(LegalContentActivity.LegalTypeEnum.PRIVACY_POLICY);
                 break;
 
         }

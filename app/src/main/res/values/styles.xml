@@ -69,6 +69,12 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- Legal Content -->
+    <style name="AppTheme.LegalContent">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
+
 
 
     <style name="AppTheme.Widget"/>
@@ -152,7 +158,7 @@
         <item name="android:textSize">@dimen/common_strong_text_size</item>
     </style>
 
-    
+    <!-- Common Title -->
     <style name="CommonTitle">
         <item name="android:textColor">@color/commonWhite</item>
         <item name="android:textAlignment">center</item>
@@ -160,6 +166,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
         <item name="android:textSize">@dimen/common_title_text_size</item>
+    </style>
+
+    <!-- Common Title Medium -->
+    <style name="CommonTitle.Medium">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textSize">@dimen/common_title_text_size_medium</item>
     </style>
 
     <!-- Common Strong Text -->
@@ -317,6 +329,12 @@
     <style name="CommonTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Common Check Box -->
+    <style name="CommonCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/commonWhite</item>
+        <item name="colorControlActivated">@color/commonWhite</item>
     </style>
 
 </resources>

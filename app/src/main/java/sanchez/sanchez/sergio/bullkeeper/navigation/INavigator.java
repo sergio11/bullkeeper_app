@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
@@ -181,5 +182,16 @@ public interface INavigator {
      */
     void showNoticeDialog(final AppCompatActivity activity, final String title, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
+
+    /**
+     * Show Legal Content Activity
+     */
+    void showLegalContentActivity();
+
+    /**
+     * Show Legal Content Activity
+     * @param legalTypeEnum
+     */
+    void showLegalContentActivity(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
 
 }

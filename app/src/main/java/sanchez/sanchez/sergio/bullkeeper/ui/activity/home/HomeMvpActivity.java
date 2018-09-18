@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerHomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
@@ -146,6 +147,15 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     public void showHowAddChildHelpDialog() {
         navigatorImpl.showAppHelpDialog(this, getString(R.string.home_how_add_child_title),
                 getString(R.string.youtube_video_cue));
+    }
+
+    /**
+     * Show Legal Content
+     * @param legalTypeEnum
+     */
+    @Override
+    public void showLegalContent(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
+        navigatorImpl.showLegalContentActivity(legalTypeEnum);
     }
 
 

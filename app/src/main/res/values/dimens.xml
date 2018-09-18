@@ -30,6 +30,7 @@
 
     <dimen name="toolbar_elevation_size">4dp</dimen>
     <dimen name="common_title_text_size">32dp</dimen>
+    <dimen name="common_title_text_size_medium">25dp</dimen>
 
     <!-- Common Strong Text -->
     <dimen name="common_strong_text_size">22dp</dimen>

@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerIntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.intro.IntroMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.password.ForgotPasswordMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin.SigninMvpFragment;
@@ -175,6 +176,15 @@ public class IntroMvpActivity
     public void goToForgetPassword() {
         replaceFragment(R.id.fragmentContainer, ForgotPasswordMvpFragment.newInstance(), true,
                 ForgotPasswordMvpFragment.TAG, R.anim.grow_from_middle, R.anim.shrink_to_middle);
+    }
+
+    /**
+     * Show Legal Content
+     * @param legalTypeEnum
+     */
+    @Override
+    public void showLegalContent(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
+        navigatorImpl.showLegalContentActivity(legalTypeEnum);
     }
 
     /**

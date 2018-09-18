@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
 
 /**
@@ -45,5 +46,11 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
      * Show How add Child Help Dialog
      */
     void showHowAddChildHelpDialog();
+
+    /**
+     * Show Legal Content
+     * @param legalTypeEnum
+     */
+    void showLegalContent(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
 
 }

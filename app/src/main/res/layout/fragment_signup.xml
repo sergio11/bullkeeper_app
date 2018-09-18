@@ -33,45 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude" />
 
-    <Button
-        android:id="@+id/createAccountButton"
-        style="@style/CommonActionButton"
-        android:layout_width="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:padding="20dp"
-        android:text="@string/create_account_btn"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-
-    <!-- Signup Footer -->
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/cyanBrilliant"
-        android:gravity="center"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Go to login Button -->
-        <Button
-            android:id="@+id/backToLogin"
-            style="@style/CommonStrongText.AllCaps"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/arrow_alt_circle_right_regular_52"
-            android:drawablePadding="5dp"
-            android:text="@string/sign_up_back_to_login"
-            android:textColor="@color/commonWhite" />
-
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="0dp"
@@ -80,7 +42,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
+        app:layout_constraintBottom_toTopOf="@+id/input_accept_terms"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:scrollbarThumbVertical="@android:color/white"
@@ -227,6 +189,62 @@
 
 
     </ScrollView>
+
+
+    <CheckBox
+        android:id="@+id/input_accept_terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/commonWhite"
+        android:theme="@style/CommonCheckBox"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- Create Account Button -->
+    <Button
+        android:id="@+id/createAccountButton"
+        style="@style/CommonActionButton"
+        android:layout_width="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:padding="20dp"
+        android:text="@string/create_account_btn"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <!-- Signup Footer -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/cyanBrilliant"
+        android:gravity="center"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Go to login Button -->
+        <Button
+            android:id="@+id/backToLogin"
+            style="@style/CommonStrongText.AllCaps"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/arrow_alt_circle_right_regular_52"
+            android:drawablePadding="5dp"
+            android:text="@string/sign_up_back_to_login"
+            android:textColor="@color/commonWhite" />
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

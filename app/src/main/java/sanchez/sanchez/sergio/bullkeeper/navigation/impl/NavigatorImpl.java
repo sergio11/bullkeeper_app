@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -306,5 +307,23 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(title, "Title can not be null");
         Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
         NoticeDialogFragment.showDialog(activity, title, noticeDialogListener);
+    }
+
+    /**
+     * Show Legal Content Activity
+     */
+    @Override
+    public void showLegalContentActivity() {
+        context.startActivity(LegalContentActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Show Legal Content Activitys
+     * @param legalTypeEnum
+     */
+    @Override
+    public void showLegalContentActivity(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
+        Preconditions.checkNotNull(legalTypeEnum, "Legal Type Enum can not be null");
+        context.startActivity(LegalContentActivity.getCallingIntent(context, legalTypeEnum));
     }
 }

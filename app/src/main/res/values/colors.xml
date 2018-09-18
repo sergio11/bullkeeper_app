@@ -58,7 +58,9 @@
     <color name="youtube_color">#fd1d1d</color>
     <!-- Youtube Color Dark -->
     <color name="youtube_color_dark">#b11414</color>
-
+    <!-- Silver Color -->
     <color name="silver_color">#C0C0C0</color>
+    <!-- Common Gray -->
+    <color name="common_gray">#D8D8D8</color>
 
 </resources>
