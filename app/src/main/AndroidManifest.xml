@@ -164,6 +164,9 @@
             android:name=".ui.activity.kidsresults.KidsResultsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0f86f04a7fbf03688e65ded3dbd67fef1d41294d" />
     </application>
 
 </manifest>

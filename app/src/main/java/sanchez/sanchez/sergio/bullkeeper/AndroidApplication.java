@@ -4,9 +4,12 @@ import android.app.Application;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import io.fabric.sdk.android.Fabric;
 import net.grandcentrix.thirtyinch.TiConfiguration;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
@@ -78,6 +81,8 @@ public final class AndroidApplication extends Application {
      * On Common Config
      */
     protected void onCommonConfig(){
+        // Init Fabric
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         // Chrash Screen
         CaocConfig.Builder.create().apply();
         // Iconify
