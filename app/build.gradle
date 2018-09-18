@@ -127,6 +127,7 @@ dependencies {
     implementation presentationDependencies.viewPagerTransforms
     implementation presentationDependencies.facebookSdk
     implementation presentationDependencies.arrowPreconditions
+    implementation presentationDependencies.zxcvbn
 
 
     androidTestImplementation presentationTestDependencies.mockito

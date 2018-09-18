@@ -10,28 +10,34 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Password;
 import com.mobsandgeeks.saripaar.annotation.Past;
+import com.nulabinc.zxcvbn.Zxcvbn;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -141,7 +147,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      * Password Input
      */
     @BindView(R.id.passwordInput)
-    @Password(scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
     protected AppCompatEditText passwordInput;
 
     /**
@@ -168,6 +173,12 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      */
     @BindView(R.id.createAccountButton)
     protected Button createAccountButton;
+
+    /**
+     * Password Progress
+     */
+    @BindView(R.id.input_password_progress)
+    protected ProgressBar progressBar;
 
 
     public SignupMvpFragment() { }
@@ -257,6 +268,51 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     }
 
     /**
+     * Validate Password
+     */
+    private boolean validatePassword(final String passwordText) {
+
+        boolean isValid = false;
+
+        if (passwordText.length() < 8) {
+            // A minimum of 8 characters
+            passwordInputLayout.setError(getString(R.string.error_password_invalid_length));
+        } else if(!Pattern.compile("[a-z]+").matcher(passwordText).find()) {
+            // At least one lower case letter
+            passwordInputLayout.setError(getString(R.string.error_password_lower_case_letter_required));
+        } else if(!Pattern.compile("[A-Z]+").matcher(passwordText).find()) {
+            // At least one upper case letter
+            passwordInputLayout.setError(getString(R.string.error_password_upper_case_letter_required));
+        }else  if(!Pattern.compile("[0-9]+|[^A-Za-z0-9]+").matcher(passwordText).find()) {
+            // At least one number or special character
+            passwordInputLayout.setError(getString(R.string.error_number_or_special_character_required));
+        } else if(Pattern.compile("(.)\\1\\1+").matcher(passwordText.toUpperCase()).find()) {
+            // No more than two consecutive repeating characters or numbers
+            passwordInputLayout.setError(getString(R.string.error_consecutive_repeating_characters_or_number_not_allowed));
+        } else {
+            passwordInputLayout.setErrorEnabled(false);
+            isValid = true;
+        }
+
+        return isValid;
+
+    }
+
+    /**
+     * Sanitize Data
+     */
+    private void sanitizeData() {
+
+        nameInput.setText(nameInput.getText().toString()
+                .trim().replaceAll("\\s{2,}", " ").replaceAll("\\.", ""));
+        surnameInput.setText(surnameInput.getText().toString()
+                .trim().replaceAll("\\s{2,}", " ").replaceAll("\\.", ""));
+        passwordInput.setText(passwordInput.getText().toString().trim().replaceAll("\\s{2,}", " "));
+        emailInput.setText(emailInput.getText().toString().trim().replaceAll("\\s+", ""));
+        //repeatMailEditText.setText(repeatMailEditText.getText().toString().trim().replaceAll("\\s+", ""));
+    }
+
+    /**
      * On View Created
      * @param view
      * @param savedInstanceState
@@ -297,6 +353,40 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         });
 
         configureTermsOfServiceAndPrivacyPolicy();
+
+        final Zxcvbn zxcvbn = new Zxcvbn();
+
+        passwordInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    progressBar.setVisibility(View.VISIBLE);
+                else
+                    progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        // Password Change Listener
+        passwordInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                final String passwordText = charSequence.toString()
+                        .trim().replaceAll(" +", " ");
+                if(!passwordText.isEmpty()) {
+                    final int passwordScore = zxcvbn.measure(passwordText).getScore();
+                    passwordInputLayout.setErrorEnabled(false);
+                    // Set Password Score
+                    progressBar.setProgress(passwordScore);
+                    validatePassword(passwordText);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
 
     }
 
@@ -403,6 +493,8 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      */
     @OnClick(R.id.createAccountButton)
     public void onCreateAccount(){
+        //Sanitize Data
+        sanitizeData();
         // Reset Errors
         resetErrors();
         // Validate

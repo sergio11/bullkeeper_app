@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/commonWhite"
                 android:theme="@style/CommonTextInputLayout"
-                app:counterEnabled="true"
+                app:counterEnabled="false"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/commonWhite"
                 android:theme="@style/CommonTextInputLayout"
-                app:counterEnabled="true"
+                app:counterEnabled="false"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
@@ -114,7 +114,8 @@
                     android:hint="@string/birthday_hint"
                     android:clickable="true"
                     android:editable="false"
-                    android:lines="1" />
+                    android:lines="1"
+                    android:focusable="true" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -148,8 +149,10 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/commonWhite"
                 android:theme="@style/CommonTextInputLayout"
-                app:counterEnabled="true"
+                app:counterEnabled="false"
                 app:errorEnabled="true"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/darkModerateBlue"
                 app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
                 <android.support.v7.widget.AppCompatEditText
@@ -162,6 +165,21 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <ProgressBar
+                android:id="@+id/input_password_progress"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="4"
+                tools:progress="1"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:progressDrawable="@drawable/password_progressbar"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" />
 
             <!-- confirm password input -->
             <android.support.design.widget.TextInputLayout
@@ -170,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/commonWhite"
                 android:theme="@style/CommonTextInputLayout"
-                app:counterEnabled="true"
+                app:counterEnabled="false"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
@@ -183,6 +201,7 @@
                     android:lines="1" />
 
             </android.support.design.widget.TextInputLayout>
+
 
 
         </LinearLayout>

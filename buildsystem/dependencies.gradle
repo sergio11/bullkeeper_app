@@ -49,6 +49,7 @@ ext {
     circleimageviewVersion = '2.2.0'
     mpAndroidChartVerion = 'v3.0.3'
     viewPagerTransforms = '1.2.32'
+    zxcvbnVersion = '1.2.2'
 
 
     thirtyInchVersion = '0.8.5'
@@ -102,7 +103,8 @@ ext {
             MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
             viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar",
             facebookSdk:        "com.facebook.android:facebook-login:${facebookSdkVersion}",
-            arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}"
+            arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}",
+            zxcvbn:             "com.nulab-inc:zxcvbn:${zxcvbnVersion}"
     ]
 
     presentationTestDependencies = [

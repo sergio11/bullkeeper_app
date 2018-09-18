@@ -456,4 +456,11 @@
     <string name="terms_of_service_url">file:///android_asset/web/terms_of_service_content.html</string>
     <string name="privacy_policy_url">file:///android_asset/web/privacy_policy_content.html</string>
 
+    <!-- Password Constraints -->
+    <string name="error_password_invalid_length">At least 8 characters</string>
+    <string name="error_password_lower_case_letter_required">At least one lower case letter</string>
+    <string name="error_password_upper_case_letter_required">At least one upper case letter</string>
+    <string name="error_consecutive_repeating_characters_or_number_not_allowed">No more than two consecutive repeating characters or numbers</string>
+    <string name="error_number_or_special_character_required">At least one number or special character</string>
+
 </resources>
