@@ -20,29 +20,25 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import com.mobsandgeeks.saripaar.annotation.ConfirmEmail;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.nulabinc.zxcvbn.Zxcvbn;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -57,18 +53,17 @@ import timber.log.Timber;
  */
 public class SignupMvpFragment extends
         SupportMvpValidationMvpFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler,
-                                IntroComponent>
-implements ISignupView, DatePickerDialog.OnDateSetListener{
+                                IntroComponent> implements ISignupView {
+
+    private final static int MIN_AGE_DEFAULT = 18;
+    private final static int MAX_AGE_DEFAULT = 80;
 
     public static String TAG = "INTRO_FRAGMENT";
-
-    private DatePickerDialog datePickerDialog;
 
     private final static String EMAIL_FIELD_NAME = "email";
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
     private final static String LAST_NAME_FIELD_NAME = "last_name";
     private final static String BIRTHDATE_FIELD_NAME = "birthdate";
-
 
     @Inject
     protected IAppUtils appUtils;
@@ -121,7 +116,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @BindView(R.id.birthdayInput)
     @NotEmpty(messageResId = R.string.birthday_not_empty_error)
     @Past(dateFormatResId = R.string.date_format)
-    protected AppCompatEditText birthdayInput;
+    protected SupportEditTextDatePicker birthdayInput;
 
     /**
      * Email Input Layout
@@ -136,6 +131,20 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @NotEmpty(messageResId = R.string.email_not_empty_error)
     @Email(messageResId = R.string.email_invalid_error)
     protected AppCompatEditText emailInput;
+
+    /**
+     * Repeat Email Input Layout
+     */
+    @BindView(R.id.repeatEmailInputLayout)
+    protected TextInputLayout repeatEmailInputLayout;
+
+    /**
+     * Repeat Email Input
+     */
+    @BindView(R.id.repeatEmailInput)
+    @NotEmpty(messageResId = R.string.email_not_empty_error)
+    @ConfirmEmail(messageResId = R.string.repeat_email_invalid_error)
+    protected AppCompatEditText repeatEmailInput;
 
     /**
      * Password Input Layout
@@ -188,8 +197,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      * @return
      */
     public static SignupMvpFragment newInstance() {
-        SignupMvpFragment fragment = new SignupMvpFragment();
-        return fragment;
+        return new SignupMvpFragment();
     }
 
     /**
@@ -201,6 +209,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         surnameInputLayout.setError(null);
         birthdayInputLayout.setError(null);
         emailInputLayout.setError(null);
+        repeatEmailInputLayout.setError(null);
         passwordInputLayout.setError(null);
         confirmPasswordInputLayout.setError(null);
         acceptTerms.setError(null);
@@ -217,6 +226,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         surnameInput.setText("");
         birthdayInput.setText("");
         emailInput.setText("");
+        repeatEmailInput.setText("");
         passwordInput.setText("");
         confirmPasswordInput.setText("");
 
@@ -309,7 +319,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
                 .trim().replaceAll("\\s{2,}", " ").replaceAll("\\.", ""));
         passwordInput.setText(passwordInput.getText().toString().trim().replaceAll("\\s{2,}", " "));
         emailInput.setText(emailInput.getText().toString().trim().replaceAll("\\s+", ""));
-        //repeatMailEditText.setText(repeatMailEditText.getText().toString().trim().replaceAll("\\s+", ""));
     }
 
     /**
@@ -321,36 +330,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Integer START_YEAR = 1970;
-        Integer START_MONTH = 1;
-        Integer START_DAY = 1;
-
-        datePickerDialog = new DatePickerDialog(
-                getActivity(), R.style.CommonDatePickerStyle, SignupMvpFragment.this, START_YEAR,
-                START_MONTH, START_DAY);
-
-        // On Focus Listener
-        birthdayInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-
-                if(datePickerDialog != null) {
-                    if(hasFocus)
-                        datePickerDialog.show();
-                    else
-                        datePickerDialog.dismiss();
-                }
-            }
-        });
-
-        // On Click Listener
-        birthdayInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(datePickerDialog != null)
-                    datePickerDialog.show();
-            }
-        });
 
         configureTermsOfServiceAndPrivacyPolicy();
 
@@ -387,6 +366,9 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
             @Override
             public void afterTextChanged(Editable editable) { }
         });
+
+        birthdayInput.setMinAge(MIN_AGE_DEFAULT);
+        birthdayInput.setMaxAge(MAX_AGE_DEFAULT);
 
     }
 
@@ -435,6 +417,8 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
             passwordInputLayout.setError(message);
         } else if(viewId.equals(R.id.confirmPasswordInput)) {
             confirmPasswordInputLayout.setError(message);
+        } else if(viewId.equals(R.id.repeatEmailInput)) {
+            repeatEmailInputLayout.setError(message);
         }
 
 
@@ -452,7 +436,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
 
             final String name = nameInput.getText().toString();
             final String surname = surnameInput.getText().toString();
-            final String birthday = birthdayInput.getText().toString();
+            final String birthday = birthdayInput.getDateSelectedAsText();
             final String email = emailInput.getText().toString();
             final String password = passwordInput.getText().toString();
             final String confirmPassword = confirmPasswordInput.getText().toString();
@@ -501,24 +485,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         validator.validate();
     }
 
-    /**
-     * On Date Set
-     * @param datePicker
-     * @param year
-     * @param month
-     * @param day
-     */
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
-        String strDate = format.format(calendar.getTime());
-        // Set Data format
-        birthdayInput.setText(strDate);
-    }
 
     /**
      * On Signup Success
@@ -588,7 +554,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         private final String clickableText;
         private final Context appContext;
 
-        public DeepLinkSpan(final TextView textView, final String clickableText,
+        private DeepLinkSpan(final TextView textView, final String clickableText,
                             final Context appContext) {
             this.textView = textView;
             this.clickableText = clickableText;

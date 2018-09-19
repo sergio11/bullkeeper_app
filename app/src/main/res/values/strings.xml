@@ -75,6 +75,8 @@
     <string name="email_not_empty_error">You must specify your email</string>
     <string name="email_invalid_error">The email does not have the correct format</string>
     <string name="forms_is_not_valid">The information provided is not valid</string>
+    <string name="repeat_email_invalid_error">The mail does not match</string>
+    <string name="birthday_selected" formatted="false">%s (%d years)</string>
 
     <!-- Intro -->
     <string name="close_session_message">You have closed session.</string>
