@@ -10,18 +10,14 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
-import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +26,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
@@ -49,8 +46,7 @@ import timber.log.Timber;
  */
 public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
         implements HasComponent<MyKidsComponent>,
-        IMyKidsProfileView, DatePickerDialog.OnDateSetListener,
-        PhotoViewerDialog.IPhotoViewerListener {
+        IMyKidsProfileView, PhotoViewerDialog.IPhotoViewerListener {
 
     public enum KidProfileMode { ADD_NEW_SON_MODE, EDIT_CURRENT_SON_MODE }
 
@@ -61,6 +57,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
 
     public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+
     private static final int MIN_AGE_ALLOWED = 8;
     private static final int MAX_AGE_ALLOWED = 18;
 
@@ -118,7 +115,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @BindView(R.id.birthdayInput)
     @NotEmpty(messageResId = R.string.birthday_not_empty_error)
     @Past(dateFormatResId = R.string.date_format)
-    protected AppCompatEditText birthdayInput;
+    protected SupportEditTextDatePicker birthdayInput;
 
     /**
      * Instagram Icon
@@ -310,31 +307,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
 
-        datePickerDialog = uiUtils.createBirthdayDataPickerDialog(this,
-                MIN_AGE_ALLOWED, MAX_AGE_ALLOWED, this);
-        // On Focus Listener
-        birthdayInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-
-                if(datePickerDialog != null) {
-                    if(hasFocus)
-                        datePickerDialog.show();
-                    else
-                        datePickerDialog.dismiss();
-                }
-            }
-        });
-
-        // On Click Listener
-        birthdayInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(datePickerDialog != null)
-                    datePickerDialog.show();
-            }
-        });
-
     }
 
     /**
@@ -421,7 +393,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         super.onResetFields();
         nameInput.getText().clear();
         surnameInput.getText().clear();
-        birthdayInput.getText().clear();
+        birthdayInput.setDateSelected(new Date());
     }
 
     /**
@@ -457,8 +429,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             navigatorImpl.showPhotoViewerDialog(this,
                     R.drawable.kid_default_image);
         }
-
-
     }
 
 
@@ -475,26 +445,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         return true;
     }
 
-
-    /**
-     * On Data Set
-     * @param datePicker
-     * @param year
-     * @param month
-     * @param day
-     */
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format),
-                Locale.getDefault());
-        String strDate = format.format(calendar.getTime());
-        // Set Data format
-        birthdayInput.setText(strDate);
-    }
-
     /**
      * On Validation Succeeded
      */
@@ -504,7 +454,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         final String name = nameInput.getText().toString();
         final String surname = surnameInput.getText().toString();
-        final String birthday = birthdayInput.getText().toString();
+        final String birthday = birthdayInput.getDateSelectedAsText();
 
         getPresenter().saveSon(myKidIdentity, name, surname, birthday,
                 "5b9e1db2082f6d1a400af3d5", currentImagePath);
@@ -585,17 +535,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 !sonEntity.getLastName().isEmpty())
             surnameInput.setText(sonEntity.getLastName());
 
-        if(sonEntity.getBirthdate() != null) {
-            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
-            final String birthday = format.format(sonEntity.getBirthdate());
-            birthdayInput.setText(birthday);
-
-            final Calendar calendar = Calendar.getInstance();
-            calendar.setTime(sonEntity.getBirthdate());
-            datePickerDialog.getDatePicker().updateDate(calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        }
-
+        if(sonEntity.getBirthdate() != null)
+            birthdayInput.setDateSelected(sonEntity.getBirthdate());
 
         // Enable All Components
         enableAllComponents(true);
