@@ -128,7 +128,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         Icepick.restoreInstanceState(this, savedInstanceState);
 
         if(supportToolbarApp == null && appbarLayout != null ) {
-            supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
+            supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout, getAppIconMode());
             supportToolbarApp.bind(this);
         }
 
@@ -631,6 +631,14 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     protected int getToolbarType(){
         return SupportToolbarApp.INFORMATIVE_TOOLBAR;
+    }
+
+    /**
+     * App Icon Mode
+     * @return
+     */
+    protected int getAppIconMode(){
+        return SupportToolbarApp.ENABLE_GO_TO_HOME;
     }
 
     /**

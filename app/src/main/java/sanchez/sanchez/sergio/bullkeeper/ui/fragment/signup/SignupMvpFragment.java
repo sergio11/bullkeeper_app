@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup;
 
-import android.app.DatePickerDialog;
+
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +38,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -542,6 +543,16 @@ public class SignupMvpFragment extends
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
     }
 
 

@@ -34,6 +34,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import timber.log.Timber;
 
 /**
@@ -304,4 +305,12 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
         showShortMessage(R.string.login_facebook_error);
     }
 
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
+    }
 }

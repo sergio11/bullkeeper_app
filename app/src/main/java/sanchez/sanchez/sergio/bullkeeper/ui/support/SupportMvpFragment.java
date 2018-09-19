@@ -112,7 +112,7 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
 
         if(appbarLayout != null) {
 
-            final SupportToolbarApp supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout);
+            final SupportToolbarApp supportToolbarApp = new SupportToolbarApp(getToolbarType(), appbarLayout, getAppIconMode());
             supportToolbarApp.bind(activityHandler);
             activityHandler.setSupportToolbarApp(supportToolbarApp);
         }
@@ -352,6 +352,11 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
         return SupportToolbarApp.INFORMATIVE_TOOLBAR;
     }
 
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    protected int getAppIconMode() { return SupportToolbarApp.ENABLE_GO_TO_HOME; }
 
     /**
      * Get Args

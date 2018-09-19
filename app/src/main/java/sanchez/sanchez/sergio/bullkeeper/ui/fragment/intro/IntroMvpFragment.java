@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 
 
 /**
@@ -84,6 +85,15 @@ implements IIntroView {
     public void onSignup(){
         // Go to Signup
         activityHandler.goToSignup();
+    }
+
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
     }
 
 }

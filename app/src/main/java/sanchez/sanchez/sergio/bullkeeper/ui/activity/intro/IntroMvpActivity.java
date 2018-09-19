@@ -20,6 +20,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.password.ForgotPasswordMvpF
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup.SignupMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 
 /**
  * Intro MVP Activity

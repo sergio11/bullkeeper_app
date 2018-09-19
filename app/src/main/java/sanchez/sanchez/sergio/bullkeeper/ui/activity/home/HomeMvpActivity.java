@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
@@ -200,6 +201,15 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     @Override
     protected int getToolbarType() {
         return TOOLBAR_WITH_MENU;
+    }
+
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
     }
 
     /**

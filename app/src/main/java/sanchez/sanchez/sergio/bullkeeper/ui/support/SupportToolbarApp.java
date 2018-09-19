@@ -18,8 +18,23 @@ public class SupportToolbarApp {
     public final static int RETURN_TOOLBAR = 2;
     public final static int NOT_TOOLBAR = 3;
 
+    public final static int ENABLE_GO_TO_HOME = 1;
+    public final static int DISABLE_GO_TO_HOME = 2;
+
+    /**
+     * Toolbar Type
+     */
     private final int toolbarType;
+
+    /**
+     * Toolbar Layout
+     */
     private final View toolbarLayout;
+
+    /**
+     * App Icon Mode
+     */
+    private final int appIconMode;
 
     private Unbinder unbinder;
 
@@ -50,6 +65,16 @@ public class SupportToolbarApp {
     @BindView(R.id.question)
     protected ImageButton questionBtn;
 
+    /**
+     * Support Toolbar App
+     * @param toolbarType
+     * @param toolbarLayout
+     */
+    public SupportToolbarApp(int toolbarType, final View toolbarLayout, final int appIconMode) {
+        this.toolbarType = toolbarType;
+        this.toolbarLayout = toolbarLayout;
+        this.appIconMode = appIconMode;
+    }
 
     /**
      * Support Toolbar App
@@ -59,6 +84,7 @@ public class SupportToolbarApp {
     public SupportToolbarApp(int toolbarType, final View toolbarLayout) {
         this.toolbarType = toolbarType;
         this.toolbarLayout = toolbarLayout;
+        this.appIconMode = ENABLE_GO_TO_HOME;
     }
 
     /**
@@ -128,12 +154,13 @@ public class SupportToolbarApp {
                 break;
         }
 
-        appIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                basicActivityHandler.navigateToHome();
-            }
-        });
+        if(appIconMode == ENABLE_GO_TO_HOME)
+            appIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    basicActivityHandler.navigateToHome();
+                }
+            });
 
     }
 
