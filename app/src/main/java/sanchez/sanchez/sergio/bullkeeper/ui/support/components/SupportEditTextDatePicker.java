@@ -88,6 +88,7 @@ public final class SupportEditTextDatePicker extends AppCompatEditText implement
 
     public void setDateSelected(Date dateSelected) {
         this.dateSelected = dateSelected;
+        calendar.setTime(dateSelected);
         updateText();
     }
 
@@ -138,6 +139,16 @@ public final class SupportEditTextDatePicker extends AppCompatEditText implement
     }
 
     /**
+     * Show Date Picker Dialog
+     */
+    private void showDatePickerDialog(){
+        datePickerDialog = createDatePickerDialog(minAge, maxAge, this);
+        datePickerDialog.updateDate(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    /**
      * Get Age
      * @return
      */
@@ -156,8 +167,7 @@ public final class SupportEditTextDatePicker extends AppCompatEditText implement
      */
     @Override
     public void onClick(View v) {
-        datePickerDialog = createDatePickerDialog(minAge, maxAge, this);
-        datePickerDialog.show();
+        showDatePickerDialog();
     }
 
     /**
@@ -184,8 +194,7 @@ public final class SupportEditTextDatePicker extends AppCompatEditText implement
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if(hasFocus){
-            datePickerDialog = createDatePickerDialog(minAge, maxAge, this);
-            datePickerDialog.show();
+            showDatePickerDialog();
         } else {
             datePickerDialog.hide();
         }
