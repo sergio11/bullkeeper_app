@@ -165,6 +165,28 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <!-- School input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/schoolInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/schoolInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/school_hint"
+                    android:inputType="text"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <TableLayout
                 android:layout_width="match_parent"

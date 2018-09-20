@@ -152,6 +152,7 @@ public class SupportToolbarApp {
             case NOT_TOOLBAR:
                 toolbarLayout.setVisibility(View.GONE);
                 break;
+
         }
 
         if(appIconMode == ENABLE_GO_TO_HOME)

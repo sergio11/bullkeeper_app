@@ -8,6 +8,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -325,5 +326,13 @@ public class NavigatorImpl implements INavigator {
     public void showLegalContentActivity(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
         Preconditions.checkNotNull(legalTypeEnum, "Legal Type Enum can not be null");
         context.startActivity(LegalContentActivity.getCallingIntent(context, legalTypeEnum));
+    }
+
+    /**
+     * Show Search School Activity
+     */
+    @Override
+    public void showSearchSchoolActivity() {
+        context.startActivity(SearchSchoolActivity.getCallingIntent(context));
     }
 }

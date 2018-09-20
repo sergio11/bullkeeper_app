@@ -74,6 +74,11 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- Search School -->
+    <style name="AppTheme.SearchSchool">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
+
 
 
 

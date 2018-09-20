@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -118,6 +119,20 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected SupportEditTextDatePicker birthdayInput;
 
     /**
+     * School Input Layout
+     */
+    @BindView(R.id.schoolInputLayout)
+    protected TextInputLayout schoolInputLayout;
+
+    /**
+     * School Input
+     */
+    @BindView(R.id.schoolInput)
+    @NotEmpty(messageResId = R.string.school_not_empty_error)
+    protected AppCompatEditText schoolInput;
+
+
+    /**
      * Instagram Icon
      */
     @BindView(R.id.instagramIcon)
@@ -170,13 +185,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @BindView(R.id.youtubeSwitchWidget)
     protected SwitchCompat youtubeSwitchWidget;
-
-
-
-    /**
-     * Date Picker Dialog
-     */
-    private DatePickerDialog datePickerDialog;
 
     /**
      * Picasso
@@ -283,6 +291,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         nameInput.setEnabled(enable);
         surnameInput.setEnabled(enable);
         birthdayInput.setEnabled(enable);
+        schoolInput.setEnabled(enable);
         instagramSwitchWidget.setEnabled(enable);
         facebookSwitchWidget.setEnabled(enable);
         youtubeSwitchWidget.setEnabled(enable);
@@ -306,6 +315,14 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         }
 
         myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
+
+        schoolInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    navigatorImpl.showSearchSchoolActivity();
+            }
+        });
 
     }
 
@@ -371,6 +388,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             surnameInputLayout.setError(message);
         } else if(viewId.equals(R.id.birthdayInput)) {
             birthdayInputLayout.setError(message);
+        } else if(viewId.equals(R.id.schoolInput)) {
+            schoolInputLayout.setError(message);
         }
 
     }
@@ -383,6 +402,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         nameInputLayout.setError(null);
         surnameInputLayout.setError(null);
         birthdayInputLayout.setError(null);
+        schoolInputLayout.setError(null);
     }
 
     /**
@@ -394,6 +414,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         nameInput.getText().clear();
         surnameInput.getText().clear();
         birthdayInput.setDateSelected(new Date());
+        schoolInput.getText().clear();
     }
 
     /**
@@ -513,10 +534,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         // Save Current State
         myKidIdentity = sonEntity.getIdentity();
-        firstName = sonEntity.getFirstName();
-        lastName = sonEntity.getLastName();
         currentImagePath = sonEntity.getProfileImage();
-        school = sonEntity.getSchool().getIdentity();
         profileMode = KidProfileMode.EDIT_CURRENT_SON_MODE;
 
         myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), sonEntity.getFullName()));
@@ -528,15 +546,25 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 .into(profileImageView);
 
         if(sonEntity.getFirstName() != null &&
-                !sonEntity.getFirstName().isEmpty())
+                !sonEntity.getFirstName().isEmpty()) {
+            firstName = sonEntity.getFirstName();
             nameInput.setText(sonEntity.getFirstName());
+        }
 
         if(sonEntity.getLastName() != null &&
-                !sonEntity.getLastName().isEmpty())
+                !sonEntity.getLastName().isEmpty()) {
+            lastName = sonEntity.getLastName();
             surnameInput.setText(sonEntity.getLastName());
+        }
 
-        if(sonEntity.getBirthdate() != null)
+        if(sonEntity.getBirthdate() != null) {
             birthdayInput.setDateSelected(sonEntity.getBirthdate());
+        }
+
+        if(sonEntity.getSchool() != null) {
+            school = sonEntity.getSchool().getIdentity();
+            schoolInput.setText(sonEntity.getSchool().getName());
+        }
 
         // Enable All Components
         enableAllComponents(true);
@@ -632,7 +660,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                     birthdayInputLayout.setError(error.get("message"));
                     break;
                 case SCHOOL_FIELD_NAME:
-                    surnameInputLayout.setError(error.get("message"));
+                    schoolInputLayout.setError(error.get("message"));
                     break;
             }
 

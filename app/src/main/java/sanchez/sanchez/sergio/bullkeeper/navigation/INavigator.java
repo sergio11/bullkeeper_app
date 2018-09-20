@@ -194,4 +194,9 @@ public interface INavigator {
      */
     void showLegalContentActivity(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
 
+    /**
+     * Show Search School Activity
+     */
+    void showSearchSchoolActivity();
+
 }

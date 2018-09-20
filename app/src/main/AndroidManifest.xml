@@ -177,7 +177,14 @@
             android:name=".ui.activity.legal.LegalContentActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.LegalContent"/>
+            android:theme="@style/AppTheme.LegalContent" />
+
+        <!-- Search School Activity -->
+        <activity
+            android:name=".ui.activity.school.search.SearchSchoolActivity"
+            android:label="@string/title_activity_search_school"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SearchSchool"/>
     </application>
 
 </manifest>

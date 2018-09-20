@@ -57,6 +57,8 @@
     <!-- Tfno -->
     <string name="tfno_hint">Tfno</string>
     <string name="tfno_prefix">+34 </string>
+    <!-- School -->
+    <string name="school_hint">School</string>
 
     <!-- Date Format -->
     <string name="date_format">yyyy-MM-dd</string>
@@ -77,6 +79,7 @@
     <string name="forms_is_not_valid">The information provided is not valid</string>
     <string name="repeat_email_invalid_error">The mail does not match</string>
     <string name="birthday_selected" formatted="false">%s (%d years)</string>
+    <string name="school_not_empty_error">You must specify school</string>
 
     <!-- Intro -->
     <string name="close_session_message">You have closed session.</string>
@@ -464,5 +467,9 @@
     <string name="error_password_upper_case_letter_required">At least one upper case letter</string>
     <string name="error_consecutive_repeating_characters_or_number_not_allowed">No more than two consecutive repeating characters or numbers</string>
     <string name="error_number_or_special_character_required">At least one number or special character</string>
+    <string name="title_activity_search_school">SearchSchoolActivity</string>
 
+    <!-- School -->
+    <string name="search_school_title">Search School</string>
+    <string name="search_school_query_hint">Search School ...</string>
 </resources>

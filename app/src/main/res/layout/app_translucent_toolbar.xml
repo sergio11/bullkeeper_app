@@ -43,6 +43,7 @@
 
         </LinearLayout>
 
+
         <!-- Menu Bars -->
         <ImageButton
             android:id="@+id/menuBars"
