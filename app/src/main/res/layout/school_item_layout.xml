@@ -58,21 +58,20 @@
         style="@style/CommonStrongText.Medium"
         android:text="-"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/schoolProvince"
+        app:layout_constraintEnd_toStartOf="@id/showSchoolDetail"
         app:layout_constraintStart_toEndOf="@+id/separator"
         app:layout_constraintTop_toBottomOf="@id/schoolName"/>
 
-    <!-- School Province -->
-    <TextView
-        android:id="@+id/schoolProvince"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:textColor="@color/cyanBrilliant"
-        style="@style/CommonStrongText.Small"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- Show School Detail -->
+    <ImageView
+        android:id="@+id/showSchoolDetail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/map_marked_alt_solid"
+        android:contentDescription="@string/content_not_be_loaded"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/schoolResidence"
-        app:layout_constraintTop_toBottomOf="@id/schoolName"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/schoolResidence"/>
 
 </android.support.constraint.ConstraintLayout>

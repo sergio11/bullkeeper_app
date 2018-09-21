@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import sanchez.sanchez.sergio.domain.models.SchoolEntity;
  * School Adapter
  */
 public final class SchoolAdapter extends SupportRecyclerViewAdapter<SchoolEntity>{
+
+    private OnSchoolListener schoolListener;
 
     /**
      *
@@ -41,13 +44,31 @@ public final class SchoolAdapter extends SupportRecyclerViewAdapter<SchoolEntity
     }
 
     /**
+     * Set School Listener
+     * @param schoolListener
+     */
+    public void setSchoolListener(OnSchoolListener schoolListener) {
+        this.schoolListener = schoolListener;
+    }
+
+    public interface OnSchoolListener {
+
+        /**
+         * On Show School Detail
+         * @param schoolEntity
+         */
+        void onShowSchoolDetail(final SchoolEntity schoolEntity);
+    }
+
+    /**
      * School View Holder
      */
     public final class SchoolViewHolder extends
             SupportItemSwipedViewHolder<SchoolEntity> {
 
         private Context context;
-        private TextView schoolName, schoolProvince, schoolResidence;
+        private TextView schoolName, schoolResidence;
+        private ImageView showSchoolDetail;
 
         /**
          * School View Holder
@@ -58,8 +79,8 @@ public final class SchoolAdapter extends SupportRecyclerViewAdapter<SchoolEntity
             super(itemView);
             this.context = context;
             this.schoolName = itemView.findViewById(R.id.schoolName);
-            this.schoolProvince = itemView.findViewById(R.id.schoolProvince);
             this.schoolResidence = itemView.findViewById(R.id.schoolResidence);
+            this.showSchoolDetail = itemView.findViewById(R.id.showSchoolDetail);
         }
 
         /**
@@ -73,8 +94,18 @@ public final class SchoolAdapter extends SupportRecyclerViewAdapter<SchoolEntity
                 schoolName.setText(getSpannableString(schoolEntity.getName()));
             else
                 schoolName.setText(schoolEntity.getName());
-            schoolProvince.setText(schoolEntity.getProvince());
-            schoolResidence.setText(schoolEntity.getResidence());
+
+            schoolResidence.setText(
+                    String.format(context.getString(R.string.search_school_location),
+                            schoolEntity.getResidence(), schoolEntity.getProvince()));
+
+            showSchoolDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(schoolListener != null)
+                        schoolListener.onShowSchoolDetail(schoolEntity);
+                }
+            });
         }
 
     }

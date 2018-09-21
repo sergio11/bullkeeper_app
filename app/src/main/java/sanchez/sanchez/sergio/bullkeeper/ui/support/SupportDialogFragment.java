@@ -15,7 +15,6 @@ import butterknife.Unbinder;
 import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
-import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 
 /**
  * Support Dialog Fragment
@@ -94,8 +93,6 @@ public abstract class SupportDialogFragment extends DialogFragment {
     protected ApplicationComponent getApplicationComponent() {
         return AndroidApplication.getInstance().getApplicationComponent();
     }
-
-
 
     /**
      * Get Layout Res

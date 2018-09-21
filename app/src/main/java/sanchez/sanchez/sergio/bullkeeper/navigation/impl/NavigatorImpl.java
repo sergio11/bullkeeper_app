@@ -8,10 +8,12 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -335,5 +337,16 @@ public class NavigatorImpl implements INavigator {
     public void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivityForResult(SearchSchoolActivity.getCallingIntent(context), requestCode);
+    }
+
+    /**
+     * Show School Detail
+     * @param activity
+     */
+    @Override
+    public void showSchoolDetail(AppCompatActivity activity, final SchoolEntity schoolEntity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(schoolEntity, "School can not be null");
+        SchoolDialogFragment.show(activity,  schoolEntity);
     }
 }

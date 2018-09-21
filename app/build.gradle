@@ -106,6 +106,7 @@ dependencies {
     implementation presentationDependencies.supportDesign
     implementation presentationDependencies.preferencev7
     implementation presentationDependencies.preferencev14
+    implementation presentationDependencies.playServices
     implementation presentationDependencies.dexter
     implementation presentationDependencies.calligraphy
     implementation presentationDependencies.viewpump

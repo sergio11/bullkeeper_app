@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/schoolNameHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- School Image -->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/graduation_cap_solid"
+            android:contentDescription="@string/content_not_be_loaded" />
+
+        <!-- Facebook Brand Title -->
+        <TextView
+            android:id="@+id/schoolName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText"
+            android:textStyle="bold"
+            android:textColor="@color/commonWhite"
+            />
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="@dimen/common_divider_small"
+        android:layout_height="@dimen/common_divider_height"
+        android:background="@color/commonWhite"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/schoolNameHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/schoolLocation"/>
+
+
+    <TextView
+        android:id="@+id/schoolLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/CommonStrongText.Medium"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@color/commonWhite"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/map"
+        />
+
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/schoolLocation"/>
+
+</android.support.constraint.ConstraintLayout>

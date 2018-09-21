@@ -41,6 +41,7 @@ ext {
     logginInterceptorVersion= '2.0.7'
     rxjava2AdapterVersion = '1.0.0'
     facebookSdkVersion = '[4,5)'
+    playServices = '11.2.0'
 
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
@@ -78,6 +79,7 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appcompatv7:        "com.android.support:appcompat-v7:${supportVersion}",
+            playServices:       "com.google.android.gms:play-services:${playServices}",
             supportV4:          "com.android.support:support-v4:${supportVersion}",
             supportDesign:      "com.android.support:design:${supportVersion}",
             cardview:           "com.android.support:cardview-v7:${supportVersion}",

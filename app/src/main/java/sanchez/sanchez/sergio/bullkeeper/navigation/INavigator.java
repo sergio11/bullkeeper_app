@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -200,5 +201,12 @@ public interface INavigator {
      * @param requestCode
      */
     void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode);
+
+    /**
+     * Show School Detail
+     * @param activity
+     * @param schoolEntity
+     */
+    void showSchoolDetail(final AppCompatActivity activity, final SchoolEntity schoolEntity);
 
 }

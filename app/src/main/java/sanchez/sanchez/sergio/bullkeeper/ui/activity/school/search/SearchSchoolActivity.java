@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -23,7 +26,7 @@ import timber.log.Timber;
  */
 public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchSchoolActivityPresenter,
         ISearchSchoolActivityView, SchoolEntity>
-        implements HasComponent<SchoolComponent>, ISearchSchoolActivityView {
+        implements HasComponent<SchoolComponent>, ISearchSchoolActivityView, SchoolAdapter.OnSchoolListener {
 
     public final static String SCHOOL_SELECTED_ARG = "SCHOOL_SELECTED_ARG";
 
@@ -112,7 +115,9 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<SchoolEntity> getAdapter() {
-        return new SchoolAdapter(appContext, new ArrayList<SchoolEntity>());
+        final SchoolAdapter schoolAdapter = new SchoolAdapter(appContext, new ArrayList<SchoolEntity>());
+        schoolAdapter.setSchoolListener(this);
+        return schoolAdapter;
     }
 
     /**
@@ -149,6 +154,13 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
         return SupportToolbarApp.RETURN_TOOLBAR;
     }
 
-
-
+    /**
+     * On Show School Detail
+     * @param schoolEntity
+     */
+    @Override
+    public void onShowSchoolDetail(SchoolEntity schoolEntity) {
+        Preconditions.checkNotNull(schoolEntity, "School Entity can not be null");
+        navigatorImpl.showSchoolDetail(this, schoolEntity);
+    }
 }
