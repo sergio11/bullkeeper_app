@@ -196,7 +196,9 @@ public interface INavigator {
 
     /**
      * Show Search School Activity
+     * @param activity
+     * @param requestCode
      */
-    void showSearchSchoolActivity();
+    void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode);
 
 }

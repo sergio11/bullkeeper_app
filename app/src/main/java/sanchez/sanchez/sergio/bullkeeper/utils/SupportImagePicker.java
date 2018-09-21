@@ -41,7 +41,7 @@ public class SupportImagePicker {
     /**
      * Default Request Code
      */
-    private static final int DEFAULT_REQUEST_CODE = 213;
+    public static final int DEFAULT_REQUEST_CODE = 213;
     private static final int MAX_WIDTH = 400;        // min pixels
     private static final int MAX_HEIGHT = 400;
     private static final String BASE_IMAGE_NAME = "i_prefix_";

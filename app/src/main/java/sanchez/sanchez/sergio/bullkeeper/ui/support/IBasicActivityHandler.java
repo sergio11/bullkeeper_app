@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
+import android.content.Intent;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -170,5 +171,16 @@ public interface IBasicActivityHandler {
      * Close Session
      */
     void closeSession();
+
+    /**
+     * On Result Ok
+     * @param result
+     */
+    void onResultOk(final Intent result);
+
+    /**
+     * On Result Canceled
+     */
+    void onResultCanceled();
 
 }

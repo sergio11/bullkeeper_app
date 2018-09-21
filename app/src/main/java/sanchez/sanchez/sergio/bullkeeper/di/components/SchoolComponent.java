@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.SchoolModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivityPresenter;
@@ -12,7 +13,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolA
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class, DataMapperModule.class })
+        modules = { ActivityModule.class, DataMapperModule.class,
+                SchoolModule.class })
 public interface SchoolComponent {
 
     /**

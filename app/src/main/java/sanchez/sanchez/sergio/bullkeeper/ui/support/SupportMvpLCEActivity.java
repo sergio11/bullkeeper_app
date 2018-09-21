@@ -14,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +23,7 @@ import butterknife.Unbinder;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportLoadingSpinner;
 import timber.log.Timber;
 
 /**
@@ -78,12 +77,18 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
     /**
      * Error Occurred Layout
      */
-    private ErrorOccurredLayout errorOccurredLayout;
+    protected ErrorOccurredLayout errorOccurredLayout;
 
     /**
      * No Data Found Layout
      */
-    private NotDataFoundLayout notDataFoundLayout;
+    protected NotDataFoundLayout notDataFoundLayout;
+
+    /**
+     * Loading Layout
+     */
+    protected LoadingLayout loadingLayout;
+
 
     /**
      * Recycler View Adapter
@@ -91,34 +96,34 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
     protected SupportRecyclerViewAdapter<F> recyclerViewAdapter;
 
     /**
-     * Show Loading State
+     * On Show Loading State
      */
-    private void showLoadingState(){
+    protected void onShowLoadingState(){
         errorOccurredLayout.hide();
         notDataFoundLayout.hide();
         content.setVisibility(View.GONE);
         content.setEnabled(false);
-        loadingView.setVisibility(View.VISIBLE);
+        loadingLayout.show();
     }
 
     /**
-     * Show Not Found State
+     * On Show Not Found State
      */
-    private void showNotFoundState(){
+    protected void onShowNotFoundState(){
         errorOccurredLayout.hide();
         notDataFoundLayout.show(getString(R.string.no_data_found));
         content.setVisibility(View.GONE);
         content.setEnabled(false);
-        loadingView.setVisibility(View.GONE);
+        loadingLayout.hide();
     }
 
     /**
      * Show Error State
      * @param message
      */
-    private void showErrorState(final String message){
+    protected void onShowErrorState(final String message){
         content.setEnabled(false);
-        loadingView.setVisibility(View.GONE);
+        loadingLayout.hide();
         content.setVisibility(View.GONE);
         notDataFoundLayout.hide();
         errorOccurredLayout.show(message);
@@ -127,8 +132,8 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
     /**
      * Show Data Founded State
      */
-    private void showDataFoundedState(){
-        loadingView.setVisibility(View.GONE);
+    protected void onShowDataFoundedState(){
+        loadingLayout.hide();
         notDataFoundLayout.hide();
         errorOccurredLayout.hide();
         content.setVisibility(View.VISIBLE);
@@ -168,11 +173,15 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         notDataFoundLayout.bind(noDataFoundView);
         notDataFoundLayout.hide();
 
+        // Loading Layout
+        loadingLayout = new LoadingLayout();
+        loadingLayout.bind(loadingView);
+        loadingLayout.hide();
+
         noDataFoundView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLoadingState();
-                getPresenter().loadData();
+                loadData();
             }
         });
 
@@ -180,7 +189,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.setOnSupportRecyclerViewListener(this);
 
-        showLoadingState();
+        onShowLoadingState();
 
     }
 
@@ -208,7 +217,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onNetworkError() {
-        showErrorState(getString(R.string.network_error_ocurred));
+        onShowErrorState(getString(R.string.network_error_ocurred));
     }
 
     /**
@@ -216,7 +225,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onOtherException() {
-        showErrorState(getString(R.string.unexpected_error_ocurred));
+        onShowErrorState(getString(R.string.unexpected_error_ocurred));
     }
 
     /**
@@ -224,8 +233,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onRefresh() {
-        showLoadingState();
-        getPresenter().loadData();
+        loadData();
     }
 
     /**
@@ -233,7 +241,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
      */
     @Override
     public void onNoDataFound() {
-        showNotFoundState();
+        onShowNotFoundState();
     }
 
 
@@ -248,7 +256,7 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
 
         Timber.d("Data Loaded -> %d", dataLoaded.size());
 
-        showDataFoundedState();
+        onShowDataFoundedState();
 
 
         recyclerViewAdapter.setData(dataLoaded);
@@ -259,6 +267,14 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
                 AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
         recyclerView.setLayoutAnimation(controller);
         recyclerView.scheduleLayoutAnimation();
+    }
+
+    /**
+     * Load Data
+     */
+    protected void loadData(){
+        onShowLoadingState();
+        getPresenter().loadData();
     }
 
     /**
@@ -328,8 +344,8 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
 
         @OnClick(R.id.retryAgain)
         protected void onRetryAgain(){
-            showLoadingState();
-            getPresenter().loadData();
+
+            loadData();
         }
 
         public Button getRetryAgain() {
@@ -412,6 +428,82 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
          */
         public TextView getErrorMessage() {
             return errorMessage;
+        }
+    }
+
+
+    /**
+     * Loading Layout
+     */
+    public class LoadingLayout {
+
+        /**
+         * Loading Spinner
+         */
+        @BindView(R.id.loadingSpinner)
+        protected SupportLoadingSpinner loadingSpinner;
+
+        /**
+         * Message
+         */
+        @BindView(R.id.message)
+        protected TextView message;
+
+        /**
+         * UnBinder
+         */
+        private Unbinder unbinder;
+
+        private View source;
+
+        /**
+         * Bind
+         */
+        public void bind(final View source) {
+            Preconditions.checkNotNull(source, "Source can not be null");
+            this.source = source;
+            unbinder = ButterKnife.bind(this, source);
+
+        }
+
+        /**
+         * Show
+         */
+        public void show() {
+            source.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         * Hide
+         */
+        public void hide() {
+            source.setVisibility(View.GONE);
+        }
+
+
+        /**
+         * Un Bind
+         */
+        public void unbind(){
+
+            if(unbinder != null)
+                unbinder.unbind();
+        }
+
+        /**
+         * Get Loading Spinner
+         * @return
+         */
+        public SupportLoadingSpinner getLoadingSpinner() {
+            return loadingSpinner;
+        }
+
+        /**
+         * Get Message
+         * @return
+         */
+        public TextView getMessage() {
+            return message;
         }
     }
 

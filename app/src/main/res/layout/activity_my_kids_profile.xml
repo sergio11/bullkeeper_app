@@ -183,7 +183,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/school_hint"
-                    android:inputType="text"
+                    android:focusable="false"
+                    android:inputType="none"
                     android:lines="1" />
 
             </android.support.design.widget.TextInputLayout>

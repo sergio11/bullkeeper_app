@@ -332,7 +332,8 @@ public class NavigatorImpl implements INavigator {
      * Show Search School Activity
      */
     @Override
-    public void showSearchSchoolActivity() {
-        context.startActivity(SearchSchoolActivity.getCallingIntent(context));
+    public void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        activity.startActivityForResult(SearchSchoolActivity.getCallingIntent(context), requestCode);
     }
 }

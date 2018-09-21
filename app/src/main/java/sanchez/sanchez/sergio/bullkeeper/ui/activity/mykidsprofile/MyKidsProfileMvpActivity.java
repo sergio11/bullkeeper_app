@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile;
 
-import android.app.DatePickerDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,8 +27,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
+import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -48,6 +50,8 @@ import timber.log.Timber;
 public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
         implements HasComponent<MyKidsComponent>,
         IMyKidsProfileView, PhotoViewerDialog.IPhotoViewerListener {
+
+    public final static int SELECT_SCHOOL_REQUEST_CODE = 266;
 
     public enum KidProfileMode { ADD_NEW_SON_MODE, EDIT_CURRENT_SON_MODE }
 
@@ -316,13 +320,16 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
 
-        schoolInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        schoolInput.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                    navigatorImpl.showSearchSchoolActivity();
+            public void onClick(View v) {
+                navigatorImpl.showSearchSchoolActivity(MyKidsProfileMvpActivity.this,
+                        SELECT_SCHOOL_REQUEST_CODE);
             }
         });
+
+        birthdayInput.setMinAge(MIN_AGE_ALLOWED);
+        birthdayInput.setMaxAge(MAX_AGE_ALLOWED);
 
     }
 
@@ -347,13 +354,30 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String imagePathFromResult = supportImagePicker
-                .getImagePathFromResult(requestCode, resultCode, data);
-        if(imagePathFromResult != null) {
-            currentImagePath = imagePathFromResult;
-            Timber.d("Image Path -> %s", currentImagePath);
-            profileImageView.setImageURI(Uri.parse(currentImagePath));
+
+        if(SupportImagePicker.DEFAULT_REQUEST_CODE == requestCode) {
+
+            String imagePathFromResult = supportImagePicker
+                    .getImagePathFromResult(requestCode, resultCode, data);
+            if(imagePathFromResult != null) {
+                currentImagePath = imagePathFromResult;
+                Timber.d("Image Path -> %s", currentImagePath);
+                profileImageView.setImageURI(Uri.parse(currentImagePath));
+            }
+
+        } else if(SELECT_SCHOOL_REQUEST_CODE == requestCode) {
+
+            if(resultCode == Activity.RESULT_OK){
+                final SchoolEntity schoolSelected =
+                        (SchoolEntity) data.getSerializableExtra(SearchSchoolActivity.SCHOOL_SELECTED_ARG);
+                this.school = schoolSelected.getIdentity();
+                schoolInput.setText(schoolSelected.getName());
+            }
+
+            if (resultCode == Activity.RESULT_CANCELED) {}
+
         }
+
     }
 
     /**
@@ -478,7 +502,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String birthday = birthdayInput.getDateSelectedAsText();
 
         getPresenter().saveSon(myKidIdentity, name, surname, birthday,
-                "5b9e1db2082f6d1a400af3d5", currentImagePath);
+                school, currentImagePath);
 
     }
 

@@ -68,6 +68,7 @@
     <string name="retry_again_btn">Retry Again</string>
     <string name="no_data_found">No Data Found</string>
     <string name="loading_data">Loading Data ...</string>
+    <string name="make_a_search_to_see_results">Make a search to see results</string>
 
 
     <!-- fields error messages -->
@@ -472,4 +473,6 @@
     <!-- School -->
     <string name="search_school_title">Search School</string>
     <string name="search_school_query_hint">Search School ...</string>
+    <string name="search_school_message">Make a search by the name of the school</string>
+    <string name="search_school_loading_message">Searching schools ...</string>
 </resources>

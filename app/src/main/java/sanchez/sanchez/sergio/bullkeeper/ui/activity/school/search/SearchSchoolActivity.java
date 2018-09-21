@@ -4,23 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.SearchView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
-import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.SchoolAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpSearchLCEActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import timber.log.Timber;
@@ -28,30 +21,13 @@ import timber.log.Timber;
 /**
  * Search School Activity
  */
-public class SearchSchoolActivity extends SupportMvpLCEActivity<SearchSchoolActivityPresenter,
+public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchSchoolActivityPresenter,
         ISearchSchoolActivityView, SchoolEntity>
-        implements HasComponent<SchoolComponent>, ISearchSchoolActivityView,
-        SearchView.OnQueryTextListener{
+        implements HasComponent<SchoolComponent>, ISearchSchoolActivityView {
+
+    public final static String SCHOOL_SELECTED_ARG = "SCHOOL_SELECTED_ARG";
 
     private SchoolComponent schoolComponent;
-
-    /**
-     * Search View
-     */
-    @BindView(R.id.searchView)
-    protected SearchView searchView;
-
-    /**
-     * School Header Image
-     */
-    @BindView(R.id.schoolHeaderImage)
-    protected ImageView schoolHeaderImage;
-
-    /**
-     * School Header Title
-     */
-    @BindView(R.id.schoolHeaderTitle)
-    protected TextView schoolHeaderTitle;
 
 
     /**
@@ -78,42 +54,24 @@ public class SearchSchoolActivity extends SupportMvpLCEActivity<SearchSchoolActi
         schoolComponent.inject(this);
     }
 
+    /**
+     * On View Ready
+     * @param savedInstanceState
+     */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        searchView.setSubmitButtonEnabled(false);
-
-        // Set Hint and Text Color
-        EditText txtSearch = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        txtSearch.setHint(R.string.search_school_query_hint);
-        txtSearch.setHintTextColor(ContextCompat.getColor(appContext, R.color.cyanBrilliant));
-        txtSearch.setTextColor(getResources().getColor(R.color.cyanBrilliant));
-
-        searchView.setOnQueryTextListener(this);
-
-        // On Search Click Listener
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+        noDataFoundView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                schoolHeaderImage.setVisibility(View.GONE);
-                schoolHeaderTitle.setVisibility(View.GONE);
-                searchView.setBackgroundResource(R.drawable.searchbar_background);
-                searchView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                Timber.d("On Not Data Founded");
             }
         });
 
-        // On Close Listener
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                schoolHeaderImage.setVisibility(View.VISIBLE);
-                schoolHeaderTitle.setVisibility(View.VISIBLE);
-                searchView.setBackgroundResource(android.R.color.transparent);
-                searchView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                return false;
-            }
-        });
+        // Set Search Layout Message
+        initSearchLayout.getSearchMessage().setText(R.string.search_school_message);
+        loadingLayout.getMessage().setText(R.string.search_school_loading_message);
 
     }
 
@@ -161,9 +119,7 @@ public class SearchSchoolActivity extends SupportMvpLCEActivity<SearchSchoolActi
      * On Header Click
      */
     @Override
-    public void onHeaderClick() {
-
-    }
+    public void onHeaderClick() { }
 
     /**
      * On Item Click
@@ -171,47 +127,18 @@ public class SearchSchoolActivity extends SupportMvpLCEActivity<SearchSchoolActi
      */
     @Override
     public void onItemClick(final SchoolEntity schoolEntity) {
-
+        Timber.d("School Entity Selected -> %s", schoolEntity.getIdentity());
+        final Intent schoolSelectedItent = new Intent();
+        schoolSelectedItent.putExtra(SCHOOL_SELECTED_ARG, schoolEntity);
+        onResultOk(schoolSelectedItent);
     }
 
     /**
      * On Footer Click
      */
     @Override
-    public void onFooterClick() {
+    public void onFooterClick() {}
 
-    }
-
-    /**
-     * On Query Text Submit
-     * @param query
-     * @return
-     */
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        callSearch(query);
-        searchView.clearFocus();
-        return true;
-    }
-
-    /**
-     * On Query Text Change
-     * @param newText
-     * @return
-     */
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        callSearch(newText);
-        return true;
-    }
-
-    /**
-     * Call Search
-     * @param queryText
-     */
-    private void callSearch(final String queryText) {
-        Timber.d("Query Text -> %s", queryText);
-    }
 
     /**
      * Get Toolbar Type
@@ -221,4 +148,7 @@ public class SearchSchoolActivity extends SupportMvpLCEActivity<SearchSchoolActi
     protected int getToolbarType() {
         return SupportToolbarApp.RETURN_TOOLBAR;
     }
+
+
+
 }

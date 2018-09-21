@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -678,6 +679,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         startActivity(Intent.createChooser(intent, ""));
     }
 
+
     /**
      * Close Session
      */
@@ -686,6 +688,27 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
         preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
         navigatorImpl.navigateToIntro(true);
+    }
+
+    /**
+     * On Result Ok
+     * @param result
+     */
+    @Override
+    public void onResultOk(final Intent result) {
+        Preconditions.checkNotNull(result, "Result can not be null");
+        setResult(Activity.RESULT_OK, result);
+        finish();
+    }
+
+    /**
+     * On Result Canceled
+     */
+    @Override
+    public void onResultCanceled() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 
     /**
@@ -702,7 +725,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void onBackPressed() {
-
         safeCloseActivity();
     }
 }
