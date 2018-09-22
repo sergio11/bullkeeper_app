@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +9,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
-
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -38,6 +37,9 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
 
     private final static String NAME_FIELD_NAME = "name";
     private final static String RESIDENCE_FIELD_NAME = "residence";
+    private final static String PROVINCE_FIELD_NAME = "province";
+    private final static String LATITUDE_FIELD_NAME = "latitude";
+    private final static String LONGITUDE_FIELD_NAME = "longitude";
     private final static String TFNO_FIELD_NAME = "tfno";
     private final static String EMAIL_FIELD_NAME = "email";
 
@@ -57,7 +59,7 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
      */
     @BindView(R.id.schoolNameInput)
     @NotEmpty(messageResId = R.string.name_not_empty_error)
-    @Length(min = 3, max = 15)
+    @Length(min = 3, max = 30)
     protected AppCompatEditText schoolNameInput;
 
     /**
@@ -99,25 +101,11 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
     @BindView(R.id.schoolTelephoneInput)
     protected AppCompatEditText schoolTelephoneInput;
 
-    /**
-     * Latitude
-     */
-    private double latitude;
 
     /**
-     * Longitude
+     * Location Selected Info
      */
-    private double longitude;
-
-    /**
-     * Residence
-     */
-    private String residence;
-
-    /**
-     * Locality
-     */
-    private String locality;
+    private LocationSelectedInfo locationSelectedInfo;
 
     /**
      * Get Calling Intent
@@ -191,7 +179,22 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
         schoolResidenceInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigatorImpl.showSearchSchoolLocation(AddSchoolMvpActivity.this);
+
+                if(locationSelectedInfo != null) {
+
+                    navigatorImpl.showSearchSchoolLocation(AddSchoolMvpActivity.this,
+                            locationSelectedInfo.latitude, locationSelectedInfo.longitude);
+
+                } else {
+
+                    if(permissionManager.shouldAskPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        permissionManager.checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION,
+                                getString(R.string.location_permission_reason));
+                    } else {
+                        navigatorImpl.showSearchSchoolLocation(AddSchoolMvpActivity.this, true);
+                    }
+                }
+
             }
         });
     }
@@ -212,8 +215,15 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
     @Override
     protected void onFieldInvalid(Integer viewId, String message) {
 
-
-
+        if(viewId.equals(R.id.schoolNameInput)) {
+            schoolNameInputLayout.setError(message);
+        } else if(viewId.equals(R.id.schoolEmailInput)) {
+            schoolEmailInputLayout.setError(message);
+        } else if(viewId.equals(R.id.schoolResidenceInput)) {
+            schoolResidenceInputLayout.setError(message);
+        } else if(viewId.equals(R.id.schoolTelephoneInput)) {
+            schoolTelephoneInputLayout.setError(message);
+        }
     }
 
     /**
@@ -225,10 +235,13 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
 
         final String name = schoolNameInput.getText().toString();
         final String email = schoolEmailInput.getText().toString();
-        final String telephone = schoolTelephoneInput.getText().toString();
+        final String telephone = getString(R.string.tfno_prefix).concat(schoolTelephoneInput.getText().toString());
+        final String residence = locationSelectedInfo != null ? locationSelectedInfo.getResidence() : "";
+        final String province = locationSelectedInfo != null ? locationSelectedInfo.getLocality() : "";
+        final double latitude = locationSelectedInfo != null ? locationSelectedInfo.getLatitude() : 0.0;
+        final double longitude = locationSelectedInfo != null ? locationSelectedInfo.getLongitude() : 0.0;
 
-
-        //getPresenter().saveSchool();
+        getPresenter().saveSchool(name, residence, province, latitude, longitude, telephone, email);
 
     }
 
@@ -293,6 +306,29 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
 
             Timber.d("Field -> %s, Message -> %s", error.get("field"), error.get("message"));
 
+            switch (error.get("field")) {
+                case NAME_FIELD_NAME:
+                    schoolNameInputLayout.setError(error.get("message"));
+                    break;
+                case EMAIL_FIELD_NAME:
+                    schoolEmailInputLayout.setError(error.get("message"));
+                    break;
+                case RESIDENCE_FIELD_NAME:
+                    schoolResidenceInputLayout.setError(error.get("message"));
+                    break;
+                case PROVINCE_FIELD_NAME:
+                    schoolResidenceInputLayout.setError(error.get("message"));
+                    break;
+                case LATITUDE_FIELD_NAME:
+                    schoolResidenceInputLayout.setError(error.get("message"));
+                    break;
+                case LONGITUDE_FIELD_NAME:
+                    schoolResidenceInputLayout.setError(error.get("message"));
+                    break;
+                case TFNO_FIELD_NAME:
+                    schoolTelephoneInputLayout.setError(error.get("message"));
+                    break;
+            }
 
         }
 
@@ -316,11 +352,68 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
      */
     @Override
     public void onSelectLocation(double latitude, double longitude, String residence, String locality) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.residence = residence;
-        this.locality = locality;
-
+        locationSelectedInfo = new LocationSelectedInfo(latitude, longitude, residence, locality);
         schoolResidenceInput.setText(residence);
+    }
+
+
+    /**
+     * Single Permission Granted
+     * @param permission
+     */
+    @Override
+    public void onSinglePermissionGranted(String permission) {
+        super.onSinglePermissionGranted(permission);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION))
+            navigatorImpl.showSearchSchoolLocation(AddSchoolMvpActivity.this, true);
+
+    }
+
+    /**
+     * On Single Permission Rejected
+     * @param permission
+     */
+    @Override
+    public void onSinglePermissionRejected(String permission) {
+        super.onSinglePermissionRejected(permission);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.ACCESS_COARSE_LOCATION))
+            navigatorImpl.showSearchSchoolLocation(AddSchoolMvpActivity.this, false);
+
+    }
+
+    /**
+     * Location Selected Info
+     */
+    private class LocationSelectedInfo implements Serializable {
+
+        private final double latitude;
+        private final double longitude;
+        private final String residence;
+        private final String locality;
+
+        LocationSelectedInfo(double latitude, double longitude, String residence, String locality) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.residence = residence;
+            this.locality = locality;
+        }
+
+        double getLatitude() {
+            return latitude;
+        }
+
+        double getLongitude() {
+            return longitude;
+        }
+
+        String getResidence() {
+            return residence;
+        }
+
+        String getLocality() {
+            return locality;
+        }
     }
 }

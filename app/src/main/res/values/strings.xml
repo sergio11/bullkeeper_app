@@ -473,6 +473,7 @@
     <!-- School -->
     <string name="search_school_title">Search School</string>
     <string name="search_school_query_hint">Search School ...</string>
+    <string name="search_school_location_query_hint">Search School Location ...</string>
     <string name="search_school_message">Make a search by the name of the school</string>
     <string name="search_school_loading_message">Searching schools ...</string>
     <string name="search_school_location" formatted="false">%s - %s</string>
@@ -484,7 +485,15 @@
     <string name="school_name_hint">Name</string>
     <string name="school_residence_empty_error">You must indicate the location of the school</string>
     <string name="select_school_location">Select school location</string>
-    
+    <string name="user_current_location">Your current location</string>
+    <string name="current_location_selected">Current location selected</string>
+    <string name="school_residence_hint">location</string>
+    <string name="search_places_title">Search locations</string>
+
+    <!-- Permission -->
+    <string name="camera_permission_reason">We can not customize the photo of your profile with a photo of the camera if you do not grant this permission</string>
+    <string name="location_permission_reason">If we can not access your GPS location we can not place your position on the map</string>
+
     <!-- Google Maps Key -->
     <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
     <string name="title_activity_school_detail">SchoolDetailActivity</string>

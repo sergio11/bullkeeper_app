@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -375,7 +375,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
             if(resultCode == Activity.RESULT_OK){
                 final SchoolEntity schoolSelected =
-                        (SchoolEntity) data.getSerializableExtra(SearchSchoolActivity.SCHOOL_SELECTED_ARG);
+                        (SchoolEntity) data.getSerializableExtra(SearchSchoolMvpActivity.SCHOOL_SELECTED_ARG);
                 school = schoolSelected;
                 schoolInput.setText(schoolSelected.getName());
             }

@@ -189,7 +189,7 @@
 
         <!-- Search School Activity -->
         <activity
-            android:name=".ui.activity.school.search.SearchSchoolActivity"
+            android:name=".ui.activity.school.search.SearchSchoolMvpActivity"
             android:label="@string/title_activity_search_school"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SearchSchool" />

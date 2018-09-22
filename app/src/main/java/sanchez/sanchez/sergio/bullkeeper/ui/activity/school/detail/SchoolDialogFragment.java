@@ -120,14 +120,13 @@ public class SchoolDialogFragment extends SupportDialogFragment
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        googleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         if (schoolEntity != null && schoolEntity.getLatitude() != null
                 && schoolEntity.getLongitude() != null) {
 
             LatLng latLng = new LatLng(schoolEntity.getLatitude(), schoolEntity.getLongitude());
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);

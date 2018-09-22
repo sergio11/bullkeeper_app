@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
                         android:focusable="false"
-                        android:hint="@string/school_hint"
+                        android:hint="@string/school_residence_hint"
                         android:inputType="none"
                         android:lines="1" />
 
@@ -144,7 +144,6 @@
                     android:contentDescription="@string/content_not_be_loaded" />
 
             </LinearLayout>
-
 
             <!-- School tfno input -->
             <android.support.design.widget.TextInputLayout
@@ -165,8 +164,7 @@
                     android:hint="@string/tfno_hint"
                     android:inputType="number"
                     android:lines="1"
-                    android:tag="@string/tfno_prefix"
-                    />
+                    android:tag="@string/tfno_prefix" />
 
             </android.support.design.widget.TextInputLayout>
 

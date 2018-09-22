@@ -220,6 +220,14 @@ public interface INavigator {
      * Show Search School Location
      * @param activity
      */
-    void showSearchSchoolLocation(final AppCompatActivity activity);
+    void showSearchSchoolLocation(final AppCompatActivity activity, final boolean showCurrentLocation);
+
+    /**
+     * Show Search School
+     * @param activity
+     * @param latitude
+     * @param longitude
+     */
+    void showSearchSchoolLocation(final AppCompatActivity activity, final double latitude, final double longitude);
 
 }

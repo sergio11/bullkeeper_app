@@ -16,7 +16,8 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 /**
  * Support Edit Text Date Picker
  */
-public final class SupportEditTextDatePicker extends AppCompatEditText implements View.OnClickListener, DatePickerDialog.OnDateSetListener, View.OnFocusChangeListener {
+public final class SupportEditTextDatePicker extends AppCompatEditText
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private final static int MIN_AGE_DEFAULT = 5;
     private final static int MAX_AGE_DEFAULT = 18;
@@ -54,9 +55,8 @@ public final class SupportEditTextDatePicker extends AppCompatEditText implement
                 Locale.getDefault());
         this.setClickable(true);
         this.setLines(1);
-        this.setFocusable(true);
+        this.setFocusable(false);
         this.setOnClickListener(this);
-        this.setOnFocusChangeListener(this);
         updateCurrentDateSelected();
 
     }
@@ -186,17 +186,4 @@ public final class SupportEditTextDatePicker extends AppCompatEditText implement
         updateText();
     }
 
-    /**
-     * On Focus Change
-     * @param v
-     * @param hasFocus
-     */
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus){
-            showDatePickerDialog();
-        } else {
-            datePickerDialog.hide();
-        }
-    }
 }

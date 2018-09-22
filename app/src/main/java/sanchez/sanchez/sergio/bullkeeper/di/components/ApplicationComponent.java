@@ -7,6 +7,7 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
@@ -48,6 +49,12 @@ public interface ApplicationComponent {
      * @param photoViewerDialog
      */
     void inject(final PhotoViewerDialog photoViewerDialog);
+
+    /**
+     * Inject Search School Location Dialog
+     * @param searchSchoolLocationDialog
+     */
+    void inject(final SearchSchoolLocationDialog searchSchoolLocationDialog);
 
 
     //Exposed to sub-graphs.

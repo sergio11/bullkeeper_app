@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.support;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
@@ -75,6 +79,17 @@ public abstract class SupportDialogFragment extends DialogFragment {
         window.setGravity(Gravity.CENTER);
         // Call super onResume after sizing
         super.onResume();
+    }
+
+    /**
+     * Hide Keyboard
+     */
+    public void hideKeyboard() {
+        if(getContext() != null && getView() != null) {
+            final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }
+
     }
 
     /**

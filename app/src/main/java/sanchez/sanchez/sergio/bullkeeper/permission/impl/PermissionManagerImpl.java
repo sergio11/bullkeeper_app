@@ -94,12 +94,10 @@ public final class PermissionManagerImpl implements IPermissionManager {
     /**
      * Build Permission Listener
      * @param permission
-     * @param title
-     * @param text
+     * @param reasonText
      * @return
      */
-    private PermissionListener buildPermissionListener(final String permission,
-                                                       String title, String text) {
+    private PermissionListener buildPermissionListener(final String permission, final String reasonText) {
 
         return  new BasePermissionListener() {
             @Override
@@ -113,7 +111,7 @@ public final class PermissionManagerImpl implements IPermissionManager {
             public void onPermissionDenied(PermissionDeniedResponse response) {
                 super.onPermissionDenied(response);
                 navigator.showNoticeDialog(activity,
-                        "We can not customize the photo of your profile with a photo of the camera if you do not grant this permission",
+                        reasonText,
                         new NoticeDialogFragment.NoticeDialogListener() {
                             @Override
                             public void onAccepted(DialogFragment dialog) {
@@ -129,17 +127,17 @@ public final class PermissionManagerImpl implements IPermissionManager {
     /**
      * Check Single Permission
      * @param permission
+     * @param reasonText
      */
     @Override
-    public void checkSinglePermission(final String permission, final String title, final String text) {
+    public void checkSinglePermission(final String permission, final String reasonText) {
         Preconditions.checkNotNull(permission, "Permission can not be null");
         Preconditions.checkNotNull(!permission.isEmpty(), "Permission can not be empty");
-        Preconditions.checkNotNull(title, "Title can not be null");
-        Preconditions.checkNotNull(text, "Text can not be null");
+        Preconditions.checkNotNull(reasonText, "Reason can not be null");
 
         if(shouldAskPermission(permission)) {
 
-            PermissionListener permissionListener = buildPermissionListener(permission, title, text);
+            PermissionListener permissionListener = buildPermissionListener(permission, reasonText);
 
             Dexter.withActivity(activity)
                     .withPermission(permission)

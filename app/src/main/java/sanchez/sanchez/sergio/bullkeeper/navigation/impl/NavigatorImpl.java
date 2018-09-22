@@ -11,7 +11,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -338,7 +338,7 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
-        activity.startActivityForResult(SearchSchoolActivity.getCallingIntent(context), requestCode);
+        activity.startActivityForResult(SearchSchoolMvpActivity.getCallingIntent(context), requestCode);
     }
 
     /**
@@ -369,8 +369,20 @@ public class NavigatorImpl implements INavigator {
      * @param activity
      */
     @Override
-    public void showSearchSchoolLocation(AppCompatActivity activity) {
+    public void showSearchSchoolLocation(AppCompatActivity activity, boolean showCurrentLocation) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
-        SearchSchoolLocationDialog.show(activity);
+        SearchSchoolLocationDialog.show(activity, showCurrentLocation);
+    }
+
+    /**
+     * Show Search School Location
+     * @param activity
+     * @param latitude
+     * @param longitude
+     */
+    @Override
+    public void showSearchSchoolLocation(AppCompatActivity activity, final double latitude, final double longitude) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        SearchSchoolLocationDialog.show(activity, latitude, longitude);
     }
 }

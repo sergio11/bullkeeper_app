@@ -33,7 +33,7 @@ import static sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSch
 /**
  * Search School Activity
  */
-public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchSchoolActivityPresenter,
+public class SearchSchoolMvpActivity extends SupportMvpSearchLCEActivity<SearchSchoolActivityPresenter,
         ISearchSchoolActivityView, SchoolEntity>
         implements HasComponent<SchoolComponent>, ISearchSchoolActivityView, SchoolAdapter.OnSchoolListener {
 
@@ -57,7 +57,7 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
      * @return
      */
     public static Intent getCallingIntent(final Context context){
-        return new Intent(context, SearchSchoolActivity.class);
+        return new Intent(context, SearchSchoolMvpActivity.class);
     }
 
     /**
@@ -225,7 +225,7 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
              */
             @Override
             public void onAccepted(DialogFragment dialog) {
-                navigatorImpl.showAddSchool(SearchSchoolActivity.this, ADD_SCHOOL_REQUEST_CODE);
+                navigatorImpl.showAddSchool(SearchSchoolMvpActivity.this, ADD_SCHOOL_REQUEST_CODE);
             }
 
             /**
@@ -245,6 +245,6 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
      */
     @OnClick(R.id.addSchool)
     protected void onAddSchool(){
-        navigatorImpl.showAddSchool(SearchSchoolActivity.this, ADD_SCHOOL_REQUEST_CODE);
+        navigatorImpl.showAddSchool(SearchSchoolMvpActivity.this, ADD_SCHOOL_REQUEST_CODE);
     }
 }

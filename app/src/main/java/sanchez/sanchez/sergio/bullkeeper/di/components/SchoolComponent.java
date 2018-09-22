@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.SchoolModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolActivityPresenter;
 
 /**
@@ -21,9 +21,9 @@ public interface SchoolComponent {
 
     /**
      * Search School Activity
-     * @param searchSchoolActivity
+     * @param searchSchoolMvpActivity
      */
-    void inject(final SearchSchoolActivity searchSchoolActivity);
+    void inject(final SearchSchoolMvpActivity searchSchoolMvpActivity);
 
     /**
      * Add School Mvp Activity

@@ -5,8 +5,9 @@ public interface IPermissionManager {
     /**
      * Check Single Permission
      * @param permission
+     * @param reasonText
      */
-    void checkSinglePermission(final String permission, final String title, final String text);
+    void checkSinglePermission(final String permission, final String reasonText);
 
     /**
      * Should Ask Permission

@@ -365,7 +365,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     public void onChangePhoto() {
 
         if(permissionManager.shouldAskPermission(Manifest.permission.CAMERA))
-            permissionManager.checkSinglePermission(Manifest.permission.CAMERA, "Title", "Description");
+            permissionManager.checkSinglePermission(Manifest.permission.CAMERA, getString(R.string.camera_permission_reason));
         else
             supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
                     getString(R.string.change_profile_picture), parentEntity.getFullName()));
