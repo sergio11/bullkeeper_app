@@ -59,6 +59,17 @@
             app:searchIcon="@drawable/search_solid_white_50"
             app:searchHintIcon="@drawable/search_solid_cyan_40"
             app:closeIcon="@drawable/times_solid_cyan_40"
+            android:layout_toStartOf="@id/addSchool"
+            android:layout_centerVertical="true"/>
+
+        <!-- Add School -->
+        <ImageView
+            android:id="@+id/addSchool"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/add_school"
+            android:contentDescription="@string/content_not_be_loaded"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
 

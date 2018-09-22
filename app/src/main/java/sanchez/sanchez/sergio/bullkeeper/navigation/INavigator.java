@@ -209,4 +209,17 @@ public interface INavigator {
      */
     void showSchoolDetail(final AppCompatActivity activity, final SchoolEntity schoolEntity);
 
+    /**
+     * Show Add School
+     * @param activity
+     * @param requestCode
+     */
+    void showAddSchool(final AppCompatActivity activity, final int requestCode);
+
+    /**
+     * Show Search School Location
+     * @param activity
+     */
+    void showSearchSchoolLocation(final AppCompatActivity activity);
+
 }

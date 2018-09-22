@@ -476,8 +476,17 @@
     <string name="search_school_message">Make a search by the name of the school</string>
     <string name="search_school_loading_message">Searching schools ...</string>
     <string name="search_school_location" formatted="false">%s - %s</string>
-
+    <string name="no_registered_school">Currently there is no registered school, you help us to register the school information?</string>
+    <string name="add_new_school">Add new school</string>
+    <string name="add_school">Add School</string>
+    <string name="school_saved_successfully">The school information was saved successfully. Thank you!!!</string>
+    <string name="saving_school_information">Saving school\'s information, please wait...</string>
+    <string name="school_name_hint">Name</string>
+    <string name="school_residence_empty_error">You must indicate the location of the school</string>
+    <string name="select_school_location">Select school location</string>
+    
     <!-- Google Maps Key -->
     <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
     <string name="title_activity_school_detail">SchoolDetailActivity</string>
+    <string name="title_activity_add_school">AddSchoolActivity</string>
 </resources>

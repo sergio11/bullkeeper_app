@@ -1,12 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search;
 
 import java.util.List;
-
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportSearchLCEPresenter;
+import sanchez.sanchez.sergio.domain.interactor.school.GetTotalSchoolsInteract;
 import sanchez.sanchez.sergio.domain.interactor.school.SearchSchoolsInteract;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import timber.log.Timber;
 
 /**
  * Search School Activity Presenter
@@ -20,13 +20,21 @@ public final class SearchSchoolActivityPresenter
     private final SearchSchoolsInteract searchSchoolsInteract;
 
     /**
+     * Get Total Schools Interact
+     */
+    private final GetTotalSchoolsInteract getTotalSchoolsInteract;
+
+    /**
      *
      * @param searchSchoolsInteract
+     * @param getTotalSchoolsInteract
      */
     @Inject
-    public SearchSchoolActivityPresenter(final SearchSchoolsInteract searchSchoolsInteract) {
+    public SearchSchoolActivityPresenter(final SearchSchoolsInteract searchSchoolsInteract,
+                                         final GetTotalSchoolsInteract getTotalSchoolsInteract) {
         super();
         this.searchSchoolsInteract = searchSchoolsInteract;
+        this.getTotalSchoolsInteract = getTotalSchoolsInteract;
     }
 
     /**
@@ -43,7 +51,11 @@ public final class SearchSchoolActivityPresenter
      * Load Data
      */
     @Override
-    public void loadData() {}
+    public void loadData() {
+
+        getTotalSchoolsInteract.execute(new GetTotalSchoolsObservable(), null);
+
+    }
 
 
     /**
@@ -81,6 +93,24 @@ public final class SearchSchoolActivityPresenter
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
             }
+        }
+    }
+
+    /**
+     * Get Total Schools Observable
+     */
+    public class GetTotalSchoolsObservable extends BasicCommandCallBackWrapper<Integer> {
+
+        /**
+         * On Success
+         * @param totalSchools
+         */
+        @Override
+        protected void onSuccess(Integer totalSchools) {
+            if (isViewAttached() && getView() != null)
+                if (totalSchools == 0)
+                    getView().noRegisteredSchool();
+
         }
     }
 

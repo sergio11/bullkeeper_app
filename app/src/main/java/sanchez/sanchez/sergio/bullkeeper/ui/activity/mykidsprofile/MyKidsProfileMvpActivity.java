@@ -191,6 +191,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected SwitchCompat youtubeSwitchWidget;
 
     /**
+     * Show School Detail Image View
+     */
+    @BindView(R.id.showSchoolDetail)
+    protected ImageView showSchoolDetailImageView;
+
+    /**
      * Picasso
      */
     @Inject
@@ -230,7 +236,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     /**
      * School
      */
-    private String school;
+    private SchoolEntity school;
 
     /**
      * Profile Mode
@@ -370,7 +376,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             if(resultCode == Activity.RESULT_OK){
                 final SchoolEntity schoolSelected =
                         (SchoolEntity) data.getSerializableExtra(SearchSchoolActivity.SCHOOL_SELECTED_ARG);
-                this.school = schoolSelected.getIdentity();
+                school = schoolSelected;
                 schoolInput.setText(schoolSelected.getName());
             }
 
@@ -502,7 +508,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String birthday = birthdayInput.getDateSelectedAsText();
 
         getPresenter().saveSon(myKidIdentity, name, surname, birthday,
-                school, currentImagePath);
+                school != null ? school.getIdentity() : "", currentImagePath);
 
     }
 
@@ -547,6 +553,15 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
+     *
+     */
+    @OnClick(R.id.showSchoolDetail)
+    protected void onShowSchoolDetail(){
+        Preconditions.checkNotNull(school, "School can not be null");
+        navigatorImpl.showSchoolDetail(this, school);
+    }
+
+    /**
      * On Son Profile Loaded
      * @param sonEntity
      */
@@ -586,8 +601,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         }
 
         if(sonEntity.getSchool() != null) {
-            school = sonEntity.getSchool().getIdentity();
+            school = sonEntity.getSchool();
             schoolInput.setText(sonEntity.getSchool().getName());
+            showSchoolDetailImageView.setVisibility(View.VISIBLE);
         }
 
         // Enable All Components
@@ -693,17 +709,26 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         showNoticeDialog(R.string.forms_is_not_valid);
     }
 
-
+    /**
+     * Has Pending Changes
+     * @return
+     */
     @Override
     public Boolean hasPendingChanges() {
         return super.hasPendingChanges();
     }
 
+    /**
+     * On Saved Pending Changes
+     */
     @Override
     public void onSavedPendingChanges() {
         super.onSavedPendingChanges();
     }
 
+    /**
+     * On Discard Pending Changes
+     */
     @Override
     public void onDiscardPendingChanges() {
         super.onDiscardPendingChanges();

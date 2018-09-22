@@ -79,6 +79,10 @@
         <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
+    <!-- Add School -->
+    <style name="AppTheme.AddSchool">
+        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    </style>
 
 
 

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:id="@+id/schoolNameHeader"
+        android:id="@+id/selectLocationHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -16,24 +16,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- School Image -->
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/graduation_cap_solid"
+            android:src="@drawable/map_marked_alt_solid"
             android:contentDescription="@string/content_not_be_loaded" />
 
         <TextView
-            android:id="@+id/schoolName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/CommonStrongText"
             android:textStyle="bold"
+            android:text="@string/select_school_location"
             android:textColor="@color/commonWhite"
             />
 
     </LinearLayout>
-
 
     <View
         android:id="@+id/separator"
@@ -41,26 +39,10 @@
         android:layout_height="@dimen/common_divider_height"
         android:background="@color/commonWhite"
         android:layout_margin="8dp"
-        app:layout_constraintTop_toBottomOf="@id/schoolNameHeader"
+        app:layout_constraintTop_toBottomOf="@id/selectLocationHeader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/schoolLocation"/>
-
-
-    <TextView
-        android:id="@+id/schoolLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/CommonStrongText.Medium"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/commonWhite"
-        app:layout_constraintTop_toBottomOf="@id/separator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/map"
-        />
-
+        app:layout_constraintBottom_toTopOf="@id/map"/>
 
     <fragment
         android:id="@+id/map"
@@ -71,6 +53,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/schoolLocation"/>
+        app:layout_constraintTop_toBottomOf="@id/separator"/>
 
 </android.support.constraint.ConstraintLayout>

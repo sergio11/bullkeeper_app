@@ -10,6 +10,8 @@ import sanchez.sanchez.sergio.data.net.services.ISchoolService;
 import sanchez.sanchez.sergio.data.repository.SchoolRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.school.AddSchoolInteract;
+import sanchez.sanchez.sergio.domain.interactor.school.GetTotalSchoolsInteract;
 import sanchez.sanchez.sergio.domain.interactor.school.SearchSchoolsInteract;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.repository.ISchoolRepository;
@@ -50,6 +52,30 @@ public class SchoolModule {
     SearchSchoolsInteract provideSeachSchoolsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                       final ISchoolRepository schoolRepository) {
         return new SearchSchoolsInteract(threadExecutor, postExecutionThread, schoolRepository);
+    }
+
+    /**
+     * Provide Get Total Schools Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param schoolRepository
+     * @return
+     */
+    @Provides @PerActivity
+    GetTotalSchoolsInteract provideGetTotalSchoolsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                           final ISchoolRepository schoolRepository){
+        return new GetTotalSchoolsInteract(threadExecutor, postExecutionThread, schoolRepository);
+    }
+
+
+    /**
+     * Provide Add School Interact
+     * @return
+     */
+    @Provides @PerActivity
+    AddSchoolInteract provideAddSchoolInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                               final ISchoolRepository schoolRepository){
+        return new AddSchoolInteract(threadExecutor, postExecutionThread, schoolRepository);
     }
 
 }

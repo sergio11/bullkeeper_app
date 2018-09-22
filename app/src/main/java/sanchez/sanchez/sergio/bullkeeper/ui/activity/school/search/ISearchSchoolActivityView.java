@@ -6,4 +6,11 @@ import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 /**
  * Search School Activity View
  */
-public interface ISearchSchoolActivityView extends ISupportLCEView<SchoolEntity> { }
+public interface ISearchSchoolActivityView extends ISupportLCEView<SchoolEntity> {
+
+    /**
+     * No Registered School
+     */
+    void noRegisteredSchool();
+
+}

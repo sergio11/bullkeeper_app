@@ -1,25 +1,34 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.SchoolAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpSearchLCEActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import timber.log.Timber;
+
+import static sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity.SCHOOL_ADDED_ARG;
 
 /**
  * Search School Activity
@@ -30,7 +39,15 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
 
     public final static String SCHOOL_SELECTED_ARG = "SCHOOL_SELECTED_ARG";
 
+    private final static int ADD_SCHOOL_REQUEST_CODE = 237;
+
     private SchoolComponent schoolComponent;
+
+    /**
+     * Add School Image View
+     */
+    @BindView(R.id.addSchool)
+    protected ImageView addSchoolImageView;
 
 
     /**
@@ -56,6 +73,7 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
 
         schoolComponent.inject(this);
     }
+
 
     /**
      * On View Ready
@@ -133,9 +151,9 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
     @Override
     public void onItemClick(final SchoolEntity schoolEntity) {
         Timber.d("School Entity Selected -> %s", schoolEntity.getIdentity());
-        final Intent schoolSelectedItent = new Intent();
-        schoolSelectedItent.putExtra(SCHOOL_SELECTED_ARG, schoolEntity);
-        onResultOk(schoolSelectedItent);
+        final Intent schoolSelectedIntent = new Intent();
+        schoolSelectedIntent.putExtra(SCHOOL_SELECTED_ARG, schoolEntity);
+        onResultOk(schoolSelectedIntent);
     }
 
     /**
@@ -162,5 +180,71 @@ public class SearchSchoolActivity extends SupportMvpSearchLCEActivity<SearchScho
     public void onShowSchoolDetail(SchoolEntity schoolEntity) {
         Preconditions.checkNotNull(schoolEntity, "School Entity can not be null");
         navigatorImpl.showSchoolDetail(this, schoolEntity);
+    }
+
+    /**
+     * On Activity Result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == ADD_SCHOOL_REQUEST_CODE) {
+
+            if(Activity.RESULT_OK == resultCode) {
+
+                final Bundle args = data.getExtras();
+
+                if(args != null && args.containsKey(SCHOOL_ADDED_ARG)) {
+
+                    final Intent schoolSelectedIntent = new Intent();
+                    schoolSelectedIntent.putExtra(SCHOOL_SELECTED_ARG, args.getSerializable(SCHOOL_ADDED_ARG));
+                    onResultOk(schoolSelectedIntent);
+                }
+
+            }
+
+        }
+
+    }
+
+    /**
+     * No Registered School
+     */
+    @Override
+    public void noRegisteredSchool() {
+
+        showConfirmationDialog(R.string.no_registered_school, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+            /**
+             * On Accept
+             * @param dialog
+             */
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                navigatorImpl.showAddSchool(SearchSchoolActivity.this, ADD_SCHOOL_REQUEST_CODE);
+            }
+
+            /**
+             * On Rejected
+             * @param dialog
+             */
+            @Override
+            public void onRejected(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
+
+
+    /**
+     * On Add School
+     */
+    @OnClick(R.id.addSchool)
+    protected void onAddSchool(){
+        navigatorImpl.showAddSchool(SearchSchoolActivity.this, ADD_SCHOOL_REQUEST_CODE);
     }
 }

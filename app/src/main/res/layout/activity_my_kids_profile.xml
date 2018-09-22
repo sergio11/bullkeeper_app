@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <!-- Profile Section Title -->
     <LinearLayout
         android:id="@+id/profileSectionTitle"
         style="@style/CommonSection"
@@ -94,7 +94,6 @@
                     app:civ_border_color="@color/commonWhite"
                     app:civ_border_width="@dimen/common_image_stroke_width" />
 
-
                 <!-- name input -->
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/nameInputLayout"
@@ -165,29 +164,49 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- School input -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/schoolInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColorHint="@color/commonWhite"
-                android:theme="@style/CommonTextInputLayout"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- School input -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/schoolInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/commonWhite"
+                    android:theme="@style/CommonTextInputLayout"
+                    app:errorEnabled="true"
+                    app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/schoolInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/school_hint"
+                    android:layout_weight="1.5"
                     android:focusable="false"
+                    android:hint="@string/school_hint"
                     android:inputType="none"
                     android:lines="1" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Show School Detail -->
+                <ImageView
+                    android:id="@+id/showSchoolDetail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:visibility="gone"
+                    android:src="@drawable/map_marked_alt_solid"
+                    android:contentDescription="@string/content_not_be_loaded" />
+
+            </LinearLayout>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -310,7 +329,6 @@
 
             </TableLayout>
 
-
         </LinearLayout>
 
     </ScrollView>
@@ -353,7 +371,5 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
-
 
 </android.support.constraint.ConstraintLayout>

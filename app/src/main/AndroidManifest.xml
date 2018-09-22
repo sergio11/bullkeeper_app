@@ -4,6 +4,8 @@
     package="sanchez.sanchez.sergio.bullkeeper">
 
     <!-- Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -192,7 +194,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SearchSchool" />
 
-
+        <!-- Add School Activity -->
+        <activity
+            android:name=".ui.activity.school.create.AddSchoolMvpActivity"
+            android:label="@string/title_activity_add_school"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.AddSchool"/>
     </application>
 
 </manifest>

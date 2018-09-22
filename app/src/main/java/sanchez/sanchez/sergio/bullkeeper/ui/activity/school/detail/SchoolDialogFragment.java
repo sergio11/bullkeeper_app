@@ -43,7 +43,6 @@ public class SchoolDialogFragment extends SupportDialogFragment
     @BindView(R.id.schoolLocation)
     protected TextView schoolLocationTextView;
 
-    private GoogleMap mMap;
     private SchoolEntity schoolEntity;
 
     /**
@@ -121,20 +120,20 @@ public class SchoolDialogFragment extends SupportDialogFragment
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        googleMap = googleMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         if (schoolEntity != null && schoolEntity.getLatitude() != null
                 && schoolEntity.getLongitude() != null) {
 
             LatLng latLng = new LatLng(schoolEntity.getLatitude(), schoolEntity.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
 
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
             markerOptions.title(schoolEntity.getName());
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-            mMap.addMarker(markerOptions);
+            googleMap.addMarker(markerOptions);
         }
 
     }
