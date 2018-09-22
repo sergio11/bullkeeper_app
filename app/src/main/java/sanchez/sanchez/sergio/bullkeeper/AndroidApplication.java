@@ -7,6 +7,7 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.facebook.stetho.Stetho;
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import io.fabric.sdk.android.Fabric;
@@ -104,6 +105,7 @@ public final class AndroidApplication extends Application {
                 .penaltyLog()
                 .penaltyFlashScreen()
                 .build());
+
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                 .detectLeakedSqlLiteObjects()
                 .detectLeakedClosableObjects()
@@ -114,6 +116,8 @@ public final class AndroidApplication extends Application {
         Timber.plant(new Timber.DebugTree());
 
         Stetho.initializeWithDefaults(this);
+
+        AndroidDevMetrics.initWith(this);
     }
 
 
