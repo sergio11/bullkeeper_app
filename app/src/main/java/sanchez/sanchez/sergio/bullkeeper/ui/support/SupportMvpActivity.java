@@ -551,7 +551,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void safeCloseActivity() {
-        if(hasPendingChanges()) {
+
+        if(hasPendingChanges())
 
             showConfirmationDialog(R.string.has_pending_changes, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                 @Override
@@ -567,9 +568,9 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
                 }
             });
 
-        } else {
-            closeActivity();
-        }
+        else
+            super.onBackPressed();
+
     }
 
     /**
