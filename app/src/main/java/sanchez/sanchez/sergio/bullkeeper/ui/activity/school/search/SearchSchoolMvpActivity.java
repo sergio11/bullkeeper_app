@@ -23,8 +23,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.SchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.SchoolAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpSearchLCEActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpSearchLCEActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import timber.log.Timber;
 

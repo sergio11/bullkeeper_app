@@ -22,8 +22,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SchoolComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import timber.log.Timber;
 

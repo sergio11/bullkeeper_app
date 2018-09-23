@@ -18,8 +18,8 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 
 /**
  * Intro Fragment

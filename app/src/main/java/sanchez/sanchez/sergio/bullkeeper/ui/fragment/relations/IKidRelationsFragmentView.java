@@ -4,7 +4,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations;
 import java.util.List;
 
 import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 /**
  * Kid Relations Fragment View

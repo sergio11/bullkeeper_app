@@ -7,8 +7,8 @@ import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
-import sanchez.sanchez.sergio.bullkeeper.permission.IPermissionManager;
-import sanchez.sanchez.sergio.bullkeeper.permission.impl.PermissionManagerImpl;
+import sanchez.sanchez.sergio.bullkeeper.core.permission.IPermissionManager;
+import sanchez.sanchez.sergio.bullkeeper.core.permission.impl.PermissionManagerImpl;
 
 /**
  * A module to wrap all the dependencies of an activity

@@ -2,7 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 
 

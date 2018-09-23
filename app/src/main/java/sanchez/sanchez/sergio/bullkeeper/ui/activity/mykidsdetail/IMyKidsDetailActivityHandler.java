@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
  * My Kids Detail Activity Handler

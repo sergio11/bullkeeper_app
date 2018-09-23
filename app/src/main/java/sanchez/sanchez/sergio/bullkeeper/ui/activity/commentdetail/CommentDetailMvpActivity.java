@@ -16,8 +16,8 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.CommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerCommentsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 
 /**
  * Comment Detail Activity

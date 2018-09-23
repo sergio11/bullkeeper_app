@@ -2,11 +2,10 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search;
 
 import java.util.List;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportSearchLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.school.GetTotalSchoolsInteract;
 import sanchez.sanchez.sergio.domain.interactor.school.SearchSchoolsInteract;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
-import timber.log.Timber;
 
 /**
  * Search School Activity Presenter

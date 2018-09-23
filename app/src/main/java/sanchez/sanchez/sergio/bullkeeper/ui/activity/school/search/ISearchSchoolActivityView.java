@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportLCEView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportLCEView;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 
 /**

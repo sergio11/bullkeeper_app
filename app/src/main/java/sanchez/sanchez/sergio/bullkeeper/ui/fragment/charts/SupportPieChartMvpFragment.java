@@ -21,16 +21,16 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import net.grandcentrix.thirtyinch.TiPresenter;
-import net.grandcentrix.thirtyinch.TiView;
+
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 
 /**
  * Support Pie Chart Mvp Fragment

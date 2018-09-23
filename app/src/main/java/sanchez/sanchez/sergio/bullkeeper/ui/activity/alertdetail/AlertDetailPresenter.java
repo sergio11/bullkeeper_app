@@ -2,7 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertdetail;
 
 import android.os.Bundle;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 /**
  * Alert Detail Presenter
  */

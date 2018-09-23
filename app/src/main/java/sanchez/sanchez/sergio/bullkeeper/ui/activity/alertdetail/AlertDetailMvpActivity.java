@@ -9,7 +9,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AlertsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerAlertsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertdetail.AlertDetailActivityMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 
 /**
  * Alert Detail

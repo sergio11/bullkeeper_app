@@ -56,7 +56,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.PlaceSuggestionsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
 import sanchez.sanchez.sergio.domain.models.SuggestedPlaceEntity;
 import timber.log.Timber;
 

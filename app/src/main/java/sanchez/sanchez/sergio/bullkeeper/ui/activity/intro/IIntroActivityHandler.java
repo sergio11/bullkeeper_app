@@ -1,7 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.intro;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
  * Intro Activity Handler

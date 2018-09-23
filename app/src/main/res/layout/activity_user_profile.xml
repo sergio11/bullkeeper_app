@@ -157,7 +157,7 @@
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
 
-                <sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker
+                <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker
                     android:id="@+id/birthdayInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailInputLayout">
 
-                <sanchez.sanchez.sergio.bullkeeper.ui.support.components.PrefixEditText
+                <sanchez.sanchez.sergio.bullkeeper.core.ui.components.PrefixEditText
                     android:id="@+id/tfnoInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

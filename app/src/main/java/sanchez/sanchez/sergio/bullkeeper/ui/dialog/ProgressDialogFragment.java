@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
 
 /**
  * Progress Dialog Fragment

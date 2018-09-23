@@ -2,7 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts;
 
 import com.github.mikephil.charting.data.PieEntry;
 import java.util.List;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 /**
  * System Alerts Fragment View

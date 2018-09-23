@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerIntroComponent;
@@ -19,10 +22,11 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.intro.IntroMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.password.ForgotPasswordMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup.SignupMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import timber.log.Timber;
 
 /**
+ * eG10nY0OPd0:APA91bH6aQtrqEEhnacZrMLkdmhJmj4FTAPkddDTWrf4x7IGKZyf4jghjqiViu3TcCL0rcZVdcsamCSqS0AkdARRjZvAnPqiLCEPEJZjwtFOd-jMXyHZorDK3CCHC_wP7snJ8xY-wsRE
  * Intro MVP Activity
  */
 public class IntroMvpActivity
@@ -92,6 +96,18 @@ public class IntroMvpActivity
             final boolean closeSession = getIntent().getBooleanExtra(CLOSE_SESSION_ARG, false);
             if(closeSession) showShortMessage(getString(R.string.close_session_message));
         }
+
+        enableNoticeEventListener = false;
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Timber.d("FCM Token -> %s", newToken);
+
+            }
+        });
+
     }
 
     /**

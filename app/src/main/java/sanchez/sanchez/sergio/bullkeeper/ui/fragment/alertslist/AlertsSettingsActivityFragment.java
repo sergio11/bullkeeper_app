@@ -19,8 +19,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.IAlertsSettingsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPreferenceFragment;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesRepositoryImpl;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPreferenceFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.PreferencesRepositoryImpl;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 

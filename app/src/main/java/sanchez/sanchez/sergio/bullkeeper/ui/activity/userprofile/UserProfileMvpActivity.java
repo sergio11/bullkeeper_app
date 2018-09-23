@@ -29,10 +29,10 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.UserProfileComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
-import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import timber.log.Timber;
 

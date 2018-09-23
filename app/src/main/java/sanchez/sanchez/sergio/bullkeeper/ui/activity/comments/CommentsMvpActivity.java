@@ -22,9 +22,9 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerCommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.CommentsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Comments Activity

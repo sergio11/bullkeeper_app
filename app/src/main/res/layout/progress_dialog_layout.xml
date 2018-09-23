@@ -7,7 +7,7 @@
     android:padding="@dimen/common_padding">
 
     <!-- Support Loading Spinner -->
-    <sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportLoadingSpinner
+    <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportLoadingSpinner
         android:id="@+id/loadingSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

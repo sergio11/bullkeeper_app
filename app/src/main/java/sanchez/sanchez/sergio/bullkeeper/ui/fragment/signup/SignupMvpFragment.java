@@ -38,15 +38,15 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.components.SupportEditTextDatePicker;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
 import timber.log.Timber;
 
 /**
@@ -339,10 +339,11 @@ public class SignupMvpFragment extends
         passwordInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                    progressBar.setVisibility(View.VISIBLE);
-                else
-                    progressBar.setVisibility(View.GONE);
+                if(progressBar != null)
+                    if(hasFocus)
+                        progressBar.setVisibility(View.VISIBLE);
+                    else
+                        progressBar.setVisibility(View.GONE);
             }
         });
 

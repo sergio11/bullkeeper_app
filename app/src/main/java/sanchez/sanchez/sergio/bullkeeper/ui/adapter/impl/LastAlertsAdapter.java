@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 
 /**
  * Last Alerts Adapter

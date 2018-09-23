@@ -9,8 +9,10 @@ import dagger.Component;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
-import sanchez.sanchez.sergio.bullkeeper.utils.ScreenManager;
-import sanchez.sanchez.sergio.bullkeeper.utils.UiUtils;
+import sanchez.sanchez.sergio.bullkeeper.ui.services.NotificationHandlerService;
+import sanchez.sanchez.sergio.bullkeeper.ui.services.RemoteNotificationService;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -19,10 +21,10 @@ import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ApiModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ApplicationModule;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
-import sanchez.sanchez.sergio.bullkeeper.notification.local.ILocalSystemNotification;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.splash.SplashScreenActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.notification.INotificationHelper;
+import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
 import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 /**
@@ -55,6 +57,18 @@ public interface ApplicationComponent {
      * @param searchSchoolLocationDialog
      */
     void inject(final SearchSchoolLocationDialog searchSchoolLocationDialog);
+
+    /**
+     * Inject into Notification Handler Service
+     * @param notificationHandlerService
+     */
+    void inject(final NotificationHandlerService notificationHandlerService);
+
+    /**
+     * Remote Notification Service
+     * @param remoteNotificationService
+     */
+    void inject(final RemoteNotificationService remoteNotificationService);
 
 
     //Exposed to sub-graphs.

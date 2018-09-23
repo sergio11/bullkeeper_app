@@ -6,8 +6,8 @@ import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 
 
 /**

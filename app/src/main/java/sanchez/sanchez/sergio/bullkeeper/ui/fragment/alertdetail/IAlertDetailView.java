@@ -1,7 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertdetail;
 
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 public interface IAlertDetailView extends ISupportView {
 

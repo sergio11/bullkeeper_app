@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.comments;
 import java.util.List;
 
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 
 /**

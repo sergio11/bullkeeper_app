@@ -201,14 +201,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AddSchool" />
 
+        <!-- Broadcast Receiver -->
+        <receiver android:name=".ui.receivers.BootCompletedIntentReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <!-- Services -->
         <service
-            android:name=".services.RemoteNotificationService"
+            android:name=".ui.services.RemoteNotificationService"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".ui.services.NotificationHandlerService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

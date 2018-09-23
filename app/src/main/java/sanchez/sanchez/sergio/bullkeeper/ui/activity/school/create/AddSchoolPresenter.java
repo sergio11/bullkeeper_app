@@ -8,7 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.school.AddSchoolInteract;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 

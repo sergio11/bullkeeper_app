@@ -5,8 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertListPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.OnClick;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
@@ -18,7 +18,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.IMyKidsActivityHandl
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsAdapter;
 import timber.log.Timber;
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * My Kids Activity Fragment

@@ -7,7 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
-import sanchez.sanchez.sergio.bullkeeper.utils.SupportImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;

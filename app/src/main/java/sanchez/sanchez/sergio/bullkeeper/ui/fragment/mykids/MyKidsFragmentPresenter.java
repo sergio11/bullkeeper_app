@@ -2,8 +2,8 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import java.util.List;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
+
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 

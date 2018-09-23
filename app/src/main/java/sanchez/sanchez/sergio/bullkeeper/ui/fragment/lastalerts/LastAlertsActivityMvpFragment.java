@@ -23,7 +23,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.LastAlertsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import timber.log.Timber;
 

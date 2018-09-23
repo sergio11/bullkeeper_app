@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 public interface ISigninView extends ISupportView {
 
