@@ -41,7 +41,7 @@ ext {
     logginInterceptorVersion= '2.0.7'
     rxjava2AdapterVersion = '1.0.0'
     facebookSdkVersion = '[4,5)'
-    playServices = '11.2.0'
+    playServicesVersion = '15.0.1'
 
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
@@ -51,6 +51,9 @@ ext {
     mpAndroidChartVerion = 'v3.0.3'
     viewPagerTransforms = '1.2.32'
     zxcvbnVersion = '1.2.2'
+    // FireBase Libraries versions
+    firebaseMessagingVersion = '17.3.2'
+    firebaseCoreVersion = '16.0.3'
 
 
     thirtyInchVersion = '0.8.5'
@@ -79,7 +82,10 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appcompatv7:        "com.android.support:appcompat-v7:${supportVersion}",
-            playServices:       "com.google.android.gms:play-services:${playServices}",
+            playServicesLocation: "com.google.android.gms:play-services-location:${playServicesVersion}",
+            playServicesMaps:     "com.google.android.gms:play-services-maps:${playServicesVersion}",
+            playServicesPlaces:   "com.google.android.gms:play-services-places:${playServicesVersion}",
+            playServicesBase:   "com.google.android.gms:play-services-base:${playServicesVersion}",
             supportV4:          "com.android.support:support-v4:${supportVersion}",
             supportDesign:      "com.android.support:design:${supportVersion}",
             cardview:           "com.android.support:cardview-v7:${supportVersion}",
@@ -106,7 +112,9 @@ ext {
             viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar",
             facebookSdk:        "com.facebook.android:facebook-login:${facebookSdkVersion}",
             arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}",
-            zxcvbn:             "com.nulab-inc:zxcvbn:${zxcvbnVersion}"
+            zxcvbn:             "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
+            firebaseCore:       "com.google.firebase:firebase-core:${firebaseCoreVersion}",
+            firebaseMessaging:  "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}"
     ]
 
     presentationTestDependencies = [

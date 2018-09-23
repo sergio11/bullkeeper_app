@@ -9,9 +9,10 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
+        classpath 'com.google.gms:google-services:4.0.1'
     }
 }
 
@@ -19,7 +20,7 @@ allprojects {
 
     ext {
         androidApplicationId = 'sanchez.sanchez.sergio.bullkeeper'
-        androidVersionCode = 47
+        androidVersionCode = 48
         androidVersionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.fernandocejas.android10.sample.presentation.test'

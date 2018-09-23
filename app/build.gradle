@@ -107,7 +107,12 @@ dependencies {
     implementation presentationDependencies.supportDesign
     implementation presentationDependencies.preferencev7
     implementation presentationDependencies.preferencev14
-    implementation presentationDependencies.playServices
+    // Play Services
+    implementation presentationDependencies.playServicesBase
+    implementation presentationDependencies.playServicesMaps
+    implementation presentationDependencies.playServicesLocation
+    implementation presentationDependencies.playServicesPlaces
+
     implementation presentationDependencies.dexter
     implementation presentationDependencies.calligraphy
     implementation presentationDependencies.viewpump
@@ -130,6 +135,9 @@ dependencies {
     implementation presentationDependencies.facebookSdk
     implementation presentationDependencies.arrowPreconditions
     implementation presentationDependencies.zxcvbn
+    // FireBase Dependencies
+    implementation presentationDependencies.firebaseCore
+    implementation presentationDependencies.firebaseMessaging
 
 
     androidTestImplementation presentationTestDependencies.mockito
@@ -156,3 +164,6 @@ crashlytics {
     androidNdkOut 'src/main/obj'
     androidNdkLibsOut 'src/main/libs'
 }
+
+
+apply plugin: 'com.google.gms.google-services'
