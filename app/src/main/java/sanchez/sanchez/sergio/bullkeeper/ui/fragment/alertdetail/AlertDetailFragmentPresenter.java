@@ -49,16 +49,6 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
                 GetAlertDetailInteract.Params.create(sonId, alertId));
     }
 
-    /**
-     * On Detach View
-     */
-    @Override
-    protected void onDetachView() {
-        super.onDetachView();
-
-        this.getAlertDetailInteract.dispose();
-        this.deleteAlertOfSonInteract.dispose();
-    }
 
     /**
      * Delete Alert
