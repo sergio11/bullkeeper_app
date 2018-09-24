@@ -14,9 +14,17 @@
 
     <item android:top="200dp">
         <bitmap
-            android:src="@drawable/loading_wait_text"
+            android:src="@drawable/splash_intro_text"
             android:antialias="true"
             android:gravity="center"
+            android:dither="true" />
+    </item>
+
+    <item>
+        <bitmap
+            android:src="@drawable/author_splash_text"
+            android:antialias="true"
+            android:gravity="center_horizontal|bottom"
             android:dither="true" />
     </item>
 

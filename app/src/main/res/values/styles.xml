@@ -18,6 +18,11 @@
     </style>
 
     <!-- The launcher theme. -->
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <!-- The Common theme. -->
     <style name="AppTheme.Common">
         <item name="android:windowBackground">@drawable/loading_background</item>
     </style>
