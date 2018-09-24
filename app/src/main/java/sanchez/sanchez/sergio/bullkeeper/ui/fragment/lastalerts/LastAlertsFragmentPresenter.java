@@ -36,15 +36,6 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
         this.deleteAlertOfSonInteract = deleteAlertOfSonInteract;
     }
 
-    /**
-     * On Detach View
-     */
-    @Override
-    protected void onDetachView() {
-        super.onDetachView();
-        this.getSelfLastAlertsInteract.dispose();
-        this.deleteAlertOfSonInteract.dispose();
-    }
 
     /**
      * Load Data
