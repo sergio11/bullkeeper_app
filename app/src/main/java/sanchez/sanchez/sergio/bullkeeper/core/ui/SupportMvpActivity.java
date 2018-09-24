@@ -134,6 +134,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.intro_background_cyan);
+
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()

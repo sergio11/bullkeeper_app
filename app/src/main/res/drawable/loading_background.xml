@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@color/cyanBrilliant"/>
+
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:antialias="true"
+            android:dither="true"
+            android:src="@drawable/app_logo_splash"/>
+    </item>
+
+</layer-list>

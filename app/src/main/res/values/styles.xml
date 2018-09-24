@@ -18,72 +18,20 @@
     </style>
 
     <!-- The launcher theme. -->
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
-    <!-- App Intro Theme -->
-    <style name="AppTheme.Intro">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- The Crash Error Theme. -->
-    <style name="AppTheme.Crash">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- User Profile Theme. -->
-    <style name="AppTheme.UserProfile">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- User Kids Profile Theme. -->
-    <style name="AppTheme.MyKidsProfile">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- My Kids Theme. -->
-    <style name="AppTheme.MyKids">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
+    <style name="AppTheme.Common">
+        <item name="android:windowBackground">@drawable/loading_background</item>
     </style>
 
     <!-- User Preferences Theme -->
     <style name="AppTheme.Preferences">
         <item name="preferenceTheme">@style/UserPreferenceTheme</item>
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
 
-    <!-- Comments Theme. -->
-    <style name="AppTheme.Comments">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- Comments Detail Theme. -->
-    <style name="AppTheme.CommentDetail">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
 
     <!-- My Alerts -->
     <style name="AppTheme.MyAlerts">
         <item name="preferenceTheme">@style/UserPreferenceTheme</item>
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
     </style>
-
-    <!-- Legal Content -->
-    <style name="AppTheme.LegalContent">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- Search School -->
-    <style name="AppTheme.SearchSchool">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
-    <!-- Add School -->
-    <style name="AppTheme.AddSchool">
-        <item name="android:windowBackground">@drawable/intro_background_cyan</item>
-    </style>
-
 
 
     <style name="AppTheme.Widget"/>
