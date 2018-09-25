@@ -114,4 +114,21 @@ public interface IAlertsRepository {
      */
     Observable<List<AlertEntity>> getSelfAlertsOfSonByLevel(final String count, final String lastMinutes,
                                                        final String sonId, final AlertLevelEnum alertLevelEnum);
+
+
+    /**
+     * Get Ten Danger Alerts for the child
+     * @param sonId
+     * @return
+     */
+    Observable<List<AlertEntity>> getTenDangerAlertsForTheChild(final String sonId);
+
+
+    /**
+     * Get Ten Warning Alerts For The Child
+     * @param sonId
+     * @return
+     */
+    Observable<List<AlertEntity>> getTenWarningAlertsForTheChild(final String sonId);
+
 }

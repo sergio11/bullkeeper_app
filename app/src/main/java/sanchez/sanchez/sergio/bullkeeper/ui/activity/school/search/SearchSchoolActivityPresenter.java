@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search;
 
+import android.os.Bundle;
+
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
@@ -54,6 +56,15 @@ public final class SearchSchoolActivityPresenter
 
         getTotalSchoolsInteract.execute(new GetTotalSchoolsObservable(), null);
 
+    }
+
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
     }
 
 

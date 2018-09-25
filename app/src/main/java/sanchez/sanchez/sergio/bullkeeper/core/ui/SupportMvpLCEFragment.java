@@ -144,8 +144,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         noDataFoundView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLoadingState();
-                getPresenter().loadData();
+                loadData();
             }
         });
 
@@ -154,9 +153,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         errorOccurredLayout.getRetryAgain().setOnClickListener(this);
 
-        // Loading View
         showLoadingState();
-        getPresenter().loadData();
 
     }
 
@@ -258,8 +255,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onRefresh() {
-        showLoadingState();
-        getPresenter().loadData();
+        loadData();
     }
 
     /**
@@ -306,8 +302,19 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     @Override
     public void onClick(View view) {
         Timber.d("On Retry Again");
+        loadData();
+    }
+
+    /**
+     * Load Data
+     */
+    private void loadData() {
         showLoadingState();
-        getPresenter().loadData();
+        final Bundle args = getArgs();
+        if(args != null)
+            getPresenter().loadData(args);
+        else
+            getPresenter().loadData();
     }
 
     /**

@@ -19,4 +19,10 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToAlertDetail(final String alertId, final String sonId);
 
+    /**
+     * Navigate To Warning Alerts
+     * @param sonId
+     */
+    void navigateToWarningAlerts(final String sonId);
+
 }

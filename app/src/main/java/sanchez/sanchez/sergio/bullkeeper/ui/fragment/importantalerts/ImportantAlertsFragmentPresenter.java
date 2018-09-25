@@ -1,38 +1,93 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts;
 
-import android.support.annotation.NonNull;
-
-import net.grandcentrix.thirtyinch.TiPresenter;
-
-import java.util.Arrays;
+import android.os.Bundle;
+import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
-
 import javax.inject.Inject;
-
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetWarningAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
-import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 
 /**
  * Important Alerts Fragment Presenter
  */
-public final class ImportantAlertsFragmentPresenter extends TiPresenter<IImportantAlertsFragmentView> {
+public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<IImportantAlertsFragmentView> {
 
+    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+
+    /**
+     * Get Danger Alerts Of Son For Self Parent
+     */
+    private final GetWarningAlertsOfSonForSelfParentInteract getWarningAlertsOfSonForSelfParentInteract;
+
+    /**
+     *
+     * @param getWarningAlertsOfSonForSelfParentInteract
+     */
     @Inject
-    public ImportantAlertsFragmentPresenter(){}
-
-
-    @Override
-    protected void onAttachView(@NonNull IImportantAlertsFragmentView view) {
-        super.onAttachView(view);
-
-        final List<AlertEntity> alertEntityList = Arrays.asList(new AlertEntity(AlertLevelEnum.DANGER),
-                new AlertEntity(AlertLevelEnum.DANGER), new AlertEntity(AlertLevelEnum.DANGER),
-                new AlertEntity(AlertLevelEnum.DANGER), new AlertEntity(AlertLevelEnum.DANGER),
-                new AlertEntity(AlertLevelEnum.DANGER), new AlertEntity(AlertLevelEnum.DANGER));
-
-
-        view.showShortMessage("On Alerts Loaded");
-        view.onAlertsLoaded(alertEntityList);
-
+    public ImportantAlertsFragmentPresenter(final GetWarningAlertsOfSonForSelfParentInteract getWarningAlertsOfSonForSelfParentInteract){
+        this.getWarningAlertsOfSonForSelfParentInteract = getWarningAlertsOfSonForSelfParentInteract;
     }
+
+    /**
+     * Load Data
+     */
+    @Override
+    public void loadData() { }
+
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        Preconditions.checkNotNull(args, "Args can not be null");
+        Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
+
+        final String sonId = args.getString(SON_IDENTITY_ARG);
+        getWarningAlertsOfSonForSelfParentInteract.execute(new GetWarningAlertsOfSonForSelfParentObservable(
+                GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors.class),
+                GetWarningAlertsOfSonForSelfParentInteract.Params.create(sonId));
+    }
+
+
+    /**
+     * Get Warning Alerts Of Son For Self Parent Observable
+     */
+    public class GetWarningAlertsOfSonForSelfParentObservable extends CommandCallBackWrapper<List<AlertEntity>,
+            GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors.IGetWarningAlertsOfSonForSelfParentErrorVisitor,
+            GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors>
+            implements GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors.IGetWarningAlertsOfSonForSelfParentErrorVisitor {
+
+
+        public GetWarningAlertsOfSonForSelfParentObservable(Class<GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors> apiErrors) {
+            super(apiErrors);
+        }
+
+        /**
+         * On Success
+         * @param alertEntities
+         */
+        @Override
+        protected void onSuccess(List<AlertEntity> alertEntities) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onDataLoaded(alertEntities);
+            }
+        }
+
+
+        /**
+         * Visit Not Alerts By Son Founded
+         * @param apiErrors
+         */
+        @Override
+        public void visitNoAlertsBySonFounded(GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors apiErrors) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onNoDataFound();
+            }
+        }
+    }
+
 }

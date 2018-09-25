@@ -1,6 +1,8 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist;
 
 
+import android.os.Bundle;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.List;
@@ -130,6 +132,15 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
             getSelfAlertsInteract.execute(new GetSelfAlertsObservable(GetSelfAlertsInteract.GetSelfAlertsApiErrors.class), null);
         }
 
+    }
+
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
     }
 
     /**

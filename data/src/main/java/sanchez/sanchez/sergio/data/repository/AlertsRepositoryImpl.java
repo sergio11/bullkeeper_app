@@ -21,6 +21,9 @@ import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
  */
 public final class AlertsRepositoryImpl implements IAlertsRepository {
 
+    private final static String TEN_ALERTS = "10";
+    private final static String FIFTEEN_LAST_MINUTES = "15";
+
     private final IAlertService alertService;
     private final AbstractDataMapper<AlertDTO, AlertEntity> alertDataMapper;
     private final AbstractDataMapper<AlertsPageDTO, AlertsPageEntity> alertsPageEntityDataMapper;
@@ -294,21 +297,53 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
 
         switch (alertLevelEnum) {
             case WARNING:
-                observable = alertService.getWarningAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                observable = alertService.getWarningAlertsOfSonForSelfParent(sonId, count, lastMinutes);
                 break;
             case SUCCESS:
-                observable = alertService.getSuccessAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                observable = alertService.getSuccessAlertsOfSonForSelfParent(sonId, count, lastMinutes);
                 break;
             case DANGER:
-                observable = alertService.getDangerAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                observable = alertService.getDangerAlertsOfSonForSelfParent(sonId, count, lastMinutes);
                 break;
             default:
-                observable = alertService.getInfoAlertsOfSonForSelfParent(count, lastMinutes, sonId);
+                observable = alertService.getInfoAlertsOfSonForSelfParent(sonId, count, lastMinutes);
                 break;
         }
 
         return observable.map(response -> response != null
                 && response.getData() != null ? response.getData() : null)
+                .map(alertDataMapper::transform);
+    }
+
+    /**
+     * Get Danger Alerts Of Son For Self Parent
+     * @param sonId
+     * @return
+     */
+    @Override
+    public Observable<List<AlertEntity>> getTenDangerAlertsForTheChild(String sonId) {
+        Preconditions.checkNotNull(sonId, "Son Id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
+
+        return alertService.getDangerAlertsOfSonForSelfParent(sonId, TEN_ALERTS, FIFTEEN_LAST_MINUTES)
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData() : null)
+                .map(alertDataMapper::transform);
+    }
+
+    /**
+     * Get Ten Warning Alerts For The Child
+     * @param sonId
+     * @return
+     */
+    @Override
+    public Observable<List<AlertEntity>> getTenWarningAlertsForTheChild(String sonId) {
+        Preconditions.checkNotNull(sonId, "Son Id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
+
+        return alertService.getWarningAlertsOfSonForSelfParent(sonId, TEN_ALERTS, FIFTEEN_LAST_MINUTES)
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData() : null)
                 .map(alertDataMapper::transform);
     }
 

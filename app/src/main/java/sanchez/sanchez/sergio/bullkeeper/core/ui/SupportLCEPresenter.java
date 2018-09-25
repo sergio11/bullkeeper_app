@@ -25,12 +25,17 @@ public abstract class SupportLCEPresenter<T extends ISupportLCEView>
     @Override
     protected void onInit(Bundle args) {
         super.onInit(args);
-        loadData();
+        loadData(args);
     }
 
     /**
      * Load Data
      */
     public abstract void loadData();
+
+    /**
+     * Load Data
+     */
+    public abstract void loadData(final Bundle args);
 
 }

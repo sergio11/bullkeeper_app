@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -29,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
@@ -193,6 +195,17 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        args.putString(MyKidsDetailPresenter.KID_IDENTITY_ARG, kidIdentity);
+        return args;
+    }
+
+    /**
      * Get Component
      * @return
      */
@@ -247,6 +260,15 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Warning Alerts
+     * @param sonId
+     */
+    @Override
+    public void navigateToWarningAlerts(String sonId) {
+        navigatorImpl.navigateToAlertList(AlertLevelEnum.WARNING, sonId);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param value
@@ -275,9 +297,13 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         kidNameTextView.setText(sonEntity.getFullName());
 
+
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_server_response));
+
         // Set Kid Birthday
         kidBirthdayTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.kid_detail_birthday), sonEntity.getBirthdate()));
+                getString(R.string.kid_detail_birthday), simpleDateFormat.format(sonEntity.getBirthdate())));
+
 
         kidSchoolTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.kid_detail_school), sonEntity.getSchool().getName()));

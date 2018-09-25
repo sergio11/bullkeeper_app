@@ -18,10 +18,12 @@ import sanchez.sanchez.sergio.domain.interactor.alerts.ClearSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetDangerAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsOfSonByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetWarningAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
@@ -203,6 +205,33 @@ public class AlertsModule {
                                                                                   final IAlertsRepository alertsRepository){
         return new ClearAlertsOfSonByLevelInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
+
+    /**
+     * Provide Get Danger Alerts Of Son For Self Parent
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param alertsRepository
+     * @return
+     */
+    @Provides @PerActivity
+    GetDangerAlertsOfSonForSelfParentInteract provideGetDangerAlertsOfSonForSelfParent(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                       final IAlertsRepository alertsRepository){
+        return new GetDangerAlertsOfSonForSelfParentInteract(threadExecutor, postExecutionThread, alertsRepository);
+    }
+
+    /**
+     * Provide Get Warning Alerts Of Son for self Parent
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param alertsRepository
+     * @return
+     */
+    @Provides @PerActivity
+    GetWarningAlertsOfSonForSelfParentInteract provideGetWarningAlertsOfSonForSelfParentInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                                 final IAlertsRepository alertsRepository){
+        return new GetWarningAlertsOfSonForSelfParentInteract(threadExecutor, postExecutionThread, alertsRepository);
+    }
+
 
 
 }

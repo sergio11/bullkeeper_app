@@ -9,12 +9,12 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
-import static sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.MyKidsDetailMvpActivity.KID_IDENTITY_ARG;
-
 /**
  * My Kids Detail Presenter
  */
 public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailView> {
+
+    public final static String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Son By Id Interact

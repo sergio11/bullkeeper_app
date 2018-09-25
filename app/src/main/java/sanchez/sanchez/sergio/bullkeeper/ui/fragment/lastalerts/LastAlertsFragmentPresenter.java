@@ -1,6 +1,8 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts;
 
 
+import android.os.Bundle;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
@@ -45,6 +47,15 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
 
         // Execute Get Self Children
         getSelfLastAlertsInteract.execute(new LoadLastAlertsObserver(GetSelfLastAlertsInteract.GetSelfLastAlertsApiErrors.class), null);
+    }
+
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
     }
 
     /**

@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
+import android.os.Bundle;
+
 import java.util.List;
 import javax.inject.Inject;
 
@@ -32,6 +34,14 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
         getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
     }
 
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
+    }
 
     /**
      * Get Children Observer

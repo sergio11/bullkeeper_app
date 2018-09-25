@@ -163,8 +163,7 @@ public interface IAlertService {
      */
     @GET("children/{id}/alerts/warning")
     Observable<APIResponse<List<AlertDTO>>> getWarningAlertsOfSonForSelfParent(
-            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
-            final @Path("id") String id);
+            final @Path("id") String id, final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
     /**
      * Get info alerts for self parent
@@ -177,27 +176,25 @@ public interface IAlertService {
 
 
     /**
-     * Get danger alerts for self parent
+     * Get danger alerts of son for self parent
      * @return
      */
     @GET("children/{id}/alerts/danger")
     Observable<APIResponse<List<AlertDTO>>> getDangerAlertsOfSonForSelfParent(
-            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
-            final @Path("id") String id);
+            final @Path("id") String id, final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
 
     /**
-     * Get success alerts for self parent
+     * Get success alerts of son for self parent
      * @return
      */
     @GET("children/{id}/alerts/success")
     Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsOfSonForSelfParent(
-            final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
-            final @Path("id") String id);
+            final @Path("id") String id, final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
 
     /**
-     * Clear warning alerts for self parent
+     * Clear warning alerts of son for self parent
      * @return
      */
     @DELETE("children/{id}/alerts/warning")
