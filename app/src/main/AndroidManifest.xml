@@ -47,30 +47,21 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter>
-        </activity>
 
         <!-- Intro Activity -->
         <activity
             android:name=".ui.activity.intro.IntroMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Custom Splash Screen Activity -->
         <activity
             android:name=".ui.activity.splash.SplashScreenActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -96,6 +87,7 @@
         <activity
             android:name=".ui.activity.home.HomeMvpActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common"/>
 
         <!-- My Kids Activity -->
@@ -103,6 +95,7 @@
             android:name=".ui.activity.mykids.MyKidsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Alert Detail Activity -->
@@ -117,6 +110,7 @@
             android:name=".ui.activity.alertlist.AlertListMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common"
             />
 
@@ -124,6 +118,7 @@
         <activity
             android:name=".ui.activity.tutorial.AppTutorialActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <!-- User Settings Activity -->
@@ -131,6 +126,7 @@
             android:name=".ui.activity.settings.UserSettingsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Preferences" />
 
         <!-- Alerts Settings Activity -->
@@ -138,6 +134,7 @@
             android:name=".ui.activity.alertlist.AlertsSettingsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Preferences" />
 
         <!-- User Profile -->
@@ -152,6 +149,7 @@
             android:name=".ui.activity.mykidsprofile.MyKidsProfileMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Comments Activity -->
@@ -159,6 +157,7 @@
             android:name=".ui.activity.comments.CommentsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Comment Detail Activity -->
@@ -180,6 +179,7 @@
             android:name=".ui.activity.kidsresults.KidsResultsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common"/>
 
         <meta-data
@@ -190,6 +190,7 @@
             android:name=".ui.activity.legal.LegalContentActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Search School Activity -->
