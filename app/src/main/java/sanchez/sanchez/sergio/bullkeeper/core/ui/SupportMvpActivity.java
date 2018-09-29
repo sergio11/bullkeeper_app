@@ -46,6 +46,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import timber.log.Timber;
 
 /**
@@ -91,6 +92,12 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Inject
     protected UiUtils uiUtils;
+
+    /**
+     * App utils
+     */
+    @Inject
+    protected IAppUtils appUtils;
 
     /**
      * Optional App Bar Layout

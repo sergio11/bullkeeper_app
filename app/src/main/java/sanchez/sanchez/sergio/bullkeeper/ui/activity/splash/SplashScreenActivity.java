@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -34,6 +36,12 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Inject
     protected IAppUtils appUtils;
 
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initializeInjector();
@@ -45,6 +53,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         } else {
             navigator.navigateToIntro();
         }
+
+        localSystemNotification.sendNotification(new SigningEvent(
+                preferenceRepository.getPrefCurrentUserIdentity()));
 
         finish();
     }

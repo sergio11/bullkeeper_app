@@ -2,18 +2,9 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.intro;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import com.fernandocejas.arrow.checks.Preconditions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerIntroComponent;
@@ -24,7 +15,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.password.ForgotPasswordMvpF
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signin.SigninMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup.SignupMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
-import timber.log.Timber;
 
 /**
  * eG10nY0OPd0:APA91bH6aQtrqEEhnacZrMLkdmhJmj4FTAPkddDTWrf4x7IGKZyf4jghjqiViu3TcCL0rcZVdcsamCSqS0AkdARRjZvAnPqiLCEPEJZjwtFOd-jMXyHZorDK3CCHC_wP7snJ8xY-wsRE
@@ -85,23 +75,17 @@ public class IntroMvpActivity
         if (savedInstanceState == null)
             addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), true);
 
+        if(appUtils.isValidString(preferencesRepositoryImpl.getAuthToken())){
+            navigatorImpl.navigateToHome();
+            finish();
+        }
+
         if(getIntent().hasExtra(CLOSE_SESSION_ARG)) {
             final boolean closeSession = getIntent().getBooleanExtra(CLOSE_SESSION_ARG, false);
             if(closeSession) showShortMessage(getString(R.string.close_session_message));
         }
 
         enableNoticeEventListener = false;
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getToken();
-                Timber.d("FCM Token -> %s", newToken);
-
-            }
-        });
-
-
     }
 
     /**

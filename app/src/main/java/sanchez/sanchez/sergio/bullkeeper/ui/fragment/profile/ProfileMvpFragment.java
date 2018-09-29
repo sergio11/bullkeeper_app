@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -246,6 +245,9 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Override
     public void onUserProfileLoaded(ParentEntity parentEntity) {
+        Preconditions.checkNotNull(parentEntity, "Parent Entity can not be null");
+
+        preferencesRepositoryImpl.setPrefCurrentUserIdentity(parentEntity.getIdentity());
 
         userProfileText.setText(parentEntity.getFullName());
 

@@ -14,6 +14,13 @@ public final class SaveDeviceDTO implements Serializable {
     @JsonProperty("registration_token")
     private String registrationToken;
 
+    public SaveDeviceDTO(){}
+
+    public SaveDeviceDTO(String deviceId, String registrationToken) {
+        this.deviceId = deviceId;
+        this.registrationToken = registrationToken;
+    }
+
     public String getDeviceId() {
         return deviceId;
     }

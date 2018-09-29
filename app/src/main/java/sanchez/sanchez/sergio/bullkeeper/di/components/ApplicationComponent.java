@@ -9,7 +9,6 @@ import dagger.Component;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
-import sanchez.sanchez.sergio.bullkeeper.ui.services.NotificationHandlerService;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.RemoteNotificationService;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
@@ -57,12 +56,6 @@ public interface ApplicationComponent {
      * @param searchSchoolLocationDialog
      */
     void inject(final SearchSchoolLocationDialog searchSchoolLocationDialog);
-
-    /**
-     * Inject into Notification Handler Service
-     * @param notificationHandlerService
-     */
-    void inject(final NotificationHandlerService notificationHandlerService);
 
     /**
      * Remote Notification Service

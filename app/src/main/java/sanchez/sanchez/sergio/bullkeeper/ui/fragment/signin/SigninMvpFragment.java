@@ -25,7 +25,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
@@ -73,6 +75,12 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
 
     @Inject
     protected Context appContext;
+
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
 
     private CallbackManager callbackManager;
 
@@ -218,8 +226,13 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
 
     }
 
+    /**
+     * On Login Success
+     */
     @Override
     public void onLoginSuccess() {
+        Timber.d("Send Signing Event");
+        localSystemNotification.sendNotification(new SigningEvent());
         activityHandler.gotToHome();
     }
 

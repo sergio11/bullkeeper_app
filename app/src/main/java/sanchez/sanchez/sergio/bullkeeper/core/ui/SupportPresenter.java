@@ -238,20 +238,16 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
          * @return
          */
         private CommonApiErrors findCommonApiErrorFromCodeName(final String codeName) {
-
             CommonApiErrors commonApiError = null;
-
             for(final CommonApiErrors ce: commonApiErrors) {
                 if (ce.name().equalsIgnoreCase(codeName)) {
                     commonApiError = ce;
                     break;
                 }
             }
-
             return commonApiError;
 
         }
-
 
         /**
          * On Next
@@ -263,6 +259,9 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
             onSuccess(t);
         }
 
+        /**
+         * On Network Error
+         */
         @Override
         protected void onNetworkError() {
             Timber.e("On Network Error");
@@ -282,6 +281,10 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
             notifyUnexpectedException();
         }
 
+        /**
+         * On Api Exception
+         * @param response
+         */
         @Override
         protected void onApiException(APIResponse response) {
             if (response != null) {
@@ -335,7 +338,7 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
 
 
     /**
-     * Signup Api Errors
+     * Common Api Errors
      */
     public enum CommonApiErrors implements ISupportVisitable<CommonApiErrors.ICommonApiErrorVisitor> {
 
@@ -359,7 +362,7 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         };
 
         /**
-         * Signup Api Error Visitor
+         * Common Api Error Visitor
          */
         public interface ICommonApiErrorVisitor extends ISupportVisitor {
 
@@ -377,10 +380,5 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         }
 
     }
-
-
-
-
-
 
 }

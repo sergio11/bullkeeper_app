@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.DeviceEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
@@ -18,6 +19,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.DeviceDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
@@ -26,6 +28,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
+import sanchez.sanchez.sergio.domain.models.DeviceEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -126,5 +129,4 @@ public class DataMapperModule {
     public AbstractDataMapper<SaveSocialMediaDTO, SocialMediaEntity> provideSaveSocialMediaDataMapper(){
         return new SaveSocialMediaDataMapper();
     }
-
 }

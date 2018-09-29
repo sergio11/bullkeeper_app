@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import net.grandcentrix.thirtyinch.TiFragment;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import java.lang.reflect.ParameterizedType;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,6 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Support Fragment
@@ -54,6 +58,12 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
     @Nullable
     @BindView(R.id.appToolbarInclude)
     protected View appbarLayout;
+
+    /**
+     * Preferences Manager
+     */
+    @Inject
+    protected IPreferenceRepository preferencesRepositoryImpl;
 
 
     /**

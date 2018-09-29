@@ -3,7 +3,9 @@ package sanchez.sanchez.sergio.bullkeeper.core.notification.impl;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
@@ -107,7 +109,7 @@ public final class NotificationHelperImpl implements INotificationHelper {
     private void showNotification(final Notification notification){
         Preconditions.checkNotNull(notification, "Notification can not be null");
 
-        //vibrate(1000);
+        vibrate(1000);
 
         NotificationManager mNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -122,15 +124,20 @@ public final class NotificationHelperImpl implements INotificationHelper {
      * @param body
      */
     @Override
-    public void showImportantNotification(final String title, final String body) {
+    public void showImportantNotification(final String title, final String body, final Intent intent) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notification)
+                .setSmallIcon(R.drawable.ic_stat_bk)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSound(alertSound);
+
+        if(intent != null) {
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            notificationBuilder.setContentIntent(pendingIntent);
+        }
 
 
         // Set the Channel ID for Android O.
@@ -142,15 +149,25 @@ public final class NotificationHelperImpl implements INotificationHelper {
     }
 
     /**
+     * Show Important Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showImportantNotification(String title, String body) {
+        showImportantNotification(title, body, null);
+    }
+
+    /**
      * Show Notice Notification
      * @param title
      * @param body
      */
     @Override
-    public void showNoticeNotification(String title, String body) {
+    public void showNoticeNotification(final String title, final String body, final Intent intent) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notification)
+                .setSmallIcon(R.drawable.ic_stat_bk)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(false)
@@ -158,6 +175,10 @@ public final class NotificationHelperImpl implements INotificationHelper {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSound(alertSound);
 
+        if(intent != null) {
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            notificationBuilder.setContentIntent(pendingIntent);
+        }
 
         // Set the Channel ID for Android O.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -169,15 +190,25 @@ public final class NotificationHelperImpl implements INotificationHelper {
     }
 
     /**
+     * Show Notice Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showNoticeNotification(String title, String body) {
+        showNoticeNotification(title, body, null);
+    }
+
+    /**
      * Show Silent Notification
      * @param title
      * @param body
      */
     @Override
-    public void showSilentNotification(String title, String body) {
+    public void showSilentNotification(final String title, final String body, final Intent intent) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notification)
+                .setSmallIcon(R.drawable.ic_stat_bk)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(false)
@@ -185,6 +216,10 @@ public final class NotificationHelperImpl implements INotificationHelper {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setSound(alertSound);
 
+        if(intent != null) {
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            notificationBuilder.setContentIntent(pendingIntent);
+        }
 
         // Set the Channel ID for Android O.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -192,5 +227,15 @@ public final class NotificationHelperImpl implements INotificationHelper {
         }
 
         showNotification(notificationBuilder.build());
+    }
+
+    /**
+     * Show Silent Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showSilentNotification(String title, String body) {
+        showSilentNotification(title, body, null);
     }
 }

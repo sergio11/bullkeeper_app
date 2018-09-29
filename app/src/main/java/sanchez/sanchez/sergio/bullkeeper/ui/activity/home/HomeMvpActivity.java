@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import javax.inject.Inject;
@@ -10,6 +9,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerHomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
@@ -222,6 +222,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
         showConfirmationDialog(R.string.confirm_close_session, new ConfirmationDialogFragment.ConfirmationDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
+                localSystemNotification.sendNotification(new LogoutEvent(preferencesRepositoryImpl.getPrefCurrentUserIdentity()));
                 preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
                 preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
                 navigatorImpl.navigateToIntro(true);

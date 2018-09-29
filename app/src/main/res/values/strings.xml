@@ -502,4 +502,9 @@
     <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
     <string name="title_activity_school_detail">SchoolDetailActivity</string>
     <string name="title_activity_add_school">AddSchoolActivity</string>
+
+
+    <!-- Notifications -->
+    <string name="logout_notification_title">Come back soon</string>
+    <string name="logout_notification_description">Log in to receive information about the analyzes performed</string>
 </resources>
