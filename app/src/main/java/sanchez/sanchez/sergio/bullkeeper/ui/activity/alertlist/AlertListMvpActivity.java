@@ -13,10 +13,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
@@ -72,6 +77,12 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     @BindView(R.id.alertsHeaderTitle)
     protected TextView alertsHeaderTitle;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
 
     /**
@@ -424,7 +435,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
+        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>(), picasso);
     }
 
     /**

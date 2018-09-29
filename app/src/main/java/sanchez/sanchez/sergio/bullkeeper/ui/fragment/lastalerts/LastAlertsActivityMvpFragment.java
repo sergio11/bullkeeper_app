@@ -10,10 +10,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,8 +40,17 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
 
     public static String TAG = "LAST_ALERTS_ACTIVITY_MVP";
 
+    /**
+     * Last Alerts Title
+     */
     @BindView(R.id.lastAlertsTitle)
     protected TextView lastAlertsTitle;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
 
     public LastAlertsActivityMvpFragment() {}
@@ -139,7 +152,7 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
+        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>(), picasso);
         lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
         return lastAlertsAdapter;
     }

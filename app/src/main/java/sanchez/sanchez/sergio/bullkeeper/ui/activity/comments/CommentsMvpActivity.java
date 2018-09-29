@@ -10,8 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
@@ -53,6 +57,13 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
      */
     @BindView(R.id.commentsList)
     protected RecyclerView commentsList;
+
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
     /**
      * Kid Identity
@@ -146,7 +157,8 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
         commentsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         commentsList.setNestedScrollingEnabled(false);
 
-        commentsAdapter = new CommentsAdapter(getApplicationContext(), new ArrayList<CommentEntity>());
+        commentsAdapter = new CommentsAdapter(getApplicationContext(),
+                new ArrayList<CommentEntity>(), picasso);
         commentsAdapter.setOnSupportRecyclerViewListener(this);
         commentsAdapter.setOnCommentsViewListener(this);
 

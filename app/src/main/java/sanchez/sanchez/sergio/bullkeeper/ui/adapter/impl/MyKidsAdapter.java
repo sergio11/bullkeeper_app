@@ -187,12 +187,15 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
                 }
             });
 
-
-            // Set Child Image
-            picasso.load(sonEntity.getProfileImage())
-                    .placeholder(R.drawable.kid_default_image)
-                    .error(R.drawable.kid_default_image)
-                    .into(childImage);
+            if(sonEntity.getProfileImage() != null &&
+                    !sonEntity.getProfileImage().isEmpty())
+                // Set Child Image
+                picasso.load(sonEntity.getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImage);
+            else
+                childImage.setImageResource(R.drawable.kid_default_image);
 
 
             childImage.setOnClickListener(new View.OnClickListener() {

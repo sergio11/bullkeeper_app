@@ -251,9 +251,12 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         userProfileText.setText(parentEntity.getFullName());
 
-        picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
+        if(appUtils.isValidString(parentEntity.getProfileImage()))
+            picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
                 .error(R.drawable.parent_default)
                 .into(userProfileImage);
+        else
+            userProfileImage.setImageResource(R.drawable.parent_default);
     }
 
     /**

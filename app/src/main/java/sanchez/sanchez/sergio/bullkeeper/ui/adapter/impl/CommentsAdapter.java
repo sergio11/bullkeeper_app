@@ -29,12 +29,18 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
     private OnCommentsViewListener onCommentsViewListener;
 
     /**
+     * Picasso
+     */
+    private final Picasso picasso;
+
+    /**
      *
      * @param context
      * @param data
      */
-    public CommentsAdapter(Context context, ArrayList<CommentEntity> data) {
+    public CommentsAdapter(final Context context, final ArrayList<CommentEntity> data, final Picasso picasso) {
         super(context, data);
+        this.picasso = picasso;
         // enable header
         hasHeader = true;
         hasFooter = false;
@@ -127,45 +133,35 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
         public void bind(CommentEntity commentEntity) {
             super.bind(commentEntity);
 
-            // Set Author Image
-            Picasso.with(context).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                    .placeholder(R.drawable.user_default)
-                    .error(R.drawable.user_default)
-                    .noFade()
-                    .into(authorImage);
+            if(commentEntity.getAuthorPhoto() != null &&
+                    !commentEntity.getAuthorPhoto().isEmpty())
+
+                // Set Author Image
+                picasso.load(commentEntity.getAuthorPhoto())
+                        .placeholder(R.drawable.user_default)
+                        .error(R.drawable.user_default)
+                        .noFade()
+                        .into(authorImage);
+            else
+                authorImage.setImageResource(R.drawable.user_default);
 
 
             switch (commentEntity.getSocialMedia()) {
-
                 case FACEBOOK:
-
                     commentSocialMedia.setImageDrawable(ContextCompat.getDrawable(context,
                             R.drawable.facebook_brand_solid_cyan));
-
                     break;
-
                 case YOUTUBE:
-
                     commentSocialMedia.setImageDrawable(ContextCompat.getDrawable(context,
                             R.drawable.youtube_brands_solid_cyan));
-
                     break;
-
                 case INSTAGRAM:
-
                     commentSocialMedia.setImageDrawable(ContextCompat.getDrawable(context,
                             R.drawable.instagram_brands_solid_cyan));
-
                     break;
-
             }
-
         }
-
-
-
     }
-
 
     /**
      * Comments Header View Holder

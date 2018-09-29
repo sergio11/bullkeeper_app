@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import javax.inject.Inject;
@@ -34,6 +36,12 @@ public class ImportantAlertsMvpFragment extends SupportMvpLCEFragment<ImportantA
      */
     @Inject
     protected Context appContext;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
 
 
@@ -134,7 +142,8 @@ public class ImportantAlertsMvpFragment extends SupportMvpLCEFragment<ImportantA
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
+        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>(),
+                picasso);
         lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
         return lastAlertsAdapter;
     }

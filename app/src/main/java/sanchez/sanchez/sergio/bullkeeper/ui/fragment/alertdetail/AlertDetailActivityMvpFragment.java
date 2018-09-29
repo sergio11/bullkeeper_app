@@ -155,10 +155,13 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
     @Override
     public void onAlertInfoLoaded(AlertEntity alertEntity) {
 
-        picasso.load(alertEntity.getSon().getProfileImage())
-                .placeholder(R.drawable.kid_default_image)
-                .error(R.drawable.kid_default_image)
-                .into(alertDetailBackground);
+        if(appUtils.isValidString(alertEntity.getSon().getProfileImage()))
+            picasso.load(alertEntity.getSon().getProfileImage())
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
+                    .into(alertDetailBackground);
+        else
+            alertDetailBackground.setImageResource(R.drawable.kid_default_image);
 
         // Alert Title
         alertTitleView.setText(alertEntity.getTitle());

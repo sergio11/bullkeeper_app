@@ -631,11 +631,15 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), sonEntity.getFullName()));
 
-        picasso.load(sonEntity.getProfileImage())
-                .placeholder(R.drawable.kid_default_image)
-                .error(R.drawable.kid_default_image)
-                .noFade()
-                .into(profileImageView);
+        if(appUtils.isValidString(sonEntity.getProfileImage()))
+            picasso.load(sonEntity.getProfileImage())
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
+                    .noFade()
+                    .into(profileImageView);
+        else
+            profileImageView.setImageResource(R.drawable.kid_default_image);
+
 
         if(sonEntity.getFirstName() != null &&
                 !sonEntity.getFirstName().isEmpty()) {

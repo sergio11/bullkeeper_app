@@ -44,12 +44,15 @@ public class DataMapperModule {
 
     /**
      * Provide Parent Entity Data Mapper
+     * @param apiEndPointsHelper
+     * @param appUtils
      * @return
      */
     @Provides
     @PerActivity
-    public AbstractDataMapper<ParentDTO, ParentEntity> provideParentEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper) {
-        return new ParentEntityDataMapper(apiEndPointsHelper);
+    public AbstractDataMapper<ParentDTO, ParentEntity> provideParentEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper,
+                                                                                     final IAppUtils appUtils) {
+        return new ParentEntityDataMapper(apiEndPointsHelper, appUtils);
     }
 
     /**

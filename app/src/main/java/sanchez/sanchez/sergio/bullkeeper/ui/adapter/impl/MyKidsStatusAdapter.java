@@ -94,12 +94,15 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
             super.bind(sonEntity);
 
 
-            // Set Child Image
-            picasso.load(sonEntity.getProfileImage())
-                    .placeholder(R.drawable.kid_default_image)
-                    .error(R.drawable.kid_default_image)
-                    .into(childImage);
-
+            if(sonEntity.getProfileImage() != null &&
+                    !sonEntity.getProfileImage().isEmpty())
+                // Set Child Image
+                picasso.load(sonEntity.getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImage);
+            else
+                childImage.setImageResource(R.drawable.kid_default_image);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

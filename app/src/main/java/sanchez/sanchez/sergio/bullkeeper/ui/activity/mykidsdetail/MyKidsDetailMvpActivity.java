@@ -288,12 +288,15 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @Override
     public void onSonLoaded(SonEntity sonEntity) {
 
-        // Set Author Image
-        picasso.load(sonEntity.getProfileImage())
-                .placeholder(R.drawable.kid_default_image)
-                .error(R.drawable.kid_default_image)
-                .noFade()
-                .into(profileImage);
+        if(appUtils.isValidString(sonEntity.getProfileImage()))
+            // Set Author Image
+            picasso.load(sonEntity.getProfileImage())
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
+                    .noFade()
+                    .into(profileImage);
+        else
+            profileImage.setImageResource(R.drawable.kid_default_image);
 
         kidNameTextView.setText(sonEntity.getFullName());
 

@@ -25,6 +25,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
  * Support Fragment
@@ -64,6 +65,12 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
      */
     @Inject
     protected IPreferenceRepository preferencesRepositoryImpl;
+
+    /**
+     * App Utils
+     */
+    @Inject
+    protected IAppUtils appUtils;
 
 
     /**

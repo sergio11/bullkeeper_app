@@ -19,13 +19,16 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
  */
 public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>{
 
+    private final Picasso picasso;
+
     /**
      *
      * @param context
      * @param data
      */
-    public AlertsAdapter(Context context, ArrayList<AlertEntity> data) {
+    public AlertsAdapter(Context context, ArrayList<AlertEntity> data, final Picasso picasso) {
         super(context, data);
+        this.picasso = picasso;
         // enable header
         hasHeader = false;
         hasFooter = false;
@@ -130,11 +133,15 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
 
             if(alertEntity.getSon() != null) {
 
-                // Set Child Image
-                Picasso.with(context).load(alertEntity.getSon().getProfileImage())
-                        .placeholder(R.drawable.kid_default_image)
-                        .error(R.drawable.kid_default_image)
-                        .into(childImage);
+                if(alertEntity.getSon().getProfileImage() != null &&
+                        !alertEntity.getSon().getProfileImage().isEmpty())
+                    // Set Child Image
+                    picasso.load(alertEntity.getSon().getProfileImage())
+                            .placeholder(R.drawable.kid_default_image)
+                            .error(R.drawable.kid_default_image)
+                            .into(childImage);
+                else
+                    childImage.setImageResource(R.drawable.kid_default_image);
             }
 
         }

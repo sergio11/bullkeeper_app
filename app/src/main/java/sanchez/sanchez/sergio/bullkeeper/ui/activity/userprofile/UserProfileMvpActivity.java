@@ -448,11 +448,14 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         Timber.d("Profile Image -> %s", parentEntity.getProfileImage());
 
-        picasso.load(parentEntity.getProfileImage())
-                .placeholder(R.drawable.parent_default)
-                .error(R.drawable.parent_default)
-                .noFade()
-                .into(profileImageView);
+        if(appUtils.isValidString(parentEntity.getProfileImage()))
+            picasso.load(parentEntity.getProfileImage())
+                    .placeholder(R.drawable.parent_default)
+                    .error(R.drawable.parent_default)
+                    .noFade()
+                    .into(profileImageView);
+        else
+            profileImageView.setImageResource(R.drawable.parent_default);
     }
 
     /**
