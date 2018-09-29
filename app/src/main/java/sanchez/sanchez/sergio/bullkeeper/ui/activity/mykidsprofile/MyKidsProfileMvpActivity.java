@@ -5,19 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.jaychang.sa.AuthCallback;
+import com.jaychang.sa.SocialUser;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,9 +36,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
@@ -152,7 +163,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * Instagram Switch Widget
      */
     @BindView(R.id.instagramSwitchWidget)
-    protected SwitchCompat instagramSwitchWidget;
+    protected SupportSwitchCompat instagramSwitchWidget;
 
     /**
      * Facebook Icon
@@ -170,25 +181,25 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * Facebook Switch Widget
      */
     @BindView(R.id.facebookSwitchWidget)
-    protected SwitchCompat facebookSwitchWidget;
+    protected SupportSwitchCompat facebookSwitchWidget;
 
     /**
-     * Youtube Icon
+     * Google Icon
      */
-    @BindView(R.id.youtubeIcon)
-    protected ImageView youtubeIconImageView;
+    @BindView(R.id.googleIcon)
+    protected ImageView googleIconImageView;
 
     /**
-     * Youtube Status
+     * Google Status
      */
-    @BindView(R.id.youtubeStatus)
-    protected TextView youtubeStatusTextView;
+    @BindView(R.id.googleStatus)
+    protected TextView googleStatusTextView;
 
     /**
-     * YoutubeSwitchWidget
+     * Google Switch Widget
      */
-    @BindView(R.id.youtubeSwitchWidget)
-    protected SwitchCompat youtubeSwitchWidget;
+    @BindView(R.id.googleSwitchWidget)
+    protected SupportSwitchCompat googleSwitchWidget;
 
     /**
      * Show School Detail Image View
@@ -207,7 +218,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Inject
     protected SupportImagePicker supportImagePicker;
-
 
     /**
      * State
@@ -243,6 +253,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     private KidProfileMode profileMode = KidProfileMode.ADD_NEW_SON_MODE;
 
+    /**
+     * Social Medias
+     */
+    private List<SocialMediaEntity> socialMedias = new ArrayList<>();
 
     /**
      * Get Calling Intent
@@ -304,7 +318,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         schoolInput.setEnabled(enable);
         instagramSwitchWidget.setEnabled(enable);
         facebookSwitchWidget.setEnabled(enable);
-        youtubeSwitchWidget.setEnabled(enable);
+        googleSwitchWidget.setEnabled(enable);
     }
 
     /**
@@ -336,6 +350,49 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         birthdayInput.setMinAge(MIN_AGE_ALLOWED);
         birthdayInput.setMaxAge(MAX_AGE_ALLOWED);
+
+
+        /**
+         * Facebook Switch Widget
+         */
+        facebookSwitchWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    enableFacebookSocialMedia();
+                } else {
+                    disableSocialMedia(SocialMediaTypeEnum.FACEBOOK);
+                }
+            }
+        });
+
+        /**
+         * Instagram Switch Widget
+         */
+        instagramSwitchWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    enableInstagramSocialMedia();
+                } else {
+                    disableSocialMedia(SocialMediaTypeEnum.INSTAGRAM);
+                }
+            }
+        });
+
+        /**
+         * Google Switch Widget
+         */
+        googleSwitchWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    enableGoogleSocialMedia();
+                } else {
+                    disableSocialMedia(SocialMediaTypeEnum.YOUTUBE);
+                }
+            }
+        });
 
     }
 
@@ -508,7 +565,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String birthday = birthdayInput.getDateSelectedAsText();
 
         getPresenter().saveSon(myKidIdentity, name, surname, birthday,
-                school != null ? school.getIdentity() : "", currentImagePath);
+                school != null ? school.getIdentity() : "", currentImagePath, socialMedias);
 
     }
 
@@ -528,8 +585,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnClick(R.id.instagramRow)
     protected void onInstagramRowClicked(){
-        navigatorImpl.showSocialMediaStatusDialog(this, SocialMediaTypeEnum.INSTAGRAM,
-                SocialMediaStatusEnum.DISABLED);
+        showSocialMediaStatusDialog(SocialMediaTypeEnum.INSTAGRAM);
     }
 
     /**
@@ -537,23 +593,20 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnClick(R.id.facebookRow)
     protected void onFacebookRowClicked(){
-        navigatorImpl.showSocialMediaStatusDialog(this, SocialMediaTypeEnum.FACEBOOK,
-                SocialMediaStatusEnum.DISABLED);
+        showSocialMediaStatusDialog(SocialMediaTypeEnum.FACEBOOK);
     }
 
 
     /**
      * On Youtube Row Clicked
      */
-    @OnClick(R.id.youtubeRow)
+    @OnClick(R.id.googleRow)
     protected void onYoutubeRowClicked(){
-        navigatorImpl.showSocialMediaStatusDialog(this,
-                SocialMediaTypeEnum.YOUTUBE,
-                SocialMediaStatusEnum.DISABLED);
+        showSocialMediaStatusDialog(SocialMediaTypeEnum.YOUTUBE);
     }
 
     /**
-     *
+     * Show School Detail
      */
     @OnClick(R.id.showSchoolDetail)
     protected void onShowSchoolDetail(){
@@ -616,65 +669,147 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Override
     public void onSocialMediaLoaded(List<SocialMediaEntity> socialMediaEntities) {
+        Preconditions.checkNotNull(socialMediaEntities, "Social Media Entities can not be null");
         Timber.d("On Social Media Loaded -> %d", socialMediaEntities.size());
+
+        socialMedias = socialMediaEntities;
 
         for(final SocialMediaTypeEnum socialMediaType: SocialMediaTypeEnum.values()) {
 
             SocialMediaEntity socialMedia = null;
-            for(final SocialMediaEntity socialMediaEntity: socialMediaEntities) {
+            for(final SocialMediaEntity socialMediaEntity: socialMedias) {
                 if(socialMediaEntity.getType().equals(socialMediaType)){
                     socialMedia = socialMediaEntity;
                     break;
                 }
             }
+            // Update Social Row
+            updateSocialMediaRow(socialMediaType, socialMedia);
 
-            int color; String socialMediaText;
+        }
+    }
 
-            if(socialMedia != null) {
+    /**
+     * Update Social Media Row
+     */
+    private void updateSocialMediaRow(final SocialMediaTypeEnum socialMediaTypeEnum, final SocialMediaEntity socialMedia){
+        Preconditions.checkNotNull(socialMediaTypeEnum, "Social Media Type can not be null");
 
-                if(socialMedia.hasInvalidToken()) {
 
-                    color = ContextCompat.getColor(getApplicationContext(), R.color.redDanger);
-                    socialMediaText = getString(R.string.social_media_is_not_valid);
+        @ColorRes int colorRes;
+        @StringRes int socialMediaStringRes;
+        @DrawableRes int socialIconRes;
+        boolean isChecked;
+
+
+        switch (socialMediaTypeEnum) {
+
+            case YOUTUBE:
+
+                if(socialMedia != null) {
+
+                    if(socialMedia.hasInvalidToken()) {
+
+                        colorRes = R.color.redDanger;
+                        socialMediaStringRes = R.string.social_media_is_not_valid;
+                        socialIconRes = R.drawable.google_plus_danger;
+                        isChecked = false;
+
+                    } else {
+
+                        colorRes = R.color.greenSuccess;
+                        socialMediaStringRes = R.string.social_media_is_enabled;
+                        socialIconRes = R.drawable.google_plus_success;
+                        isChecked = true;
+
+                    }
+
 
                 } else {
-
-                    color = ContextCompat.getColor(getApplicationContext(), R.color.greenSuccess);
-                    socialMediaText = getString(R.string.social_media_is_enabled);
+                    // Social Media not configured
+                    colorRes = R.color.yellowWarning;
+                    socialMediaStringRes = R.string.social_media_is_not_enabled;
+                    socialIconRes = R.drawable.google_plus_yellow;
+                    isChecked = false;
 
                 }
 
+                googleStatusTextView.setText(getString(socialMediaStringRes));
+                googleStatusTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), colorRes));
+                googleIconImageView.setImageResource(socialIconRes);
+                googleSwitchWidget.setChecked(isChecked, false);
 
-            } else {
-                // Social Media not configured
-                color = ContextCompat.getColor(getApplicationContext(), R.color.yellowWarning);
-                socialMediaText = getString(R.string.social_media_is_not_enabled);
+                break;
 
-            }
+            case INSTAGRAM:
 
-            switch (socialMediaType) {
+                if(socialMedia != null) {
 
-                case YOUTUBE:
+                    if(socialMedia.hasInvalidToken()) {
 
-                    youtubeStatusTextView.setText(socialMediaText);
-                    youtubeStatusTextView.setTextColor(color);
-                    break;
+                        colorRes = R.color.redDanger;
+                        socialMediaStringRes = R.string.social_media_is_not_valid;
+                        socialIconRes = R.drawable.instagram_danger;
+                        isChecked = false;
 
-                case INSTAGRAM:
+                    } else {
 
-                    instagramStatusTextView.setText(socialMediaText);
-                    instagramStatusTextView.setTextColor(color);
-                    break;
+                        colorRes = R.color.greenSuccess;
+                        socialMediaStringRes = R.string.social_media_is_enabled;
+                        socialIconRes = R.drawable.instagram_success;
+                        isChecked = true;
+                    }
 
 
-                case FACEBOOK:
+                } else {
+                    // Social Media not configured
+                    colorRes = R.color.yellowWarning;
+                    socialMediaStringRes = R.string.social_media_is_not_enabled;
+                    socialIconRes = R.drawable.instagram_warning;
+                    isChecked = false;
+                }
 
-                    facebookStatusTextView.setText(socialMediaText);
-                    facebookStatusTextView.setTextColor(color);
-                    break;
+                instagramStatusTextView.setText(socialMediaStringRes);
+                instagramStatusTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), colorRes));
+                instagramImageView.setImageResource(socialIconRes);
+                instagramSwitchWidget.setChecked(isChecked, false);
 
-            }
+                break;
 
+            case FACEBOOK:
+
+                if(socialMedia != null) {
+
+                    if(socialMedia.hasInvalidToken()) {
+
+                        colorRes = R.color.redDanger;
+                        socialMediaStringRes = R.string.social_media_is_not_valid;
+                        socialIconRes = R.drawable.facebook_danger;
+                        isChecked = false;
+
+                    } else {
+
+                        colorRes = R.color.greenSuccess;
+                        socialMediaStringRes = R.string.social_media_is_enabled;
+                        socialIconRes = R.drawable.facebook_success;
+                        isChecked = true;
+                    }
+
+
+                } else {
+                    // Social Media not configured
+                    colorRes = R.color.yellowWarning;
+                    socialMediaStringRes = R.string.social_media_is_not_enabled;
+                    socialIconRes = R.drawable.facebook_warning;
+                    isChecked = false;
+                }
+
+                facebookStatusTextView.setText(socialMediaStringRes);
+                facebookStatusTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), colorRes));
+                facebookIconImageView.setImageResource(socialIconRes);
+                facebookSwitchWidget.setChecked(isChecked, false);
+
+                break;
 
         }
     }
@@ -710,6 +845,250 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
+     * Find Configured Social Media
+     * @param socialMediaTypeEnum
+     * @return
+     */
+    private int findConfiguredSocialMedia(final SocialMediaTypeEnum socialMediaTypeEnum) {
+        Preconditions.checkNotNull(socialMediaTypeEnum, "Social Media Type can not be null");
+        Preconditions.checkNotNull(socialMedias, "Social Medias can not be null");
+
+        int i = 0;
+        for (; i < socialMedias.size(); i++ )
+            if(socialMedias.get(i).getType().equals(socialMediaTypeEnum))
+                break;
+
+        return i < socialMedias.size() ? i : -1;
+
+    }
+
+    /**
+     * Get Configured Social Media
+     * @param socialMediaTypeEnum
+     * @return
+     */
+    private int getConfiguredSocialMedia(final SocialMediaTypeEnum socialMediaTypeEnum) {
+        Preconditions.checkNotNull(socialMediaTypeEnum, "Social Media Type can not be null");
+        final int idx = findConfiguredSocialMedia(socialMediaTypeEnum);
+
+        if(idx < 0)
+            throw new IllegalStateException("Configured social media not found");
+
+        return idx;
+    }
+
+    /**
+     * Get Social Media Status
+     * @param socialMediaTypeEnum
+     * @return
+     */
+    private void showSocialMediaStatusDialog(final SocialMediaTypeEnum socialMediaTypeEnum) {
+        Preconditions.checkNotNull(socialMediaTypeEnum, "Social Media Type ca not be null");
+
+        SocialMediaStatusEnum socialMediaStatusEnum = SocialMediaStatusEnum.DISABLED;
+        String userSocialFullName = null, userSocialProfilePicture = null;
+
+        if(!socialMedias.isEmpty()) {
+            
+            int idx = findConfiguredSocialMedia(socialMediaTypeEnum);
+            if (idx >= 0) {
+
+                final SocialMediaEntity socialMediaEntity = socialMedias.get(idx);
+
+                socialMediaStatusEnum = !socialMediaEntity.hasInvalidToken() ? SocialMediaStatusEnum.ENABLED
+                        : SocialMediaStatusEnum.INVALID;
+
+                userSocialFullName = socialMediaEntity.getUserFullName();
+                userSocialProfilePicture = socialMediaEntity.getUserPicture();
+
+            }
+
+        }
+
+        navigatorImpl.showSocialMediaStatusDialog(this,
+                socialMediaTypeEnum, socialMediaStatusEnum, userSocialFullName, userSocialProfilePicture);
+    }
+
+    /**
+     * On Access Token Obtainer
+     * @param socialUser
+     */
+    private void onSocialUserObtained(final SocialMediaTypeEnum socialMediaTypeEnum,
+                                      final SocialUser socialUser) {
+
+        SocialMediaEntity socialMediaEntityObtained = new SocialMediaEntity();
+        socialMediaEntityObtained.setUserSocialName(socialUser.username);
+        socialMediaEntityObtained.setAccessToken(socialUser.accessToken);
+        socialMediaEntityObtained.setInvalidToken(false);
+        socialMediaEntityObtained.setUserFullName(socialUser.fullName);
+        socialMediaEntityObtained.setUserPicture(socialUser.profilePictureUrl);
+        socialMediaEntityObtained.setType(socialMediaTypeEnum);
+        socialMediaEntityObtained.setSonIdentity(myKidIdentity);
+
+        if(!socialMedias.isEmpty()) {
+
+            // find configured social media
+            final int idx = findConfiguredSocialMedia(socialMediaTypeEnum);
+
+            if(idx >= 0) {
+                // Replace current social media
+                final SocialMediaEntity currentSocialMedia = socialMedias.get(idx);
+                currentSocialMedia.setUserSocialName(socialUser.username);
+                currentSocialMedia.setAccessToken(socialUser.accessToken);
+                currentSocialMedia.setInvalidToken(false);
+                currentSocialMedia.setUserFullName(socialUser.fullName);
+                currentSocialMedia.setUserPicture(socialUser.profilePictureUrl);
+
+            } else {
+                // not found, add new social media
+                socialMedias.add(socialMediaEntityObtained);
+            }
+
+        } else {
+            // no social medias configured, add new social media
+            socialMedias.add(socialMediaEntityObtained);
+        }
+
+
+        // Update Social Media
+        updateSocialMediaRow(socialMediaTypeEnum, socialMediaEntityObtained);
+
+        Timber.d("Social Media Entity %s - %s", socialMediaEntityObtained.getType().name(),
+                socialMediaEntityObtained.getAccessToken());
+    }
+
+    /**
+     * Disable Social Media
+     * @param socialMediaTypeEnum
+     */
+    private void disableSocialMedia(final SocialMediaTypeEnum socialMediaTypeEnum) {
+        Preconditions.checkNotNull(socialMediaTypeEnum, "Social Media Type can not be null");
+        Preconditions.checkNotNull(socialMedias, "Social Medias can not be null");
+
+        showConfirmationDialog(R.string.enable_social_media_disable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+
+                final int idx = getConfiguredSocialMedia(socialMediaTypeEnum);
+
+                socialMedias.remove(idx);
+                // Update Social Media Row
+                updateSocialMediaRow(socialMediaTypeEnum, null);
+
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {
+
+                final int idx = getConfiguredSocialMedia(socialMediaTypeEnum);
+
+                // Update Social Media Row
+                updateSocialMediaRow(socialMediaTypeEnum, socialMedias.get(idx));
+
+            }
+        });
+
+    }
+
+    /**
+     * Enable Facebook Social Media
+     */
+    private void enableFacebookSocialMedia(){
+
+        // Get Kid Facebook scopes
+        final List<String> userScopes =
+                Arrays.asList(getResources().getStringArray(R.array.facebook_kid_scopes));
+
+        // Clean connection
+        com.jaychang.sa.facebook.SimpleAuth.disconnectFacebook();
+
+        // Connect to Facebook
+        com.jaychang.sa.facebook.SimpleAuth.connectFacebook(userScopes, new AuthCallback() {
+            @Override
+            public void onSuccess(SocialUser socialUser) {
+                onSocialUserObtained(SocialMediaTypeEnum.FACEBOOK, socialUser);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                showLongMessage(getString(R.string.enable_social_media_error));
+                facebookSwitchWidget.setChecked(false, false);
+            }
+
+            @Override
+            public void onCancel() {
+                facebookSwitchWidget.setChecked(false, false);
+            }
+        });
+    }
+
+    /**
+     * Enable Instagram Social Media
+     */
+    private void enableInstagramSocialMedia(){
+
+        // Get Kid Instagram scopes
+        final List<String> userScopes =
+                Arrays.asList(getResources().getStringArray(R.array.instagram_kid_scopes));
+
+        // Clean Connection
+        com.jaychang.sa.instagram.SimpleAuth.disconnectInstagram();
+
+        // Connect to Instagram
+        com.jaychang.sa.instagram.SimpleAuth.connectInstagram(userScopes, new AuthCallback() {
+            @Override
+            public void onSuccess(SocialUser socialUser) {
+                onSocialUserObtained(SocialMediaTypeEnum.INSTAGRAM, socialUser);
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                showLongMessage(getString(R.string.enable_social_media_error));
+                instagramSwitchWidget.setChecked(false, false);
+            }
+
+            @Override
+            public void onCancel() {
+                instagramSwitchWidget.setChecked(false, false);
+            }
+        });
+    }
+
+    /**
+     * Enable Google Social Media
+     */
+    private void enableGoogleSocialMedia(){
+
+        // Get Kid Google scopes
+        final List<String> userScopes =
+                Arrays.asList(getResources().getStringArray(R.array.google_kid_scopes));
+
+
+        // Clean Connection
+        com.jaychang.sa.google.SimpleAuth.disconnectGoogle();
+
+        // Connect to Google
+        com.jaychang.sa.google.SimpleAuth.connectGoogle(userScopes, new AuthCallback() {
+            @Override
+            public void onSuccess(SocialUser socialUser) {
+                onSocialUserObtained(SocialMediaTypeEnum.YOUTUBE, socialUser);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                showLongMessage(getString(R.string.enable_social_media_error));
+                googleSwitchWidget.setChecked(false, false);
+            }
+
+            @Override
+            public void onCancel() {
+                googleSwitchWidget.setChecked(false, false);
+            }
+        });
+    }
+
+    /**
      * Has Pending Changes
      * @return
      */
@@ -733,4 +1112,5 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     public void onDiscardPendingChanges() {
         super.onDiscardPendingChanges();
     }
+
 }

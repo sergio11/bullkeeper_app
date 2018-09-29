@@ -40,7 +40,7 @@ public class ChildrenProfileModule {
      */
     @Provides @PerActivity
     SaveChildrenInteract provideSaveChildrenInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                     final IChildrenRepository childrenRepository, final IAppUtils appUtils){
-        return new SaveChildrenInteract(threadExecutor, postExecutionThread, childrenRepository, appUtils);
+                                                     final IChildrenRepository childrenRepository, final IAppUtils appUtils, final ISocialMediaRepository socialMediaRepository){
+        return new SaveChildrenInteract(threadExecutor, postExecutionThread, childrenRepository, appUtils, socialMediaRepository);
     }
 }

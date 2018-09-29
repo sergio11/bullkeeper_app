@@ -21,10 +21,11 @@ public final class SocialMediaDataMapper extends AbstractDataMapper<SocialMediaD
         socialMediaEntity.setAccessToken(originModel.getAccessToken());
         socialMediaEntity.setInvalidToken(originModel.getInvalidToken());
         socialMediaEntity.setRefreshToken(originModel.getRefreshToken());
-        socialMediaEntity.setSonFullName(originModel.getSon());
+        socialMediaEntity.setUserFullName(originModel.getUserSocialFullName());
         socialMediaEntity.setUserPicture(originModel.getUserPicture());
         socialMediaEntity.setUserSocialName(originModel.getUserSocialName());
         socialMediaEntity.setType(SocialMediaTypeEnum.valueOf(originModel.getType()));
+        socialMediaEntity.setSonIdentity(originModel.getSon());
         return socialMediaEntity;
     }
 
@@ -40,10 +41,11 @@ public final class SocialMediaDataMapper extends AbstractDataMapper<SocialMediaD
         socialMediaDTO.setAccessToken(originModel.getAccessToken());
         socialMediaDTO.setInvalidToken(originModel.hasInvalidToken());
         socialMediaDTO.setRefreshToken(originModel.getRefreshToken());
-        socialMediaDTO.setSon(originModel.getSonFullName());
+        socialMediaDTO.setUserSocialFullName(originModel.getUserFullName());
         socialMediaDTO.setType(originModel.getType().name());
         socialMediaDTO.setUserPicture(originModel.getUserPicture());
         socialMediaDTO.setUserSocialName(originModel.getUserSocialName());
+        socialMediaDTO.setSon(originModel.getSonIdentity());
         return socialMediaDTO;
     }
 }

@@ -7,6 +7,7 @@ repositories {
 }
 
 
+
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -22,6 +23,14 @@ android {
         versionName globalConfiguration.getAt("androidVersionName")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         testApplicationId globalConfiguration.getAt("testApplicationId")
+
+        manifestPlaceholders = [
+                facebookAppId        : "296606527738358",
+                instagramClientId    : "e1a6792687ff44f3821d17a95259745f",
+                instagramClientSecret: "4baba12259c34440acbfaf5b568ffb75",
+                instagramRedirectUrl : "https://github.com/sergio11",
+                googleWebClientId: "495194543245-gdiiln6otkoh08ntkucrkrqq1slkj14i.apps.googleusercontent.com"
+        ]
     }
 
     compileOptions {
@@ -66,11 +75,11 @@ android {
         debug {
             signingConfig signingConfigs.debug
             multiDexEnabled true
-            buildConfigField "String", "BASE_URL", '"http://192.168.0.17:8080/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"http://192.168.1.50:8080/api/v1/"'
         }
 
         release {
-            buildConfigField "String", "BASE_URL", '"http://192.168.0.17:8080/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"http://192.168.1.50:8080/api/v1/"'
         }
     }
 }
@@ -112,6 +121,7 @@ dependencies {
     implementation presentationDependencies.playServicesMaps
     implementation presentationDependencies.playServicesLocation
     implementation presentationDependencies.playServicesPlaces
+    implementation presentationDependencies.playServicesAuth
 
     implementation presentationDependencies.dexter
     implementation presentationDependencies.calligraphy
@@ -132,7 +142,7 @@ dependencies {
     implementation presentationDependencies.circleimageview
     implementation presentationDependencies.MPAndroidChart
     implementation presentationDependencies.viewPagerTransforms
-    implementation presentationDependencies.facebookSdk
+    //implementation presentationDependencies.facebookSdk
     implementation presentationDependencies.arrowPreconditions
     implementation presentationDependencies.zxcvbn
     // FireBase Dependencies

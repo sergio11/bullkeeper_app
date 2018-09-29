@@ -55,6 +55,12 @@ ext {
     firebaseMessagingVersion = '17.3.2'
     firebaseCoreVersion = '16.0.3'
 
+    //Simple Auth Versions
+    simpleAuthVersion = '2.1.3'
+    simpleAuthInstagramVersion = '2.1.3'
+    simpleAuthGoogleVersion = '2.1.3'
+    simpleAuthFacebookVersion = '2.1.3'
+
 
     thirtyInchVersion = '0.8.5'
     constraintLayoutVersion = '1.0.2'
@@ -86,6 +92,7 @@ ext {
             playServicesMaps:     "com.google.android.gms:play-services-maps:${playServicesVersion}",
             playServicesPlaces:   "com.google.android.gms:play-services-places:${playServicesVersion}",
             playServicesBase:   "com.google.android.gms:play-services-base:${playServicesVersion}",
+            playServicesAuth:   "com.google.android.gms:play-services-auth:${playServicesVersion}",
             supportV4:          "com.android.support:support-v4:${supportVersion}",
             supportDesign:      "com.android.support:design:${supportVersion}",
             cardview:           "com.android.support:cardview-v7:${supportVersion}",
@@ -126,11 +133,11 @@ ext {
     ]
 
     domainDependencies = [
-            javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            arrowPreconditions:  "com.fernandocejas:arrow:${arrowVersion}",
-            timber:             "com.jakewharton.timber:timber:${timberVersion}"
+            javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject:            "javax.inject:javax.inject:${javaxInjectVersion}",
+            rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            arrowPreconditions:     "com.fernandocejas:arrow:${arrowVersion}",
+            timber:                 "com.jakewharton.timber:timber:${timberVersion}"
     ]
 
     domainTestDependencies = [
@@ -157,7 +164,12 @@ ext {
             jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
             jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
             arrowPreconditions:  "com.fernandocejas:arrow:${arrowVersion}",
-            timber:             "com.jakewharton.timber:timber:${timberVersion}"
+            timber:             "com.jakewharton.timber:timber:${timberVersion}",
+            playServicesAuthBase:   "com.google.android.gms:play-services-auth-base:${playServicesVersion}",
+            simpleAuth:             "com.jaychang:simpleauth:${simpleAuthVersion}",
+            simpleAuthInstagram:    "com.jaychang:simpleauth-instagram:${simpleAuthInstagramVersion}",
+            simpleAuthGoogle:       "com.jaychang:simpleauth-google:${simpleAuthGoogleVersion}",
+            simpleAuthFacebook:     "com.jaychang:simpleauth-facebook:${simpleAuthFacebookVersion}"
     ]
 
     dataTestDependencies = [

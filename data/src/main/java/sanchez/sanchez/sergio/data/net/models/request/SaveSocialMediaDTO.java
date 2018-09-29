@@ -20,6 +20,15 @@ public final class SaveSocialMediaDTO implements Serializable {
     @JsonProperty("type")
     private String type;
 
+    @JsonProperty("user_social_name")
+    private String userSocialName;
+
+    @JsonProperty("user_social_full_name")
+    private String userSocialFullName;
+
+    @JsonProperty("user_picture")
+    private String userPicture;
+
     @JsonProperty("son")
     private String son;
 
@@ -56,6 +65,30 @@ public final class SaveSocialMediaDTO implements Serializable {
         this.type = type;
     }
 
+    public String getUserSocialName() {
+        return userSocialName;
+    }
+
+    public void setUserSocialName(String userSocialName) {
+        this.userSocialName = userSocialName;
+    }
+
+    public String getUserSocialFullName() {
+        return userSocialFullName;
+    }
+
+    public void setUserSocialFullName(String userSocialFullName) {
+        this.userSocialFullName = userSocialFullName;
+    }
+
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
+    }
+
     public String getSon() {
         return son;
     }
@@ -71,6 +104,9 @@ public final class SaveSocialMediaDTO implements Serializable {
                 ", accessToken='" + accessToken + '\'' +
                 ", refreshToken='" + refreshToken + '\'' +
                 ", type='" + type + '\'' +
+                ", userSocialName='" + userSocialName + '\'' +
+                ", userSocialFullName='" + userSocialFullName + '\'' +
+                ", userPicture='" + userPicture + '\'' +
                 ", son='" + son + '\'' +
                 '}';
     }

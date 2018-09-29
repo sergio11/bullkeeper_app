@@ -11,8 +11,10 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
+import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
@@ -20,20 +22,24 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Save Children Interact
  */
-public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenInteract.Params> {
+public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Result, SaveChildrenInteract.Params> {
 
     private final IChildrenRepository childrenRepository;
+    private final ISocialMediaRepository socialMediaRepository;
     private final IAppUtils appUtils;
 
     /**
      * @param threadExecutor
      * @param postExecutionThread
+     * @param socialMediaRepository
      */
     public SaveChildrenInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                final IChildrenRepository childrenRepository, final IAppUtils appUtils) {
+                                final IChildrenRepository childrenRepository, final IAppUtils appUtils,
+                                final ISocialMediaRepository socialMediaRepository) {
         super(threadExecutor, postExecutionThread);
         this.childrenRepository = childrenRepository;
         this.appUtils = appUtils;
+        this.socialMediaRepository = socialMediaRepository;
     }
 
     /**
@@ -56,13 +62,13 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
                 params.getBirthday(), params.getSchool());
     }
 
+
     /**
-     *
+     * Save Son Profile
      * @param params
      * @return
      */
-    @Override
-    protected Observable<SonEntity> buildUseCaseObservable(final Params params) {
+    private Observable<SonEntity> saveSonProfile(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
         return (appUtils.isValidString(params.getSonId()) ? saveSonInformation(params):
@@ -96,6 +102,34 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
                 }
             }
         });
+    }
+
+
+    /**
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    protected Observable<Result> buildUseCaseObservable(final Params params) {
+        Preconditions.checkNotNull(params, "Params can not be null");
+        Preconditions.checkNotNull(params.socialMediaEntities, "Social Media Entities can not be null");
+
+        return saveSonProfile(params)
+                .flatMap(new Function<SonEntity, ObservableSource<Result>>() {
+                    @Override
+                    public ObservableSource<Result> apply(final SonEntity sonEntity) throws Exception {
+                        return !params.socialMediaEntities.isEmpty() ?
+                                socialMediaRepository.saveAllSocialMedia(sonEntity.getIdentity(), params.socialMediaEntities)
+                                .map(new Function<List<SocialMediaEntity>, Result>() {
+                                    @Override
+                                    public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                                        return new Result(sonEntity, socialMediaEntities);
+                                    }
+                                }) : Observable.just(new Result(sonEntity, params.socialMediaEntities));
+                    }
+                });
+
 
     }
 
@@ -130,6 +164,29 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
     }
 
     /**
+     * Result
+     */
+    public static class Result {
+
+        private final SonEntity sonEntity;
+        private final List<SocialMediaEntity> socialMediaEntities;
+
+        public Result(SonEntity sonEntity, List<SocialMediaEntity> socialMediaEntities) {
+            this.sonEntity = sonEntity;
+            this.socialMediaEntities = socialMediaEntities;
+        }
+
+        public SonEntity getSonEntity() {
+            return sonEntity;
+        }
+
+        public List<SocialMediaEntity> getSocialMediaEntities() {
+            return socialMediaEntities;
+        }
+    }
+
+
+    /**
      * Params
      */
     public static class Params {
@@ -140,14 +197,17 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
         private final String birthday;
         private final String school;
         private final String profileImage;
+        private final List<SocialMediaEntity> socialMediaEntities;
 
-        private Params(String sonId, String firstname, String lastName, String birthday, String school, String profileImage) {
+        private Params(String sonId, String firstname, String lastName, String birthday, String school, String profileImage,
+                       final List<SocialMediaEntity> socialMediaEntities) {
             this.sonId = sonId;
             this.firstname = firstname;
             this.lastName = lastName;
             this.birthday = birthday;
             this.school = school;
             this.profileImage = profileImage;
+            this.socialMediaEntities = socialMediaEntities;
         }
 
         public String getSonId() {
@@ -174,6 +234,10 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
             return profileImage;
         }
 
+        public List<SocialMediaEntity> getSocialMediaEntities() {
+            return socialMediaEntities;
+        }
+
         /**
          * Create
          * @param sonId
@@ -186,8 +250,8 @@ public final class SaveChildrenInteract extends UseCase<SonEntity, SaveChildrenI
          */
         public static Params create(final String sonId, final String firstname, final String lastName,
                                     final String birthday, final String school,
-                                    final String profileImage) {
-            return new Params(sonId, firstname, lastName, birthday, school, profileImage);
+                                    final String profileImage, final List<SocialMediaEntity> socialMediaEntities) {
+            return new Params(sonId, firstname, lastName, birthday, school, profileImage, socialMediaEntities);
         }
     }
 

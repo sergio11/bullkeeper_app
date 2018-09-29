@@ -281,6 +281,18 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Show Social Media Status Dialog
+     * @param appCompatActivity
+     * @param socialMediaTypeEnum
+     * @param socialMediaStatusEnum
+     */
+    @Override
+    public void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity, final SocialMediaTypeEnum socialMediaTypeEnum,
+                                            final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture) {
+        SocialMediaStatusDialog.show(appCompatActivity, socialMediaTypeEnum, socialMediaStatusEnum, userSocialProfilePicture , userSocialFullName);
+    }
+
+    /**
      * Navigate To Kids Results Activity
      * @param identity
      */

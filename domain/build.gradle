@@ -26,6 +26,7 @@ dependencies {
     implementation domainDependencies.arrowPreconditions
     implementation domainDependencies.timber
 
+
     testImplementation domainTestDependencies.junit
     testImplementation domainTestDependencies.mockito
     testImplementation domainTestDependencies.assertj

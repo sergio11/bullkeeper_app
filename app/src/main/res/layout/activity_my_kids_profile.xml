@@ -208,126 +208,164 @@
 
             </LinearLayout>
 
-            <TableLayout
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:stretchColumns="1">
+                android:layout_margin="@dimen/common_margin"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
 
 
-                <!-- Instagram Social Media -->
-                <TableRow
-                    android:id="@+id/instagramRow"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/instagramIcon"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:contentDescription="@string/content_not_be_loaded"
-                        android:src="@drawable/instagram_brands" />
-
+                    <!-- Title -->
                     <TextView
-                        android:id="@+id/instagramStatus"
-                        style="@style/CommonStrongText.Medium"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/social_media_is_not_enabled"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/social_media_configured_title"/>
+
+                    <!-- Description -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText.Medium"
+                        android:textColor="@color/cyanBrilliant"
+                        android:text="@string/social_media_configured_description"/>
+
+                    <View
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/cyanBrilliant"/>
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:padding="@dimen/common_padding"
-                        android:textColor="@color/commonWhite"
-                        android:textStyle="bold" />
+                        android:stretchColumns="1">
+
+                        <!-- Instagram Social Media -->
+                        <TableRow
+                            android:id="@+id/instagramRow"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/common_margin"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/instagramIcon"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:contentDescription="@string/content_not_be_loaded" />
+
+                            <TextView
+                                android:id="@+id/instagramStatus"
+                                style="@style/CommonStrongText.Medium"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/social_media_is_not_enabled"
+                                android:textColor="@color/commonWhite"
+                                android:textStyle="bold" />
 
 
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/instagramSwitchWidget"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:scaleX="2"
-                        android:scaleY="2"
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/instagramSwitchWidget"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/common_margin"
+                                android:scaleX="1.5"
+                                android:scaleY="1.5"
+                                app:theme="@style/CommonSwitch"/>
 
-                        app:theme="@style/CommonSwitch"/>
+                        </TableRow>
 
-                </TableRow>
+                        <!-- Facebook Social Media -->
+                        <TableRow
+                            android:id="@+id/facebookRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/common_margin"
+                            android:gravity="center">
 
-                <!-- Facebook Social Media -->
-                <TableRow
-                    android:id="@+id/facebookRow"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                            <!-- Facebook -->
+                            <ImageView
+                                android:id="@+id/facebookIcon"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:contentDescription="@string/content_not_be_loaded"/>
 
-                    <!-- Facebook -->
-                    <ImageView
-                        android:id="@+id/facebookIcon"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:src="@drawable/facebook_square_brands"
-                        android:contentDescription="@string/content_not_be_loaded"/>
+                            <TextView
+                                android:id="@+id/facebookStatus"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                style="@style/CommonStrongText.Medium"
+                                android:text="@string/social_media_is_not_enabled"
+                                android:textColor="@color/commonWhite"
+                                android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/facebookStatus"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        style="@style/CommonStrongText.Medium"
-                        android:text="@string/social_media_is_not_enabled"
-                        android:textColor="@color/commonWhite"
-                        android:textStyle="bold"/>
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/facebookSwitchWidget"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/common_margin"
+                                android:scaleX="1.5"
+                                android:scaleY="1.5"
+                                app:theme="@style/CommonSwitch"/>
 
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/facebookSwitchWidget"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:scaleX="2"
-                        android:scaleY="2"
-                        app:theme="@style/CommonSwitch"/>
+                        </TableRow>
 
-                </TableRow>
+                        <!-- Google Social Media -->
+                        <TableRow
+                            android:id="@+id/googleRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="@dimen/common_margin"
+                            android:gravity="center">
+
+                            <!-- Google -->
+                            <ImageView
+                                android:id="@+id/googleIcon"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:contentDescription="@string/content_not_be_loaded"/>
+
+                            <TextView
+                                android:id="@+id/googleStatus"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/social_media_is_not_enabled"
+                                style="@style/CommonStrongText.Medium"
+                                android:textColor="@color/commonWhite"
+                                android:textStyle="bold"/>
+
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/googleSwitchWidget"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/common_margin"
+                                android:scaleX="1.5"
+                                android:scaleY="1.5"
+                                app:theme="@style/CommonSwitch" />
+
+                        </TableRow>
+
+                    </TableLayout>
 
 
-                <!-- Youtube Social Media -->
-                <TableRow
-                    android:id="@+id/youtubeRow"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                </LinearLayout>
 
-                    <!-- Youtube -->
-                    <ImageView
-                        android:id="@+id/youtubeIcon"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:src="@drawable/youtube_brands_solid_white"
-                        android:contentDescription="@string/content_not_be_loaded"/>
-
-                    <TextView
-                        android:id="@+id/youtubeStatus"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/social_media_is_not_enabled"
-                        style="@style/CommonStrongText.Medium"
-                        android:textColor="@color/commonWhite"
-                        android:textStyle="bold"/>
-
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/youtubeSwitchWidget"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:scaleX="2"
-                        android:scaleY="2"
-                        app:theme="@style/CommonSwitch" />
-
-                </TableRow>
-
-            </TableLayout>
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 

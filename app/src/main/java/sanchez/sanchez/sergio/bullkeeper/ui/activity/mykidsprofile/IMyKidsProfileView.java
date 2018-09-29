@@ -33,6 +33,4 @@ public interface IMyKidsProfileView extends ISupportView {
     void onValidationErrors(final List<LinkedHashMap<String, String>> errors);
 
 
-
-
 }

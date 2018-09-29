@@ -25,4 +25,5 @@ public interface ISocialMediaRepository {
      */
     Observable<List<SocialMediaEntity>> saveAllSocialMedia(final String idSon,
                                                            final List<SocialMediaEntity> socialMedias);
+
 }

@@ -164,6 +164,17 @@ public interface INavigator {
                                      final SocialMediaStatusEnum socialMediaStatusEnum);
 
     /**
+     * Show Social Media Status Dialog
+     * @param appCompatActivity
+     * @param socialMediaTypeEnum
+     * @param socialMediaStatusEnum
+     * @param userSocialFullName
+     * @param userSocialProfilePicture
+     */
+    void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity, final SocialMediaTypeEnum socialMediaTypeEnum,
+                                     final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture);
+
+    /**
      * Navigate To Kids Results Activity
      * @param identity
      */
