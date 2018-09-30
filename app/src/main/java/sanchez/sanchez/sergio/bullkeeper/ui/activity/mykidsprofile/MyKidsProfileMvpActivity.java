@@ -36,6 +36,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
@@ -226,37 +227,44 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     /**
      * My Kid Identity
      */
-    private String myKidIdentity;
+    @State
+    protected String myKidIdentity;
 
     /**
      * Current Image Path
      */
-    private String currentImagePath;
+    @State
+    protected String currentImagePath;
 
     /**
      * First Name
      */
-    private String firstName;
+    @State
+    protected String firstName;
 
     /**
      * Last Name
      */
-    private String lastName;
+    @State
+    protected String lastName;
 
     /**
      * School
      */
-    private SchoolEntity school;
+    @State
+    protected SchoolEntity school;
 
     /**
      * Profile Mode
      */
-    private KidProfileMode profileMode = KidProfileMode.ADD_NEW_SON_MODE;
+    @State
+    protected KidProfileMode profileMode = KidProfileMode.ADD_NEW_SON_MODE;
 
     /**
      * Social Medias
      */
-    private List<SocialMediaEntity> socialMedias = new ArrayList<>();
+    @State
+    protected ArrayList<SocialMediaEntity> socialMedias = new ArrayList<>();
 
     /**
      * Get Calling Intent
@@ -708,7 +716,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         Preconditions.checkNotNull(socialMediaEntities, "Social Media Entities can not be null");
         Timber.d("On Social Media Loaded -> %d", socialMediaEntities.size());
 
-        socialMedias = socialMediaEntities;
+        socialMedias = new ArrayList<>(socialMediaEntities);
 
         for(final SocialMediaTypeEnum socialMediaType: SocialMediaTypeEnum.values()) {
 

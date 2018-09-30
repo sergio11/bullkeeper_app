@@ -14,6 +14,7 @@ import android.view.View;
 import java.util.Date;
 
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
@@ -39,13 +40,23 @@ public class AlertsSettingsActivityFragment extends
      */
     protected SettingsComponent settingsComponent;
 
-    private String numberOfAlerts;
-    private String ageOfAlerts;
-    private Boolean enableAllAlert;
-    private Boolean enableSuccess;
-    private Boolean enableInformation;
-    private Boolean enableWarning;
-    private Boolean enableDanger;
+    /**
+     * State
+     */
+    @State
+    protected String numberOfAlerts;
+    @State
+    protected String ageOfAlerts;
+    @State
+    protected Boolean enableAllAlert;
+    @State
+    protected Boolean enableSuccess;
+    @State
+    protected Boolean enableInformation;
+    @State
+    protected Boolean enableWarning;
+    @State
+    protected Boolean enableDanger;
 
     /**
      * New Instance

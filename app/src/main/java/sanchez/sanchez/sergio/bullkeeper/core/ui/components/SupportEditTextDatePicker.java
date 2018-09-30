@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.core.ui.components;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,7 +12,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import icepick.Icepick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import timber.log.Timber;
 
 /**
  * Support Edit Text Date Picker
@@ -24,11 +28,33 @@ public final class SupportEditTextDatePicker extends AppCompatEditText
 
     private Calendar calendar;
     private SimpleDateFormat sdf;
-    private Date dateSelected;
 
-    private int minAge = MIN_AGE_DEFAULT;
-    private int maxAge  = MAX_AGE_DEFAULT;
     private DatePickerDialog datePickerDialog;
+
+    /**
+     * State
+     */
+
+    /**
+     * Date Selected
+     */
+    @State
+    protected Date dateSelected;
+
+    /**
+     * Min Age
+     */
+    @State
+    protected int minAge = MIN_AGE_DEFAULT;
+
+    /**
+     * Max Age
+     */
+    @State
+    protected int maxAge  = MAX_AGE_DEFAULT;
+
+    @State
+    protected boolean isDirty = false;
 
 
     public SupportEditTextDatePicker(Context context) {
@@ -44,6 +70,22 @@ public final class SupportEditTextDatePicker extends AppCompatEditText
     public SupportEditTextDatePicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+    }
+
+    /**
+     * On Save Instance State
+     * @return
+     */
+    @Override public Parcelable onSaveInstanceState() {
+        return Icepick.saveInstanceState(this, super.onSaveInstanceState());
+    }
+
+    /**
+     * On Restore Instance State
+     * @param state
+     */
+    @Override public void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(Icepick.restoreInstanceState(this, state));
     }
 
     /**
@@ -86,10 +128,27 @@ public final class SupportEditTextDatePicker extends AppCompatEditText
         return sdf.format(dateSelected);
     }
 
+    /**
+     *
+     * @param dateSelected
+     */
+    public void setDateSelected(Date dateSelected, boolean cleanCurrentSelected) {
+        if(!isDirty || cleanCurrentSelected) {
+            Timber.d("Clean Current Selected");
+            this.dateSelected = dateSelected;
+            calendar.setTime(this.dateSelected);
+            updateText();
+        } else {
+            Timber.d("Not Clean Current Selected");
+        }
+    }
+
+    /**
+     *
+     * @param dateSelected
+     */
     public void setDateSelected(Date dateSelected) {
-        this.dateSelected = dateSelected;
-        calendar.setTime(dateSelected);
-        updateText();
+        setDateSelected(dateSelected, false);
     }
 
     /**
@@ -97,8 +156,12 @@ public final class SupportEditTextDatePicker extends AppCompatEditText
      */
     private void updateCurrentDateSelected(){
         calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -minAge);
-        dateSelected = calendar.getTime();
+        if(dateSelected != null) {
+            calendar.setTime(dateSelected);
+        } else {
+            calendar.add(Calendar.YEAR, -minAge);
+            dateSelected = calendar.getTime();
+        }
         updateText();
     }
 
@@ -183,6 +246,7 @@ public final class SupportEditTextDatePicker extends AppCompatEditText
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         dateSelected = calendar.getTime();
+        isDirty = true;
         updateText();
     }
 

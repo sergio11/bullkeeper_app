@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
@@ -42,8 +43,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    private String kidIdentity;
-
     /**
      * Sections Pager Adapter
      */
@@ -53,6 +52,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * My Kids Component
      */
     private MyKidsComponent myKidsComponent;
+
+    /**
+     * State
+     */
+    @State
+    protected String kidIdentity;
 
 
     /**

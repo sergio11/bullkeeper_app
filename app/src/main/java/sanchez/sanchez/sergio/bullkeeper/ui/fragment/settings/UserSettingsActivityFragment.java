@@ -10,6 +10,7 @@ import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
 import java.util.Date;
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
@@ -30,14 +31,25 @@ public class UserSettingsActivityFragment extends
      */
     protected SettingsComponent settingsComponent;
 
-    private String numberOfAlerts;
-    private String ageOfAlerts;
-    private String removeAlertsEvery;
-    private boolean enableAllAlertCategories;
-    private boolean enableSuccessAlerts;
-    private boolean enableInformationAlerts;
-    private boolean enableWarningAlerts;
-    private boolean enableDangerAlerts;
+    /**
+     * State
+     */
+    @State
+    protected String numberOfAlerts;
+    @State
+    protected String ageOfAlerts;
+    @State
+    protected String removeAlertsEvery;
+    @State
+    protected boolean enableAllAlertCategories;
+    @State
+    protected boolean enableSuccessAlerts;
+    @State
+    protected boolean enableInformationAlerts;
+    @State
+    protected boolean enableWarningAlerts;
+    @State
+    protected boolean enableDangerAlerts;
 
     /**
      * Get Preferences Layout

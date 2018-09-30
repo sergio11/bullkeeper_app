@@ -693,7 +693,23 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     /**
      * On View Ready
      */
-    protected void onViewReady(final Bundle savedInstanceState){}
+    protected void onViewReady(final Bundle savedInstanceState){
+        if (savedInstanceState == null)
+            onNewViewInstance();
+        else
+            onSavedViewInstance();
+
+    }
+
+    /**
+     * On New View Instance
+     */
+    protected void onNewViewInstance(){}
+
+    /**
+     * On Saved View Instance
+     */
+    protected void onSavedViewInstance(){}
 
     /**
      * On Preferences Updated

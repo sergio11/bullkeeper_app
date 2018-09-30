@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -89,9 +90,14 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      * State
      */
 
-    private String sonIndentity;
-    private AlertLevelEnum alertLevelEnum;
-    private AlertsListModeEnum alertsListMode = AlertsListModeEnum.ALERTS_BY_PREFERENCES;
+    @State
+    protected String sonIndentity;
+
+    @State
+    protected AlertLevelEnum alertLevelEnum;
+
+    @State
+    protected AlertsListModeEnum alertsListMode = AlertsListModeEnum.ALERTS_BY_PREFERENCES;
 
 
     /**

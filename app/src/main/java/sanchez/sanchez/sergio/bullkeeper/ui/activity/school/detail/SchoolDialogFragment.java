@@ -43,6 +43,7 @@ public class SchoolDialogFragment extends SupportDialogFragment
     @BindView(R.id.schoolLocation)
     protected TextView schoolLocationTextView;
 
+
     private SchoolEntity schoolEntity;
 
     /**

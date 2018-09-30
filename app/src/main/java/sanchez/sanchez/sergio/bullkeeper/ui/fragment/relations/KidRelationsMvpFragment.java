@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import icepick.State;
 import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
@@ -40,7 +41,8 @@ public class KidRelationsMvpFragment extends SupportMvpFragment<KidRelationFragm
     /**
      * Kid Identity
      */
-    private String kidIdentity;
+    @State
+    protected String kidIdentity;
 
     /**
      * Kid Relations List

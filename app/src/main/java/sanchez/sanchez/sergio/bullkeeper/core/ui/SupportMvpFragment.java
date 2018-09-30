@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import icepick.Icepick;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
@@ -134,6 +135,26 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
             activityHandler.setSupportToolbarApp(supportToolbarApp);
         }
 
+    }
+
+    /**
+     * On Save Instance State
+     * @param outState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
+
+    /**
+     * On View State Restored
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
     }
 
     /**

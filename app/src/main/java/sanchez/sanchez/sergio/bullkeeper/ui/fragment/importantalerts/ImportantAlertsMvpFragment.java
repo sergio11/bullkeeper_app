@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.LastAlertsAdapter;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
@@ -48,7 +49,8 @@ public class ImportantAlertsMvpFragment extends SupportMvpLCEFragment<ImportantA
     /**
      * Kid Identity
      */
-    private String kidIdentity;
+    @State
+    protected String kidIdentity;
 
 
     /**

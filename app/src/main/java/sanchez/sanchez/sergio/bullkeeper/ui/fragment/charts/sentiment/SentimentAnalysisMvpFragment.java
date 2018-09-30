@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.github.mikephil.charting.data.PieEntry;
 import java.util.List;
+
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportPieChartMvpFragment;
@@ -25,7 +27,8 @@ public class SentimentAnalysisMvpFragment
     /**
      * Kid Identity
      */
-    private String kidIdentity;
+    @State
+    protected String kidIdentity;
 
 
     public SentimentAnalysisMvpFragment() {

@@ -10,6 +10,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.List;
 import java.util.Locale;
+
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportBarChartMvpFragment;
@@ -31,7 +33,8 @@ public class LikesChartMvpFragment
     /**
      * Kid Identity
      */
-    private String kidIdentity;
+    @State
+    protected String kidIdentity;
 
 
     public LikesChartMvpFragment() {

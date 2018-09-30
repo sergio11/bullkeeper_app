@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerUserProfileComponent;
@@ -58,9 +59,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      * User Profile Component
      */
     private UserProfileComponent userProfileComponent;
-
-
-    private String currentImagePath;
 
     /**
      * Profile Image View
@@ -162,9 +160,20 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected SupportImagePicker supportImagePicker;
 
     /**
+     * STATE
+     */
+
+    /**
      * Parent Entity
      */
-    private ParentEntity parentEntity;
+    @State
+    protected ParentEntity parentEntity = new ParentEntity();
+
+    /**
+     * Current Image Path
+     */
+    @State
+    protected String currentImagePath;
 
     /**
      * Get Calling Intent
@@ -198,6 +207,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     public UserProfilePresenter providePresenter() {
         return userProfileComponent.userProfilePresenter();
     }
+
+
 
     /**
      * Get Component
@@ -242,19 +253,25 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     }
 
     /**
-     * On View Ready
+     * On New Instance
      */
     @Override
-    protected void onViewReady(final Bundle savedInstanceState) {
-        super.onViewReady(savedInstanceState);
-
-        // Disable All Components
-        toggleAllComponents(false);
-
+    protected void onNewViewInstance() {
+        super.onNewViewInstance();
         birthdayInput.setMinAge(MIN_AGE_ALLOWED);
         birthdayInput.setMaxAge(MAX_AGE_ALLOWED);
-
+        toggleAllComponents(false);
         showProgressDialog(R.string.loading_profile_information);
+    }
+
+    /**
+     * On Saved View Instance
+     */
+    @Override
+    protected void onSavedViewInstance() {
+        super.onSavedViewInstance();
+        // Update Profile Form with state information
+        updateProfileForm();
     }
 
     /**
@@ -480,19 +497,18 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         if(parentEntity.getBirthdate() != null)
             birthdayInput.setDateSelected(parentEntity.getBirthdate());
 
-        // Reset Current Image Path
-        currentImagePath = null;
-
-        Timber.d("Profile Image -> %s", parentEntity.getProfileImage());
-
-        if(appUtils.isValidString(parentEntity.getProfileImage()))
-            picasso.load(parentEntity.getProfileImage())
-                    .placeholder(R.drawable.parent_default)
-                    .error(R.drawable.parent_default)
-                    .noFade()
-                    .into(profileImageView);
-        else
-            profileImageView.setImageResource(R.drawable.parent_default);
+        if(appUtils.isValidString(currentImagePath)) {
+            profileImageView.setImageURI(Uri.parse(currentImagePath));
+        } else {
+            if(appUtils.isValidString(parentEntity.getProfileImage()))
+                picasso.load(parentEntity.getProfileImage())
+                        .placeholder(R.drawable.parent_default)
+                        .error(R.drawable.parent_default)
+                        .noFade()
+                        .into(profileImageView);
+            else
+                profileImageView.setImageResource(R.drawable.parent_default);
+        }
     }
 
     /**
@@ -502,9 +518,9 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Override
     public void onSelfInformationLoaded(final ParentEntity parentEntity) {
         this.parentEntity = parentEntity;
+        Timber.d("Self Information Loaded...");
         updateProfileForm();
         toggleAllComponents(true);
-        hideProgressDialog();
     }
 
     /**

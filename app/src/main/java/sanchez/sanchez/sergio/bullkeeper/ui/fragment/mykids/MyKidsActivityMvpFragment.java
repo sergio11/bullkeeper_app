@@ -25,6 +25,9 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
 
     public static String TAG = "MY_KIDS_ACTIVITY_FRAGMENT";
 
+    /**
+     * Picasso
+     */
     @Inject
     protected Picasso picasso;
 

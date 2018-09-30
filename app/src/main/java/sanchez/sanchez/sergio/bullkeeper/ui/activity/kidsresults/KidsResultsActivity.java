@@ -15,6 +15,7 @@ import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerStatsComponent;
@@ -38,8 +39,6 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    private String kidIdentity;
-
     /**
      * Sections Pager Adapter
      */
@@ -49,6 +48,13 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      * Results Component
      */
     private StatsComponent statsComponent;
+
+    /**
+     * State
+     */
+
+    @State
+    protected String kidIdentity;
 
 
     /**

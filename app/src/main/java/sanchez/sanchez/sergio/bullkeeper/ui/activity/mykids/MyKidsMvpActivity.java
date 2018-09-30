@@ -26,8 +26,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        final Intent intent = new Intent(context, MyKidsMvpActivity.class);
-        return intent;
+        return new Intent(context, MyKidsMvpActivity.class);
     }
 
     /**
