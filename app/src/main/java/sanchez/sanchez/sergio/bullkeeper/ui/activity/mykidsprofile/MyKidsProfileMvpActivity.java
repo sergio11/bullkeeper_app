@@ -309,16 +309,45 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
-     * Enable All Components
+     * Toggle All Components
      */
-    private void enableAllComponents(final boolean enable){
-        nameInput.setEnabled(enable);
-        surnameInput.setEnabled(enable);
-        birthdayInput.setEnabled(enable);
-        schoolInput.setEnabled(enable);
-        instagramSwitchWidget.setEnabled(enable);
-        facebookSwitchWidget.setEnabled(enable);
-        googleSwitchWidget.setEnabled(enable);
+    private void toggleAllComponents(final boolean isEnable){
+        toggleAllProfileComponents(isEnable);
+        toggleAllSocialMediaComponents(isEnable);
+    }
+
+    /**
+     * Toggle All Profile Components
+     * @param isEnable
+     */
+    private void toggleAllProfileComponents(final boolean isEnable) {
+        myKidsProfileTitle.setEnabled(isEnable);
+        profileImageView.setEnabled(isEnable);
+        nameInputLayout.setEnabled(isEnable);
+        nameInput.setEnabled(isEnable);
+        surnameInputLayout.setEnabled(isEnable);
+        surnameInput.setEnabled(isEnable);
+        birthdayInputLayout.setEnabled(isEnable);
+        birthdayInput.setEnabled(isEnable);
+        schoolInput.setEnabled(isEnable);
+        schoolInputLayout.setEnabled(isEnable);
+        showSchoolDetailImageView.setEnabled(isEnable);
+    }
+
+    /**
+     * Toogle All Social Media Components
+     * @param isEnable
+     */
+    private void toggleAllSocialMediaComponents(final boolean isEnable) {
+        instagramSwitchWidget.setEnabled(isEnable);
+        instagramImageView.setEnabled(isEnable);
+        instagramStatusTextView.setEnabled(isEnable);
+        facebookSwitchWidget.setEnabled(isEnable);
+        facebookIconImageView.setEnabled(isEnable);
+        facebookStatusTextView.setEnabled(isEnable);
+        googleSwitchWidget.setEnabled(isEnable);
+        googleIconImageView.setEnabled(isEnable);
+        googleStatusTextView.setEnabled(isEnable);
     }
 
     /**
@@ -329,13 +358,14 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
+        // Toggle All Components
+        toggleAllComponents(false);
+
         if(getIntent() != null && getIntent().hasExtra(KIDS_IDENTITY_ARG)) {
             // Get Kid identity
             myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
             // Load Son Data
             getPresenter().loadSonData(myKidIdentity);
-            // Disable All Components
-            enableAllComponents(false);
         }
 
         myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
@@ -564,6 +594,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getDateSelectedAsText();
 
+        toggleAllComponents(false);
+
         getPresenter().saveSon(myKidIdentity, name, surname, birthday,
                 school != null ? school.getIdentity() : "", currentImagePath, socialMedias);
 
@@ -663,8 +695,8 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             showSchoolDetailImageView.setVisibility(View.VISIBLE);
         }
 
-        // Enable All Components
-        enableAllComponents(true);
+        // Enable All Profile Components
+        toggleAllProfileComponents(true);
     }
 
     /**
@@ -691,6 +723,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             updateSocialMediaRow(socialMediaType, socialMedia);
 
         }
+
+
+        // Toggle Social Media Components
+        toggleAllSocialMediaComponents(true);
     }
 
     /**
@@ -846,6 +882,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+        toggleAllComponents(true);
     }
 
     /**

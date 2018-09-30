@@ -45,14 +45,18 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         this.deleteAccountInteract = deleteAccountInteract;
     }
 
+    @Override
+    protected void onCreate() {
+        super.onCreate();
+        // Load Profile Info
+        loadProfileInfo();
+    }
+
 
     /**
      * load Profile Info
      */
     public void loadProfileInfo(){
-
-        if(isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_profile_information);
 
         getParentInformationInteract.execute(new GetParentInformationObserver(), null);
     }

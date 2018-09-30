@@ -115,12 +115,25 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
     }
 
     /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleAllComponents(final boolean isEnable) {
+        profileImageView.setEnabled(isEnable);
+        kidNameText.setEnabled(isEnable);
+        tabLayout.setEnabled(isEnable);
+        viewPager.setEnabled(isEnable);
+    }
+
+    /**
      * On View Ready
      * @param savedInstanceState
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
+
+        toggleAllComponents(false);
 
         if (getIntent() != null && getIntent().hasExtra(KID_IDENTITY_ARG)) {
             // Get Kid Identity
@@ -163,6 +176,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+
+        toggleAllComponents(true);
 
     }
 

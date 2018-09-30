@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
+
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -134,6 +136,18 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @BindView(R.id.tfnoInput)
     protected AppCompatEditText tfnoInput;
 
+    /**
+     * Save Changes View
+     */
+    @BindView(R.id.saveChanges)
+    protected View saveChangesView;
+
+    /**
+     * Delete Account View
+     */
+    @BindView(R.id.deleteAccount)
+    protected View deleteAccountView;
+
 
     /**
      * Picasso
@@ -147,6 +161,9 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Inject
     protected SupportImagePicker supportImagePicker;
 
+    /**
+     * Parent Entity
+     */
     private ParentEntity parentEntity;
 
     /**
@@ -211,17 +228,33 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     }
 
     /**
+     * Toggle All Components
+     */
+    private void toggleAllComponents(final boolean isEnable){
+        profileImageView.setEnabled(isEnable);
+        nameInput.setEnabled(isEnable);
+        surnameInput.setEnabled(isEnable);
+        birthdayInput.setEnabled(isEnable);
+        emailInput.setEnabled(isEnable);
+        tfnoInput.setEnabled(isEnable);
+        saveChangesView.setEnabled(isEnable);
+        deleteAccountView.setEnabled(isEnable);
+    }
+
+    /**
      * On View Ready
      */
     @Override
     protected void onViewReady(final Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        // Load Profile Info
-        getPresenter().loadProfileInfo();
+        // Disable All Components
+        toggleAllComponents(false);
 
         birthdayInput.setMinAge(MIN_AGE_ALLOWED);
         birthdayInput.setMaxAge(MAX_AGE_ALLOWED);
+
+        showProgressDialog(R.string.loading_profile_information);
     }
 
     /**
@@ -266,6 +299,10 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         final String email = emailInput.getText().toString();
         final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
 
+        // Disable All Components
+        toggleAllComponents(false);
+
+        Timber.d("Current Image Path -> %s", currentImagePath);
 
         // Update Profile
         if(currentImagePath != null) {
@@ -323,7 +360,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
             @Override
             public void onAccepted(DialogFragment dialog) {
-
+                toggleAllComponents(false);
                 getPresenter().deleteAccount();
 
             }
@@ -466,6 +503,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     public void onSelfInformationLoaded(final ParentEntity parentEntity) {
         this.parentEntity = parentEntity;
         updateProfileForm();
+        toggleAllComponents(true);
+        hideProgressDialog();
     }
 
     /**
@@ -476,8 +515,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     public void onSelfInformationUpdate(final ParentEntity parentEntity) {
         this.parentEntity = parentEntity;
         updateProfileForm();
-
         showNoticeDialog(R.string.profile_information_updated_successfully);
+        toggleAllComponents(true);
     }
 
     /**
@@ -511,6 +550,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+
+        toggleAllComponents(true);
     }
 
     /**
@@ -518,14 +559,13 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @Override
     public void onAccountDeleted() {
-
+        toggleAllComponents(true);
         showNoticeDialog(R.string.user_profile_delete_account_check_email, new NoticeDialogFragment.NoticeDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
                 closeSession();
             }
         });
-
     }
 
 }

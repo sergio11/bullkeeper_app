@@ -8,17 +8,14 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -47,6 +44,12 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     protected TextView lastAlertsTitle;
 
     /**
+     * Show Alerts Btn
+     */
+    @BindView(R.id.showAlerts)
+    protected ImageView showAlertsBtn;
+
+    /**
      * Picasso
      */
     @Inject
@@ -62,6 +65,15 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     public static LastAlertsActivityMvpFragment newInstance() {
         LastAlertsActivityMvpFragment fragment = new LastAlertsActivityMvpFragment();
         return fragment;
+    }
+
+    /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleAllComponents(final boolean isEnable) {
+        lastAlertsTitle.setEnabled(isEnable);
+        showAlertsBtn.setEnabled(isEnable);
     }
 
     /**
@@ -125,6 +137,8 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        toggleAllComponents(false);
+
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         // adding item touch helper
@@ -143,6 +157,8 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
 
         lastAlertsTitle.setText(String.format(Locale.getDefault(),
                 getString(R.string.last_alerts_title), dataLoaded.size()));
+
+        toggleAllComponents(true);
     }
 
     /**

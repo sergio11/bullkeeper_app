@@ -21,7 +21,6 @@ public final class KidsResultsActivityPresenter extends TiPresenter<IKidsResults
     @Override
     protected void onAttachView(@NonNull final IKidsResultsView view) {
         super.onAttachView(view);
-        view.showLongMessage("Hello World!!!");
     }
 
 

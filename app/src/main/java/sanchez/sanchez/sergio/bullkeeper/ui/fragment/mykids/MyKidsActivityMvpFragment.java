@@ -1,14 +1,10 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import android.support.annotation.NonNull;
-
 import com.squareup.picasso.Picasso;
-
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.SonEntity;

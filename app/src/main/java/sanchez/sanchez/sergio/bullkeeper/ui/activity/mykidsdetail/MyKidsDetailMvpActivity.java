@@ -129,6 +129,19 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleAllComponents(final boolean isEnable) {
+        profileImage.setEnabled(isEnable);
+        viewpager.setEnabled(isEnable);
+        tabLayout.setEnabled(isEnable);
+        kidNameTextView.setEnabled(isEnable);
+        kidBirthdayTextView.setEnabled(isEnable);
+        kidSchoolTextView.setEnabled(isEnable);
+    }
+
+    /**
      * Initialize Injector
      */
     @Override
@@ -159,6 +172,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
+
+        toggleAllComponents(false);
 
         if(!getIntent().hasExtra(KID_IDENTITY_ARG))
             throw new IllegalArgumentException("You must provide a child identifier");
@@ -310,6 +325,9 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         kidSchoolTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.kid_detail_school), sonEntity.getSchool().getName()));
+
+
+        toggleAllComponents(true);
 
     }
 

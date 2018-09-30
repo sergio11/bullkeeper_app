@@ -116,16 +116,38 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      * @return
      */
     public static ProfileMvpFragment newInstance() {
-        ProfileMvpFragment fragment = new ProfileMvpFragment();
-        return fragment;
+        return new ProfileMvpFragment();
     }
 
+    /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleUserProfileAllComponents(final boolean isEnable) {
+        userProfileImage.setEnabled(isEnable);
+        userProfileText.setEnabled(isEnable);
+        resultsAction.setEnabled(isEnable);
+        alertsAction.setEnabled(isEnable);
+        childrenAction.setEnabled(isEnable);
+    }
+
+    /**
+     * Toggle Kids All Components
+     * @param isEnable
+     */
+    private void toggleKidsAllComponents(final boolean isEnable){
+        addChildBtn.setEnabled(isEnable);
+        myChildList.setEnabled(isEnable);
+        infoChildBtn.setEnabled(isEnable);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        toggleUserProfileAllComponents(false);
+        toggleKidsAllComponents(false);
 
         resultsAction.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -257,6 +279,8 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
                 .into(userProfileImage);
         else
             userProfileImage.setImageResource(R.drawable.parent_default);
+
+        toggleUserProfileAllComponents(true);
     }
 
     /**
@@ -282,6 +306,8 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
                 AnimationUtils.loadLayoutAnimation(appContext, R.anim.layout_animation_fall_down);
         myChildList.setLayoutAnimation(controller);
         myChildList.scheduleLayoutAnimation();
+
+        toggleKidsAllComponents(true);
     }
 
     /**
