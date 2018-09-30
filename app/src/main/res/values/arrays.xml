@@ -6,6 +6,8 @@
         <item>@string/app_menu_settings</item>
         <item>@string/app_menu_how_its_work</item>
         <item>@string/app_menu_close_session</item>
+        <item>@string/app_menu_terms_of_service</item>
+        <item>@string/app_menu_privacy_policy</item>
     </string-array>
 
     <!-- Number of Alerts Values -->
@@ -67,6 +69,34 @@
         <item>@string/remove_alerts_last_hour</item>
         <item>@string/remove_alerts_last_day</item>
         <item>@string/remove_alerts_last_month</item>
+    </string-array>
+
+
+    <!-- Facebook Kid Scopes -->
+    <string-array name="facebook_kid_scopes">
+        <item>user_likes</item>
+        <item>user_photos</item>
+        <item>user_posts</item>
+        <item>user_videos</item>
+        <item>user_friends</item>
+    </string-array>
+
+    <!-- Instagram Kid Scopes -->
+    <string-array name="instagram_kid_scopes">
+        <item>basic</item>
+        <item>comments</item>
+        <item>public_content</item>
+        <item>relationships</item>
+        <item>likes</item>
+        <item>follower_list</item>
+    </string-array>
+
+    <!-- Google Kid Scopes -->
+    <string-array name="google_kid_scopes">
+        <item>https://www.googleapis.com/auth/youtube.force-ssl</item>
+        <item>https://www.googleapis.com/auth/userinfo.email</item>
+        <item>https://www.googleapis.com/auth/userinfo.profile</item>
+        <item>https://www.googleapis.com/auth/plus.me</item>
     </string-array>
 
 

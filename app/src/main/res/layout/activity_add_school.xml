@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.school.create.AddSchoolMvpActivity">
+
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/appToolbarInclude"
+        layout="@layout/app_translucent_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- School Section Title -->
+    <LinearLayout
+        android:id="@+id/schoolSectionTitle"
+        style="@style/CommonSection"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start|center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/schoolForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/graduation_cap_solid" />
+
+        <TextView
+            style="@style/CommonStrongText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:text="@string/add_new_school"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- School Form -->
+    <ScrollView
+        android:id="@+id/schoolForm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:scrollbarStyle="insideInset"
+        android:scrollbarThumbVertical="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/saveChanges"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight=".70"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolSectionTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- School Name input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/schoolNameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/schoolNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/school_name_hint"
+                    android:inputType="text"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- School input -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/schoolResidenceInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/commonWhite"
+                    android:theme="@style/CommonTextInputLayout"
+                    app:errorEnabled="true"
+                    app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/schoolResidenceInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:focusable="false"
+                        android:hint="@string/school_residence_hint"
+                        android:inputType="none"
+                        android:lines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Show School Detail -->
+                <ImageView
+                    android:id="@+id/showSchoolDetail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:visibility="gone"
+                    android:src="@drawable/map_marked_alt_solid"
+                    android:contentDescription="@string/content_not_be_loaded" />
+
+            </LinearLayout>
+
+            <!-- School tfno input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/schoolTelephoneInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <sanchez.sanchez.sergio.bullkeeper.core.ui.components.PrefixEditText
+                    android:id="@+id/schoolTelephoneInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tfno_hint"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:tag="@string/tfno_prefix" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!-- School email input -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/schoolEmailInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:textColorHint="@color/commonWhite"
+                android:theme="@style/CommonTextInputLayout"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/schoolEmailInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_address_hint"
+                    android:inputType="textEmailAddress"
+                    android:lines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- Save Changes -->
+    <LinearLayout
+        android:id="@+id/saveChanges"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:layout_constraintVertical_weight=".15"
+        app:layout_constraintTop_toBottomOf="@id/schoolForm">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/check_circle_solid_green" />
+
+        <TextView
+            style="@style/CommonStrongText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".85"
+            android:background="@color/greenSuccess"
+            android:padding="@dimen/common_padding"
+            android:text="@string/add_school"
+            android:textAlignment="textStart"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

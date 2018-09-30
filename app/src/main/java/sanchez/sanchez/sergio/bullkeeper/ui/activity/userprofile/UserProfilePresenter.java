@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.parents.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.UpdateSelfInformationInteract;
@@ -45,26 +45,18 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         this.deleteAccountInteract = deleteAccountInteract;
     }
 
-
-    /**
-     * Init
-     */
     @Override
-    public void onInit() {
-        super.onInit();
-        this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
-        this.updateSelfInformationInteract.attachDisposablesTo(compositeDisposable);
-        this.deleteAccountInteract.attachDisposablesTo(compositeDisposable);
-
+    protected void onCreate() {
+        super.onCreate();
+        // Load Profile Info
+        loadProfileInfo();
     }
+
 
     /**
      * load Profile Info
      */
     public void loadProfileInfo(){
-
-        if(isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_profile_information);
 
         getParentInformationInteract.execute(new GetParentInformationObserver(), null);
     }

@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -39,7 +41,7 @@ public class ChildrenModule {
     @Provides @PerActivity
     IChildrenRepository provideChildrenRepository(final IChildrenService childrenService,
                                                   final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
-                                                  final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper) {
+                                                  @Named("SonImageEntity") final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper) {
         return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper);
     }
 

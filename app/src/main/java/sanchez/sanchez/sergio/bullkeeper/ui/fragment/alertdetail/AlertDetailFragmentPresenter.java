@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertdetail;
 import android.os.Bundle;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertDetailInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
@@ -39,9 +39,6 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
     protected void onInit(Bundle args) {
         super.onInit(args);
 
-        getAlertDetailInteract.attachDisposablesTo(compositeDisposable);
-        deleteAlertOfSonInteract.attachDisposablesTo(compositeDisposable);
-
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_alert_detail);
 
@@ -51,6 +48,7 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
         getAlertDetailInteract.execute(new GetAlertDetailObserver(GetAlertDetailInteract.GetAlertDetailApiErrors.class),
                 GetAlertDetailInteract.Params.create(sonId, alertId));
     }
+
 
     /**
      * Delete Alert

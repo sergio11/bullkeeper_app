@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
-import sanchez.sanchez.sergio.bullkeeper.utils.PreferencesRepositoryImpl;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.PreferencesRepositoryImpl;
 import timber.log.Timber;
 
 /**
@@ -40,16 +40,6 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
         this.signinInteract = signinInteract;
         this.preferencesRepositoryImpl = preferencesRepositoryImpl;
         this.signinFacebookInteract = signinFacebookInteract;
-    }
-
-    /**
-     * Init Presenter
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.signinInteract.attachDisposablesTo(compositeDisposable);
-        this.signinFacebookInteract.attachDisposablesTo(compositeDisposable);
     }
 
     /**

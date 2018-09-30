@@ -1,35 +1,52 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup;
 
-import android.app.DatePickerDialog;
+
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import com.mobsandgeeks.saripaar.annotation.ConfirmEmail;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Password;
 import com.mobsandgeeks.saripaar.annotation.Past;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.nulabinc.zxcvbn.Zxcvbn;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
 import timber.log.Timber;
 
 /**
@@ -37,21 +54,26 @@ import timber.log.Timber;
  */
 public class SignupMvpFragment extends
         SupportMvpValidationMvpFragment<SignupFragmentPresenter, ISignupView, IIntroActivityHandler,
-                                IntroComponent>
-implements ISignupView, DatePickerDialog.OnDateSetListener{
+                                IntroComponent> implements ISignupView {
+
+    private final static int MIN_AGE_DEFAULT = 18;
+    private final static int MAX_AGE_DEFAULT = 80;
 
     public static String TAG = "INTRO_FRAGMENT";
-
-    private DatePickerDialog datePickerDialog;
 
     private final static String EMAIL_FIELD_NAME = "email";
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
     private final static String LAST_NAME_FIELD_NAME = "last_name";
     private final static String BIRTHDATE_FIELD_NAME = "birthdate";
 
-
     @Inject
     protected IAppUtils appUtils;
+
+    /**
+     * Navigator
+     */
+    @Inject
+    protected INavigator navigator;
 
     /**
      * Name Input Layout
@@ -95,7 +117,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @BindView(R.id.birthdayInput)
     @NotEmpty(messageResId = R.string.birthday_not_empty_error)
     @Past(dateFormatResId = R.string.date_format)
-    protected AppCompatEditText birthdayInput;
+    protected SupportEditTextDatePicker birthdayInput;
 
     /**
      * Email Input Layout
@@ -112,6 +134,20 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     protected AppCompatEditText emailInput;
 
     /**
+     * Repeat Email Input Layout
+     */
+    @BindView(R.id.repeatEmailInputLayout)
+    protected TextInputLayout repeatEmailInputLayout;
+
+    /**
+     * Repeat Email Input
+     */
+    @BindView(R.id.repeatEmailInput)
+    @NotEmpty(messageResId = R.string.email_not_empty_error)
+    @ConfirmEmail(messageResId = R.string.repeat_email_invalid_error)
+    protected AppCompatEditText repeatEmailInput;
+
+    /**
      * Password Input Layout
      */
     @BindView(R.id.passwordInputLayout)
@@ -121,7 +157,6 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      * Password Input
      */
     @BindView(R.id.passwordInput)
-    @Password(scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
     protected AppCompatEditText passwordInput;
 
     /**
@@ -137,6 +172,24 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @ConfirmPassword
     protected AppCompatEditText confirmPasswordInput;
 
+    /**
+     * Accept Terms And Conditions
+     */
+    @BindView(R.id.input_accept_terms)
+    protected CheckBox acceptTerms;
+
+    /**
+     * Create Account Button
+     */
+    @BindView(R.id.createAccountButton)
+    protected Button createAccountButton;
+
+    /**
+     * Password Progress
+     */
+    @BindView(R.id.input_password_progress)
+    protected ProgressBar progressBar;
+
 
     public SignupMvpFragment() { }
 
@@ -145,8 +198,7 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      * @return
      */
     public static SignupMvpFragment newInstance() {
-        SignupMvpFragment fragment = new SignupMvpFragment();
-        return fragment;
+        return new SignupMvpFragment();
     }
 
     /**
@@ -154,12 +206,14 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      */
     private void resetErrors(){
 
-        nameInputLayout.setError("");
-        surnameInputLayout.setError("");
-        birthdayInputLayout.setError("");
-        emailInputLayout.setError("");
-        passwordInputLayout.setError("");
-        confirmPasswordInputLayout.setError("");
+        nameInputLayout.setError(null);
+        surnameInputLayout.setError(null);
+        birthdayInputLayout.setError(null);
+        emailInputLayout.setError(null);
+        repeatEmailInputLayout.setError(null);
+        passwordInputLayout.setError(null);
+        confirmPasswordInputLayout.setError(null);
+        acceptTerms.setError(null);
     }
 
     /**
@@ -173,9 +227,99 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         surnameInput.setText("");
         birthdayInput.setText("");
         emailInput.setText("");
+        repeatEmailInput.setText("");
         passwordInput.setText("");
         confirmPasswordInput.setText("");
 
+    }
+
+    /**
+     * Configure Terms Of Service And Privacy Policy
+     */
+    private void configureTermsOfServiceAndPrivacyPolicy(){
+
+        final String termsOfService = getString(R.string.terms_of_service);
+        final String privacyPolicy = getString(R.string.privacy_policy);
+
+        final String acceptTermsText = String.format(Locale.getDefault(),
+                getString(R.string.registration_terms_and_conditions), termsOfService, privacyPolicy);
+
+        final int termsOfServicesStart = acceptTermsText.indexOf(termsOfService);
+        final int privacyPolicyStart = acceptTermsText.indexOf(privacyPolicy);
+
+        final SpannableStringBuilder spannable = new SpannableStringBuilder(acceptTermsText);
+
+        // Terms of Service Deep Link
+        spannable.setSpan(new DeepLinkSpan(acceptTerms, termsOfService, getContext()) {
+                              @Override
+                              public void onClick(View widget) {
+                                  super.onClick(widget);
+                                  // Show Terms Of Service
+                                  activityHandler.showLegalContent(LegalContentActivity
+                                          .LegalTypeEnum.TERMS_OF_SERVICE);
+                              }
+                          }, termsOfServicesStart,
+                termsOfServicesStart + termsOfService.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        // Privacy Policy Deep Link
+        spannable.setSpan(new DeepLinkSpan(acceptTerms, privacyPolicy, getContext()) {
+                              @Override
+                              public void onClick(View widget) {
+                                  super.onClick(widget);
+                                  // Show Privacy Policy
+                                  activityHandler.showLegalContent(LegalContentActivity
+                                          .LegalTypeEnum.PRIVACY_POLICY);
+                              }
+                          },  privacyPolicyStart,
+                privacyPolicyStart + privacyPolicy.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        acceptTerms.setText(spannable);
+        acceptTerms.setMovementMethod(LinkMovementMethod.getInstance());
+
+    }
+
+    /**
+     * Validate Password
+     */
+    private boolean validatePassword(final String passwordText) {
+
+        boolean isValid = false;
+
+        if (passwordText.length() < 8) {
+            // A minimum of 8 characters
+            passwordInputLayout.setError(getString(R.string.error_password_invalid_length));
+        } else if(!Pattern.compile("[a-z]+").matcher(passwordText).find()) {
+            // At least one lower case letter
+            passwordInputLayout.setError(getString(R.string.error_password_lower_case_letter_required));
+        } else if(!Pattern.compile("[A-Z]+").matcher(passwordText).find()) {
+            // At least one upper case letter
+            passwordInputLayout.setError(getString(R.string.error_password_upper_case_letter_required));
+        }else  if(!Pattern.compile("[0-9]+|[^A-Za-z0-9]+").matcher(passwordText).find()) {
+            // At least one number or special character
+            passwordInputLayout.setError(getString(R.string.error_number_or_special_character_required));
+        } else if(Pattern.compile("(.)\\1\\1+").matcher(passwordText.toUpperCase()).find()) {
+            // No more than two consecutive repeating characters or numbers
+            passwordInputLayout.setError(getString(R.string.error_consecutive_repeating_characters_or_number_not_allowed));
+        } else {
+            passwordInputLayout.setErrorEnabled(false);
+            isValid = true;
+        }
+
+        return isValid;
+
+    }
+
+    /**
+     * Sanitize Data
+     */
+    private void sanitizeData() {
+
+        nameInput.setText(nameInput.getText().toString()
+                .trim().replaceAll("\\s{2,}", " ").replaceAll("\\.", ""));
+        surnameInput.setText(surnameInput.getText().toString()
+                .trim().replaceAll("\\s{2,}", " ").replaceAll("\\.", ""));
+        passwordInput.setText(passwordInput.getText().toString().trim().replaceAll("\\s{2,}", " "));
+        emailInput.setText(emailInput.getText().toString().trim().replaceAll("\\s+", ""));
     }
 
     /**
@@ -187,36 +331,46 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Integer START_YEAR = 1970;
-        Integer START_MONTH = 1;
-        Integer START_DAY = 1;
 
-        datePickerDialog = new DatePickerDialog(
-                getActivity(), R.style.CommonDatePickerStyle, SignupMvpFragment.this, START_YEAR,
-                START_MONTH, START_DAY);
+        configureTermsOfServiceAndPrivacyPolicy();
 
-        // On Focus Listener
-        birthdayInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        final Zxcvbn zxcvbn = new Zxcvbn();
+
+        passwordInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-
-                if(datePickerDialog != null) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(progressBar != null)
                     if(hasFocus)
-                        datePickerDialog.show();
+                        progressBar.setVisibility(View.VISIBLE);
                     else
-                        datePickerDialog.dismiss();
+                        progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        // Password Change Listener
+        passwordInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                final String passwordText = charSequence.toString()
+                        .trim().replaceAll(" +", " ");
+                if(!passwordText.isEmpty()) {
+                    final int passwordScore = zxcvbn.measure(passwordText).getScore();
+                    passwordInputLayout.setErrorEnabled(false);
+                    // Set Password Score
+                    progressBar.setProgress(passwordScore);
+                    validatePassword(passwordText);
                 }
             }
+
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
 
-        // On Click Listener
-        birthdayInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(datePickerDialog != null)
-                    datePickerDialog.show();
-            }
-        });
+        birthdayInput.setMinAge(MIN_AGE_DEFAULT);
+        birthdayInput.setMaxAge(MAX_AGE_DEFAULT);
 
     }
 
@@ -265,6 +419,8 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
             passwordInputLayout.setError(message);
         } else if(viewId.equals(R.id.confirmPasswordInput)) {
             confirmPasswordInputLayout.setError(message);
+        } else if(viewId.equals(R.id.repeatEmailInput)) {
+            repeatEmailInputLayout.setError(message);
         }
 
 
@@ -276,16 +432,25 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
     @Override
     public void onValidationSucceeded() {
 
-        resetErrors();
+        if (acceptTerms.isChecked()) {
 
-        final String name = nameInput.getText().toString();
-        final String surname = surnameInput.getText().toString();
-        final String birthday = birthdayInput.getText().toString();
-        final String email = emailInput.getText().toString();
-        final String password = passwordInput.getText().toString();
-        final String confirmPassword = confirmPasswordInput.getText().toString();
+            resetErrors();
 
-        getPresenter().signup(name, surname, birthday, email, password, confirmPassword, "+34673445695");
+            final String name = nameInput.getText().toString();
+            final String surname = surnameInput.getText().toString();
+            final String birthday = birthdayInput.getDateSelectedAsText();
+            final String email = emailInput.getText().toString();
+            final String password = passwordInput.getText().toString();
+            final String confirmPassword = confirmPasswordInput.getText().toString();
+            // Disable Button
+            createAccountButton.setEnabled(false);
+            // Signup user
+            getPresenter().signup(name, surname, birthday, email, password, confirmPassword, "+34673445695");
+
+        } else {
+            acceptTerms.setError(getString(R.string.terms_of_service_not_accepted));
+        }
+
     }
 
     /**
@@ -314,30 +479,14 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
      */
     @OnClick(R.id.createAccountButton)
     public void onCreateAccount(){
+        //Sanitize Data
+        sanitizeData();
         // Reset Errors
         resetErrors();
         // Validate
         validator.validate();
     }
 
-    /**
-     * On Date Set
-     * @param datePicker
-     * @param year
-     * @param month
-     * @param day
-     */
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
-        String strDate = format.format(calendar.getTime());
-        // Set Data format
-        birthdayInput.setText(strDate);
-    }
 
     /**
      * On Signup Success
@@ -362,6 +511,8 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
                 activityHandler.goToLogin(parentEntity.getEmail());
             }
         });
+
+        createAccountButton.setEnabled(true);
     }
 
     /**
@@ -393,5 +544,67 @@ implements ISignupView, DatePickerDialog.OnDateSetListener{
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
+    }
+
+
+    /**
+     * Deep Link Span
+     */
+    public abstract class DeepLinkSpan extends ClickableSpan {
+
+        private final TextView textView;
+        private final String clickableText;
+        private final Context appContext;
+
+        private DeepLinkSpan(final TextView textView, final String clickableText,
+                            final Context appContext) {
+            this.textView = textView;
+            this.clickableText = clickableText;
+            this.appContext = appContext;
+        }
+
+        /**
+         * On Click
+         * @param widget
+         */
+        @Override
+        public void onClick(View widget) {
+
+            // Prevent CheckBox state from being toggled when link is clicked
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                widget.cancelPendingInputEvents();
+            }
+        }
+
+
+        /**
+         * Update Draw State
+         * @param ds
+         */
+        @Override
+        public void updateDrawState(TextPaint ds) {
+
+            ds.setUnderlineText(true);
+
+            if (textView.isPressed() && textView.getSelectionStart() != -1 && textView.getText()
+                    .toString()
+                    .substring(textView.getSelectionStart(), textView.getSelectionEnd())
+                    .equals(clickableText)) {
+                ds.setColor(ContextCompat.getColor(appContext, R.color.darkModerateBlue));
+            } else {
+                ds.setColor(ContextCompat.getColor(appContext, R.color.darkModerateBlue));
+            }
+        }
+
     }
 }

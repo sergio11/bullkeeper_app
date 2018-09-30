@@ -1,17 +1,24 @@
 package sanchez.sanchez.sergio.bullkeeper;
 
 import android.app.Application;
+import android.content.Intent;
+import android.os.StrictMode;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.facebook.stetho.Stetho;
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import io.fabric.sdk.android.Fabric;
 import net.grandcentrix.thirtyinch.TiConfiguration;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ApplicationModule;
+import sanchez.sanchez.sergio.bullkeeper.ui.services.NotificationHandlerService;
 import timber.log.Timber;
 
 /**
@@ -46,6 +53,8 @@ public final class AndroidApplication extends Application {
 
         INSTANCE = this;
 
+        startAppServices();
+
     }
 
     /**
@@ -77,6 +86,8 @@ public final class AndroidApplication extends Application {
      * On Common Config
      */
     protected void onCommonConfig(){
+        // Init Fabric
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         // Chrash Screen
         CaocConfig.Builder.create().apply();
         // Iconify
@@ -91,9 +102,26 @@ public final class AndroidApplication extends Application {
      */
     protected void onDebugConfig(){
 
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()   // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .penaltyFlashScreen()
+                .build());
+
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
+
         Timber.plant(new Timber.DebugTree());
 
         Stetho.initializeWithDefaults(this);
+
+        AndroidDevMetrics.initWith(this);
     }
 
 
@@ -102,6 +130,16 @@ public final class AndroidApplication extends Application {
      */
     protected void onReleaseConfig(){
         Timber.plant(new CrashReportingTree());
+    }
+
+
+    /**
+     * Start Services
+     */
+    protected void startAppServices() {
+        final Intent notificationHandlerService = new Intent(getApplicationContext(),
+                NotificationHandlerService.class);
+        getApplicationContext().startService(notificationHandlerService);
     }
 
 

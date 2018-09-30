@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.intro;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
  * Intro Activity Handler
@@ -41,6 +42,12 @@ public interface IIntroActivityHandler extends IBasicActivityHandler {
      * Go to Forget Password
      */
     void goToForgetPassword();
+
+    /**
+     * Show Legal Content
+     * @param legalTypeEnum
+     */
+    void showLegalContent(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
 
 
 }

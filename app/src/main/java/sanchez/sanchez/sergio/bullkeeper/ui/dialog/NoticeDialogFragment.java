@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
 
 /**
  * Notice Dialog Fragment

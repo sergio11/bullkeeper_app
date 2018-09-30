@@ -18,7 +18,8 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 
 /**
  * Intro Fragment
@@ -187,5 +188,14 @@ implements IForgotPasswordView {
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+    }
+
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
     }
 }

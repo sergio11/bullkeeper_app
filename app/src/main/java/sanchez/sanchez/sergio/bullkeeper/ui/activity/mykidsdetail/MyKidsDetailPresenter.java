@@ -5,16 +5,16 @@ import android.os.Bundle;
 import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
-
-import static sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.MyKidsDetailMvpActivity.KID_IDENTITY_ARG;
 
 /**
  * My Kids Detail Presenter
  */
 public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailView> {
+
+    public final static String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Son By Id Interact
@@ -32,13 +32,12 @@ public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailV
     @Override
     protected void onInit(final Bundle args) {
         super.onInit();
-        getSonByIdInteract.attachDisposablesTo(compositeDisposable);
-
         if(args != null && args.containsKey(KID_IDENTITY_ARG)) {
             // Load Son Data
             loadSonData(args.getString(KID_IDENTITY_ARG));
         }
     }
+
 
     /**
      * Load Son Data

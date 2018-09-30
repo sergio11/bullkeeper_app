@@ -14,11 +14,14 @@ public final class SocialMediaEntity implements Serializable {
     private Boolean invalidToken;
     private String userSocialName;
     private String userPicture;
-    private String sonFullName;
+    private String userFullName;
+    private String sonIdentity;
 
     public SocialMediaEntity(){}
 
-    public SocialMediaEntity(String identity, String accessToken, String refreshToken, SocialMediaTypeEnum type, Boolean invalidToken, String userSocialName, String userPicture, String sonFullName) {
+    public SocialMediaEntity(String identity, String accessToken, String refreshToken,
+                             SocialMediaTypeEnum type, Boolean invalidToken,
+                             String userSocialName, String userPicture, String userFullName, String sonIdentity) {
         this.identity = identity;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
@@ -26,7 +29,8 @@ public final class SocialMediaEntity implements Serializable {
         this.invalidToken = invalidToken;
         this.userSocialName = userSocialName;
         this.userPicture = userPicture;
-        this.sonFullName = sonFullName;
+        this.userFullName = userFullName;
+        this.sonIdentity = sonIdentity;
     }
 
     public String getIdentity() {
@@ -85,12 +89,20 @@ public final class SocialMediaEntity implements Serializable {
         this.userPicture = userPicture;
     }
 
-    public String getSonFullName() {
-        return sonFullName;
+    public String getUserFullName() {
+        return userFullName;
     }
 
-    public void setSonFullName(String sonFullName) {
-        this.sonFullName = sonFullName;
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public String getSonIdentity() {
+        return sonIdentity;
+    }
+
+    public void setSonIdentity(String sonIdentity) {
+        this.sonIdentity = sonIdentity;
     }
 
     @Override
@@ -103,7 +115,7 @@ public final class SocialMediaEntity implements Serializable {
                 ", invalidToken=" + invalidToken +
                 ", userSocialName='" + userSocialName + '\'' +
                 ", userPicture='" + userPicture + '\'' +
-                ", sonFullName='" + sonFullName + '\'' +
+                ", userFullName='" + userFullName + '\'' +
                 '}';
     }
 }

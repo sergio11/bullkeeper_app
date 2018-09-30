@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 
 

@@ -3,10 +3,8 @@ package sanchez.sanchez.sergio.domain.interactor;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -22,8 +20,8 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
  */
 public abstract class UseCase<T, Params> {
 
-    private final IThreadExecutor threadExecutor;
-    private final IPostExecutionThread postExecutionThread;
+    protected final IThreadExecutor threadExecutor;
+    protected final IPostExecutionThread postExecutionThread;
     private final CompositeDisposable disposables;
 
     /**
@@ -76,12 +74,4 @@ public abstract class UseCase<T, Params> {
         disposables.add(disposable);
     }
 
-    /**
-     * Attach Disposables To
-     * @param disposablesToAttach
-     */
-    public void attachDisposablesTo(CompositeDisposable disposablesToAttach) {
-        if(disposablesToAttach != null)
-            disposablesToAttach.addAll(disposables);
-    }
 }

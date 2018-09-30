@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterParentInteract;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 
 /**
  * Intro Presenter
@@ -21,11 +21,6 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
         this.registerParentInteract = registerParentInteract;
     }
 
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.registerParentInteract.attachDisposablesTo(compositeDisposable);
-    }
 
     /**
      *

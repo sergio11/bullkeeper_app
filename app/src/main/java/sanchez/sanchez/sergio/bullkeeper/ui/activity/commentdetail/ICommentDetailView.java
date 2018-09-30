@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.commentdetail;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 /**
  * Comment Detail View

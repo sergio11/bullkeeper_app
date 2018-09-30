@@ -1,12 +1,14 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist;
 
 
+import android.os.Bundle;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsBySonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsOfSonByLevelInteract;
@@ -99,31 +101,12 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
         this.clearAlertsByLevelInteract = clearAlertsByLevelInteract;
     }
 
-    /**
-     *
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        getSelfAlertsInteract.attachDisposablesTo(compositeDisposable);
-        deleteAlertOfSonInteract.attachDisposablesTo(compositeDisposable);
-        getAlertsBySonInteract.attachDisposablesTo(compositeDisposable);
-        clearAlertsBySonInteract.attachDisposablesTo(compositeDisposable);
-        getSelfAlertsByLevelInteract.attachDisposablesTo(compositeDisposable);
-        getSelfAlertsOfSonByLevelInteract.attachDisposablesTo(compositeDisposable);
-        clearAlertsOfSonByLevelInteract.attachDisposablesTo(compositeDisposable);
-        clearAlertsByLevelInteract.attachDisposablesTo(compositeDisposable);
-    }
 
     /**
      * Load Data
      */
     @Override
     public void loadData() {
-
-        if (isViewAttached() && getView() != null) {
-            getView().showProgressDialog(R.string.loading_alerts_please_wait);
-        }
 
         // Load Alerts for Son and level
         if(args.containsKey(SON_IDENTITY_ARG) && args.containsKey(ALERT_LEVEL_ARG)) {
@@ -149,6 +132,15 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
             getSelfAlertsInteract.execute(new GetSelfAlertsObservable(GetSelfAlertsInteract.GetSelfAlertsApiErrors.class), null);
         }
 
+    }
+
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
     }
 
     /**

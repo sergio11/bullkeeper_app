@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/common_list_item_state">
+
+    <!-- Place Icon -->
+    <ImageView
+        android:id="@+id/placeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/content_not_be_loaded"
+        android:src="@drawable/school_solid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/separator"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Separator -->
+    <View
+        android:id="@+id/separator"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:background="@color/commonWhite"
+        app:layout_constraintStart_toEndOf="@id/placeIcon"
+        app:layout_constraintEnd_toStartOf="@id/primaryText"/>
+
+
+    <!-- Primary Text -->
+    <TextView
+        android:id="@+id/primaryText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkModerateBlue"
+        android:singleLine="true"
+        style="@style/CommonStrongText.Medium"
+        android:text="-"
+        app:layout_constraintBottom_toTopOf="@id/secondaryText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/separator"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Secondary Text -->
+    <TextView
+        android:id="@+id/secondaryText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/commonWhite"
+        android:singleLine="true"
+        style="@style/CommonStrongText.Small"
+        android:text="-"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/separator"
+        app:layout_constraintTop_toBottomOf="@id/primaryText"/>
+
+</android.support.constraint.ConstraintLayout>

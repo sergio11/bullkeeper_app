@@ -1,12 +1,13 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts;
 
 
+import android.os.Bundle;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertListPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
@@ -37,16 +38,6 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
         this.deleteAlertOfSonInteract = deleteAlertOfSonInteract;
     }
 
-    /**
-     * Init
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.getSelfLastAlertsInteract.attachDisposablesTo(compositeDisposable);
-        this.deleteAlertOfSonInteract.attachDisposablesTo(compositeDisposable);
-    }
-
 
     /**
      * Load Data
@@ -56,6 +47,15 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
 
         // Execute Get Self Children
         getSelfLastAlertsInteract.execute(new LoadLastAlertsObserver(GetSelfLastAlertsInteract.GetSelfLastAlertsApiErrors.class), null);
+    }
+
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
     }
 
     /**

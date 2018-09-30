@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 
 /**
@@ -26,8 +26,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        final Intent intent = new Intent(context, MyKidsMvpActivity.class);
-        return intent;
+        return new Intent(context, MyKidsMvpActivity.class);
     }
 
     /**

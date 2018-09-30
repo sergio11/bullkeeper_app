@@ -93,6 +93,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/translucentDarkModerateBlue"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -131,6 +132,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_alignParentEnd="true"
+                    android:textColor="@color/commonWhite"
                     style="@style/CommonStrongText.Medium"
                     android:text="-"/>
             </RelativeLayout>

@@ -1,12 +1,11 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.dialog;
 
-import android.content.DialogInterface;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
 
 /**
  * Progress Dialog Fragment

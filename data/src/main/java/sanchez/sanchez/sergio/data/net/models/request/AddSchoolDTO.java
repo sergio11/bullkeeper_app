@@ -28,6 +28,18 @@ public final class AddSchoolDTO {
     @JsonProperty("email")
     private String email;
 
+    public AddSchoolDTO(){}
+
+    public AddSchoolDTO(String name, String residence, String province, Double latitude, Double longitude, String tfno, String email) {
+        this.name = name;
+        this.residence = residence;
+        this.province = province;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.tfno = tfno;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }

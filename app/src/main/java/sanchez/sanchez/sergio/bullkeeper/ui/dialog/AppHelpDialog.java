@@ -14,7 +14,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
 import timber.log.Timber;
 
 /**

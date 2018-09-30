@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 
 /**
  * My Kids Adapter
@@ -23,14 +22,17 @@ import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
     private OnMyKidsListener listener;
+    private final Picasso picasso;
 
     /**
      *
      * @param context
      * @param data
+     * @param picasso
      */
-    public MyKidsAdapter(Context context, ArrayList<SonEntity> data) {
+    public MyKidsAdapter(Context context, ArrayList<SonEntity> data, final Picasso picasso) {
         super(context, data);
+        this.picasso = picasso;
     }
 
 
@@ -185,12 +187,15 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
                 }
             });
 
-
-            // Set Child Image
-            Picasso.with(context).load(sonEntity.getProfileImage())
-                    .placeholder(R.drawable.kid_default_image)
-                    .error(R.drawable.kid_default_image)
-                    .into(childImage);
+            if(sonEntity.getProfileImage() != null &&
+                    !sonEntity.getProfileImage().isEmpty())
+                // Set Child Image
+                picasso.load(sonEntity.getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImage);
+            else
+                childImage.setImageResource(R.drawable.kid_default_image);
 
 
             childImage.setOnClickListener(new View.OnClickListener() {

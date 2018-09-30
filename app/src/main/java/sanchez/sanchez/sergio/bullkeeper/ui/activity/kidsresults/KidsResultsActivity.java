@@ -15,6 +15,7 @@ import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerStatsComponent;
@@ -26,8 +27,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimen
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 
 /**
  * Kids Results Activity
@@ -38,8 +39,6 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    private String kidIdentity;
-
     /**
      * Sections Pager Adapter
      */
@@ -49,6 +48,13 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      * Results Component
      */
     private StatsComponent statsComponent;
+
+    /**
+     * State
+     */
+
+    @State
+    protected String kidIdentity;
 
 
     /**
@@ -115,12 +121,25 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
     }
 
     /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleAllComponents(final boolean isEnable) {
+        profileImageView.setEnabled(isEnable);
+        kidNameText.setEnabled(isEnable);
+        tabLayout.setEnabled(isEnable);
+        viewPager.setEnabled(isEnable);
+    }
+
+    /**
      * On View Ready
      * @param savedInstanceState
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
+
+        toggleAllComponents(false);
 
         if (getIntent() != null && getIntent().hasExtra(KID_IDENTITY_ARG)) {
             // Get Kid Identity
@@ -163,6 +182,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+
+        toggleAllComponents(true);
 
     }
 

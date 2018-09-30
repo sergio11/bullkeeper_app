@@ -1,0 +1,79 @@
+package sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import java.util.ArrayList;
+import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.domain.models.SuggestedPlaceEntity;
+
+/**
+ * Place Suggestions Adapter
+ */
+public final class PlaceSuggestionsAdapter extends SupportRecyclerViewAdapter<SuggestedPlaceEntity>{
+
+    /**
+     *
+     * @param context
+     * @param data
+     */
+    public PlaceSuggestionsAdapter(Context context, ArrayList<SuggestedPlaceEntity> data) {
+        super(context, data);
+        hasHeader = false;
+        hasFooter = false;
+
+    }
+
+    /**
+     * On Create Item View Holder
+     * @param viewGroup
+     * @return
+     */
+    @Override
+    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup viewGroup) {
+        View view = inflater.inflate(R.layout.place_suggestion_item_layout, viewGroup, false);
+        return new PlaceViewHolder(view);
+    }
+
+
+
+    /**
+     * Place View Holder
+     */
+    public final class PlaceViewHolder extends
+            SupportItemSwipedViewHolder<SuggestedPlaceEntity> {
+
+        private TextView primaryText, secondaryText;
+
+        /**
+         * Place View Holder
+         * @param itemView
+         */
+        public PlaceViewHolder(final View itemView) {
+            super(itemView);
+            this.primaryText = itemView.findViewById(R.id.primaryText);
+            this.secondaryText = itemView.findViewById(R.id.secondaryText);
+        }
+
+        /**
+         * On Bind
+         * @param place
+         */
+        @Override
+        public void bind(final SuggestedPlaceEntity place) {
+            super.bind(place);
+
+            if(hasHighlightText())
+                primaryText.setText(getSpannableString(place.getPrimaryText()));
+            else
+                primaryText.setText(place.getPrimaryText());
+
+            secondaryText.setText(place.getSecondaryText());
+        }
+
+    }
+
+}

@@ -38,8 +38,10 @@ ext {
     slidingtutorialVersion = '1.0.8'
     androidSaripaarVersion = '2.0.3'
     retrofitVersion = '2.4.0'
+    logginInterceptorVersion= '2.0.7'
     rxjava2AdapterVersion = '1.0.0'
     facebookSdkVersion = '[4,5)'
+    playServicesVersion = '15.0.1'
 
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
@@ -48,6 +50,16 @@ ext {
     circleimageviewVersion = '2.2.0'
     mpAndroidChartVerion = 'v3.0.3'
     viewPagerTransforms = '1.2.32'
+    zxcvbnVersion = '1.2.2'
+    // FireBase Libraries versions
+    firebaseMessagingVersion = '17.3.2'
+    firebaseCoreVersion = '16.0.3'
+
+    //Simple Auth Versions
+    simpleAuthVersion = '2.1.3'
+    simpleAuthInstagramVersion = '2.1.3'
+    simpleAuthGoogleVersion = '2.1.3'
+    simpleAuthFacebookVersion = '2.1.3'
 
 
     thirtyInchVersion = '0.8.5'
@@ -76,6 +88,11 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appcompatv7:        "com.android.support:appcompat-v7:${supportVersion}",
+            playServicesLocation: "com.google.android.gms:play-services-location:${playServicesVersion}",
+            playServicesMaps:     "com.google.android.gms:play-services-maps:${playServicesVersion}",
+            playServicesPlaces:   "com.google.android.gms:play-services-places:${playServicesVersion}",
+            playServicesBase:   "com.google.android.gms:play-services-base:${playServicesVersion}",
+            playServicesAuth:   "com.google.android.gms:play-services-auth:${playServicesVersion}",
             supportV4:          "com.android.support:support-v4:${supportVersion}",
             supportDesign:      "com.android.support:design:${supportVersion}",
             cardview:           "com.android.support:cardview-v7:${supportVersion}",
@@ -101,7 +118,10 @@ ext {
             MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${mpAndroidChartVerion}",
             viewPagerTransforms: "com.ToxicBakery.viewpager.transforms:view-pager-transforms:${viewPagerTransforms}@aar",
             facebookSdk:        "com.facebook.android:facebook-login:${facebookSdkVersion}",
-            arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}"
+            arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}",
+            zxcvbn:             "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
+            firebaseCore:       "com.google.firebase:firebase-core:${firebaseCoreVersion}",
+            firebaseMessaging:  "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}"
     ]
 
     presentationTestDependencies = [
@@ -113,11 +133,11 @@ ext {
     ]
 
     domainDependencies = [
-            javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
-            javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            arrowPreconditions:  "com.fernandocejas:arrow:${arrowVersion}",
-            timber:             "com.jakewharton.timber:timber:${timberVersion}"
+            javaxAnnotation:        "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject:            "javax.inject:javax.inject:${javaxInjectVersion}",
+            rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            arrowPreconditions:     "com.fernandocejas:arrow:${arrowVersion}",
+            timber:                 "com.jakewharton.timber:timber:${timberVersion}"
     ]
 
     domainTestDependencies = [
@@ -138,12 +158,18 @@ ext {
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             converterJackson:   "com.squareup.retrofit2:converter-jackson:${retrofitVersion}",
+            logginInterceptor:  "com.github.ihsanbal:LoggingInterceptor:${logginInterceptorVersion}",
             adapterRxjava:      "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${rxjava2AdapterVersion}",
             jacksonCore:        "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
             jacksonDatabind:    "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
             arrowPreconditions:  "com.fernandocejas:arrow:${arrowVersion}",
-            timber:             "com.jakewharton.timber:timber:${timberVersion}"
+            timber:             "com.jakewharton.timber:timber:${timberVersion}",
+            playServicesAuthBase:   "com.google.android.gms:play-services-auth-base:${playServicesVersion}",
+            simpleAuth:             "com.jaychang:simpleauth:${simpleAuthVersion}",
+            simpleAuthInstagram:    "com.jaychang:simpleauth-instagram:${simpleAuthInstagramVersion}",
+            simpleAuthGoogle:       "com.jaychang:simpleauth-google:${simpleAuthGoogleVersion}",
+            simpleAuthFacebook:     "com.jaychang:simpleauth-facebook:${simpleAuthFacebookVersion}"
     ]
 
     dataTestDependencies = [

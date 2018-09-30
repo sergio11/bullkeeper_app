@@ -1,9 +1,11 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
+import android.os.Bundle;
+
 import java.util.List;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportLCEPresenter;
+
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
@@ -23,28 +25,23 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
     }
 
     /**
-     * Init
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
-    }
-
-
-    /**
      * Load Data
      */
     @Override
     public void loadData() {
 
-        if (isViewAttached() && getView() != null) {
-            getView().showProgressDialog(R.string.loading_information_of_children);
-        }
         // Execute Get Self Children
         getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
     }
 
+    /**
+     * Load Data
+     * @param args
+     */
+    @Override
+    public void loadData(Bundle args) {
+        loadData();
+    }
 
     /**
      * Get Children Observer

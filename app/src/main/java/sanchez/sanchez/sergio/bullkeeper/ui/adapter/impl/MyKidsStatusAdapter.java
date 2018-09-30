@@ -20,6 +20,7 @@ import sanchez.sanchez.sergio.domain.models.SonEntity;
 public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
     private OnMyKidsListener listener;
+    private final Picasso picasso;
 
     private final static Integer MIN_KIDS_COUNT = 3;
 
@@ -28,8 +29,9 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
      * @param context
      * @param data
      */
-    public MyKidsStatusAdapter(Context context, ArrayList<SonEntity> data) {
+    public MyKidsStatusAdapter(Context context, ArrayList<SonEntity> data, final Picasso picasso) {
         super(context, data, MIN_KIDS_COUNT);
+        this.picasso = picasso;
     }
 
 
@@ -92,12 +94,15 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
             super.bind(sonEntity);
 
 
-            // Set Child Image
-            Picasso.with(context).load(sonEntity.getProfileImage())
-                    .placeholder(R.drawable.kid_default_image)
-                    .error(R.drawable.kid_default_image)
-                    .into(childImage);
-
+            if(sonEntity.getProfileImage() != null &&
+                    !sonEntity.getProfileImage().isEmpty())
+                // Set Child Image
+                picasso.load(sonEntity.getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImage);
+            else
+                childImage.setImageResource(R.drawable.kid_default_image);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

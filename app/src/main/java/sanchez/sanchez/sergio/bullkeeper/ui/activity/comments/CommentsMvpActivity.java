@@ -10,8 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
@@ -22,9 +26,9 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerCommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.CommentsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Comments Activity
@@ -53,6 +57,13 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
      */
     @BindView(R.id.commentsList)
     protected RecyclerView commentsList;
+
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
     /**
      * Kid Identity
@@ -146,7 +157,8 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
         commentsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         commentsList.setNestedScrollingEnabled(false);
 
-        commentsAdapter = new CommentsAdapter(getApplicationContext(), new ArrayList<CommentEntity>());
+        commentsAdapter = new CommentsAdapter(getApplicationContext(),
+                new ArrayList<CommentEntity>(), picasso);
         commentsAdapter.setOnSupportRecyclerViewListener(this);
         commentsAdapter.setOnCommentsViewListener(this);
 

@@ -2,6 +2,8 @@ package sanchez.sanchez.sergio.data.utils;
 
 import android.content.Context;
 import android.os.Build;
+import android.provider.Settings;
+
 import java.util.Locale;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -38,5 +40,14 @@ public final class AppUtils implements IAppUtils{
         return text != null && !text.isEmpty();
     }
 
+    /**
+     * Get Device Id
+     * @return
+     */
+    @Override
+    public String getDeviceId() {
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+    }
 
 }

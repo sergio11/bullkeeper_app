@@ -36,6 +36,7 @@ public class CrashErrorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crash_screen);
         ButterKnife.bind(this);
+        getWindow().setBackgroundDrawableResource(R.drawable.intro_background_cyan);
 
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(

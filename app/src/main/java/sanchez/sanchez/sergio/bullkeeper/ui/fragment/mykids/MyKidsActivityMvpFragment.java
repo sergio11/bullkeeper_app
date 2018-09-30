@@ -1,11 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import android.support.annotation.NonNull;
+import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
-
+import javax.inject.Inject;
 import butterknife.OnClick;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
@@ -13,7 +14,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.IMyKidsActivityHandl
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsAdapter;
 import timber.log.Timber;
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * My Kids Activity Fragment
@@ -23,6 +24,12 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
         MyKidsAdapter.OnMyKidsListener {
 
     public static String TAG = "MY_KIDS_ACTIVITY_FRAGMENT";
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
 
     public MyKidsActivityMvpFragment() {}
@@ -43,7 +50,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<SonEntity> getAdapter() {
-        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(appContext, new ArrayList<SonEntity>());
+        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(appContext, new ArrayList<SonEntity>(), picasso);
         myKidsAdapter.setOnSupportRecyclerViewListener(this);
         myKidsAdapter.setOnMyKidsListenerListener(this);
         return myKidsAdapter;

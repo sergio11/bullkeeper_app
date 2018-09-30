@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
  * My Kids Detail Activity Handler
@@ -18,5 +18,11 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      * @param sonId
      */
     void navigateToAlertDetail(final String alertId, final String sonId);
+
+    /**
+     * Navigate To Warning Alerts
+     * @param sonId
+     */
+    void navigateToWarningAlerts(final String sonId);
 
 }

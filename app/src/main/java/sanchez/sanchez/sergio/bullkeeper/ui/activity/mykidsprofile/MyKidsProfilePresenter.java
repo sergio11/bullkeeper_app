@@ -1,16 +1,14 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile;
 
-import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.LinkedHashMap;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetInformationAboutTheChildAndTheirSocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.SaveChildrenInteract;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
-import static sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfileMvpActivity.KIDS_IDENTITY_ARG;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 
 /**
  * My Kids Profile Presenter
@@ -27,6 +25,7 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
      */
     private final SaveChildrenInteract saveChildrenInteract;
 
+
     /**
      * My Kids Profile Presenter
      * @param getInformationAboutTheChildAndTheirSocialMediaInteract
@@ -40,37 +39,6 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         this.saveChildrenInteract = saveChildrenInteract;
     }
 
-    /**
-     * Attach Observable
-     */
-    protected void attachObservables(){
-        getInformationAboutTheChildAndTheirSocialMediaInteract.attachDisposablesTo(compositeDisposable);
-        saveChildrenInteract.attachDisposablesTo(compositeDisposable);
-    }
-
-    /**
-     * On Init
-     */
-    @Override
-    protected void onInit() {
-        super.onInit();
-        attachObservables();
-    }
-
-    /**
-     * On Init
-     * @param args
-     */
-    @Override
-    protected void onInit(Bundle args) {
-        super.onInit(args);
-        Preconditions.checkNotNull(args, "Args can not be null");
-        Preconditions.checkState(args.containsKey(KIDS_IDENTITY_ARG), "Args no contain son identity");
-        attachObservables();
-        // Load Son Data
-        loadSonData(args.getString(KIDS_IDENTITY_ARG));
-
-    }
 
     /**
      * Load Son Data
@@ -97,16 +65,18 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
      * @param school
      */
     public void saveSon(final String identity, final String firstname, final String surname,
-                        final String birthday, final String school, final String profileImage) {
+                        final String birthday, final String school, final String profileImage,
+                        final List<SocialMediaEntity> socialMediaEntities) {
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_son_information);
 
         saveChildrenInteract.execute(new SaveChildrenObservable(SaveChildrenInteract.SaveChildrenApiErrors.class),
                 SaveChildrenInteract.Params.create(identity, firstname, surname, birthday, school,
-                        profileImage));
+                        profileImage, socialMediaEntities));
 
     }
+
 
     /**
      * Get Information About The Child And Their Social Media Observable
@@ -130,7 +100,7 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
     /**
      * Save Children Observable
      */
-    public class SaveChildrenObservable  extends CommandCallBackWrapper<SonEntity, SaveChildrenInteract.SaveChildrenApiErrors.ISaveChildrenApiErrorVisitor,
+    public class SaveChildrenObservable  extends CommandCallBackWrapper<SaveChildrenInteract.Result, SaveChildrenInteract.SaveChildrenApiErrors.ISaveChildrenApiErrorVisitor,
             SaveChildrenInteract.SaveChildrenApiErrors> implements SaveChildrenInteract.SaveChildrenApiErrors.ISaveChildrenApiErrorVisitor {
 
 
@@ -141,12 +111,19 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         /**
          * On Success
          *
-         * @param sonEntity
+         * @param result
          */
         @Override
-        protected void onSuccess(SonEntity sonEntity) {
-            if (isViewAttached() && getView() != null)
-                getView().onSonProfileLoaded(sonEntity);
+        protected void onSuccess(SaveChildrenInteract.Result result) {
+            Preconditions.checkNotNull(result, "Result can not be null");
+            Preconditions.checkNotNull(result.getSonEntity(), "Son Entity can not be null");
+            Preconditions.checkNotNull(result.getSocialMediaEntities(), "Social Media can not be null");
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().showNoticeDialog(R.string.child_information_saved);
+                getView().onSonProfileLoaded(result.getSonEntity());
+                getView().onSocialMediaLoaded(result.getSocialMediaEntities());
+            }
         }
 
         /**

@@ -30,9 +30,13 @@
 
     <dimen name="toolbar_elevation_size">4dp</dimen>
     <dimen name="common_title_text_size">32dp</dimen>
+    <dimen name="common_title_text_size_medium">25dp</dimen>
 
     <!-- Common Strong Text -->
     <dimen name="common_strong_text_size">22dp</dimen>
+
+    <!-- Common Strong Big Text -->
+    <dimen name="common_strong_big_text_size">18dp</dimen>
 
     <!-- Common Strong Medium Text -->
     <dimen name="common_strong_medium_text_size">11dp</dimen>
@@ -64,9 +68,9 @@
     <!-- Common Preference Margin -->
     <dimen name="common_preference_margin">5dp</dimen>
     <!-- Common Image Big Width -->
-    <dimen name="common_image_big_width">120dp</dimen>
+    <dimen name="common_image_big_width">100dp</dimen>
     <!-- Common Image Big Height -->
-    <dimen name="common_image_big_height">120dp</dimen>
+    <dimen name="common_image_big_height">100dp</dimen>
     <!-- Common Image stroke Width -->
     <dimen name="common_image_stroke_width">3dp</dimen>
     <!-- Common Table Layout Margin -->

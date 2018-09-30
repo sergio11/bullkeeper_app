@@ -4,8 +4,16 @@
     package="sanchez.sanchez.sergio.bullkeeper">
 
     <!-- Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:name=".AndroidApplication"
@@ -25,36 +33,36 @@
                 tools:replace="android:resource" />
         </provider>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
         <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter>
-        </activity>
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
 
         <!-- Intro Activity -->
         <activity
             android:name=".ui.activity.intro.IntroMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Intro" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common" />
 
         <!-- Custom Splash Screen Activity -->
         <activity
             android:name=".ui.activity.splash.SplashScreenActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.Launcher">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,7 +77,7 @@
             android:name=".ui.activity.CrashErrorActivity"
             android:label="@string/app_name"
             android:process=":error_activity"
-            android:theme="@style/AppTheme.Crash">
+            android:theme="@style/AppTheme.Common">
             <intent-filter>
                 <action android:name="cat.ereza.customactivityoncrash.ERROR" />
             </intent-filter>
@@ -78,32 +86,39 @@
         <!-- Home Activity -->
         <activity
             android:name=".ui.activity.home.HomeMvpActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common"/>
 
         <!-- My Kids Activity -->
         <activity
             android:name=".ui.activity.mykids.MyKidsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MyKids"/>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common" />
 
         <!-- Alert Detail Activity -->
         <activity
             android:name=".ui.activity.alertdetail.AlertDetailMvpActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"/>
 
         <!-- Alert List Activity -->
         <activity
             android:name=".ui.activity.alertlist.AlertListMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MyAlerts"/>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common"
+            />
 
         <!-- App Tutorial Activity -->
         <activity
             android:name=".ui.activity.tutorial.AppTutorialActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <!-- User Settings Activity -->
@@ -111,6 +126,7 @@
             android:name=".ui.activity.settings.UserSettingsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Preferences" />
 
         <!-- Alerts Settings Activity -->
@@ -118,6 +134,7 @@
             android:name=".ui.activity.alertlist.AlertsSettingsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Preferences" />
 
         <!-- User Profile -->
@@ -125,40 +142,85 @@
             android:name=".ui.activity.userprofile.UserProfileMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.UserProfile" />
+            android:theme="@style/AppTheme.Common" />
 
         <!-- My Kids Profile -->
         <activity
             android:name=".ui.activity.mykidsprofile.MyKidsProfileMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MyKidsProfile" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common" />
 
         <!-- Comments Activity -->
         <activity
             android:name=".ui.activity.comments.CommentsMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Comments" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common" />
 
         <!-- Comment Detail Activity -->
         <activity
             android:name=".ui.activity.commentdetail.CommentDetailMvpActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.CommentDetail" />
+            android:theme="@style/AppTheme.Common" />
 
         <!-- My Kids Detail Activity -->
         <activity
             android:name=".ui.activity.mykidsdetail.MyKidsDetailMvpActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"/>
 
         <!-- Kids Results Activity -->
         <activity
             android:name=".ui.activity.kidsresults.KidsResultsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0f86f04a7fbf03688e65ded3dbd67fef1d41294d" />
+        <!-- Legal Content activity -->
+        <activity
+            android:name=".ui.activity.legal.LegalContentActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Common" />
+
+        <!-- Search School Activity -->
+        <activity
+            android:name=".ui.activity.school.search.SearchSchoolMvpActivity"
+            android:label="@string/title_activity_search_school"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common" />
+
+        <!-- Add School Activity -->
+        <activity
+            android:name=".ui.activity.school.create.AddSchoolMvpActivity"
+            android:label="@string/title_activity_add_school"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common" />
+
+
+        <!-- Services -->
+        <service
+            android:name=".ui.services.RemoteNotificationService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".ui.services.NotificationHandlerService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

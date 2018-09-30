@@ -57,6 +57,8 @@
     <!-- Tfno -->
     <string name="tfno_hint">Tfno</string>
     <string name="tfno_prefix">+34 </string>
+    <!-- School -->
+    <string name="school_hint">School</string>
 
     <!-- Date Format -->
     <string name="date_format">yyyy-MM-dd</string>
@@ -65,6 +67,8 @@
 
     <string name="retry_again_btn">Retry Again</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="loading_data">Loading Data ...</string>
+    <string name="make_a_search_to_see_results">Make a search to see results</string>
 
 
     <!-- fields error messages -->
@@ -74,6 +78,9 @@
     <string name="email_not_empty_error">You must specify your email</string>
     <string name="email_invalid_error">The email does not have the correct format</string>
     <string name="forms_is_not_valid">The information provided is not valid</string>
+    <string name="repeat_email_invalid_error">The mail does not match</string>
+    <string name="birthday_selected" formatted="false">%s (%d years)</string>
+    <string name="school_not_empty_error">You must specify school</string>
 
     <!-- Intro -->
     <string name="close_session_message">You have closed session.</string>
@@ -85,7 +92,6 @@
     <!-- Sign up -->
     <string name="signup_in_progress">Sign up in progress, please wait ...</string>
     <string name="signup_success" formatted="true">%s, your account was created successfully, you must check your email to validate it.</string>
-
 
 
     <!-- Tutorial Strings -->
@@ -124,6 +130,8 @@
     <string name="app_menu_settings">Settings</string>
     <string name="app_menu_how_its_work">How its work</string>
     <string name="app_menu_close_session">Close Session</string>
+    <string name="app_menu_terms_of_service">Terms of Service</string>
+    <string name="app_menu_privacy_policy">Privacy Policy</string>
 
     <!-- My Kids -->
     <string name="my_kids_title">My Kids</string>
@@ -266,7 +274,12 @@
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
     <string name="my_kids_profile_name_default">My Kids Profile</string>
-
+    <string name="child_information_saved">Child information saved successfully</string>
+    <string name="see_all_alerts_in_detail">See all alerts in detail</string>
+    <string name="enable_social_media_error">An error occurred when enabling the social media</string>
+    <string name="enable_social_media_disable_confirm">We will stop monitoring this social media</string>
+    <string name="social_media_configured_title">Social Media Configured</string>
+    <string name="social_media_configured_description">Configure social media to allow access to the content that we will analyze</string>
     <!-- Comments -->
     <string name="comments_by_child_title" formatted="true">Comments of %s</string>
     <string name="comments_by_child_title_default">Comments</string>
@@ -326,7 +339,6 @@
     <string name="user_profile_delete_account">Delete account</string>
 
 
-
     <!-- Home -->
     <string name="last_alerts_title" formatted="false">Last Alerts (%d)</string>
     <string name="last_alerts_title_default">Last Alerts</string>
@@ -380,6 +392,7 @@
     <string name="four_dimension_bullying">Bullying</string>
     <string name="results_since_one_month_ago">Results since 1 month ago</string>
     <string name="close_dialog">I understood</string>
+    <string name="accept">I understood</string>
 
     <string name="pick_image_intent_text">Choose an image</string>
     <string name="change_profile_picture" formatted="true">Change profile picture of %s</string>
@@ -428,7 +441,6 @@
     <string name="social_media_is_enabled">The social media is enabled</string>
 
 
-
     <!-- Youtube API strings -->
     <string name="player_error">Error initializing YouTube player: %s</string>
     <string name="seek_to">Jump To</string>
@@ -442,5 +454,57 @@
     <string name="login_facebook_canceled">The login was canceled by the user</string>
     <string name="login_facebook_error">There was an error when logging in through Facebook</string>
 
+    <!-- Confirm Close Session -->
+    <string name="confirm_close_session">Do you want to close the session?</string>
 
+    <!-- Terms and Conditions -->
+    <string name="registration_terms_and_conditions" formatted="false">I accept the %s and %s</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service_not_accepted">You must accept the license terms to continue</string>
+    <string name="title_activity_legal_content_activty">LegalContentActivty</string>
+    <string name="terms_of_service_url">file:///android_asset/web/terms_of_service_content.html</string>
+    <string name="privacy_policy_url">file:///android_asset/web/privacy_policy_content.html</string>
+
+    <!-- Password Constraints -->
+    <string name="error_password_invalid_length">At least 8 characters</string>
+    <string name="error_password_lower_case_letter_required">At least one lower case letter</string>
+    <string name="error_password_upper_case_letter_required">At least one upper case letter</string>
+    <string name="error_consecutive_repeating_characters_or_number_not_allowed">No more than two consecutive repeating characters or numbers</string>
+    <string name="error_number_or_special_character_required">At least one number or special character</string>
+    <string name="title_activity_search_school">SearchSchoolActivity</string>
+
+    <!-- School -->
+    <string name="search_school_title">Search School</string>
+    <string name="search_school_query_hint">Search School ...</string>
+    <string name="search_school_location_query_hint">Search School Location ...</string>
+    <string name="search_school_message">Make a search by the name of the school</string>
+    <string name="search_school_loading_message">Searching schools ...</string>
+    <string name="search_school_location" formatted="false">%s - %s</string>
+    <string name="no_registered_school">Currently there is no registered school, you help us to register the school information?</string>
+    <string name="add_new_school">Add new school</string>
+    <string name="add_school">Add School</string>
+    <string name="school_saved_successfully">The school information was saved successfully. Thank you!!!</string>
+    <string name="saving_school_information">Saving school\'s information, please wait...</string>
+    <string name="school_name_hint">Name</string>
+    <string name="school_residence_empty_error">You must indicate the location of the school</string>
+    <string name="select_school_location">Select school location</string>
+    <string name="user_current_location">Your current location</string>
+    <string name="current_location_selected">Current location selected</string>
+    <string name="school_residence_hint">location</string>
+    <string name="search_places_title">Search locations</string>
+
+    <!-- Permission -->
+    <string name="camera_permission_reason">We can not customize the photo of your profile with a photo of the camera if you do not grant this permission</string>
+    <string name="location_permission_reason">If we can not access your GPS location we can not place your position on the map</string>
+
+    <!-- Google Maps Key -->
+    <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
+    <string name="title_activity_school_detail">SchoolDetailActivity</string>
+    <string name="title_activity_add_school">AddSchoolActivity</string>
+
+
+    <!-- Notifications -->
+    <string name="logout_notification_title">Come back soon</string>
+    <string name="logout_notification_description">Log in to receive information about the analyzes performed</string>
 </resources>

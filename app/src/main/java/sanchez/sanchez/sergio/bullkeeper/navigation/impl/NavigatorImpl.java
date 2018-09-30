@@ -2,12 +2,20 @@ package sanchez.sanchez.sergio.bullkeeper.navigation.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
+import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -251,6 +259,17 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Show Photo Viewer Dialog
+     * @param appCompatActivity
+     * @param photoRes
+     */
+    @Override
+    public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+                                      final @DrawableRes int photoRes) {
+        PhotoViewerDialog.show(appCompatActivity, photoRes);
+    }
+
+    /**
      * Show Social Media Status Dialog
      * @param appCompatActivity
      * @param socialMediaTypeEnum
@@ -262,11 +281,120 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Show Social Media Status Dialog
+     * @param appCompatActivity
+     * @param socialMediaTypeEnum
+     * @param socialMediaStatusEnum
+     */
+    @Override
+    public void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity, final SocialMediaTypeEnum socialMediaTypeEnum,
+                                            final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture) {
+        SocialMediaStatusDialog.show(appCompatActivity, socialMediaTypeEnum, socialMediaStatusEnum, userSocialProfilePicture , userSocialFullName);
+    }
+
+    /**
      * Navigate To Kids Results Activity
      * @param identity
      */
     @Override
     public void navigateToKidsResultsActivity(String identity) {
         context.startActivity(KidsResultsActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param title
+     */
+    @Override
+    public void showNoticeDialog(final AppCompatActivity activity, final String title) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        NoticeDialogFragment.showDialog(activity, title);
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(AppCompatActivity activity, String title, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
+        NoticeDialogFragment.showDialog(activity, title, noticeDialogListener);
+    }
+
+    /**
+     * Show Legal Content Activity
+     */
+    @Override
+    public void showLegalContentActivity() {
+        context.startActivity(LegalContentActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Show Legal Content Activitys
+     * @param legalTypeEnum
+     */
+    @Override
+    public void showLegalContentActivity(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
+        Preconditions.checkNotNull(legalTypeEnum, "Legal Type Enum can not be null");
+        context.startActivity(LegalContentActivity.getCallingIntent(context, legalTypeEnum));
+    }
+
+    /**
+     * Show Search School Activity
+     */
+    @Override
+    public void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        activity.startActivityForResult(SearchSchoolMvpActivity.getCallingIntent(context), requestCode);
+    }
+
+    /**
+     * Show School Detail
+     * @param activity
+     */
+    @Override
+    public void showSchoolDetail(AppCompatActivity activity, final SchoolEntity schoolEntity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(schoolEntity, "School can not be null");
+        SchoolDialogFragment.show(activity,  schoolEntity);
+    }
+
+    /**
+     * Show Add School
+     * @param activity
+     * @param requestCode
+     */
+    @Override
+    public void showAddSchool(AppCompatActivity activity, int requestCode) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        activity.startActivityForResult(AddSchoolMvpActivity.getCallingIntent(context),
+                requestCode);
+    }
+
+    /**
+     * Show Search School Location
+     * @param activity
+     */
+    @Override
+    public void showSearchSchoolLocation(AppCompatActivity activity, boolean showCurrentLocation) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        SearchSchoolLocationDialog.show(activity, showCurrentLocation);
+    }
+
+    /**
+     * Show Search School Location
+     * @param activity
+     * @param latitude
+     * @param longitude
+     */
+    @Override
+    public void showSearchSchoolLocation(AppCompatActivity activity, final double latitude, final double longitude) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        SearchSchoolLocationDialog.show(activity, latitude, longitude);
     }
 }

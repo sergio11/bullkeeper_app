@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids;
 
-import android.support.annotation.NonNull;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import javax.inject.Inject;
 

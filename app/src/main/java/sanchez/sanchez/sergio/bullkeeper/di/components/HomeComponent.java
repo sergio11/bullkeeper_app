@@ -17,7 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsFragme
 @Component(
         dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
-                ParentModule.class, AlertsModule.class })
+                 ParentModule.class, AlertsModule.class })
 public interface HomeComponent extends ActivityComponent {
 
     /**

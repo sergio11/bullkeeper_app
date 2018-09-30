@@ -23,6 +23,8 @@ public final class UpdateParentDTO implements Serializable {
     @JsonProperty("telephone")
     private String telephone;
 
+    private String profileImage;
+
     public UpdateParentDTO(){}
 
     public UpdateParentDTO(String firstName, String lastName, String birthdate, String email, String telephone) {
@@ -31,6 +33,15 @@ public final class UpdateParentDTO implements Serializable {
         this.birthdate = birthdate;
         this.email = email;
         this.telephone = telephone;
+    }
+
+    public UpdateParentDTO(String firstName, String lastName, String birthdate, String email, String telephone, String profileImage) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.telephone = telephone;
+        this.profileImage = profileImage;
     }
 
     public String getFirstName() {
@@ -71,6 +82,15 @@ public final class UpdateParentDTO implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     @Override

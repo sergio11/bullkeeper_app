@@ -9,8 +9,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertslist.AlertsSettingsActivityFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 
 /**
  * Alerts Settings Activity

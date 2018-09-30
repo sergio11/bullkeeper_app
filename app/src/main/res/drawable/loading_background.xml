@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@color/cyanBrilliant"/>
+
+    <item android:bottom="16dp" >
+        <bitmap
+            android:gravity="center_horizontal"
+            android:antialias="true"
+            android:dither="true"
+            android:src="@drawable/app_logo_splash"/>
+    </item>
+
+    <item android:top="200dp">
+        <bitmap
+            android:src="@drawable/loading_wait_text"
+            android:antialias="true"
+            android:gravity="center"
+            android:dither="true" />
+    </item>
+
+</layer-list>

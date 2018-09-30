@@ -2,7 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes;
 
 import com.github.mikephil.charting.data.BarEntry;
 import java.util.List;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 /**
  * Likes Chart Fragment View

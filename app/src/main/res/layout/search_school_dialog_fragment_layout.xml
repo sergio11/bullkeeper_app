@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/selectLocationHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/map_marked_alt_solid"
+            android:contentDescription="@string/content_not_be_loaded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText"
+            android:textStyle="bold"
+            android:text="@string/select_school_location"
+            android:textColor="@color/commonWhite"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="@dimen/common_divider_small"
+        android:layout_height="@dimen/common_divider_height"
+        android:background="@color/commonWhite"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/selectLocationHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/placeAutocompleteContainer"/>
+
+    <LinearLayout
+        android:id="@+id/placeAutocompleteContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        android:gravity="center">
+
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/placeAutocomplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            app:closeIcon="@drawable/times_solid_cyan_40"
+            app:searchHintIcon="@drawable/search_solid_cyan_40"
+            app:searchIcon="@drawable/search_solid_white_50" />
+
+        <TextView
+            android:id="@+id/placeAutocompleteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText"
+            android:textStyle="bold"
+            android:text="@string/search_places_title"
+            android:textColor="@color/commonWhite"
+            />
+
+
+    </LinearLayout>
+
+
+
+    <!-- Places Suggestions Container -->
+    <android.support.v7.widget.CardView
+        android:id="@+id/placesSuggestionsContainer"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:focusable="true"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/cyanBrilliant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeAutocompleteContainer"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="3dp">
+
+        <!-- Place List -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarThumbVertical="@android:color/white"
+            android:scrollbars="vertical"/>
+
+    </android.support.v7.widget.CardView>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeAutocomplete"/>
+
+</android.support.constraint.ConstraintLayout>

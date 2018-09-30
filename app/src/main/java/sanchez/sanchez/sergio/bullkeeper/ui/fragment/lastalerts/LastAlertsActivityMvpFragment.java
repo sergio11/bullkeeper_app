@@ -8,13 +8,14 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
+import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -23,7 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.LastAlertsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import timber.log.Timber;
 
@@ -36,8 +37,23 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
 
     public static String TAG = "LAST_ALERTS_ACTIVITY_MVP";
 
+    /**
+     * Last Alerts Title
+     */
     @BindView(R.id.lastAlertsTitle)
     protected TextView lastAlertsTitle;
+
+    /**
+     * Show Alerts Btn
+     */
+    @BindView(R.id.showAlerts)
+    protected ImageView showAlertsBtn;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
 
     public LastAlertsActivityMvpFragment() {}
@@ -49,6 +65,15 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     public static LastAlertsActivityMvpFragment newInstance() {
         LastAlertsActivityMvpFragment fragment = new LastAlertsActivityMvpFragment();
         return fragment;
+    }
+
+    /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleAllComponents(final boolean isEnable) {
+        lastAlertsTitle.setEnabled(isEnable);
+        showAlertsBtn.setEnabled(isEnable);
     }
 
     /**
@@ -112,6 +137,8 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        toggleAllComponents(false);
+
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         // adding item touch helper
@@ -130,6 +157,8 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
 
         lastAlertsTitle.setText(String.format(Locale.getDefault(),
                 getString(R.string.last_alerts_title), dataLoaded.size()));
+
+        toggleAllComponents(true);
     }
 
     /**
@@ -139,7 +168,7 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>());
+        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>(), picasso);
         lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
         return lastAlertsAdapter;
     }

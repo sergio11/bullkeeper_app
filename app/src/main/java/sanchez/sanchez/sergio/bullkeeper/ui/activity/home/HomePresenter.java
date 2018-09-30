@@ -22,8 +22,5 @@ public final class HomePresenter extends TiPresenter<IHomeView> {
     @Override
     protected void onAttachView(@NonNull final IHomeView view) {
         super.onAttachView(view);
-
-        view.showLongMessage("Hello World!!!");
-
     }
 }

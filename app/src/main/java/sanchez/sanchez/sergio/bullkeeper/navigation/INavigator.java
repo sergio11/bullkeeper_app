@@ -1,8 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.navigation;
 
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -142,6 +146,14 @@ public interface INavigator {
                                final String photoUrl);
 
     /**
+     * Show Photo Viewer Dialog
+     * @param appCompatActivity
+     * @param photoRes
+     */
+    void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+                          final @DrawableRes int photoRes);
+
+    /**
      * Show Social Media Status Dialog
      * @param appCompatActivity
      * @param socialMediaTypeEnum
@@ -152,9 +164,81 @@ public interface INavigator {
                                      final SocialMediaStatusEnum socialMediaStatusEnum);
 
     /**
+     * Show Social Media Status Dialog
+     * @param appCompatActivity
+     * @param socialMediaTypeEnum
+     * @param socialMediaStatusEnum
+     * @param userSocialFullName
+     * @param userSocialProfilePicture
+     */
+    void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity, final SocialMediaTypeEnum socialMediaTypeEnum,
+                                     final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture);
+
+    /**
      * Navigate To Kids Results Activity
      * @param identity
      */
     void navigateToKidsResultsActivity(final String identity);
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     */
+    void showNoticeDialog(final AppCompatActivity activity, final String title);
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     */
+    void showNoticeDialog(final AppCompatActivity activity, final String title, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
+
+
+    /**
+     * Show Legal Content Activity
+     */
+    void showLegalContentActivity();
+
+    /**
+     * Show Legal Content Activity
+     * @param legalTypeEnum
+     */
+    void showLegalContentActivity(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
+
+    /**
+     * Show Search School Activity
+     * @param activity
+     * @param requestCode
+     */
+    void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode);
+
+    /**
+     * Show School Detail
+     * @param activity
+     * @param schoolEntity
+     */
+    void showSchoolDetail(final AppCompatActivity activity, final SchoolEntity schoolEntity);
+
+    /**
+     * Show Add School
+     * @param activity
+     * @param requestCode
+     */
+    void showAddSchool(final AppCompatActivity activity, final int requestCode);
+
+    /**
+     * Show Search School Location
+     * @param activity
+     */
+    void showSearchSchoolLocation(final AppCompatActivity activity, final boolean showCurrentLocation);
+
+    /**
+     * Show Search School
+     * @param activity
+     * @param latitude
+     * @param longitude
+     */
+    void showSearchSchoolLocation(final AppCompatActivity activity, final double latitude, final double longitude);
 
 }

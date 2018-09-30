@@ -16,13 +16,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import icepick.State;
 import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.SocialMediaFriendAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 
 /**
  * Kid Relations Fragment
@@ -40,7 +41,8 @@ public class KidRelationsMvpFragment extends SupportMvpFragment<KidRelationFragm
     /**
      * Kid Identity
      */
-    private String kidIdentity;
+    @State
+    protected String kidIdentity;
 
     /**
      * Kid Relations List

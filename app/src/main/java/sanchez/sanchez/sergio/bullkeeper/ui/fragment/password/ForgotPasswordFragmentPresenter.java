@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.domain.interactor.accounts.ResetPasswordInteract;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import timber.log.Timber;
 
 /**
@@ -20,14 +20,6 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
         this.resetPasswordInteract = resetPasswordInteract;
     }
 
-    /**
-     * Init
-     */
-    @Override
-    public void onInit() {
-        super.onInit();
-        this.resetPasswordInteract.attachDisposablesTo(compositeDisposable);
-    }
 
     /**
      * Forgot password

@@ -5,7 +5,7 @@ import android.app.Activity;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
-import sanchez.sanchez.sergio.bullkeeper.permission.IPermissionManager;
+import sanchez.sanchez.sergio.bullkeeper.core.permission.IPermissionManager;
 
 /**
  * A base component upon which fragment's components may depend.

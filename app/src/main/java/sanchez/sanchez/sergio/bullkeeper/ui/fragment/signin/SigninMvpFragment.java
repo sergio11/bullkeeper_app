@@ -9,31 +9,29 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
-
 import java.util.Arrays;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import timber.log.Timber;
 
 /**
@@ -77,6 +75,12 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
 
     @Inject
     protected Context appContext;
+
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
 
     private CallbackManager callbackManager;
 
@@ -222,8 +226,13 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
 
     }
 
+    /**
+     * On Login Success
+     */
     @Override
     public void onLoginSuccess() {
+        Timber.d("Send Signing Event");
+        localSystemNotification.sendNotification(new SigningEvent());
         activityHandler.gotToHome();
     }
 
@@ -304,4 +313,12 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
         showShortMessage(R.string.login_facebook_error);
     }
 
+    /**
+     * Get App Icon Mode
+     * @return
+     */
+    @Override
+    protected int getAppIconMode() {
+        return SupportToolbarApp.DISABLE_GO_TO_HOME;
+    }
 }

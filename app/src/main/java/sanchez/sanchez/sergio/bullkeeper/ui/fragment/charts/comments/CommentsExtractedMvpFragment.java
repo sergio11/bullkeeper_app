@@ -10,10 +10,12 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.List;
 import java.util.Locale;
+
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportBarChartMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
  * Comments Extracted MVP Fragment
@@ -29,7 +31,8 @@ public class CommentsExtractedMvpFragment
     /**
      * Kid Identity
      */
-    private String kidIdentity;
+    @State
+    protected String kidIdentity;
 
 
     public CommentsExtractedMvpFragment() {

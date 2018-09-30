@@ -19,9 +19,9 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.AlertsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertdetail.IAlertDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Alert Detail Activity Fragment
@@ -155,10 +155,13 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
     @Override
     public void onAlertInfoLoaded(AlertEntity alertEntity) {
 
-        picasso.load(alertEntity.getSon().getProfileImage())
-                .placeholder(R.drawable.kid_default_image)
-                .error(R.drawable.kid_default_image)
-                .into(alertDetailBackground);
+        if(appUtils.isValidString(alertEntity.getSon().getProfileImage()))
+            picasso.load(alertEntity.getSon().getProfileImage())
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
+                    .into(alertDetailBackground);
+        else
+            alertDetailBackground.setImageResource(R.drawable.kid_default_image);
 
         // Alert Title
         alertTitleView.setText(alertEntity.getTitle());

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,23 +9,22 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
+
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerUserProfileComponent;
@@ -32,9 +32,10 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.UserProfileComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpValidationMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
-import sanchez.sanchez.sergio.bullkeeper.utils.imagepicker.ImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import timber.log.Timber;
 
@@ -43,7 +44,7 @@ import timber.log.Timber;
  */
 public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
         implements HasComponent<UserProfileComponent>, IUserProfileView,
-        PhotoViewerDialog.IPhotoViewerListener{
+        PhotoViewerDialog.IPhotoViewerListener {
 
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
     private final static String LAST_NAME_FIELD_NAME = "last_name";
@@ -51,13 +52,13 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     private final static String EMAIL_FIELD_NAME = "email";
     private final static String TELEPHONE_FIELD_NAME = "telephone";
 
+    private static final int MIN_AGE_ALLOWED = 18;
+    private static final int MAX_AGE_ALLOWED = 80;
+
     /**
      * User Profile Component
      */
     private UserProfileComponent userProfileComponent;
-
-
-    private String currentImagePath;
 
     /**
      * Profile Image View
@@ -105,7 +106,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @BindView(R.id.birthdayInput)
     @NotEmpty(messageResId = R.string.birthday_not_empty_error)
     @Past(dateFormatResId = R.string.date_format)
-    protected AppCompatEditText birthdayInput;
+    protected SupportEditTextDatePicker birthdayInput;
 
     /**
      * Email Input Layout
@@ -134,13 +135,45 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected AppCompatEditText tfnoInput;
 
     /**
+     * Save Changes View
+     */
+    @BindView(R.id.saveChanges)
+    protected View saveChangesView;
+
+    /**
+     * Delete Account View
+     */
+    @BindView(R.id.deleteAccount)
+    protected View deleteAccountView;
+
+
+    /**
      * Picasso
      */
     @Inject
     protected Picasso picasso;
 
+    /**
+     * Support Image Picker
+     */
+    @Inject
+    protected SupportImagePicker supportImagePicker;
 
-    private ParentEntity parentEntity;
+    /**
+     * STATE
+     */
+
+    /**
+     * Parent Entity
+     */
+    @State
+    protected ParentEntity parentEntity = new ParentEntity();
+
+    /**
+     * Current Image Path
+     */
+    @State
+    protected String currentImagePath;
 
     /**
      * Get Calling Intent
@@ -175,6 +208,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         return userProfileComponent.userProfilePresenter();
     }
 
+
+
     /**
      * Get Component
      * @return
@@ -204,16 +239,39 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     }
 
     /**
-     * On View Ready
+     * Toggle All Components
+     */
+    private void toggleAllComponents(final boolean isEnable){
+        profileImageView.setEnabled(isEnable);
+        nameInput.setEnabled(isEnable);
+        surnameInput.setEnabled(isEnable);
+        birthdayInput.setEnabled(isEnable);
+        emailInput.setEnabled(isEnable);
+        tfnoInput.setEnabled(isEnable);
+        saveChangesView.setEnabled(isEnable);
+        deleteAccountView.setEnabled(isEnable);
+    }
+
+    /**
+     * On New Instance
      */
     @Override
-    protected void onViewReady(final Bundle savedInstanceState) {
-        super.onViewReady(savedInstanceState);
+    protected void onNewViewInstance() {
+        super.onNewViewInstance();
+        birthdayInput.setMinAge(MIN_AGE_ALLOWED);
+        birthdayInput.setMaxAge(MAX_AGE_ALLOWED);
+        toggleAllComponents(false);
+        showProgressDialog(R.string.loading_profile_information);
+    }
 
-        // width and height will be at least 300px long (optional).
-        ImagePicker.setMinQuality(300, 300);
-
-        getPresenter().loadProfileInfo();
+    /**
+     * On Saved View Instance
+     */
+    @Override
+    protected void onSavedViewInstance() {
+        super.onSavedViewInstance();
+        // Update Profile Form with state information
+        updateProfileForm();
     }
 
     /**
@@ -254,9 +312,14 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         final String name = nameInput.getText().toString();
         final String surname = surnameInput.getText().toString();
-        final String birthday = birthdayInput.getText().toString();
+        final String birthday = birthdayInput.getDateSelectedAsText();
         final String email = emailInput.getText().toString();
         final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
+
+        // Disable All Components
+        toggleAllComponents(false);
+
+        Timber.d("Current Image Path -> %s", currentImagePath);
 
         // Update Profile
         if(currentImagePath != null) {
@@ -277,9 +340,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         nameInput.setText(parentEntity.getFirstName());
         surnameInput.setText(parentEntity.getLastName());
-        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format));
-        final String birthdateformated =  format.format(parentEntity.getBirthdate());
-        birthdayInput.setText(birthdateformated);
+        birthdayInput.setDateSelected(parentEntity.getBirthdate());
         emailInput.setText(parentEntity.getEmail());
         tfnoInput.setText(parentEntity.getPhone());
     }
@@ -316,7 +377,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
             @Override
             public void onAccepted(DialogFragment dialog) {
-
+                toggleAllComponents(false);
                 getPresenter().deleteAccount();
 
             }
@@ -335,6 +396,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @OnClick(R.id.profileImage)
     protected void onClickProfileImage() {
         navigatorImpl.showPhotoViewerDialog(this,
+                currentImagePath != null ? currentImagePath :
                 parentEntity.getProfileImage());
     }
 
@@ -344,26 +406,54 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
-        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
+        supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
                 getString(R.string.change_profile_picture), parentEntity.getFullName()));
         return true;
     }
 
-    /**
-     * On Show Detail
-     */
-    @Override
-    public void onShowDetail() {
-        navigatorImpl.navigateToHome();
-    }
 
     /**
      * On Change Photo
      */
     @Override
     public void onChangePhoto() {
-        ImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), parentEntity.getFullName()));
+
+        if(permissionManager.shouldAskPermission(Manifest.permission.CAMERA))
+            permissionManager.checkSinglePermission(Manifest.permission.CAMERA, getString(R.string.camera_permission_reason));
+        else
+            supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                    getString(R.string.change_profile_picture), parentEntity.getFullName()));
+
+    }
+
+    /**
+     * On Single Permission Granted
+     * @param permission
+     */
+    @Override
+    public void onSinglePermissionGranted(String permission) {
+        super.onSinglePermissionGranted(permission);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.CAMERA)) {
+            supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                    getString(R.string.change_profile_picture), parentEntity.getFullName()));
+        }
+
+    }
+
+    /**
+     * On Single Permission Rejected
+     * @param permission
+     */
+    @Override
+    public void onSinglePermissionRejected(String permission) {
+        super.onSinglePermissionRejected(permission);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.CAMERA)) {
+            supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
+                    getString(R.string.change_profile_picture), parentEntity.getFullName()), true);
+        }
+
     }
 
     /**
@@ -375,16 +465,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String imagePathFromResult = ImagePicker.getImagePathFromResult(this, requestCode, resultCode, data);
+        final String imagePathFromResult = supportImagePicker.getImagePathFromResult(requestCode, resultCode, data);
         if(imagePathFromResult != null) {
-            final File imageFileDescriptor = new File(imagePathFromResult);
-            // We Check that file exists and can be read
-            if(imageFileDescriptor.exists() && imageFileDescriptor.canRead()) {
-                final Uri imageUri =  Uri.fromFile(imageFileDescriptor);
-                currentImagePath = imageUri.getEncodedPath();
-                Timber.d("Image Path -> %s", currentImagePath);
-                profileImageView.setImageURI(imageUri);
-            }
+            Timber.d("Image Path -> %s", imagePathFromResult);
+            currentImagePath = imagePathFromResult;
+            profileImageView.setImageURI(Uri.parse(imagePathFromResult));
         }
     }
 
@@ -409,22 +494,21 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         if(parentEntity.getPhone() != null && !parentEntity.getPhone().isEmpty())
             tfnoInput.setText(parentEntity.getPhoneNumber());
 
-        if(parentEntity.getBirthdate() != null) {
-            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.date_format));
-            final String birthdateFormated =  format.format(parentEntity.getBirthdate());
-            birthdayInput.setText(birthdateFormated);
+        if(parentEntity.getBirthdate() != null)
+            birthdayInput.setDateSelected(parentEntity.getBirthdate());
+
+        if(appUtils.isValidString(currentImagePath)) {
+            profileImageView.setImageURI(Uri.parse(currentImagePath));
+        } else {
+            if(appUtils.isValidString(parentEntity.getProfileImage()))
+                picasso.load(parentEntity.getProfileImage())
+                        .placeholder(R.drawable.parent_default)
+                        .error(R.drawable.parent_default)
+                        .noFade()
+                        .into(profileImageView);
+            else
+                profileImageView.setImageResource(R.drawable.parent_default);
         }
-
-        // Reset Current Image Path
-        currentImagePath = null;
-
-        Timber.d("Profile Image -> %s", parentEntity.getProfileImage());
-
-        picasso.load(parentEntity.getProfileImage())
-                .placeholder(R.drawable.parent_default)
-                .error(R.drawable.parent_default)
-                .noFade()
-                .into(profileImageView);
     }
 
     /**
@@ -434,7 +518,9 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @Override
     public void onSelfInformationLoaded(final ParentEntity parentEntity) {
         this.parentEntity = parentEntity;
+        Timber.d("Self Information Loaded...");
         updateProfileForm();
+        toggleAllComponents(true);
     }
 
     /**
@@ -445,8 +531,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     public void onSelfInformationUpdate(final ParentEntity parentEntity) {
         this.parentEntity = parentEntity;
         updateProfileForm();
-
         showNoticeDialog(R.string.profile_information_updated_successfully);
+        toggleAllComponents(true);
     }
 
     /**
@@ -480,6 +566,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         }
 
         showNoticeDialog(R.string.forms_is_not_valid);
+
+        toggleAllComponents(true);
     }
 
     /**
@@ -487,13 +575,13 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @Override
     public void onAccountDeleted() {
-
+        toggleAllComponents(true);
         showNoticeDialog(R.string.user_profile_delete_account_check_email, new NoticeDialogFragment.NoticeDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
                 closeSession();
             }
         });
-
     }
+
 }

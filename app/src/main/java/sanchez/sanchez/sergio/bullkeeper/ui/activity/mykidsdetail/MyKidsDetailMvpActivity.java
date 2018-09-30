@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
@@ -27,8 +29,9 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
@@ -40,8 +43,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    private String kidIdentity;
-
     /**
      * Sections Pager Adapter
      */
@@ -51,6 +52,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * My Kids Component
      */
     private MyKidsComponent myKidsComponent;
+
+    /**
+     * State
+     */
+    @State
+    protected String kidIdentity;
 
 
     /**
@@ -127,6 +134,19 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleAllComponents(final boolean isEnable) {
+        profileImage.setEnabled(isEnable);
+        viewpager.setEnabled(isEnable);
+        tabLayout.setEnabled(isEnable);
+        kidNameTextView.setEnabled(isEnable);
+        kidBirthdayTextView.setEnabled(isEnable);
+        kidSchoolTextView.setEnabled(isEnable);
+    }
+
+    /**
      * Initialize Injector
      */
     @Override
@@ -157,6 +177,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
+
+        toggleAllComponents(false);
 
         if(!getIntent().hasExtra(KID_IDENTITY_ARG))
             throw new IllegalArgumentException("You must provide a child identifier");
@@ -190,6 +212,17 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        args.putString(MyKidsDetailPresenter.KID_IDENTITY_ARG, kidIdentity);
+        return args;
     }
 
     /**
@@ -247,6 +280,15 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Warning Alerts
+     * @param sonId
+     */
+    @Override
+    public void navigateToWarningAlerts(String sonId) {
+        navigatorImpl.navigateToAlertList(AlertLevelEnum.WARNING, sonId);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param value
@@ -266,21 +308,31 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @Override
     public void onSonLoaded(SonEntity sonEntity) {
 
-        // Set Author Image
-        picasso.load(sonEntity.getProfileImage())
-                .placeholder(R.drawable.kid_default_image)
-                .error(R.drawable.kid_default_image)
-                .noFade()
-                .into(profileImage);
+        if(appUtils.isValidString(sonEntity.getProfileImage()))
+            // Set Author Image
+            picasso.load(sonEntity.getProfileImage())
+                    .placeholder(R.drawable.kid_default_image)
+                    .error(R.drawable.kid_default_image)
+                    .noFade()
+                    .into(profileImage);
+        else
+            profileImage.setImageResource(R.drawable.kid_default_image);
 
         kidNameTextView.setText(sonEntity.getFullName());
 
+
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_server_response));
+
         // Set Kid Birthday
         kidBirthdayTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.kid_detail_birthday), sonEntity.getBirthdate()));
+                getString(R.string.kid_detail_birthday), simpleDateFormat.format(sonEntity.getBirthdate())));
+
 
         kidSchoolTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.kid_detail_school), sonEntity.getSchool().getName()));
+
+
+        toggleAllComponents(true);
 
     }
 

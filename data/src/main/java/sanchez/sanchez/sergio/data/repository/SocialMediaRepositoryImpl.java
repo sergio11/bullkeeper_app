@@ -1,9 +1,7 @@
 package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;

@@ -13,20 +13,22 @@ import java.util.ArrayList;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.images.CircleTransform;
 
 /**
  * Last Alerts Adapter
  */
 public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>{
 
+    private final Picasso picasso;
+
     /**
      *
      * @param context
      * @param data
      */
-    public LastAlertsAdapter(Context context, ArrayList<AlertEntity> data) {
+    public LastAlertsAdapter(final Context context, final ArrayList<AlertEntity> data, final Picasso picasso) {
         super(context, data);
+        this.picasso = picasso;
 
     }
 
@@ -108,11 +110,15 @@ public final class LastAlertsAdapter extends SupportRecyclerViewAdapter<AlertEnt
 
             if(alertEntity.getSon() != null) {
 
-                // Set Child Image
-                Picasso.with(context).load(alertEntity.getSon().getProfileImage())
+                if(alertEntity.getSon().getProfileImage() != null &&
+                        !alertEntity.getSon().getProfileImage().isEmpty())
+                    // Set Child Image
+                    picasso.load(alertEntity.getSon().getProfileImage())
                         .placeholder(R.drawable.kid_default_image)
                         .error(R.drawable.kid_default_image)
                         .into(childImage);
+                else
+                    childImage.setImageResource(R.drawable.kid_default_image);
             }
 
         }

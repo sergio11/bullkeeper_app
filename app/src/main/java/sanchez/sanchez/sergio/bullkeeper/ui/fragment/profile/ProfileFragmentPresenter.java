@@ -3,8 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
@@ -42,11 +41,7 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
     @Override
     public void onInit() {
         super.onInit();
-        this.getParentInformationInteract.attachDisposablesTo(compositeDisposable);
-        this.getSelfChildrenInteract.attachDisposablesTo(compositeDisposable);
-
         loadProfileInformation();
-
     }
 
     /**

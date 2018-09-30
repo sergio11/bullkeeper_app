@@ -5,8 +5,10 @@ import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetDangerAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetInformationAboutTheChildAndTheirSocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.SaveChildrenInteract;
+import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -38,10 +40,7 @@ public class ChildrenProfileModule {
      */
     @Provides @PerActivity
     SaveChildrenInteract provideSaveChildrenInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                     final IChildrenRepository childrenRepository, final IAppUtils appUtils){
-        return new SaveChildrenInteract(threadExecutor, postExecutionThread, childrenRepository, appUtils);
+                                                     final IChildrenRepository childrenRepository, final IAppUtils appUtils, final ISocialMediaRepository socialMediaRepository){
+        return new SaveChildrenInteract(threadExecutor, postExecutionThread, childrenRepository, appUtils, socialMediaRepository);
     }
-
-
-
 }

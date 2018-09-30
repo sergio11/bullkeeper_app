@@ -62,10 +62,21 @@ dependencies {
     implementation dataDependencies.androidAnnotations
     implementation dataDependencies.arrowPreconditions
     implementation dataDependencies.timber
+
+    implementation dataDependencies.playServicesAuthBase
+    // Simple Auth
+    api dataDependencies.simpleAuth
+    api dataDependencies.simpleAuthInstagram
+    api dataDependencies.simpleAuthGoogle
+    api dataDependencies.simpleAuthFacebook
+
     // Retrofit 2
     api dataDependencies.retrofit2
     api dataDependencies.converterJackson
     api dataDependencies.adapterRxjava
+    api (dataDependencies.logginInterceptor) {
+        exclude group: 'org.json', module: 'json'
+    }
     // Jackson
     api dataDependencies.jacksonCore
     api dataDependencies.jacksonAnnotations

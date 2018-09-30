@@ -4,9 +4,11 @@ import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Timer;
 
 import javax.inject.Inject;
 import io.reactivex.Observable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -15,6 +17,7 @@ import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.repository.IParentRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -24,6 +27,7 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, UpdateSelfInformationInteract.Params> {
 
     private final IParentRepository parentRepository;
+    private final IAppUtils appUtils;
 
     /**
      * Get Self Children Interact
@@ -33,9 +37,10 @@ public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, U
      */
     @Inject
     public UpdateSelfInformationInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                         final IParentRepository parentRepository) {
+                                         final IParentRepository parentRepository,  final IAppUtils appUtils) {
         super(threadExecutor, postExecutionThread);
         this.parentRepository = parentRepository;
+        this.appUtils = appUtils;
     }
 
     /**
@@ -47,16 +52,23 @@ public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, U
     protected Observable<ParentEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
-        return params.getProfileImage() != null ?
-                parentRepository.uploadProfileImage(params.getProfileImage()).flatMap(new Function<ImageEntity, Observable<ParentEntity>>() {
-                    @Override
-                    public Observable<ParentEntity> apply(final ImageEntity imageEntity) {
-                        return parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
-                                params.getBirthdate(), params.getEmail(), params.getTelephone()).subscribeOn(Schedulers.io())
-                                .observeOn(Schedulers.io());
-                    }
-                }) : parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
-                params.getBirthdate(), params.getEmail(), params.getTelephone());
+        return appUtils.isValidString(params.getProfileImage()) ? (
+
+                Observable.combineLatest(
+                        parentRepository.uploadProfileImage(params.getProfileImage()),
+                        parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
+                                params.getBirthdate(), params.getEmail(), params.getTelephone()),
+                        new BiFunction<ImageEntity, ParentEntity, ParentEntity>() {
+                            @Override
+                            public ParentEntity apply(ImageEntity imageEntity, ParentEntity parentEntity) throws Exception {
+                                return parentEntity;
+                            }
+                        })
+        )
+             :
+                parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
+                        params.getBirthdate(), params.getEmail(), params.getTelephone());
+
     }
 
     /**

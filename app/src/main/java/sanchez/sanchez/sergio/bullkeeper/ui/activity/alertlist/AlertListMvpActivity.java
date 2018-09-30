@@ -13,13 +13,19 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpLCEActivity;
+import icepick.State;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -32,7 +38,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import timber.log.Timber;
-import static sanchez.sanchez.sergio.bullkeeper.ui.support.SupportToolbarApp.TOOLBAR_WITH_MENU;
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Alert List Activity
@@ -73,14 +79,25 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @BindView(R.id.alertsHeaderTitle)
     protected TextView alertsHeaderTitle;
 
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
+
 
     /**
      * State
      */
 
-    private String sonIndentity;
-    private AlertLevelEnum alertLevelEnum;
-    private AlertsListModeEnum alertsListMode = AlertsListModeEnum.ALERTS_BY_PREFERENCES;
+    @State
+    protected String sonIndentity;
+
+    @State
+    protected AlertLevelEnum alertLevelEnum;
+
+    @State
+    protected AlertsListModeEnum alertsListMode = AlertsListModeEnum.ALERTS_BY_PREFERENCES;
 
 
     /**
@@ -424,7 +441,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>());
+        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>(), picasso);
     }
 
     /**

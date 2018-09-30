@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageButton;
@@ -27,7 +25,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsStatusAdapter;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.ui.support.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
@@ -118,16 +116,38 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      * @return
      */
     public static ProfileMvpFragment newInstance() {
-        ProfileMvpFragment fragment = new ProfileMvpFragment();
-        return fragment;
+        return new ProfileMvpFragment();
     }
 
+    /**
+     * Toggle All Components
+     * @param isEnable
+     */
+    private void toggleUserProfileAllComponents(final boolean isEnable) {
+        userProfileImage.setEnabled(isEnable);
+        userProfileText.setEnabled(isEnable);
+        resultsAction.setEnabled(isEnable);
+        alertsAction.setEnabled(isEnable);
+        childrenAction.setEnabled(isEnable);
+    }
+
+    /**
+     * Toggle Kids All Components
+     * @param isEnable
+     */
+    private void toggleKidsAllComponents(final boolean isEnable){
+        addChildBtn.setEnabled(isEnable);
+        myChildList.setEnabled(isEnable);
+        infoChildBtn.setEnabled(isEnable);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        toggleUserProfileAllComponents(false);
+        toggleKidsAllComponents(false);
 
         resultsAction.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -178,7 +198,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         myChildList.setLayoutManager(new LinearLayoutManager(appContext,
                 LinearLayoutManager.HORIZONTAL, false));
-        myKidsStatusAdapter = new MyKidsStatusAdapter(appContext, new ArrayList<SonEntity>());
+        myKidsStatusAdapter = new MyKidsStatusAdapter(appContext, new ArrayList<SonEntity>(), picasso);
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);
@@ -247,12 +267,20 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Override
     public void onUserProfileLoaded(ParentEntity parentEntity) {
+        Preconditions.checkNotNull(parentEntity, "Parent Entity can not be null");
+
+        preferencesRepositoryImpl.setPrefCurrentUserIdentity(parentEntity.getIdentity());
 
         userProfileText.setText(parentEntity.getFullName());
 
-        picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
+        if(appUtils.isValidString(parentEntity.getProfileImage()))
+            picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
                 .error(R.drawable.parent_default)
                 .into(userProfileImage);
+        else
+            userProfileImage.setImageResource(R.drawable.parent_default);
+
+        toggleUserProfileAllComponents(true);
     }
 
     /**
@@ -278,6 +306,8 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
                 AnimationUtils.loadLayoutAnimation(appContext, R.anim.layout_animation_fall_down);
         myChildList.setLayoutAnimation(controller);
         myChildList.scheduleLayoutAnimation();
+
+        toggleKidsAllComponents(true);
     }
 
     /**

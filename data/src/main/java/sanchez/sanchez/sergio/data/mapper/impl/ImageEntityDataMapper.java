@@ -6,7 +6,7 @@ import sanchez.sanchez.sergio.domain.models.ImageEntity;
 /**
  * Image Entity Data Mapper
  */
-public final class ImageEntityDataMapper extends AbstractDataMapper<ImageDTO, ImageEntity> {
+public class ImageEntityDataMapper extends AbstractDataMapper<ImageDTO, ImageEntity> {
 
     /**
      * Transform

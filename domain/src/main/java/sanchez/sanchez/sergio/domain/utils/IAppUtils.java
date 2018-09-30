@@ -19,4 +19,10 @@ public interface IAppUtils {
      */
     Boolean isValidString(final String text);
 
+    /**
+     * Get Device Id
+     * @return
+     */
+    String getDeviceId();
+
 }
