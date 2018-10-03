@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -29,6 +32,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsM
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
  * Kids Results Activity
@@ -81,6 +85,12 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      */
     @BindView(R.id.viewpager)
     protected ViewPager viewPager;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
     /**
      * Unselected tab icons
@@ -141,19 +151,11 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
         toggleAllComponents(false);
 
-        if (getIntent() != null && getIntent().hasExtra(KID_IDENTITY_ARG)) {
-            // Get Kid Identity
-            kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
-        }
+        if (getIntent() == null &&
+                !getIntent().hasExtra(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide the son id");
 
-        // Set Author Image
-        Picasso.with(getApplicationContext()).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
-                .noFade()
-                .into(profileImageView);
-
-        kidNameText.setText("Sergio Sánchez Sánchez");
+        kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -247,6 +249,39 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
         showShortMessage("Settings");
     }
 
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if (getIntent() != null &&
+                getIntent().hasExtra(KID_IDENTITY_ARG))
+            args.putString(KidsResultsActivityPresenter.KID_IDENTITY_ARG,
+                    kidIdentity);
+        return args;
+    }
+
+    /**
+     * On Son Loaded
+     * @param sonEntity
+     */
+    @Override
+    public void onSonLoaded(SonEntity sonEntity) {
+
+        if(appUtils.isValidString(sonEntity.getProfileImage()))
+            picasso.load(sonEntity.getProfileImage())
+                .placeholder(R.drawable.kid_default_image)
+                .error(R.drawable.kid_default_image)
+                .noFade()
+                .into(profileImageView);
+        else
+            profileImageView.setImageResource(R.drawable.kid_default_image);
+
+        kidNameText.setText(sonEntity.getFullName());
+
+    }
 
     /**
      * Sections Page Adapter

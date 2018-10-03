@@ -1,36 +1,102 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions;
 
-import android.support.annotation.NonNull;
-
-import com.github.mikephil.charting.data.BarEntry;
-
-import net.grandcentrix.thirtyinch.TiPresenter;
+import android.os.Bundle;
+import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import javax.inject.Inject;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
+import sanchez.sanchez.sergio.domain.interactor.children.GetFourDimensionsStatisticsByChildInteract;
+import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
+import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import timber.log.Timber;
 
 /**
  * Four Dimensions Fragment Presenter
  */
-public final class FourDimensionsFragmentPresenter extends TiPresenter<IFourDimensionsFragmentView> {
+public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFourDimensionsFragmentView> {
 
+    public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+
+    /**
+     * Get Four Dimensions Statistics By Child Interact
+     */
+    private final GetFourDimensionsStatisticsByChildInteract getFourDimensionsStatisticsByChildInteract;
+
+    /**
+     *
+     * @param getFourDimensionsStatisticsByChildInteract
+     */
     @Inject
-    public FourDimensionsFragmentPresenter(){}
+    public FourDimensionsFragmentPresenter(final GetFourDimensionsStatisticsByChildInteract getFourDimensionsStatisticsByChildInteract){
+        this.getFourDimensionsStatisticsByChildInteract = getFourDimensionsStatisticsByChildInteract;
+    }
 
-
+    /**
+     * On Init Args
+     * @param args
+     */
     @Override
-    protected void onAttachView(@NonNull IFourDimensionsFragmentView view) {
-        super.onAttachView(view);
+    protected void onInit(Bundle args) {
+        super.onInit(args);
+        if(args != null && args.containsKey(KIDS_IDENTITY_ARG))
+            loadData(args.getString(KIDS_IDENTITY_ARG));
+    }
 
-        List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0f, 1f));
-        entries.add(new BarEntry(1f, 3f));
-        entries.add(new BarEntry(2f, 6f));
-        entries.add(new BarEntry(3f, 7f));
+    /**
+     * Load Data
+     * @param sonId
+     */
+    public void loadData(final String sonId){
+        Preconditions.checkNotNull(sonId, "Son Id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not empty");
 
-        view.onDimensionsDataLoaded(entries);
+        Timber.d("Load Data for Son Id %s", sonId);
 
+        getFourDimensionsStatisticsByChildInteract.execute(new GetFourDimensionsStatisticsByChildObservable(GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.class),
+                GetFourDimensionsStatisticsByChildInteract.Params.create(sonId));
+    }
+
+    /**
+     * Get Four Dimensions Statistics By Child Observable
+     */
+    public class GetFourDimensionsStatisticsByChildObservable extends CommandCallBackWrapper<List<DimensionEntity>,
+        GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.IGetFourDimensionsStatisticsApiErrorsVisitor,
+        GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors>
+            implements GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.IGetFourDimensionsStatisticsApiErrorsVisitor {
+
+
+        public GetFourDimensionsStatisticsByChildObservable(final Class<GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors> apiErrors) {
+            super(apiErrors);
+        }
+
+        /**
+         * On Success
+         * @param dimensionEntities
+         */
+        @Override
+        protected void onSuccess(List<DimensionEntity> dimensionEntities) {
+            Preconditions.checkNotNull(dimensionEntities, "Dimensions can nto be null");
+            if(isViewAttached() && getView() != null)
+                getView().onDimensionsDataLoaded(dimensionEntities);
+
+        }
+
+        /**
+         * Visit No Dimensions Statistics For This Period Error
+         * @param apiErrorsVisitor
+         */
+        @Override
+        public void visitNoDimensionsStatisticsForThisPeriodError(final GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors
+                .IGetFourDimensionsStatisticsApiErrorsVisitor apiErrorsVisitor) {
+
+            Timber.d("No Dimensions Statistics Avaliable");
+
+            if(isViewAttached() && getView() != null)
+                getView().onNoDimensionsDataAvaliable();
+
+        }
     }
 }

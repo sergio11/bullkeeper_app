@@ -387,12 +387,21 @@
     <string name="kid_detail_school" formatted="true">School: %s</string>
 
     <string name="four_dimension_violence">Violence</string>
+    <string name="four_dimension_violence_content_text"
+        formatted="false">%s of the comments analyzed is related to violence</string>
     <string name="four_dimension_drugs">Drugs</string>
+    <string name="four_dimension_drugs_content_text"
+        formatted="false">%s of the comments analyzed is related to drugs</string>
     <string name="four_dimension_adult">Adult</string>
+    <string name="four_dimension_adult_content_text"
+        formatted="false">%s of the comments analyzed is related to adult content</string>
     <string name="four_dimension_bullying">Bullying</string>
+    <string name="four_dimension_bullying_content_text"
+        formatted="false">%s of the comments analyzed is related to bullying content</string>
     <string name="results_since_one_month_ago">Results since 1 month ago</string>
     <string name="close_dialog">I understood</string>
     <string name="accept">I understood</string>
+
 
     <string name="pick_image_intent_text">Choose an image</string>
     <string name="change_profile_picture" formatted="true">Change profile picture of %s</string>
@@ -503,8 +512,13 @@
     <string name="title_activity_school_detail">SchoolDetailActivity</string>
     <string name="title_activity_add_school">AddSchoolActivity</string>
 
-
     <!-- Notifications -->
     <string name="logout_notification_title">Come back soon</string>
     <string name="logout_notification_description">Log in to receive information about the analyzes performed</string>
+
+    <!-- Kid Results -->
+    <string name="kid_results_no_results_found">No results found, try again later.</string>
+    <string name="kid_results_loading_results">Loading results, wait please ...</string>
+
+
 </resources>

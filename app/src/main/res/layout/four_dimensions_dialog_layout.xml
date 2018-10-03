@@ -51,13 +51,13 @@
         <TextView
             android:id="@+id/contentDetailText"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
             android:padding="@dimen/common_padding"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
-            style="@style/CommonStrongText.Medium"
-            android:text="@string/intro_text"/>
+            style="@style/CommonStrongText.Big"/>
 
         <!-- Close Dialog -->
-
         <Button
             android:id="@+id/closeDialog"
             style="@style/DimensionActionButton"

@@ -133,9 +133,11 @@ public interface INavigator {
     /**
      * Show Four Dimensions Dialog
      * @param appCompatActivity
+     * @param dimensionIdx
+     * @param dimensionValue
      */
     void showFourDimensionsDialog(final AppCompatActivity appCompatActivity,
-                                  int dimensionIdx, int value, int total);
+                                  int dimensionIdx, final String dimensionValue);
 
     /**
      * Show Photo Viewer Dialog

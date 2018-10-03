@@ -44,9 +44,6 @@ public class GetSonByIdInteract extends UseCase<SonEntity, GetSonByIdInteract.Pa
         return childrenRepository.getSonById(params.sonId);
     }
 
-
-
-
     /**
      * Params
      */

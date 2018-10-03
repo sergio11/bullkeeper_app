@@ -243,8 +243,8 @@ public class NavigatorImpl implements INavigator {
      * @param appCompatActivity
      */
     @Override
-    public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, int value, int total) {
-        FourDimensionsDialog.show(appCompatActivity, dimensionIdx, value, total);
+    public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, final String dimensionValue) {
+        FourDimensionsDialog.show(appCompatActivity, dimensionIdx, dimensionValue);
     }
 
     /**

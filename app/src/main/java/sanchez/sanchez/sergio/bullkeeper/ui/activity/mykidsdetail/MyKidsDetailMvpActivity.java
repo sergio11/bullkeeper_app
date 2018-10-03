@@ -291,13 +291,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     /**
      * On Dimensions Selected
      * @param dimensionIdx
-     * @param value
-     * @param total
+     * @param dimensionValue
      */
     @Override
-    public void onDimensionsSelected(int dimensionIdx, int value, int total) {
+    public void onDimensionsSelected(int dimensionIdx, final String dimensionValue) {
 
-        showShortMessage("Dimensions " + dimensionIdx + " -> " + value + "/"+ total);
+        showShortMessage("Dimensions " + dimensionIdx + " -> " + dimensionValue);
 
     }
 

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,14 +28,20 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
     private static final String DIMENSION_VALUE_ARG = "DIMENSION_VALUE_ARG";
     private static final String TOTAL_VALUE_ARG = "TOTAL_VALUE_ARG";
 
-    public static final int VIOLENCE = 0;
-    public static final int DRUGS = 1;
-    public static final int ADULT = 2;
-    public static final int BULLYING = 3;
+    /**
+     * Dimensions Index
+     */
+    public static final int VIOLENCE = 0, DRUGS = 1, ADULT = 2, BULLYING = 3;
 
+    /**
+     * Dimension Idx
+     */
     private int dimensionIdx = 0;
-    private int dimensionValue = 0;
-    private int totalValue = 0;
+
+    /**
+     * Dimension Value
+     */
+    private String dimensionValue;
 
     /**
      * Dimension Title
@@ -61,15 +68,20 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
     protected Button closeDialog;
 
     /**
+     * Content Detail Text View
+     */
+    @BindView(R.id.contentDetailText)
+    protected TextView contentDetailTextView;
+
+    /**
      * Show Dialog
      * @param appCompatActivity
      */
-    public static void show(final AppCompatActivity appCompatActivity, int dimensionIdx, int value, int total) {
+    public static void show(final AppCompatActivity appCompatActivity, int dimensionIdx, final String dimensionValue) {
         final FourDimensionsDialog fourDimensionsDialogFragment = new FourDimensionsDialog();
         final Bundle args = new Bundle();
         args.putInt(DIMENSION_IDX_ARG, dimensionIdx);
-        args.putInt(DIMENSION_VALUE_ARG, value);
-        args.putInt(TOTAL_VALUE_ARG, total);
+        args.putString(DIMENSION_VALUE_ARG, dimensionValue);
         fourDimensionsDialogFragment.setArguments(args);
         fourDimensionsDialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
         fourDimensionsDialogFragment.show(appCompatActivity.getSupportFragmentManager(), TAG);
@@ -109,13 +121,12 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
 
         final Bundle args = getArguments();
 
-        if(args != null) {
-            dimensionIdx = args.getInt(DIMENSION_IDX_ARG);
-            dimensionValue = args.getInt(DIMENSION_VALUE_ARG);
-            totalValue = args.getInt(TOTAL_VALUE_ARG);
-        }
+        if(args == null || !args.containsKey(DIMENSION_IDX_ARG) ||
+                !args.containsKey(DIMENSION_VALUE_ARG))
+            throw new IllegalArgumentException("You must provide Dimension Idx and Dimension Value");
 
-
+        dimensionIdx = args.getInt(DIMENSION_IDX_ARG);
+        dimensionValue = args.getString(DIMENSION_VALUE_ARG);
 
         switch (dimensionIdx) {
 
@@ -130,6 +141,8 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
                         R.drawable.comment_detail_violence));
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(),
                         R.drawable.violence_button_state));
+                contentDetailTextView.setText(String.format(getString(R.string.four_dimension_violence_content_text),
+                        dimensionValue));
 
                 break;
 
@@ -144,6 +157,8 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
                         R.drawable.comment_detail_drugs));
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(),
                         R.drawable.drugs_button_state));
+                contentDetailTextView.setText(String.format(getString(R.string.four_dimension_drugs_content_text),
+                        dimensionValue));
 
                 break;
 
@@ -158,6 +173,8 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
                         R.drawable.comment_detail_sex));
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(),
                         R.drawable.sex_button_state));
+                contentDetailTextView.setText(String.format(getString(R.string.four_dimension_adult_content_text),
+                        dimensionValue));
 
                 break;
 
@@ -172,6 +189,8 @@ public final class FourDimensionsDialog extends SupportDialogFragment {
                         R.drawable.comment_detail_bullying));
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(),
                         R.drawable.bullying_button_state));
+                contentDetailTextView.setText(String.format(getString(R.string.four_dimension_bullying_content_text),
+                        dimensionValue));
 
                 break;
 

@@ -1,6 +1,9 @@
 package sanchez.sanchez.sergio.domain.repository;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
@@ -47,5 +50,12 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<ImageEntity> uploadProfileImage(final String sonId, final String profileImageUri);
+
+    /**
+     * Get Dimensions Statistics By Child
+     * @param sonId
+     * @return
+     */
+    Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId);
 
 }
