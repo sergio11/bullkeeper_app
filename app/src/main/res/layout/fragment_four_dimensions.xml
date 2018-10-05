@@ -92,57 +92,17 @@
             </RelativeLayout>
 
             <!-- No Results Found -->
-            <LinearLayout
-                android:id="@+id/noResultsFound"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:src="@drawable/chart_bar_solid_cyan"
-                    android:contentDescription="@string/content_not_be_loaded" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/cyanBrilliant"
-                    android:singleLine="true"
-                    android:text="@string/kid_results_no_results_found"
-                    style="@style/CommonStrongText.Big"
-                    android:textAlignment="center"/>
-
-
-            </LinearLayout>
+            <include
+                layout="@layout/support_chart_no_results_found"
+                android:id="@+id/noResultsFound"/>
 
             <!-- Loading Results -->
-            <LinearLayout
-                android:id="@+id/loadingResults"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center">
+            <include layout="@layout/support_chart_loading_results"
+                android:id="@+id/loadingResults" />
 
-                <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportLoadingSpinner
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/child_cyan"
-                    android:contentDescription="@string/content_not_be_loaded" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/cyanBrilliant"
-                    android:singleLine="true"
-                    android:text="@string/kid_results_loading_results"
-                    style="@style/CommonStrongText.Medium"
-                    android:textAlignment="center"/>
-
-            </LinearLayout>
+            <!-- Error Results -->
+            <include layout="@layout/support_chart_error_results"
+                android:id="@+id/errorResultsView" />
 
         </android.support.v7.widget.CardView>
 

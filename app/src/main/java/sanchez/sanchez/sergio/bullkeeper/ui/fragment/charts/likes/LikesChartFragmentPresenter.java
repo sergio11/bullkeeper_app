@@ -42,7 +42,7 @@ public final class LikesChartFragmentPresenter extends TiPresenter<ILikesChartFr
         entries.add(facebookBarEntry);
         entries.add(youtubeBarEntry);
 
-        view.onLikesResultsLoaded(entries);
+        view.onDataAvaliable(entries);
 
     }
 }

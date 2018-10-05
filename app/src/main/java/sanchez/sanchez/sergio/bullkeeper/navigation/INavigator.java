@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -119,6 +120,13 @@ public interface INavigator {
     void navigateToComments(final String identity);
 
     /**
+     * Navigate To Comments
+     * @param identity
+     * @param socialMediaEnum
+     */
+    void navigateToComments(final String identity, final SocialMediaEnum socialMediaEnum);
+
+    /**
      * Navigate To Comment Detail
      * @param identity
      */
@@ -138,6 +146,16 @@ public interface INavigator {
      */
     void showFourDimensionsDialog(final AppCompatActivity appCompatActivity,
                                   int dimensionIdx, final String dimensionValue);
+
+    /**
+     * Show Comments Extracted Dialog
+     * @param appCompatActivity
+     * @param socialMediaIdx
+     * @param socialMediaValue
+     */
+    void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity,
+                                     int socialMediaIdx, final String socialMediaValue,
+                                     final String kidIdentity);
 
     /**
      * Show Photo Viewer Dialog

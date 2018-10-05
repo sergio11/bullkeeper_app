@@ -107,26 +107,6 @@ public interface IChildrenService {
                                                                              @Query("days_ago") final Integer daysAgo);
 
     /**
-     * Get Comments Statistics
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/comments-extracted")
-    Observable<APIResponse<CommentsStatisticsDTO>> getCommentsStatistics(@Query("identities") final String[] ids,
-                                                                         @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get Social Media Likes Statistics
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/social-media-Likes")
-    Observable<APIResponse<SocialMediaLikesStatisticsDTO>> getSocialMediaLikesStatistics(@Query("identities") final String[] ids,
-                                                                                         @Query("days_ago") final Integer daysAgo);
-
-    /**
      * Get Alerts Statistics
      * @param ids
      * @param daysAgo
@@ -135,27 +115,6 @@ public interface IChildrenService {
     @GET("alerts/statistics/alerts")
     Observable<APIResponse<AlertsStatisticsDTO>> getAlertsStatistics(@Query("identities") final String[] ids,
                                                                      @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get Most Active Friends
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/most-active-friends")
-    Observable<APIResponse<MostActiveFriendsDTO>> getMostActiveFriends(@Query("identities") final String[] ids,
-                                                                       @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get New Friends
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/new-friends")
-    Observable<APIResponse<NewFriendsDTO>> getNewFriends(@Query("identities") final String[] ids,
-                                                         @Query("days_ago") final Integer daysAgo);
-
 
     /**
      * Get Comments By Son

@@ -14,7 +14,7 @@ import java.util.Locale;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportBarChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportBarChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
@@ -22,7 +22,8 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
  */
 public class LikesChartMvpFragment
         extends SupportBarChartMvpFragment<LikesChartFragmentPresenter,
-                ILikesChartFragmentView, IBasicActivityHandler, StatsComponent>
+                ILikesChartFragmentView, IBasicActivityHandler, StatsComponent,
+        List<BarEntry>>
         implements ILikesChartFragmentView {
 
     /**
@@ -112,6 +113,11 @@ public class LikesChartMvpFragment
         };
     }
 
+    @Override
+    protected void onLoadData() {
+
+    }
+
 
     /**
      * Provide Presenter
@@ -130,12 +136,9 @@ public class LikesChartMvpFragment
     @Override
     public void onNothingSelected() { }
 
-    /**
-     * On Likes Results Loaded
-     * @param entries
-     */
     @Override
-    public void onLikesResultsLoaded(List<BarEntry> entries) {
-        setChartData(entries);
+    public void onDataAvaliable(List<BarEntry> chartData) {
+        super.onDataAvaliable(chartData);
+        setChartData(chartData);
     }
 }

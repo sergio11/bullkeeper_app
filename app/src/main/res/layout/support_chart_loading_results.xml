@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/loadingResults"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportLoadingSpinner
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/child_cyan"
+        android:contentDescription="@string/content_not_be_loaded" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cyanBrilliant"
+        android:singleLine="true"
+        android:text="@string/kid_results_loading_results"
+        style="@style/CommonStrongText.Medium"
+        android:textAlignment="center"/>
+
+</LinearLayout>

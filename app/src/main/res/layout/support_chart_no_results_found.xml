@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/noResultsFound"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:src="@drawable/chart_bar_solid_cyan"
+        android:contentDescription="@string/content_not_be_loaded" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cyanBrilliant"
+        android:singleLine="true"
+        android:text="@string/kid_results_no_results_found"
+        style="@style/CommonStrongText.Big"
+        android:textAlignment="center"/>
+
+
+</LinearLayout>

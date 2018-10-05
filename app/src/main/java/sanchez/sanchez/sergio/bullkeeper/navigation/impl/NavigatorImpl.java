@@ -14,8 +14,10 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogF
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -221,6 +223,20 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Comments
+     * @param identity
+     * @param socialMediaEnum
+     */
+    @Override
+    public void navigateToComments(String identity, SocialMediaEnum socialMediaEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(socialMediaEnum, "Social Media Enum can not be null");
+
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity));
+    }
+
+    /**
      * Navigate To Comment Detail
      * @param identity
      */
@@ -245,6 +261,18 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, final String dimensionValue) {
         FourDimensionsDialog.show(appCompatActivity, dimensionIdx, dimensionValue);
+    }
+
+    /**
+     * Show Comments Extracted Dialog
+     * @param appCompatActivity
+     * @param socialMediaIdx
+     * @param socialMediaValue
+     */
+    @Override
+    public void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity, final int socialMediaIdx,
+                                            final String socialMediaValue, final String kidIdentityValue) {
+        CommentsExtractedBySocialMediaDialog.show(appCompatActivity, socialMediaIdx, socialMediaValue, kidIdentityValue);
     }
 
     /**

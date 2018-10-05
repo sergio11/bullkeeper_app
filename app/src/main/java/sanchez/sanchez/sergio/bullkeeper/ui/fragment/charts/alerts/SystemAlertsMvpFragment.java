@@ -8,7 +8,7 @@ import java.util.List;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportPieChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPieChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
