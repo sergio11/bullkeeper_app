@@ -414,6 +414,10 @@
     <string name="facebook_brand_title">Facebook</string>
     <string name="youtube_brand_title">Youtube</string>
 
+    <string name="instagram_comments_extracted" formatted="false">%s of the extracted comments belong to the social network Instagram</string>
+    <string name="facebook_comments_extracted" formatted="false">%s of the extracted comments belong to the social network Facebook</string>
+    <string name="youtube_comments_extracted" formatted="false">%s of the extracted comments belong to the social network Youtube</string>
+
     <!-- Results Tab -->
 
     <!-- Dimensions Tab -->
@@ -518,7 +522,11 @@
 
     <!-- Kid Results -->
     <string name="kid_results_no_results_found">No results found, try again later.</string>
+    <string name="kid_results_error_ocurred">There was an error loading the results, please try again later.</string>
     <string name="kid_results_loading_results">Loading results, wait please ...</string>
+    <string name="see_all_comments_extracted">See all comments extracted</string>
+    <string name="see_comments_extracted">See comments extracted</string>
+    <string name="kid_results_refresh_data">Refresh data</string>
 
 
 </resources>

@@ -80,7 +80,7 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
         protected void onSuccess(List<DimensionEntity> dimensionEntities) {
             Preconditions.checkNotNull(dimensionEntities, "Dimensions can nto be null");
             if(isViewAttached() && getView() != null)
-                getView().onDimensionsDataLoaded(dimensionEntities);
+                getView().onDataAvaliable(dimensionEntities);
 
         }
 
@@ -95,7 +95,7 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
             Timber.d("No Dimensions Statistics Avaliable");
 
             if(isViewAttached() && getView() != null)
-                getView().onNoDimensionsDataAvaliable();
+                getView().onNoDataAvaliable();
 
         }
     }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/errorResultsView"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:src="@drawable/sad_tear_solid_cyan"
+        android:contentDescription="@string/content_not_be_loaded" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cyanBrilliant"
+        android:text="@string/kid_results_error_ocurred"
+        style="@style/CommonStrongText.Big"
+        android:textAlignment="center"/>
+</LinearLayout>

@@ -4,6 +4,7 @@ import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AlertsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
@@ -25,7 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFr
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
                  ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
-                SocialMediaModule.class})
+                SocialMediaModule.class, CommentsModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**

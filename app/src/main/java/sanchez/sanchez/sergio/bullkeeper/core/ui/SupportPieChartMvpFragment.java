@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts;
+package sanchez.sanchez.sergio.bullkeeper.core.ui;
 
 import android.content.Context;
 import android.graphics.Color;

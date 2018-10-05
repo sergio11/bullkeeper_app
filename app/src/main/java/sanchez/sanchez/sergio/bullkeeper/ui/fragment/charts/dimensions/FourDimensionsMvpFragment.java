@@ -7,20 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+
 import java.util.ArrayList;
 import java.util.List;
-import butterknife.BindView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportBarChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportBarChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 
@@ -29,7 +29,8 @@ import sanchez.sanchez.sergio.domain.models.DimensionEntity;
  */
 public class FourDimensionsMvpFragment
         extends SupportBarChartMvpFragment<FourDimensionsFragmentPresenter,
-                        IFourDimensionsFragmentView, IBasicActivityHandler, StatsComponent>
+                        IFourDimensionsFragmentView, IBasicActivityHandler,
+        StatsComponent, List<DimensionEntity>>
         implements IFourDimensionsFragmentView {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
@@ -52,25 +53,6 @@ public class FourDimensionsMvpFragment
      * Dimensions Labels
      */
     protected String[] dimensionsLabel = new String[4];
-
-    /**
-     * Chart Data Container View
-     */
-    @BindView(R.id.chartDataContainer)
-    protected ViewGroup chartDataContainerView;
-
-    /**
-     * No Results Found
-     */
-    @BindView(R.id.noResultsFound)
-    protected ViewGroup noResultsFound;
-
-    /**
-     * Loading Results View
-     */
-    @BindView(R.id.loadingResults)
-    protected ViewGroup loadingResultsView;
-
 
     /**
      * On Four Dimensions Listener
@@ -137,15 +119,7 @@ public class FourDimensionsMvpFragment
 
         kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
 
-        noResultsFound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                noResultsFound.setVisibility(View.GONE);
-                loadingResultsView.setVisibility(View.VISIBLE);
-                chartDataContainerView.setVisibility(View.GONE);
-                getPresenter().loadData(kidIdentity);
-            }
-        });
+
     }
 
     /**
@@ -193,6 +167,14 @@ public class FourDimensionsMvpFragment
     }
 
     /**
+     * On Load Data
+     */
+    @Override
+    protected void onLoadData() {
+        getPresenter().loadData(kidIdentity);
+    }
+
+    /**
      * Get Layout Resource
      * @return
      */
@@ -220,50 +202,6 @@ public class FourDimensionsMvpFragment
     }
 
     /**
-     * On Dimensions Data Loaded
-     * @param dimensionEntities
-     */
-    @Override
-    public void onDimensionsDataLoaded(List<DimensionEntity> dimensionEntities) {
-        Preconditions.checkNotNull(dimensionEntities, "Dimensions Entities can not be null");
-
-        List<BarEntry> entries = new ArrayList<>();
-        for(int i = 0; i < DimensionCategoryEnum.values().length; i++ ) {
-            final DimensionCategoryEnum dimensionCategoryEnum = DimensionCategoryEnum.values()[i];
-            int j = 0;
-            for(; j < dimensionEntities.size(); j++) {
-                final DimensionEntity dimensionEntity  = dimensionEntities.get(j);
-                if(dimensionEntity.getDimensionCategoryEnum().name().equals(dimensionCategoryEnum.name())) {
-                    entries.add(new BarEntry(i, dimensionEntity.getValue()));
-                    dimensionsLabel[i] = dimensionEntity.getLabel();
-                    break;
-                }
-            }
-            if(j == dimensionEntities.size()){
-                entries.add(new BarEntry(i, 0));
-                dimensionsLabel[i] = "0";
-            }
-        }
-
-        // Set Chart Data
-        setChartData(entries);
-
-        loadingResultsView.setVisibility(View.GONE);
-        noResultsFound.setVisibility(View.GONE);
-        chartDataContainerView.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * On NO Dimensions Data Avaliable
-     */
-    @Override
-    public void onNoDimensionsDataAvaliable() {
-        loadingResultsView.setVisibility(View.GONE);
-        chartDataContainerView.setVisibility(View.GONE);
-        noResultsFound.setVisibility(View.VISIBLE);
-    }
-
-    /**
      * On Value Selected
      * @param e
      * @param h
@@ -278,6 +216,36 @@ public class FourDimensionsMvpFragment
 
         navigator.showFourDimensionsDialog((AppCompatActivity)getActivity(),
                 dimensionIdx, dimensionsLabel[dimensionIdx]);
+    }
+
+    /**
+     * On Data Avaliable
+     * @param chartData
+     */
+    @Override
+    public void onDataAvaliable(List<DimensionEntity> chartData) {
+        Preconditions.checkNotNull(chartData, "Dimensions Entities can not be null");
+
+        List<BarEntry> entries = new ArrayList<>();
+        for(int i = 0; i < DimensionCategoryEnum.values().length; i++ ) {
+            final DimensionCategoryEnum dimensionCategoryEnum = DimensionCategoryEnum.values()[i];
+            int j = 0;
+            for(; j < chartData.size(); j++) {
+                final DimensionEntity dimensionEntity  = chartData.get(j);
+                if(dimensionEntity.getDimensionCategoryEnum().name().equals(dimensionCategoryEnum.name())) {
+                    entries.add(new BarEntry(i, dimensionEntity.getValue()));
+                    dimensionsLabel[i] = dimensionEntity.getLabel();
+                    break;
+                }
+            }
+            if(j == chartData.size()){
+                entries.add(new BarEntry(i, 0));
+                dimensionsLabel[i] = "0";
+            }
+        }
+
+        // Set Chart Data
+        setChartData(entries);
     }
 
     /**
