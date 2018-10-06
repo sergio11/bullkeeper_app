@@ -30,7 +30,7 @@ import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntit
 /**
  * Comments Extracted By Social MVP Fragment
  */
-public class CommentsExtractedBySocialMediaMvpBySocialMediaFragment
+public class CommentsExtractedBySocialMediaFragment
         extends SupportBarChartMvpFragment<CommentsExtractedBySocialMediaFragmentPresenter,
         ICommentsExtractedBySocialMediaFragmentView, IBasicActivityHandler, StatsComponent,
         CommentsStatisticsBySocialMediaEntity>
@@ -58,7 +58,7 @@ public class CommentsExtractedBySocialMediaMvpBySocialMediaFragment
     private String[] socialMediaLabels = new String[SocialMediaEnum.values().length];
 
 
-    public CommentsExtractedBySocialMediaMvpBySocialMediaFragment() {
+    public CommentsExtractedBySocialMediaFragment() {
         // Required empty public constructor
     }
 
@@ -67,8 +67,8 @@ public class CommentsExtractedBySocialMediaMvpBySocialMediaFragment
      * @param kidIdentity
      * @return
      */
-    public static CommentsExtractedBySocialMediaMvpBySocialMediaFragment newInstance(final String kidIdentity) {
-        CommentsExtractedBySocialMediaMvpBySocialMediaFragment fragment = new CommentsExtractedBySocialMediaMvpBySocialMediaFragment();
+    public static CommentsExtractedBySocialMediaFragment newInstance(final String kidIdentity) {
+        CommentsExtractedBySocialMediaFragment fragment = new CommentsExtractedBySocialMediaFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
         fragment.setArguments(args);

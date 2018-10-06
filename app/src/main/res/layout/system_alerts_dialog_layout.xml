@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/commonWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/common_margin"
+            android:gravity="center">
+
+            <!-- Alert Level Image -->
+            <ImageView
+                android:id="@+id/alertLevelImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Alert Level Title -->
+            <TextView
+                android:id="@+id/alertLevelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText"
+                android:text="-"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:background="@color/violence_color"/>
+
+        <!-- Content Detail Text -->
+        <TextView
+            android:id="@+id/contentDetailText"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Big"/>
+
+        <!-- Show Alerts  -->
+        <LinearLayout
+            android:id="@+id/showAlerts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/showAlertsTextView"
+                style="@style/CommonStrongText.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/kid_results_see_alerts_by_level"
+                android:textColor="@color/cyanBrilliant"/>
+
+            <ImageView
+                android:id="@+id/showAlertsImageView"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+        </LinearLayout>
+
+        <!-- Close Dialog -->
+        <Button
+            android:id="@+id/closeDialog"
+            style="@style/DimensionActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/commonWhite"
+            android:padding="@dimen/common_padding"
+            android:text="@string/close_dialog" />
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AlertsStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
@@ -22,6 +23,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
@@ -34,6 +36,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
+import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
@@ -177,5 +180,14 @@ public class DataMapperModule {
     public AbstractDataMapper<SentimentAnalysisStatisticsDTO,
             SentimentAnalysisStatisticsEntity> provideSentimentAnalysisStatisticsEntityDataMapper(){
         return new SentimentAnalysisStatisticsEntityDataMapper();
+    }
+
+    /**
+     * Provide Alerts Statistics Enitiy Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> provideAlertsStatisticsEntityDataMapper(){
+        return new AlertsStatisticsEntityDataMapper();
     }
 }

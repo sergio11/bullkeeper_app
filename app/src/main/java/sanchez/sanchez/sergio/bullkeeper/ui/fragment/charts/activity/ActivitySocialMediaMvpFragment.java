@@ -156,7 +156,7 @@ public class ActivitySocialMediaMvpFragment
         return new IValueFormatter() {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return (int)value + "%";
+                return value > 0.0f ? (int)value + "%" : "";
             }
         };
     }
@@ -214,7 +214,7 @@ public class ActivitySocialMediaMvpFragment
                 }
             }
             if(j == chartData.getActivities().size()){
-                entries.add(new PieEntry( 0, socialMediaTypesEnum.name()));
+                entries.add(new PieEntry( 0));
             }
         }
 

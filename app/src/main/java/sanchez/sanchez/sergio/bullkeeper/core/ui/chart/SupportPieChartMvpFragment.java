@@ -104,8 +104,8 @@ public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V ext
      */
     private SpannableString generateCenterText() {
         SpannableString s = new SpannableString(getContext().getString(getChartTitle()));
-        s.setSpan(new RelativeSizeSpan(2f), 0, 11, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 11, s.length(), 0);
+        s.setSpan(new RelativeSizeSpan(2f), 0, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 0, s.length(), 0);
         return s;
     }
 
@@ -130,12 +130,11 @@ public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V ext
         pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(10f);
         pieDataSet.setValueFormatter(getValueFormatter());
-
         final PieData pieData = new PieData(pieDataSet);
         pieData.setValueTypeface(chartTypeFace);
         pieChart.setData(pieData);
         // Animate Result
-        pieChart.animateY(9000, Easing.EasingOption.EaseOutBack);
+        pieChart.animateY(3000, Easing.EasingOption.EaseInBounce);
     }
 
 }

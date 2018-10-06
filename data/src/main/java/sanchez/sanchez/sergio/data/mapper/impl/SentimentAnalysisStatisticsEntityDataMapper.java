@@ -36,6 +36,7 @@ public class SentimentAnalysisStatisticsEntityDataMapper extends
             }
             sentimentEntity.setLabel(sentimentDTO.getLabel());
             sentimentEntity.setScore(sentimentDTO.getScore());
+            sentimentEntities.add(sentimentEntity);
         }
         sentimentAnalysisStatisticsEntity.setSentimentData(sentimentEntities);
         return sentimentAnalysisStatisticsEntity;

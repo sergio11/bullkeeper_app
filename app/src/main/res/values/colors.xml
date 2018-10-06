@@ -32,6 +32,8 @@
     <color name="translucentRedDanger">#90ff2323</color>
     <!-- Yellow Warning -->
     <color name="yellowWarning">#FFCC00</color>
+    <!-- Dark Yellow Warning -->
+    <color name="darkYellowWarning">#e5b700</color>
     <!-- Bullying Color -->
     <color name="bullying_color">#69c7e0</color>
     <!-- Bullying Color Dark -->

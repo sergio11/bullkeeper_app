@@ -15,6 +15,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolM
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -299,6 +300,20 @@ public class NavigatorImpl implements INavigator {
     public void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
                                             final SentimentLevelEnum sentimentLevelEnum, final String sentimentValue) {
         SentimentAnalysisDialog.show(appCompatActivity, sentimentLevelEnum, sentimentValue);
+    }
+
+    /**
+     * Show Alert Level Dialog
+     * @param appCompatActivity
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     * @param kidIdentity
+     */
+    @Override
+    public void showAlertLevelDialog(final AppCompatActivity appCompatActivity,
+                                     final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
+                                     final String kidIdentity) {
+        SystemAlertsDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentity);
     }
 
     /**

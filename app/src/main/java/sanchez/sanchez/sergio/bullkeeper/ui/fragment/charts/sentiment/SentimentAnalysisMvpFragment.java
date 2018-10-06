@@ -155,7 +155,7 @@ public class SentimentAnalysisMvpFragment
         return new IValueFormatter() {
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return (int)value + "%";
+                return value > 0.0f ? (int)value + "%" : "";
             }
         };
     }
@@ -214,7 +214,7 @@ public class SentimentAnalysisMvpFragment
                 }
             }
             if(j == chartData.getSentimentData().size()){
-                entries.add(new PieEntry(0, sentimentType.name()));
+                entries.add(new PieEntry(0));
             }
         }
 

@@ -9,6 +9,7 @@ import dagger.Component;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.RemoteNotificationService;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
@@ -69,6 +70,12 @@ public interface ApplicationComponent {
      * @param commentsExtractedBySocialMediaDialog
      */
     void inject(final CommentsExtractedBySocialMediaDialog commentsExtractedBySocialMediaDialog);
+
+    /**
+     * Inject into System Alerts Dialog
+     * @param systemAlertsDialog
+     */
+    void inject(final SystemAlertsDialog systemAlertsDialog);
 
 
     //Exposed to sub-graphs.

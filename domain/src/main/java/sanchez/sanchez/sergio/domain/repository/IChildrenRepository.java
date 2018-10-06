@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.domain.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
@@ -78,5 +79,13 @@ public interface IChildrenRepository {
      */
     Observable<SentimentAnalysisStatisticsEntity> getSentimentAnalysisStatistics(final String kidIdentity,
                                                                                  final int daysAgo);
+
+    /**
+     * Get Alerts Statistics
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    Observable<AlertsStatisticsEntity> getAlertsStatistics(final String kidIdentity, final int daysAgo);
 
 }
