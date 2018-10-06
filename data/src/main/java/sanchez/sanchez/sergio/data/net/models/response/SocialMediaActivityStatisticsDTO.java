@@ -11,14 +11,36 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SocialMediaActivityStatisticsDTO implements Serializable {
 
+    /**
+     * Title
+     */
     @JsonProperty("title")
     private String title;
 
+    /**
+     * Subtitle
+     */
     @JsonProperty("subtitle")
     private String subtitle;
 
+    /**
+     * Activities
+     */
     @JsonProperty("activities")
     private List<ActivityDTO> activities;
+
+    public SocialMediaActivityStatisticsDTO(){}
+
+    /**
+     * @param title
+     * @param subtitle
+     * @param activities
+     */
+    public SocialMediaActivityStatisticsDTO(String title, String subtitle, List<ActivityDTO> activities) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.activities = activities;
+    }
 
     public String getTitle() {
         return title;
@@ -44,16 +66,42 @@ public final class SocialMediaActivityStatisticsDTO implements Serializable {
         this.activities = activities;
     }
 
-    class ActivityDTO {
+    /**
+     * Activity DTO
+     */
+    public static class ActivityDTO {
 
+        /**
+         * Type
+         */
         @JsonProperty("type")
         private String type;
 
+        /**
+         * Value
+         */
         @JsonProperty("value")
         private Integer value;
 
+        /**
+         * Label
+         */
         @JsonProperty("label")
         private String label;
+
+        public ActivityDTO(){}
+
+        /**
+         * Activity DTO
+         * @param type
+         * @param value
+         * @param label
+         */
+        public ActivityDTO(String type, Integer value, String label) {
+            this.type = type;
+            this.value = value;
+            this.label = label;
+        }
 
         public String getType() {
             return type;

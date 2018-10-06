@@ -64,21 +64,51 @@
             app:cardElevation="4dp"
             android:layout_marginTop="10dp">
 
+            <!-- Chart Data Container -->
             <RelativeLayout
+                android:id="@+id/chartDataContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <!-- Chart Title -->
                 <TextView
                     android:id="@+id/chartTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/CommonStrongText"
+                    style="@style/CommonStrongText.Medium"
                     android:textColor="@color/cyanBrilliant"
                     android:textStyle="bold"
                     android:text="@string/results_since_one_month_ago" />
 
-                <!-- Four Dimensions Chart -->
+                <!-- Refresh Chart Data -->
+                <LinearLayout
+                    android:id="@+id/refreshData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/chartTitle"
+                    android:paddingEnd="@dimen/common_padding"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal"
+                    android:gravity="end|center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText.Medium"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/kid_results_refresh_data" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/sync_alt_solid"
+                        android:contentDescription="@string/content_not_be_loaded"/>
+
+
+                </LinearLayout>
+
+                <!-- Social Activity Chart  -->
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart"
                     android:layout_margin="@dimen/common_margin"
@@ -87,6 +117,19 @@
                     android:layout_below="@id/chartTitle"/>
 
             </RelativeLayout>
+
+            <!-- No Results Found -->
+            <include
+                layout="@layout/support_chart_no_results_found"
+                android:id="@+id/noResultsFound"/>
+
+            <!-- Loading Results -->
+            <include layout="@layout/support_chart_loading_results"
+                android:id="@+id/loadingResults" />
+
+            <!-- Error Results -->
+            <include layout="@layout/support_chart_error_results"
+                android:id="@+id/errorResultsView" />
 
         </android.support.v7.widget.CardView>
 

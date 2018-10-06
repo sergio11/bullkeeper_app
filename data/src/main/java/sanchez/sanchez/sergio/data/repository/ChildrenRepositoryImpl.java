@@ -1,10 +1,8 @@
 package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.io.File;
 import java.util.List;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -14,10 +12,12 @@ import sanchez.sanchez.sergio.data.net.models.request.RegisterSonDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateSonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import timber.log.Timber;
@@ -31,18 +31,27 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     private final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper;
     private final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper;
     private final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper;
+    private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
+
 
     /**
+     *
      * @param childrenService
+     * @param sonDataMapper
+     * @param imageDataMapper
+     * @param dimensionDataMapper
+     * @param socialMediaStatisticsDataMapper
      */
     public ChildrenRepositoryImpl(final IChildrenService childrenService,
                                   final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
-                                  final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper) {
+                                  final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
+                                  final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper) {
         this.childrenService = childrenService;
         this.sonDataMapper = sonDataMapper;
         this.imageDataMapper = imageDataMapper;
         this.dimensionDataMapper = dimensionDataMapper;
+        this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
     }
 
     /**
@@ -143,5 +152,24 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
                     response.getData() : null)
                 .map(dimensionsStatisticsDTO ->
                         dimensionDataMapper.transform(dimensionsStatisticsDTO.getDimensions()));
+    }
+
+    /**
+     * Get Social Media Activity Statistics
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SocialMediaActivityStatisticsEntity> getSocialMediaActivityStatistics(
+            final String kidIdentity, final int daysAgo) {
+        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
+        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
+        Preconditions.checkState(daysAgo > 0, "Days ago must be greater than 0");
+
+        return childrenService.getSocialMediaActivityStatistics(kidIdentity, daysAgo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData() : null)
+                .map(socialMediaStatisticsDataMapper::transform);
     }
 }

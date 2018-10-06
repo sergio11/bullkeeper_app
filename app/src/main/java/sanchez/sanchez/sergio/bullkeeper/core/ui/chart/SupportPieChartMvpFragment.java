@@ -1,6 +1,5 @@
-package sanchez.sanchez.sergio.bullkeeper.core.ui;
+package sanchez.sanchez.sergio.bullkeeper.core.ui.chart;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,43 +13,24 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import net.grandcentrix.thirtyinch.TiPresenter;
-
 import java.util.List;
-import javax.inject.Inject;
 import butterknife.BindView;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportChartDataView;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
-import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 
 /**
  * Support Pie Chart Mvp Fragment
  */
-public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V extends ISupportView,
-        H extends IBasicActivityHandler, C extends ActivityComponent>
-            extends SupportMvpFragment<P, V, H, C> {
+public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V extends ISupportChartDataView<I>,
+        H extends IBasicActivityHandler, C extends ActivityComponent, I>
+            extends SupportChartMvpFragment<P, V, H, C, I> {
 
-
-    /**
-     * App Context
-     */
-    @Inject
-    protected Context appContext;
-
-    /**
-     * Navigator
-     */
-    @Inject
-    protected INavigator navigator;
 
     /**
      * Chart Type Face
@@ -59,13 +39,34 @@ public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V ext
 
 
     /**
+     * Views
+     * ===========
+     */
+
+    /**
      * Pie Chart
      */
     @BindView(R.id.pieChart)
     protected PieChart pieChart;
 
+
+
     public SupportPieChartMvpFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Config Chart Legend
+     */
+    private void configChartLegend(){
+
+        final Legend legend = pieChart.getLegend();
+        legend.setFormSize(10f); // set the size of the legend forms/shapes
+        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        legend.setTextSize(12f);
+        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
     }
 
 
@@ -80,26 +81,21 @@ public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V ext
 
         pieChart.getDescription().setEnabled(false);
 
-        chartTypeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/VAGRoundedBT.ttf");
+        chartTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
+                "fonts/VAGRoundedBT.ttf");
 
         pieChart.setCenterTextTypeface(chartTypeFace);
         pieChart.setCenterText(generateCenterText());
         pieChart.setCenterTextSize(9f);
         pieChart.setCenterTextTypeface(chartTypeFace);
+        pieChart.setOnChartValueSelectedListener(this);
+        pieChart.setTouchEnabled(true);
 
         // radius of the center hole in percent of maximum radius
         pieChart.setHoleRadius(45f);
         pieChart.setTransparentCircleRadius(50f);
 
-        Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-
-        pieChart.animateY(9000, Easing.EasingOption.EaseOutBack);
-
-
+        configChartLegend();
     }
 
     /**
@@ -125,27 +121,21 @@ public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V ext
      * Set Chart Data
      * @param entries
      */
-    protected final void setChartData(final List<PieEntry> entries, final int[] colors) {
-
+    protected final void setChartData(final List<PieEntry> entries) {
         Preconditions.checkNotNull(entries, "Entries can not be null");
-        Preconditions.checkNotNull(colors, "Colors can not be null");
 
         final PieDataSet pieDataSet = new PieDataSet(entries, null);
-        pieDataSet.setColors(colors, appContext);
+        pieDataSet.setColors(getLegendLabelColor(), appContext);
         pieDataSet.setSliceSpace(2f);
         pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(10f);
-        pieDataSet.setValueFormatter(new IValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return (int)value + "%";
-            }
-        });
+        pieDataSet.setValueFormatter(getValueFormatter());
 
         final PieData pieData = new PieData(pieDataSet);
         pieData.setValueTypeface(chartTypeFace);
-
         pieChart.setData(pieData);
+        // Animate Result
+        pieChart.animateY(9000, Easing.EasingOption.EaseOutBack);
     }
 
 }

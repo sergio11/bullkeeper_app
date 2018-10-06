@@ -152,10 +152,20 @@ public interface INavigator {
      * @param appCompatActivity
      * @param socialMediaIdx
      * @param socialMediaValue
+     * @param kidIdentity
      */
     void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity,
                                      int socialMediaIdx, final String socialMediaValue,
                                      final String kidIdentity);
+
+    /**
+     * Show Comments Extracted Dialog
+     * @param appCompatActivity
+     * @param socialMediaEnum
+     * @param socialMediaValue
+     */
+    void showSocialActivityDialog(final AppCompatActivity appCompatActivity,
+                                     final SocialMediaEnum socialMediaEnum, final String socialMediaValue);
 
     /**
      * Show Photo Viewer Dialog

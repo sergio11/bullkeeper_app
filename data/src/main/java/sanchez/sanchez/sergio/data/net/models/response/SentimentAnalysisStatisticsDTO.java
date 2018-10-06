@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,16 +11,38 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SentimentAnalysisStatisticsDTO implements Serializable {
 
-
+    /**
+     * Title
+     */
     @JsonProperty("title")
     private String title;
 
+    /**
+     * Subtitle
+     */
     @JsonProperty("subtitle")
     private String subtitle;
 
+    /**
+     * Sentiment Data
+     */
     @JsonProperty("sentiment_data")
     private List<SentimentDTO> sentimentData;
 
+    public SentimentAnalysisStatisticsDTO(){}
+
+    /**
+     *
+     * @param title
+     * @param subtitle
+     * @param sentimentData
+     */
+    public SentimentAnalysisStatisticsDTO(final String title, final String subtitle,
+                                          final List<SentimentDTO> sentimentData) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.sentimentData = sentimentData;
+    }
 
     public String getTitle() {
         return title;
@@ -47,16 +68,42 @@ public final class SentimentAnalysisStatisticsDTO implements Serializable {
         this.sentimentData = sentimentData;
     }
 
+    /**
+     * Sentiment DTO
+     */
     public class SentimentDTO {
 
+        /**
+         * Type
+         */
         @JsonProperty("type")
         private String type;
 
+        /**
+         * Score
+         */
         @JsonProperty("score")
         private Float score;
 
+        /**
+         * Label
+         */
         @JsonProperty("label")
         private String label;
+
+        public SentimentDTO(){}
+
+        /**
+         * Sentiment DTO
+         * @param type
+         * @param score
+         * @param label
+         */
+        public SentimentDTO(String type, Float score, String label) {
+            this.type = type;
+            this.score = score;
+            this.label = label;
+        }
 
         public String getType() {
             return type;

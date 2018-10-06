@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogF
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -273,6 +274,17 @@ public class NavigatorImpl implements INavigator {
     public void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity, final int socialMediaIdx,
                                             final String socialMediaValue, final String kidIdentityValue) {
         CommentsExtractedBySocialMediaDialog.show(appCompatActivity, socialMediaIdx, socialMediaValue, kidIdentityValue);
+    }
+
+    /**
+     * Show Social Activity Dialog
+     * @param appCompatActivity
+     * @param socialMediaEnum
+     * @param socialMediaValue
+     */
+    @Override
+    public void showSocialActivityDialog(AppCompatActivity appCompatActivity, final SocialMediaEnum socialMediaEnum, final String socialMediaValue) {
+        ActivityBySocialMediaDialog.show(appCompatActivity, socialMediaEnum, socialMediaValue);
     }
 
     /**
