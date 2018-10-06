@@ -190,6 +190,15 @@ public interface INavigator {
                                      final String alertLevelValue, final String kidIdentity);
 
     /**
+     * Show Likes By Social Media Dialog
+     * @param appCompatActivity
+     * @param socialMedia
+     * @param totalLikesValue
+     */
+    void showLikesBySocialMediaDialog(final AppCompatActivity appCompatActivity,
+                                      final int socialMedia, final String totalLikesValue);
+
+    /**
      * Show Photo Viewer Dialog
      * @param appCompatActivity
      * @param photoUrl

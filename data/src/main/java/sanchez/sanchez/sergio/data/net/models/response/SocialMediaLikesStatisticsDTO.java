@@ -20,6 +20,21 @@ public final class SocialMediaLikesStatisticsDTO implements Serializable {
     @JsonProperty("likes")
     private List<SocialMediaLikesDTO> data;
 
+    public SocialMediaLikesStatisticsDTO(){}
+
+    /**
+     *
+     * @param title
+     * @param subtitle
+     * @param data
+     */
+    public SocialMediaLikesStatisticsDTO(final String title, final String subtitle,
+                                         final List<SocialMediaLikesDTO> data) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.data = data;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -44,7 +59,7 @@ public final class SocialMediaLikesStatisticsDTO implements Serializable {
         this.data = data;
     }
 
-    class SocialMediaLikesDTO {
+    public static class SocialMediaLikesDTO {
 
         @JsonProperty("type")
         private String type;
@@ -54,6 +69,14 @@ public final class SocialMediaLikesStatisticsDTO implements Serializable {
 
         @JsonProperty("label")
         private String label;
+
+        public SocialMediaLikesDTO(){}
+
+        public SocialMediaLikesDTO(String type, Integer likes, String label) {
+            this.type = type;
+            this.likes = likes;
+            this.label = label;
+        }
 
         public String getType() {
             return type;

@@ -18,6 +18,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SentimentAnalysisStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaActivityStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaLikesStatisticsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
@@ -32,6 +33,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
@@ -45,6 +47,7 @@ import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -189,5 +192,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> provideAlertsStatisticsEntityDataMapper(){
         return new AlertsStatisticsEntityDataMapper();
+    }
+
+    /**
+     * Social Media Likes Statistics Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> provideSocialMediaLikesStatisticsDataMapper(){
+        return new SocialMediaLikesStatisticsDataMapper();
     }
 }

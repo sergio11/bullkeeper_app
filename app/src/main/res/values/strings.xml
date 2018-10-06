@@ -542,4 +542,8 @@
     <string name="kid_results_success_alerts" formatted="false">%s of alerts are positive.</string>
     <string name="kid_results_warning_alerts" formatted="false">%s of alerts are notices of important things</string>
     <string name="kid_results_danger_alerts" formatted="false">%s of alerts are from very important events.</string>
+    <string name="kid_results_facebook_likes_count" formatted="false">%s of the "likes" received has been on Facebook</string>
+    <string name="kid_results_instagram_likes_count" formatted="false">%s of the "likes" received has been on Instagram</string>
+    <string name="kid_results_youtube_likes_count" formatted="false">%s of the "likes" received has been on Youtube</string>
+
 </resources>

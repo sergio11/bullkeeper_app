@@ -1,48 +1,98 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
+import com.fernandocejas.arrow.checks.Preconditions;
 
-import com.github.mikephil.charting.data.BarEntry;
-import net.grandcentrix.thirtyinch.TiPresenter;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.inject.Inject;
-
-import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
+import sanchez.sanchez.sergio.domain.interactor.comments.GetSocialMediaLikesStatisticsInteract;
+import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 
 /**
  * Likes Chart Fragment
  */
-public final class LikesChartFragmentPresenter extends TiPresenter<ILikesChartFragmentView> {
+public final class LikesChartFragmentPresenter extends SupportPresenter<ILikesChartFragmentView> {
 
-    private final Context context;
+    public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+    private final static int DAYS_AGO_DEFAULT_VALUE = 30;
 
+    /**
+     * Get Social Media Likes Statisctics Interact
+     */
+    private final GetSocialMediaLikesStatisticsInteract getSocialMediaLikesStatisticsInteract;
+
+    /**
+     *
+     * @param getSocialMediaLikesStatisticsInteract
+     */
     @Inject
-    public LikesChartFragmentPresenter(final Context context){
-        this.context = context;
+    public LikesChartFragmentPresenter(final GetSocialMediaLikesStatisticsInteract getSocialMediaLikesStatisticsInteract){
+        this.getSocialMediaLikesStatisticsInteract = getSocialMediaLikesStatisticsInteract;
     }
 
+    /**
+     * On Init Args
+     * @param args
+     */
     @Override
-    protected void onAttachView(@NonNull ILikesChartFragmentView view) {
-        super.onAttachView(view);
+    protected void onInit(Bundle args) {
+        super.onInit(args);
+        if(args != null && args.containsKey(KID_IDENTITY_ARG))
+            loadData(args.getString(KID_IDENTITY_ARG));
+    }
 
-        List<BarEntry> entries = new ArrayList<>();
+    /**
+     * Load Data
+     * @param kidIdentity
+     */
+    public void loadData(final String kidIdentity){
+        Preconditions.checkNotNull(kidIdentity, "Kid identity can not be null");
+        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid identity can not empty");
 
-        final BarEntry instagramBarEntry = new BarEntry(0f, 5f);
-        instagramBarEntry.setIcon(ContextCompat.getDrawable(context, R.drawable.likes_instagram));
-        final BarEntry facebookBarEntry = new BarEntry(1f, 10f);
-        facebookBarEntry.setIcon(ContextCompat.getDrawable(context, R.drawable.likes_facebook));
+        getSocialMediaLikesStatisticsInteract.execute(new GetSocialMediaLikesStatisticsObservable(GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors.class),
+                GetSocialMediaLikesStatisticsInteract.Params.create(kidIdentity, DAYS_AGO_DEFAULT_VALUE));
+    }
 
-        final BarEntry youtubeBarEntry = new BarEntry(2f, 2f);
-        youtubeBarEntry.setIcon(ContextCompat.getDrawable(context, R.drawable.likes_youtube));
+    /**
+     * Get Social Media Likes Statistics Observable
+     */
+    public class GetSocialMediaLikesStatisticsObservable extends CommandCallBackWrapper<SocialMediaLikesStatisticsEntity,
+            GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors.IGetSocialMediaLikesStatisticsApiErrorsVisitor,
+            GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors>
+            implements GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors.IGetSocialMediaLikesStatisticsApiErrorsVisitor {
 
-        entries.add(instagramBarEntry);
-        entries.add(facebookBarEntry);
-        entries.add(youtubeBarEntry);
+        /**
+         *
+         * @param apiErrors
+         */
+        public GetSocialMediaLikesStatisticsObservable(Class<GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors> apiErrors) {
+            super(apiErrors);
+        }
 
-        view.onDataAvaliable(entries);
 
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(final SocialMediaLikesStatisticsEntity response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+
+            if (isViewAttached() && getView() != null)
+                getView().onDataAvaliable(response);
+
+        }
+
+        /**
+         * Visit No Likes Found In This Period
+         * @param apiErrorsVisitor
+         */
+        @Override
+        public void visitNoLikesFoundInThisPeriod(GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors apiErrorsVisitor) {
+
+            if (isViewAttached() && getView() != null)
+                getView().onNoDataAvaliable();
+        }
     }
 }

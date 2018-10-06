@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -314,6 +315,18 @@ public class NavigatorImpl implements INavigator {
                                      final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
                                      final String kidIdentity) {
         SystemAlertsDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentity);
+    }
+
+    /**
+     * Show Likes By Social Media Dialog
+     * @param appCompatActivity
+     * @param socialMedia
+     * @param totalLikesValue
+     */
+    @Override
+    public void showLikesBySocialMediaDialog(final AppCompatActivity appCompatActivity, final int socialMedia,
+                                             final String totalLikesValue) {
+        LikesBySocialMediaDialog.show(appCompatActivity, socialMedia, totalLikesValue);
     }
 
     /**

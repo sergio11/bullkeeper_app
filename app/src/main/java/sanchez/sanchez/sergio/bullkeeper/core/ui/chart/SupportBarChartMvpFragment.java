@@ -106,7 +106,6 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
         barChart.setPinchZoom(false);
         barChart.setDoubleTapToZoomEnabled(false);
         barChart.setDrawGridBackground(false);
-        barChart.animateY(9000, Easing.EasingOption.EaseOutBack);
         barChart.setOnChartValueSelectedListener(this);
         // Config Chart Legend
         configChartLegend(getLegendLabelColor(), getLegendLabels());
@@ -142,5 +141,6 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
     protected final void setChartData(final List<BarEntry> entries) {
         final BarData fourDimensionsBarData = createBarData(entries);
         barChart.setData(fourDimensionsBarData);
+        barChart.animateY(9000, Easing.EasingOption.EaseOutBack);
     }
 }
