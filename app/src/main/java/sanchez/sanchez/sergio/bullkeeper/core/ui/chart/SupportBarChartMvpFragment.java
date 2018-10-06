@@ -1,13 +1,9 @@
-package sanchez.sanchez.sergio.bullkeeper.core.ui;
+package sanchez.sanchez.sergio.bullkeeper.core.ui.chart;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -16,45 +12,25 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
 import net.grandcentrix.thirtyinch.TiPresenter;
-
 import java.util.List;
-
-import javax.inject.Inject;
 import butterknife.BindView;
-import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportChartDataView;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
-import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
+
 /**
  * Support Bar Chart Mvp Fragment
  */
 public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V extends ISupportChartDataView<I>,
         H extends IBasicActivityHandler, C extends ActivityComponent, I>
-            extends SupportMvpFragment<P, V, H, C>  implements OnChartValueSelectedListener,
-        ISupportChartDataView<I> {
-
+            extends SupportChartMvpFragment<P, V, H, C, I> {
 
     /**
-     * App Context
+     * Views
+     * ==========
      */
-    @Inject
-    protected Context appContext;
-
-    /**
-     * Navigator
-     */
-    @Inject
-    protected INavigator navigator;
-
-    /**
-     * Chart Type Face
-     */
-    private Typeface chartTypeFace;
-
 
     /**
      * Bar Chart
@@ -62,34 +38,17 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
     @BindView(R.id.barChart)
     protected BarChart barChart;
 
-    /**
-     * Chart Data Container View
-     */
-    @BindView(R.id.chartDataContainer)
-    protected ViewGroup chartDataContainerView;
-
-    /**
-     * No Results Found
-     */
-    @BindView(R.id.noResultsFound)
-    protected ViewGroup noResultsFound;
-
-    /**
-     * Loading Results View
-     */
-    @BindView(R.id.loadingResults)
-    protected ViewGroup loadingResultsView;
-
-    /**
-     * Error Results View
-     */
-    @BindView(R.id.errorResultsView)
-    protected ViewGroup errorResultsView;
-
 
     public SupportBarChartMvpFragment() {
         // Required empty public constructor
     }
+
+    /**
+     * Get Legend Labels
+     * @return
+     */
+    protected abstract String[] getLegendLabels();
+
 
     /**
      * Config Chart Legend
@@ -105,9 +64,7 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
         legend.setTextSize(12f);
         legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
         legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
-
     }
-
 
     /**
      * Config Chart Axis
@@ -135,47 +92,6 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
     }
 
     /**
-     * Show Chart Data Container
-     */
-    private void showChartDataContainer(){
-        loadingResultsView.setVisibility(View.GONE);
-        noResultsFound.setVisibility(View.GONE);
-        errorResultsView.setVisibility(View.GONE);
-        chartDataContainerView.setVisibility(View.VISIBLE);
-
-    }
-
-    /**
-     * Show No Results Found
-     */
-    private void showNoResultsFound(){
-        loadingResultsView.setVisibility(View.GONE);
-        chartDataContainerView.setVisibility(View.GONE);
-        noResultsFound.setVisibility(View.VISIBLE);
-        errorResultsView.setVisibility(View.GONE);
-    }
-
-    /**
-     * Show Loading Results
-     */
-    private void showLoadingResults(){
-        loadingResultsView.setVisibility(View.VISIBLE);
-        chartDataContainerView.setVisibility(View.GONE);
-        noResultsFound.setVisibility(View.GONE);
-        errorResultsView.setVisibility(View.GONE);
-    }
-
-    /**
-     * Show Error Results
-     */
-    private void showErrorResults(){
-        loadingResultsView.setVisibility(View.GONE);
-        chartDataContainerView.setVisibility(View.GONE);
-        noResultsFound.setVisibility(View.GONE);
-        errorResultsView.setVisibility(View.VISIBLE);
-    }
-
-    /**
      * On View Created
      * @param view
      * @param savedInstanceState
@@ -196,54 +112,8 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
         configChartLegend(getLegendLabelColor(), getLegendLabels());
         // Config Chart Axis
         configChartAxis();
-
-        showLoadingResults();
     }
 
-    /**
-     * Refresh Chart
-     */
-    protected void refreshChart(){
-        noResultsFound.setVisibility(View.GONE);
-        errorResultsView.setVisibility(View.GONE);
-        chartDataContainerView.setVisibility(View.GONE);
-        loadingResultsView.setVisibility(View.VISIBLE);
-        onLoadData();
-    }
-
-    /**
-     * On No Results Found Clicked
-     */
-    @OnClick(R.id.noResultsFound)
-    protected void onNoResultsFoundClicked(){
-        refreshChart();
-    }
-
-    /**
-     * On Error Results View Clicked
-     */
-    @OnClick(R.id.errorResultsView)
-    protected void onErrorResultsViewClicked(){
-        refreshChart();
-    }
-
-    /**
-     * Get Legend Label Color
-     * @return
-     */
-    protected abstract int[] getLegendLabelColor();
-
-    /**
-     * Get Legend Labels
-     * @return
-     */
-    protected abstract String[] getLegendLabels();
-
-    /**
-     * Get Value Formatter
-     * @return
-     */
-    protected abstract IValueFormatter getValueFormatter();
 
     /**
      * Config Bar Data
@@ -252,7 +122,6 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
 
         final int darkModerateBlue = ContextCompat.getColor(appContext,
                 R.color.darkModerateBlue);
-
         final BarDataSet fourDimensionsDataSet = new BarDataSet(entries, null);
         fourDimensionsDataSet.setBarBorderColor(darkModerateBlue);
         fourDimensionsDataSet.setBarShadowColor(darkModerateBlue);
@@ -260,10 +129,8 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
         fourDimensionsDataSet.setValueTextSize(15f);
         fourDimensionsDataSet.setColors(getLegendLabelColor());
         fourDimensionsDataSet.setValueFormatter(getValueFormatter());
-
         BarData fourDimensionsBarData = new BarData(fourDimensionsDataSet);
         fourDimensionsBarData.setBarWidth(.7f); // set custom bar width
-
         return fourDimensionsBarData;
 
     }
@@ -276,45 +143,4 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
         final BarData fourDimensionsBarData = createBarData(entries);
         barChart.setData(fourDimensionsBarData);
     }
-
-    /**
-     * On Load Data
-     */
-    protected abstract void onLoadData();
-
-    /**
-     * On Data Avaliable
-     * @param chartData
-     */
-    @Override
-    public void onDataAvaliable(I chartData) {
-        showChartDataContainer();
-    }
-
-    /**
-     * On No Data Avaliable
-     */
-    @Override
-    public void onNoDataAvaliable() {
-        showNoResultsFound();
-    }
-
-    /**
-     * On Network Error
-     */
-    @Override
-    public void onNetworkError() {
-        showErrorResults();
-    }
-
-    /**
-     * On Other Exception
-     */
-    @Override
-    public void onOtherException() {
-        showErrorResults();
-    }
-
-
-
 }

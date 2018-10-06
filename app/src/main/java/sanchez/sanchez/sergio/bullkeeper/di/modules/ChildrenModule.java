@@ -9,15 +9,18 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.data.repository.ChildrenRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.children.GetFourDimensionsStatisticsByChildInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetSocialMediaActivityStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 
@@ -39,14 +42,20 @@ public class ChildrenModule {
     /**
      * Provide Children Repository
      * @param childrenService
+     * @param sonDataMapper
+     * @param imageDataMapper
+     * @param dimensionDataMapper
+     * @param socialMediaDataMapper
      * @return
      */
     @Provides @PerActivity
     IChildrenRepository provideChildrenRepository(final IChildrenService childrenService,
                                                   final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
                                                   @Named("SonImageEntity") final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
-                                                  final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper) {
-        return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper, dimensionDataMapper);
+                                                  final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
+                                                  final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity>
+                                                    socialMediaDataMapper) {
+        return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper, dimensionDataMapper, socialMediaDataMapper);
     }
 
     /**
@@ -71,6 +80,16 @@ public class ChildrenModule {
                                                                                                  final IPostExecutionThread postExecutionThread,
                                                                                                  final IChildrenRepository childrenRepository){
         return new GetFourDimensionsStatisticsByChildInteract(threadExecutor, postExecutionThread, childrenRepository);
+    }
+
+    /**
+     * Provide Get Social Media Activity Statistics Interact
+     * @return
+     */
+    @Provides @PerActivity
+    GetSocialMediaActivityStatisticsInteract provideGetSocialMediaActivityStatisticsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                             final IChildrenRepository childrenRepository){
+        return new GetSocialMediaActivityStatisticsInteract(threadExecutor, postExecutionThread, childrenRepository);
     }
 
 }

@@ -2,21 +2,25 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import com.github.mikephil.charting.data.PieEntry;
-import java.util.List;
 
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPieChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.chart.SupportPieChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 
 /**
  * Sentiment Analysis Mvp Fragment
  */
 public class SentimentAnalysisMvpFragment
         extends SupportPieChartMvpFragment<SentimentAnalysisFragmentPresenter,
-                ISentimentAnalysisFragmentView, IBasicActivityHandler, StatsComponent>
+                ISentimentAnalysisFragmentView, IBasicActivityHandler, StatsComponent,
+        SentimentAnalysisStatisticsEntity>
         implements ISentimentAnalysisFragmentView {
 
     /**
@@ -85,17 +89,48 @@ public class SentimentAnalysisMvpFragment
     }
 
     /**
-     * On Sentiment Results Loaded
-     * @param entries
+     * Get Legend Label Color
+     * @return
      */
     @Override
-    public void onSentimentResultsLoaded(List<PieEntry> entries) {
-
-        setChartData(entries, new int[] {
+    protected int[] getLegendLabelColor() {
+        return new int[] {
                 R.color.greenSuccess,
                 R.color.redDanger,
                 R.color.silver_color
-        });
+        };
     }
 
+
+    /**
+     * Get Value Formatter
+     * @return
+     */
+    @Override
+    protected IValueFormatter getValueFormatter() {
+        return new IValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return (int)value + "%";
+            }
+        };
+    }
+
+    /**
+     * On Load Data
+     */
+    @Override
+    protected void onLoadData() {
+        // TODO call presenter to refresh data
+    }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
+    }
 }

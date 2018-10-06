@@ -527,6 +527,9 @@
     <string name="see_all_comments_extracted">See all comments extracted</string>
     <string name="see_comments_extracted">See comments extracted</string>
     <string name="kid_results_refresh_data">Refresh data</string>
+    <string name="kid_results_activity_social_facebook" formatted="false">%s of the time has been using Facebook</string>
+    <string name="kid_results_activity_social_youtube" formatted="false">%s of the time has been using Youtube</string>
+    <string name="kid_results_activity_social_instagram" formatted="false">%s of the time has been using Instagram</string>
 
 
 </resources>

@@ -27,7 +27,7 @@ public final class SystemAlertsFragmentPresenter extends
         entries.add(new PieEntry(40f, AlertLevelEnum.SUCCESS.name()));
         entries.add(new PieEntry(15f, AlertLevelEnum.DANGER.name()));
         entries.add(new PieEntry(35f, AlertLevelEnum.WARNING.name()));
-        view.onSystemAlertsLoaded(entries);
+
 
     }
 }

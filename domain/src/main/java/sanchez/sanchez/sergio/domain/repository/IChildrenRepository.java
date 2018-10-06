@@ -5,6 +5,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
@@ -57,5 +58,14 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId);
+
+    /**
+     * Get Social Media Activity Statistics
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    Observable<SocialMediaActivityStatisticsEntity> getSocialMediaActivityStatistics(final String kidIdentity,
+                                                                                     final int daysAgo);
 
 }

@@ -14,6 +14,8 @@ import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SentimentAnalysisStatisticsEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaActivityStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
@@ -25,6 +27,8 @@ import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
@@ -35,6 +39,8 @@ import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -152,5 +158,24 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity> provideCommentsStatisticsBySocialMediaDataMapper() {
         return new CommentsBySocialMediaDataMapper();
+    }
+
+    /**
+     * Provide Social Media Activity Statistics Entity DataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> provideSocialMediaActivityStatisticsEntityDataMapper(){
+        return new SocialMediaActivityStatisticsEntityDataMapper();
+    }
+
+    /**
+     * Provide Sentiment Analysis Statistics Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SentimentAnalysisStatisticsDTO,
+            SentimentAnalysisStatisticsEntity> provideSentimentAnalysisStatisticsEntityDataMapper(){
+        return new SentimentAnalysisStatisticsEntityDataMapper();
     }
 }
