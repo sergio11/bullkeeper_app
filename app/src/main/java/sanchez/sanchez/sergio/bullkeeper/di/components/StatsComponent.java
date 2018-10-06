@@ -12,8 +12,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivitySoc
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivitySocialMediaMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaMvpBySocialMediaFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartFragmentPresenter;
@@ -72,7 +72,7 @@ public interface StatsComponent extends ActivityComponent {
      * Inject into Comments Extracted Mvp Fragment
      * @param commentsExtractedBySocialMediaMvpFragment
      */
-    void inject(final CommentsExtractedBySocialMediaMvpBySocialMediaFragment commentsExtractedBySocialMediaMvpFragment);
+    void inject(final CommentsExtractedBySocialMediaFragment commentsExtractedBySocialMediaMvpFragment);
 
     /**
      * Inject into Relations Mvp Fragment

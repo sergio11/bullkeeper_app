@@ -27,6 +27,7 @@ public final class CommentsBySocialMediaDataMapper extends AbstractDataMapper<Co
             commentsBySocialMediaEntity.setLabel(commentsBySocialMediaDTO.getLabel());
             commentsBySocialMediaEntity.setTotal(commentsBySocialMediaDTO.getTotal());
             commentsBySocialMediaEntity.setSocialMediaTypeEnum(commentsBySocialMediaDTO.getSocialMediaTypeEnum());
+            commentsBySocialMediaEntities.add(commentsBySocialMediaEntity);
         }
         commentsStatisticsBySocialMediaEntity.setCommentsBySocialMediaEntities(commentsBySocialMediaEntities);
         return commentsStatisticsBySocialMediaEntity;

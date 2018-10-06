@@ -25,7 +25,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerStatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivitySocialMediaMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaMvpBySocialMediaFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsMvpFragment;
@@ -312,7 +312,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
                 case DIMENSIONS_TAB:
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case COMMENTS_EXTRACTED_TAB:
-                    return CommentsExtractedBySocialMediaMvpBySocialMediaFragment.newInstance(kidIdentity);
+                    return CommentsExtractedBySocialMediaFragment.newInstance(kidIdentity);
                 case SOCIAL_MEDIA_TAB:
                     return ActivitySocialMediaMvpFragment.newInstance(kidIdentity);
                 case SENTIMENT_ANALYSIS_TAB:

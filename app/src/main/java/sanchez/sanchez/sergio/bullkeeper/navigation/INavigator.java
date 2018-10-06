@@ -180,6 +180,16 @@ public interface INavigator {
                                      final String sentimentValue);
 
     /**
+     * Show Alert Level Dialog
+     * @param appCompatActivity
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     */
+    void showAlertLevelDialog(final AppCompatActivity appCompatActivity,
+                                     final AlertLevelEnum alertLevelEnum,
+                                     final String alertLevelValue, final String kidIdentity);
+
+    /**
      * Show Photo Viewer Dialog
      * @param appCompatActivity
      * @param photoUrl

@@ -368,7 +368,7 @@
     <string name="sentiment_analysis_neutro">Neutro</string>
 
     <!-- System Alert -->
-    <string name="system_alerts_chart_title">Alerts system</string>
+    <string name="system_alerts_chart_title">All Alerts</string>
     <string name="system_alerts_chart_description">Set of alerts produced in the system for the child</string>
 
     <!-- System Alert -->
@@ -525,7 +525,9 @@
     <string name="kid_results_error_ocurred">There was an error loading the results, please try again later.</string>
     <string name="kid_results_loading_results">Loading results, wait please ...</string>
     <string name="see_all_comments_extracted">See all comments extracted</string>
+    <string name="kid_results_see_all_alerts">See all alerts</string>
     <string name="see_comments_extracted">See comments extracted</string>
+    <string name="kid_results_see_alerts_by_level">See alers</string>
     <string name="kid_results_refresh_data">Refresh data</string>
     <string name="kid_results_activity_social_facebook" formatted="false">%s of the time has been using Facebook</string>
     <string name="kid_results_activity_social_youtube" formatted="false">%s of the time has been using Youtube</string>
@@ -536,5 +538,8 @@
     <string name="kid_results_sentiment_content_positive" formatted="false">%s of the comments analyzed have a positive feeling</string>
     <string name="kid_results_sentiment_content_negative" formatted="false">%s of the comments analyzed have a negative feeling</string>
     <string name="kid_results_sentiment_content_neutral" formatted="false">%s of the comments analyzed have a neutral feeling</string>
-
+    <string name="kid_results_info_alerts" formatted="false">%s of the alerts are informative.</string>
+    <string name="kid_results_success_alerts" formatted="false">%s of alerts are positive.</string>
+    <string name="kid_results_warning_alerts" formatted="false">%s of alerts are notices of important things</string>
+    <string name="kid_results_danger_alerts" formatted="false">%s of alerts are from very important events.</string>
 </resources>

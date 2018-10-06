@@ -36,6 +36,7 @@ public final class SocialMediaActivityStatisticsEntityDataMapper
                 Timber.e("Social Media Unknow");
                 activityEntity.setSocialMediaEnum(null);
             }
+            activityEntities.add(activityEntity);
         }
         socialMediaActivityStatisticsEntity.setActivities(activityEntities);
         return socialMediaActivityStatisticsEntity;

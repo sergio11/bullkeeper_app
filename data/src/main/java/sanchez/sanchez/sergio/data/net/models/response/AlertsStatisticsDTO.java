@@ -18,6 +18,12 @@ public final class AlertsStatisticsDTO implements Serializable {
     @JsonProperty("alerts")
     private List<AlertLevelDTO> data;
 
+    public AlertsStatisticsDTO(){}
+
+    public AlertsStatisticsDTO(String title, List<AlertLevelDTO> data) {
+        this.title = title;
+        this.data = data;
+    }
 
     public String getTitle() {
         return title;
@@ -38,7 +44,7 @@ public final class AlertsStatisticsDTO implements Serializable {
     /**
      * Alert Level DTO
      */
-    class AlertLevelDTO {
+    public static class AlertLevelDTO {
 
         @JsonProperty("level")
         private String level;
@@ -48,6 +54,14 @@ public final class AlertsStatisticsDTO implements Serializable {
 
         @JsonProperty("label")
         private String label;
+
+        public AlertLevelDTO(){}
+
+        public AlertLevelDTO(String level, Integer total, String label) {
+            this.level = level;
+            this.total = total;
+            this.label = label;
+        }
 
         public String getLevel() {
             return level;
