@@ -22,6 +22,8 @@
     <color name="commonWhite">#FFFFFF</color>
     <!-- Green Success -->
     <color name="greenSuccess">#4BB543</color>
+    <!-- Green Dark  -->
+    <color name="greenSuccessDark">#1E4A1B</color>
     <!-- Translucent Green Success -->
     <color name="translucentGreenSuccess">#904BB543</color>
     <!-- Red Danger -->

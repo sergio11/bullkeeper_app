@@ -12,11 +12,13 @@ import sanchez.sanchez.sergio.data.net.models.request.RegisterSonDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateSonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
@@ -32,26 +34,28 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     private final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper;
     private final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper;
     private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
-
+    private final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper;
 
     /**
-     *
      * @param childrenService
      * @param sonDataMapper
      * @param imageDataMapper
      * @param dimensionDataMapper
      * @param socialMediaStatisticsDataMapper
+     * @param sentimentAnalysisStatisticsDataMapper
      */
     public ChildrenRepositoryImpl(final IChildrenService childrenService,
                                   final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                   final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
-                                  final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper) {
+                                  final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
+                                  final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper) {
         this.childrenService = childrenService;
         this.sonDataMapper = sonDataMapper;
         this.imageDataMapper = imageDataMapper;
         this.dimensionDataMapper = dimensionDataMapper;
         this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
+        this.sentimentAnalysisStatisticsDataMapper = sentimentAnalysisStatisticsDataMapper;
     }
 
     /**
@@ -171,5 +175,23 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
                 .map(response -> response != null && response.getData() != null ?
                         response.getData() : null)
                 .map(socialMediaStatisticsDataMapper::transform);
+    }
+
+    /**
+     * Get Sentiment Analysis Statistics
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SentimentAnalysisStatisticsEntity> getSentimentAnalysisStatistics(final String kidIdentity, final int daysAgo) {
+        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
+        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
+        Preconditions.checkState(daysAgo > 0, "Days ago must be greater than 0");
+
+        return childrenService.getSentimentAnalysisStatistics(kidIdentity, daysAgo)
+                .map(response -> response != null &&
+                    response.getData() != null ? response.getData(): null)
+                .map(sentimentAnalysisStatisticsDataMapper::transform);
     }
 }
