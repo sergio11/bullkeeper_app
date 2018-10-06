@@ -5,6 +5,7 @@ import java.util.List;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import timber.log.Timber;
 
@@ -28,10 +29,10 @@ public class SentimentAnalysisStatisticsEntityDataMapper extends
         for(final SentimentAnalysisStatisticsDTO.SentimentDTO sentimentDTO: originModel.getSentimentData()) {
             final SentimentAnalysisStatisticsEntity.SentimentEntity sentimentEntity = new SentimentAnalysisStatisticsEntity.SentimentEntity();
             try {
-                sentimentEntity.setSocialMediaEnum(SocialMediaEnum.valueOf(sentimentDTO.getType()));
+                sentimentEntity.setSentimentLevelEnum(SentimentLevelEnum.valueOf(sentimentDTO.getType()));
             } catch (IllegalArgumentException ex) {
-                Timber.e("Sentiment Social Type unknow");
-                sentimentEntity.setSocialMediaEnum(null);
+                Timber.e("Sentiment Level Type unknow");
+                sentimentEntity.setSentimentLevelEnum(null);
             }
             sentimentEntity.setLabel(sentimentDTO.getLabel());
             sentimentEntity.setScore(sentimentDTO.getScore());

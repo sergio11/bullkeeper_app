@@ -16,8 +16,10 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -285,6 +287,18 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showSocialActivityDialog(AppCompatActivity appCompatActivity, final SocialMediaEnum socialMediaEnum, final String socialMediaValue) {
         ActivityBySocialMediaDialog.show(appCompatActivity, socialMediaEnum, socialMediaValue);
+    }
+
+    /**
+     * Show Sentiment Analysis Dialog
+     * @param appCompatActivity
+     * @param sentimentLevelEnum
+     * @param sentimentValue
+     */
+    @Override
+    public void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
+                                            final SentimentLevelEnum sentimentLevelEnum, final String sentimentValue) {
+        SentimentAnalysisDialog.show(appCompatActivity, sentimentLevelEnum, sentimentValue);
     }
 
     /**

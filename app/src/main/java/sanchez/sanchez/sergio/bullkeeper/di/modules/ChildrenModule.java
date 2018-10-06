@@ -9,6 +9,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
@@ -16,10 +17,12 @@ import sanchez.sanchez.sergio.data.repository.ChildrenRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.children.GetFourDimensionsStatisticsByChildInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetSentimentAnalysisStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSocialMediaActivityStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
@@ -54,8 +57,11 @@ public class ChildrenModule {
                                                   @Named("SonImageEntity") final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                                   final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
                                                   final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity>
-                                                    socialMediaDataMapper) {
-        return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper, dimensionDataMapper, socialMediaDataMapper);
+                                                    socialMediaDataMapper,
+                                                  final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity>
+                                                          sentimentAnalysisDataMapper) {
+        return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper, dimensionDataMapper, socialMediaDataMapper,
+                sentimentAnalysisDataMapper);
     }
 
     /**
@@ -90,6 +96,19 @@ public class ChildrenModule {
     GetSocialMediaActivityStatisticsInteract provideGetSocialMediaActivityStatisticsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                                              final IChildrenRepository childrenRepository){
         return new GetSocialMediaActivityStatisticsInteract(threadExecutor, postExecutionThread, childrenRepository);
+    }
+
+    /**
+     * Get Sentiment Analysis Statistics Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param childrenRepository
+     * @return
+     */
+    @Provides @PerActivity
+    GetSentimentAnalysisStatisticsInteract provideGetSentimentAnalysisStatisticsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                         final IChildrenRepository childrenRepository){
+        return new GetSentimentAnalysisStatisticsInteract(threadExecutor, postExecutionThread, childrenRepository);
     }
 
 }

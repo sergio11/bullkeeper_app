@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -165,7 +166,18 @@ public interface INavigator {
      * @param socialMediaValue
      */
     void showSocialActivityDialog(final AppCompatActivity appCompatActivity,
-                                     final SocialMediaEnum socialMediaEnum, final String socialMediaValue);
+                                  final SocialMediaEnum socialMediaEnum,
+                                  final String socialMediaValue);
+
+    /**
+     * Show Sentiment Analysis Dialog
+     * @param appCompatActivity
+     * @param sentimentLevelEnum
+     * @param sentimentValue
+     */
+    void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
+                                     final SentimentLevelEnum sentimentLevelEnum,
+                                     final String sentimentValue);
 
     /**
      * Show Photo Viewer Dialog

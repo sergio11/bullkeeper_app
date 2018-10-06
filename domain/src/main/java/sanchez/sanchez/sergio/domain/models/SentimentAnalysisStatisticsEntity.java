@@ -67,30 +67,42 @@ public final class SentimentAnalysisStatisticsEntity  implements Serializable {
      */
     public static class SentimentEntity {
 
-        private SocialMediaEnum socialMediaEnum;
+        /**
+         * Sentiment Level Enum
+         */
+        private SentimentLevelEnum sentimentLevelEnum;
+
+        /**
+         * Score
+         */
         private Float score;
+
+        /**
+         * Label
+         */
         private String label;
 
         public SentimentEntity(){}
 
         /**
          *
-         * @param socialMediaEnum
+         * @param sentimentLevelEnum
          * @param score
          * @param label
          */
-        public SentimentEntity(final SocialMediaEnum socialMediaEnum, Float score, String label) {
-            this.socialMediaEnum = socialMediaEnum;
+        public SentimentEntity(final SentimentLevelEnum sentimentLevelEnum, Float score, String label) {
+            this.sentimentLevelEnum = sentimentLevelEnum;
             this.score = score;
             this.label = label;
         }
 
-        public SocialMediaEnum getSocialMediaEnum() {
-            return socialMediaEnum;
+
+        public SentimentLevelEnum getSentimentLevelEnum() {
+            return sentimentLevelEnum;
         }
 
-        public void setSocialMediaEnum(SocialMediaEnum socialMediaEnum) {
-            this.socialMediaEnum = socialMediaEnum;
+        public void setSentimentLevelEnum(SentimentLevelEnum sentimentLevelEnum) {
+            this.sentimentLevelEnum = sentimentLevelEnum;
         }
 
         public Float getScore() {
@@ -108,7 +120,23 @@ public final class SentimentAnalysisStatisticsEntity  implements Serializable {
         public void setLabel(String label) {
             this.label = label;
         }
+
+        @Override
+        public String toString() {
+            return "SentimentEntity{" +
+                    "sentimentLevelEnum=" + sentimentLevelEnum +
+                    ", score=" + score +
+                    ", label='" + label + '\'' +
+                    '}';
+        }
     }
 
-
+    @Override
+    public String toString() {
+        return "SentimentAnalysisStatisticsEntity{" +
+                "title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", sentimentData=" + sentimentData +
+                '}';
+    }
 }

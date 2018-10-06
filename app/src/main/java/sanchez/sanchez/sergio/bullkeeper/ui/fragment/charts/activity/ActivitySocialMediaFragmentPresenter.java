@@ -100,23 +100,8 @@ public final class ActivitySocialMediaFragmentPresenter
         @Override
         public void visitSocialMediaActivityStatisticsNotFound(GetSocialMediaActivityStatisticsInteract.GetSocialMediaActivityStatisticsApiErrors apiErrorsVisitor) {
 
-
-            final SocialMediaActivityStatisticsEntity socialMediaActivityStatisticsEntity = new SocialMediaActivityStatisticsEntity();
-            socialMediaActivityStatisticsEntity.setTitle("Title");
-            socialMediaActivityStatisticsEntity.setSubtitle("Subtitle");
-            socialMediaActivityStatisticsEntity.setActivities(Arrays.asList(
-                    new SocialMediaActivityStatisticsEntity.ActivityEntity(SocialMediaEnum.YOUTUBE, 25, "25"),
-                    new SocialMediaActivityStatisticsEntity.ActivityEntity(SocialMediaEnum.INSTAGRAM, 50, "50"),
-                    new SocialMediaActivityStatisticsEntity.ActivityEntity(SocialMediaEnum.FACEBOOK, 25, "25")
-
-            ));
-
-            if(isViewAttached() && getView() != null)
-                getView().onDataAvaliable(socialMediaActivityStatisticsEntity);
-
-
-            /**if (isViewAttached() && getView() != null)
-                getView().onNoDataAvaliable();*/
+            if (isViewAttached() && getView() != null)
+                getView().onNoDataAvaliable();
 
         }
     }
