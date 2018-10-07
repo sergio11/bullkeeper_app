@@ -18,7 +18,7 @@ import timber.log.Timber;
  */
 public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFourDimensionsFragmentView> {
 
-    public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+    public static final String KIDS_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Four Dimensions Statistics By Child Interact

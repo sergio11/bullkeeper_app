@@ -6,8 +6,11 @@ import net.grandcentrix.thirtyinch.TiPresenter;
 import java.util.EnumSet;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.utils.CallbackWrapper;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 import timber.log.Timber;
@@ -18,6 +21,8 @@ import timber.log.Timber;
  */
 public abstract class SupportPresenter<T extends ISupportView> extends TiPresenter<T> {
 
+    @Inject
+    protected IAppUtils appUtils;
 
     protected Bundle args;
 

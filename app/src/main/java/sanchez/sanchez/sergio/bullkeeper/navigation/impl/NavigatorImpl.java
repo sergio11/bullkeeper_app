@@ -238,7 +238,7 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
         Preconditions.checkNotNull(socialMediaEnum, "Social Media Enum can not be null");
 
-        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity));
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, socialMediaEnum));
     }
 
     /**
