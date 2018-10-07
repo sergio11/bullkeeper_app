@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.data.net.services.ICommentsService;
 import sanchez.sanchez.sergio.data.repository.CommentsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentsInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentsStatisticsBySocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetSocialMediaLikesStatisticsInteract;
@@ -101,6 +102,22 @@ public class CommentsModule {
             final ICommentsRepository commentsRepository
     ){
         return new GetCommentsInteract(threadExecutor, postExecutionThread, commentsRepository);
+    }
+
+    /**
+     * Provide Get Comments By Id Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param commentsRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public GetCommentByIdInteract provideGetCommentByIdInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ICommentsRepository commentsRepository
+    ){
+        return new GetCommentByIdInteract(threadExecutor, postExecutionThread, commentsRepository);
     }
 
 }

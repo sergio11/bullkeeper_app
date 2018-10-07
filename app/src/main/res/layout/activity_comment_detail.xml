@@ -28,6 +28,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
+            <!-- Author Image -->
             <ImageView
                 android:id="@+id/authorImage"
                 android:layout_width="match_parent"
@@ -60,12 +61,13 @@
 
                 <!-- Author Name -->
                 <TextView
+                    android:id="@+id/authorName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CommonStrongText"
                     android:textColor="@color/commonWhite"
                     android:textStyle="bold"
-                    android:text="Peter Peter"/>
+                    android:text="-"/>
 
                 <!-- Comment Create At -->
                 <TextView
@@ -129,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:layout_toStartOf="@id/commentCreateAt"
+                    android:layout_toStartOf="@id/commentSince"
                     style="@style/CommonStrongText.Medium"
                     android:textColor="@color/cyanBrilliant"
                     android:text="0"/>
@@ -137,14 +139,14 @@
 
                 <!-- Comment Create At Since -->
                 <TextView
-                    android:id="@+id/commentCreateAt"
+                    android:id="@+id/commentSince"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_alignParentEnd="true"
                     style="@style/CommonStrongText.Medium"
                     android:textColor="@color/darkModerateBlue"
-                    android:text="3 hours ago"/>
+                    android:text="-"/>
             </RelativeLayout>
 
             <!-- Message -->
@@ -185,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:textColor="@color/darkModerateBlue"
-                        android:text="Wow! que realismo" />
+                        android:text="-" />
 
                 </LinearLayout>
 

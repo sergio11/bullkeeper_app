@@ -207,7 +207,21 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
                 .map(commentsDataMapper::transform);
     }
 
+    /**
+     * Get Comment By id
+     * @param id
+     * @return
+     */
+    @Override
+    public Observable<CommentEntity> getCommentById(String id) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
 
+        return commentsService.getCommentById(id)
+                .map(response -> response != null && response.getData() != null ?
+                    response.getData(): null)
+                .map(commentsDataMapper::transform);
+    }
 
 
 }

@@ -289,6 +289,7 @@
 
     <string name="comment_detail_results_title">Results</string>
     <string name="comment_detail_create_at" formatted="true">Comment create at %s</string>
+    <string name="comment_detail_not_found">The comment detail could not be obtained</string>
 
     <!-- Sentiment -->
     <string name="comment_detail_sentiment_level_unknown">There are no results for the sentiment analysis.</string>

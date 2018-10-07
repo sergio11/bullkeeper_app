@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.domain.repository;
 
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
 import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
@@ -100,5 +99,11 @@ public interface ICommentsRepository {
             final String[] identities,
             final int daysAgo);
 
+    /**
+     * Get Comment By Id
+     * @param id
+     * @return
+     */
+    Observable<CommentEntity> getCommentById(final String id);
 
 }
