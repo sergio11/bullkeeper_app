@@ -6,6 +6,7 @@ import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsBySocialMediaStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.NewFriendsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
@@ -67,6 +68,18 @@ public interface ICommentsService {
     @GET("comments/comments-extracted-by-social-media")
     Observable<APIResponse<CommentsStatisticsBySocialMediaDTO>> getCommentsStatisticsBySocialMedia(
             @Query("identities") final String[] ids,
+            @Query("days_ago") final Integer daysAgo
+    );
+
+    /**
+     * Most Active Friends By Social Media
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    @GET("comments/most-active-friends-by-social-media")
+    Observable<APIResponse<MostActiveFriendsBySocialMediaStatisticsDTO>> getMostActiveFriendsBySocialMedia(
+            @Query("identity") final String kidIdentity,
             @Query("days_ago") final Integer daysAgo
     );
 }

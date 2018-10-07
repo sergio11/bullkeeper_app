@@ -4,9 +4,11 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsBySocialMediaStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.services.ICommentsService;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
+import sanchez.sanchez.sergio.domain.models.MostActiveFriendsBySocialMediaStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
 
@@ -33,18 +35,28 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
             socialMediaLikesStatisticsDataMapper;
 
     /**
+     * Most Active Friends By Social Media Statistics Data Mapper
+     */
+    private final AbstractDataMapper<MostActiveFriendsBySocialMediaStatisticsDTO, MostActiveFriendsBySocialMediaStatisticsEntity>
+            mostActiveFriendsBySocialMediaStatisticsDataMapper;
+
+    /**
      * Comments Repository Impl
      * @param commentsService
      * @param commentsStatisticsDataMapper
      * @param socialMediaLikesStatisticsDataMapper
+     * @param  mostActiveFriendsBySocialMediaStatisticsDataMapper
      */
     public CommentsRepositoryImpl(final ICommentsService commentsService, final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO,
             CommentsStatisticsBySocialMediaEntity> commentsStatisticsDataMapper,
                                   final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity>
-                                          socialMediaLikesStatisticsDataMapper) {
+                                          socialMediaLikesStatisticsDataMapper,
+                                  final AbstractDataMapper<MostActiveFriendsBySocialMediaStatisticsDTO, MostActiveFriendsBySocialMediaStatisticsEntity>
+                                          mostActiveFriendsBySocialMediaStatisticsDataMapper) {
         this.commentsService = commentsService;
         this.commentsStatisticsDataMapper = commentsStatisticsDataMapper;
         this.socialMediaLikesStatisticsDataMapper = socialMediaLikesStatisticsDataMapper;
+        this.mostActiveFriendsBySocialMediaStatisticsDataMapper = mostActiveFriendsBySocialMediaStatisticsDataMapper;
     }
 
     /**
@@ -81,5 +93,23 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
                     response.getData() : null)
                 .map(socialMediaLikesStatisticsDataMapper::transform);
 
+    }
+
+    /**
+     * Get Most Active Friends By Social Media
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<MostActiveFriendsBySocialMediaStatisticsEntity> getMostActiveFriendsBySocialMedia(String kidIdentity, int daysAgo) {
+        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
+        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
+        Preconditions.checkState(daysAgo > 0, "Days ago must be greater than 0");
+
+        return commentsService.getMostActiveFriendsBySocialMedia(kidIdentity, daysAgo)
+                .map(response -> response != null && response.getData() != null ?
+                    response.getData() : null)
+                .map(mostActiveFriendsBySocialMediaStatisticsDataMapper::transform);
     }
 }

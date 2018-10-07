@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.domain.repository;
 
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
+import sanchez.sanchez.sergio.domain.models.MostActiveFriendsBySocialMediaStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 
 /**
@@ -26,6 +27,15 @@ public interface ICommentsRepository {
      */
     Observable<SocialMediaLikesStatisticsEntity> getSocialMediaLikesStatistics(final String kidIdentity,
                                                                                final int daysAgo);
+
+    /**
+     * Get Most Active Friends By Social Media
+     * @param kidIdentity
+     * @param daysAgo
+     * @return
+     */
+    Observable<MostActiveFriendsBySocialMediaStatisticsEntity> getMostActiveFriendsBySocialMedia(final String kidIdentity,
+                                                                                                 final int daysAgo);
 
 
 }

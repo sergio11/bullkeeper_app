@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.AlertsStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsBySocialMediaStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
@@ -28,6 +29,7 @@ import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsBySocialMediaStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
@@ -42,6 +44,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.MostActiveFriendsBySocialMediaStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
@@ -201,5 +204,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> provideSocialMediaLikesStatisticsDataMapper(){
         return new SocialMediaLikesStatisticsDataMapper();
+    }
+
+    /**
+     * Provide Most Active Friends By Social Media Statistics Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<MostActiveFriendsBySocialMediaStatisticsDTO, MostActiveFriendsBySocialMediaStatisticsEntity> provideMostActiveFriendsBySocialMediaStatisticsDataMapper(){
+        return new MostActiveFriendsBySocialMediaStatisticsEntityDataMapper();
     }
 }

@@ -2,14 +2,10 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.Arrays;
-
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSentimentAnalysisStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 
 /**
  * Sentiment Analysis Fragment Presenter
