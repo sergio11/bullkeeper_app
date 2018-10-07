@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
@@ -144,5 +145,14 @@ public interface ICommentsService {
             @Query("children") final String[] ids,
             @Query("days_ago") final int daysAgo
     );
+
+
+    /**
+     * Get Comment By Id
+     * @param id
+     * @return
+     */
+    @GET("comments/{id}")
+    Observable<APIResponse<CommentDTO>> getCommentById(@Path("id") final String id);
 
 }
