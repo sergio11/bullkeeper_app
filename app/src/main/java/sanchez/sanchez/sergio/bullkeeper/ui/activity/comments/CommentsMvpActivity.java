@@ -4,60 +4,54 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
+import icepick.State;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.CommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerCommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.CommentsAdapter;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
  * Comments Activity
  */
-public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, ICommentsView>
-        implements HasComponent<CommentsComponent>, ICommentsView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<CommentEntity>,CommentsAdapter.OnCommentsViewListener {
+public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresenter, ICommentsView, CommentEntity>
+        implements HasComponent<CommentsComponent>, ICommentsView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<CommentEntity> {
 
-    public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+    /**
+     * Kid Identity
+     */
+    public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
+    /**
+     * Social Media Enum
+     */
+    public static final String SOCIAL_MEDIA_ARG = "SOCIAL_MEDIA_ARG";
+
+    /**
+     * Comments Comment
+     */
     private CommentsComponent commentsComponent;
 
-    /**
-     * Main Container
-     */
-    @BindView(R.id.mainContainer)
-    protected ViewGroup mainContainer;
 
     /**
-     * Refresh Layout
+     * Dependencies
+     * ====================
      */
-    @BindView(R.id.swipeContainer)
-    protected SwipeRefreshLayout refreshLayout;
-
-    /**
-     * Comments List
-     */
-    @BindView(R.id.commentsList)
-    protected RecyclerView commentsList;
-
 
     /**
      * Picasso
@@ -65,25 +59,62 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
     @Inject
     protected Picasso picasso;
 
+
+    /**
+     * Views
+     * ===================
+     */
+    /**
+     * Comments Filter Image Button
+     */
+    @BindView(R.id.commentsFilter)
+    protected ImageButton commentsFilterImageButton;
+
+    /**
+     * Comments Header Text View
+     */
+    @BindView(R.id.commentsHeaderTitle)
+    protected TextView commentsHeaderTitleTextView;
+
+    /**
+     * State
+     * ==================
+     */
+
     /**
      * Kid Identity
      */
-    private String myKidIdentity;
+    @State
+    protected String myKidIdentity;
 
-    /**
-     * Comments Adapter
-     */
-    private CommentsAdapter commentsAdapter;
+    @State
+    protected SocialMediaEnum socialMediaEnum;
 
 
     /**
      * Get Calling Intent
      * @param context
+     * @param identity
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity) {
         final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
-        callingIntent.putExtra(KIDS_IDENTITY_ARG, identity);
+        callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param identity
+     * @param socialMediaEnum
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String identity,
+                                          final SocialMediaEnum socialMediaEnum) {
+        final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
+        callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(SOCIAL_MEDIA_ARG, socialMediaEnum);
         return callingIntent;
     }
 
@@ -134,7 +165,7 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
      */
     @NonNull
     @Override
-    public CommentsPresenter providePresenter() {
+    public CommentsMvpPresenter providePresenter() {
         return commentsComponent.commentsPresenter();
     }
 
@@ -146,27 +177,41 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        if (getIntent() != null && getIntent().hasExtra(KIDS_IDENTITY_ARG)) {
-            // Get Kid identity
-            myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
-        }
+        if (getIntent() == null || !getIntent().hasExtra(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide kid identity");
 
-        refreshLayout.setColorSchemeResources(R.color.commonWhite);
-        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.cyanBrilliant);
+        myKidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
-        commentsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        commentsList.setNestedScrollingEnabled(false);
+        if (getIntent().hasExtra(SOCIAL_MEDIA_ARG))
+            socialMediaEnum = (SocialMediaEnum) getIntent().getSerializableExtra(SOCIAL_MEDIA_ARG);
 
-        commentsAdapter = new CommentsAdapter(getApplicationContext(),
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if(appUtils.isValidString(myKidIdentity))
+            args.putString(CommentsMvpPresenter.KIDS_INDENTITIES_ARG,
+                    myKidIdentity);
+        if (socialMediaEnum != null)
+            args.putSerializable(CommentsMvpPresenter.SOCIAL_MEDIAS_TYPES_ARG,
+                    socialMediaEnum);
+        return args;
+    }
+
+    /**
+     * Get Adapter
+     * @return
+     */
+    @NotNull
+    @Override
+    protected SupportRecyclerViewAdapter<CommentEntity> getAdapter() {
+        return new CommentsAdapter(getApplicationContext(),
                 new ArrayList<CommentEntity>(), picasso);
-        commentsAdapter.setOnSupportRecyclerViewListener(this);
-        commentsAdapter.setOnCommentsViewListener(this);
-
-        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(getApplicationContext(), R.dimen.item_offset);
-        commentsList.addItemDecoration(itemOffsetDecoration);
-        // Set Animator
-        commentsList.setItemAnimator(new DefaultItemAnimator());
-        commentsList.setAdapter(commentsAdapter);
     }
 
     /**
@@ -192,18 +237,27 @@ public class CommentsMvpActivity extends SupportMvpActivity<CommentsPresenter, I
     public void onFooterClick() {}
 
     /**
-     * On Filter Alerts
+     * On No Data Found
      */
     @Override
-    public void onFilterAlerts() {}
+    public void onNoDataFound() {
+        super.onNoDataFound();
+
+        commentsHeaderTitleTextView.setText(R.string.comments_by_child_title_default);
+
+    }
 
     /**
-     * On Comments Loaded
-     * @param commentsList
+     * On Data Loaded
+     * @param dataLoaded
      */
     @Override
-    public void onCommentsLoaded(List<CommentEntity> commentsList) {
-        commentsAdapter.setData(new ArrayList<>(commentsList));
-        commentsAdapter.notifyDataSetChanged();
+    public void onDataLoaded(List<CommentEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+
+        commentsHeaderTitleTextView.setText(String.format(
+                getString(R.string.comments_by_child_title),
+                dataLoaded.size()));
+
     }
 }

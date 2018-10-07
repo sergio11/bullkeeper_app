@@ -23,7 +23,7 @@ public final class ActivitySocialMediaFragmentPresenter
     /**
      * Kid Identity Arg
      */
-    public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+    public static final String KIDS_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Social Media Activity

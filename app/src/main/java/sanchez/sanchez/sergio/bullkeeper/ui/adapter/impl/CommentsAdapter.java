@@ -8,25 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 
 /**
- * Last Alerts Adapter
+ * Comments Adapter
  */
 public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEntity>{
-
-    /**
-     * On Comments View Listener
-     */
-    private OnCommentsViewListener onCommentsViewListener;
 
     /**
      * Picasso
@@ -42,7 +34,7 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
         super(context, data);
         this.picasso = picasso;
         // enable header
-        hasHeader = true;
+        hasHeader = false;
         hasFooter = false;
 
     }
@@ -58,46 +50,6 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
         return new CommentsViewHolder(context, view);
     }
 
-    /**
-     * On Create Header View Holder
-     * @param viewGroup
-     * @return
-     */
-    @Override
-    protected RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.comments_header_layout, viewGroup, false);
-        return new CommentsHeaderViewHolder(view);
-    }
-
-    /**
-     * On Create Footer View Holder
-     * @param viewGroup
-     * @return
-     */
-    @Override
-    protected RecyclerView.ViewHolder onCreateFooterViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.progress_item, viewGroup, false);
-        return new SupportFooterViewHolder(view);
-    }
-
-    /**
-     * Set On Alerts View Listener
-     * @param onCommentsViewListener
-     */
-    public void setOnCommentsViewListener(OnCommentsViewListener onCommentsViewListener){
-        this.onCommentsViewListener = onCommentsViewListener;
-    }
-
-    /**
-     * On Comments View Listener
-     */
-    public interface OnCommentsViewListener {
-
-        /**
-         * On Filter Alerts
-         */
-        void onFilterAlerts();
-    }
 
     /**
      * Comments View Holder
@@ -108,7 +60,7 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
         private Context context;
 
         private CircleImageView authorImage;
-        private TextView authorName, commentMessage;
+        private TextView authorName, commentMessage, commentSince;
         private ImageView commentSocialMedia;
 
         /**
@@ -123,6 +75,7 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
             this.authorName = itemView.findViewById(R.id.authorName);
             this.commentMessage = itemView.findViewById(R.id.commentMessage);
             this.commentSocialMedia = itemView.findViewById(R.id.commentSocialMedia);
+            this.commentSince = itemView.findViewById(R.id.commentSince);
         }
 
         /**
@@ -133,6 +86,8 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
         public void bind(CommentEntity commentEntity) {
             super.bind(commentEntity);
 
+
+            // Author Photo
             if(commentEntity.getAuthorPhoto() != null &&
                     !commentEntity.getAuthorPhoto().isEmpty())
 
@@ -146,6 +101,16 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
                 authorImage.setImageResource(R.drawable.user_default);
 
 
+            // Author Name
+            authorName.setText(commentEntity.getAuthorName());
+
+            // Comment Message
+            commentMessage.setText(commentEntity.getMessage());
+
+            // Comment Since
+            commentSince.setText(commentEntity.getExtractedAtSince());
+
+            // Comment Social Media
             switch (commentEntity.getSocialMedia()) {
                 case FACEBOOK:
                     commentSocialMedia.setImageDrawable(ContextCompat.getDrawable(context,
@@ -162,34 +127,5 @@ public final class CommentsAdapter extends SupportRecyclerViewAdapter<CommentEnt
             }
         }
     }
-
-    /**
-     * Comments Header View Holder
-     */
-    public class CommentsHeaderViewHolder extends SupportHeaderViewHolder {
-
-        private ImageButton filterAlerts;
-
-        public CommentsHeaderViewHolder(View itemView) {
-            super(itemView);
-
-            this.filterAlerts = itemView.findViewById(R.id.filterAlerts);
-
-
-            filterAlerts.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onCommentsViewListener != null)
-                        onCommentsViewListener.onFilterAlerts();
-                }
-            });
-
-        }
-
-        public ImageButton getFilterAlerts() {
-            return filterAlerts;
-        }
-    }
-
 
 }

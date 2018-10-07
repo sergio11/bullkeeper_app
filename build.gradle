@@ -20,8 +20,8 @@ allprojects {
 
     ext {
         androidApplicationId = 'sanchez.sanchez.sergio.bullkeeper'
-        androidVersionCode = 67
-        androidVersionName = "0.5.11"
+        androidVersionCode = 69
+        androidVersionName = "0.5.12"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.fernandocejas.android10.sample.presentation.test'
     }

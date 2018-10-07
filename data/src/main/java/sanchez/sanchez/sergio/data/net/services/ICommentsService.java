@@ -1,9 +1,12 @@
 package sanchez.sanchez.sergio.data.net.services;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
@@ -69,4 +72,77 @@ public interface ICommentsService {
             @Query("identities") final String[] ids,
             @Query("days_ago") final Integer daysAgo
     );
+
+    /**
+     * Get Comments
+     * @param ids
+     * @param author
+     * @param socialMedias
+     * @param daysAgo
+     * @param violence
+     * @param drugs
+     * @param bullying
+     * @param adult
+     * @return
+     */
+    @GET("comments/comments")
+    Observable<APIResponse<List<CommentDTO>>> getComments(
+            @Query("children") final String[] ids,
+            @Query("author") final String author,
+            @Query("social_medias") final String[] socialMedias,
+            @Query("days_ago") final int daysAgo,
+            @Query("violence") final String violence,
+            @Query("drugs") final String drugs,
+            @Query("bullying") final String bullying,
+            @Query("adult") final String adult
+    );
+
+    /**
+     * Get Comments
+     * @param ids
+     * @param socialMedias
+     * @param daysAgo
+     * @param violence
+     * @param drugs
+     * @param bullying
+     * @param adult
+     * @return
+     */
+    @GET("comments/comments")
+    Observable<APIResponse<List<CommentDTO>>> getComments(
+            @Query("children") final String[] ids,
+            @Query("social_medias") final String[] socialMedias,
+            @Query("days_ago") final int daysAgo,
+            @Query("violence") final String violence,
+            @Query("drugs") final String drugs,
+            @Query("bullying") final String bullying,
+            @Query("adult") final String adult
+    );
+
+    /**
+     * Get Comments
+     * @param ids
+     * @param socialMedias
+     * @param daysAgo
+     * @return
+     */
+    @GET("comments/comments")
+    Observable<APIResponse<List<CommentDTO>>> getComments(
+            @Query("children") final String[] ids,
+            @Query("social_medias") final String[] socialMedias,
+            @Query("days_ago") final int daysAgo
+    );
+
+    /**
+     * Get Comments
+     * @param ids
+     * @param daysAgo
+     * @return
+     */
+    @GET("comments/comments")
+    Observable<APIResponse<List<CommentDTO>>> getComments(
+            @Query("children") final String[] ids,
+            @Query("days_ago") final int daysAgo
+    );
+
 }

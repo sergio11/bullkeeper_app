@@ -73,7 +73,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     private final static String SCHOOL_FIELD_NAME = "school";
 
 
-    public static final String KIDS_IDENTITY_ARG = "KIDS_IDENTITY_ARG";
+    public static final String KIDS_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     private static final int MIN_AGE_ALLOWED = 8;
     private static final int MAX_AGE_ALLOWED = 18;

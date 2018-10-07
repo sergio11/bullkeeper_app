@@ -281,7 +281,7 @@
     <string name="social_media_configured_title">Social Media Configured</string>
     <string name="social_media_configured_description">Configure social media to allow access to the content that we will analyze</string>
     <!-- Comments -->
-    <string name="comments_by_child_title" formatted="true">Comments of %s</string>
+    <string name="comments_by_child_title" formatted="true">Comments (%d)</string>
     <string name="comments_by_child_title_default">Comments</string>
 
     <!-- Comment Detail -->
