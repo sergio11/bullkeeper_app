@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBA
  */
 public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresenter, ICommentsView, CommentEntity>
         implements HasComponent<CommentsComponent>, ICommentsView, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<CommentEntity> {
+
+    private final String CONTENT_FULL_NAME = "COMMENTS_LIST";
+    private final String CONTENT_TYPE_NAME = "COMMENTS";
 
     /**
      * Kid Identity
@@ -201,6 +205,16 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
             args.putSerializable(CommentsMvpPresenter.SOCIAL_MEDIAS_TYPES_ARG,
                     socialMediaEnum);
         return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

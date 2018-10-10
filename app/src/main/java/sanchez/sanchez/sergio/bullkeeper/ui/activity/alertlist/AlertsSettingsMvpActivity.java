@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSettingsComponent;
@@ -18,6 +21,9 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 public class AlertsSettingsMvpActivity extends SupportMvpActivity<AlertsSettingsActivityPresenter, IAlertsSettingsView>
         implements HasComponent<SettingsComponent>, IAlertsSettingsActivityHandler
         , IAlertsSettingsView {
+
+    private final String CONTENT_FULL_NAME = "ALERTS_SETTINGS";
+    private final String CONTENT_TYPE_NAME = "ALERTS";
 
     private final static String ENABLE_ALERTS_CATEGORY_ARGS = "ENABLE_ALERTS_CATEGORY_ARGS";
 
@@ -116,6 +122,16 @@ public class AlertsSettingsMvpActivity extends SupportMvpActivity<AlertsSettings
         if (savedInstanceState == null)
             addFragment(R.id.mainContainer, alertsSettingsActivityFragment,
                     false, AlertsSettingsActivityFragment.TAG);
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

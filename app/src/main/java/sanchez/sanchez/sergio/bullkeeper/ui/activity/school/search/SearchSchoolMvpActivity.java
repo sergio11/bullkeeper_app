@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,6 +39,9 @@ public class SearchSchoolMvpActivity extends SupportMvpSearchLCEActivity<SearchS
         implements HasComponent<SchoolComponent>, ISearchSchoolActivityView, SchoolAdapter.OnSchoolListener {
 
     public final static String SCHOOL_SELECTED_ARG = "SCHOOL_SELECTED_ARG";
+
+    private final String CONTENT_FULL_NAME = "SEARCH_SCHOOL";
+    private final String CONTENT_TYPE_NAME = "SCHOOLS";
 
     private final static int ADD_SCHOOL_REQUEST_CODE = 237;
 
@@ -94,6 +98,16 @@ public class SearchSchoolMvpActivity extends SupportMvpSearchLCEActivity<SearchS
         initSearchLayout.getSearchMessage().setText(R.string.search_school_message);
         loadingLayout.getMessage().setText(R.string.search_school_loading_message);
 
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

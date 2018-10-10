@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -26,6 +29,10 @@ import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBA
 public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView>
         implements HasComponent<HomeComponent>, IHomeActivityHandler
         , IHomeView, LastAlertsActivityMvpFragment.SupportLCEListener {
+
+    private final String CONTENT_FULL_NAME = "HOME";
+    private final String CONTENT_TYPE_NAME = "APP";
+
 
     private HomeComponent homeComponent;
 
@@ -231,5 +238,15 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
             @Override
             public void onRejected(DialogFragment dialog) {}
         });
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 }

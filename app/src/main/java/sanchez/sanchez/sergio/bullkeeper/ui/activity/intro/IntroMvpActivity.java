@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -26,6 +28,9 @@ public class IntroMvpActivity
         , IIntroView{
 
     private final static String CLOSE_SESSION_ARG = "close_session";
+
+    private final String CONTENT_FULL_NAME = "INTRO";
+    private final String CONTENT_TYPE_NAME = "APP";
 
 
     private IntroComponent introComponent;
@@ -86,6 +91,16 @@ public class IntroMvpActivity
         }
 
         enableNoticeEventListener = false;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

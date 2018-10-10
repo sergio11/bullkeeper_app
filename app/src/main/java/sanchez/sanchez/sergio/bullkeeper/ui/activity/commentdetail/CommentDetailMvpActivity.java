@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 
@@ -30,6 +31,9 @@ import sanchez.sanchez.sergio.domain.models.CommentEntity;
  */
 public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPresenter, ICommentDetailView>
         implements HasComponent<CommentsComponent> , ICommentDetailView {
+
+    private final String CONTENT_FULL_NAME = "COMMENT_DETAIL";
+    private final String CONTENT_TYPE_NAME = "COMMENTS";
 
     /**
      * Comment Identity Arg
@@ -224,6 +228,16 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
             args.putString(CommentDetailPresenter.COMMENT_IDENTITY_ARG,
                     commentIdentity);
         return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

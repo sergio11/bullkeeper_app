@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -42,6 +43,9 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         , IMyKidsDetailView, FourDimensionsMvpFragment.OnFourDimensionsListener {
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    private final String CONTENT_FULL_NAME = "MY_KIDS_DETAIL";
+    private final String CONTENT_TYPE_NAME = "KIDS";
 
     /**
      * Sections Pager Adapter
@@ -223,6 +227,16 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         final Bundle args = new Bundle();
         args.putString(MyKidsDetailPresenter.KID_IDENTITY_ARG, kidIdentity);
         return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

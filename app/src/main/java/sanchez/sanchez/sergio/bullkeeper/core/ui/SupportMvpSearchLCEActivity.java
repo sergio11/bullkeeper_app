@@ -204,10 +204,13 @@ public abstract class SupportMvpSearchLCEActivity<T extends SupportSearchLCEPres
      */
     @Override
     protected void loadData() {
-        if(currentQueryText != null && !currentQueryText.isEmpty())
+
+        if(currentQueryText != null && !currentQueryText.isEmpty()) {
+            onShowLoadingState();
             getPresenter().loadData(currentQueryText);
-        else
+        } else {
             onShowInitSearch();
+        }
     }
 
     /**

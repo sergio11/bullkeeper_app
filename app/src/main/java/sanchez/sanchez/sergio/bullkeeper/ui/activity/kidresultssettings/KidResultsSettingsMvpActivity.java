@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
@@ -20,6 +23,8 @@ public class KidResultsSettingsMvpActivity extends SupportMvpActivity<KidResults
         implements HasComponent<SettingsComponent>, IKidResultsSettingsActivityHandler
         , IKidResultsSettingsView {
 
+    private final String CONTENT_FULL_NAME = "KID_RESULTS_SETTINGS";
+    private final String CONTENT_TYPE_NAME = "KID_RESULTS";
 
     /**
      * Settings Component
@@ -101,6 +106,16 @@ public class KidResultsSettingsMvpActivity extends SupportMvpActivity<KidResults
         if (savedInstanceState == null)
             addFragment(R.id.mainContainer, kidResultsSettingsActivityFragment,
                     false);
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

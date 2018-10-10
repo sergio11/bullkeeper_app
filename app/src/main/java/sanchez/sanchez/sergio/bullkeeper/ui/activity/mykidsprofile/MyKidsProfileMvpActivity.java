@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.jaychang.sa.AuthCallback;
 import com.jaychang.sa.SocialUser;
@@ -62,6 +64,9 @@ import timber.log.Timber;
 public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
         implements HasComponent<MyKidsComponent>,
         IMyKidsProfileView, PhotoViewerDialog.IPhotoViewerListener {
+
+    private final String CONTENT_FULL_NAME = "MY_KIDS_PROFILE";
+    private final String CONTENT_TYPE_NAME = "KIDS";
 
     public final static int SELECT_SCHOOL_REQUEST_CODE = 266;
 
@@ -444,6 +449,16 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         if(myKidIdentity != null && !myKidIdentity.isEmpty())
             args.putString(KIDS_IDENTITY_ARG, myKidIdentity);
         return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

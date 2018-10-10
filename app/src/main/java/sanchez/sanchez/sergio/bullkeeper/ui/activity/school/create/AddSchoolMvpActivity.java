@@ -9,6 +9,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
+
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -34,6 +36,9 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
         implements HasComponent<SchoolComponent>, IAddSchoolView, SearchSchoolLocationDialog.ISearchSchoolListener {
 
     public static final String SCHOOL_ADDED_ARG = "SCHOOL_ADDED_ARG";
+
+    private final String CONTENT_FULL_NAME = "ADD_SCHOOL";
+    private final String CONTENT_TYPE_NAME = "SCHOOLS";
 
     private final static String NAME_FIELD_NAME = "name";
     private final static String RESIDENCE_FIELD_NAME = "residence";
@@ -197,6 +202,16 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
 
             }
         });
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

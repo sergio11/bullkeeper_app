@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -40,6 +41,9 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
         , IKidsResultsView {
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    private final String CONTENT_FULL_NAME = "KID_RESULTS";
+    private final String CONTENT_TYPE_NAME = "KID_RESULTS";
 
     /**
      * Sections Pager Adapter
@@ -260,6 +264,16 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             args.putString(KidsResultsActivityPresenter.KID_IDENTITY_ARG,
                     kidIdentity);
         return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**
