@@ -2,12 +2,11 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-
-
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetSocialMediaLikesStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Likes Chart Fragment
@@ -15,7 +14,6 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 public final class LikesChartFragmentPresenter extends SupportPresenter<ILikesChartFragmentView> {
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
-    private final static int DAYS_AGO_DEFAULT_VALUE = 30;
 
     /**
      * Get Social Media Likes Statisctics Interact
@@ -23,12 +21,20 @@ public final class LikesChartFragmentPresenter extends SupportPresenter<ILikesCh
     private final GetSocialMediaLikesStatisticsInteract getSocialMediaLikesStatisticsInteract;
 
     /**
+     * Preference Repository
+     */
+    private final IPreferenceRepository preferenceRepository;
+
+    /**
      *
      * @param getSocialMediaLikesStatisticsInteract
+     * @param preferenceRepository
      */
     @Inject
-    public LikesChartFragmentPresenter(final GetSocialMediaLikesStatisticsInteract getSocialMediaLikesStatisticsInteract){
+    public LikesChartFragmentPresenter(final GetSocialMediaLikesStatisticsInteract getSocialMediaLikesStatisticsInteract,
+                                       final IPreferenceRepository preferenceRepository){
         this.getSocialMediaLikesStatisticsInteract = getSocialMediaLikesStatisticsInteract;
+        this.preferenceRepository = preferenceRepository;
     }
 
     /**
@@ -51,7 +57,7 @@ public final class LikesChartFragmentPresenter extends SupportPresenter<ILikesCh
         Preconditions.checkState(!kidIdentity.isEmpty(), "Kid identity can not empty");
 
         getSocialMediaLikesStatisticsInteract.execute(new GetSocialMediaLikesStatisticsObservable(GetSocialMediaLikesStatisticsInteract.GetSocialMediaLikesStatisticsApiErrors.class),
-                GetSocialMediaLikesStatisticsInteract.Params.create(kidIdentity, DAYS_AGO_DEFAULT_VALUE));
+                GetSocialMediaLikesStatisticsInteract.Params.create(kidIdentity, preferenceRepository.getAgeOfResultsAsInt()));
     }
 
     /**

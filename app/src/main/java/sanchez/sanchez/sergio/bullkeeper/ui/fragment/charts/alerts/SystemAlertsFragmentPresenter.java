@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetAlertsStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * System Alerts Fragment Presenter
@@ -16,22 +17,24 @@ public final class SystemAlertsFragmentPresenter extends
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
-     * Days Ago Default Value
-     */
-    private final static int DAYS_AGO_DEFAULT_VALUE = 30;
-
-    /**
      * Get Alerts Statistics Interact
      */
     private final GetAlertsStatisticsInteract getAlertsStatisticsInteract;
+
+    /**
+     * Preference Repository
+     */
+    private final IPreferenceRepository preferenceRepository;
 
     /**
      *
      * @param getAlertsStatisticsInteract
      */
     @Inject
-    public SystemAlertsFragmentPresenter(final GetAlertsStatisticsInteract getAlertsStatisticsInteract){
+    public SystemAlertsFragmentPresenter(final GetAlertsStatisticsInteract getAlertsStatisticsInteract,
+                                         final IPreferenceRepository preferenceRepository){
         this.getAlertsStatisticsInteract = getAlertsStatisticsInteract;
+        this.preferenceRepository = preferenceRepository;
     }
 
     /**
@@ -55,7 +58,7 @@ public final class SystemAlertsFragmentPresenter extends
 
 
         getAlertsStatisticsInteract.execute(new GetAlertsStatisticsObservable(GetAlertsStatisticsInteract.GetAlertsStatisticsApiErrors.class),
-                GetAlertsStatisticsInteract.Params.create(kidIdentity, DAYS_AGO_DEFAULT_VALUE));
+                GetAlertsStatisticsInteract.Params.create(kidIdentity, preferenceRepository.getAgeOfResultsAsInt()));
     }
 
     /**

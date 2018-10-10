@@ -140,6 +140,11 @@ public interface INavigator {
     void navigateToMyKidsDetail(final String identity);
 
     /**
+     * Navigate To Kid Results Settings
+     */
+    void navigateToKidResultsSettings();
+
+    /**
      * Show Four Dimensions Dialog
      * @param appCompatActivity
      * @param dimensionIdx

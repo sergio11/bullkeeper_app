@@ -235,6 +235,17 @@
     <string name="remove_alerts_last_day">Last Day</string>
     <string name="remove_alerts_last_month">Last Month</string>
 
+    <!-- Age of Results (Kid Results Preference Screen) -->
+    <string name="age_of_results_preference_title">Age of Results</string>
+    <string name="age_of_results_preference_summary">Antiquity of the results that are shown</string>
+
+    <string name="age_of_results_a_day_ago_preference_value">A day ago</string>
+    <string name="age_of_results_a_week_ago_preference_value">A week ago</string>
+    <string name="age_of_results_a_two_week_ago_preference_value">A two week ago</string>
+    <string name="age_of_results_a_month_ago_preference_value">A month ago</string>
+    <string name="age_of_results_a_two_months_ago_preference_value">A two months ago</string>
+    <string name="age_of_results_a_three_months_ago_preference_value">A three months ago</string>
+
     <!-- Alerts -->
     <string name="all_alert_categories_title">All alert categories</string>
     <string name="all_alert_categories_summary">Enable all alert categories</string>

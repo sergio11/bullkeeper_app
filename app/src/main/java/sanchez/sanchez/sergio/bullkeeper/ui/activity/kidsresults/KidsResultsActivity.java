@@ -13,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.squareup.picasso.Picasso;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -246,7 +244,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      */
     @OnClick(R.id.settings)
     protected void onSettingsClicked(){
-        showShortMessage("Settings");
+        // Navigate To Kid Results Settings
+        navigatorImpl.navigateToKidResultsSettings();
     }
 
     /**

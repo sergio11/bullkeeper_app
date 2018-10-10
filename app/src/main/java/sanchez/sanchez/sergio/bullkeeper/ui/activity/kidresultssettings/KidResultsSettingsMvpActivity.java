@@ -1,23 +1,24 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.activity.settings;
+package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.settings.UserSettingsActivityFragment;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidresultssettings.KidResultsSettingsActivityFragment;
+
 
 /**
- * User Settings Activity
+ * Kid Results Settings Activity
  */
-public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActivityPresenter, IUserSettingsView>
-        implements HasComponent<SettingsComponent>, IUserSettingsActivityHandler
-        , IUserSettingsView {
+public class KidResultsSettingsMvpActivity extends SupportMvpActivity<KidResultsSettingsActivityPresenter, IKidResultsSettingsView>
+        implements HasComponent<SettingsComponent>, IKidResultsSettingsActivityHandler
+        , IKidResultsSettingsView {
 
 
     /**
@@ -25,7 +26,11 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
      */
     private SettingsComponent settingsComponent;
 
-    private UserSettingsActivityFragment userSettingsActivityFragment;
+    /**
+     * Kid Results Settings Activity Fragment
+     */
+    protected KidResultsSettingsActivityFragment kidResultsSettingsActivityFragment;
+
 
     /**
      * Get Calling Intent
@@ -33,7 +38,7 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
      * @return
      */
     public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, UserSettingsMvpActivity.class);
+        return new Intent(context, KidResultsSettingsMvpActivity.class);
     }
 
 
@@ -55,8 +60,8 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
      */
     @NonNull
     @Override
-    public UserSettingsActivityPresenter providePresenter() {
-        return settingsComponent.userSettingsActivityPresenter();
+    public KidResultsSettingsActivityPresenter providePresenter() {
+        return settingsComponent.kidResultsSettingsActivityPresenter();
     }
 
     /**
@@ -92,9 +97,10 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
-        userSettingsActivityFragment = new UserSettingsActivityFragment();
+        kidResultsSettingsActivityFragment = new KidResultsSettingsActivityFragment();
         if (savedInstanceState == null)
-            addFragment(R.id.mainContainer, userSettingsActivityFragment, false);
+            addFragment(R.id.mainContainer, kidResultsSettingsActivityFragment,
+                    false);
     }
 
     /**
@@ -104,7 +110,7 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
     @Override
     public Boolean hasPendingChanges() {
         super.hasPendingChanges();
-        return userSettingsActivityFragment.hasPendingChanges();
+        return kidResultsSettingsActivityFragment.hasPendingChanges();
     }
 
     /**
@@ -113,7 +119,7 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
     @Override
     public void onSavedPendingChanges() {
         super.onSavedPendingChanges();
-        userSettingsActivityFragment.onSavedPendingChanges();
+        kidResultsSettingsActivityFragment.onSavedPendingChanges();
     }
 
     /**
@@ -122,6 +128,6 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
     @Override
     public void onDiscardPendingChanges() {
         super.onDiscardPendingChanges();
-        userSettingsActivityFragment.onDiscardPendingChanges();
+        kidResultsSettingsActivityFragment.onDiscardPendingChanges();
     }
 }

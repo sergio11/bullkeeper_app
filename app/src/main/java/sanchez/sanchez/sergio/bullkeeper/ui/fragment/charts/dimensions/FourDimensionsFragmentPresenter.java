@@ -2,15 +2,12 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetFourDimensionsStatisticsByChildInteract;
-import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 /**
@@ -26,12 +23,20 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
     private final GetFourDimensionsStatisticsByChildInteract getFourDimensionsStatisticsByChildInteract;
 
     /**
+     * Preference Repository
+     */
+    private final IPreferenceRepository preferenceRepository;
+
+    /**
      *
      * @param getFourDimensionsStatisticsByChildInteract
+     * @param preferenceRepository
      */
     @Inject
-    public FourDimensionsFragmentPresenter(final GetFourDimensionsStatisticsByChildInteract getFourDimensionsStatisticsByChildInteract){
+    public FourDimensionsFragmentPresenter(final GetFourDimensionsStatisticsByChildInteract getFourDimensionsStatisticsByChildInteract,
+                                           final IPreferenceRepository preferenceRepository){
         this.getFourDimensionsStatisticsByChildInteract = getFourDimensionsStatisticsByChildInteract;
+        this.preferenceRepository = preferenceRepository;
     }
 
     /**
@@ -56,7 +61,7 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
         Timber.d("Load Data for Son Id %s", sonId);
 
         getFourDimensionsStatisticsByChildInteract.execute(new GetFourDimensionsStatisticsByChildObservable(GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.class),
-                GetFourDimensionsStatisticsByChildInteract.Params.create(sonId));
+                GetFourDimensionsStatisticsByChildInteract.Params.create(sonId, preferenceRepository.getAgeOfResultsAsInt()));
     }
 
     /**

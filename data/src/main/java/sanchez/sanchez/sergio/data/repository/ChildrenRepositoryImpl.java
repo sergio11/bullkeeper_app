@@ -148,14 +148,16 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     /**
      * Get Dimensions Statistics By Child
      * @param sonId
+     * @param  daysAgo
      * @return
      */
     @Override
-    public Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(String sonId) {
+    public Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId, final int daysAgo) {
         Preconditions.checkNotNull(sonId, "Son Id can not be null");
         Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be null");
+        Preconditions.checkState(daysAgo > 0, "Days ago must be grater than 0");
 
-        return childrenService.getDimensionsStatistics(sonId, 30)
+        return childrenService.getDimensionsStatistics(sonId, daysAgo)
                 .map(response -> response != null && response.getData() != null ?
                     response.getData() : null)
                 .map(dimensionsStatisticsDTO ->

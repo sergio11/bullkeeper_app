@@ -496,4 +496,38 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
         return mPref.getLong(PREF_PREFERENCES_UPDATE_AT, PREF_PREFERENCES_UPDATE_AT_DEFAULT_VALUE);
     }
 
+    /**
+     * Set Pref Age Of Results
+     * @param ageOfResults
+     */
+    @Override
+    public void setPrefAgeOfResults(final String ageOfResults) {
+
+        mPref.edit()
+                .putString(PREF_AGE_OF_RESULTS, ageOfResults)
+                .apply();
+    }
+
+
+    @Override
+    public String getAgeOfResults() {
+        return mPref.getString(PREF_AGE_OF_RESULTS, PREF_AGE_OF_RESULTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Get Age Of Results
+     * @return
+     */
+    @Override
+    public int getAgeOfResultsAsInt() {
+        int ageOfResults;
+        try {
+            ageOfResults = Integer.parseInt(mPref.getString(PREF_AGE_OF_RESULTS,
+                    PREF_AGE_OF_RESULTS_DEFAULT_VALUE));
+        } catch (final Exception ex) {
+            ageOfResults = Integer.parseInt(PREF_AGE_OF_RESULTS_DEFAULT_VALUE);
+        }
+        return ageOfResults;
+    }
+
 }

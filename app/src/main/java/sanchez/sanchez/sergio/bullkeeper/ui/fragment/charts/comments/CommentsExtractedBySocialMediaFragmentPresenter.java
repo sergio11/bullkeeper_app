@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentsStatisticsBySocialMediaInteract;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Comments Extracted Fragment Presenter
@@ -15,20 +16,25 @@ public final class CommentsExtractedBySocialMediaFragmentPresenter
 
     public final static String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    private final static int DAYS_AGO_DEFAULT_VALUE = 30;
-
     /**
      * Get Comments Statistics By Social Media Interact
      */
     private final GetCommentsStatisticsBySocialMediaInteract getCommentsStatisticsBySocialMediaInteract;
 
     /**
+     * Preference Repository
+     */
+    private final IPreferenceRepository preferenceRepository;
+
+    /**
      *
      * @param getCommentsStatisticsBySocialMediaInteract
      */
     @Inject
-    public CommentsExtractedBySocialMediaFragmentPresenter(final GetCommentsStatisticsBySocialMediaInteract getCommentsStatisticsBySocialMediaInteract){
+    public CommentsExtractedBySocialMediaFragmentPresenter(final GetCommentsStatisticsBySocialMediaInteract getCommentsStatisticsBySocialMediaInteract,
+                                                           final IPreferenceRepository preferenceRepository){
         this.getCommentsStatisticsBySocialMediaInteract = getCommentsStatisticsBySocialMediaInteract;
+        this.preferenceRepository = preferenceRepository;
     }
 
     /**
@@ -53,7 +59,7 @@ public final class CommentsExtractedBySocialMediaFragmentPresenter
         // Get Comments Statistics
         getCommentsStatisticsBySocialMediaInteract.execute(new GetCommentsExtractedBySocialMediaObservable(GetCommentsStatisticsBySocialMediaInteract
                         .GetCommentsStatisticsBySocialMediaApiErrors.class),
-                GetCommentsStatisticsBySocialMediaInteract.Params.create(sonIdentity, DAYS_AGO_DEFAULT_VALUE));
+                GetCommentsStatisticsBySocialMediaInteract.Params.create(sonIdentity, preferenceRepository.getAgeOfResultsAsInt()));
 
     }
 

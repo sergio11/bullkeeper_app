@@ -91,7 +91,6 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_FILTER_ALERTS_ENABLE_DANGER_CATEGORY = "filter_alerts_enable_danger_category";
     boolean FILTER_ALERTS_ENABLE_DANGER_CATEGORY_DEFAULT_VALUE = true;
 
-
     String PREF_PREFERENCES_UPDATE_AT = "preferences_update_at";
     long PREF_PREFERENCES_UPDATE_AT_DEFAULT_VALUE = 0L;
 
@@ -100,6 +99,9 @@ public interface IPreferenceRepository extends IAuthTokenAware {
 
     String ALERTS_SETTINGS_PREFERENCE_SCREEN = "alertsSettingsPreferenceScreen";
 
+    // Age of Results (Kid Results Preference Screen)
+    String PREF_AGE_OF_RESULTS = "age_of_results";
+    String PREF_AGE_OF_RESULTS_DEFAULT_VALUE = "30";
 
 
     /**
@@ -353,6 +355,25 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * @return
      */
     long getPreferencesUpdateAt();
+
+
+    /**
+     * Set Pref Age Of Results
+     * @param ageOfResults
+     */
+    void setPrefAgeOfResults(final String ageOfResults);
+
+    /**
+     * Get Age Of Results
+     * @return
+     */
+    String getAgeOfResults();
+
+    /**
+     * Get Age Of Results As Int
+     * @return
+     */
+    int getAgeOfResultsAsInt();
 
 
 }
