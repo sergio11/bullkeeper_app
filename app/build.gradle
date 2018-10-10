@@ -166,15 +166,16 @@ dependencies {
     androidTestImplementation presentationTestDependencies.testingSupportLib
 
     //Development
-    //implementation developmentDependencies.leakCanary
+    implementation developmentDependencies.leakCanary
+
     compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true;
+        transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics-ndk:2.0.5@aar') {
-        transitive = true;
+        transitive = true
     }
     compile('com.crashlytics.sdk.android:answers:1.4.3@aar') {
-        transitive = true;
+        transitive = true
     }
 }
 

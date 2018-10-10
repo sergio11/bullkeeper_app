@@ -76,7 +76,7 @@ ext {
     testingSupportLibVersion = '0.1'
 
     //Development
-    leakCanaryVersion = '1.3.1'
+    leakCanaryVersion = '1.6.1'
 
     presentationDependencies = [
             daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
