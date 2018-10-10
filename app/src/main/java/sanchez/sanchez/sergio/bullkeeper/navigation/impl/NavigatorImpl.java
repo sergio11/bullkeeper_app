@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
@@ -257,6 +258,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToMyKidsDetail(final String identity) {
         context.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Navigate To Kid Results Settings
+     */
+    @Override
+    public void navigateToKidResultsSettings() {
+        context.startActivity(KidResultsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**

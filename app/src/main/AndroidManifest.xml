@@ -203,9 +203,17 @@
         <!-- Add School Activity -->
         <activity
             android:name=".ui.activity.school.create.AddSchoolMvpActivity"
-            android:label="@string/title_activity_add_school"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common" />
+
+
+        <!-- KidResultsSettingsMvpActivity -->
+        <activity android:name=".ui.activity.kidresultssettings.KidResultsSettingsMvpActivity"
+            android:label="@string/title_activity_add_school"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Preferences"
+            />
 
 
         <!-- Services -->

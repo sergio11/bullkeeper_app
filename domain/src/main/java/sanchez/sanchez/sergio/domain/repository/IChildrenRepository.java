@@ -59,7 +59,7 @@ public interface IChildrenRepository {
      * @param sonId
      * @return
      */
-    Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId);
+    Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId, final int daysAgo);
 
     /**
      * Get Social Media Activity Statistics

@@ -2,23 +2,17 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-import java.util.Arrays;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSocialMediaActivityStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Activity Social Media Fragment Presenter
  */
 public final class ActivitySocialMediaFragmentPresenter
         extends SupportPresenter<IActivitySocialMediaFragmentView> {
-
-    /**
-     * Days Ago Default Value
-     */
-    private final static int DAYS_AGO_DEFAULT_VALUE = 30;
 
     /**
      * Kid Identity Arg
@@ -31,12 +25,20 @@ public final class ActivitySocialMediaFragmentPresenter
     private final GetSocialMediaActivityStatisticsInteract getSocialMediaActivityStatisticsInteract;
 
     /**
+     * Preference Repository
+     */
+    private final IPreferenceRepository preferenceRepository;
+
+
+    /**
      * Activity Social Media Fragment
      * @param getSocialMediaActivityStatisticsInteract
      */
     @Inject
-    public ActivitySocialMediaFragmentPresenter(final GetSocialMediaActivityStatisticsInteract getSocialMediaActivityStatisticsInteract){
+    public ActivitySocialMediaFragmentPresenter(final GetSocialMediaActivityStatisticsInteract getSocialMediaActivityStatisticsInteract,
+                                                final IPreferenceRepository preferenceRepository){
         this.getSocialMediaActivityStatisticsInteract = getSocialMediaActivityStatisticsInteract;
+        this.preferenceRepository = preferenceRepository;
     }
 
     /**
@@ -61,7 +63,7 @@ public final class ActivitySocialMediaFragmentPresenter
         // Get Social Media Activity Statistics Interact
         getSocialMediaActivityStatisticsInteract.execute(new GetSocialMediaActivityStatisticsObservable(
                 GetSocialMediaActivityStatisticsInteract.GetSocialMediaActivityStatisticsApiErrors.class),
-                GetSocialMediaActivityStatisticsInteract.Params.create(sonIdentity, DAYS_AGO_DEFAULT_VALUE));
+                GetSocialMediaActivityStatisticsInteract.Params.create(sonIdentity, preferenceRepository.getAgeOfResultsAsInt()));
 
     }
 

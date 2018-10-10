@@ -2,14 +2,11 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.Arrays;
-
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSentimentAnalysisStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
  * Sentiment Analysis Fragment Presenter
@@ -18,10 +15,6 @@ public final class SentimentAnalysisFragmentPresenter extends SupportPresenter<I
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    /**
-     * Days Ago Default Value
-     */
-    private final static int DAYS_AGO_DEFAULT_VALUE = 30;
 
     /**
      * Get Sentiment Analysis Statistics Interact
@@ -29,11 +22,20 @@ public final class SentimentAnalysisFragmentPresenter extends SupportPresenter<I
     private final GetSentimentAnalysisStatisticsInteract getSentimentAnalysisStatisticsInteract;
 
     /**
+     * Preference Repository
+     */
+    private final IPreferenceRepository preferenceRepository;
+
+
+    /**
      * @param getSentimentAnalysisStatisticsInteract
+     * @param preferenceRepository
      */
     @Inject
-    public SentimentAnalysisFragmentPresenter(final GetSentimentAnalysisStatisticsInteract getSentimentAnalysisStatisticsInteract){
+    public SentimentAnalysisFragmentPresenter(final GetSentimentAnalysisStatisticsInteract getSentimentAnalysisStatisticsInteract,
+                                              final IPreferenceRepository preferenceRepository){
         this.getSentimentAnalysisStatisticsInteract = getSentimentAnalysisStatisticsInteract;
+        this.preferenceRepository = preferenceRepository;
     }
 
     /**
@@ -56,7 +58,7 @@ public final class SentimentAnalysisFragmentPresenter extends SupportPresenter<I
         Preconditions.checkState(!kidIdentity.isEmpty(), "Son Identity can not be null");
 
         getSentimentAnalysisStatisticsInteract.execute(new GetSentimentAnalysisFragmentObservable(GetSentimentAnalysisStatisticsInteract.GetSentimentAnalysisStatisticsApiErrors.class),
-                GetSentimentAnalysisStatisticsInteract.Params.create(kidIdentity, DAYS_AGO_DEFAULT_VALUE));
+                GetSentimentAnalysisStatisticsInteract.Params.create(kidIdentity, preferenceRepository.getAgeOfResultsAsInt()));
 
     }
 

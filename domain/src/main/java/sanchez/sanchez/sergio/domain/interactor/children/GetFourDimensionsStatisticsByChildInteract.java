@@ -45,8 +45,9 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getSonId(), "Son Id can not be null");
         Preconditions.checkNotNull(!params.getSonId().isEmpty(), "Son Id can not be empty");
+        Preconditions.checkState(params.daysAgo > 0, "Days Ago must be greater than 0");
 
-        return childrenRepository.getDimensionsStatisticsByChild(params.getSonId());
+        return childrenRepository.getDimensionsStatisticsByChild(params.getSonId(), params.getDaysAgo());
     }
 
     /**
@@ -55,17 +56,23 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
     public static class Params {
 
         private final String sonId;
+        private final int daysAgo;
 
-        private Params(String sonId) {
+        private Params(final String sonId, final int daysAgo) {
             this.sonId = sonId;
+            this.daysAgo = daysAgo;
         }
 
         public String getSonId() {
             return sonId;
         }
 
-        public static Params create(final String sonId) {
-            return new Params(sonId);
+        public int getDaysAgo() {
+            return daysAgo;
+        }
+
+        public static Params create(final String sonId, final int daysAgo) {
+            return new Params(sonId, daysAgo);
         }
     }
 

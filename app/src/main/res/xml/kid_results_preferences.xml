@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- General Configuration -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_general_configuration_category"
+        android:layout="@layout/preferences_category_layout">
+
+        <!-- Age of results -->
+        <android.support.v7.preference.ListPreference
+            android:key="age_of_results"
+            android:title="@string/age_of_results_preference_title"
+            android:summary="@string/age_of_results_preference_summary"
+            android:entries="@array/age_of_results"
+            android:layout="@layout/common_list_item_preference_layout"
+            android:entryValues="@array/age_of_results_values"
+            android:defaultValue="@integer/age_of_results_default_value"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+
+</android.support.v7.preference.PreferenceScreen>
