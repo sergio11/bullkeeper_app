@@ -800,4 +800,41 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
                 bullyingDimensionEnabled).apply();
     }
 
+    /**
+     * Set Pref Age Of Realtions
+     * @param ageOfRelations
+     */
+    @Override
+    public void setPrefAgeOfRelations(String ageOfRelations) {
+        mPref.edit()
+                .putString(PREF_AGE_OF_RELATIONS, PREF_AGE_OF_RELATIONS_DEFAULT_VALUE)
+                .apply();
+    }
+
+    /**
+     * Get Age of Relations
+     * @return
+     */
+    @Override
+    public String getAgeOfRelations() {
+        return mPref.getString(PREF_AGE_OF_RELATIONS,
+                PREF_AGE_OF_RELATIONS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Get Age Of Relations As Int
+     * @return
+     */
+    @Override
+    public int getAgeOfRelationsAsInt() {
+        int ageOfRelations;
+        try {
+            ageOfRelations = Integer.parseInt(mPref.getString(PREF_AGE_OF_RELATIONS,
+                    PREF_AGE_OF_RELATIONS_DEFAULT_VALUE));
+        } catch (final Exception ex) {
+            ageOfRelations = Integer.parseInt(PREF_AGE_OF_RELATIONS_DEFAULT_VALUE);
+        }
+        return ageOfRelations;
+    }
+
 }

@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 
@@ -105,5 +106,13 @@ public interface ICommentsRepository {
      * @return
      */
     Observable<CommentEntity> getCommentById(final String id);
+
+    /**
+     * Get Most Active Friends
+     * @param ids
+     * @param daysAgo
+     * @return
+     */
+    Observable<MostActiveFriendsEntity> getMostActiveFriends(final String[] ids, final Integer daysAgo);
 
 }

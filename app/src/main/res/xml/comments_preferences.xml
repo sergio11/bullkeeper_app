@@ -13,9 +13,9 @@
             android:title="@string/age_of_comments_preference_title"
             android:summary="@string/age_of_comments_preference_summary"
             android:layout="@layout/common_list_item_preference_layout"
-            android:entries="@array/age_of_comments"
-            android:entryValues="@array/age_of_comments_values"
-            android:defaultValue="@integer/age_of_comments_default_value"/>
+            android:entries="@array/age_of_results"
+            android:entryValues="@array/age_of_results_values"
+            android:defaultValue="@integer/age_of_results_default_value"/>
 
     </android.support.v7.preference.PreferenceCategory>
 

@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: "net.ltgt.apt"
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.7
@@ -15,6 +16,18 @@ sourceSets {
     }
 }
 
+buildscript {
+
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.10"
+    }
+}
+
 dependencies {
     def domainDependencies = rootProject.ext.domainDependencies
     def domainTestDependencies = rootProject.ext.domainTestDependencies
@@ -25,7 +38,6 @@ dependencies {
     implementation domainDependencies.rxJava
     implementation domainDependencies.arrowPreconditions
     implementation domainDependencies.timber
-
 
     testImplementation domainTestDependencies.junit
     testImplementation domainTestDependencies.mockito

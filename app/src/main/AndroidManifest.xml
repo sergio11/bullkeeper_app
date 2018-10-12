@@ -207,7 +207,7 @@
             android:theme="@style/AppTheme.Common" />
 
 
-        <!-- KidResultsSettingsMvpActivity -->
+        <!-- RelationsSettingsMvpActivity -->
         <activity android:name=".ui.activity.kidresultssettings.KidResultsSettingsMvpActivity"
             android:label="@string/title_activity_add_school"
             android:screenOrientation="portrait"
@@ -219,8 +219,22 @@
         <activity android:name=".ui.activity.commentssettings.CommentsSettingsMvpActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Preferences"
-            />
+            android:theme="@style/AppTheme.Preferences" />
+
+        <!-- Relations Mvp Activity -->
+        <activity android:name=".ui.activity.relations.RelationsMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"/>
+
+        <!-- Relation Detail Mvp Activity -->
+        <activity android:name=".ui.activity.relationdetail.RelationDetailMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common" />
+
+        <activity android:name=".ui.activity.relationssettings.RelationsSettingsMvpActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Preferences" />
 
 
         <!-- Services -->

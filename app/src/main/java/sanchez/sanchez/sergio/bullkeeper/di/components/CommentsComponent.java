@@ -9,6 +9,10 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentdetail.CommentDetail
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentdetail.CommentDetailPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.comments.CommentsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.comments.CommentsMvpPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpPresenter;
 
 /**
  * User Profile Component
@@ -30,6 +34,17 @@ public interface CommentsComponent extends ActivityComponent {
      */
     void inject(final CommentDetailMvpActivity commentDetailActivity);
 
+    /**
+     * Relations Activity
+     * @param relationsMvpActivity
+     */
+    void inject(final RelationsMvpActivity relationsMvpActivity);
+
+    /**
+     * Relation Detail Mvp Activity
+     * @param relationDetailMvpActivity
+     */
+    void inject(final RelationDetailMvpActivity relationDetailMvpActivity);
 
     /**
      * Comments Presenter
@@ -37,6 +52,8 @@ public interface CommentsComponent extends ActivityComponent {
      */
     CommentsMvpPresenter commentsPresenter();
     CommentDetailPresenter commentDetailPresenter();
+    RelationsMvpPresenter relationsMvpPresenter();
+    RelationDetailPresenter relationDetailPresenter();
 
 
 }

@@ -19,8 +19,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
@@ -60,17 +58,10 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final ImportantAlertsMvpFragment importantAlertsFragment);
 
-    /**
-     * Inject on Kid Relations Fragment
-     * @param kidRelationsFragment
-     */
-    void inject(final KidRelationsMvpFragment kidRelationsFragment);
-
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
     MyKidsProfilePresenter myKidsProfilePresenter();
     MyKidsDetailPresenter myKidsDetailPresenter();
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
-    KidRelationFragmentPresenter kidRelationFragmentPresenter();
 }

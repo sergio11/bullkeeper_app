@@ -151,6 +151,11 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_ENABLE_BULLYING_COMMENTS_DIMENSION = "enable_bullying_comment_dimension";
     boolean ENABLE_BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
 
+
+    // Age of Relations (Relations Preference Screen)
+    String PREF_AGE_OF_RELATIONS = "age_of_relations";
+    String PREF_AGE_OF_RELATIONS_DEFAULT_VALUE = "30";
+
     /**
      * Get Filter Alerts Count
      * @return
@@ -569,6 +574,25 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * @param bullyingDimensionEnabled
      */
     void setBullyingDimensionEnabled(boolean bullyingDimensionEnabled);
+
+
+    /**
+     * Set Pref Age Of Relations
+     * @param ageOfRelations
+     */
+    void setPrefAgeOfRelations(final String ageOfRelations);
+
+    /**
+     * Get Age Of Relations
+     * @return
+     */
+    String getAgeOfRelations();
+
+    /**
+     * Get Age Of Relations As Int
+     * @return
+     */
+    int getAgeOfRelationsAsInt();
 
 
 }

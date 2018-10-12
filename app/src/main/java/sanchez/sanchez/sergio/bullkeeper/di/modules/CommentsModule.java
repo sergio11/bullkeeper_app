@@ -7,17 +7,20 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.services.ICommentsService;
 import sanchez.sanchez.sergio.data.repository.CommentsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.children.GetMostActiveFriendsInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentsInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentsStatisticsBySocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetSocialMediaLikesStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
+import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
 
@@ -42,7 +45,8 @@ public class CommentsModule {
      * @param commentsService
      * @param commentsStatisticsDataMapper
      * @param socialMediaLikesStatisticsDataMapper
-     * @param  commentEntityDataMapper
+     * @param commentEntityDataMapper
+     * @param mostActiveFriendsEntityDataMapper
      * @return
      */
     @Provides @PerActivity
@@ -51,9 +55,11 @@ public class CommentsModule {
                                                                  CommentsStatisticsBySocialMediaEntity> commentsStatisticsDataMapper,
                                                          final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity>
                                                                      socialMediaLikesStatisticsDataMapper,
-                                                         final AbstractDataMapper<CommentDTO, CommentEntity> commentEntityDataMapper) {
+                                                         final AbstractDataMapper<CommentDTO, CommentEntity> commentEntityDataMapper,
+                                                         final AbstractDataMapper<MostActiveFriendsDTO, MostActiveFriendsEntity>
+                                                            mostActiveFriendsEntityDataMapper) {
         return new CommentsRepositoryImpl(commentsService, commentsStatisticsDataMapper,
-                socialMediaLikesStatisticsDataMapper, commentEntityDataMapper);
+                socialMediaLikesStatisticsDataMapper, commentEntityDataMapper, mostActiveFriendsEntityDataMapper);
     }
 
     /**
@@ -118,6 +124,21 @@ public class CommentsModule {
             final ICommentsRepository commentsRepository
     ){
         return new GetCommentByIdInteract(threadExecutor, postExecutionThread, commentsRepository);
+    }
+
+    /**
+     * Provide Get Most Active Friends Interact
+     * @return
+     */
+    @Provides @PerActivity
+    public GetMostActiveFriendsInteract provideGetMostActiveFriendsInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ICommentsRepository commentsRepository
+    ){
+
+        return new GetMostActiveFriendsInteract(threadExecutor, postExecutionThread, commentsRepository);
+
     }
 
 }

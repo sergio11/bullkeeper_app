@@ -4,12 +4,14 @@ import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -166,6 +168,23 @@ public interface INavigator {
      * Navigate To Comments Settings
      */
     void navigateToCommentsSettings();
+
+    /**
+     * Navigate To Relations
+     * @param kidIdentity
+     */
+    void navigateToRelations(final String kidIdentity);
+
+    /**
+     * Navigate To Relation Detail
+     * @param socialMediaFriendEntity
+     */
+    void navigateToRelationDetail(final SocialMediaFriendEntity socialMediaFriendEntity);
+
+    /**
+     * Navigate To Relations Settings
+     */
+    void navigateToRelationSettings();
 
     /**
      * Show Four Dimensions Dialog

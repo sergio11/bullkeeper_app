@@ -157,7 +157,9 @@ dependencies {
     // FireBase Dependencies
     implementation presentationDependencies.firebaseCore
     implementation presentationDependencies.firebaseMessaging
-
+    // Parceler
+    implementation presentationDependencies.parcelerApi
+    annotationProcessor presentationDependencies.parceler
 
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker

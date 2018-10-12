@@ -122,27 +122,5 @@
         <item>@string/age_of_results_a_three_months_ago_preference_value</item>
     </string-array>
 
-    <!-- Age of Comments values -->
-    <string-array name="age_of_comments_values">
-        <item>1</item>
-        <item>7</item>
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>90</item>
-    </string-array>
-
-    <!-- Age of comments default value -->
-    <integer name="age_of_comments_default_value">90</integer>
-
-    <!-- Age of comments  -->
-    <string-array name="age_of_comments">
-        <item>@string/age_of_comments_a_day_ago_preference_value</item>
-        <item>@string/age_of_comments_a_week_ago_preference_value</item>
-        <item>@string/age_of_comments_a_two_week_ago_preference_value</item>
-        <item>@string/age_of_comments_a_month_ago_preference_value</item>
-        <item>@string/age_of_comments_a_two_months_ago_preference_value</item>
-        <item>@string/age_of_comments_a_three_months_ago_preference_value</item>
-    </string-array>
 
 </resources>

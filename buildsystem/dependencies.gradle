@@ -65,6 +65,7 @@ ext {
     thirtyInchVersion = '0.8.5'
     constraintLayoutVersion = '1.0.2'
     customactivityoncrashVersion = '2.2.0'
+    parcelerVersion = '1.1.11'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -121,7 +122,9 @@ ext {
             arrowPreconditions: "com.fernandocejas:arrow:${arrowVersion}",
             zxcvbn:             "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
             firebaseCore:       "com.google.firebase:firebase-core:${firebaseCoreVersion}",
-            firebaseMessaging:  "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}"
+            firebaseMessaging:  "com.google.firebase:firebase-messaging:${firebaseMessagingVersion}",
+            parcelerApi:        "org.parceler:parceler-api:${parcelerVersion}",
+            parceler:           "org.parceler:parceler:${parcelerVersion}"
     ]
 
     presentationTestDependencies = [
@@ -137,7 +140,9 @@ ext {
             javaxInject:            "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava:                 "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             arrowPreconditions:     "com.fernandocejas:arrow:${arrowVersion}",
-            timber:                 "com.jakewharton.timber:timber:${timberVersion}"
+            timber:                 "com.jakewharton.timber:timber:${timberVersion}",
+            parcelerApi:            "org.parceler:parceler-api:${parcelerVersion}",
+            parceler:               "org.parceler:parceler:${parcelerVersion}"
     ]
 
     domainTestDependencies = [

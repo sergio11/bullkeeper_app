@@ -29,7 +29,6 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -356,8 +355,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         private final static int DIMENSIONS_TAB = 0;
         private final static int ALERTS_TAB = 1;
-        private final static int RELATIONS_TAB = 2;
-        private final static int SECTION_COUNT = 3;
+        private final static int SECTION_COUNT = 2;
 
         private final String kidIdentity;
 
@@ -378,8 +376,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
-                case RELATIONS_TAB:
-                    return KidRelationsMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -405,8 +401,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
                     return getString(R.string.alerts_tab);
-                case RELATIONS_TAB:
-                    return getString(R.string.relations_tab);
             }
             return null;
         }

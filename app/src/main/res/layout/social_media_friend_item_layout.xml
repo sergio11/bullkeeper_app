@@ -35,7 +35,7 @@
     <!-- Friend Name -->
     <TextView
         android:id="@+id/friendName"
-        style="@style/CommonStrongText"
+        style="@style/CommonStrongText.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -44,7 +44,7 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="Sergio Sánchez Sánchez"
+        android:text="-"
         android:textColor="@color/cyanBrilliant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -87,7 +87,7 @@
         android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="87%"
+        android:text="-"
         android:textAlignment="center"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="bold"

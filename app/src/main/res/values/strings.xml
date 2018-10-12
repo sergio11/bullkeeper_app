@@ -616,4 +616,21 @@
         Dimension of comments
     </string>
 
+    <!-- Relations -->
+    <string name="kid_relations_title_default">Most Active Friends</string>
+    <string name="kid_relations_title" formatted="true">Most Active Friends (%d)</string>
+
+    <string name="kid_relations_friend_from_facebook">Friend from facebook</string>
+    <string name="kid_relations_friend_from_instagram">Friend from Instagram</string>
+    <string name="kid_relations_friend_from_youtube">Friend from Youtube</string>
+    <string name="kid_relations_results_title">Results</string>
+    <string name="kid_relations_results" formatted="false">%s of the information obtained
+        in this social media comes from this user</string>
+    <string name="kid_relations_results_default">No information available</string>
+
+    <!-- Relations Settings -->
+    <string name="age_of_relations_preference_title">Age of Relations</string>
+    <string name="age_of_relations_preference_summary">Antiquity of the relations that are shown</string>
+
+
 </resources>

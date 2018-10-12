@@ -10,6 +10,9 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvp
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
@@ -26,6 +29,7 @@ import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -306,6 +310,34 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToCommentsSettings() {
         context.startActivity(CommentsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate To Relations
+     */
+    @Override
+    public void navigateToRelations(final String kidIdentity) {
+        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
+        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
+        context.startActivity(RelationsMvpActivity.getCallingIntent(context, kidIdentity));
+    }
+
+    /**
+     * Navigate To Relation Detail
+     * @param socialMediaFriendEntity
+     */
+    @Override
+    public void navigateToRelationDetail(SocialMediaFriendEntity socialMediaFriendEntity) {
+        Preconditions.checkNotNull(socialMediaFriendEntity, "Social Media Friend Entity");
+        context.startActivity(RelationDetailMvpActivity.getCallingIntent(context, socialMediaFriendEntity));
+    }
+
+    /**
+     * Navigate To Relations Settings
+     */
+    @Override
+    public void navigateToRelationSettings() {
+        context.startActivity(RelationsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
