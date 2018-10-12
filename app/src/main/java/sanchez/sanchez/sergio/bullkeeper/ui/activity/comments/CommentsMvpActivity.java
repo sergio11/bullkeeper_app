@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
@@ -23,6 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.CommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerCommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.CommentsAdapter;
+import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
@@ -45,6 +47,11 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
      * Social Media Enum
      */
     public static final String SOCIAL_MEDIA_ARG = "SOCIAL_MEDIA_ARG";
+
+    /**
+     * Dimension Arg
+     */
+    public static final String DIMENSION_ARG = "DIMENSION_ARG";
 
     /**
      * Comments Comment
@@ -94,6 +101,9 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
     @State
     protected SocialMediaEnum socialMediaEnum;
 
+    @State
+    protected DimensionCategoryEnum dimensionCategoryEnum;
+
 
     /**
      * Get Calling Intent
@@ -118,6 +128,40 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
                                           final SocialMediaEnum socialMediaEnum) {
         final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
         callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(SOCIAL_MEDIA_ARG, socialMediaEnum);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param identity
+     * @param dimensionCategoryEnum
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String identity,
+                                          final DimensionCategoryEnum dimensionCategoryEnum) {
+        final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
+        callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(DIMENSION_ARG, dimensionCategoryEnum);
+        return callingIntent;
+    }
+
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param identity
+     * @param dimensionCategoryEnum
+     * @param socialMediaEnum
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String identity,
+                                          final DimensionCategoryEnum dimensionCategoryEnum,
+                                          final SocialMediaEnum socialMediaEnum) {
+        final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
+        callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(DIMENSION_ARG, dimensionCategoryEnum);
         callingIntent.putExtra(SOCIAL_MEDIA_ARG, socialMediaEnum);
         return callingIntent;
     }
@@ -186,9 +230,14 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
 
         myKidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
+        // Social Media Arg
         if (getIntent().hasExtra(SOCIAL_MEDIA_ARG))
             socialMediaEnum = (SocialMediaEnum) getIntent().getSerializableExtra(SOCIAL_MEDIA_ARG);
 
+        // Check Dimension Arg
+        if(getIntent().hasExtra(DIMENSION_ARG))
+            dimensionCategoryEnum = (DimensionCategoryEnum)
+                    getIntent().getSerializableExtra(DIMENSION_ARG);
     }
 
     /**
@@ -204,6 +253,9 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
         if (socialMediaEnum != null)
             args.putSerializable(CommentsMvpPresenter.SOCIAL_MEDIAS_TYPES_ARG,
                     socialMediaEnum);
+        if(dimensionCategoryEnum != null)
+            args.putSerializable(CommentsMvpPresenter.DIMENSION_TYPES_ARG,
+                    dimensionCategoryEnum);
         return args;
     }
 
@@ -273,5 +325,13 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
                 getString(R.string.comments_by_child_title),
                 dataLoaded.size()));
 
+    }
+
+    /**
+     * On Filter Comments Clicked
+     */
+    @OnClick(R.id.commentsFilter)
+    protected void onFilterCommentsClicked(){
+        navigatorImpl.navigateToCommentsSettings();
     }
 }

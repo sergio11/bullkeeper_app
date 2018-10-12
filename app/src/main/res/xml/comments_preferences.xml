@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- General Configuration -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_general_configuration_category"
+        android:layout="@layout/preferences_category_layout">
+
+        <!-- Age of comments -->
+        <android.support.v7.preference.ListPreference
+            android:key="age_of_comments"
+            android:title="@string/age_of_comments_preference_title"
+            android:summary="@string/age_of_comments_preference_summary"
+            android:layout="@layout/common_list_item_preference_layout"
+            android:entries="@array/age_of_comments"
+            android:entryValues="@array/age_of_comments_values"
+            android:defaultValue="@integer/age_of_comments_default_value"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <!-- Social media comments  -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_social_media_comments"
+        android:layout="@layout/preferences_category_layout">
+
+        <!-- Enable All Social Medias -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_all_social_medias_categories"
+            android:title="@string/all_social_media_categories_title"
+            android:summary="@string/all_social_media_categories_summary"
+            android:layout="@layout/preference_switch_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Facebook -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_facebook_social_media"
+            android:title="@string/facebook_social_media_title"
+            android:summary="@string/facebook_social_media_summary"
+            android:layout="@layout/preference_facebook_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Instagram -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_instagram_social_media"
+            android:title="@string/instagram_social_media_title"
+            android:summary="@string/instagram_social_media_summary"
+            android:layout="@layout/preference_instagram_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Youtube -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="enable_youtube_social_media"
+            android:title="@string/youtube_social_media_title"
+            android:summary="@string/youtube_social_media_summary"
+            android:layout="@layout/preference_youtube_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <!-- Dimension of the comments analyzed  -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_comment_dimension"
+        android:layout="@layout/preferences_category_layout">
+
+        <!-- Enable Filter Dimension -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="enable_dimensions_filter"
+            android:title="@string/enable_dimensions_filter_title"
+            android:summary="@string/enable_dimensions_filter_summary"
+            android:layout="@layout/preference_switch_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Enable All Comments Dimension -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:visible="false"
+            android:key="enable_all_comments_dimension"
+            android:title="@string/all_comments_dimension_title"
+            android:summary="@string/all_comments_dimension_summary"
+            android:layout="@layout/preference_switch_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Violence -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:enabled="false"
+            android:visible="false"
+            android:key="enable_violence_comment_dimension"
+            android:title="@string/violence_comment_dimension_title"
+            android:summary="@string/violence_comment_dimension_summary"
+            android:layout="@layout/preference_violence_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Drugs -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:enabled="false"
+            android:visible="false"
+            android:key="enable_drugs_comment_dimension"
+            android:title="@string/drugs_comment_dimension_title"
+            android:summary="@string/drugs_comment_dimension_summary"
+            android:layout="@layout/preference_drugs_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+        <!-- Sex -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:enabled="false"
+            android:visible="false"
+            android:key="enable_sex_comment_dimension"
+            android:title="@string/sex_comment_dimension_title"
+            android:summary="@string/sex_comment_dimension_summary"
+            android:layout="@layout/preference_sex_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+
+        <!-- Bullying -->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:enabled="false"
+            android:visible="false"
+            android:key="enable_bullying_comment_dimension"
+            android:title="@string/bullying_comment_dimension_title"
+            android:summary="@string/bullying_comment_dimension_summary"
+            android:layout="@layout/preference_bullying_comments_layout"
+            android:widgetLayout="@layout/preference_widget_switch_layout" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

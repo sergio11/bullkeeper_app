@@ -103,6 +103,53 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_AGE_OF_RESULTS = "age_of_results";
     String PREF_AGE_OF_RESULTS_DEFAULT_VALUE = "30";
 
+    /**
+     * Comments Settings
+     */
+
+    // Age Of Comments (Comments Settings Preference Screen)
+    String PREF_AGE_OF_COMMENTS = "age_of_comments";
+    String PREF_AGE_OF_COMMENTS_DEFAULT_VALUE = "90";
+
+    // Enable All Social Media
+    String PREF_ENABLE_ALL_SOCIAL_MEDIAS_CATEGORIES = "enable_all_social_medias_categories";
+    boolean ENABLE_ALL_SOCIAL_MEDIAS_CATEGORIES_DEFAULT_VALUE = true;
+
+    // Enable Facebook
+    String PREF_ENABLE_FACEBOOK_SOCIAL_MEDIA = "enable_facebook_social_media";
+    boolean ENABLE_FACEBOOK_SOCIAL_MEDIA_DEFAULT_VALUE = true;
+
+    // Enable Instagram
+    String PREF_ENABLE_INSTAGRAM_SOCIAL_MEDIA = "enable_instagram_social_media";
+    boolean ENABLE_INSTAGRAM_SOCIAL_MEDIA_DEFAULT_VALUE = true;
+
+    // Enable Youtube
+    String PREF_ENABLE_YOUTUBE_SOCIAL_MEDIA = "enable_youtube_social_media";
+    boolean ENABLE_YOUTUBE_SOCIAL_MEDIA_DEFAULT_VALUE = true;
+
+    // Enable Dimension Filter
+    String PREF_ENABLE_DIMENSIONS_FILTER = "enable_dimensions_filter";
+    boolean ENABLE_DIMENSIONS_FILTER_DEFAULT_VALUE = false;
+
+    // Enable all comments dimension filter
+    String PREF_ENABLE_ALL_COMMENTS_DIMENSION = "enable_all_comments_dimension";
+    boolean ENABLE_ALL_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
+
+    // Enable Violence comment dimension
+    String PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION = "enable_violence_comment_dimension";
+    boolean ENABLE_VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE = false;
+
+    // Enable Drugs comments dimension filter
+    String PREF_ENABLE_DRUGS_COMMENTS_DIMENSION = "enable_drugs_comment_dimension";
+    boolean ENABLE_DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
+
+    // Enable Sex comments dimension filter
+    String PREF_ENABLE_SEX_COMMENTS_DIMENSION = "enable_sex_comment_dimension";
+    boolean ENABLE_SEX_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
+
+    // Enable Bullying Comment Dimension
+    String PREF_ENABLE_BULLYING_COMMENTS_DIMENSION = "enable_bullying_comment_dimension";
+    boolean ENABLE_BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
 
     /**
      * Get Filter Alerts Count
@@ -374,6 +421,154 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * @return
      */
     int getAgeOfResultsAsInt();
+
+
+    /**
+     * Set Pref Age Of Comments
+     * @param ageOfComments
+     */
+    void setPrefAgeOfComments(final String ageOfComments);
+
+    /**
+     * Get Age Of Comments
+     * @return
+     */
+    String getAgeOfComments();
+
+    /**
+     * Get Age Of Comments As Int
+     * @return
+     */
+    int getAgeOfCommentsAsInt();
+
+
+    /**
+     * Is All Social Media Categories Enabled
+     * @return
+     */
+    boolean isAllSocialMediaCategoriesEnabled();
+
+    /**
+     * Set All Social Media Categories Enabled
+     * @param allSocialMediaCategoriesEnabled
+     */
+    void setAllSocialMediaCategoriesEnabled(boolean allSocialMediaCategoriesEnabled);
+
+
+    /**
+     * Is Facebook Social Media Enabled
+     * @return
+     */
+    boolean isFacebookSocialMediaEnabled();
+
+    /**
+     * Set Facebook Social Media Categories Enabled
+     * @param facebookSocialMediaEnabled
+     */
+    void setFacebookSocialMediaEnabled(boolean facebookSocialMediaEnabled);
+
+    /**
+     * Is Instagram Social Media Enabled
+     * @return
+     */
+    boolean isInstagramSocialMediaEnabled();
+
+    /**
+     * Set Instagram Social Media Categories Enabled
+     * @param instagramSocialMediaEnabled
+     */
+    void setInstagramSocialMediaEnabled(boolean instagramSocialMediaEnabled);
+
+    /**
+     * Is Youtube Social Media Enabled
+     * @return
+     */
+    boolean isYoutubeSocialMediaEnabled();
+
+    /**
+     * Set Enable Youtube Social Media Categories
+     * @param youtubeSocialMediaEnabled
+     */
+    void setYoutubeSocialMediaEnabled(boolean youtubeSocialMediaEnabled);
+
+    /**
+     * Get Social Media Enabled
+     * @return
+     */
+    String[] getSocialMediaEnabled();
+
+    /**
+     * Is Dimension Filter Enabled
+     * @return
+     */
+    boolean isDimensionFilterEnabled();
+
+    /**
+     * Set Dimension Filter
+     * @param dimensionFilterEnabled
+     */
+    void setDimensionFilter(boolean dimensionFilterEnabled);
+
+    /**
+     * Is All Comments Dimension Enabled
+     * @return
+     */
+    boolean isAllCommentsDimensionEnabled();
+
+    /**
+     * Set All Comments Dimension Enabled
+     * @param allCommentsDimensionEnabled
+     */
+    void setAllCommentsDimensionEnabled(boolean allCommentsDimensionEnabled);
+
+
+    /**
+     * Is Violence Dimension Enabled
+     * @return
+     */
+    boolean isViolenceDimensionEnabled();
+
+    /**
+     * Set Violence Dimension Enabled
+     * @param violenceDimensionEnabled
+     */
+    void setViolenceDimensionEnabled(boolean violenceDimensionEnabled);
+
+    /**
+     * Is Drugs Dimension Enabled
+     * @return
+     */
+    boolean isDrugsDimensionEnabled();
+
+    /**
+     * Set Drugs Dimension Enabled
+     * @param drugsDimensionEnabled
+     */
+    void setDrugsDimensionEnabled(boolean drugsDimensionEnabled);
+
+    /**
+     * Is Sex Dimension Enabled
+     * @return
+     */
+    boolean isSexDimensionEnabled();
+
+    /**
+     * Set Sex Dimension Enabled
+     * @param sexDimensionEnabled
+     */
+    void setSexDimensionEnabled(boolean sexDimensionEnabled);
+
+    /**
+     * Is Sex Dimension Enabled
+     * @return
+     */
+    boolean isBullyingDimensionEnabled();
+
+    /**
+     * Set Bullying Dimension Enabled
+     * @param bullyingDimensionEnabled
+     */
+    void setBullyingDimensionEnabled(boolean bullyingDimensionEnabled);
 
 
 }

@@ -220,10 +220,10 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
     public static class KidsAndSocialMediaAndDimensionLevelFilter extends KidsAndSocialMediaFilter {
 
 
-        protected final ViolenceLevelEnum violenceLevelEnum;
-        protected final DrugsLevelEnum drugsLevelEnum;
-        protected final BullyingLevelEnum bullyingLevelEnum;
-        protected final AdultLevelEnum adultLevelEnum;
+        protected ViolenceLevelEnum violenceLevelEnum = ViolenceLevelEnum.UNKNOWN;
+        protected DrugsLevelEnum drugsLevelEnum = DrugsLevelEnum.UNKNOWN;
+        protected BullyingLevelEnum bullyingLevelEnum = BullyingLevelEnum.UNKNOWN;
+        protected AdultLevelEnum adultLevelEnum = AdultLevelEnum.UNKNOWN;
 
         /**
          *
@@ -236,9 +236,9 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * @param adultLevelEnum
          */
         private KidsAndSocialMediaAndDimensionLevelFilter(final String[] identities, final int daysAgo,
-                                                         final String[] socialMedias, final ViolenceLevelEnum violenceLevelEnum,
-                                                         final DrugsLevelEnum drugsLevelEnum, final BullyingLevelEnum bullyingLevelEnum,
-                                                         final AdultLevelEnum adultLevelEnum) {
+                                                         final String[] socialMedias, ViolenceLevelEnum violenceLevelEnum,
+                                                          DrugsLevelEnum drugsLevelEnum, BullyingLevelEnum bullyingLevelEnum,
+                                                          AdultLevelEnum adultLevelEnum) {
             super(identities, daysAgo, socialMedias);
             this.violenceLevelEnum = violenceLevelEnum;
             this.drugsLevelEnum = drugsLevelEnum;
