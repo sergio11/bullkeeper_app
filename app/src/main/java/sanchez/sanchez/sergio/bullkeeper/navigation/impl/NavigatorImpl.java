@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
@@ -21,6 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExt
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
@@ -243,6 +245,36 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     */
+    @Override
+    public void navigateToComments(String identity, DimensionCategoryEnum dimensionCategoryEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(dimensionCategoryEnum, "Dimension Category can not be null");
+
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum));
+    }
+
+    /**
+     * Navigate to comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     * @param socialMediaEnum
+     */
+    @Override
+    public void navigateToComments(String identity, DimensionCategoryEnum dimensionCategoryEnum, SocialMediaEnum socialMediaEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(dimensionCategoryEnum, "Dimension Category can not be null");
+        Preconditions.checkNotNull(socialMediaEnum, "Dimension Category can not be null");
+
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum, socialMediaEnum));
+    }
+
+    /**
      * Navigate To Comment Detail
      * @param identity
      */
@@ -266,6 +298,14 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToKidResultsSettings() {
         context.startActivity(KidResultsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate To Comments Settings
+     */
+    @Override
+    public void navigateToCommentsSettings() {
+        context.startActivity(CommentsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**

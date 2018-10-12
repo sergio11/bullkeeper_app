@@ -5,49 +5,61 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:listPreferredItemHeightSmall"
     android:gravity="center_vertical"
-    android:background="@drawable/common_preference_list_item_state"
+    android:background="@color/commonWhite"
     android:clipToPadding="false"
-    android:layout_marginTop="@dimen/common_preference_margin"
-    android:layout_marginBottom="@dimen/common_preference_margin"
     android:padding="5dp"
     android:focusable="true"
     tools:ignore="RtlHardcoded">
-
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:orientation="vertical">
 
-        <!-- Title -->
-        <TextView
-            android:id="@android:id/title"
-            style="@style/CommonStrongText.Medium"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:padding="2dp"
-            android:textColor="@color/cyanBrilliant"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/comment_detail_violence"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+
+            <!-- Title -->
+            <TextView
+                android:id="@android:id/title"
+                style="@style/CommonStrongText.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:padding="2dp"
+                android:textColor="@color/violence_color"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="@dimen/common_divider_small"
             android:layout_height="@dimen/common_divider_height"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/cyanBrilliant" />
+            android:background="@color/violence_color" />
 
         <!-- Summary -->
         <TextView
             android:id="@android:id/summary"
-            style="@style/CommonStrongText.Medium"
+            style="@style/CommonStrongText.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="2dp"
-            android:textColor="@color/cyanBrilliant" />
+            android:textColor="@color/violence_color" />
 
     </LinearLayout>
 
@@ -56,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="end|center_vertical"
-        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:orientation="vertical" />
 
 </LinearLayout>

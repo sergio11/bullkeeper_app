@@ -215,6 +215,13 @@
             android:theme="@style/AppTheme.Preferences"
             />
 
+        <!-- Comments Settings Activity -->
+        <activity android:name=".ui.activity.commentssettings.CommentsSettingsMvpActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Preferences"
+            />
+
 
         <!-- Services -->
         <service

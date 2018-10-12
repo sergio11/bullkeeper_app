@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
@@ -128,6 +129,23 @@ public interface INavigator {
     void navigateToComments(final String identity, final SocialMediaEnum socialMediaEnum);
 
     /**
+     * Navigate To Comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     */
+    void navigateToComments(final String identity, final DimensionCategoryEnum dimensionCategoryEnum);
+
+
+    /**
+     * Navigate To Comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     * @param socialMediaEnum
+     */
+    void navigateToComments(final String identity, final DimensionCategoryEnum dimensionCategoryEnum,
+                            final SocialMediaEnum socialMediaEnum);
+
+    /**
      * Navigate To Comment Detail
      * @param identity
      */
@@ -143,6 +161,11 @@ public interface INavigator {
      * Navigate To Kid Results Settings
      */
     void navigateToKidResultsSettings();
+
+    /**
+     * Navigate To Comments Settings
+     */
+    void navigateToCommentsSettings();
 
     /**
      * Show Four Dimensions Dialog

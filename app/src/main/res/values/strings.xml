@@ -558,4 +558,62 @@
     <string name="kid_results_instagram_likes_count" formatted="false">%s of the "likes" received has been on Instagram</string>
     <string name="kid_results_youtube_likes_count" formatted="false">%s of the "likes" received has been on Youtube</string>
 
+    <!-- Comments Settings -->
+
+    <!-- Age Of Comments -->
+    <string name="age_of_comments_preference_title">Age of Comments</string>
+    <string name="age_of_comments_preference_summary">Age of extracted comments</string>
+
+    <string name="age_of_comments_a_day_ago_preference_value">A day ago</string>
+    <string name="age_of_comments_a_week_ago_preference_value">A week ago</string>
+    <string name="age_of_comments_a_two_week_ago_preference_value">A two week ago</string>
+    <string name="age_of_comments_a_month_ago_preference_value">A month ago</string>
+    <string name="age_of_comments_a_two_months_ago_preference_value">A two months ago</string>
+    <string name="age_of_comments_a_three_months_ago_preference_value">A three months ago</string>
+
+    <!-- Comments Social Media -->
+    <string name="app_preferences_social_media_comments">Comments Social Media</string>
+
+    <!-- All Social Media Categories -->
+    <string name="all_social_media_categories_title">Enable all social media</string>
+    <string name="all_social_media_categories_summary">See comments for all social media</string>
+
+    <!-- Facebook Social Media -->
+    <string name="facebook_social_media_title">Facebook</string>
+    <string name="facebook_social_media_summary">See comments extracted from facebook</string>
+
+    <!-- Instagram Social Media -->
+    <string name="instagram_social_media_title">Instagram</string>
+    <string name="instagram_social_media_summary">See comments extracted from instagram</string>
+
+    <!-- Youtube Social Media -->
+    <string name="youtube_social_media_title">Youtube</string>
+    <string name="youtube_social_media_summary">See comments extracted from Youtube</string>
+
+    <!-- Dimension of the comments analyzed -->
+    <string name="app_preferences_dimensions_of_comments_analyzed">
+        Apply dimension filter
+    </string>
+
+    <!-- Enable Filter Dimension -->
+    <string name="enable_dimensions_filter_title">Enable dimensions filter</string>
+    <string name="enable_dimensions_filter_summary">Filter comments by dimensions</string>
+    <!-- All Comments Dimension -->
+    <string name="all_comments_dimension_title">Enable all dimensions</string>
+    <string name="all_comments_dimension_summary">See comments that give positive in the four dimensions</string>
+
+    <string name="violence_comment_dimension_title">Violence</string>
+    <string name="violence_comment_dimension_summary">See violent comments</string>
+    <string name="drugs_comment_dimension_title">Drugs</string>
+    <string name="drugs_comment_dimension_summary">See comments related to drugs</string>
+    <string name="sex_comment_dimension_title">Sex</string>
+    <string name="sex_comment_dimension_summary">See comments related to adult content</string>
+    <string name="bullying_comment_dimension_title">Bullying</string>
+    <string name="bullying_comment_dimension_summary">See comments related to Bullying</string>
+
+    <!-- Dimension of comments  -->
+    <string name="app_preferences_comment_dimension">
+        Dimension of comments
+    </string>
+
 </resources>
