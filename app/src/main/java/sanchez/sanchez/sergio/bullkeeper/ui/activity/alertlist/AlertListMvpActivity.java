@@ -12,6 +12,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +49,9 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         implements HasComponent<AlertsComponent>, IAlertListActivityHandler
         , IAlertListView,
         SupportItemTouchHelper.ItemTouchHelperListener {
+
+    private final String CONTENT_FULL_NAME = "ALERT_LIST";
+    private final String CONTENT_TYPE_NAME = "ALERTS";
 
     public enum AlertsListModeEnum { ALERTS_BY_SON, ALERTS_BY_SON_AND_LEVEL,
         ALERTS_BY_LEVEL, ALERTS_BY_PREFERENCES }
@@ -179,6 +184,16 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         if(alertLevelEnum != null)
             args.putSerializable(ALERT_LEVEL_ARG, alertLevelEnum);
         return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

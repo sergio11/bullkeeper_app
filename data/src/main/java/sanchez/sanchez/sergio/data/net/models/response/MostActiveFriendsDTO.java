@@ -33,7 +33,7 @@ public final class MostActiveFriendsDTO implements Serializable {
         this.users = users;
     }
 
-    class UserDTO {
+    public static class UserDTO {
 
         @JsonProperty("external_id")
         private String id;

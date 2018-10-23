@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +29,6 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -42,6 +42,9 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         , IMyKidsDetailView, FourDimensionsMvpFragment.OnFourDimensionsListener {
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    private final String CONTENT_FULL_NAME = "MY_KIDS_DETAIL";
+    private final String CONTENT_TYPE_NAME = "KIDS";
 
     /**
      * Sections Pager Adapter
@@ -226,6 +229,16 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
+    }
+
+    /**
      * Get Component
      * @return
      */
@@ -291,13 +304,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     /**
      * On Dimensions Selected
      * @param dimensionIdx
-     * @param value
-     * @param total
+     * @param dimensionValue
      */
     @Override
-    public void onDimensionsSelected(int dimensionIdx, int value, int total) {
+    public void onDimensionsSelected(int dimensionIdx, final String dimensionValue) {
 
-        showShortMessage("Dimensions " + dimensionIdx + " -> " + value + "/"+ total);
+        showShortMessage("Dimensions " + dimensionIdx + " -> " + dimensionValue);
 
     }
 
@@ -343,8 +355,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         private final static int DIMENSIONS_TAB = 0;
         private final static int ALERTS_TAB = 1;
-        private final static int RELATIONS_TAB = 2;
-        private final static int SECTION_COUNT = 3;
+        private final static int SECTION_COUNT = 2;
 
         private final String kidIdentity;
 
@@ -365,8 +376,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
-                case RELATIONS_TAB:
-                    return KidRelationsMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -392,8 +401,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
                     return getString(R.string.alerts_tab);
-                case RELATIONS_TAB:
-                    return getString(R.string.relations_tab);
             }
             return null;
         }

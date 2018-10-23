@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.domain.models;
 
+
 import java.io.Serializable;
 
 /**
@@ -7,11 +8,23 @@ import java.io.Serializable;
  */
 public final class SocialMediaFriendEntity implements Serializable {
 
-    private String id;
-    private String name;
-    private String profileImage;
-    private SocialMediaEnum socialMediaEnum = SocialMediaEnum.FACEBOOK;
-    private String value;
+    protected String id;
+    protected String name;
+    protected String profileImage;
+    protected SocialMediaEnum socialMediaEnum = SocialMediaEnum.FACEBOOK;
+    protected Long value;
+    protected String label;
+
+    public SocialMediaFriendEntity(){}
+
+    public SocialMediaFriendEntity(String id, String name, String profileImage, SocialMediaEnum socialMediaEnum, Long value, String label) {
+        this.id = id;
+        this.name = name;
+        this.profileImage = profileImage;
+        this.socialMediaEnum = socialMediaEnum;
+        this.value = value;
+        this.label = label;
+    }
 
     public String getId() {
         return id;
@@ -45,11 +58,19 @@ public final class SocialMediaFriendEntity implements Serializable {
         this.socialMediaEnum = socialMediaEnum;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Long value) {
         this.value = value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

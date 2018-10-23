@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.frogermcs.androiddevmetrics'
@@ -148,7 +157,9 @@ dependencies {
     // FireBase Dependencies
     implementation presentationDependencies.firebaseCore
     implementation presentationDependencies.firebaseMessaging
-
+    // Parceler
+    implementation presentationDependencies.parcelerApi
+    annotationProcessor presentationDependencies.parceler
 
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
@@ -157,15 +168,16 @@ dependencies {
     androidTestImplementation presentationTestDependencies.testingSupportLib
 
     //Development
-    //implementation developmentDependencies.leakCanary
+    implementation developmentDependencies.leakCanary
+
     compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true;
+        transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics-ndk:2.0.5@aar') {
-        transitive = true;
+        transitive = true
     }
     compile('com.crashlytics.sdk.android:answers:1.4.3@aar') {
-        transitive = true;
+        transitive = true
     }
 }
 

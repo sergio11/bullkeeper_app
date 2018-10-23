@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AlertsComponent;
@@ -17,6 +20,9 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresenter, IAlertDetailView>
         implements HasComponent<AlertsComponent>, IAlertDetailActivityHandler
         , IAlertDetailView  {
+
+    private final String CONTENT_FULL_NAME = "ALERT_DETAIL";
+    private final String CONTENT_TYPE_NAME = "ALERTS";
 
     public static String ALERT_ID_ARG = "ALERT_ID_ARG";
     public static String SON_ID_ARG = "SON_ID_ARG";
@@ -59,6 +65,7 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
     protected void onViewReady(final Bundle savedInstanceState) {
         if(savedInstanceState == null) {
 
+
             if(!getIntent().hasExtra(ALERT_ID_ARG))
                 throw new IllegalArgumentException("It is necessary to specify an alert identifier");
 
@@ -70,6 +77,18 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
             addFragment(R.id.mainContainer,
                     AlertDetailActivityMvpFragment.newInstance(alertId, sonId), false);
         }
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent()
+                .putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
+
     }
 
     /**

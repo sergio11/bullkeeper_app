@@ -11,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -45,6 +46,9 @@ import timber.log.Timber;
 public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
         implements HasComponent<UserProfileComponent>, IUserProfileView,
         PhotoViewerDialog.IPhotoViewerListener {
+
+    private final String CONTENT_FULL_NAME = "USER_PROFILE";
+    private final String CONTENT_TYPE_NAME = "USER";
 
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
     private final static String LAST_NAME_FIELD_NAME = "last_name";
@@ -272,6 +276,16 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         super.onSavedViewInstance();
         // Update Profile Form with state information
         updateProfileForm();
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**

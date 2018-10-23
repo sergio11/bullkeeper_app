@@ -14,21 +14,16 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.RegisterSonDTO;
-import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateSonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
-import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommunitiesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
-import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.NewFriendsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
@@ -65,6 +60,7 @@ public interface IChildrenService {
     Observable<APIResponse<String>> deleteSonById(@Path("id") final String id);
 
     /**
+     *
      * Get Social Media Activity Statistics
      * @param id
      * @param daysAgo
@@ -107,26 +103,6 @@ public interface IChildrenService {
                                                                              @Query("days_ago") final Integer daysAgo);
 
     /**
-     * Get Comments Statistics
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/comments-extracted")
-    Observable<APIResponse<CommentsStatisticsDTO>> getCommentsStatistics(@Query("identities") final String[] ids,
-                                                                         @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get Social Media Likes Statistics
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/social-media-Likes")
-    Observable<APIResponse<SocialMediaLikesStatisticsDTO>> getSocialMediaLikesStatistics(@Query("identities") final String[] ids,
-                                                                                         @Query("days_ago") final Integer daysAgo);
-
-    /**
      * Get Alerts Statistics
      * @param ids
      * @param daysAgo
@@ -135,27 +111,6 @@ public interface IChildrenService {
     @GET("alerts/statistics/alerts")
     Observable<APIResponse<AlertsStatisticsDTO>> getAlertsStatistics(@Query("identities") final String[] ids,
                                                                      @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get Most Active Friends
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/most-active-friends")
-    Observable<APIResponse<MostActiveFriendsDTO>> getMostActiveFriends(@Query("identities") final String[] ids,
-                                                                       @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get New Friends
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @GET("comments/new-friends")
-    Observable<APIResponse<NewFriendsDTO>> getNewFriends(@Query("identities") final String[] ids,
-                                                         @Query("days_ago") final Integer daysAgo);
-
 
     /**
      * Get Comments By Son

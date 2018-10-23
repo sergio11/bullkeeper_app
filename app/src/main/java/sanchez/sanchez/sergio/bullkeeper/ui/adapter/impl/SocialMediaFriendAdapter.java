@@ -19,26 +19,14 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
  */
 public final class SocialMediaFriendAdapter extends SupportRecyclerViewAdapter<SocialMediaFriendEntity> {
 
-
-    private OnSocialMediaFriendsViewListener listener;
-
     /**
      * @param context
      * @param data
      */
     public SocialMediaFriendAdapter(Context context, ArrayList<SocialMediaFriendEntity> data) {
         super(context, data);
-        hasHeader = true;
+        hasHeader = false;
     }
-
-    /**
-     * Set Listener
-     * @param listener
-     */
-    public void setListener(OnSocialMediaFriendsViewListener listener) {
-        this.listener = listener;
-    }
-
     /**
      * On Create Item View Holder
      * @param viewGroup
@@ -51,29 +39,6 @@ public final class SocialMediaFriendAdapter extends SupportRecyclerViewAdapter<S
     }
 
     /**
-     * On Create Header View Holder
-     * @param viewGroup
-     * @return
-     */
-    @Override
-    protected RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
-        final View view = inflater.inflate(R.layout.social_media_friend_layout_header, viewGroup, false);
-        return new SocialMediaFriendHeaderViewHolder(view);
-    }
-
-
-    /**
-     * On Social Media Friends Listener
-     */
-    public interface OnSocialMediaFriendsViewListener {
-
-        /**
-         * On Show Info
-         */
-        void onShowInfo();
-    }
-
-    /**
      * Social Media Friends View Holder
      */
     public final class SocialMediaFriendsViewHolder extends
@@ -83,7 +48,7 @@ public final class SocialMediaFriendAdapter extends SupportRecyclerViewAdapter<S
         private Context context;
 
         private ImageView socialMediaIcon, friendProfileImage;
-        private TextView friendMessage, friendValue;
+        private TextView friendNameView, friendValue;
 
         /**
          * Alerts View Holder
@@ -96,7 +61,7 @@ public final class SocialMediaFriendAdapter extends SupportRecyclerViewAdapter<S
             this.context = context;
             this.socialMediaIcon = itemView.findViewById(R.id.socialMediaIcon);
             this.friendProfileImage = itemView.findViewById(R.id.friendProfileImage);
-            this.friendMessage = itemView.findViewById(R.id.friendName);
+            this.friendNameView = itemView.findViewById(R.id.friendName);
             this.friendValue = itemView.findViewById(R.id.friendValue);
         }
 
@@ -134,13 +99,28 @@ public final class SocialMediaFriendAdapter extends SupportRecyclerViewAdapter<S
 
             }
 
+            // Set Friend name
+            friendNameView.setText(socialMediaFriendEntity.getName());
 
-            // Set Child Image
-            Picasso.with(context).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                    .placeholder(R.drawable.user_default)
-                    .error(R.drawable.user_default)
-                    .noFade()
-                    .into(friendProfileImage);
+            friendValue.setText(socialMediaFriendEntity.getLabel());
+
+            if(socialMediaFriendEntity.getProfileImage() != null
+                    && !socialMediaFriendEntity.getProfileImage().isEmpty()) {
+
+
+                Picasso.with(context)
+                        .load(socialMediaFriendEntity.getProfileImage())
+                        .placeholder(R.drawable.user_default)
+                        .error(R.drawable.user_default)
+                        .noFade()
+                        .into(friendProfileImage);
+
+            } else {
+                friendProfileImage.setImageResource(R.drawable.user_default);
+            }
+
+
+
         }
 
         public ImageView getSocialMediaIcon() {
@@ -151,32 +131,13 @@ public final class SocialMediaFriendAdapter extends SupportRecyclerViewAdapter<S
             return friendProfileImage;
         }
 
-        public TextView getFriendMessage() {
-            return friendMessage;
+        public TextView getFriendNameView() {
+            return friendNameView;
+        }
+
+        public TextView getFriendValue() {
+            return friendValue;
         }
     }
 
-
-    /**
-     * Alerts Header View Holder
-     */
-    public class SocialMediaFriendHeaderViewHolder extends SupportHeaderViewHolder {
-
-        private ImageView showInfo;
-
-        public SocialMediaFriendHeaderViewHolder(View itemView) {
-            super(itemView);
-
-            this.showInfo = itemView.findViewById(R.id.infoBtn);
-
-            showInfo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (listener != null)
-                        listener.onShowInfo();
-                }
-            });
-
-        }
-    }
 }

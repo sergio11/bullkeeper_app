@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
@@ -19,6 +21,9 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
 
 
     private MyKidsComponent myKidsComponent;
+
+    private final String CONTENT_FULL_NAME = "MY_KIDS";
+    private final String CONTENT_TYPE_NAME = "KIDS";
 
     /**
      * Get Calling Intent
@@ -48,6 +53,16 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_my_kids;
+    }
+
+    /**
+     * On Create Content VIew Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
     }
 
     /**
@@ -121,5 +136,14 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     @Override
     public void navigateToSonAlerts(String sonIdentity) {
         navigatorImpl.navigateToAlertList(sonIdentity);
+    }
+
+    /**
+     * Navigate To Kid Realtions
+     * @param identity
+     */
+    @Override
+    public void navigateToRelations(String identity) {
+        navigatorImpl.navigateToRelations(identity);
     }
 }

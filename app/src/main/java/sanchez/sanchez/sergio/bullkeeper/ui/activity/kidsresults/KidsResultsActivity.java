@@ -12,7 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
+import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -22,13 +24,14 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerStatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivitySocialMediaMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
  * Kids Results Activity
@@ -38,6 +41,9 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
         , IKidsResultsView {
 
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    private final String CONTENT_FULL_NAME = "KID_RESULTS";
+    private final String CONTENT_TYPE_NAME = "KID_RESULTS";
 
     /**
      * Sections Pager Adapter
@@ -81,6 +87,12 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      */
     @BindView(R.id.viewpager)
     protected ViewPager viewPager;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
     /**
      * Unselected tab icons
@@ -141,19 +153,11 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
         toggleAllComponents(false);
 
-        if (getIntent() != null && getIntent().hasExtra(KID_IDENTITY_ARG)) {
-            // Get Kid Identity
-            kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
-        }
+        if (getIntent() == null &&
+                !getIntent().hasExtra(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide the son id");
 
-        // Set Author Image
-        Picasso.with(getApplicationContext()).load("https://avatars3.githubusercontent.com/u/831538?s=460&v=4")
-                .placeholder(R.drawable.user_default)
-                .error(R.drawable.user_default)
-                .noFade()
-                .into(profileImageView);
-
-        kidNameText.setText("Sergio Sánchez Sánchez");
+        kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -244,9 +248,53 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
      */
     @OnClick(R.id.settings)
     protected void onSettingsClicked(){
-        showShortMessage("Settings");
+        // Navigate To Kid Results Settings
+        navigatorImpl.navigateToKidResultsSettings();
     }
 
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if (getIntent() != null &&
+                getIntent().hasExtra(KID_IDENTITY_ARG))
+            args.putString(KidsResultsActivityPresenter.KID_IDENTITY_ARG,
+                    kidIdentity);
+        return args;
+    }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    @Override
+    protected ContentViewEvent onCreateContentViewEvent() {
+        return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
+                .putContentType(CONTENT_TYPE_NAME);
+    }
+
+    /**
+     * On Son Loaded
+     * @param sonEntity
+     */
+    @Override
+    public void onSonLoaded(SonEntity sonEntity) {
+
+        if(appUtils.isValidString(sonEntity.getProfileImage()))
+            picasso.load(sonEntity.getProfileImage())
+                .placeholder(R.drawable.kid_default_image)
+                .error(R.drawable.kid_default_image)
+                .noFade()
+                .into(profileImageView);
+        else
+            profileImageView.setImageResource(R.drawable.kid_default_image);
+
+        kidNameText.setText(sonEntity.getFullName());
+
+    }
 
     /**
      * Sections Page Adapter
@@ -277,7 +325,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
                 case DIMENSIONS_TAB:
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case COMMENTS_EXTRACTED_TAB:
-                    return CommentsExtractedMvpFragment.newInstance(kidIdentity);
+                    return CommentsExtractedBySocialMediaFragment.newInstance(kidIdentity);
                 case SOCIAL_MEDIA_TAB:
                     return ActivitySocialMediaMvpFragment.newInstance(kidIdentity);
                 case SENTIMENT_ANALYSIS_TAB:

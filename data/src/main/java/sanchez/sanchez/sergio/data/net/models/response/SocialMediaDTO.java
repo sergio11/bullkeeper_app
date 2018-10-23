@@ -34,7 +34,7 @@ public final class SocialMediaDTO implements Serializable {
     @JsonProperty("user_picture")
     private String userPicture;
 
-    @JsonProperty("user")
+    @JsonProperty("son_identity")
     private String son;
 
 

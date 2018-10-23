@@ -18,7 +18,7 @@ public final class CommentDTO implements Serializable {
     private String message;
 
     @JsonProperty("likes")
-    private String likes;
+    private int likes;
 
     @JsonProperty("social_media")
     private String socialMedia;
@@ -69,11 +69,11 @@ public final class CommentDTO implements Serializable {
         this.message = message;
     }
 
-    public String getLikes() {
+    public int getLikes() {
         return likes;
     }
 
-    public void setLikes(String likes) {
+    public void setLikes(int likes) {
         this.likes = likes;
     }
 

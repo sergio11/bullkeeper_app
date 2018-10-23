@@ -2,6 +2,9 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidsresults.KidsResultsActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidsresults.KidsResultsActivityPresenter;
@@ -9,8 +12,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivitySoc
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivitySocialMediaMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartFragmentPresenter;
@@ -19,13 +22,14 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsF
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 
 /**
  * Results Component
  */
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = { ActivityModule.class })
+@Component(dependencies = ApplicationComponent.class,
+        modules = { ActivityModule.class, ChildrenModule.class, DataMapperModule.class,
+                CommentsModule.class })
 public interface StatsComponent extends ActivityComponent {
 
     /**
@@ -66,9 +70,9 @@ public interface StatsComponent extends ActivityComponent {
 
     /**
      * Inject into Comments Extracted Mvp Fragment
-     * @param commentsExtractedMvpFragment
+     * @param commentsExtractedBySocialMediaMvpFragment
      */
-    void inject(final CommentsExtractedMvpFragment commentsExtractedMvpFragment);
+    void inject(final CommentsExtractedBySocialMediaFragment commentsExtractedBySocialMediaMvpFragment);
 
     /**
      * Inject into Relations Mvp Fragment
@@ -87,7 +91,7 @@ public interface StatsComponent extends ActivityComponent {
     SentimentAnalysisFragmentPresenter sentimentAnalysisFragmentPresenter();
     SystemAlertsFragmentPresenter systemAlertsFragmentPresenter();
     LikesChartFragmentPresenter likesChartFragmentPresenter();
-    CommentsExtractedFragmentPresenter commentsExtractedFragmentPresenter();
+    CommentsExtractedBySocialMediaFragmentPresenter commentsExtractedFragmentPresenter();
     RelationsFragmentPresenter relationsFragmentPresenter();
 
 }

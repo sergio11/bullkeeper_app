@@ -11,6 +11,8 @@ import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.squareup.leakcanary.LeakCanary;
+
 import io.fabric.sdk.android.Fabric;
 import net.grandcentrix.thirtyinch.TiConfiguration;
 import net.grandcentrix.thirtyinch.TiPresenter;
@@ -122,6 +124,11 @@ public final class AndroidApplication extends Application {
         Stetho.initializeWithDefaults(this);
 
         AndroidDevMetrics.initWith(this);
+
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
+            LeakCanary.install(this);
+        }
+
     }
 
 

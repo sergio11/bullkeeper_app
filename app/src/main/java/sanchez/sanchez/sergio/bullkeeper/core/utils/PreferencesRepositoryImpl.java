@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
 /**
@@ -494,6 +496,345 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
     @Override
     public long getPreferencesUpdateAt() {
         return mPref.getLong(PREF_PREFERENCES_UPDATE_AT, PREF_PREFERENCES_UPDATE_AT_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Pref Age Of Results
+     * @param ageOfResults
+     */
+    @Override
+    public void setPrefAgeOfResults(final String ageOfResults) {
+
+        mPref.edit()
+                .putString(PREF_AGE_OF_RESULTS, ageOfResults)
+                .apply();
+    }
+
+
+    @Override
+    public String getAgeOfResults() {
+        return mPref.getString(PREF_AGE_OF_RESULTS, PREF_AGE_OF_RESULTS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Get Age Of Results
+     * @return
+     */
+    @Override
+    public int getAgeOfResultsAsInt() {
+        int ageOfResults;
+        try {
+            ageOfResults = Integer.parseInt(mPref.getString(PREF_AGE_OF_RESULTS,
+                    PREF_AGE_OF_RESULTS_DEFAULT_VALUE));
+        } catch (final Exception ex) {
+            ageOfResults = Integer.parseInt(PREF_AGE_OF_RESULTS_DEFAULT_VALUE);
+        }
+        return ageOfResults;
+    }
+
+    /**
+     * Set Pref Age of Comments
+     * @param ageOfComments
+     */
+    @Override
+    public void setPrefAgeOfComments(String ageOfComments) {
+        mPref.edit().putString(PREF_AGE_OF_COMMENTS, ageOfComments).apply();
+
+    }
+
+    /**
+     * Get Age Of Comments
+     * @return
+     */
+    @Override
+    public String getAgeOfComments() {
+        return mPref.getString(PREF_AGE_OF_COMMENTS, PREF_AGE_OF_COMMENTS_DEFAULT_VALUE);
+    }
+
+
+    /**
+     * Get Age Of Comments As Int
+     * @return
+     */
+    @Override
+    public int getAgeOfCommentsAsInt() {
+        int ageOfComments;
+        try {
+            ageOfComments = Integer.parseInt(mPref.getString(PREF_AGE_OF_COMMENTS,
+                    PREF_AGE_OF_COMMENTS_DEFAULT_VALUE));
+        } catch (final Exception ex) {
+            ageOfComments = Integer.parseInt(PREF_AGE_OF_COMMENTS_DEFAULT_VALUE);
+        }
+        return ageOfComments;
+    }
+
+    /**
+     * Is All Social Media Categories Enabled
+     * @return
+     */
+    @Override
+    public boolean isAllSocialMediaCategoriesEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_ALL_SOCIAL_MEDIAS_CATEGORIES,
+                ENABLE_ALL_SOCIAL_MEDIAS_CATEGORIES_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set All Social Media Categories Enabled
+     * @param allSocialMediaCategoriesEnabled
+     */
+    @Override
+    public void setAllSocialMediaCategoriesEnabled(boolean allSocialMediaCategoriesEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_ALL_SOCIAL_MEDIAS_CATEGORIES,
+                allSocialMediaCategoriesEnabled).apply();
+    }
+
+    /**
+     * Is Enable Facebook Social Media
+     * @return
+     */
+    @Override
+    public boolean isFacebookSocialMediaEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_FACEBOOK_SOCIAL_MEDIA,
+                ENABLE_FACEBOOK_SOCIAL_MEDIA_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Facebook Social Media Enabled
+     * @param facebookSocialMediaEnabled
+     */
+    @Override
+    public void setFacebookSocialMediaEnabled(boolean facebookSocialMediaEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_FACEBOOK_SOCIAL_MEDIA,
+                facebookSocialMediaEnabled).apply();
+    }
+
+    /**
+     * Is Instagram Social Media Enabled
+     * @return
+     */
+    @Override
+    public boolean isInstagramSocialMediaEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_INSTAGRAM_SOCIAL_MEDIA,
+                ENABLE_INSTAGRAM_SOCIAL_MEDIA_DEFAULT_VALUE);
+    }
+
+
+    /**
+     * Set Instagram Social Media Enabled
+     * @param instagramSocialMediaEnabled
+     */
+    @Override
+    public void setInstagramSocialMediaEnabled(boolean instagramSocialMediaEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_INSTAGRAM_SOCIAL_MEDIA,
+                instagramSocialMediaEnabled).apply();
+    }
+
+    /**
+     * Is Youtube Social Media Enabled
+     * @return
+     */
+    @Override
+    public boolean isYoutubeSocialMediaEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_YOUTUBE_SOCIAL_MEDIA,
+                ENABLE_YOUTUBE_SOCIAL_MEDIA_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Youtube Social Media Enabled
+     * @param youtubeSocialMediaEnabled
+     */
+    @Override
+    public void setYoutubeSocialMediaEnabled(boolean youtubeSocialMediaEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_YOUTUBE_SOCIAL_MEDIA,
+                youtubeSocialMediaEnabled).apply();
+    }
+
+    /**
+     * Get Social Media Enabled
+     * @return
+     */
+    @Override
+    public String[] getSocialMediaEnabled() {
+        final String[] socialMedias = new String[SocialMediaEnum.values().length];
+
+        if(isAllSocialMediaCategoriesEnabled()) {
+
+            for(int i = 0; i < SocialMediaEnum.values().length; i++) {
+                socialMedias[i] = SocialMediaEnum.values()[i].name();
+            }
+
+        } else {
+
+            int i = 0;
+
+            if(isFacebookSocialMediaEnabled())
+                socialMedias[i++] = SocialMediaEnum.FACEBOOK.name();
+
+            if(isInstagramSocialMediaEnabled())
+                socialMedias[i++] = SocialMediaEnum.INSTAGRAM.name();
+
+            if(isYoutubeSocialMediaEnabled())
+                socialMedias[i] = SocialMediaEnum.YOUTUBE.name();
+
+        }
+        return socialMedias;
+    }
+
+    /**
+     * Is Dimension Filter Enabled
+     * @return
+     */
+    @Override
+    public boolean isDimensionFilterEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_DIMENSIONS_FILTER,
+                ENABLE_DIMENSIONS_FILTER_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Dimension Filter
+     * @param dimensionFilterEnabled
+     */
+    @Override
+    public void setDimensionFilter(boolean dimensionFilterEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_DIMENSIONS_FILTER,
+                dimensionFilterEnabled).apply();
+    }
+
+    /**
+     * Is All Comments Dimension Enabled
+     * @return
+     */
+    @Override
+    public boolean isAllCommentsDimensionEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_ALL_COMMENTS_DIMENSION,
+                ENABLE_ALL_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set All Comments Dimension Enabled
+     * @param allCommentsDimensionEnabled
+     */
+    @Override
+    public void setAllCommentsDimensionEnabled(boolean allCommentsDimensionEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_ALL_COMMENTS_DIMENSION,
+                allCommentsDimensionEnabled).apply();
+    }
+
+    /**
+     * Is Violence Dimension Enabled
+     * @return
+     */
+    @Override
+    public boolean isViolenceDimensionEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION,
+                ENABLE_VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Violence Dimension Enabled
+     * @param violenceDimensionEnabled
+     */
+    @Override
+    public void setViolenceDimensionEnabled(boolean violenceDimensionEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION,
+                violenceDimensionEnabled).apply();
+    }
+
+    /**
+     * Is Drugs Dimension Enabled
+     * @return
+     */
+    @Override
+    public boolean isDrugsDimensionEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_DRUGS_COMMENTS_DIMENSION,
+                ENABLE_DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Drugs Dimension Enabled
+     * @param drugsDimensionEnabled
+     */
+    @Override
+    public void setDrugsDimensionEnabled(boolean drugsDimensionEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_DRUGS_COMMENTS_DIMENSION,
+                drugsDimensionEnabled).apply();
+    }
+
+    /**
+     * Is Sex Dimension Enabled
+     * @return
+     */
+    @Override
+    public boolean isSexDimensionEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_SEX_COMMENTS_DIMENSION,
+                ENABLE_SEX_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Sex Dimension Enabled
+     * @param sexDimensionEnabled
+     */
+    @Override
+    public void setSexDimensionEnabled(boolean sexDimensionEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_SEX_COMMENTS_DIMENSION,
+                sexDimensionEnabled).apply();
+    }
+
+    /**
+     * Is Bullying Dimension Enabled
+     * @return
+     */
+    @Override
+    public boolean isBullyingDimensionEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_BULLYING_COMMENTS_DIMENSION,
+                ENABLE_BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Bullying Dimension Enabled
+     * @param bullyingDimensionEnabled
+     */
+    @Override
+    public void setBullyingDimensionEnabled(boolean bullyingDimensionEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_BULLYING_COMMENTS_DIMENSION,
+                bullyingDimensionEnabled).apply();
+    }
+
+    /**
+     * Set Pref Age Of Realtions
+     * @param ageOfRelations
+     */
+    @Override
+    public void setPrefAgeOfRelations(String ageOfRelations) {
+        mPref.edit()
+                .putString(PREF_AGE_OF_RELATIONS, PREF_AGE_OF_RELATIONS_DEFAULT_VALUE)
+                .apply();
+    }
+
+    /**
+     * Get Age of Relations
+     * @return
+     */
+    @Override
+    public String getAgeOfRelations() {
+        return mPref.getString(PREF_AGE_OF_RELATIONS,
+                PREF_AGE_OF_RELATIONS_DEFAULT_VALUE);
+    }
+
+    /**
+     * Get Age Of Relations As Int
+     * @return
+     */
+    @Override
+    public int getAgeOfRelationsAsInt() {
+        int ageOfRelations;
+        try {
+            ageOfRelations = Integer.parseInt(mPref.getString(PREF_AGE_OF_RELATIONS,
+                    PREF_AGE_OF_RELATIONS_DEFAULT_VALUE));
+        } catch (final Exception ex) {
+            ageOfRelations = Integer.parseInt(PREF_AGE_OF_RELATIONS_DEFAULT_VALUE);
+        }
+        return ageOfRelations;
     }
 
 }

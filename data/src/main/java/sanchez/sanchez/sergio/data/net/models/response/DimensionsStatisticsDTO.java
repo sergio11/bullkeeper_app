@@ -17,6 +17,13 @@ public final class DimensionsStatisticsDTO implements Serializable {
     @JsonProperty("dimensions")
     private List<DimensionDTO> dimensions;
 
+    public DimensionsStatisticsDTO(){}
+
+    public DimensionsStatisticsDTO(String title, List<DimensionDTO> dimensions) {
+        this.title = title;
+        this.dimensions = dimensions;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -33,7 +40,8 @@ public final class DimensionsStatisticsDTO implements Serializable {
         this.dimensions = dimensions;
     }
 
-    class DimensionDTO {
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class DimensionDTO {
 
         @JsonProperty("type")
         private String type;
@@ -43,6 +51,14 @@ public final class DimensionsStatisticsDTO implements Serializable {
 
         @JsonProperty("label")
         private String label;
+
+        public DimensionDTO(){}
+
+        public DimensionDTO(String type, Integer value, String label) {
+            this.type = type;
+            this.value = value;
+            this.label = label;
+        }
 
         public String getType() {
             return type;

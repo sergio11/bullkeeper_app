@@ -4,6 +4,7 @@ import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AlertsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
@@ -18,14 +19,12 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.relations.KidRelationsMvpFragment;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
                  ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
-                SocialMediaModule.class})
+                SocialMediaModule.class, CommentsModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -59,17 +58,10 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final ImportantAlertsMvpFragment importantAlertsFragment);
 
-    /**
-     * Inject on Kid Relations Fragment
-     * @param kidRelationsFragment
-     */
-    void inject(final KidRelationsMvpFragment kidRelationsFragment);
-
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
     MyKidsProfilePresenter myKidsProfilePresenter();
     MyKidsDetailPresenter myKidsDetailPresenter();
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
-    KidRelationFragmentPresenter kidRelationFragmentPresenter();
 }

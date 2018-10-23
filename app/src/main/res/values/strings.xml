@@ -235,6 +235,17 @@
     <string name="remove_alerts_last_day">Last Day</string>
     <string name="remove_alerts_last_month">Last Month</string>
 
+    <!-- Age of Results (Kid Results Preference Screen) -->
+    <string name="age_of_results_preference_title">Age of Results</string>
+    <string name="age_of_results_preference_summary">Antiquity of the results that are shown</string>
+
+    <string name="age_of_results_a_day_ago_preference_value">A day ago</string>
+    <string name="age_of_results_a_week_ago_preference_value">A week ago</string>
+    <string name="age_of_results_a_two_week_ago_preference_value">A two week ago</string>
+    <string name="age_of_results_a_month_ago_preference_value">A month ago</string>
+    <string name="age_of_results_a_two_months_ago_preference_value">A two months ago</string>
+    <string name="age_of_results_a_three_months_ago_preference_value">A three months ago</string>
+
     <!-- Alerts -->
     <string name="all_alert_categories_title">All alert categories</string>
     <string name="all_alert_categories_summary">Enable all alert categories</string>
@@ -281,7 +292,7 @@
     <string name="social_media_configured_title">Social Media Configured</string>
     <string name="social_media_configured_description">Configure social media to allow access to the content that we will analyze</string>
     <!-- Comments -->
-    <string name="comments_by_child_title" formatted="true">Comments of %s</string>
+    <string name="comments_by_child_title" formatted="true">Comments (%d)</string>
     <string name="comments_by_child_title_default">Comments</string>
 
     <!-- Comment Detail -->
@@ -289,6 +300,7 @@
 
     <string name="comment_detail_results_title">Results</string>
     <string name="comment_detail_create_at" formatted="true">Comment create at %s</string>
+    <string name="comment_detail_not_found">The comment detail could not be obtained</string>
 
     <!-- Sentiment -->
     <string name="comment_detail_sentiment_level_unknown">There are no results for the sentiment analysis.</string>
@@ -368,7 +380,7 @@
     <string name="sentiment_analysis_neutro">Neutro</string>
 
     <!-- System Alert -->
-    <string name="system_alerts_chart_title">Alerts system</string>
+    <string name="system_alerts_chart_title">All Alerts</string>
     <string name="system_alerts_chart_description">Set of alerts produced in the system for the child</string>
 
     <!-- System Alert -->
@@ -387,12 +399,21 @@
     <string name="kid_detail_school" formatted="true">School: %s</string>
 
     <string name="four_dimension_violence">Violence</string>
+    <string name="four_dimension_violence_content_text"
+        formatted="false">%s of the comments analyzed is related to violence</string>
     <string name="four_dimension_drugs">Drugs</string>
+    <string name="four_dimension_drugs_content_text"
+        formatted="false">%s of the comments analyzed is related to drugs</string>
     <string name="four_dimension_adult">Adult</string>
+    <string name="four_dimension_adult_content_text"
+        formatted="false">%s of the comments analyzed is related to adult content</string>
     <string name="four_dimension_bullying">Bullying</string>
+    <string name="four_dimension_bullying_content_text"
+        formatted="false">%s of the comments analyzed is related to bullying content</string>
     <string name="results_since_one_month_ago">Results since 1 month ago</string>
     <string name="close_dialog">I understood</string>
     <string name="accept">I understood</string>
+
 
     <string name="pick_image_intent_text">Choose an image</string>
     <string name="change_profile_picture" formatted="true">Change profile picture of %s</string>
@@ -404,6 +425,10 @@
     <string name="instagram_brand_title">Instagram</string>
     <string name="facebook_brand_title">Facebook</string>
     <string name="youtube_brand_title">Youtube</string>
+
+    <string name="instagram_comments_extracted" formatted="false">%s of the extracted comments belong to the social network Instagram</string>
+    <string name="facebook_comments_extracted" formatted="false">%s of the extracted comments belong to the social network Facebook</string>
+    <string name="youtube_comments_extracted" formatted="false">%s of the extracted comments belong to the social network Youtube</string>
 
     <!-- Results Tab -->
 
@@ -503,8 +528,109 @@
     <string name="title_activity_school_detail">SchoolDetailActivity</string>
     <string name="title_activity_add_school">AddSchoolActivity</string>
 
-
     <!-- Notifications -->
     <string name="logout_notification_title">Come back soon</string>
     <string name="logout_notification_description">Log in to receive information about the analyzes performed</string>
+
+    <!-- Kid Results -->
+    <string name="kid_results_no_results_found">No results found, try again later.</string>
+    <string name="kid_results_error_ocurred">There was an error loading the results, please try again later.</string>
+    <string name="kid_results_loading_results">Loading results, wait please ...</string>
+    <string name="see_all_comments_extracted">See all comments extracted</string>
+    <string name="kid_results_see_all_alerts">See all alerts</string>
+    <string name="see_comments_extracted">See comments extracted</string>
+    <string name="kid_results_see_alerts_by_level">See alers</string>
+    <string name="kid_results_refresh_data">Refresh data</string>
+    <string name="kid_results_activity_social_facebook" formatted="false">%s of the time has been using Facebook</string>
+    <string name="kid_results_activity_social_youtube" formatted="false">%s of the time has been using Youtube</string>
+    <string name="kid_results_activity_social_instagram" formatted="false">%s of the time has been using Instagram</string>
+    <string name="kid_results_positive_content">Positive Content</string>
+    <string name="kid_results_negative_content">Negative Content</string>
+    <string name="kid_results_neutral_content">Neutral Content</string>
+    <string name="kid_results_sentiment_content_positive" formatted="false">%s of the comments analyzed have a positive feeling</string>
+    <string name="kid_results_sentiment_content_negative" formatted="false">%s of the comments analyzed have a negative feeling</string>
+    <string name="kid_results_sentiment_content_neutral" formatted="false">%s of the comments analyzed have a neutral feeling</string>
+    <string name="kid_results_info_alerts" formatted="false">%s of the alerts are informative.</string>
+    <string name="kid_results_success_alerts" formatted="false">%s of alerts are positive.</string>
+    <string name="kid_results_warning_alerts" formatted="false">%s of alerts are notices of important things</string>
+    <string name="kid_results_danger_alerts" formatted="false">%s of alerts are from very important events.</string>
+    <string name="kid_results_facebook_likes_count" formatted="false">%s of the "likes" received has been on Facebook</string>
+    <string name="kid_results_instagram_likes_count" formatted="false">%s of the "likes" received has been on Instagram</string>
+    <string name="kid_results_youtube_likes_count" formatted="false">%s of the "likes" received has been on Youtube</string>
+
+    <!-- Comments Settings -->
+
+    <!-- Age Of Comments -->
+    <string name="age_of_comments_preference_title">Age of Comments</string>
+    <string name="age_of_comments_preference_summary">Age of extracted comments</string>
+
+    <string name="age_of_comments_a_day_ago_preference_value">A day ago</string>
+    <string name="age_of_comments_a_week_ago_preference_value">A week ago</string>
+    <string name="age_of_comments_a_two_week_ago_preference_value">A two week ago</string>
+    <string name="age_of_comments_a_month_ago_preference_value">A month ago</string>
+    <string name="age_of_comments_a_two_months_ago_preference_value">A two months ago</string>
+    <string name="age_of_comments_a_three_months_ago_preference_value">A three months ago</string>
+
+    <!-- Comments Social Media -->
+    <string name="app_preferences_social_media_comments">Comments Social Media</string>
+
+    <!-- All Social Media Categories -->
+    <string name="all_social_media_categories_title">Enable all social media</string>
+    <string name="all_social_media_categories_summary">See comments for all social media</string>
+
+    <!-- Facebook Social Media -->
+    <string name="facebook_social_media_title">Facebook</string>
+    <string name="facebook_social_media_summary">See comments extracted from facebook</string>
+
+    <!-- Instagram Social Media -->
+    <string name="instagram_social_media_title">Instagram</string>
+    <string name="instagram_social_media_summary">See comments extracted from instagram</string>
+
+    <!-- Youtube Social Media -->
+    <string name="youtube_social_media_title">Youtube</string>
+    <string name="youtube_social_media_summary">See comments extracted from Youtube</string>
+
+    <!-- Dimension of the comments analyzed -->
+    <string name="app_preferences_dimensions_of_comments_analyzed">
+        Apply dimension filter
+    </string>
+
+    <!-- Enable Filter Dimension -->
+    <string name="enable_dimensions_filter_title">Enable dimensions filter</string>
+    <string name="enable_dimensions_filter_summary">Filter comments by dimensions</string>
+    <!-- All Comments Dimension -->
+    <string name="all_comments_dimension_title">Enable all dimensions</string>
+    <string name="all_comments_dimension_summary">See comments that give positive in the four dimensions</string>
+
+    <string name="violence_comment_dimension_title">Violence</string>
+    <string name="violence_comment_dimension_summary">See violent comments</string>
+    <string name="drugs_comment_dimension_title">Drugs</string>
+    <string name="drugs_comment_dimension_summary">See comments related to drugs</string>
+    <string name="sex_comment_dimension_title">Sex</string>
+    <string name="sex_comment_dimension_summary">See comments related to adult content</string>
+    <string name="bullying_comment_dimension_title">Bullying</string>
+    <string name="bullying_comment_dimension_summary">See comments related to Bullying</string>
+
+    <!-- Dimension of comments  -->
+    <string name="app_preferences_comment_dimension">
+        Dimension of comments
+    </string>
+
+    <!-- Relations -->
+    <string name="kid_relations_title_default">Most Active Friends</string>
+    <string name="kid_relations_title" formatted="true">Most Active Friends (%d)</string>
+
+    <string name="kid_relations_friend_from_facebook">Friend from facebook</string>
+    <string name="kid_relations_friend_from_instagram">Friend from Instagram</string>
+    <string name="kid_relations_friend_from_youtube">Friend from Youtube</string>
+    <string name="kid_relations_results_title">Results</string>
+    <string name="kid_relations_results" formatted="false">%s of the information obtained
+        in this social media comes from this user</string>
+    <string name="kid_relations_results_default">No information available</string>
+
+    <!-- Relations Settings -->
+    <string name="age_of_relations_preference_title">Age of Relations</string>
+    <string name="age_of_relations_preference_summary">Antiquity of the relations that are shown</string>
+
+
 </resources>

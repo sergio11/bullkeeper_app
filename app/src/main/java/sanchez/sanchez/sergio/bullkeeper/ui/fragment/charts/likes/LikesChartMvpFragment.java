@@ -2,27 +2,34 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportBarChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.chart.SupportBarChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 
 /**
  * Likes Chart Mvp Fragment
  */
 public class LikesChartMvpFragment
         extends SupportBarChartMvpFragment<LikesChartFragmentPresenter,
-                ILikesChartFragmentView, IBasicActivityHandler, StatsComponent>
+                ILikesChartFragmentView, IBasicActivityHandler, StatsComponent,
+        SocialMediaLikesStatisticsEntity>
         implements ILikesChartFragmentView {
 
     /**
@@ -31,10 +38,20 @@ public class LikesChartMvpFragment
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
+     * Social Media Type Enum
+     */
+    private enum SocialMediaTypeEnum { INSTAGRAM, FACEBOOK, YOUTUBE }
+
+    /**
      * Kid Identity
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Social Media Labels
+     */
+    private String[] socialMediaLabels = new String[SocialMediaTypeEnum.values().length];
 
 
     public LikesChartMvpFragment() {
@@ -52,6 +69,35 @@ public class LikesChartMvpFragment
         args.putString(KID_IDENTITY_ARG, kidIdentity);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(getArguments() == null ||
+                !getArguments().containsKey(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide the kid identity");
+
+        kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if(appUtils.isValidString(kidIdentity))
+            args.putString(LikesChartFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
+        return args;
     }
 
     /**
@@ -112,6 +158,14 @@ public class LikesChartMvpFragment
         };
     }
 
+    /**
+     * On Load Data
+     */
+    @Override
+    protected void onLoadData() {
+        getPresenter().loadData(kidIdentity);
+    }
+
 
     /**
      * Provide Presenter
@@ -123,19 +177,69 @@ public class LikesChartMvpFragment
         return component.likesChartFragmentPresenter();
     }
 
-
+    /**
+     * On Value Selected
+     * @param e
+     * @param h
+     */
     @Override
-    public void onValueSelected(Entry e, Highlight h) {}
+    public void onValueSelected(Entry e, Highlight h) {
+        int selectedIdx = (int)e.getX();
+        navigator.showLikesBySocialMediaDialog((AppCompatActivity) getActivity(),
+                selectedIdx, socialMediaLabels[selectedIdx]);
+    }
 
+    /**
+     * On Nothing Selected
+     */
     @Override
     public void onNothingSelected() { }
 
     /**
-     * On Likes Results Loaded
-     * @param entries
+     * On Data Avaliable
+     * @param socialMediaLikesStatisticsEntity
      */
     @Override
-    public void onLikesResultsLoaded(List<BarEntry> entries) {
+    public void onDataAvaliable(final SocialMediaLikesStatisticsEntity socialMediaLikesStatisticsEntity) {
+        super.onDataAvaliable(socialMediaLikesStatisticsEntity);
+        Preconditions.checkNotNull(socialMediaLikesStatisticsEntity, "Chart Data can not be null");
+
+        List<BarEntry> entries = new ArrayList<>();
+        for(int i = 0; i < SocialMediaTypeEnum.values().length; i++ ) {
+            final SocialMediaTypeEnum socialMediaTypeEnum = SocialMediaTypeEnum.values()[i];
+            int j = 0;
+            for(; j < socialMediaLikesStatisticsEntity.getSocialMediaLikesEntities().size(); j++) {
+                final SocialMediaLikesStatisticsEntity.SocialMediaLikesEntity socialMediaLikesEntity
+                        = socialMediaLikesStatisticsEntity.getSocialMediaLikesEntities().get(j);
+                if(socialMediaLikesEntity.getType().name().equals(socialMediaTypeEnum.name())) {
+                    entries.add(new BarEntry(i, socialMediaLikesEntity.getLikes()));
+                    socialMediaLabels[i] = socialMediaLikesEntity.getLabel();
+                    break;
+                }
+            }
+            if(j == socialMediaLikesStatisticsEntity.getSocialMediaLikesEntities().size()){
+                entries.add(new BarEntry(i, 0));
+                socialMediaLabels[i] = "0";
+            }
+        }
+
+        // Set Chart Data
         setChartData(entries);
+    }
+
+    /**
+     * On Show All Comments Extracted
+     */
+    @OnClick(R.id.showAllCommentsExtracted)
+    protected void onShowAllCommentsExtracted(){
+        navigator.navigateToComments(kidIdentity);
+    }
+
+    /**
+     * On Refresh Data
+     */
+    @OnClick(R.id.refreshData)
+    protected void onRefreshData(){
+        refreshChart();
     }
 }

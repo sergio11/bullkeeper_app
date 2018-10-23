@@ -7,15 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -221,6 +235,50 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Comments
+     * @param identity
+     * @param socialMediaEnum
+     */
+    @Override
+    public void navigateToComments(String identity, SocialMediaEnum socialMediaEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(socialMediaEnum, "Social Media Enum can not be null");
+
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, socialMediaEnum));
+    }
+
+    /**
+     * Navigate To Comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     */
+    @Override
+    public void navigateToComments(String identity, DimensionCategoryEnum dimensionCategoryEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(dimensionCategoryEnum, "Dimension Category can not be null");
+
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum));
+    }
+
+    /**
+     * Navigate to comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     * @param socialMediaEnum
+     */
+    @Override
+    public void navigateToComments(String identity, DimensionCategoryEnum dimensionCategoryEnum, SocialMediaEnum socialMediaEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(dimensionCategoryEnum, "Dimension Category can not be null");
+        Preconditions.checkNotNull(socialMediaEnum, "Dimension Category can not be null");
+
+        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum, socialMediaEnum));
+    }
+
+    /**
      * Navigate To Comment Detail
      * @param identity
      */
@@ -239,12 +297,117 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Kid Results Settings
+     */
+    @Override
+    public void navigateToKidResultsSettings() {
+        context.startActivity(KidResultsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate To Comments Settings
+     */
+    @Override
+    public void navigateToCommentsSettings() {
+        context.startActivity(CommentsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate To Relations
+     */
+    @Override
+    public void navigateToRelations(final String kidIdentity) {
+        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
+        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
+        context.startActivity(RelationsMvpActivity.getCallingIntent(context, kidIdentity));
+    }
+
+    /**
+     * Navigate To Relation Detail
+     * @param socialMediaFriendEntity
+     */
+    @Override
+    public void navigateToRelationDetail(SocialMediaFriendEntity socialMediaFriendEntity) {
+        Preconditions.checkNotNull(socialMediaFriendEntity, "Social Media Friend Entity");
+        context.startActivity(RelationDetailMvpActivity.getCallingIntent(context, socialMediaFriendEntity));
+    }
+
+    /**
+     * Navigate To Relations Settings
+     */
+    @Override
+    public void navigateToRelationSettings() {
+        context.startActivity(RelationsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
      * Show Four Dimensions Dialog
      * @param appCompatActivity
      */
     @Override
-    public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, int value, int total) {
-        FourDimensionsDialog.show(appCompatActivity, dimensionIdx, value, total);
+    public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, final String dimensionValue) {
+        FourDimensionsDialog.show(appCompatActivity, dimensionIdx, dimensionValue);
+    }
+
+    /**
+     * Show Comments Extracted Dialog
+     * @param appCompatActivity
+     * @param socialMediaIdx
+     * @param socialMediaValue
+     */
+    @Override
+    public void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity, final int socialMediaIdx,
+                                            final String socialMediaValue, final String kidIdentityValue) {
+        CommentsExtractedBySocialMediaDialog.show(appCompatActivity, socialMediaIdx, socialMediaValue, kidIdentityValue);
+    }
+
+    /**
+     * Show Social Activity Dialog
+     * @param appCompatActivity
+     * @param socialMediaEnum
+     * @param socialMediaValue
+     */
+    @Override
+    public void showSocialActivityDialog(AppCompatActivity appCompatActivity, final SocialMediaEnum socialMediaEnum, final String socialMediaValue) {
+        ActivityBySocialMediaDialog.show(appCompatActivity, socialMediaEnum, socialMediaValue);
+    }
+
+    /**
+     * Show Sentiment Analysis Dialog
+     * @param appCompatActivity
+     * @param sentimentLevelEnum
+     * @param sentimentValue
+     */
+    @Override
+    public void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
+                                            final SentimentLevelEnum sentimentLevelEnum, final String sentimentValue) {
+        SentimentAnalysisDialog.show(appCompatActivity, sentimentLevelEnum, sentimentValue);
+    }
+
+    /**
+     * Show Alert Level Dialog
+     * @param appCompatActivity
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     * @param kidIdentity
+     */
+    @Override
+    public void showAlertLevelDialog(final AppCompatActivity appCompatActivity,
+                                     final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
+                                     final String kidIdentity) {
+        SystemAlertsDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentity);
+    }
+
+    /**
+     * Show Likes By Social Media Dialog
+     * @param appCompatActivity
+     * @param socialMedia
+     * @param totalLikesValue
+     */
+    @Override
+    public void showLikesBySocialMediaDialog(final AppCompatActivity appCompatActivity, final int socialMedia,
+                                             final String totalLikesValue) {
+        LikesBySocialMediaDialog.show(appCompatActivity, socialMedia, totalLikesValue);
     }
 
     /**

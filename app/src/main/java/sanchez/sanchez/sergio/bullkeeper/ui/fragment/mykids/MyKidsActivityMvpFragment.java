@@ -143,7 +143,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     @Override
     public void onRelationsActionClicked(final SonEntity sonEntity) {
         Timber.d("On Relations for -> %s ", sonEntity.getIdentity());
-        activityHandler.navigateToComments(sonEntity.getIdentity());
+        activityHandler.navigateToRelations(sonEntity.getIdentity());
     }
 
     /**

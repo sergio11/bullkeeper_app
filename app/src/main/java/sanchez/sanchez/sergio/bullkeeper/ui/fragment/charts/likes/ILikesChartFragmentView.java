@@ -1,18 +1,10 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes;
 
-import com.github.mikephil.charting.data.BarEntry;
-import java.util.List;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportChartDataView;
+import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 
 /**
  * Likes Chart Fragment View
  */
-public interface ILikesChartFragmentView extends ISupportView {
-
-    /**
-     * On Likes Results Loaded
-     * @param entries
-     */
-    void onLikesResultsLoaded(final List<BarEntry> entries);
-
-}
+interface ILikesChartFragmentView
+        extends ISupportChartDataView<SocialMediaLikesStatisticsEntity> { }

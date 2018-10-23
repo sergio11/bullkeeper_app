@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/commonWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/common_margin"
+            android:gravity="center">
+
+            <!-- Social Media Image -->
+            <ImageView
+                android:id="@+id/socialMediaImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/instagram_brands_color"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Social Media Title -->
+            <TextView
+                android:id="@+id/socialMediaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText"
+                android:text="@string/instagram_brand_title"
+                android:textStyle="bold"
+                android:textColor="@color/instagram_color"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:background="@color/violence_color"/>
+
+        <!-- Content Detail Text -->
+        <TextView
+            android:id="@+id/contentDetailText"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Big"/>
+
+        <!-- Show Comments Extracted -->
+        <LinearLayout
+            android:id="@+id/showCommentsExtracted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/showCommentsExtractedTextView"
+                style="@style/CommonStrongText.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/see_comments_extracted"
+                android:textColor="@color/cyanBrilliant"/>
+
+            <ImageView
+                android:id="@+id/showCommentsExtractedImageView"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+        </LinearLayout>
+
+        <!-- Close Dialog -->
+        <Button
+            android:id="@+id/closeDialog"
+            style="@style/DimensionActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/commonWhite"
+            android:background="@drawable/social_media_instagram_button_state"
+            android:padding="@dimen/common_padding"
+            android:text="@string/close_dialog" />
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

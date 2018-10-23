@@ -25,7 +25,7 @@
         <!-- Title -->
         <TextView
             android:id="@android:id/title"
-            style="@style/CommonStrongText"
+            style="@style/CommonStrongText.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"

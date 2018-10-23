@@ -158,7 +158,6 @@
         android:layout_marginTop="8dp"
         />
 
-
     <!-- Loading -->
     <include android:id="@+id/loading"
         layout="@layout/loading_data_layout"

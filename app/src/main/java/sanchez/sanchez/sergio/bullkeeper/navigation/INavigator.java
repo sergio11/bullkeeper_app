@@ -4,9 +4,14 @@ import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
+import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -119,6 +124,30 @@ public interface INavigator {
     void navigateToComments(final String identity);
 
     /**
+     * Navigate To Comments
+     * @param identity
+     * @param socialMediaEnum
+     */
+    void navigateToComments(final String identity, final SocialMediaEnum socialMediaEnum);
+
+    /**
+     * Navigate To Comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     */
+    void navigateToComments(final String identity, final DimensionCategoryEnum dimensionCategoryEnum);
+
+
+    /**
+     * Navigate To Comments
+     * @param identity
+     * @param dimensionCategoryEnum
+     * @param socialMediaEnum
+     */
+    void navigateToComments(final String identity, final DimensionCategoryEnum dimensionCategoryEnum,
+                            final SocialMediaEnum socialMediaEnum);
+
+    /**
      * Navigate To Comment Detail
      * @param identity
      */
@@ -131,11 +160,90 @@ public interface INavigator {
     void navigateToMyKidsDetail(final String identity);
 
     /**
+     * Navigate To Kid Results Settings
+     */
+    void navigateToKidResultsSettings();
+
+    /**
+     * Navigate To Comments Settings
+     */
+    void navigateToCommentsSettings();
+
+    /**
+     * Navigate To Relations
+     * @param kidIdentity
+     */
+    void navigateToRelations(final String kidIdentity);
+
+    /**
+     * Navigate To Relation Detail
+     * @param socialMediaFriendEntity
+     */
+    void navigateToRelationDetail(final SocialMediaFriendEntity socialMediaFriendEntity);
+
+    /**
+     * Navigate To Relations Settings
+     */
+    void navigateToRelationSettings();
+
+    /**
      * Show Four Dimensions Dialog
      * @param appCompatActivity
+     * @param dimensionIdx
+     * @param dimensionValue
      */
     void showFourDimensionsDialog(final AppCompatActivity appCompatActivity,
-                                  int dimensionIdx, int value, int total);
+                                  int dimensionIdx, final String dimensionValue);
+
+    /**
+     * Show Comments Extracted Dialog
+     * @param appCompatActivity
+     * @param socialMediaIdx
+     * @param socialMediaValue
+     * @param kidIdentity
+     */
+    void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity,
+                                     int socialMediaIdx, final String socialMediaValue,
+                                     final String kidIdentity);
+
+    /**
+     * Show Comments Extracted Dialog
+     * @param appCompatActivity
+     * @param socialMediaEnum
+     * @param socialMediaValue
+     */
+    void showSocialActivityDialog(final AppCompatActivity appCompatActivity,
+                                  final SocialMediaEnum socialMediaEnum,
+                                  final String socialMediaValue);
+
+    /**
+     * Show Sentiment Analysis Dialog
+     * @param appCompatActivity
+     * @param sentimentLevelEnum
+     * @param sentimentValue
+     */
+    void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
+                                     final SentimentLevelEnum sentimentLevelEnum,
+                                     final String sentimentValue);
+
+    /**
+     * Show Alert Level Dialog
+     * @param appCompatActivity
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     */
+    void showAlertLevelDialog(final AppCompatActivity appCompatActivity,
+                                     final AlertLevelEnum alertLevelEnum,
+                                     final String alertLevelValue, final String kidIdentity);
+
+    /**
+     * Show Likes By Social Media Dialog
+     * @param appCompatActivity
+     * @param socialMedia
+     * @param totalLikesValue
+     */
+    void showLikesBySocialMediaDialog(final AppCompatActivity appCompatActivity,
+                                      final int socialMedia, final String totalLikesValue);
 
     /**
      * Show Photo Viewer Dialog

@@ -74,7 +74,7 @@ public final class CommentsStatisticsDTO implements Serializable {
 
         @Override
         public String toString() {
-            return "CommentsPerDateDTO{" +
+            return "CommentsBySocialMediaDTO{" +
                     "date=" + date +
                     ", total=" + total +
                     ", label='" + label + '\'' +

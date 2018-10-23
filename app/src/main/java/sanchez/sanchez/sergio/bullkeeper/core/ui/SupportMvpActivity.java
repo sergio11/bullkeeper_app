@@ -18,6 +18,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
@@ -163,6 +166,12 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
         // On View Ready
         onViewReady(savedInstanceState);
+
+        final ContentViewEvent contentViewEvent = onCreateContentViewEvent();
+        if(contentViewEvent == null)
+            throw new IllegalStateException("Content View can not be null - you must track the content int he app");
+        // track content views in the app
+        Answers.getInstance().logContentView(contentViewEvent);
 
         createAt = new Date();
 
@@ -784,4 +793,10 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     public void onBackPressed() {
         safeCloseActivity();
     }
+
+    /**
+     * On Create Content View Event
+     * @return
+     */
+    protected abstract ContentViewEvent onCreateContentViewEvent();
 }

@@ -3,39 +3,45 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportBarChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.chart.SupportBarChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 
 /**
  * Four Dimensions Fragment
  */
 public class FourDimensionsMvpFragment
         extends SupportBarChartMvpFragment<FourDimensionsFragmentPresenter,
-                        IFourDimensionsFragmentView, IBasicActivityHandler, StatsComponent>
+                        IFourDimensionsFragmentView, IBasicActivityHandler,
+        StatsComponent, List<DimensionEntity>>
         implements IFourDimensionsFragmentView {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    public static final int VIOLENCE = 0;
-    public static final int DRUGS = 1;
-    public static final int ADULT = 2;
-    public static final int BULLYING = 3;
 
+    /**
+     * Dimensions Category Enum
+     */
+    public enum DimensionCategoryEnum {
+        VIOLENCE, DRUGS, ADULT, BULLYING
+    }
 
     /**
      * Kid Identity
@@ -43,6 +49,10 @@ public class FourDimensionsMvpFragment
     @State
     protected String kidIdentity;
 
+    /**
+     * Dimensions Labels
+     */
+    protected String[] dimensionsLabel = new String[4];
 
     /**
      * On Four Dimensions Listener
@@ -67,6 +77,19 @@ public class FourDimensionsMvpFragment
         return fragment;
     }
 
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        if(getArguments() != null &&
+                getArguments().containsKey(KID_IDENTITY_ARG))
+            args.putString(FourDimensionsFragmentPresenter.KIDS_IDENTITY_ARG,
+                    getArguments().getString(KID_IDENTITY_ARG));
+        return args;
+    }
 
     /**
      * On Attach
@@ -82,6 +105,22 @@ public class FourDimensionsMvpFragment
         }
     }
 
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(getArguments() == null || !getArguments().containsKey(KID_IDENTITY_ARG))
+            throw new IllegalArgumentException("You must provide the Kid Identity");
+
+        kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+
+    }
 
     /**
      * Get Legend Label Color
@@ -121,9 +160,18 @@ public class FourDimensionsMvpFragment
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex,
                                             ViewPortHandler viewPortHandler) {
-                return String.format(Locale.getDefault(), "%d/%d", (int)value, 17);
+                int dimensionIdx = (int) entry.getX();
+                return dimensionIdx < dimensionsLabel.length ? dimensionsLabel[dimensionIdx]: "";
             }
         };
+    }
+
+    /**
+     * On Load Data
+     */
+    @Override
+    protected void onLoadData() {
+        getPresenter().loadData(kidIdentity);
     }
 
     /**
@@ -154,31 +202,57 @@ public class FourDimensionsMvpFragment
     }
 
     /**
-     * On Dimensions Data Loaded
-     * @param entries
-     */
-    @Override
-    public void onDimensionsDataLoaded(List<BarEntry> entries) {
-        setChartData(entries);
-    }
-
-    /**
      * On Value Selected
      * @param e
      * @param h
      */
     @Override
     public void onValueSelected(Entry e, Highlight h) {
+
+        final int dimensionIdx = (int)e.getX();
+
         if(listener != null)
-            listener.onDimensionsSelected((int)e.getX(), (int)e.getY(), 17);
+            listener.onDimensionsSelected(dimensionIdx, dimensionsLabel[dimensionIdx]);
+
         navigator.showFourDimensionsDialog((AppCompatActivity)getActivity(),
-                (int)e.getX(), (int)e.getY(), 17);
+                dimensionIdx, dimensionsLabel[dimensionIdx]);
     }
 
+    /**
+     * On Data Avaliable
+     * @param chartData
+     */
     @Override
-    public void onNothingSelected() {
+    public void onDataAvaliable(List<DimensionEntity> chartData) {
+        Preconditions.checkNotNull(chartData, "Dimensions Entities can not be null");
 
+        List<BarEntry> entries = new ArrayList<>();
+        for(int i = 0; i < DimensionCategoryEnum.values().length; i++ ) {
+            final DimensionCategoryEnum dimensionCategoryEnum = DimensionCategoryEnum.values()[i];
+            int j = 0;
+            for(; j < chartData.size(); j++) {
+                final DimensionEntity dimensionEntity  = chartData.get(j);
+                if(dimensionEntity.getDimensionCategoryEnum().name().equals(dimensionCategoryEnum.name())) {
+                    entries.add(new BarEntry(i, dimensionEntity.getValue()));
+                    dimensionsLabel[i] = dimensionEntity.getLabel();
+                    break;
+                }
+            }
+            if(j == chartData.size()){
+                entries.add(new BarEntry(i, 0));
+                dimensionsLabel[i] = "0";
+            }
+        }
+
+        // Set Chart Data
+        setChartData(entries);
     }
+
+    /**
+     * On Nothing Selected
+     */
+    @Override
+    public void onNothingSelected() {}
 
     /**
      * On Four Dimensions Listener
@@ -188,10 +262,9 @@ public class FourDimensionsMvpFragment
         /**
          * On Dimensions Selected
          * @param dimensionIdx
-         * @param value
-         * @param total
+         * @param dimensionValue
          */
-        void onDimensionsSelected(int dimensionIdx, int value, int total);
+        void onDimensionsSelected(int dimensionIdx, final String dimensionValue);
 
     }
 

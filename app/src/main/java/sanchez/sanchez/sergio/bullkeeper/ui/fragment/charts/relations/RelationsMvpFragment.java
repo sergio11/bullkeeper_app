@@ -2,13 +2,18 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+
 import java.util.List;
 
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.SupportPieChartMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.chart.SupportPieChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
@@ -16,7 +21,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
  */
 public class RelationsMvpFragment
         extends SupportPieChartMvpFragment<RelationsFragmentPresenter,
-        IRelationsFragmentView, IBasicActivityHandler, StatsComponent>
+        IRelationsFragmentView, IBasicActivityHandler, StatsComponent, String>
         implements IRelationsFragmentView {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
@@ -82,17 +87,33 @@ public class RelationsMvpFragment
         return component.relationsFragmentPresenter();
     }
 
-    /**
-     * On Relations Loaded
-     * @param entries
-     */
     @Override
-    public void onRelationsLoaded(final List<PieEntry> entries) {
-        setChartData(entries, new int[] {
+    protected int[] getLegendLabelColor() {
+        return new int[] {
                 R.color.softOrange,
                 R.color.cyanBrilliant,
                 R.color.darkModerateBlue,
                 R.color.moderateRed
-        });
+        };
+    }
+
+    @Override
+    protected IValueFormatter getValueFormatter() {
+        return null;
+    }
+
+    @Override
+    protected void onLoadData() {
+
+    }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
     }
 }
