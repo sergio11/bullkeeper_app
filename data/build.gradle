@@ -62,13 +62,7 @@ dependencies {
     implementation dataDependencies.androidAnnotations
     implementation dataDependencies.arrowPreconditions
     implementation dataDependencies.timber
-
     implementation dataDependencies.playServicesAuthBase
-    // Simple Auth
-    api dataDependencies.simpleAuth
-    api dataDependencies.simpleAuthInstagram
-    api dataDependencies.simpleAuthGoogle
-    api dataDependencies.simpleAuthFacebook
 
     // Retrofit 2
     api dataDependencies.retrofit2
@@ -77,6 +71,13 @@ dependencies {
     api (dataDependencies.logginInterceptor) {
         exclude group: 'org.json', module: 'json'
     }
+
+    // Compile Auth Modules
+    api project(':auth_library_commons')
+    api project(':auth_library_facebook')
+    api project(':auth_library_google')
+    api project(':auth_library_instagram')
+
     // Jackson
     api dataDependencies.jacksonCore
     api dataDependencies.jacksonAnnotations

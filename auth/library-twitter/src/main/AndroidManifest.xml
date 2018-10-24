@@ -1,0 +1,26 @@
+<manifest package="com.jaychang.sa.twitter"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <meta-data
+            android:name="@string/com.jaychang.sa.twitterConsumerKey"
+            android:value="\ ${twitterConsumerKey}" />
+
+        <meta-data
+            android:name="@string/com.jaychang.sa.twitterConsumerSecret"
+            android:value="\ ${twitterConsumerSecret}" />
+
+        <activity
+            android:name=".TwitterAuthActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask" />
+
+        <provider
+            android:authorities="${applicationId}.TwitterInitProvider"
+            android:name=".TwitterInitProvider"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

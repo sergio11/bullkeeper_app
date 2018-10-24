@@ -3,13 +3,15 @@ apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
     repositories {
-        jcenter()
-        mavenCentral()
         google()
+        mavenCentral()
+        jcenter()
+        // Required For fabric tools
         maven { url 'https://maven.fabric.io/public' }
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
         classpath 'com.google.gms:google-services:4.0.1'
@@ -20,23 +22,17 @@ allprojects {
 
     ext {
         androidApplicationId = 'sanchez.sanchez.sergio.bullkeeper'
-        androidVersionCode = 77
-        androidVersionName = "0.5.20"
+        androidVersionCode = 78
+        androidVersionName = "0.5.21"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.fernandocejas.android10.sample.presentation.test'
     }
 
     repositories {
+        google()
         jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
         maven { url 'https://jitpack.io' }
         maven { url "http://jcenter.bintray.com"}
+
     }
-}
-
-repositories {
-    google()
-
 }

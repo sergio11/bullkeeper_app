@@ -1,1 +1,13 @@
-include ':app', ':domain', ':data', ':utils'
+include ':app', ':domain', ':data', ':utils',
+        ':auth_library_commons', ':auth_library_facebook',
+        ':auth_library_google', ':auth_library_instagram'
+
+// Auth Modules
+project(':auth_library_commons').projectDir =
+        new File(rootProject.projectDir, './auth/library-common')
+project(':auth_library_facebook').projectDir =
+        new File(rootProject.projectDir, './auth/library-facebook')
+project(':auth_library_google').projectDir =
+        new File(rootProject.projectDir, './auth/library-google')
+project(':auth_library_instagram').projectDir =
+        new File(rootProject.projectDir, './auth/library-instagram')

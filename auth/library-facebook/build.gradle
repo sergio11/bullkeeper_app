@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+buildscript {
+
+    apply from: 'gradle/dependencies.gradle'
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath deps.build.gradlePlugins.kotlin
+    }
+}
+
+android {
+    compileSdkVersion deps.build.compileSdkVersion
+    buildToolsVersion deps.build.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion deps.build.minSdkVersion
+        targetSdkVersion deps.build.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    api project(':auth_library_commons')
+    implementation deps.support.appcompat
+    api deps.facebookSdk
+}

@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        google()
         maven { url 'https://maven.fabric.io/public' }
     }
 
@@ -12,6 +13,7 @@ apply plugin: 'io.fabric'
 apply plugin: 'com.frogermcs.androiddevmetrics'
 
 repositories {
+    google()
     maven { url 'https://maven.fabric.io/public' }
 }
 
@@ -84,7 +86,7 @@ android {
         debug {
             signingConfig signingConfigs.debug
             multiDexEnabled true
-            buildConfigField "String", "BASE_URL", '"http://192.168.1.50:8080/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"http://192.168.0.17:8080/api/v1/"'
         }
 
         release {
@@ -100,17 +102,15 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
+    // Compile Youtube Android Player
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
     // Compile Utils Module
     implementation project(':utils')
     // Compile Domain
     implementation project(':domain')
-
     // Compile Data
     implementation project(':data')
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor presentationDependencies.daggerCompiler
     implementation presentationDependencies.dagger
     implementation presentationDependencies.butterKnife
@@ -166,6 +166,11 @@ dependencies {
     androidTestImplementation presentationTestDependencies.dexmakerMockito
     androidTestImplementation presentationTestDependencies.espresso
     androidTestImplementation presentationTestDependencies.testingSupportLib
+
+
+    implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.supportMultidex
+    implementation presentationDependencies.supportMultidexInstrumentation
 
     //Development
     implementation developmentDependencies.leakCanary
