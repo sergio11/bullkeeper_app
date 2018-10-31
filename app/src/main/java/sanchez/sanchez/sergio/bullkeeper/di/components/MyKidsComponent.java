@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.MyKidsMvpActivity;
@@ -19,12 +20,14 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
                  ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
-                SocialMediaModule.class, CommentsModule.class})
+                SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -58,10 +61,17 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final ImportantAlertsMvpFragment importantAlertsFragment);
 
+    /**
+     * Inject on Schedule Blocks Mvp Fragment
+     * @param scheduledBlocksMvpFragment
+     */
+    void inject(final ScheduledBlocksMvpFragment scheduledBlocksMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
     MyKidsProfilePresenter myKidsProfilePresenter();
     MyKidsDetailPresenter myKidsDetailPresenter();
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
+    ScheduledBlocksFragmentPresenter scheduledBlocksFragmentPresenter();
 }

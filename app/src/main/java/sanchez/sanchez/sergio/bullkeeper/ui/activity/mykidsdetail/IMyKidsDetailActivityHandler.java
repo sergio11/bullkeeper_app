@@ -25,4 +25,15 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToWarningAlerts(final String sonId);
 
+    /**
+     * Navigate To Save Scheduled Block
+     * @param identity
+     */
+    void navigateToSaveScheduledBlock(final String identity);
+
+    /**
+     * Navigate To Save Scheduled Block
+     */
+    void navigateToSaveScheduledBlock();
+
 }

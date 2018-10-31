@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <!-- Weekly Frequency Label -->
+    <TextView
+        android:id="@+id/weeklyFrequencyLabel"
+        android:layout_width="match_parent"
+        style="@style/CommonText"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="start|center_vertical"
+        android:text="@string/support_edit_weekly_frequency_label"
+        android:textColor="@color/cyanBrilliant"
+        android:layout_above="@id/weeklyFrequencyInput"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <!-- Weekly Frequency Input -->
+    <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportClickableTextView
+        android:id="@+id/weeklyFrequencyInput"
+        style="@style/CommonStrongText"
+        android:layout_width="match_parent"
+        android:textColor="@color/cyanBrilliant"
+        android:textSize="@dimen/weekly_frequency_text_size"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/weeklyFrequencyError"/>
+
+    <!-- Weekly Frequency Error -->
+    <TextView
+        android:id="@+id/weeklyFrequencyError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CommonStrongText.Small"
+        android:padding="0dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:textColor="@color/redDanger"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

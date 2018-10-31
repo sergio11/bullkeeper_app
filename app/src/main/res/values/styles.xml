@@ -136,12 +136,18 @@
         <item name="android:textSize">@dimen/common_title_text_size_medium</item>
     </style>
 
+    <!-- Common Text Style -->
+    <style name="CommonText">
+        <item name="fontPath">fonts/HelveticaNeueLTStd-Roman.otf</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/common_strong_text_size</item>
+    </style>
+
     <!-- Common Strong Text -->
-    <style name="CommonStrongText">
+    <style name="CommonStrongText" parent="CommonText">
         <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textSize">@dimen/common_strong_text_size</item>
     </style>
 
     <!-- Common Strong Medium Text -->
@@ -200,6 +206,13 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <!-- Text Float Label Appearance Inverse -->
+    <style name="TextStyles.TextFloatLabelAppearance.Inverse"
+        parent="TextStyles.TextFloatLabelAppearance">
+        <!-- Floating label appearance here -->
+        <item name="android:textColor">@color/cyanBrilliant</item>
+    </style>
+
     <style name="TextStyles.TextErrorAppearance" parent="TextAppearance.Design.Error">
         <!-- Error message appearance here -->
         <item name="android:textColor">@android:color/holo_red_dark</item>
@@ -234,6 +247,19 @@
         <!-- Control colo on activated state -->
         <item name="colorControlActivated">@color/commonWhite</item>
         <item name="android:textColorPrimary">@color/commonWhite</item>
+    </style>
+
+    <!-- Common Text Input Layout Inverse -->
+    <style name="CommonTextInputLayoutInverse"
+        parent="CommonTextInputLayout">
+
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/cyanBrilliant</item>
+        <!-- Control color on normal state -->
+        <item name="colorControlNormal">@color/cyanBrilliant</item>
+        <!-- Control colo on activated state -->
+        <item name="colorControlActivated">@color/cyanBrilliant</item>
+        <item name="android:textColorPrimary">@color/cyanBrilliant</item>
     </style>
 
     <!-- End Text Styles -->

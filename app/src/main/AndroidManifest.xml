@@ -237,6 +237,13 @@
             android:theme="@style/AppTheme.Preferences" />
 
 
+        <!-- Add Scheduled Block -->
+        <activity android:name=".ui.activity.savescheduledblock.SaveScheduledBlockMvpActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Preferences" />
+
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

@@ -38,6 +38,8 @@ dependencies {
     implementation domainDependencies.rxJava
     implementation domainDependencies.arrowPreconditions
     implementation domainDependencies.timber
+    // Joda Time
+    implementation domainDependencies.jodaTime
 
     testImplementation domainTestDependencies.junit
     testImplementation domainTestDependencies.mockito

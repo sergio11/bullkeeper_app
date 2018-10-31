@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/schedule_block_item_height"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+
+    <!-- Background -->
+    <RelativeLayout
+        android:id="@+id/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_background">
+
+        <!-- Delete Alert -->
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/trash_white"
+            android:contentDescription="@string/content_not_be_loaded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/delete"
+            android:textAllCaps="true"
+            android:text="@string/delete_list_menu_item"
+            android:textColor="@color/commonWhite" />
+
+    </RelativeLayout>
+
+    <!-- Foreground -->
+    <RelativeLayout
+        android:id="@+id/item_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_state"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/scheduledBlockImageContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/darkModerateBlue">
+
+
+            <!-- Scheduled Block Image  -->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/scheduledBlockImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/content_not_be_loaded"
+                android:src="@drawable/scheduled_block_default"
+                android:layout_gravity="center"
+                app:civ_border_color="@color/commonWhite"
+                app:civ_border_width="@dimen/common_image_stroke_width"/>
+
+        </FrameLayout>
+
+        <!-- Separator -->
+        <View
+            android:id="@+id/separator"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/commonWhite"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/scheduledBlockImageContainer"/>
+
+        <!-- Schedule Block Name -->
+        <TextView
+            android:id="@+id/scheduledBlockName"
+            style="@style/CommonStrongText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/separator"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/darkModerateBlue"
+            android:textStyle="italic" />
+
+        <!-- Scheduled Block Weekly Frequency -->
+        <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportWeeklyFrequencyTextView
+            android:id="@+id/scheduledBlockWeeklyFrequency"
+            style="@style/CommonStrongText.Big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:textAllCaps="true"
+            android:textColor="@color/commonWhite"
+            android:gravity="start|center_vertical"
+            android:layout_below="@id/scheduledBlockName"
+            android:layout_toEndOf="@id/separator" />
+
+        <!-- Scheduled Block Time -->
+        <TextView
+            android:id="@+id/scheduledBlockTime"
+            style="@style/CommonStrongText.Big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:singleLine="true"
+            android:gravity="center"
+            android:textColor="@color/commonWhite"
+            android:layout_below="@id/scheduledBlockWeeklyFrequency"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/separator"
+            />
+
+        <!-- Switch Compat -->
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switchWidget"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:textOff=""
+            android:textOn=""
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentEnd="true"
+            app:theme="@style/CommonSwitch" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>
+
+

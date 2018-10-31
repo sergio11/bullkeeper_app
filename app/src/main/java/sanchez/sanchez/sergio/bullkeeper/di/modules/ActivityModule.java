@@ -40,7 +40,6 @@ public class ActivityModule {
         return this.activity;
     }
 
-
     /**
      * Expose the IPermissionManager to dependents in the graph.
      */

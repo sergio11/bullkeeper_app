@@ -71,6 +71,10 @@
     <string name="make_a_search_to_see_results">Make a search to see results</string>
 
 
+    <!-- UI Components -->
+    <string name="support_edit_weekly_frequency_label">Weekly Frequency</string>
+
+
     <!-- fields error messages -->
     <string name="name_not_empty_error">You must specify your name</string>
     <string name="surname_not_empty_error">You must specify your last name</string>
@@ -368,6 +372,10 @@
 
     <string name="kid_detail_relations_most_active_friends">Most active friends</string>
 
+    <!-- Comments Extracted -->
+    <string name="scheduled_blocks_title">Scheduled Blocks</string>
+    <string name="scheduled_blocks_description">Habit daily configured</string>
+    <string name="scheduled_blocks_weekly_frequency">SMTWTFS</string>
     <!-- Activity In Social Media Chart -->
     <string name="activity_in_social_media_title">Activity in social media</string>
     <string name="activity_in_social_media_description">Indicators of activity in different social media</string>
@@ -437,7 +445,7 @@
     <!-- Alerts Tab -->
     <string name="alerts_tab">Alerts</string>
     <!-- Relations Tab -->
-    <string name="relations_tab">Relations</string>
+    <string name="scheduled_blocks_tab">Scheduled Blocks</string>
     <!-- Activity Social Media Tab -->
     <string name="activity_social_media_tab">Activity</string>
     <!-- Sentiment Tab -->
@@ -446,6 +454,8 @@
     <string name="likes_social_media_tab">Likes</string>
     <!-- Comments Extracted -->
     <string name="comments_extracted_tab">Comments</string>
+    <!-- Relations -->
+    <string name="relations_tab">Relations</string>
 
     <string name="authenticating_wait">Authenticating wait ...</string>
     <string name="network_error_ocurred">An error occurred when contacting the server, please try again later</string>
@@ -632,5 +642,17 @@
     <string name="age_of_relations_preference_title">Age of Relations</string>
     <string name="age_of_relations_preference_summary">Antiquity of the relations that are shown</string>
 
+    <!-- Save Scheduled Block -->
+    <string name="scheduled_block_title">Scheduled Block</string>
+    <string name="delete_scheduled_block">Delete</string>
+    <string name="loading_scheduled_block_information">Loading Scheduled Block Information ...</string>
+    <string name="change_scheduled_block_picture" formatted="false">Change image of %s</string>
+    <string name="change_scheduled_block_picture_default">Add image for Scheduled Block</string>
+    <string name="scheduled_block_name_hint">Scheduled Block Name</string>
+    <string name="scheduled_block_start_at_hint">Start At</string>
+    <string name="scheduled_block_end_at_hint">Start At</string>
+    <string name="scheduled_block_recurring_weekly_label">Recurring weekly</string>
+    <string name="delete_scheduled_block_confirm">Do you want to delete this Scheduled Block?</string>
+    <string name="scheduled_block_deleted_success">The Scheduled Block was deleted successfully</string>
 
 </resources>

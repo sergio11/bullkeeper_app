@@ -2,9 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
-
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
@@ -185,6 +183,17 @@ public interface INavigator {
      * Navigate To Relations Settings
      */
     void navigateToRelationSettings();
+
+    /**
+     * Navigate To Save Scheduled Block Mvp Activity
+     * @param identity
+     */
+    void navigateToSaveScheduledBlockMvpActivity(final String identity);
+
+    /**
+     * Navigate To Save Scheduled Block Mvp Activity
+     */
+    void navigateToSaveScheduledBlockMvpActivity();
 
     /**
      * Show Four Dimensions Dialog

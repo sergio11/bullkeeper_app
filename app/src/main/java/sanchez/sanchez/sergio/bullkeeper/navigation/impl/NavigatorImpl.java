@@ -13,6 +13,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.savescheduledblock.SaveScheduledBlockMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
@@ -338,6 +339,25 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToRelationSettings() {
         context.startActivity(RelationsSettingsMvpActivity.getCallingIntent(context));
+    }
+
+    /**
+     * Navigate To Save Scheduled Block Mvp Activity
+     * @param identity
+     */
+    @Override
+    public void navigateToSaveScheduledBlockMvpActivity(String identity) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, identity));
+    }
+
+    /**
+     * Navigate To Save Scheduled Block Mvp Activity
+     */
+    @Override
+    public void navigateToSaveScheduledBlockMvpActivity() {
+        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context));
     }
 
     /**

@@ -77,7 +77,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     private final static String BIRTHDATE_FIELD_NAME = "birthdate";
     private final static String SCHOOL_FIELD_NAME = "school";
 
-
     public static final String KIDS_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     private static final int MIN_AGE_ALLOWED = 8;
@@ -746,7 +745,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             updateSocialMediaRow(socialMediaType, socialMedia);
 
         }
-
 
         // Toggle Social Media Components
         toggleAllSocialMediaComponents(true);

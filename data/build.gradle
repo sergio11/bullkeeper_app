@@ -63,6 +63,8 @@ dependencies {
     implementation dataDependencies.arrowPreconditions
     implementation dataDependencies.timber
     implementation dataDependencies.playServicesAuthBase
+    // Joda Time
+    implementation dataDependencies.jodaTime
 
     // Retrofit 2
     api dataDependencies.retrofit2

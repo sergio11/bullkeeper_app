@@ -11,15 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -31,6 +28,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimen
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
@@ -62,14 +60,13 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @State
     protected String kidIdentity;
 
-
     /**
      * Unselected tab icons
      */
     private int[] unselectedTabIcons = {
             R.drawable.dimensions_tab_cyan,
             R.drawable.important_alerts_tab_cyan,
-            R.drawable.relations_tab_cyan
+            R.drawable.scheduled_blocks
     };
 
     /**
@@ -78,7 +75,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] selectedTabIcons = {
             R.drawable.dimensions_tab_dark_cyan,
             R.drawable.important_alerts_tab_dark_cyan,
-            R.drawable.relations_tab_dark_cyan
+            R.drawable.scheduled_blocks_dark
     };
 
     /**
@@ -302,15 +299,32 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Save Scheduled Block
+     * @param identity
+     */
+    @Override
+    public void navigateToSaveScheduledBlock(final String identity) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(identity);
+    }
+
+    /**
+     * Navigate To Save Scheduled Block
+     */
+    @Override
+    public void navigateToSaveScheduledBlock() {
+        navigatorImpl.navigateToSaveScheduledBlockMvpActivity();
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue
      */
     @Override
     public void onDimensionsSelected(int dimensionIdx, final String dimensionValue) {
-
         showShortMessage("Dimensions " + dimensionIdx + " -> " + dimensionValue);
-
     }
 
     /**
@@ -355,7 +369,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         private final static int DIMENSIONS_TAB = 0;
         private final static int ALERTS_TAB = 1;
-        private final static int SECTION_COUNT = 2;
+        private final static int SCHEDULED_BLOCKS_TAB = 2;
+        private final static int SECTION_COUNT = 3;
 
         private final String kidIdentity;
 
@@ -376,6 +391,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
+                case SCHEDULED_BLOCKS_TAB:
+                    return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -401,6 +418,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
                     return getString(R.string.alerts_tab);
+                case SCHEDULED_BLOCKS_TAB:
+                    return getString(R.string.scheduled_blocks_tab);
             }
             return null;
         }

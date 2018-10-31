@@ -32,6 +32,7 @@
     <dimen name="common_title_text_size">32dp</dimen>
     <dimen name="common_title_text_size_medium">25dp</dimen>
 
+    <dimen name="weekly_frequency_text_size">28sp</dimen>
     <!-- Common Strong Text -->
     <dimen name="common_strong_text_size">22dp</dimen>
 
@@ -85,5 +86,7 @@
     <dimen name="common_dialog_corners">10dp</dimen>
     <!-- Common Dialog Height -->
     <dimen name="common_dialog_height">250dp</dimen>
+    <!-- Schedule Block Item Height -->
+    <dimen name="schedule_block_item_height">120dp</dimen>
 
 </resources>
