@@ -218,5 +218,13 @@ public class RelationDetailMvpActivity extends SupportMvpActivity<RelationDetail
                 .putContentType(CONTENT_TYPE_NAME);
     }
 
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.intro_background_cyan;
+    }
 
 }

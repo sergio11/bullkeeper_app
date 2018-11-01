@@ -448,4 +448,13 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             return null;
         }
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_2;
+    }
 }

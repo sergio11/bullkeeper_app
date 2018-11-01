@@ -116,7 +116,7 @@ public class LegalContentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legal_content_activity);
-        getWindow().setBackgroundDrawableResource(R.drawable.intro_background_cyan);
+        getWindow().setBackgroundDrawableResource(R.drawable.background_cyan_10);
 
         ButterKnife.bind(this);
 

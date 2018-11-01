@@ -138,4 +138,13 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
         super.onDiscardPendingChanges();
         userSettingsActivityFragment.onDiscardPendingChanges();
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_6;
+    }
 }

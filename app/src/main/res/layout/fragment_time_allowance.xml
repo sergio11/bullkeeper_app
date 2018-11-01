@@ -10,7 +10,7 @@
     android:fillViewport="true"
     android:overScrollMode="never"
     android:orientation="vertical"
-    android:background="@color/cyanBrilliant"
+    android:background="@android:color/transparent"
     tools:context=".ui.fragment.timeallowance.TimeAllowanceMvpFragment">
 
     <LinearLayout

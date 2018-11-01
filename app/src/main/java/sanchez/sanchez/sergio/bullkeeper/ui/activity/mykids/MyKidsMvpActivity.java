@@ -146,4 +146,13 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     public void navigateToRelations(String identity) {
         navigatorImpl.navigateToRelations(identity);
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_1;
+    }
 }

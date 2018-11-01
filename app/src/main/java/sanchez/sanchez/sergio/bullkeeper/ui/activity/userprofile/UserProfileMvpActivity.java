@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
@@ -286,6 +285,15 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected ContentViewEvent onCreateContentViewEvent() {
         return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
                 .putContentType(CONTENT_TYPE_NAME);
+    }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_4;
     }
 
     /**

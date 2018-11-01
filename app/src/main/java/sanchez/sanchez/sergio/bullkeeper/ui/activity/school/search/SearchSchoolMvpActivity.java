@@ -261,4 +261,13 @@ public class SearchSchoolMvpActivity extends SupportMvpSearchLCEActivity<SearchS
     protected void onAddSchool(){
         navigatorImpl.showAddSchool(SearchSchoolMvpActivity.this, ADD_SCHOOL_REQUEST_CODE);
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_9;
+    }
 }

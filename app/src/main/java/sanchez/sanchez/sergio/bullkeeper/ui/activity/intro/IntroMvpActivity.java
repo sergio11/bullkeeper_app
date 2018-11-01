@@ -197,4 +197,12 @@ public class IntroMvpActivity
         navigatorImpl.showLegalContentActivity(legalTypeEnum);
     }
 
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.intro_background_cyan;
+    }
 }

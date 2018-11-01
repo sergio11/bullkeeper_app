@@ -145,4 +145,13 @@ public class RelationsSettingsMvpActivity extends SupportMvpActivity<RelationsAc
         super.onDiscardPendingChanges();
         relationsSettingsActivityFragment.onDiscardPendingChanges();
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.intro_background_cyan;
+    }
 }

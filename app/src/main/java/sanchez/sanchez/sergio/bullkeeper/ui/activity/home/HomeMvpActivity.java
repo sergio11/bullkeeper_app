@@ -249,4 +249,13 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
         return new ContentViewEvent().putContentName(CONTENT_FULL_NAME)
                 .putContentType(CONTENT_TYPE_NAME);
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.intro_background_cyan;
+    }
 }

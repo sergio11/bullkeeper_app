@@ -492,4 +492,13 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         // Load Data
         getPresenter().loadData();
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_4;
+    }
 }

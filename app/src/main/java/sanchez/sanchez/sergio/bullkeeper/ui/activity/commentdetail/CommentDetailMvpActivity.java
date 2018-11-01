@@ -406,4 +406,13 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
         });
 
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_8;
+    }
 }

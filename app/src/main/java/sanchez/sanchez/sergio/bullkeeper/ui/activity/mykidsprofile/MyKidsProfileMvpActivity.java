@@ -1175,4 +1175,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         super.onDiscardPendingChanges();
     }
 
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_9;
+    }
 }

@@ -240,4 +240,12 @@ public class RelationsMvpActivity extends SupportMvpLCEActivity<RelationsMvpPres
         navigatorImpl.navigateToRelationSettings();
     }
 
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.intro_background_cyan;
+    }
 }

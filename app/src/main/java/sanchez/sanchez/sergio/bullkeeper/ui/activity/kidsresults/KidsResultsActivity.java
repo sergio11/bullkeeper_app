@@ -375,4 +375,13 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             return null;
         }
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_7;
+    }
 }

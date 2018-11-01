@@ -431,4 +431,13 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
             return locality;
         }
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_9;
+    }
 }

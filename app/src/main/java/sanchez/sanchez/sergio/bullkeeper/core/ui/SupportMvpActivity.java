@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -144,7 +145,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
 
-        getWindow().setBackgroundDrawableResource(R.drawable.intro_background_cyan);
+        getWindow().setBackgroundDrawableResource(getBackgroundResource());
 
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
@@ -799,4 +800,11 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      * @return
      */
     protected abstract ContentViewEvent onCreateContentViewEvent();
+
+    /**
+     * Get Background Res
+     * @return
+     */
+    @DrawableRes
+    protected abstract int getBackgroundResource();
 }

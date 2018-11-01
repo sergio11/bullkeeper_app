@@ -334,4 +334,13 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
     protected void onFilterCommentsClicked(){
         navigatorImpl.navigateToCommentsSettings();
     }
+
+    /**
+     * Get Background
+     * @return
+     */
+    @Override
+    protected int getBackgroundResource() {
+        return R.drawable.background_cyan_8;
+    }
 }
