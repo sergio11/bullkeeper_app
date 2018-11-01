@@ -9,6 +9,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.ScreenTimeAllowanceModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.MyKidsMvpActivity;
@@ -25,13 +26,15 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFra
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
                  ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
-                AppRulesModule.class })
+                AppRulesModule.class, ScreenTimeAllowanceModule.class })
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -77,6 +80,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final AppRulesMvpFragment appRulesMvpFragment);
 
+    /**
+     * Inject into Time Allowance Mvp Fragment
+     * @param timeAllowanceMvpFragment
+     */
+    void inject(final TimeAllowanceMvpFragment timeAllowanceMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -85,4 +94,5 @@ public interface MyKidsComponent extends StatsComponent {
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
     ScheduledBlocksFragmentPresenter scheduledBlocksFragmentPresenter();
     AppRulesFragmentPresenter appRulesFragmentPresenter();
+    TimeAllowanceFragmentPresenter timeAllowanceFragmentPresenter();
 }

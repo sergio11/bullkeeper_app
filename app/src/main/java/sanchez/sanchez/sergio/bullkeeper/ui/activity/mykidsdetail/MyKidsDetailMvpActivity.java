@@ -30,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
@@ -68,7 +69,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.dimensions_tab_cyan,
             R.drawable.important_alerts_tab_cyan,
             R.drawable.scheduled_blocks,
-            R.drawable.app_rules_tab_cyan
+            R.drawable.app_rules_tab_cyan,
+            R.drawable.hourglass_tab_cyan
     };
 
     /**
@@ -78,7 +80,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.dimensions_tab_dark_cyan,
             R.drawable.important_alerts_tab_dark_cyan,
             R.drawable.scheduled_blocks_dark,
-            R.drawable.app_rules_tab_dark
+            R.drawable.app_rules_tab_dark,
+            R.drawable.hourglass_tab_dark
     };
 
     /**
@@ -374,7 +377,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int ALERTS_TAB = 1;
         private final static int SCHEDULED_BLOCKS_TAB = 2;
         private final static int APP_RULES_TAB = 3;
-        private final static int SECTION_COUNT = 4;
+        private final static int TIME_ALLOWANCE_TAB = 4;
+        private final static int SECTION_COUNT = 5;
 
         private final String kidIdentity;
 
@@ -399,6 +403,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
                 case APP_RULES_TAB:
                     return AppRulesMvpFragment.newInstance(kidIdentity);
+                case TIME_ALLOWANCE_TAB:
+                    return TimeAllowanceMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -428,6 +434,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.scheduled_blocks_tab);
                 case APP_RULES_TAB:
                     return getString(R.string.app_rules_title);
+                case TIME_ALLOWANCE_TAB:
+                    return getString(R.string.time_allowance_title);
             }
             return null;
         }

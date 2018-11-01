@@ -662,4 +662,9 @@
     <string name="app_rules_confirm_title">Do you want to apply the new application rules configured?</string>
     <string name="applying_configured_app_rules">Applying configured application rules....</string>
 
+    <!-- Screen Time Allowance -->
+    <string name="time_allowance_title">Time Allowance</string>
+    <string name="screen_time_allowance_title">Screen Time Allowance</string>
+    <string name="screen_time_allowance_description">Set the maximum number of hours reserved for leisure and fun</string>
+
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_foreground"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@drawable/common_list_item_state"
+    android:orientation="vertical">
+
+    <!-- App Installed Name -->
+    <TextView
+        android:id="@+id/dayOfWeekName"
+        style="@style/CommonStrongText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/separator"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:gravity="start|center_vertical"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:textColor="@color/darkModerateBlue"
+        android:textStyle="italic" />
+
+
+
+</RelativeLayout>
+
