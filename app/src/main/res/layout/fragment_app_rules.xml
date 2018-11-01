@@ -31,11 +31,12 @@
                 android:id="@+id/appRulesDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:weightSum="1"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
                     android:layout_gravity="start"
@@ -64,6 +65,22 @@
                         android:layout_height="@dimen/common_divider_height"
                         android:layout_margin="10dp"
                         android:background="@color/cyanBrilliant"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/common_padding">
+
+                    <ImageView
+                        android:id="@+id/showAppRulesInfo"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/info_icon_solid"
+                        android:contentDescription="@string/content_not_be_loaded"/>
 
                 </LinearLayout>
 
@@ -105,7 +122,8 @@
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="4dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Discard"
+                        android:drawableStart="@drawable/trash_white_btn"
+                        android:text="@string/discard_changes_btn"
                         android:textColor="@color/commonWhite"
                         android:padding="@dimen/common_padding"/>
 
@@ -119,7 +137,8 @@
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="4dp"
                         android:layout_marginBottom="4dp"
-                        android:text="Save"
+                        android:drawableStart="@drawable/check_white_btn"
+                        android:text="@string/save_changes_btn"
                         android:textColor="@color/commonWhite"
                         android:padding="@dimen/common_padding"/>
 

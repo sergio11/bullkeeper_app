@@ -324,6 +324,14 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Show App Rules Dialog
+     */
+    @Override
+    public void showAppRulesDialog() {
+        navigatorImpl.showAppRulesInfoDialog(this);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue

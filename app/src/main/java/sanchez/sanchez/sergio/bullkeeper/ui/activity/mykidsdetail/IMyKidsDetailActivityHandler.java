@@ -36,4 +36,9 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToSaveScheduledBlock();
 
+    /**
+     * Show App Rules Dialog
+     */
+    void showAppRulesDialog();
+
 }

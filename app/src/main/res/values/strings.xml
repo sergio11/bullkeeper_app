@@ -64,6 +64,9 @@
     <string name="date_format">yyyy-MM-dd</string>
     <string name="date_format_server_response">yyyy/MM/dd</string>
 
+    <string name="discard_changes_btn">Discard</string>
+    <string name="save_changes_btn">Save</string>
+
 
     <string name="retry_again_btn">Retry Again</string>
     <string name="no_data_found">No Data Found</string>
@@ -661,6 +664,9 @@
     <string name="applying_the_configured_rules">Applying the configured rules</string>
     <string name="app_rules_confirm_title">Do you want to apply the new application rules configured?</string>
     <string name="applying_configured_app_rules">Applying configured application rules....</string>
+    <string name="app_rule_always_allowed">The application can always be used</string>
+    <string name="app_rule_never_allowed">The application can not be used</string>
+    <string name="app_rule_per_scheduled">The use of the application will adjust to the daily habit configured</string>
 
     <!-- Screen Time Allowance -->
     <string name="time_allowance_title">Time Allowance</string>

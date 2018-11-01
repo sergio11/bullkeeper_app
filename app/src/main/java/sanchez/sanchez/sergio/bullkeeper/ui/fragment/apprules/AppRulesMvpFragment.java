@@ -303,6 +303,15 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
 
 
     /**
+     * On Show App Rules Dialog
+     */
+    @OnClick(R.id.showAppRulesInfo)
+    public void onShowAppRulesDialog(){
+        activityHandler.showAppRulesDialog();
+    }
+
+
+    /**
      * App Rule Change
      */
     private class AppRuleChange implements Serializable {

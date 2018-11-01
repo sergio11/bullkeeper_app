@@ -20,6 +20,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogF
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesInfoDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
@@ -450,6 +451,15 @@ public class NavigatorImpl implements INavigator {
     public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
                                       final @DrawableRes int photoRes) {
         PhotoViewerDialog.show(appCompatActivity, photoRes);
+    }
+
+    /**
+     * Show App Rules Info Dialog
+     * @param appCompatActivity
+     */
+    @Override
+    public void showAppRulesInfoDialog(AppCompatActivity appCompatActivity) {
+        AppRulesInfoDialog.show(appCompatActivity);
     }
 
     /**

@@ -271,6 +271,12 @@ public interface INavigator {
                           final @DrawableRes int photoRes);
 
     /**
+     * Show App Rules Info Dialog
+     * @param appCompatActivity
+     */
+    void showAppRulesInfoDialog(final AppCompatActivity appCompatActivity);
+
+    /**
      * Show Social Media Status Dialog
      * @param appCompatActivity
      * @param socialMediaTypeEnum
