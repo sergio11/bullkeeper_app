@@ -1,0 +1,363 @@
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import com.fernandocejas.arrow.checks.Preconditions;
+import com.squareup.picasso.Picasso;
+import org.jetbrains.annotations.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import javax.inject.Inject;
+import butterknife.BindView;
+import butterknife.OnClick;
+import icepick.State;
+import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AppRulesAdapter;
+import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
+
+/**
+ * App Rules Fragment
+ */
+public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentPresenter,
+        IAppRulesFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, AppInstalledEntity>
+        implements IAppRulesFragmentView, AppRulesAdapter.OnAppRulesListener {
+
+    private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    /**
+     * Dependencies
+     * =================
+     */
+
+    /**
+     * App Context
+     */
+    @Inject
+    protected Context appContext;
+
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
+
+
+    /**
+     * Views
+     * ===================
+     */
+
+    @BindView(R.id.appRulesActions)
+    protected ViewGroup appRulesActions;
+
+    /**
+     * Save Changes Btn
+     */
+    @BindView(R.id.saveChanges)
+    protected Button saveChangesBtn;
+
+    /**
+     * Discard Changes
+     */
+    @BindView(R.id.discardChanges)
+    protected Button discardChangesBtn;
+
+
+    /**
+     * App Rules Description
+     */
+    @BindView(R.id.appRulesDescription)
+    protected ViewGroup appRulesDescriptionView;
+
+
+    /**
+     * State
+     * ===================
+     */
+
+    /**
+     * Kid Identity
+     */
+    @State
+    protected String kidIdentity;
+
+    @State
+    protected HashSet<AppRuleChange> appRulesChanges = new HashSet<>();
+
+    /**
+     *
+     */
+    public AppRulesMvpFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * New Instance
+     * @param kidIdentity
+     * @return
+     */
+    public static AppRulesMvpFragment newInstance(final String kidIdentity) {
+        AppRulesMvpFragment fragment = new AppRulesMvpFragment();
+        Bundle args = new Bundle();
+        args.putString(KID_IDENTITY_ARG, kidIdentity);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * On View Created
+     * @param view
+     * @param savedInstanceState
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(getArguments() == null ||
+                !getArguments().containsKey(KID_IDENTITY_ARG))
+            throw new IllegalStateException("You must provide son identity - Illegal State");
+
+        kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+        // Enable Nested Scrolling on Recycler View
+        ViewCompat.setNestedScrollingEnabled(recyclerView, true);
+    }
+
+    /**
+     * Get Adapter
+     * @return
+     */
+    @NotNull
+    @Override
+    protected SupportRecyclerViewAdapter<AppInstalledEntity> getAdapter() {
+        final AppRulesAdapter appRulesAdapter =
+                new AppRulesAdapter(activity, new ArrayList<AppInstalledEntity>(), picasso);
+        appRulesAdapter.setOnSupportRecyclerViewListener(this);
+        appRulesAdapter.setOnAppRulesListener(this);
+        return appRulesAdapter;
+    }
+
+    /**
+     * Get Args
+     * @return
+     */
+    @Override
+    public Bundle getArgs() {
+        final Bundle args = new Bundle();
+        args.putString(AppRulesFragmentPresenter.SON_IDENTITY_ARG, kidIdentity);
+        return args;
+    }
+
+    /**
+     * Get Layout Resource
+     * @return
+     */
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_app_rules;
+    }
+
+    /**
+     * Initialize Injector
+     * @param component
+     */
+    @Override
+    protected void initializeInjector(MyKidsComponent component) {
+        component.inject(this);
+    }
+
+    /**
+     * On Header Click
+     */
+    @Override
+    public void onHeaderClick() {}
+
+    /**
+     * On Item Click
+     * @param item
+     */
+    @Override
+    public void onItemClick(AppInstalledEntity item) {
+        Preconditions.checkNotNull(item, "Item can not be null");
+    }
+
+
+    /**
+     * On Footer Click
+     */
+    @Override
+    public void onFooterClick() {}
+
+    /**
+     * Provide Presenter
+     * @return
+     */
+    @NonNull
+    @Override
+    public AppRulesFragmentPresenter providePresenter() {
+        return component.appRulesFragmentPresenter();
+    }
+
+
+    /**
+     * Update Header Status
+     */
+    private void updateHeaderStatus() {
+        if(appRulesChanges.isEmpty()) {
+            appRulesActions.setVisibility(View.GONE);
+            appRulesDescriptionView.setVisibility(View.VISIBLE);
+        } else {
+            appRulesActions.setVisibility(View.VISIBLE);
+            appRulesDescriptionView.setVisibility(View.GONE);
+        }
+    }
+
+
+    /**
+     * On Discard Changes CLicked
+     */
+    @OnClick(R.id.discardChanges)
+    protected void onDiscardChangesClicked(){
+
+        final AppRulesAdapter appRulesAdapter = (AppRulesAdapter)recyclerViewAdapter;
+        final Map<String, AppRuleEnum> initRules = new HashMap<>();
+        for(final AppRuleChange appRuleChange: appRulesChanges) {
+            initRules.put(appRuleChange.getAppIdentity(), appRuleChange.getOldAppRule());
+        }
+        appRulesAdapter.applyRules(initRules);
+        appRulesChanges.clear();
+        updateHeaderStatus();
+    }
+
+    /**
+     * On Saved Changes Clicked
+     */
+    @OnClick(R.id.saveChanges)
+    protected void onSaveChangesClicked(){
+
+        final Map<String, AppRuleEnum> newRules = new HashMap<>();
+        for(final AppRuleChange appRuleChange: appRulesChanges) {
+            newRules.put(appRuleChange.getAppIdentity(), appRuleChange.getOldAppRule());
+        }
+
+        getPresenter().applyRules(newRules);
+        appRulesChanges.clear();
+        updateHeaderStatus();
+
+
+    }
+
+    /**
+     * On App Rule Changed
+     * @param appInstalledIdentity
+     * @param oldAppRule
+     * @param newAppRule
+     */
+    @Override
+    public void onAppRuleChanged(final String appInstalledIdentity, final AppRuleEnum oldAppRule,
+                                 final AppRuleEnum newAppRule) {
+
+
+        final AppRuleChange appRuleChange = new AppRuleChange(appInstalledIdentity, oldAppRule , newAppRule);
+
+        if(!appRulesChanges.contains(appRuleChange)) {
+            appRulesChanges.add(appRuleChange);
+        } else {
+            final Iterator<AppRuleChange> ite = appRulesChanges.iterator();
+            while(ite.hasNext()) {
+                final AppRuleChange currentAppRuleChange = ite.next();
+                if(currentAppRuleChange.equals(appRuleChange)) {
+                    if(currentAppRuleChange.getOldAppRule().equals(appRuleChange.getNewAppRule())) {
+                        ite.remove();
+                    } else {
+                        currentAppRuleChange.setNewAppRule(appRuleChange.getNewAppRule());
+                    }
+                }
+            }
+        }
+
+        updateHeaderStatus();
+    }
+
+
+    /**
+     * App Rule Change
+     */
+    private class AppRuleChange implements Serializable {
+
+        private String appIdentity;
+        private AppRuleEnum oldAppRule;
+        private AppRuleEnum newAppRule;
+
+        public AppRuleChange(final String appIdentity, final AppRuleEnum oldAppRule,
+                             final AppRuleEnum newAppRule) {
+            this.appIdentity = appIdentity;
+            this.oldAppRule = oldAppRule;
+            this.newAppRule = newAppRule;
+        }
+
+        public String getAppIdentity() {
+            return appIdentity;
+        }
+
+        public void setAppIdentity(String appIdentity) {
+            this.appIdentity = appIdentity;
+        }
+
+        public AppRuleEnum getOldAppRule() {
+            return oldAppRule;
+        }
+
+        public void setOldAppRule(AppRuleEnum oldAppRule) {
+            this.oldAppRule = oldAppRule;
+        }
+
+        public AppRuleEnum getNewAppRule() {
+            return newAppRule;
+        }
+
+        public void setNewAppRule(AppRuleEnum newAppRule) {
+            this.newAppRule = newAppRule;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            AppRuleChange that = (AppRuleChange) o;
+
+            return getAppIdentity() != null ? getAppIdentity().equals(that.getAppIdentity()) : that.getAppIdentity() == null;
+        }
+
+        @Override
+        public int hashCode() {
+            return getAppIdentity() != null ? getAppIdentity().hashCode() : 0;
+        }
+    }
+
+
+}
+

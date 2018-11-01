@@ -24,6 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
@@ -66,7 +67,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] unselectedTabIcons = {
             R.drawable.dimensions_tab_cyan,
             R.drawable.important_alerts_tab_cyan,
-            R.drawable.scheduled_blocks
+            R.drawable.scheduled_blocks,
+            R.drawable.app_rules_tab_cyan
     };
 
     /**
@@ -75,7 +77,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] selectedTabIcons = {
             R.drawable.dimensions_tab_dark_cyan,
             R.drawable.important_alerts_tab_dark_cyan,
-            R.drawable.scheduled_blocks_dark
+            R.drawable.scheduled_blocks_dark,
+            R.drawable.app_rules_tab_dark
     };
 
     /**
@@ -370,7 +373,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int DIMENSIONS_TAB = 0;
         private final static int ALERTS_TAB = 1;
         private final static int SCHEDULED_BLOCKS_TAB = 2;
-        private final static int SECTION_COUNT = 3;
+        private final static int APP_RULES_TAB = 3;
+        private final static int SECTION_COUNT = 4;
 
         private final String kidIdentity;
 
@@ -393,6 +397,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
                 case SCHEDULED_BLOCKS_TAB:
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
+                case APP_RULES_TAB:
+                    return AppRulesMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -420,6 +426,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.alerts_tab);
                 case SCHEDULED_BLOCKS_TAB:
                     return getString(R.string.scheduled_blocks_tab);
+                case APP_RULES_TAB:
+                    return getString(R.string.app_rules_title);
             }
             return null;
         }

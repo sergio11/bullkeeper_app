@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AlertsModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.AppRulesModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
@@ -16,6 +17,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.MyKidsDetailMv
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.MyKidsDetailPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfilePresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
@@ -27,7 +30,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlo
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
                  ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
-                SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class})
+                SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
+                AppRulesModule.class })
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -67,6 +71,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final ScheduledBlocksMvpFragment scheduledBlocksMvpFragment);
 
+    /**
+     * Inject into App Rules Mvp Fragment
+     * @param appRulesMvpFragment
+     */
+    void inject(final AppRulesMvpFragment appRulesMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -74,4 +84,5 @@ public interface MyKidsComponent extends StatsComponent {
     MyKidsDetailPresenter myKidsDetailPresenter();
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
     ScheduledBlocksFragmentPresenter scheduledBlocksFragmentPresenter();
+    AppRulesFragmentPresenter appRulesFragmentPresenter();
 }

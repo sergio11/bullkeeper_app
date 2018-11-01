@@ -87,6 +87,6 @@
     <!-- Common Dialog Height -->
     <dimen name="common_dialog_height">250dp</dimen>
     <!-- Schedule Block Item Height -->
-    <dimen name="schedule_block_item_height">120dp</dimen>
+    <dimen name="list_item_very_high">120dp</dimen>
 
 </resources>
