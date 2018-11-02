@@ -14,7 +14,7 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         <item name="colorPrimary">@color/cyanBrilliant</item>
         <item name="colorPrimaryDark">@color/darkModerateBlue</item>
-        <item name="colorAccent">@color/softOrange</item>
+        <item name="colorAccent">@color/darkModerateBlue</item>
     </style>
 
     <!-- The launcher theme. -->

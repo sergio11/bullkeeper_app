@@ -277,6 +277,12 @@ public interface INavigator {
     void showAppRulesInfoDialog(final AppCompatActivity appCompatActivity);
 
     /**
+     * Show Family Locator Info Dialog
+     * @param appCompatActivity
+     */
+    void showFamilyLocatorInfoDialog(final AppCompatActivity appCompatActivity);
+
+    /**
      * Show Social Media Status Dialog
      * @param appCompatActivity
      * @param socialMediaTypeEnum

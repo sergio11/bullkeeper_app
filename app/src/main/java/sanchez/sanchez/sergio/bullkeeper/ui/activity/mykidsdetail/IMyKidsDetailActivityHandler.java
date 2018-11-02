@@ -41,4 +41,9 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void showAppRulesDialog();
 
+    /**
+     * Show Family Locator Dialog
+     */
+    void showFamilyLocatorDialog();
+
 }

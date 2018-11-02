@@ -26,6 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
@@ -70,7 +71,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.important_alerts_tab_cyan,
             R.drawable.scheduled_blocks,
             R.drawable.app_rules_tab_cyan,
-            R.drawable.hourglass_tab_cyan
+            R.drawable.hourglass_tab_cyan,
+            R.drawable.family_locator_tab_cyan
     };
 
     /**
@@ -81,7 +83,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.important_alerts_tab_dark_cyan,
             R.drawable.scheduled_blocks_dark,
             R.drawable.app_rules_tab_dark,
-            R.drawable.hourglass_tab_dark
+            R.drawable.hourglass_tab_dark,
+            R.drawable.family_locator_tab_dark
     };
 
     /**
@@ -332,6 +335,14 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Show Family Locator Dialog
+     */
+    @Override
+    public void showFamilyLocatorDialog() {
+        navigatorImpl.showFamilyLocatorInfoDialog(this);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue
@@ -386,7 +397,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int SCHEDULED_BLOCKS_TAB = 2;
         private final static int APP_RULES_TAB = 3;
         private final static int TIME_ALLOWANCE_TAB = 4;
-        private final static int SECTION_COUNT = 5;
+        private final static int FAMILY_LOCATOR_TAB = 5;
+        private final static int SECTION_COUNT = 6;
 
         private final String kidIdentity;
 
@@ -413,6 +425,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return AppRulesMvpFragment.newInstance(kidIdentity);
                 case TIME_ALLOWANCE_TAB:
                     return TimeAllowanceMvpFragment.newInstance(kidIdentity);
+                case FAMILY_LOCATOR_TAB:
+                    return FamilyLocatorMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -444,6 +458,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.app_rules_title);
                 case TIME_ALLOWANCE_TAB:
                     return getString(R.string.time_allowance_title);
+                case FAMILY_LOCATOR_TAB:
+                    return getString(R.string.family_locator_title);
             }
             return null;
         }

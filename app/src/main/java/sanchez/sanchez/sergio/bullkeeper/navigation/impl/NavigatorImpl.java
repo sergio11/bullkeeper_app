@@ -26,6 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsD
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorInfoDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -460,6 +461,15 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showAppRulesInfoDialog(AppCompatActivity appCompatActivity) {
         AppRulesInfoDialog.show(appCompatActivity);
+    }
+
+    /**
+     * Show Family Locator Info Dialog
+     * @param appCompatActivity
+     */
+    @Override
+    public void showFamilyLocatorInfoDialog(AppCompatActivity appCompatActivity) {
+        FamilyLocatorInfoDialog.show(appCompatActivity);
     }
 
     /**

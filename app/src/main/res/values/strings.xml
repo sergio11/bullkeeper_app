@@ -673,4 +673,10 @@
     <string name="screen_time_allowance_title">Screen Time Allowance</string>
     <string name="screen_time_allowance_description">Set the maximum number of hours reserved for leisure and fun</string>
 
+    <!-- Family Locator -->
+    <string name="family_locator_title">Family Locator</string>
+    <string name="family_locator_description">Quickly locate family members and devices</string>
+    <string name="family_locator_add_geofences">Add Geofance</string>
+    <string name="family_locator_loading_child_position">Loading Child position ...</string>
+
 </resources>

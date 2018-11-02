@@ -20,6 +20,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfile
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfilePresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
@@ -86,6 +88,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final TimeAllowanceMvpFragment timeAllowanceMvpFragment);
 
+    /**
+     * Inject into Family Locator Fragment
+     * @param familyLocatorMvpFragment
+     */
+    void inject(final FamilyLocatorMvpFragment familyLocatorMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -95,4 +103,5 @@ public interface MyKidsComponent extends StatsComponent {
     ScheduledBlocksFragmentPresenter scheduledBlocksFragmentPresenter();
     AppRulesFragmentPresenter appRulesFragmentPresenter();
     TimeAllowanceFragmentPresenter timeAllowanceFragmentPresenter();
+    FamilyLocatorFragmentPresenter familyLocatorFragmentPresenter();
 }

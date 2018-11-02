@@ -44,6 +44,7 @@ ext {
     facebookSdkVersion = '[4,5)'
     playServicesVersion = '16.0.1'
     playServicesMapsVersion = '16.0.0'
+    speedDialVersion = '2.0.0'
 
     jacksonVersion = '2.9.6'
     picassoVersion = '2.5.2'
@@ -125,7 +126,8 @@ ext {
             parcelerApi:        "org.parceler:parceler-api:${parcelerVersion}",
             parceler:           "org.parceler:parceler:${parcelerVersion}",
             jodaTime:           "joda-time:joda-time:${jodaTimeVersion}",
-            commonLang3:        "org.apache.commons:commons-lang3:${commonLang3Version}"
+            commonLang3:        "org.apache.commons:commons-lang3:${commonLang3Version}",
+            speedDial:          "com.leinardi.android:speed-dial:${speedDialVersion}"
     ]
 
     presentationTestDependencies = [

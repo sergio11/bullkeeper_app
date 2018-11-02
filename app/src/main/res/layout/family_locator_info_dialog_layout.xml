@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/commonWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/common_margin"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/family_locator_tab_dark"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Social Media Title -->
+            <TextView
+                android:id="@+id/appRulesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText"
+                android:text="@string/family_locator_title"
+                android:textStyle="bold"
+                android:textColor="@color/darkModerateBlue"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:background="@color/darkModerateBlue"/>
+
+
+
+        <!-- Close Dialog -->
+        <Button
+            android:id="@+id/closeDialog"
+            style="@style/DimensionActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/commonWhite"
+            android:background="@drawable/common_action_button_state_inverse"
+            android:padding="@dimen/common_padding"
+            android:text="@string/close_dialog" />
+
+    </LinearLayout>
+
+</FrameLayout>
