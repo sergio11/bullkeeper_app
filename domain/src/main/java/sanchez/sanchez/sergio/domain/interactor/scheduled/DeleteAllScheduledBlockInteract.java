@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.domain.interactor.scheduled;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -9,9 +8,9 @@ import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.repository.IScheduledBlockRepository;
 
 /**
- * Delete Scheduled Block Interact
+ * Delete All Scheduled Block Interact
  */
-public class DeleteScheduledBlockInteract extends UseCase<String, DeleteScheduledBlockInteract.Params> {
+public class DeleteAllScheduledBlockInteract extends UseCase<String, DeleteAllScheduledBlockInteract.Params> {
 
     /**
      * Scheduled Block Repository
@@ -24,8 +23,8 @@ public class DeleteScheduledBlockInteract extends UseCase<String, DeleteSchedule
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public DeleteScheduledBlockInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                        final IScheduledBlockRepository scheduledBlockRepository) {
+    public DeleteAllScheduledBlockInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                           final IScheduledBlockRepository scheduledBlockRepository) {
         super(threadExecutor, postExecutionThread);
         this.scheduledBlockRepository = scheduledBlockRepository;
     }
@@ -38,7 +37,10 @@ public class DeleteScheduledBlockInteract extends UseCase<String, DeleteSchedule
     @Override
     protected Observable<String> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        return null;
+        Preconditions.checkNotNull(params.getChildId(), "Child Id can not be null");
+        Preconditions.checkState(!params.getChildId().isEmpty(), "Child Id can not empty");
+
+        return scheduledBlockRepository.deleteAllScheduledBlockByChildId(params.getChildId());
     }
 
 
@@ -47,12 +49,27 @@ public class DeleteScheduledBlockInteract extends UseCase<String, DeleteSchedule
      */
     public static class Params {
 
+        /**
+         * Child Id
+         */
         private final String childId;
 
+        /**
+         * @param childId
+         */
         private Params(final String childId) {
             this.childId = childId;
         }
 
+        public String getChildId() {
+            return childId;
+        }
+
+        /**
+         * Create
+         * @param childId
+         * @return
+         */
         public static Params create(final String childId) {
             return new Params(childId);
         }

@@ -345,21 +345,26 @@ public class NavigatorImpl implements INavigator {
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
+     * @param childId
      * @param identity
      */
     @Override
-    public void navigateToSaveScheduledBlockMvpActivity(String identity) {
+    public void navigateToSaveScheduledBlockMvpActivity(final String childId, final String identity) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, identity));
+        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, identity, childId));
     }
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
      */
     @Override
-    public void navigateToSaveScheduledBlockMvpActivity() {
-        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context));
+    public void navigateToSaveScheduledBlockMvpActivity(final String childId) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
+        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, childId));
     }
 
     /**

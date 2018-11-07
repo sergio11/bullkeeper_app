@@ -9,6 +9,7 @@ import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import sanchez.sanchez.sergio.data.net.deserializers.BirthdayDeserializer;
+import sanchez.sanchez.sergio.data.net.deserializers.JodaLocalTimeDeserializer;
 import sanchez.sanchez.sergio.data.net.interceptors.AuthTokenInterceptor;
 import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
@@ -21,12 +22,15 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
+
+import org.joda.time.LocalTime;
 
 import java.util.Date;
 
-
+/**
+ * Api Module
+ */
 @Module
 public class ApiModule {
 
@@ -80,6 +84,7 @@ public class ApiModule {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Date.class, new BirthdayDeserializer(appContext.getString(R.string.date_format_server_response)));
+        module.addDeserializer(LocalTime.class, new JodaLocalTimeDeserializer(appContext.getString(R.string.joda_local_time_format_server_response)));
         mapper.registerModule(module);
         return mapper;
     }

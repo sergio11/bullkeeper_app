@@ -10,17 +10,16 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.URLUtil;
+import android.widget.Button;
 import android.widget.LinearLayout;
-
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.squareup.picasso.Picasso;
-
-import org.joda.time.LocalDateTime;
-
+import org.joda.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -62,6 +61,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      * Args
      */
     private static final String SCHEDULED_BLOCK_IDENTITY_ARG = "SCHEDULED_BLOCK_IDENTITY";
+    private static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
 
     /**
      * Fields
@@ -104,7 +104,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      * Name Input
      */
     @BindView(R.id.nameInput)
-    @NotEmpty(messageResId = R.string.name_not_empty_error)
+    @NotEmpty(messageResId = R.string.scheduled_block_name_field_error_not_blank)
     @Length(min = 3, max = 15)
     protected AppCompatEditText nameInput;
 
@@ -152,11 +152,20 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     @BindView(R.id.recurringWeeklySwitch)
     protected SwitchCompat recurringWeeklySwitch;
 
+
+    /**
+     * Is Enable Switch
+     */
+    @BindView(R.id.enableSwitch)
+    protected SwitchCompat enableSwitch;
+
+
     /**
      * Delete Scheduled Block
      */
     @BindView(R.id.deleteScheduledBlock)
     protected LinearLayout deleteScheduledBlock;
+
 
     /**
      * Dependencies
@@ -214,13 +223,13 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      * Start At
      */
     @State
-    protected LocalDateTime startAt;
+    protected LocalTime startAt;
 
     /**
      * End At
      */
     @State
-    protected LocalDateTime endAt;
+    protected LocalTime endAt;
 
     /**
      * Recurring Weekly Enabled
@@ -229,15 +238,31 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     protected boolean scheduledBlockRecurringWeeklyEnabled;
 
     /**
+     * Is Enabled
+     */
+    @State
+    protected boolean isEnabled;
+
+    /**
+     * Son Identity
+     */
+    @State
+    protected String sonIdentity;
+
+    /**
      * Get Calling Intent
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String identity) {
+    public static Intent getCallingIntent(final Context context, final String identity,
+                                          final String sonId) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(sonId, "Son id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son Identity can not be empty");
         final Intent intent = new Intent(context, SaveScheduledBlockMvpActivity.class);
         intent.putExtra(SCHEDULED_BLOCK_IDENTITY_ARG, identity);
+        intent.putExtra(SON_IDENTITY_ARG, sonId);
         return intent;
     }
 
@@ -245,10 +270,15 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     /**
      * Get Calling Intent
      * @param context
+     * @param sonId
      * @return
      */
-    public static Intent getCallingIntent(final Context context) {
-        return new Intent(context, SaveScheduledBlockMvpActivity.class);
+    public static Intent getCallingIntent(final Context context, final String sonId) {
+        Preconditions.checkNotNull(sonId, "Son id can not be null");
+        Preconditions.checkState(!sonId.isEmpty(), "Son Identity can not be empty");
+        final Intent intent =  new Intent(context, SaveScheduledBlockMvpActivity.class);
+        intent.putExtra(SON_IDENTITY_ARG, sonId);
+        return intent;
     }
 
     /**
@@ -313,6 +343,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         startAtInput.setEnabled(isEnable);
         endAtInput.setEnabled(isEnable);
         recurringWeeklySwitch.setEnabled(isEnable);
+        enableSwitch.setEnabled(isEnabled);
         scheduledBlockWeeklyFrequencyInput.setEnabled(isEnable);
     }
 
@@ -323,12 +354,23 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     protected void onNewViewInstance() {
         super.onNewViewInstance();
 
+
+        if(!getIntent().hasExtra(SON_IDENTITY_ARG) ||
+                !appUtils.isValidString(getIntent().getStringExtra(SON_IDENTITY_ARG)))
+            throw new IllegalArgumentException("Son Identity can not be null");
+
+        // Get Son Identity
+        sonIdentity = getIntent().getStringExtra(SON_IDENTITY_ARG);
+
         if(getIntent().hasExtra(SCHEDULED_BLOCK_IDENTITY_ARG) &&
                 appUtils.isValidString(getIntent().getStringExtra(SCHEDULED_BLOCK_IDENTITY_ARG))) {
+
+            // Get Scheduled Block Identity
             scheduledBlockIdentity = getIntent().getStringExtra(SCHEDULED_BLOCK_IDENTITY_ARG);
             // Toggle All Components
             toggleAllComponents(false);
         }
+
 
     }
 
@@ -341,6 +383,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         final Bundle args = new Bundle();
         if(scheduledBlockIdentity != null && !scheduledBlockIdentity.isEmpty())
             args.putString(SCHEDULED_BLOCK_IDENTITY_ARG, scheduledBlockIdentity);
+        if(sonIdentity != null && !sonIdentity.isEmpty())
+           args.putString(SON_IDENTITY_ARG, sonIdentity);
         return args;
     }
 
@@ -392,16 +436,17 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     public void onValidationSucceeded() {
         super.onValidationSucceeded();
 
-        final String name = nameInput.getText().toString();
-        final LocalDateTime startAt = startAtInput.getCurrentLocalDateTime();
-        final LocalDateTime endAt = endAtInput.getCurrentLocalDateTime();
-        final int[] weeklyFrequency =
+        scheduledBlockName = nameInput.getText().toString();
+        startAt = startAtInput.getCurrentLocalTime();
+        endAt = endAtInput.getCurrentLocalTime();
+        scheduledBlocksWeeklyFrequency =
                 scheduledBlockWeeklyFrequencyInput.getDaysOfWeekStatus();
-        final boolean recurringWeeklyEnabled = recurringWeeklySwitch.isChecked();
+        scheduledBlockRecurringWeeklyEnabled = recurringWeeklySwitch.isChecked();
+        isEnabled = enableSwitch.isChecked();
 
         // Save Scheduled Block
-        getPresenter().saveScheduledBlock(scheduledBlockIdentity, name, startAt, endAt,
-                weeklyFrequency, recurringWeeklyEnabled);
+        getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
+                scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity);
 
     }
 
@@ -419,9 +464,9 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @Override
     protected void onResetErrors() {
-        nameInputLayout.setError("");
-        startAtInput.setError("");
-        endAtInput.setError("");
+        nameInputLayout.setError(null);
+        startAtInput.setError(null);
+        endAtInput.setError(null);
         scheduledBlockWeeklyFrequencyInput.clearError();
     }
 
@@ -442,7 +487,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         showConfirmationDialog(R.string.delete_scheduled_block_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteScheduledById(scheduledBlockIdentity);
+                getPresenter().deleteScheduledById(sonIdentity, scheduledBlockIdentity);
             }
 
             @Override
@@ -511,10 +556,11 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         }
 
         nameInput.setText(scheduledBlockName);
-        startAtInput.setCurrentLocalDateTime(startAt, true);
-        endAtInput.setCurrentLocalDateTime(endAt, true);
+        startAtInput.setCurrentLocalTime(startAt, true);
+        endAtInput.setCurrentLocalTime(endAt, true);
         scheduledBlockWeeklyFrequencyInput.setDaysOfWeekStatus(scheduledBlocksWeeklyFrequency);
         recurringWeeklySwitch.setChecked(scheduledBlockRecurringWeeklyEnabled);
+        enableSwitch.setEnabled(isEnabled);
     }
 
     /**
@@ -530,6 +576,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlockName = scheduledBlockEntity.getName();
         scheduledBlocksWeeklyFrequency = scheduledBlockEntity.getWeeklyFrequency();
         scheduledBlockRecurringWeeklyEnabled = scheduledBlockEntity.isRepeatable();
+        isEnabled = scheduledBlockEntity.isEnable();
         profileMode = ScheduledBlockMode.EDIT_SCHEDULED_BLOCK_MODE;
         // Draw State
         drawCurrentState();
@@ -625,6 +672,21 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
             }
         });
 
+    }
+
+    /**
+     *  On Saved Block Saved
+     * @param scheduledBlockEntity
+     */
+    @Override
+    public void onScheduledBlockSaved(ScheduledBlockEntity scheduledBlockEntity) {
+        onResetFields();
+        showNoticeDialog(R.string.scheduled_block_saved_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
     }
 
     /**

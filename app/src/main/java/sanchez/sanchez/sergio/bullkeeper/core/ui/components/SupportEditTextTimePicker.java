@@ -7,7 +7,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import icepick.Icepick;
@@ -50,10 +50,10 @@ public final class SupportEditTextTimePicker extends AppCompatEditText
     protected int initialMinute  = INITIAL_MINUTE_DEFAULT;
 
     /**
-     * Current Local Date Time
+     * Current Local Time
      */
     @State
-    protected LocalDateTime currentLocalDateTime;
+    protected LocalTime currentLocalTime;
 
     /**
      * Is Dirty
@@ -120,17 +120,17 @@ public final class SupportEditTextTimePicker extends AppCompatEditText
         this.initialMinute = initialMinute;
     }
 
-    public LocalDateTime getCurrentLocalDateTime() {
-        return currentLocalDateTime;
+    public LocalTime getCurrentLocalTime() {
+        return currentLocalTime;
     }
 
     /**
      * @param localDateTimeSelected
      * @param cleanCurrentSelected
      */
-    public void setCurrentLocalDateTime(final LocalDateTime localDateTimeSelected, boolean cleanCurrentSelected) {
+    public void setCurrentLocalTime(final LocalTime localDateTimeSelected, boolean cleanCurrentSelected) {
         if(!isDirty || cleanCurrentSelected) {
-            this.currentLocalDateTime = localDateTimeSelected;
+            this.currentLocalTime = localDateTimeSelected;
             updateText();
         }
     }
@@ -140,7 +140,7 @@ public final class SupportEditTextTimePicker extends AppCompatEditText
      * Update Text
      */
     private void updateText(){
-        setText(currentLocalDateTime.toString(fmt));
+        setText(currentLocalTime.toString(fmt));
     }
 
     /**
@@ -183,7 +183,7 @@ public final class SupportEditTextTimePicker extends AppCompatEditText
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        currentLocalDateTime =  new LocalDateTime()
+        currentLocalTime =  new LocalTime()
                 .withHourOfDay(hourOfDay)
                 .withMinuteOfHour(minute);
         isDirty = true;

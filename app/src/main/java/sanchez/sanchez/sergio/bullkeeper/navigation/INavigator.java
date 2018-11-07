@@ -188,12 +188,12 @@ public interface INavigator {
      * Navigate To Save Scheduled Block Mvp Activity
      * @param identity
      */
-    void navigateToSaveScheduledBlockMvpActivity(final String identity);
+    void navigateToSaveScheduledBlockMvpActivity(final String childId, final String identity);
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
      */
-    void navigateToSaveScheduledBlockMvpActivity();
+    void navigateToSaveScheduledBlockMvpActivity(final String childId);
 
     /**
      * Show Four Dimensions Dialog

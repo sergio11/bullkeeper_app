@@ -5,7 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
-import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockInteract;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockByChildInteract;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 
@@ -24,17 +24,17 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
     /**
      * Delete Scheduled Block Interact
      */
-    private final DeleteScheduledBlockInteract deleteScheduledBlockInteract;
+    private final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract;
 
     /**
      * @param getScheduledBlockByChildInteract
-     * @param deleteScheduledBlockInteract
+     * @param deleteScheduledBlockByIdInteract
      */
     @Inject
     public ScheduledBlocksFragmentPresenter(final GetScheduledBlockByChildInteract getScheduledBlockByChildInteract,
-                                            final DeleteScheduledBlockInteract deleteScheduledBlockInteract){
+                                            final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract){
         this.getScheduledBlockByChildInteract = getScheduledBlockByChildInteract;
-        this.deleteScheduledBlockInteract = deleteScheduledBlockInteract;
+        this.deleteScheduledBlockByIdInteract = deleteScheduledBlockByIdInteract;
     }
 
     /**
@@ -52,7 +52,6 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
 
-
         getScheduledBlockByChildInteract.execute(new GetScheduledBlockByChildObservable(GetScheduledBlockByChildInteract.GetScheduledBlockByChildApiErrors.class),
                 GetScheduledBlockByChildInteract.Params.create(args.getString(SON_IDENTITY_ARG)));
 
@@ -60,14 +59,17 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
 
     /**
      * Delete Scheduled Block By Id
+     * @param childId
      * @param identity
      */
-    public void deleteScheduledBlockById(final String identity) {
+    public void deleteScheduledBlockById(final String childId, final String identity) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
 
-        deleteScheduledBlockInteract.execute(new DeleteScheduledBlockByChildObservable(),
-                DeleteScheduledBlockInteract.Params.create(identity));
+        deleteScheduledBlockByIdInteract.execute(new DeleteScheduledBlockByChildObservable(),
+                DeleteScheduledBlockByIdInteract.Params.create(childId, identity));
     }
 
 

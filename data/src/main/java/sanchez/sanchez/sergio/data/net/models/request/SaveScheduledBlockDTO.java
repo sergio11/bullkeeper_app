@@ -1,16 +1,13 @@
-package sanchez.sanchez.sergio.data.net.models.response;
+package sanchez.sanchez.sergio.data.net.models.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.joda.time.LocalTime;
+
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
- * Scheduled Block DTO
+ * Save Scheduled Block DTO
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public final class ScheduledBlockDTO implements Serializable {
+public final class SaveScheduledBlockDTO implements Serializable {
 
     /**
      * Identity
@@ -40,13 +37,13 @@ public final class ScheduledBlockDTO implements Serializable {
      * Start At
      */
     @JsonProperty("start_at")
-    private LocalTime startAt;
+    private String startAt;
 
     /**
-     * End At
+     * End at
      */
     @JsonProperty("end_at")
-    private LocalTime endAt;
+    private String endAt;
 
     /**
      * Weekly Frequency
@@ -54,7 +51,13 @@ public final class ScheduledBlockDTO implements Serializable {
     @JsonProperty("weekly_frequency")
     private int[] weeklyFrequency;
 
-    public ScheduledBlockDTO(){}
+    /**
+     * Son
+     */
+    @JsonProperty("son")
+    private String son;
+
+    public SaveScheduledBlockDTO(){}
 
     /**
      *
@@ -65,8 +68,9 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param startAt
      * @param endAt
      * @param weeklyFrequency
+     * @param son
      */
-    public ScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable, LocalTime startAt, LocalTime endAt, int[] weeklyFrequency) {
+    public SaveScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable, String startAt, String endAt, int[] weeklyFrequency, String son) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -74,6 +78,7 @@ public final class ScheduledBlockDTO implements Serializable {
         this.startAt = startAt;
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
+        this.son = son;
     }
 
     public String getIdentity() {
@@ -108,19 +113,19 @@ public final class ScheduledBlockDTO implements Serializable {
         this.repeatable = repeatable;
     }
 
-    public LocalTime getStartAt() {
+    public String getStartAt() {
         return startAt;
     }
 
-    public void setStartAt(LocalTime startAt) {
+    public void setStartAt(String startAt) {
         this.startAt = startAt;
     }
 
-    public LocalTime getEndAt() {
+    public String getEndAt() {
         return endAt;
     }
 
-    public void setEndAt(LocalTime endAt) {
+    public void setEndAt(String endAt) {
         this.endAt = endAt;
     }
 
@@ -132,17 +137,11 @@ public final class ScheduledBlockDTO implements Serializable {
         this.weeklyFrequency = weeklyFrequency;
     }
 
+    public String getSon() {
+        return son;
+    }
 
-    @Override
-    public String toString() {
-        return "ScheduledBlockDTO{" +
-                "identity='" + identity + '\'' +
-                ", name='" + name + '\'' +
-                ", enable=" + enable +
-                ", repeatable=" + repeatable +
-                ", startAt=" + startAt +
-                ", endAt=" + endAt +
-                ", weeklyFrequency=" + Arrays.toString(weeklyFrequency) +
-                '}';
+    public void setSon(String son) {
+        this.son = son;
     }
 }

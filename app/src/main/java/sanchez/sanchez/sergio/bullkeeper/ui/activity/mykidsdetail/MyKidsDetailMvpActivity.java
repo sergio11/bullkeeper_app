@@ -312,10 +312,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * @param identity
      */
     @Override
-    public void navigateToSaveScheduledBlock(final String identity) {
+    public void navigateToSaveScheduledBlock(final String childId, final String identity) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(identity);
+        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(childId, identity);
     }
 
     /**
@@ -323,7 +325,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @Override
     public void navigateToSaveScheduledBlock() {
-        navigatorImpl.navigateToSaveScheduledBlockMvpActivity();
+        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(kidIdentity);
     }
 
     /**

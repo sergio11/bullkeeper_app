@@ -29,4 +29,10 @@ public interface ISaveScheduledBlockView extends ISupportView {
      */
     void onScheduledBlockDeleted();
 
+    /**
+     * On Scheduled Block Saved
+     * @param scheduledBlockEntity
+     */
+    void onScheduledBlockSaved(final ScheduledBlockEntity scheduledBlockEntity);
+
 }

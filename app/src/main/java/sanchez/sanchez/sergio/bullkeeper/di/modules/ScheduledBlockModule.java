@@ -10,7 +10,8 @@ import sanchez.sanchez.sergio.data.net.services.IScheduledBlockService;
 import sanchez.sanchez.sergio.data.repository.ScheduledBlockRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
-import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockInteract;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteAllScheduledBlockInteract;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockByChildInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockInteract;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
@@ -64,9 +65,23 @@ public class ScheduledBlockModule {
      */
     @Provides
     @PerActivity
-    public DeleteScheduledBlockInteract provideDeleteScheduledBlockInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                            final IScheduledBlockRepository scheduledBlockRepository){
-        return new DeleteScheduledBlockInteract(threadExecutor, postExecutionThread, scheduledBlockRepository);
+    public DeleteScheduledBlockByIdInteract provideDeleteScheduledBlockInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                final IScheduledBlockRepository scheduledBlockRepository){
+        return new DeleteScheduledBlockByIdInteract(threadExecutor, postExecutionThread, scheduledBlockRepository);
+    }
+
+    /**
+     * Provide Delete All Scheduled Block Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param scheduledBlockRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public DeleteAllScheduledBlockInteract provideDeleteAllScheduledBlockInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                               final IScheduledBlockRepository scheduledBlockRepository){
+        return new DeleteAllScheduledBlockInteract(threadExecutor, postExecutionThread, scheduledBlockRepository);
     }
 
     /**

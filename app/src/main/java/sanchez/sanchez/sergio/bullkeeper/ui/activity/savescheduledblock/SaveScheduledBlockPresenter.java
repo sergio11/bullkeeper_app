@@ -1,17 +1,13 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.savescheduledblock;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import org.joda.time.LocalDateTime;
-
+import org.joda.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockInteract;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockInteract;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 
@@ -20,12 +16,16 @@ import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
  */
 public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveScheduledBlockView> {
 
+    /**
+     * Args
+     */
     public static final String SCHEDULED_BLOCK_IDENTITY_ARG = "SCHEDULED_BLOCK_IDENTITY";
+    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
 
     /**
      * Delete Scheduled Block Interact
      */
-    private final DeleteScheduledBlockInteract deleteScheduledBlockInteract;
+    private final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract;
 
     /**
      * Save Scheduled Block Interact
@@ -35,25 +35,26 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
 
     /**
      * Save Scheduled Block
-     * @param deleteScheduledBlockInteract
+     * @param deleteScheduledBlockByIdInteract
      * @param saveScheduledBlockInteract
      */
     @Inject
-    public SaveScheduledBlockPresenter(final DeleteScheduledBlockInteract deleteScheduledBlockInteract,
+    public SaveScheduledBlockPresenter(final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract,
                                        final SaveScheduledBlockInteract saveScheduledBlockInteract) {
-        this.deleteScheduledBlockInteract = deleteScheduledBlockInteract;
+        this.deleteScheduledBlockByIdInteract = deleteScheduledBlockByIdInteract;
         this.saveScheduledBlockInteract = saveScheduledBlockInteract;
     }
 
     /**
      * Delete Scheduled By Id
+     * @param childId
      * @param identity
      */
-    public void deleteScheduledById(final String identity) {
+    public void deleteScheduledById(final String childId, final String identity) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        deleteScheduledBlockInteract.execute(new DeleteScheduledBlockByChildObservable(),
-                DeleteScheduledBlockInteract.Params.create(identity));
+        deleteScheduledBlockByIdInteract.execute(new DeleteScheduledBlockByChildObservable(),
+                DeleteScheduledBlockByIdInteract.Params.create(childId, identity));
     }
 
     /**
@@ -65,12 +66,12 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
      * @param weeklyFrequency
      * @param recurringWeeklyEnabled
      */
-    public void saveScheduledBlock(final String identity, final String name, final LocalDateTime startAt,
-                                   final LocalDateTime endAt, final int[] weeklyFrequency,
-                                   final boolean recurringWeeklyEnabled){
+    public void saveScheduledBlock(final String identity, final String name, final boolean enable, final LocalTime startAt,
+                                   final LocalTime endAt, final int[] weeklyFrequency,
+                                   final boolean recurringWeeklyEnabled, final String childId ){
 
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
-                SaveScheduledBlockInteract.Params.create(identity, name, startAt, endAt, weeklyFrequency, recurringWeeklyEnabled));
+                SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt, weeklyFrequency, recurringWeeklyEnabled, childId));
 
     }
 
@@ -108,11 +109,13 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
 
         /**
          * On Success
-         * @param response
+         * @param scheduledBlockEntity
          */
         @Override
-        protected void onSuccess(ScheduledBlockEntity response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
+        protected void onSuccess(ScheduledBlockEntity scheduledBlockEntity) {
+            Preconditions.checkNotNull(scheduledBlockEntity, "Scheduled can not be null");
+            if(isViewAttached() && getView() != null)
+                getView().onScheduledBlockSaved(scheduledBlockEntity);
 
         }
 

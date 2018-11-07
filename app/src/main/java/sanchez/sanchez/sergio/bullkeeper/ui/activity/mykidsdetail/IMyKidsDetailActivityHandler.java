@@ -27,9 +27,10 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
 
     /**
      * Navigate To Save Scheduled Block
+     * @param childId
      * @param identity
      */
-    void navigateToSaveScheduledBlock(final String identity);
+    void navigateToSaveScheduledBlock(final String childId, final String identity);
 
     /**
      * Navigate To Save Scheduled Block

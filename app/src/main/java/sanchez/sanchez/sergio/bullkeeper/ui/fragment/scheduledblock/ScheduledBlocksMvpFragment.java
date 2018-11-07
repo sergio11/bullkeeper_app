@@ -6,13 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import javax.inject.Inject;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -22,6 +29,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailA
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.ScheduledBlocksAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import timber.log.Timber;
 
@@ -69,6 +77,35 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     @Inject
     protected Activity activity;
 
+    /**
+     * Views
+     * =========
+     */
+
+    /**
+     * App Rules Actions
+     */
+    @BindView(R.id.scheduledBlocksActions)
+    protected ViewGroup scheduledBlocksActions;
+
+    /**
+     * Save Changes Btn
+     */
+    @BindView(R.id.saveChanges)
+    protected Button saveChangesBtn;
+
+    /**
+     * Discard Changes
+     */
+    @BindView(R.id.discardChanges)
+    protected Button discardChangesBtn;
+
+    /**
+     * Scheduled Block Description
+     */
+    @BindView(R.id.scheduledBlockDescription)
+    protected ViewGroup scheduledBlockDescription;
+
 
     /**
      *
@@ -104,6 +141,8 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
             throw new IllegalStateException("You must provide son identity - Illegal State");
 
         kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+        ViewCompat.setNestedScrollingEnabled(recyclerView, true);
 
         // adding item touch helper
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
@@ -166,7 +205,10 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     @Override
     public void onItemClick(ScheduledBlockEntity scheduledBlockEntity) {
         Timber.d("Scheduled Block Clicked");
-        activityHandler.navigateToSaveScheduledBlock(scheduledBlockEntity.getIdentity());
+        //activityHandler.navigateToSaveScheduledBlock(kidIdentity, scheduledBlockEntity.getIdentity());
+        scheduledBlocksActions.setVisibility(View.VISIBLE);
+        scheduledBlockDescription.setVisibility(View.GONE);
+
     }
 
     /**
@@ -194,6 +236,21 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
         activityHandler.navigateToSaveScheduledBlock();
     }
 
+    /**
+     * On Delete All Scheduled Blocks
+     */
+    @OnClick(R.id.deleteAllScheduledBlocks)
+    protected void onDeleteAllScheduledBlocks(){
+        showConfirmationDialog(R.string.delete_all_scheduled_blocks, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                showNoticeDialog(R.string.all_scheduled_blocks_deleted_successfully);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
+    }
 
     /**
      * On Swiped
@@ -224,7 +281,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
                     if(event == DISMISS_EVENT_TIMEOUT) {
                         Timber.d("Dismiss Event Timeout");
                         // Delete Scheduled Block
-                        getPresenter().deleteScheduledBlockById(scheduledBlockEntity.getIdentity());
+                        getPresenter().deleteScheduledBlockById(kidIdentity, scheduledBlockEntity.getIdentity());
                     }
                 }
             });

@@ -78,7 +78,7 @@ public final class GetScheduledBlockByChildInteract extends UseCase<List<Schedul
         /**
          * No Scheduled Block Found
          */
-        NO_SCHEDULED_BLOCK_FOUND(){
+        NO_SCHEDULED_BLOCKS_FOUND(){
             @Override
             public <E> void accept(final IGetScheduledBlockByChildApiErrorsVisitor visitor, E data) {
                 visitor.visitNoScheduledBlockFound(visitor);
