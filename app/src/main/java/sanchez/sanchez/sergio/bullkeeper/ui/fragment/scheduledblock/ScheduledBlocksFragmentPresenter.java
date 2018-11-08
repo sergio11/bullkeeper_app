@@ -5,9 +5,12 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteAllScheduledBlocksInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockByChildInteract;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockStatusInteract;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
+import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 
 /**
  * Scheduled Blocks Fragment Presenter
@@ -27,14 +30,30 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
     private final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract;
 
     /**
+     * Delete All Scheduled Blocks Interact
+     */
+    private final DeleteAllScheduledBlocksInteract deleteAllScheduledBlocksInteract;
+
+    /**
+     * Save Scheduled Block Status Interact
+     */
+    private final SaveScheduledBlockStatusInteract saveScheduledBlockStatusInteract;
+
+    /**
      * @param getScheduledBlockByChildInteract
      * @param deleteScheduledBlockByIdInteract
+     * @param deleteAllScheduledBlocksInteract
+     * @param saveScheduledBlockStatusInteract
      */
     @Inject
     public ScheduledBlocksFragmentPresenter(final GetScheduledBlockByChildInteract getScheduledBlockByChildInteract,
-                                            final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract){
+                                            final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract,
+                                            final DeleteAllScheduledBlocksInteract deleteAllScheduledBlocksInteract,
+                                            final SaveScheduledBlockStatusInteract saveScheduledBlockStatusInteract){
         this.getScheduledBlockByChildInteract = getScheduledBlockByChildInteract;
         this.deleteScheduledBlockByIdInteract = deleteScheduledBlockByIdInteract;
+        this.deleteAllScheduledBlocksInteract = deleteAllScheduledBlocksInteract;
+        this.saveScheduledBlockStatusInteract = saveScheduledBlockStatusInteract;
     }
 
     /**
@@ -70,6 +89,33 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
 
         deleteScheduledBlockByIdInteract.execute(new DeleteScheduledBlockByChildObservable(),
                 DeleteScheduledBlockByIdInteract.Params.create(childId, identity));
+    }
+
+    /**
+     * Delete All Scheduled Block By Child Id
+     * @param childId
+     */
+    public void deleteAllScheduledBlockByChildId(final String childId) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
+
+        deleteAllScheduledBlocksInteract.execute(new DeleteAllScheduledBlockByChildObservable(),
+                DeleteAllScheduledBlocksInteract.Params.create(childId));
+
+    }
+
+    /**
+     * Save Scheduled Block Status
+     * @param childId
+     */
+    public void saveScheduledBlockStatus(final String childId, final List<ScheduledBlockStatusEntity> scheduledBlockStatusEntities) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
+        Preconditions.checkNotNull(scheduledBlockStatusEntities, "Scheduled Block status can not be empty");
+
+        saveScheduledBlockStatusInteract.execute(new SaveScheduledBlockStatusObservable(),
+                SaveScheduledBlockStatusInteract.Params.create(childId, scheduledBlockStatusEntities));
+
     }
 
 
@@ -137,6 +183,45 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
             if (isViewAttached() && getView() != null) {
                 getView().onScheduledBlockDeleted();
             }
+        }
+    }
+
+
+    /**
+     * Delete All Scheduled Block By Child Observable
+     */
+    public class DeleteAllScheduledBlockByChildObservable extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
+
+            if (isViewAttached() && getView() != null) {
+                getView().onAllScheduledBlockDeleted();
+            }
+        }
+    }
+
+    /**
+     * Save Scheduled Block Status Observable
+     */
+    public class SaveScheduledBlockStatusObservable extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Sucess
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+
+            if (isViewAttached() && getView() != null)
+                getView().onScheduledBlockStatusSaved();
         }
     }
 

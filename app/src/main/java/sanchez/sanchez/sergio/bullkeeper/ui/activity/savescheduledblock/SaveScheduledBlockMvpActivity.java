@@ -10,9 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.URLUtil;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -369,6 +367,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
             scheduledBlockIdentity = getIntent().getStringExtra(SCHEDULED_BLOCK_IDENTITY_ARG);
             // Toggle All Components
             toggleAllComponents(false);
+
+            getPresenter().loadScheduledBlock(sonIdentity, scheduledBlockIdentity);
         }
 
 
@@ -425,6 +425,10 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
 
         if (viewId.equals(R.id.nameInput)) {
             nameInputLayout.setError(message);
+        }  else if(viewId.equals(R.id.startAtInput)) {
+            startAtInputLayout.setError(message);
+        } else if(viewId.equals(R.id.endAtInput)) {
+            endAtInputLayout.setError(message);
         }
 
     }
@@ -578,9 +582,10 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlockRecurringWeeklyEnabled = scheduledBlockEntity.isRepeatable();
         isEnabled = scheduledBlockEntity.isEnable();
         profileMode = ScheduledBlockMode.EDIT_SCHEDULED_BLOCK_MODE;
+        startAt = scheduledBlockEntity.getStartAt();
+        endAt = scheduledBlockEntity.getEndAt();
         // Draw State
         drawCurrentState();
-
         // Enable All Components
         toggleAllComponents(true);
         // Enable Delete Scheduled Block
@@ -680,6 +685,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @Override
     public void onScheduledBlockSaved(ScheduledBlockEntity scheduledBlockEntity) {
+        Preconditions.checkNotNull(scheduledBlockEntity, "Scheduled Block can not be empty");
         onResetFields();
         showNoticeDialog(R.string.scheduled_block_saved_successfully, new NoticeDialogFragment.NoticeDialogListener() {
             @Override

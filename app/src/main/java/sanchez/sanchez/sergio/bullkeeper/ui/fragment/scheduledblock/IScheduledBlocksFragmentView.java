@@ -13,4 +13,14 @@ interface IScheduledBlocksFragmentView extends ISupportLCEView<ScheduledBlockEnt
      */
     void onScheduledBlockDeleted();
 
+    /**
+     * On All Scheduled Blocks Deleted
+     */
+    void onAllScheduledBlockDeleted();
+
+    /**
+     * On Scheduled Block Status Saved
+     */
+    void onScheduledBlockStatusSaved();
+
 }

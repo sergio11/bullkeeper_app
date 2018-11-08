@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import org.joda.time.format.DateTimeFormat;
@@ -23,6 +24,8 @@ import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<ScheduledBlockEntity> {
 
     private final Picasso picasso;
+
+    private IScheduledBlockListener listener;
 
     /**
      *
@@ -44,6 +47,42 @@ public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<Sch
     protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup viewGroup) {
         View view = inflater.inflate(R.layout.scheduled_blocks_item_layout, viewGroup, false);
         return new ScheduledBlocksViewHolder(view);
+    }
+
+    public void setListener(IScheduledBlockListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     *
+     * @param identity
+     * @param enable
+     */
+    public void setScheduledBlockStatus(final String identity, final boolean enable) {
+
+        for(final ScheduledBlockEntity scheduledBlockEntity: data) {
+            if(scheduledBlockEntity.getIdentity().equalsIgnoreCase(identity)) {
+                scheduledBlockEntity.setEnable(enable);
+                break;
+            }
+        }
+
+    }
+
+    public interface IScheduledBlockListener {
+
+        /**
+         * On Scheduled Block Enabled
+         * @param identity
+         */
+        void onScheduledBlockEnabled(final String identity);
+
+        /**
+         * On Scheduled Block Disabled
+         * @param identity
+         */
+        void onScheduledBlockDisabled(final String identity);
+
     }
 
 
@@ -74,7 +113,7 @@ public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<Sch
          * @param scheduledBlockEntity
          */
         @Override
-        public void bind(ScheduledBlockEntity scheduledBlockEntity) {
+        public void bind(final ScheduledBlockEntity scheduledBlockEntity) {
             super.bind(scheduledBlockEntity);
 
             if(scheduledBlockEntity.getImage() != null &&
@@ -109,6 +148,18 @@ public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<Sch
 
             // Is Enable
             switchCompat.setChecked(scheduledBlockEntity.isEnable());
+
+            switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(listener != null) {
+                        if(isChecked)
+                            listener.onScheduledBlockEnabled(scheduledBlockEntity.getIdentity());
+                        else
+                            listener.onScheduledBlockDisabled(scheduledBlockEntity.getIdentity());
+                    }
+                }
+            });
 
         }
 

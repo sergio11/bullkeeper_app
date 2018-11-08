@@ -8,9 +8,11 @@ import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.services.IScheduledBlockService;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
+import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.repository.IScheduledBlockRepository;
 
 /**
@@ -23,16 +25,22 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
      */
     private final AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> scheduledBlockDataMapper;
     private final IScheduledBlockService scheduledBlockService;
+    private final AbstractDataMapper<SaveScheduledBlockStatusDTO,
+            ScheduledBlockStatusEntity> saveSchedulesBlockStatusMapper;
 
     /**
      *
      * @param scheduledBlockDataMapper
      * @param scheduledBlockService
+     * @param saveSchedulesBlockStatusMapper
      */
     public ScheduledBlockRepositoryImpl(final AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> scheduledBlockDataMapper,
-                                        final IScheduledBlockService scheduledBlockService) {
+                                        final IScheduledBlockService scheduledBlockService,
+                                        final AbstractDataMapper<SaveScheduledBlockStatusDTO,
+                                                ScheduledBlockStatusEntity> saveSchedulesBlockStatusMapper) {
         this.scheduledBlockDataMapper = scheduledBlockDataMapper;
         this.scheduledBlockService = scheduledBlockService;
+        this.saveSchedulesBlockStatusMapper = saveSchedulesBlockStatusMapper;
     }
 
     /**
@@ -48,6 +56,26 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
         return scheduledBlockService.getScheduledBlockByChildId(childId).map(response ->
                 response != null && response.getData() != null ? response.getData() : null)
                 .map(scheduledBlockDataMapper::transform);
+    }
+
+    /**
+     * Get Scheduled Block Detail
+     * @param childId
+     * @param blockId
+     * @return
+     */
+    @Override
+    public Observable<ScheduledBlockEntity> getScheduledBlockDetail(final String childId, final String blockId) {
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
+        Preconditions.checkNotNull(blockId, "Block Id can not be null");
+        Preconditions.checkState(!blockId.isEmpty(), "Block Id can not be empty");
+
+        return scheduledBlockService.getScheduledBlockDetail(childId, blockId)
+                .map(response -> response != null && response.getData() != null
+                        ? response.getData() : null)
+                .map(scheduledBlockDataMapper::transform);
+
     }
 
     /**
@@ -117,5 +145,23 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
                     .map(response -> response != null && response.getData() != null ? response.getData(): null)
                     .map(scheduledBlockDataMapper::transform);
 
+    }
+
+    /**
+     * Save Scheduled Block Status
+     * @param childId
+     * @param saveScheduledStatus
+     * @return
+     */
+    @Override
+    public Observable<String> saveScheduledBlockStatus(final String childId, final List<ScheduledBlockStatusEntity> saveScheduledStatus) {
+        Preconditions.checkNotNull(childId, "Child id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(saveScheduledStatus, "Save Scheduled Status");
+
+        return scheduledBlockService.saveScheduledBlockStatus(childId,
+                saveSchedulesBlockStatusMapper.transformInverse(saveScheduledStatus))
+                .map(response -> response != null && response.getData() != null
+                        ? response.getData(): null);
     }
 }

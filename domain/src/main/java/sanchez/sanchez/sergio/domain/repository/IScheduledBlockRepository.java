@@ -4,6 +4,7 @@ import org.joda.time.LocalTime;
 import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
+import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 
 /**
  * Scheduled Block Repository
@@ -16,6 +17,15 @@ public interface IScheduledBlockRepository {
      * @return
      */
     Observable<List<ScheduledBlockEntity>> getScheduledBlockByChildId(final String childId);
+
+    /**
+     * Get Scheduled Block Details
+     * @param childId
+     * @param blockId
+     * @return
+     */
+    Observable<ScheduledBlockEntity> getScheduledBlockDetail(final String childId, final String blockId);
+
 
     /**
      * Delete Scheduled Block By Id
@@ -49,4 +59,14 @@ public interface IScheduledBlockRepository {
     Observable<ScheduledBlockEntity> saveScheduledBlock(final String identity, final String name, final boolean enable,
                                                         final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                                         final boolean recurringWeeklyEnabled, final String childId);
+
+
+    /**
+     * Save Scheduled Block Status
+     * @param childId
+     * @param saveScheduledStatus
+     * @return
+     */
+    Observable<String> saveScheduledBlockStatus(final String childId,
+                                                final List<ScheduledBlockStatusEntity> saveScheduledStatus);
 }

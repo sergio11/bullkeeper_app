@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockInteract;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 
@@ -32,17 +33,25 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
      */
     private final SaveScheduledBlockInteract saveScheduledBlockInteract;
 
+    /**
+     * Get Scheduled Block Detail Interact
+     */
+    private final GetScheduledBlockDetailInteract getScheduledBlockDetailInteract;
+
 
     /**
      * Save Scheduled Block
      * @param deleteScheduledBlockByIdInteract
      * @param saveScheduledBlockInteract
+     * @param getScheduledBlockDetailInteract
      */
     @Inject
     public SaveScheduledBlockPresenter(final DeleteScheduledBlockByIdInteract deleteScheduledBlockByIdInteract,
-                                       final SaveScheduledBlockInteract saveScheduledBlockInteract) {
+                                       final SaveScheduledBlockInteract saveScheduledBlockInteract,
+                                       final GetScheduledBlockDetailInteract getScheduledBlockDetailInteract) {
         this.deleteScheduledBlockByIdInteract = deleteScheduledBlockByIdInteract;
         this.saveScheduledBlockInteract = saveScheduledBlockInteract;
+        this.getScheduledBlockDetailInteract = getScheduledBlockDetailInteract;
     }
 
     /**
@@ -73,6 +82,21 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
                 SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt, weeklyFrequency, recurringWeeklyEnabled, childId));
 
+    }
+
+    /**
+     * Load Scheduled Block
+     * @param childId
+     * @param blockId
+     */
+    public void loadScheduledBlock(final String childId, final String blockId) {
+        Preconditions.checkNotNull(childId, "Child Id can not be empty");
+        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(blockId, "Block Id can not be empty");
+        Preconditions.checkState(!blockId.isEmpty(), "Block id can not be empty");
+
+        getScheduledBlockDetailInteract.execute(new GetScheduledBlockDetailObservable(),
+                GetScheduledBlockDetailInteract.Params.create(childId, blockId));
     }
 
     /**
@@ -136,5 +160,27 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
             }
         }
     }
+
+    /**
+     * Get Scheduled Block Detail
+     */
+    public class GetScheduledBlockDetailObservable  extends BasicCommandCallBackWrapper<ScheduledBlockEntity> {
+
+        /**
+         *
+         * @param scheduledBlockEntity
+         */
+        @Override
+        protected void onSuccess(final ScheduledBlockEntity scheduledBlockEntity) {
+            Preconditions.checkNotNull(scheduledBlockEntity, "Scheduled Block Entity");
+
+            if(isViewAttached() && getView() != null) {
+                getView().onScheduledBlockLoaded(scheduledBlockEntity);
+            }
+
+        }
+    }
+
+
 
 }

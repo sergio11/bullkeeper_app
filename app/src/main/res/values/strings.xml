@@ -665,7 +665,7 @@
     <string name="delete_all_scheduled_blocks">Do you want to delete all the Scheduled Blocks?</string>
     <string name="all_scheduled_blocks_deleted_successfully">All scheduled blocks were successfully eliminated</string>
     <string name="scheduled_block_confirm_title">Do you want to apply the changes to the scheduled blocks?</string>
-
+    <string name="scheduled_block_status_saved">The state of the scheduled blocks has been saved successfully</string>
 
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>

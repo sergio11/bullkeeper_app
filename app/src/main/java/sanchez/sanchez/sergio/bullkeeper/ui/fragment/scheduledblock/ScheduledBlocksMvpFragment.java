@@ -13,12 +13,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -31,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.ScheduledBlocksAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
+import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import timber.log.Timber;
 
 /**
@@ -38,7 +38,7 @@ import timber.log.Timber;
  */
 public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledBlocksFragmentPresenter,
         IScheduledBlocksFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, ScheduledBlockEntity>
-        implements IScheduledBlocksFragmentView, SupportItemTouchHelper.ItemTouchHelperListener {
+        implements IScheduledBlocksFragmentView, SupportItemTouchHelper.ItemTouchHelperListener, ScheduledBlocksAdapter.IScheduledBlockListener {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
@@ -61,6 +61,12 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     protected Picasso picasso;
 
     /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
+
+    /**
      * State
      * ===================
      */
@@ -72,10 +78,10 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     protected String kidIdentity;
 
     /**
-     * Activity
+     * Scheduled Block Status Entities
      */
-    @Inject
-    protected Activity activity;
+    @State
+    protected ArrayList<ScheduledBlockStatusEntity> scheduledBlockStatusEntities = new ArrayList<>();
 
     /**
      * Views
@@ -160,6 +166,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
         final ScheduledBlocksAdapter scheduledBlocksAdapter =
                 new ScheduledBlocksAdapter(activity, new ArrayList<ScheduledBlockEntity>(), picasso);
         scheduledBlocksAdapter.setOnSupportRecyclerViewListener(this);
+        scheduledBlocksAdapter.setListener(this);
         return scheduledBlocksAdapter;
     }
 
@@ -205,10 +212,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     @Override
     public void onItemClick(ScheduledBlockEntity scheduledBlockEntity) {
         Timber.d("Scheduled Block Clicked");
-        //activityHandler.navigateToSaveScheduledBlock(kidIdentity, scheduledBlockEntity.getIdentity());
-        scheduledBlocksActions.setVisibility(View.VISIBLE);
-        scheduledBlockDescription.setVisibility(View.GONE);
-
+        activityHandler.navigateToSaveScheduledBlock(kidIdentity, scheduledBlockEntity.getIdentity());
     }
 
     /**
@@ -244,7 +248,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
         showConfirmationDialog(R.string.delete_all_scheduled_blocks, new ConfirmationDialogFragment.ConfirmationDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
-                showNoticeDialog(R.string.all_scheduled_blocks_deleted_successfully);
+                getPresenter().deleteAllScheduledBlockByChildId(kidIdentity);
             }
 
             @Override
@@ -294,7 +298,111 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @Override
     public void onScheduledBlockDeleted() {
-        Timber.d("Scheduled Block Deleted");
+        if(recyclerViewAdapter.getData().isEmpty())
+            showNotFoundState();
+    }
+
+    /**
+     * On All Scheduled Block Deleted
+     */
+    @Override
+    public void onAllScheduledBlockDeleted() {
+
+        recyclerViewAdapter.getData().clear();
+        recyclerViewAdapter.notifyDataSetChanged();
+        showNotFoundState();
+
+        showNoticeDialog(R.string.all_scheduled_blocks_deleted_successfully);
+    }
+
+    /**
+     * On Scheduled Block Status Saved
+     */
+    @Override
+    public void onScheduledBlockStatusSaved() {
+        scheduledBlockStatusEntities.clear();
+        showNoticeDialog(R.string.scheduled_block_status_saved);
+    }
+
+    /**
+     * Update Scheduled Block Status
+     * @param scheduledBlockStatusEntity
+     */
+    private void updateScheduledBlockStatus(final ScheduledBlockStatusEntity scheduledBlockStatusEntity) {
+        Preconditions.checkNotNull(scheduledBlockStatusEntity, "Scheduled Block Status Entity");
+
+        int pos = scheduledBlockStatusEntities.indexOf(scheduledBlockStatusEntity);
+
+        if(pos >= 0) {
+            scheduledBlockStatusEntities.remove(pos);
+        } else {
+            scheduledBlockStatusEntities.add(scheduledBlockStatusEntity);
+        }
+
+        if(!scheduledBlockStatusEntities.isEmpty()) {
+            scheduledBlocksActions.setVisibility(View.VISIBLE);
+            scheduledBlockDescription.setVisibility(View.GONE);
+        } else {
+            scheduledBlocksActions.setVisibility(View.GONE);
+            scheduledBlockDescription.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * On Scheduled Block Enabled
+     * @param identity
+     */
+    @Override
+    public void onScheduledBlockEnabled(final String identity) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+
+        final ScheduledBlockStatusEntity scheduledBlockStatusEntity =
+                new ScheduledBlockStatusEntity(identity, true);
+
+        updateScheduledBlockStatus(scheduledBlockStatusEntity);
+
+    }
+
+    /**
+     * On Scheduled Block Disabled
+     * @param identity
+     */
+    @Override
+    public void onScheduledBlockDisabled(final String identity) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+
+        final ScheduledBlockStatusEntity scheduledBlockStatusEntity =
+                new ScheduledBlockStatusEntity(identity, false);
+
+        updateScheduledBlockStatus(scheduledBlockStatusEntity);
+
+    }
+
+
+    /**
+     * On Discard Changes Btn
+     */
+    @OnClick(R.id.discardChanges)
+    protected void onDiscardChangesBtn(){
+        scheduledBlocksActions.setVisibility(View.GONE);
+        scheduledBlockDescription.setVisibility(View.VISIBLE);
+        for(final ScheduledBlockStatusEntity scheduledBlockStatusEntity: scheduledBlockStatusEntities)
+            ((ScheduledBlocksAdapter)recyclerViewAdapter).setScheduledBlockStatus(scheduledBlockStatusEntity.getIdentity(),
+                    !scheduledBlockStatusEntity.isEnable());
+
+        scheduledBlockStatusEntities.clear();
+        recyclerViewAdapter.notifyDataSetChanged();
+
+    }
+
+    /**
+     * On Save Changes
+     */
+    @OnClick(R.id.saveChanges)
+    protected void onSaveChanges(){
+        scheduledBlocksActions.setVisibility(View.GONE);
+        scheduledBlockDescription.setVisibility(View.VISIBLE);
+        getPresenter().saveScheduledBlockStatus(kidIdentity, scheduledBlockStatusEntities);
     }
 }
 

@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ParentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockStatusEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SentimentAnalysisStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaActivityStatisticsEntityDataMapper;
@@ -24,6 +25,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaLikesStatisticsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
+import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
@@ -52,6 +54,7 @@ import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
+import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
@@ -238,5 +241,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> provideScheduledBlockEntityDataMapper(){
         return new ScheduledBlockEntityDataMapper();
+    }
+
+    /**
+     * Provide Scheduled Block Status Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SaveScheduledBlockStatusDTO, ScheduledBlockStatusEntity> provideScheduledBlockStatusEntityDataMapper(){
+        return new ScheduledBlockStatusEntityDataMapper();
     }
 }

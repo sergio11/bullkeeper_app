@@ -160,7 +160,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Show Loading State
      */
-    private void showLoadingState(){
+    protected void showLoadingState(){
         errorOccurredLayout.hide();
         notDataFoundLayout.hide();
         content.setVisibility(View.GONE);
@@ -171,7 +171,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Show Not Found State
      */
-    private void showNotFoundState(){
+    protected void showNotFoundState(){
         errorOccurredLayout.hide();
         notDataFoundLayout.show(getString(R.string.no_data_found));
         content.setVisibility(View.GONE);
@@ -183,7 +183,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      * Show Error State
      * @param message
      */
-    private void showErrorState(final String message){
+    protected void showErrorState(final String message){
         content.setEnabled(false);
         loadingView.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
@@ -194,7 +194,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Show Data Founded State
      */
-    private void showDataFoundedState(){
+    protected void showDataFoundedState(){
         loadingView.setVisibility(View.GONE);
         notDataFoundLayout.hide();
         errorOccurredLayout.hide();
