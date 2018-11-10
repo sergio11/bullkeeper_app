@@ -341,7 +341,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         startAtInput.setEnabled(isEnable);
         endAtInput.setEnabled(isEnable);
         recurringWeeklySwitch.setEnabled(isEnable);
-        enableSwitch.setEnabled(isEnabled);
+        enableSwitch.setEnabled(isEnable);
         scheduledBlockWeeklyFrequencyInput.setEnabled(isEnable);
     }
 
@@ -564,7 +564,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         endAtInput.setCurrentLocalTime(endAt, true);
         scheduledBlockWeeklyFrequencyInput.setDaysOfWeekStatus(scheduledBlocksWeeklyFrequency);
         recurringWeeklySwitch.setChecked(scheduledBlockRecurringWeeklyEnabled);
-        enableSwitch.setEnabled(isEnabled);
+        enableSwitch.setChecked(isEnabled);
     }
 
     /**

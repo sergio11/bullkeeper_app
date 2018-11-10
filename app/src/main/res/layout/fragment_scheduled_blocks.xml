@@ -17,21 +17,93 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Start Header -->
+        <!-- Start Scheduled Blocks Actions -->
         <android.support.v7.widget.CardView
+            android:id="@+id/scheduledBlocksActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             android:layout_margin="@dimen/common_margin"
+            android:visibility="gone"
             app:cardElevation="4dp"
             android:layout_marginTop="10dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText.Big"
+                    android:textColor="@color/cyanBrilliant"
+                    android:textStyle="bold"
+                    android:text="@string/scheduled_block_confirm_title"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="8dp"
+                    android:weightSum="1">
+
+                    <Button
+                        android:id="@+id/discardChanges"
+                        style="@style/CancelActionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/redDanger"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:drawableStart="@drawable/trash_white_btn"
+                        android:text="@string/discard_changes_btn"
+                        android:textColor="@color/commonWhite"
+                        android:padding="@dimen/common_padding"/>
+
+                    <Button
+                        android:id="@+id/saveChanges"
+                        style="@style/AcceptActionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:background="@color/greenSuccess"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:drawableStart="@drawable/check_white_btn"
+                        android:text="@string/save_changes_btn"
+                        android:textColor="@color/commonWhite"
+                        android:padding="@dimen/common_padding"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <!-- End Scheduled Blocks Actions -->
+
+        <!-- Start Scheduled Blocks Description  -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/scheduledBlockDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            android:visibility="visible"
+            android:layout_margin="@dimen/common_margin"
+            app:cardElevation="4dp"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:id="@+id/scheduledBlockDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="1"
+                android:visibility="visible"
                 android:gravity="center_vertical|start"
                 android:orientation="horizontal">
 
@@ -93,68 +165,8 @@
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:id="@+id/scheduledBlocksActions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/common_margin"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <!-- Title -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/CommonStrongText.Big"
-                    android:textColor="@color/cyanBrilliant"
-                    android:textStyle="bold"
-                    android:text="@string/scheduled_block_confirm_title"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="8dp"
-                    android:weightSum="1">
-
-                    <Button
-                        android:id="@+id/discardChanges"
-                        style="@style/CancelActionButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:background="@color/redDanger"
-                        android:layout_gravity="bottom|end"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:drawableStart="@drawable/trash_white_btn"
-                        android:text="@string/discard_changes_btn"
-                        android:textColor="@color/commonWhite"
-                        android:padding="@dimen/common_padding"/>
-
-                    <Button
-                        android:id="@+id/saveChanges"
-                        style="@style/AcceptActionButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:background="@color/greenSuccess"
-                        android:layout_gravity="bottom|end"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:drawableStart="@drawable/check_white_btn"
-                        android:text="@string/save_changes_btn"
-                        android:textColor="@color/commonWhite"
-                        android:padding="@dimen/common_padding"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
         </android.support.v7.widget.CardView>
-        <!-- End Header -->
+        <!-- End Scheduled Blocks Description -->
 
         <!-- Start Content -->
         <FrameLayout

@@ -135,7 +135,7 @@
             />
 
         <!-- Switch Compat -->
-        <android.support.v7.widget.SwitchCompat
+        <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
             android:id="@+id/switchWidget"
             android:layout_width="50dp"
             android:layout_height="50dp"

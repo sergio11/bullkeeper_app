@@ -38,6 +38,8 @@ public final class ScheduledBlockStatusEntity {
         this.enable = enable;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

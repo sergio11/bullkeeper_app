@@ -62,6 +62,11 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
     public void deleteScheduledById(final String childId, final String identity) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.deleting_scheduled_block);
+
         deleteScheduledBlockByIdInteract.execute(new DeleteScheduledBlockByChildObservable(),
                 DeleteScheduledBlockByIdInteract.Params.create(childId, identity));
     }
@@ -79,6 +84,10 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
                                    final LocalTime endAt, final int[] weeklyFrequency,
                                    final boolean recurringWeeklyEnabled, final String childId ){
 
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.saving_scheduled_block_info);
+
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
                 SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt, weeklyFrequency, recurringWeeklyEnabled, childId));
 
@@ -94,6 +103,9 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
         Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
         Preconditions.checkNotNull(blockId, "Block Id can not be empty");
         Preconditions.checkState(!blockId.isEmpty(), "Block id can not be empty");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.loading_scheduled_block_information);
 
         getScheduledBlockDetailInteract.execute(new GetScheduledBlockDetailObservable(),
                 GetScheduledBlockDetailInteract.Params.create(childId, blockId));
@@ -115,6 +127,7 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
             Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
 
             if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onScheduledBlockDeleted();
             }
         }
@@ -138,8 +151,10 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
         @Override
         protected void onSuccess(ScheduledBlockEntity scheduledBlockEntity) {
             Preconditions.checkNotNull(scheduledBlockEntity, "Scheduled can not be null");
-            if(isViewAttached() && getView() != null)
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onScheduledBlockSaved(scheduledBlockEntity);
+            }
 
         }
 
@@ -175,6 +190,7 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
             Preconditions.checkNotNull(scheduledBlockEntity, "Scheduled Block Entity");
 
             if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onScheduledBlockLoaded(scheduledBlockEntity);
             }
 

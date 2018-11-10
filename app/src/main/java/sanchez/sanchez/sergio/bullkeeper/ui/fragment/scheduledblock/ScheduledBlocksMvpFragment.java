@@ -13,6 +13,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
@@ -80,7 +81,6 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     /**
      * Scheduled Block Status Entities
      */
-    @State
     protected ArrayList<ScheduledBlockStatusEntity> scheduledBlockStatusEntities = new ArrayList<>();
 
     /**
@@ -111,6 +111,12 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @BindView(R.id.scheduledBlockDescription)
     protected ViewGroup scheduledBlockDescription;
+
+    /**
+     * Delete All Scheduled Blocks
+     */
+    @BindView(R.id.deleteAllScheduledBlocks)
+    protected ImageView deleteAllScheduledBlocks;
 
 
     /**
@@ -307,11 +313,9 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @Override
     public void onAllScheduledBlockDeleted() {
-
         recyclerViewAdapter.getData().clear();
         recyclerViewAdapter.notifyDataSetChanged();
         showNotFoundState();
-
         showNoticeDialog(R.string.all_scheduled_blocks_deleted_successfully);
     }
 
@@ -320,8 +324,25 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @Override
     public void onScheduledBlockStatusSaved() {
+        for(final ScheduledBlockStatusEntity scheduledBlockStatusEntity: scheduledBlockStatusEntities)
+            ((ScheduledBlocksAdapter)recyclerViewAdapter).setScheduledBlockStatus(scheduledBlockStatusEntity.getIdentity(),
+                    scheduledBlockStatusEntity.isEnable());
         scheduledBlockStatusEntities.clear();
+        updateHeaderStatus();
         showNoticeDialog(R.string.scheduled_block_status_saved);
+    }
+
+    /**
+     * Update Header Status
+     */
+    private void updateHeaderStatus(){
+        if(scheduledBlockStatusEntities.isEmpty()) {
+            scheduledBlocksActions.setVisibility(View.GONE);
+            scheduledBlockDescription.setVisibility(View.VISIBLE);
+        } else {
+            scheduledBlocksActions.setVisibility(View.VISIBLE);
+            scheduledBlockDescription.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -339,13 +360,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
             scheduledBlockStatusEntities.add(scheduledBlockStatusEntity);
         }
 
-        if(!scheduledBlockStatusEntities.isEmpty()) {
-            scheduledBlocksActions.setVisibility(View.VISIBLE);
-            scheduledBlockDescription.setVisibility(View.GONE);
-        } else {
-            scheduledBlocksActions.setVisibility(View.GONE);
-            scheduledBlockDescription.setVisibility(View.VISIBLE);
-        }
+        updateHeaderStatus();
     }
 
     /**
@@ -384,13 +399,14 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @OnClick(R.id.discardChanges)
     protected void onDiscardChangesBtn(){
-        scheduledBlocksActions.setVisibility(View.GONE);
-        scheduledBlockDescription.setVisibility(View.VISIBLE);
+
         for(final ScheduledBlockStatusEntity scheduledBlockStatusEntity: scheduledBlockStatusEntities)
             ((ScheduledBlocksAdapter)recyclerViewAdapter).setScheduledBlockStatus(scheduledBlockStatusEntity.getIdentity(),
                     !scheduledBlockStatusEntity.isEnable());
 
         scheduledBlockStatusEntities.clear();
+        updateHeaderStatus();
+
         recyclerViewAdapter.notifyDataSetChanged();
 
     }
@@ -400,9 +416,29 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
-        scheduledBlocksActions.setVisibility(View.GONE);
-        scheduledBlockDescription.setVisibility(View.VISIBLE);
         getPresenter().saveScheduledBlockStatus(kidIdentity, scheduledBlockStatusEntities);
+    }
+
+    /**
+     * Show Not Found State
+     */
+    @Override
+    protected void showNotFoundState() {
+        super.showNotFoundState();
+        deleteAllScheduledBlocks.setVisibility(View.GONE);
+        scheduledBlockStatusEntities.clear();
+        updateHeaderStatus();
+    }
+
+    /**
+     * Show Data Founded State
+     */
+    @Override
+    protected void showDataFoundedState() {
+        super.showDataFoundedState();
+        deleteAllScheduledBlocks.setVisibility(View.VISIBLE);
+        scheduledBlockStatusEntities.clear();
+        updateHeaderStatus();
     }
 }
 

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteAllScheduledBlocksInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
@@ -113,6 +115,10 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
         Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
         Preconditions.checkNotNull(scheduledBlockStatusEntities, "Scheduled Block status can not be empty");
 
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.saving_scheduled_block_info);
+
         saveScheduledBlockStatusInteract.execute(new SaveScheduledBlockStatusObservable(),
                 SaveScheduledBlockStatusInteract.Params.create(childId, scheduledBlockStatusEntities));
 
@@ -220,8 +226,10 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
         protected void onSuccess(String response) {
             Preconditions.checkNotNull(response, "Response can not be null");
 
-            if (isViewAttached() && getView() != null)
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onScheduledBlockStatusSaved();
+            }
         }
     }
 

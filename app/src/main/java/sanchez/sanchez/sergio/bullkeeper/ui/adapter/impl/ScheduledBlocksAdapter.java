@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportWeeklyFrequencyTextView;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
@@ -96,7 +97,7 @@ public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<Sch
         private final TextView scheduledBlockNameTextView, scheduledBlockTimeTextView;
         private final SupportWeeklyFrequencyTextView
                 scheduledBlockWeeklyFrequencyTextView;
-        private final SwitchCompat switchCompat;
+        private final SupportSwitchCompat switchCompat;
 
         ScheduledBlocksViewHolder(View itemView) {
             super(itemView);
@@ -147,7 +148,7 @@ public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<Sch
                     .setDaysOfWeekSelected(scheduledBlockEntity.getWeeklyFrequency());
 
             // Is Enable
-            switchCompat.setChecked(scheduledBlockEntity.isEnable());
+            switchCompat.setChecked(scheduledBlockEntity.isEnable(), false);
 
             switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
