@@ -103,6 +103,16 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
     @State
     protected String kidIdentity;
 
+    /**
+     * Terminal Identity
+     *
+     */
+    @State
+    protected String terminalIdentity;
+
+    /**
+     * App Rules Changes
+     */
     @State
     protected HashSet<AppRuleChange> appRulesChanges = new HashSet<>();
 
@@ -262,7 +272,7 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
             newRules.put(appRuleChange.getAppIdentity(), appRuleChange.getOldAppRule());
         }
 
-        getPresenter().applyRules(newRules);
+        getPresenter().applyRules(kidIdentity, terminalIdentity, newRules);
         appRulesChanges.clear();
         updateHeaderStatus();
 
@@ -308,6 +318,14 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
     @OnClick(R.id.showAppRulesInfo)
     public void onShowAppRulesDialog(){
         activityHandler.showAppRulesDialog();
+    }
+
+    /**
+     * On App Rules Update Successfully
+     */
+    @Override
+    public void onAppRulesUpdatedSuccessfully() {
+        showNoticeDialog(R.string.app_rules_applied_successfully);
     }
 
 

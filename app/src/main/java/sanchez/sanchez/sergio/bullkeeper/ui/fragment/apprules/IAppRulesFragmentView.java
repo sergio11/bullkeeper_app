@@ -8,4 +8,9 @@ import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
  */
 interface IAppRulesFragmentView extends ISupportLCEView<AppInstalledEntity> {
 
+    /***
+     * On App Rules Updated Successfully
+     */
+    void onAppRulesUpdatedSuccessfully();
+
 }

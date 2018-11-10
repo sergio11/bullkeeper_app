@@ -9,6 +9,8 @@ import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertsStatisticsEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledRuleDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
@@ -25,11 +27,13 @@ import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaLikesStatisticsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
+import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
@@ -47,6 +51,8 @@ import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
@@ -250,5 +256,23 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<SaveScheduledBlockStatusDTO, ScheduledBlockStatusEntity> provideScheduledBlockStatusEntityDataMapper(){
         return new ScheduledBlockStatusEntityDataMapper();
+    }
+
+    /**
+     * Provide App Installed Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppInstalledDTO, AppInstalledEntity> provideAppInstalledDataMapper(){
+        return new AppInstalledDataMapper();
+    }
+
+    /**
+     * Provide App Installed Rule Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> provideAppInstalledRuleDataMapper(){
+        return new AppInstalledRuleDataMapper();
     }
 }

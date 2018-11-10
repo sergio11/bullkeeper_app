@@ -1,16 +1,12 @@
 package sanchez.sanchez.sergio.domain.interactor.apprules;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.Arrays;
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
-import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
@@ -39,24 +35,21 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
     }
 
     /**
-     *
+     * Build Use Case Observable
      * @param params
      * @return
      */
     @Override
-    protected Observable<List<AppInstalledEntity>> buildUseCaseObservable(Params params) {
+    protected Observable<List<AppInstalledEntity>> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
+        Preconditions.checkNotNull(params.getChildId(), "Child id can not be null");
+        Preconditions.checkState(!params.getChildId().isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(params.getTerminalId(), "Terminal Id can not be null");
+        Preconditions.checkState(!params.getTerminalId().isEmpty(), "Terminal id can not be empty");
 
-        final List<AppInstalledEntity> appInstalledEntities = Arrays.asList(
-                new AppInstalledEntity("12345","Package Name", 12131313131L,
-                        12131313131L, "1.4", "124", "App Name", AppRuleEnum.NEVER_ALLOWED),
-                new AppInstalledEntity("12346","Package Name", 12131313131L,
-                        12131313132L, "1.4", "124", "App Name", AppRuleEnum.ALWAYS_ALLOWED),
-                new AppInstalledEntity("12347","Package Name", 12131313131L,
-                        12131313133L, "1.4", "124", "App Name", AppRuleEnum.PER_SCHEDULER)
-        );
 
-        return Observable.just(appInstalledEntities);
+        return appRulesRepository.getAppInstalledByChild(params.getChildId(), params.getTerminalId());
+
     }
 
     /**
@@ -65,28 +58,33 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
     public static class Params {
 
         private final String childId;
-        private final String deviceId;
+        private final String terminalId;
 
-        private Params(final String childId, final String deviceId) {
+        /**
+         *
+         * @param childId
+         * @param terminalId
+         */
+        private Params(final String childId, final String terminalId) {
             this.childId = childId;
-            this.deviceId = deviceId;
+            this.terminalId = terminalId;
         }
 
         public String getChildId() {
             return childId;
         }
 
-        public String getDeviceId() {
-            return deviceId;
+        public String getTerminalId() {
+            return terminalId;
         }
 
-        public static Params create(final String childId, final String deviceId) {
+        public static Params create(final String childId, final String terminalId) {
             Preconditions.checkNotNull(childId, "Child Id can not be null");
             Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
-            Preconditions.checkNotNull(deviceId, "Device Id can not be null");
-            Preconditions.checkState(!deviceId.isEmpty(), "Device Id can not empty");
+            Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
+            Preconditions.checkState(!terminalId.isEmpty(), "Terminal Id can not empty");
 
-            return new Params(childId, deviceId);
+            return new Params(childId, terminalId);
         }
     }
 
