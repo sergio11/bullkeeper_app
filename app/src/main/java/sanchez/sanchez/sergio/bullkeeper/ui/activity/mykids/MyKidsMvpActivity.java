@@ -153,6 +153,6 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      */
     @Override
     protected int getBackgroundResource() {
-        return R.drawable.background_cyan_1;
+        return R.drawable.background_cyan_9;
     }
 }
