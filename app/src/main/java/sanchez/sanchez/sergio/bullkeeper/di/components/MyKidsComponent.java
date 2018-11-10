@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScreenTimeAllowanceModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.TerminalsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.MyKidsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.MyKidsActivityPresenter;
@@ -28,6 +29,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFra
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
 
@@ -36,7 +39,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowance
         modules = { ActivityModule.class, DataMapperModule.class,
                  ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
-                AppRulesModule.class, ScreenTimeAllowanceModule.class })
+                AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class })
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -94,6 +97,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final FamilyLocatorMvpFragment familyLocatorMvpFragment);
 
+    /**
+     * Injet into Terminals Mvp Fragment
+     * @param terminalsMvpFragment
+     */
+    void inject(final TerminalsMvpFragment terminalsMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -104,4 +113,5 @@ public interface MyKidsComponent extends StatsComponent {
     AppRulesFragmentPresenter appRulesFragmentPresenter();
     TimeAllowanceFragmentPresenter timeAllowanceFragmentPresenter();
     FamilyLocatorFragmentPresenter familyLocatorFragmentPresenter();
+    TerminalsFragmentPresenter terminalsFragmentPresenter();
 }

@@ -461,6 +461,8 @@
     <string name="comments_extracted_tab">Comments</string>
     <!-- Relations -->
     <string name="relations_tab">Relations</string>
+    <!-- Terminals Tab -->
+    <string name="terminals_tab">Terminals</string>
 
     <string name="authenticating_wait">Authenticating wait ...</string>
     <string name="network_error_ocurred">An error occurred when contacting the server, please try again later</string>
@@ -687,5 +689,11 @@
     <string name="family_locator_description">Quickly locate family members and devices</string>
     <string name="family_locator_add_geofences">Add Geofance</string>
     <string name="family_locator_loading_child_position">Loading Child position ...</string>
+
+    <!-- Terminals -->
+    <string name="terminals_list_title">Monitored terminals</string>
+    <string name="terminals_list_description">List of monitored terminals</string>
+    <string name="terminal_os_sdk" formatted="false">OS: %s, SDK: %s</string>
+    <string name="terminal_app_version" formatted="false">App Version Name: %s, Version Code: %s</string>
 
 </resources>

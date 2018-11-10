@@ -27,6 +27,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaLikesStatisticsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.TerminalEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
@@ -47,6 +48,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatis
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
@@ -67,6 +69,7 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
@@ -274,5 +277,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> provideAppInstalledRuleDataMapper(){
         return new AppInstalledRuleDataMapper();
+    }
+
+    /**
+     * Provide Terminal Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<TerminalDTO, TerminalEntity> provideTerminalDataMapper(){
+        return new TerminalEntityDataMapper();
     }
 }

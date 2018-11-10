@@ -31,6 +31,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAl
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
@@ -69,6 +70,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] unselectedTabIcons = {
             R.drawable.dimensions_tab_cyan,
             R.drawable.important_alerts_tab_cyan,
+            R.drawable.mobile_cyan_tab,
             R.drawable.scheduled_blocks,
             R.drawable.app_rules_tab_cyan,
             R.drawable.hourglass_tab_cyan,
@@ -81,6 +83,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] selectedTabIcons = {
             R.drawable.dimensions_tab_dark_cyan,
             R.drawable.important_alerts_tab_dark_cyan,
+            R.drawable.mobile_dark_tab,
             R.drawable.scheduled_blocks_dark,
             R.drawable.app_rules_tab_dark,
             R.drawable.hourglass_tab_dark,
@@ -396,11 +399,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         private final static int DIMENSIONS_TAB = 0;
         private final static int ALERTS_TAB = 1;
-        private final static int SCHEDULED_BLOCKS_TAB = 2;
-        private final static int APP_RULES_TAB = 3;
-        private final static int TIME_ALLOWANCE_TAB = 4;
-        private final static int FAMILY_LOCATOR_TAB = 5;
-        private final static int SECTION_COUNT = 6;
+        private final static int TERMINALS_TAB = 2;
+        private final static int SCHEDULED_BLOCKS_TAB = 3;
+        private final static int APP_RULES_TAB = 4;
+        private final static int TIME_ALLOWANCE_TAB = 5;
+        private final static int FAMILY_LOCATOR_TAB = 6;
+        private final static int SECTION_COUNT = 7;
 
         private final String kidIdentity;
 
@@ -421,6 +425,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
+                case TERMINALS_TAB:
+                    return TerminalsMvpFragment.newInstance(kidIdentity);
                 case SCHEDULED_BLOCKS_TAB:
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
                 case APP_RULES_TAB:
@@ -454,6 +460,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
                     return getString(R.string.alerts_tab);
+                case TERMINALS_TAB:
+                    return getString(R.string.terminals_tab);
                 case SCHEDULED_BLOCKS_TAB:
                     return getString(R.string.scheduled_blocks_tab);
                 case APP_RULES_TAB:
