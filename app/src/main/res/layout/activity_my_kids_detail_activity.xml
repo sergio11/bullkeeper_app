@@ -61,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CommonStrongText"
+                    android:padding="8dp"
                     android:textColor="@color/commonWhite"
                     android:textStyle="bold"
                     android:text="-"/>
@@ -70,7 +71,11 @@
                     android:id="@+id/kidBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CommonStrongText.Medium"
+                    android:padding="4dp"
+                    android:gravity="start|center_vertical"
+                    android:drawableStart="@drawable/birthday_cake_white_solid_small"
+                    android:drawablePadding="@dimen/common_padding"
+                    style="@style/CommonStrongText.Big"
                     android:textColor="@color/commonWhite"
                     android:text="-"/>
 
@@ -80,7 +85,11 @@
                     android:id="@+id/kidSchool"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CommonStrongText.Medium"
+                    android:padding="4dp"
+                    android:gravity="start|center_vertical"
+                    android:drawableStart="@drawable/school_white_solid_small"
+                    android:drawablePadding="@dimen/common_padding"
+                    style="@style/CommonStrongText.Big"
                     android:textColor="@color/commonWhite"
                     android:text="-"/>
 

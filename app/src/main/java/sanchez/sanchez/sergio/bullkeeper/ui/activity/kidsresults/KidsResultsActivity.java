@@ -294,6 +294,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
         kidNameText.setText(sonEntity.getFullName());
 
+
     }
 
     /**

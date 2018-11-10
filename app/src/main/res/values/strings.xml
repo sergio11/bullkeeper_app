@@ -408,8 +408,6 @@
     <string name="relations_title">Social Relations</string>
     <string name="relations_description">Statistics of the most active friends for each social media</string>
 
-    <string name="kid_detail_birthday" formatted="true">Birthday: %s</string>
-    <string name="kid_detail_school" formatted="true">School: %s</string>
 
     <string name="four_dimension_violence">Violence</string>
     <string name="four_dimension_violence_content_text"

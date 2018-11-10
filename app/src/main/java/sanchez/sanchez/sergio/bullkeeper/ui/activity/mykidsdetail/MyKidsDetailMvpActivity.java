@@ -377,15 +377,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         kidNameTextView.setText(sonEntity.getFullName());
 
 
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_server_response));
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
 
         // Set Kid Birthday
-        kidBirthdayTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.kid_detail_birthday), simpleDateFormat.format(sonEntity.getBirthdate())));
+        kidBirthdayTextView.setText(simpleDateFormat.format(sonEntity.getBirthdate()));
 
-
-        kidSchoolTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.kid_detail_school), sonEntity.getSchool().getName()));
+        kidSchoolTextView.setText(sonEntity.getSchool().getName());
 
 
         toggleAllComponents(true);
