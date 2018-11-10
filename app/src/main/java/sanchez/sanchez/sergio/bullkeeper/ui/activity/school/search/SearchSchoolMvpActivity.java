@@ -147,7 +147,7 @@ public class SearchSchoolMvpActivity extends SupportMvpSearchLCEActivity<SearchS
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<SchoolEntity> getAdapter() {
-        final SchoolAdapter schoolAdapter = new SchoolAdapter(appContext, new ArrayList<SchoolEntity>());
+        final SchoolAdapter schoolAdapter = new SchoolAdapter(this, new ArrayList<SchoolEntity>());
         schoolAdapter.setSchoolListener(this);
         return schoolAdapter;
     }

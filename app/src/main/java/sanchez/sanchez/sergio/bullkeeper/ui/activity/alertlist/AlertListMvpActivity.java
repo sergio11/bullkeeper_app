@@ -456,7 +456,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        return new AlertsAdapter(getApplicationContext(), new ArrayList<AlertEntity>(), picasso);
+        return new AlertsAdapter(this, new ArrayList<AlertEntity>(), picasso);
     }
 
     /**

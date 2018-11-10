@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,6 +44,12 @@ public class ImportantAlertsMvpFragment extends SupportMvpLCEFragment<ImportantA
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
 
 
@@ -144,7 +151,7 @@ public class ImportantAlertsMvpFragment extends SupportMvpLCEFragment<ImportantA
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<AlertEntity> getAdapter() {
-        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(appContext, new ArrayList<AlertEntity>(),
+        final LastAlertsAdapter lastAlertsAdapter = new LastAlertsAdapter(activity, new ArrayList<AlertEntity>(),
                 picasso);
         lastAlertsAdapter.setOnSupportRecyclerViewListener(this);
         return lastAlertsAdapter;

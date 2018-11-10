@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,6 +52,12 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
     /**
      * User Profile Image
@@ -198,7 +205,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         myChildList.setLayoutManager(new LinearLayoutManager(appContext,
                 LinearLayoutManager.HORIZONTAL, false));
-        myKidsStatusAdapter = new MyKidsStatusAdapter(appContext, new ArrayList<SonEntity>(), picasso);
+        myKidsStatusAdapter = new MyKidsStatusAdapter(activity, new ArrayList<SonEntity>(), picasso);
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);

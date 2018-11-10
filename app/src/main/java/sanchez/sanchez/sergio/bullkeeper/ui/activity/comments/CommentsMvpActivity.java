@@ -276,7 +276,7 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<CommentEntity> getAdapter() {
-        return new CommentsAdapter(getApplicationContext(),
+        return new CommentsAdapter(this,
                 new ArrayList<CommentEntity>(), picasso);
     }
 

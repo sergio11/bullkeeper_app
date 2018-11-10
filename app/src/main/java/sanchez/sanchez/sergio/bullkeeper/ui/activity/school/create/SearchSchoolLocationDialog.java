@@ -228,7 +228,7 @@ public final class SearchSchoolLocationDialog extends SupportDialogFragment
 
         // Configure Recycler view for Suggested places
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewAdapter = new PlaceSuggestionsAdapter(getContext(), new ArrayList<SuggestedPlaceEntity>());
+        recyclerViewAdapter = new PlaceSuggestionsAdapter(getActivity(), new ArrayList<SuggestedPlaceEntity>());
         recyclerView.setAdapter(recyclerViewAdapter);
         ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemOffsetDecoration);
