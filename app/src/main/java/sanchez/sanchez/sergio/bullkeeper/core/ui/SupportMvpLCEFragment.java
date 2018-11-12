@@ -308,7 +308,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Load Data
      */
-    private void loadData() {
+    protected void loadData() {
         showLoadingState();
         final Bundle args = getArgs();
         if(args != null)

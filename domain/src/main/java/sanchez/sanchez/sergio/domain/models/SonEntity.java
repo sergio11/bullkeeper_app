@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.domain.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,14 +10,50 @@ import java.util.Map;
  */
 public final class SonEntity implements Serializable {
 
+    /**
+     * Identity
+     */
     private String identity;
+
+    /**
+     * First Name
+     */
     private String firstName;
+
+    /**
+     * Last Name
+     */
     private String lastName;
+
+    /**
+     * Birth date
+     */
     private Date birthdate;
+
+    /**
+     * Age
+     */
     private int age;
+
+    /**
+     * School
+     */
     private SchoolEntity school;
+
+    /**
+     * Profile Image
+     */
     private String profileImage;
+
+    /**
+     * Alert Statistics
+     */
     private Map<AlertLevelEnum, Integer> alertStatistics;
+
+    /**
+     * Terminal Entities
+     */
+    private List<TerminalEntity> terminalEntities;
 
 
     public String getIdentity() {
@@ -85,7 +122,14 @@ public final class SonEntity implements Serializable {
 
     public String getFullName() {
         return String.format("%s %s", firstName, lastName);
+    }
 
+    public List<TerminalEntity> getTerminalEntities() {
+        return terminalEntities;
+    }
+
+    public void setTerminalEntities(List<TerminalEntity> terminalEntities) {
+        this.terminalEntities = terminalEntities;
     }
 
     @Override
@@ -95,10 +139,11 @@ public final class SonEntity implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthdate=" + birthdate +
-                ", age='" + age + '\'' +
+                ", age=" + age +
                 ", school=" + school +
                 ", profileImage='" + profileImage + '\'' +
                 ", alertStatistics=" + alertStatistics +
+                ", terminalEntities=" + terminalEntities +
                 '}';
     }
 }

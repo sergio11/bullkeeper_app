@@ -3,9 +3,11 @@ package sanchez.sanchez.sergio.data.mapper.impl;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
@@ -14,17 +16,21 @@ import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 public final class SonEntityDataMapper extends AbstractDataMapper<SonDTO, SonEntity> {
 
     private final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolDataMapper;
+    private final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalsDataMapper;
     private final ApiEndPointsHelper apiEndPointsHelper;
     private final IAppUtils appUtils;
 
     /**
-     *
      * @param schoolDataMapper
+     * @param terminalsDataMapper
      * @param apiEndPointsHelper
+     *
      */
     public SonEntityDataMapper(AbstractDataMapper<SchoolDTO, SchoolEntity> schoolDataMapper,
+                               final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalsDataMapper,
                                ApiEndPointsHelper apiEndPointsHelper, final IAppUtils appUtils) {
         this.schoolDataMapper = schoolDataMapper;
+        this.terminalsDataMapper = terminalsDataMapper;
         this.apiEndPointsHelper = apiEndPointsHelper;
         this.appUtils = appUtils;
     }
@@ -46,6 +52,7 @@ public final class SonEntityDataMapper extends AbstractDataMapper<SonDTO, SonEnt
                 apiEndPointsHelper.getSonProfileUrl(originModel.getProfileImage()) : null );
         sonEntity.setSchool(schoolDataMapper.transform(originModel.getSchoolDTO()));
         sonEntity.setAlertStatistics(originModel.getAlertStatistics());
+        sonEntity.setTerminalEntities(terminalsDataMapper.transform(originModel.getTerminalDTOList()));
         return sonEntity;
     }
 
@@ -65,6 +72,7 @@ public final class SonEntityDataMapper extends AbstractDataMapper<SonDTO, SonEnt
         sonDTO.setProfileImage(originModel.getProfileImage());
         sonDTO.setSchoolDTO(schoolDataMapper.transformInverse(originModel.getSchool()));
         sonDTO.setAlertStatistics(originModel.getAlertStatistics());
+        sonDTO.setTerminalDTOList(terminalsDataMapper.transformInverse(originModel.getTerminalEntities()));
         return sonDTO;
     }
 }

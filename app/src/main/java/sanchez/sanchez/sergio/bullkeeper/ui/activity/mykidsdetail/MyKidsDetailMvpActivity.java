@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,6 +16,7 @@ import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -24,6 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorMvpFragment;
@@ -33,8 +36,11 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import timber.log.Timber;
 
 /**
  * My Kids Detail Activity
@@ -63,6 +69,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Terminal Items List
+     */
+    @State
+    protected ArrayList<TerminalItem> terminalItemsList = new ArrayList<>();
 
     /**
      * Unselected tab icons
@@ -126,6 +138,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @BindView(R.id.kidSchool)
     protected TextView kidSchoolTextView;
+
+    /**
+     * Terminals Text View
+     */
+    @BindView(R.id.terminals)
+    protected TextView terminalsTextView;
 
     /**
      * Picasso
@@ -197,33 +215,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         // Get Kid Identity
         kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), kidIdentity);
-        viewpager.setAdapter(sectionsPagerAdapter);
-
-        tabLayout.setupWithViewPager(viewpager);
-
-        for(int i = 0; i < tabLayout.getTabCount(); i++) {
-            final TabLayout.Tab tab = tabLayout.getTabAt(i);
-            if(tab != null)
-                tab.setIcon( i == 0 ? selectedTabIcons[i] : unselectedTabIcons[i]);
-        }
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setIcon(selectedTabIcons[tab.getPosition()]);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setIcon(unselectedTabIcons[tab.getPosition()]);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
     }
 
     /**
@@ -358,6 +349,43 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Setup Sections Pager Adapter
+     */
+    private void setupSectionsPagerAdapter(){
+
+        // Create Sections Pager Adapter
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), kidIdentity,
+                terminalItemsList);
+        viewpager.setAdapter(sectionsPagerAdapter);
+
+        // Create Tab Layout
+        tabLayout.setupWithViewPager(viewpager);
+
+        for(int i = 0; i < tabLayout.getTabCount(); i++) {
+            final TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if(tab != null)
+                tab.setIcon( i == 0 ? selectedTabIcons[i] : unselectedTabIcons[i]);
+        }
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setIcon(selectedTabIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(unselectedTabIcons[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+    }
+
+    /**
      * On Son Loaded
      * @param sonEntity
      */
@@ -384,8 +412,34 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         kidSchoolTextView.setText(sonEntity.getSchool().getName());
 
+        for(final TerminalEntity terminalEntity: sonEntity.getTerminalEntities()) {
+            final TerminalItem terminalItem = new TerminalItem(terminalEntity.getIdentity(),
+                    terminalEntity.getDeviceName());
+            terminalItemsList.add(terminalItem);
+        }
 
-        toggleAllComponents(true);
+
+        // Check Terminals linked
+        if(terminalItemsList.isEmpty()) {
+            showNoticeDialog(String.format(Locale.getDefault(), getString(R.string.kids_results_no_terminals_linked),
+                    sonEntity.getFirstName()), new NoticeDialogFragment.NoticeDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    closeActivity();
+                }
+            });
+
+        } else {
+
+            terminalsTextView.setText(String.format(Locale.getDefault(),
+                    getString(R.string.kids_results_terminals_count), terminalItemsList.size()));
+
+            // Setup Sections Pager Adapter
+            setupSectionsPagerAdapter();
+
+            // Enable All Components
+            toggleAllComponents(true);
+        }
 
     }
 
@@ -404,14 +458,17 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int SECTION_COUNT = 7;
 
         private final String kidIdentity;
+        private final ArrayList<TerminalItem> terminalItems;
 
         /**
          * Sections Pager Adapter
          * @param fm
          */
-        public SectionsPagerAdapter(FragmentManager fm, final String kidIdentity) {
+        public SectionsPagerAdapter(FragmentManager fm, final String kidIdentity,
+                                    final ArrayList<TerminalItem> terminalItems) {
             super(fm);
             this.kidIdentity = kidIdentity;
+            this.terminalItems = terminalItems;
         }
 
 
@@ -427,7 +484,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                 case SCHEDULED_BLOCKS_TAB:
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
                 case APP_RULES_TAB:
-                    return AppRulesMvpFragment.newInstance(kidIdentity);
+                    return AppRulesMvpFragment.newInstance(kidIdentity, terminalItems);
                 case TIME_ALLOWANCE_TAB:
                     return TimeAllowanceMvpFragment.newInstance(kidIdentity);
                 case FAMILY_LOCATOR_TAB:

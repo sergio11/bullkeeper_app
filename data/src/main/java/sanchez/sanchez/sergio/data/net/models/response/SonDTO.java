@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 
@@ -13,29 +14,61 @@ import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SonDTO implements Serializable {
 
+    /**
+     * Identity
+     */
     @JsonProperty("identity")
     private String identity;
 
+    /**
+     * First Name
+     */
     @JsonProperty("first_name")
     private String firstName;
 
+    /**
+     * Last Name
+     */
     @JsonProperty("last_name")
     private String lastName;
 
+    /**
+     * Birthdate
+     */
     @JsonProperty("birthdate")
     private Date birthdate;
 
+    /**
+     * Age
+     */
     @JsonProperty("age")
     private Integer age;
 
+    /**
+     * School DTO
+     */
     @JsonProperty("school")
     private SchoolDTO schoolDTO;
 
+
+    /**
+     * Profile Image
+     */
     @JsonProperty("profile_image")
     private String profileImage;
 
+
+    /**
+     * Alert Statistics
+     */
     @JsonProperty("alert_statistics")
     private Map<AlertLevelEnum, Integer> alertStatistics;
+
+    /**
+     * Terminal DTOs
+     */
+    @JsonProperty("terminals")
+    private List<TerminalDTO> terminalDTOList;
 
 
     public String getIdentity() {
@@ -102,17 +135,26 @@ public final class SonDTO implements Serializable {
         this.alertStatistics = alertStatistics;
     }
 
+    public List<TerminalDTO> getTerminalDTOList() {
+        return terminalDTOList;
+    }
+
+    public void setTerminalDTOList(List<TerminalDTO> terminalDTOList) {
+        this.terminalDTOList = terminalDTOList;
+    }
+
     @Override
     public String toString() {
         return "SonDTO{" +
                 "identity='" + identity + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthdate='" + birthdate + '\'' +
+                ", birthdate=" + birthdate +
                 ", age=" + age +
                 ", schoolDTO=" + schoolDTO +
                 ", profileImage='" + profileImage + '\'' +
                 ", alertStatistics=" + alertStatistics +
+                ", terminalDTOList=" + terminalDTOList +
                 '}';
     }
 }

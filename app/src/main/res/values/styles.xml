@@ -325,4 +325,13 @@
         <item name="colorControlActivated">@color/commonWhite</item>
     </style>
 
+    <!-- Common Spinner -->
+    <style name="CommonSpinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@color/cyanBrilliant</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
 </resources>

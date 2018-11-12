@@ -572,7 +572,8 @@
     <string name="kid_results_facebook_likes_count" formatted="false">%s of the "likes" received has been on Facebook</string>
     <string name="kid_results_instagram_likes_count" formatted="false">%s of the "likes" received has been on Instagram</string>
     <string name="kid_results_youtube_likes_count" formatted="false">%s of the "likes" received has been on Youtube</string>
-
+    <string name="kids_results_no_terminals_linked" formatted="false">%s does not have any associated mobile terminal, it is necessary to install BullKeeper Kids in the mobile terminals of children to make use of this section</string>
+    <string name="kids_results_terminals_count" formatted="false">(has %d linked terminals)</string>
     <!-- Comments Settings -->
 
     <!-- Age Of Comments -->

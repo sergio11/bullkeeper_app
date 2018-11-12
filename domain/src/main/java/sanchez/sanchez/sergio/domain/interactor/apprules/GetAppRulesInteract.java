@@ -97,7 +97,7 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
         /**
          * No App Rules
          */
-        NO_APP_RULES_FOUND(){
+        NO_APPS_INSTALLED_FOUND(){
             @Override
             public <E> void accept(final IGetAppRulesApiErrorsVisitor visitor, E data) {
                 visitor.visitNoAppRulesFound(visitor);

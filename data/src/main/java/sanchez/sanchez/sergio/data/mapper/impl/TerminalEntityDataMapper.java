@@ -20,6 +20,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         Preconditions.checkNotNull(originModel, "Origin model can not be null");
 
         final TerminalEntity terminalEntity = new TerminalEntity();
+        terminalEntity.setIdentity(originModel.getIdentity());
         terminalEntity.setAppVersionCode(originModel.getAppVersionCode());
         terminalEntity.setAppVersionName(originModel.getAppVersionName());
         terminalEntity.setCodeName(originModel.getCodeName());

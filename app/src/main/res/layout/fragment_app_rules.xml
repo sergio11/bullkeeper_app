@@ -38,7 +38,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_weight="0.6"
                     android:layout_gravity="start"
                     android:visibility="visible"
                     android:orientation="vertical">
@@ -68,10 +68,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".2"
+                    android:layout_weight=".4"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/common_padding">
 
@@ -80,9 +80,21 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/info_icon_solid"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
                         android:contentDescription="@string/content_not_be_loaded"/>
 
-                </LinearLayout>
+                    <!-- Terminals Spinner -->
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/terminalsSpinner"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/common_margin"
+                        android:theme="@style/CommonSpinner"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 

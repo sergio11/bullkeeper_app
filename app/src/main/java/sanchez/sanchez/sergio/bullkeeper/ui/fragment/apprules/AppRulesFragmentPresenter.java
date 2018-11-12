@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
@@ -20,7 +21,12 @@ import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
  */
 public final class AppRulesFragmentPresenter extends SupportLCEPresenter<IAppRulesFragmentView> {
 
+    /**
+     * Args
+     */
     public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String TERMINALS_ARG = "TERMINALS_ARG";
+    public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
 
     /**
      * Get App Rules Interact
@@ -57,12 +63,19 @@ public final class AppRulesFragmentPresenter extends SupportLCEPresenter<IAppRul
     public void loadData(Bundle args) {
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
+        Preconditions.checkState(args.containsKey(TERMINALS_ARG), "You must provide terminals list");
+        final ArrayList<TerminalItem> terminalItems = (ArrayList<TerminalItem>) args.getSerializable(TERMINALS_ARG);
+        Preconditions.checkNotNull(terminalItems, "Terminal list can not be null");
+        Preconditions.checkState(!terminalItems.isEmpty(), "Terminal list can not be empty");
+        Preconditions.checkState(args.containsKey(CURRENT_TERMINAL_POS_ARG), "You must provide a terminal pos");
 
-        getAppRulesInteract.execute(new GetAppRulesObservable(GetAppRulesInteract.GetAppRulesApiErrors.class),
-                GetAppRulesInteract.Params.create(args.getString(SON_IDENTITY_ARG), (args.getString(SON_IDENTITY_ARG))));
+        final TerminalItem terminalItem = terminalItems.get(args.getInt(CURRENT_TERMINAL_POS_ARG));
+
+        if(terminalItem != null)
+            getAppRulesInteract.execute(new GetAppRulesObservable(GetAppRulesInteract.GetAppRulesApiErrors.class),
+                GetAppRulesInteract.Params.create(args.getString(SON_IDENTITY_ARG), terminalItem.getIdentity()));
 
     }
-
 
     /**
      * Change App Rule

@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
@@ -28,17 +32,27 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AppRulesAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
+import timber.log.Timber;
 
 /**
  * App Rules Fragment
  */
 public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentPresenter,
         IAppRulesFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, AppInstalledEntity>
-        implements IAppRulesFragmentView, AppRulesAdapter.OnAppRulesListener {
+        implements IAppRulesFragmentView, AppRulesAdapter.OnAppRulesListener, AdapterView.OnItemSelectedListener {
 
+    /**
+     * Kid Identity Arg
+     */
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    /**
+     * Terminals Arg
+     */
+    private static final String TERMINALS_ARG = "TERMINALS_ARG";
 
     /**
      * Dependencies
@@ -91,6 +105,12 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
     @BindView(R.id.appRulesDescription)
     protected ViewGroup appRulesDescriptionView;
 
+    /**
+     * Terminals Spinner
+     */
+    @BindView(R.id.terminalsSpinner)
+    protected AppCompatSpinner terminalsSpinner;
+
 
     /**
      * State
@@ -117,6 +137,18 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
     protected HashSet<AppRuleChange> appRulesChanges = new HashSet<>();
 
     /**
+     * Terminals List
+     */
+    @State
+    protected ArrayList<TerminalItem> terminalItems = new ArrayList<>();
+
+    /**
+     * Current Terminal Pos
+     */
+    @State
+    protected int currentTerminalPos = 0;
+
+    /**
      *
      */
     public AppRulesMvpFragment() {
@@ -128,10 +160,11 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
      * @param kidIdentity
      * @return
      */
-    public static AppRulesMvpFragment newInstance(final String kidIdentity) {
+    public static AppRulesMvpFragment newInstance(final String kidIdentity, final ArrayList<TerminalItem> terminalItems) {
         AppRulesMvpFragment fragment = new AppRulesMvpFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
+        args.putSerializable(TERMINALS_ARG, terminalItems);
         fragment.setArguments(args);
         return fragment;
     }
@@ -150,6 +183,22 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
             throw new IllegalStateException("You must provide son identity - Illegal State");
 
         kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+        if (getArguments() == null ||
+                !getArguments().containsKey(TERMINALS_ARG))
+            throw new IllegalStateException("You must provide terminals list");
+
+        terminalItems = (ArrayList<TerminalItem>) getArguments().getSerializable(TERMINALS_ARG);
+
+        if(terminalItems == null || terminalItems.isEmpty())
+            throw new IllegalStateException("Terminals list can not be empty");
+
+
+        ArrayAdapter<TerminalItem> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,
+                terminalItems);
+        terminalsSpinner.setAdapter(adapter);
+        terminalsSpinner.setSelection(currentTerminalPos);
+        terminalsSpinner.setOnItemSelectedListener(this);
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
@@ -177,6 +226,8 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
     public Bundle getArgs() {
         final Bundle args = new Bundle();
         args.putString(AppRulesFragmentPresenter.SON_IDENTITY_ARG, kidIdentity);
+        args.putSerializable(AppRulesFragmentPresenter.TERMINALS_ARG, terminalItems);
+        args.putInt(AppRulesFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
         return args;
     }
 
@@ -328,6 +379,22 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
         showNoticeDialog(R.string.app_rules_applied_successfully);
     }
 
+    /**
+     * On Item Selected
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Timber.d("New Position Selected -> %d", position);
+        currentTerminalPos = position;
+        loadData();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     /**
      * App Rule Change

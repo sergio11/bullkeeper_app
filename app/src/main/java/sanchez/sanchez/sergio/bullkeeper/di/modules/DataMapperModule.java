@@ -127,8 +127,9 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<SonDTO, SonEntity> provideSonEntityDataMapper(final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolEntityDataMapper,
                                                                             final ApiEndPointsHelper apiEndPointsHelper,
-                                                                            final IAppUtils appUtils){
-        return new SonEntityDataMapper(schoolEntityDataMapper, apiEndPointsHelper, appUtils);
+                                                                            final IAppUtils appUtils,
+                                                                            final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper){
+        return new SonEntityDataMapper(schoolEntityDataMapper, terminalEntityAbstractDataMapper, apiEndPointsHelper, appUtils);
     }
 
     /**
