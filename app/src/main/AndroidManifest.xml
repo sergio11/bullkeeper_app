@@ -244,6 +244,14 @@
             android:theme="@style/AppTheme.Preferences" />
 
 
+        <!-- Terminal Detail Activity -->
+        <activity
+            android:name=".ui.activity.terminaldetail.TerminalDetailMvpActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"/>
+
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

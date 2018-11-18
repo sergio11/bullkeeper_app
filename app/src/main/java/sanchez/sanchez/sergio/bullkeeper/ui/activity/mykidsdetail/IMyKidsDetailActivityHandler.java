@@ -47,4 +47,11 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void showFamilyLocatorDialog();
 
+    /**
+     * Navigate To Terminal Detail
+     * @param childId
+     * @param terminalId
+     */
+    void navigateToTerminalDetail(final String childId, final String terminalId);
+
 }

@@ -322,7 +322,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
     /**
      * Get an Activity module for dependency injection.
-     */
+            */
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }

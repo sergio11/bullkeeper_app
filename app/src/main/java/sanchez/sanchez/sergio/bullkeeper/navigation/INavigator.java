@@ -370,4 +370,11 @@ public interface INavigator {
      */
     void showSearchSchoolLocation(final AppCompatActivity activity, final double latitude, final double longitude);
 
+    /**
+     * Show Terminal Detail
+     * @param childId
+     * @param terminalId
+     */
+    void showTerminalDetail(final String childId, final String terminalId);
+
 }

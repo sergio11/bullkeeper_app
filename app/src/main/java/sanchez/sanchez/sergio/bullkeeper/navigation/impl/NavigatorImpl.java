@@ -18,6 +18,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpA
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesInfoDialog;
@@ -59,8 +60,15 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu.MenuDialogFragment;
  */
 public class NavigatorImpl implements INavigator {
 
+    /**
+     * Context
+     */
     private final Context context;
 
+    /**
+     *
+     * @param context
+     */
     @Inject
     public NavigatorImpl(final Context context) {
         this.context = context;
@@ -604,5 +612,21 @@ public class NavigatorImpl implements INavigator {
     public void showSearchSchoolLocation(AppCompatActivity activity, final double latitude, final double longitude) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         SearchSchoolLocationDialog.show(activity, latitude, longitude);
+    }
+
+    /**
+     * Show Terminal Detail
+     * @param childId
+     * @param terminalId
+     */
+    @Override
+    public void showTerminalDetail(String childId, String terminalId) {
+        Preconditions.checkNotNull(childId, "Child id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
+        Preconditions.checkState(!terminalId.isEmpty(), "Terminal id can not be empty");
+
+        context.startActivity(TerminalDetailMvpActivity.getCallingIntent(context, childId, terminalId));
+
     }
 }

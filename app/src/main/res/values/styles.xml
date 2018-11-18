@@ -204,6 +204,7 @@
         <!-- Floating label appearance here -->
         <item name="android:textColor">@color/commonWhite</item>
         <item name="android:textSize">20sp</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
     </style>
 
     <!-- Text Float Label Appearance Inverse -->
@@ -218,6 +219,7 @@
         <item name="android:textColor">@android:color/holo_red_dark</item>
         <item name="android:textColorHint">@android:color/holo_red_dark</item>
         <item name="android:textSize">12sp</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
     </style>
 
 
@@ -244,9 +246,10 @@
         <item name="colorAccent">@color/commonWhite</item>
         <!-- Control color on normal state -->
         <item name="colorControlNormal">@color/commonWhite</item>
-        <!-- Control colo on activated state -->
+        <!-- Control color on activated state -->
         <item name="colorControlActivated">@color/commonWhite</item>
         <item name="android:textColorPrimary">@color/commonWhite</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
     </style>
 
     <!-- Common Text Input Layout Inverse -->

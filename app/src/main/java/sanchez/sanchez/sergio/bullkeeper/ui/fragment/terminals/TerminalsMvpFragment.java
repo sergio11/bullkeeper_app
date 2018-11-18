@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.TerminalsAdapter;
@@ -51,6 +55,7 @@ public class TerminalsMvpFragment extends SupportMvpLCEFragment<TerminalsFragmen
      */
     @Inject
     protected Activity activity;
+
 
     /**
      * State
@@ -161,7 +166,9 @@ public class TerminalsMvpFragment extends SupportMvpLCEFragment<TerminalsFragmen
      */
     @Override
     public void onItemClick(TerminalEntity terminalEntity) {
-        Timber.d("Terminal clicked");
+        Preconditions.checkNotNull(terminalEntity, "Terminal Entity can not be null");
+        Preconditions.checkState(!terminalEntity.getIdentity().isEmpty(), "Terminal Identity can not be empty");
+        activityHandler.navigateToTerminalDetail(kidIdentity, terminalEntity.getIdentity());
     }
 
     /**

@@ -29,7 +29,7 @@ import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBA
 public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDetailFragmentPresenter,
         IAlertDetailView, IAlertDetailActivityHandler, AlertsComponent> implements IAlertDetailView {
 
-    public static String ALERT_ID_ARG = "ALERT_ID_ARG";
+    public static String ALERT_ID_ARG = "TERMINAL_ID_ARG";
     public static String SON_ID_ARG = "SON_ID_ARG";
 
     /**

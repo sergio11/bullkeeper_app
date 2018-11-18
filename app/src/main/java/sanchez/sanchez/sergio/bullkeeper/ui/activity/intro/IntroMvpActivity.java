@@ -78,7 +78,7 @@ public class IntroMvpActivity
     protected void onViewReady(Bundle savedInstanceState) {
 
         if (savedInstanceState == null)
-            addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), true);
+            addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), false);
 
         if(appUtils.isValidString(preferencesRepositoryImpl.getAuthToken())){
             navigatorImpl.navigateToHome();

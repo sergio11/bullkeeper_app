@@ -68,6 +68,7 @@ public final class RxJava2ErrorHandlingCallAdapterFactory extends CallAdapter.Fa
          * @return
          */
         private RetrofitException asRetrofitException(Throwable throwable) {
+
             // We had non-200 http error
             if (throwable instanceof HttpException) {
                 HttpException httpException = (HttpException) throwable;

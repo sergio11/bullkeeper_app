@@ -339,6 +339,21 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Terminal Detail
+     * @param childId
+     * @param terminalId
+     */
+    @Override
+    public void navigateToTerminalDetail(String childId, String terminalId) {
+        Preconditions.checkNotNull(childId, "Child id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
+        Preconditions.checkState(!terminalId.isEmpty(), "Terminal id can not be empty");
+
+        navigatorImpl.showTerminalDetail(childId, terminalId);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue
