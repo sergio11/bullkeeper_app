@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolL
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.RemoteNotificationService;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
@@ -76,6 +77,12 @@ public interface ApplicationComponent {
      * @param systemAlertsDialog
      */
     void inject(final SystemAlertsDialog systemAlertsDialog);
+
+    /**
+     * Inject into Child Alerts Detail Dialog
+     * @param childAlertsDetailDialog
+     */
+    void inject(final ChildAlertsDetailDialog childAlertsDetailDialog);
 
 
     //Exposed to sub-graphs.

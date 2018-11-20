@@ -8,19 +8,45 @@
     android:background="@android:color/transparent">
 
 
-    <!-- Child Image -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/childImage"
-        android:layout_width="70dp"
+    <FrameLayout
+        android:id="@+id/childImageContainer"
+        android:layout_width="77dp"
         android:layout_height="70dp"
-        android:contentDescription="@string/content_not_be_loaded"
-        android:src="@drawable/user_default"
-        app:civ_border_color="@color/cyanBrilliant"
-        app:civ_border_width="@dimen/common_image_stroke_width"
         app:layout_constraintBottom_toTopOf="@id/childName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Child Image -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/childImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/user_default"
+            app:civ_border_color="@color/cyanBrilliant"
+            app:civ_border_width="@dimen/common_image_stroke_width"
+            />
+
+
+        <TextView
+            android:id="@+id/alertCount"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            style="@style/CommonStrongText.Small"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:padding="0dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/commonWhite"
+            android:visibility="gone"
+            android:background="@drawable/background_alert_count_danger"
+            android:layout_gravity="end"/>
+
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/childName"
@@ -33,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/childImage"/>
+        app:layout_constraintTop_toBottomOf="@id/childImageContainer"/>
 
 
 

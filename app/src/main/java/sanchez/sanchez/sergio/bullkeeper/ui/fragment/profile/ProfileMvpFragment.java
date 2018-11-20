@@ -27,6 +27,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.ParentEntity;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
@@ -350,5 +351,25 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     public void onDefaultItemClicked() {
         activityHandler.goToAddChild();
     }
+
+    /**
+     * On Show Alerts Detail
+     * @param alertLevelEnum
+     * @param alertValue
+     * @param childId
+     */
+    @Override
+    public void onShowAlertsDetail(final AlertLevelEnum alertLevelEnum, final String alertValue,
+                                   final String childId) {
+        Preconditions.checkNotNull(alertLevelEnum, "Alert Level Enum can not be null");
+        Preconditions.checkNotNull(alertValue, "Alert Value can not be null");
+        Preconditions.checkState(!alertValue.isEmpty(), "Alert Value can not be empty");
+        Preconditions.checkNotNull(childId, "Child id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
+
+        activityHandler.showChildAlertsDetailDialog(alertLevelEnum, alertValue, childId);
+
+    }
+
 
 }

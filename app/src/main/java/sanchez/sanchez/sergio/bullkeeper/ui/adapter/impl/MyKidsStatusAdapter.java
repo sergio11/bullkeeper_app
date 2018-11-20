@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
@@ -72,8 +76,8 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
     public class MyKidsViewHolder
             extends SupportItemViewHolder<SonEntity> {
 
-        private ImageView childImage;
-        private TextView childName;
+        private CircleImageView childImage;
+        private TextView childName, alertCount;
 
 
         MyKidsViewHolder(View itemView) {
@@ -81,7 +85,7 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
 
             childImage = itemView.findViewById(R.id.childImage);
             childName = itemView.findViewById(R.id.childName);
-
+            alertCount = itemView.findViewById(R.id.alertCount);
         }
 
         /**
@@ -90,7 +94,7 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
          */
         @SuppressLint("ClickableViewAccessibility")
         @Override
-        public void bind(SonEntity sonEntity){
+        public void bind(final SonEntity sonEntity){
             super.bind(sonEntity);
 
 
@@ -112,6 +116,71 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
                 }
             });
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    if(listener != null) {
+
+                        AlertLevelEnum alertLevelEnum = null;
+                        int alertLevelValue = 0;
+
+                        final AlertLevelEnum[] alertLevelEnumsPriority = new AlertLevelEnum[]{
+                                AlertLevelEnum.DANGER, AlertLevelEnum.WARNING, AlertLevelEnum.SUCCESS,
+                                AlertLevelEnum.INFO
+                        };
+
+                        for (final AlertLevelEnum alertLevel : alertLevelEnumsPriority) {
+                            if (sonEntity.getAlertStatistics().containsKey(alertLevel)) {
+                                alertLevelEnum = alertLevel;
+                                alertLevelValue = sonEntity.getAlertStatistics().get(alertLevel);
+                                break;
+                            }
+                        }
+
+                        if(alertLevelEnum != null)
+                            listener.onShowAlertsDetail(alertLevelEnum,
+                                    String.valueOf(alertLevelValue), sonEntity.getIdentity());
+
+                        return true;
+
+                    } else {
+                        return false;
+                    }
+                }
+            });
+
+
+            if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.DANGER)) {
+                childImage.setBorderColor(ContextCompat.getColor(context, R.color.redDanger));
+                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                        .get(AlertLevelEnum.DANGER)));
+                alertCount.setVisibility(View.VISIBLE);
+                alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_danger));
+            } else if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.WARNING)) {
+                childImage.setBorderColor(ContextCompat.getColor(context, R.color.yellowWarning));
+                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                        .get(AlertLevelEnum.WARNING)));
+                alertCount.setVisibility(View.VISIBLE);
+                alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_warning));
+            } else if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.SUCCESS)) {
+                childImage.setBorderColor(ContextCompat.getColor(context, R.color.greenSuccess));
+                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                        .get(AlertLevelEnum.SUCCESS)));
+                alertCount.setVisibility(View.VISIBLE);
+                alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_success));
+            } else if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.INFO)) {
+                childImage.setBorderColor(ContextCompat.getColor(context, R.color.cyanBrilliant));
+                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                        .get(AlertLevelEnum.INFO)));
+                alertCount.setVisibility(View.VISIBLE);
+                alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_info));
+            } else {
+                childImage.setBorderColor(ContextCompat.getColor(context, R.color.cyanBrilliant));
+                alertCount.setText("");
+                alertCount.setVisibility(View.GONE);
+            }
+
             childName.setText(sonEntity.getFullName());
         }
     }
@@ -131,6 +200,15 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
          * On Default Item Clicked
          */
         void onDefaultItemClicked();
+
+        /**
+         * On Show Alerts Detail
+         * @param alertLevelEnum
+         * @param alertValue
+         * @param childId
+         */
+        void onShowAlertsDetail(final AlertLevelEnum alertLevelEnum, final String alertValue,
+                                final String childId);
     }
 
     /**

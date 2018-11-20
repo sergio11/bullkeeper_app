@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 
 /**
  * Home Activity Handler
@@ -52,5 +53,14 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
      * @param legalTypeEnum
      */
     void showLegalContent(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
+
+    /**
+     * Show Child Alerts Detail Dialog
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     * @param kidIdentityValue
+     */
+    void showChildAlertsDetailDialog(final AlertLevelEnum alertLevelEnum,
+                                     final String alertLevelValue, final String kidIdentityValue);
 
 }

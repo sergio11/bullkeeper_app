@@ -377,4 +377,14 @@ public interface INavigator {
      */
     void showTerminalDetail(final String childId, final String terminalId);
 
+    /**
+     * Show Child Alerts Detail Dialog
+     * @param appCompatActivity
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     * @param kidIdentityValue
+     */
+    void showChildAlertsDetailDialog(final AppCompatActivity appCompatActivity, final AlertLevelEnum alertLevelEnum,
+                                     final String alertLevelValue, final String kidIdentityValue);
+
 }

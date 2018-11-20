@@ -28,6 +28,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExt
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorInfoDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -628,5 +629,21 @@ public class NavigatorImpl implements INavigator {
 
         context.startActivity(TerminalDetailMvpActivity.getCallingIntent(context, childId, terminalId));
 
+    }
+
+    /**
+     * Show Child Alerts Detail Dialog
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     * @param kidIdentityValue
+     */
+    @Override
+    public void showChildAlertsDetailDialog(final AppCompatActivity appCompatActivity, final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
+                                            final String kidIdentityValue) {
+        Preconditions.checkNotNull(alertLevelEnum, "Alert Level can not be null");
+        Preconditions.checkNotNull(alertLevelValue, "Alert Level value can not be null");
+        Preconditions.checkNotNull(kidIdentityValue, "Kid Identity value can not be null");
+
+        ChildAlertsDetailDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentityValue);
     }
 }

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -19,6 +20,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivi
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
+import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
@@ -258,4 +261,23 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     protected int getBackgroundResource() {
         return R.drawable.intro_background_cyan;
     }
+
+    /**
+     * Show Child Alerts Detail Dialog
+     * @param alertLevelEnum
+     * @param alertLevelValue
+     * @param kidIdentityValue
+     */
+    @Override
+    public void showChildAlertsDetailDialog(AlertLevelEnum alertLevelEnum, String alertLevelValue, String kidIdentityValue) {
+        Preconditions.checkNotNull(alertLevelEnum, "Alert Level Enum can not be null");
+        Preconditions.checkNotNull(alertLevelValue, "Alert Value can not be null");
+        Preconditions.checkState(!alertLevelValue.isEmpty(), "Alert Value can not be empty");
+        Preconditions.checkNotNull(kidIdentityValue, "Child id can not be null");
+        Preconditions.checkState(!kidIdentityValue.isEmpty(), "Child Id can not be empty");
+
+        ChildAlertsDetailDialog.show(this, alertLevelEnum, alertLevelValue, kidIdentityValue);
+
+    }
+
 }
