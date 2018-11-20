@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Terminal Entity
  */
-public final class TerminalEntity implements Serializable {
+public class TerminalEntity implements Serializable {
 
     private String identity;
     private String appVersionCode;

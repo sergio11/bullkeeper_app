@@ -17,7 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminaldetail.TerminalDeta
  */
 public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetailPresenter, ITerminalDetailView>
         implements HasComponent<TerminalComponent>
-        , ITerminalDetailView {
+        , ITerminalDetailView, ITerminalDetailActivityHandler {
 
     private final String CONTENT_FULL_NAME = "TERMINAL_DETAIL";
     private final String CONTENT_TYPE_NAME = "TERMINALS";
@@ -26,7 +26,7 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
      * Args
      */
     public static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
-    public static String SON_ID_ARG = "SON_ID_ARG";
+    public static String SON_ID_ARG = "CHILD_ID_ARG";
 
     /**
      * Terminal Component

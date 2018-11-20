@@ -6,11 +6,15 @@ import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
 import sanchez.sanchez.sergio.data.net.services.ITerminalService;
 import sanchez.sanchez.sergio.data.repository.TerminalRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteTerminalInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetMonitoredTerminalsInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailInteract;
+import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.repository.ITerminalRepository;
 
@@ -41,8 +45,9 @@ public class TerminalsModule {
     @Provides
     @PerActivity
     protected ITerminalRepository provideTerminalRepository(final ITerminalService terminalService,
-                                                            final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper) {
-        return new TerminalRepositoryImpl(terminalService, terminalEntityAbstractDataMapper);
+                                                            final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper,
+                                                            final AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> terminalDetailEntityAbstractDataMapper) {
+        return new TerminalRepositoryImpl(terminalService, terminalEntityAbstractDataMapper, terminalDetailEntityAbstractDataMapper);
     }
 
     /**
@@ -58,4 +63,34 @@ public class TerminalsModule {
                                                                                  final ITerminalRepository terminalRepository){
         return new GetMonitoredTerminalsInteract(threadExecutor, postExecutionThread, terminalRepository);
     }
+
+
+    /**
+     * Provide Get Terminal Detail Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    protected GetTerminalDetailInteract provideGetTerminalDetailInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                         final ITerminalRepository terminalRepository){
+        return new GetTerminalDetailInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Delete Terminal Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    protected DeleteTerminalInteract provideDeleteTerminalInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                   final ITerminalRepository terminalRepository){
+        return new DeleteTerminalInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
 }

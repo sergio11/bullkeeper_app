@@ -25,7 +25,7 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
     private final String CONTENT_TYPE_NAME = "ALERTS";
 
     public static String ALERT_ID_ARG = "TERMINAL_ID_ARG";
-    public static String SON_ID_ARG = "SON_ID_ARG";
+    public static String SON_ID_ARG = "CHILD_ID_ARG";
 
     private AlertsComponent alertsComponent;
 

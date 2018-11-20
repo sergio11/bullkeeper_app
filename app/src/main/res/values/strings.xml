@@ -695,5 +695,15 @@
     <string name="terminals_list_description">List of monitored terminals</string>
     <string name="terminal_os_sdk" formatted="false">OS: %s, SDK: %s</string>
     <string name="terminal_app_version" formatted="false">App Version Name: %s, Version Code: %s</string>
-
+    <string name="loading_terminal_detail">Loading Terminal Detail ...</string>
+    <string name="delete_terminal_btn_text">Delete Terminal</string>
+    <string name="delete_terminal_confirm">Do you want to delete this terminal ?. All the information about the installed applications and the parental control rules configured, will be deleted.</string>
+    <string name="terminal_success_deleted">Terminal successfully deleted</string>
+    <string name="deleting_terminal_in_progress">Deleting terminal ....</string>
+    <string name="terminal_detail_title">Terminal Detail</string>
+    <string name="device_name_text" formatted="false">%s - %s</string>
+    <string name="app_version_text" formatted="false">App Version Name: %s, Version Code: %s</string>
+    <string name="os_version_and_sdk" formatted="false">%s - %s</string>
+    <string name="has_registered_applications" formatted="false">Has %d registered applications</string>
+    <string name="has_not_registered_applications">Has not registered applications</string>
 </resources>
