@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="210dp"
     android:background="@drawable/common_list_item_state">
 
 
@@ -65,6 +65,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="0dp"
+            android:singleLine="true"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/school_white_solid_small"
+            android:textColor="@color/commonWhite" />
+
+        <!--Devices -->
+        <TextView
+            android:id="@+id/terminalsTextView"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:gravity="start|center_vertical"
             android:singleLine="true"
             android:text="-"
             android:textColor="@color/commonWhite" />

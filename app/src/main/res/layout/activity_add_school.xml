@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/school_name_hint"
                     android:inputType="text"
-                    android:lines="1" />
+                    android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -129,7 +129,7 @@
                         android:focusable="false"
                         android:hint="@string/school_residence_hint"
                         android:inputType="none"
-                        android:lines="1" />
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/tfno_hint"
                     android:inputType="number"
-                    android:lines="1"
+                    android:singleLine="true"
                     android:tag="@string/tfno_prefix" />
 
             </android.support.design.widget.TextInputLayout>
@@ -187,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/email_address_hint"
                     android:inputType="textEmailAddress"
-                    android:lines="1" />
+                    android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 

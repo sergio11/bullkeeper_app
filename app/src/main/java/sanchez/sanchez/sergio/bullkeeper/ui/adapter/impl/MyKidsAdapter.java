@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -65,7 +67,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
         private ImageView childImage;
         private ImageButton resultsAction, alertsAction, relationsAction, profileAction;
-        private TextView childName, schoolName;
+        private TextView childName, schoolName, terminalsTextView;
 
 
         MyKidsViewHolder(View itemView) {
@@ -78,6 +80,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             profileAction = itemView.findViewById(R.id.profileAction);
             childName = itemView.findViewById(R.id.childName);
             schoolName = itemView.findViewById(R.id.schoolName);
+            terminalsTextView = itemView.findViewById(R.id.terminalsTextView);
 
         }
 
@@ -94,6 +97,15 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             childName.setText(sonEntity.getFullName());
             // Set School Name
             schoolName.setText(sonEntity.getSchool().getName());
+
+            // Check Terminals linked
+            if(!sonEntity.getTerminalEntities().isEmpty()) {
+                terminalsTextView.setText(String.format(Locale.getDefault(),
+                        context.getString(R.string.has_terminals_linked),
+                        sonEntity.getTerminalEntities().size()));
+            } else {
+                terminalsTextView.setText(R.string.not_have_any_linked_devices);
+            }
 
             // Results Action
             resultsAction.setOnTouchListener(new View.OnTouchListener() {

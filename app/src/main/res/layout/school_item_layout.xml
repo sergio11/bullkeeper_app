@@ -10,17 +10,14 @@
     <!-- School Icon -->
     <ImageView
         android:id="@+id/schoolIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/common_margin"
+        android:layout_marginStart="8dp"
         android:contentDescription="@string/content_not_be_loaded"
         android:src="@drawable/school_solid"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/separator"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,16 +34,17 @@
     <!-- School Name -->
     <TextView
         android:id="@+id/schoolName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/darkModerateBlue"
-        android:singleLine="true"
         style="@style/CommonStrongText.Big"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:singleLine="true"
         android:text="-"
+        android:textColor="@color/darkModerateBlue"
         app:layout_constraintBottom_toTopOf="@id/schoolResidence"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/separator"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- School Residence -->
