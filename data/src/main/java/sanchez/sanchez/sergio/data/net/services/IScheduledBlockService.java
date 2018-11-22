@@ -2,14 +2,18 @@ package sanchez.sanchez.sergio.data.net.services;
 
 import java.util.List;
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 
 /**
@@ -71,5 +75,19 @@ public interface IScheduledBlockService {
     Observable<APIResponse<String>> saveScheduledBlockStatus(@Path("son") final String childId,
                                                                         final @Body List<SaveScheduledBlockStatusDTO> saveScheduledStatus);
 
+
+    /**
+     * Upload Scheduled Block
+     * @param childId
+     * @param blockId
+     * @param image
+     * @return
+     */
+    @Multipart
+    @POST("children/{son}/scheduled-blocks/{block}/image")
+    Observable<APIResponse<ImageDTO>> uploadScheduledBlockImage(
+            @Path("son") final String childId,
+            @Path("block") final String blockId,
+            @Part final MultipartBody.Part image);
 
 }

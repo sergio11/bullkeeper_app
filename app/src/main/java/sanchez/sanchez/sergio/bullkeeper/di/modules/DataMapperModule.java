@@ -52,6 +52,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
+import sanchez.sanchez.sergio.data.utils.AppUtils;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
@@ -252,8 +253,11 @@ public class DataMapperModule {
      * @return
      */
     @Provides @PerActivity
-    public AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> provideScheduledBlockEntityDataMapper(){
-        return new ScheduledBlockEntityDataMapper();
+    public AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> provideScheduledBlockEntityDataMapper(
+            final ApiEndPointsHelper apiEndPointsHelper,
+            final IAppUtils appUtils
+    ){
+        return new ScheduledBlockEntityDataMapper(apiEndPointsHelper, appUtils);
     }
 
     /**

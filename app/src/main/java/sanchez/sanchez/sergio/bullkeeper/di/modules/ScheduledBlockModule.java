@@ -6,6 +6,7 @@ import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
+import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.services.IScheduledBlockService;
 import sanchez.sanchez.sergio.data.repository.ScheduledBlockRepositoryImpl;
@@ -18,9 +19,11 @@ import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockByChi
 import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockStatusInteract;
+import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.repository.IScheduledBlockRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
  * Schedule Block Module
@@ -44,14 +47,17 @@ public class ScheduledBlockModule {
      * @param scheduledBlockDataMapper
      * @param scheduledBlockService
      * @param saveScheduledBlockStatusDataMapper
+     * @param imageEntityAbstractDataMapper
      * @return
      */
     @Provides
     @PerActivity
     public IScheduledBlockRepository provideScheduledBlockRepository(final AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> scheduledBlockDataMapper,
                                                                      final IScheduledBlockService scheduledBlockService,
-                                                                     final AbstractDataMapper<SaveScheduledBlockStatusDTO, ScheduledBlockStatusEntity> saveScheduledBlockStatusDataMapper){
-        return new ScheduledBlockRepositoryImpl(scheduledBlockDataMapper, scheduledBlockService, saveScheduledBlockStatusDataMapper);
+                                                                     final AbstractDataMapper<SaveScheduledBlockStatusDTO, ScheduledBlockStatusEntity> saveScheduledBlockStatusDataMapper,
+                                                                     final AbstractDataMapper<ImageDTO, ImageEntity> imageEntityAbstractDataMapper){
+        return new ScheduledBlockRepositoryImpl(scheduledBlockDataMapper, scheduledBlockService,
+                saveScheduledBlockStatusDataMapper, imageEntityAbstractDataMapper);
     }
 
     /**
@@ -103,8 +109,8 @@ public class ScheduledBlockModule {
     @Provides
     @PerActivity
     public SaveScheduledBlockInteract provideSaveScheduledBlockInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                        final IScheduledBlockRepository scheduledBlockRepository){
-        return new SaveScheduledBlockInteract(threadExecutor, postExecutionThread, scheduledBlockRepository);
+                                                                        final IScheduledBlockRepository scheduledBlockRepository, final IAppUtils appUtils){
+        return new SaveScheduledBlockInteract(threadExecutor, postExecutionThread, scheduledBlockRepository, appUtils);
     }
 
     /**

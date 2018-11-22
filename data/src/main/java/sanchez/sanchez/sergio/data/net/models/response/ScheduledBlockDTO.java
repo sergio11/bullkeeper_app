@@ -54,6 +54,19 @@ public final class ScheduledBlockDTO implements Serializable {
     @JsonProperty("weekly_frequency")
     private int[] weeklyFrequency;
 
+
+    /**
+     * Image
+     */
+    @JsonProperty("image")
+    private String image;
+
+    /**
+     * Child
+     */
+    @JsonProperty("son")
+    private String child;
+
     public ScheduledBlockDTO(){}
 
     /**
@@ -65,8 +78,12 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param startAt
      * @param endAt
      * @param weeklyFrequency
+     * @param image
+     * @param child
      */
-    public ScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable, LocalTime startAt, LocalTime endAt, int[] weeklyFrequency) {
+    public ScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable,
+                             LocalTime startAt, LocalTime endAt, int[] weeklyFrequency, String image,
+                             String child) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -74,6 +91,8 @@ public final class ScheduledBlockDTO implements Serializable {
         this.startAt = startAt;
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
+        this.image = image;
+        this.child = child;
     }
 
     public String getIdentity() {
@@ -132,6 +151,21 @@ public final class ScheduledBlockDTO implements Serializable {
         this.weeklyFrequency = weeklyFrequency;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getChild() {
+        return child;
+    }
+
+    public void setChild(String child) {
+        this.child = child;
+    }
 
     @Override
     public String toString() {

@@ -5,11 +5,15 @@ import org.joda.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
+import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.repository.IScheduledBlockRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -23,18 +27,39 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
      */
     private final IScheduledBlockRepository scheduledBlockRepository;
 
+    /**
+     * App Utils
+     */
+    private final IAppUtils appUtils;
+
+
 
     /**
      * Abstract class for a Use Case
      *
      * @param threadExecutor
      * @param postExecutionThread
+     * @param scheduledBlockRepository
+     * @param appUtils
      */
     public SaveScheduledBlockInteract(final IThreadExecutor threadExecutor,
                                       final IPostExecutionThread postExecutionThread,
-                                      final IScheduledBlockRepository scheduledBlockRepository) {
+                                      final IScheduledBlockRepository scheduledBlockRepository,
+                                      final IAppUtils appUtils) {
         super(threadExecutor, postExecutionThread);
         this.scheduledBlockRepository = scheduledBlockRepository;
+        this.appUtils = appUtils;
+    }
+
+    /**
+     * Save Scheduled Block
+     * @param params
+     * @return
+     */
+    private Observable<ScheduledBlockEntity> saveScheduledBlock(final Params params) {
+        return scheduledBlockRepository.saveScheduledBlock(params.getIdentity(), params.getName(), params.isEnable(),
+                params.getStartAt(), params.getEndAt(), params.getWeeklyFrequency(),
+                params.isRecurringWeeklyEnabled(), params.getChildId());
     }
 
     /**
@@ -43,7 +68,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
      * @return
      */
     @Override
-    protected Observable<ScheduledBlockEntity> buildUseCaseObservable(Params params) {
+    protected Observable<ScheduledBlockEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.name, "Name can not be null");
         Preconditions.checkState(!params.name.isEmpty(), "Name can not be empty");
@@ -54,10 +79,19 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         Preconditions.checkNotNull(params.childId, "Child id can not be null");
         Preconditions.checkState(!params.childId.isEmpty(), "Child Id can not be empty");
 
-        return scheduledBlockRepository.saveScheduledBlock(params.getIdentity(), params.getName(), params.isEnable(),
-                params.getStartAt(), params.getEndAt(), params.getWeeklyFrequency(),
-                params.isRecurringWeeklyEnabled(), params.getChildId());
-
+        return appUtils.isValidString(params.image) ?
+                saveScheduledBlock(params).flatMap(new Function<ScheduledBlockEntity, ObservableSource<ScheduledBlockEntity>>() {
+                    @Override
+                    public ObservableSource<ScheduledBlockEntity> apply(final ScheduledBlockEntity scheduledBlockEntity) throws Exception {
+                        return scheduledBlockRepository.uploadImage(scheduledBlockEntity.getChildId(),
+                                scheduledBlockEntity.getIdentity(), params.image).map(new Function<ImageEntity, ScheduledBlockEntity>() {
+                            @Override
+                            public ScheduledBlockEntity apply(ImageEntity imageEntity) throws Exception {
+                                return scheduledBlockEntity;
+                            }
+                        });
+                    }
+                }) :  saveScheduledBlock(params);
     }
 
     /**
@@ -73,6 +107,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         private final int[] weeklyFrequency;
         private final boolean recurringWeeklyEnabled;
         private final String childId;
+        private final String image;
 
         /**
          *
@@ -88,7 +123,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         private Params(final String identity, final String name, final boolean enable,
                        final LocalTime startAt, final LocalTime endAt,
                        final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
-                       final String childId) {
+                       final String childId, final String image) {
             this.identity = identity;
             this.name = name;
             this.enable = enable;
@@ -97,6 +132,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             this.weeklyFrequency = weeklyFrequency;
             this.recurringWeeklyEnabled = recurringWeeklyEnabled;
             this.childId = childId;
+            this.image = image;
         }
 
         public String getIdentity() {
@@ -131,6 +167,10 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             return childId;
         }
 
+        public String getImage() {
+            return image;
+        }
+
         /**
          * Create
          * @param identity
@@ -145,8 +185,9 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
          */
         public static Params create(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                     final LocalTime endAt, final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
-                                    final String childId){
-           return new Params(identity, name, enable, startAt, endAt, weeklyFrequency, recurringWeeklyEnabled, childId);
+                                    final String childId, final String image){
+           return new Params(identity, name, enable, startAt,
+                   endAt, weeklyFrequency, recurringWeeklyEnabled, childId, image);
         }
     }
 

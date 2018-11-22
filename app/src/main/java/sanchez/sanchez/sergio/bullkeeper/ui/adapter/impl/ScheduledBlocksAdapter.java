@@ -120,6 +120,7 @@ public final class ScheduledBlocksAdapter extends SupportRecyclerViewAdapter<Sch
             if(scheduledBlockEntity.getImage() != null &&
                     !scheduledBlockEntity.getImage().isEmpty()) {
 
+
                 picasso.load(scheduledBlockEntity.getImage())
                         .placeholder(R.drawable.scheduled_block_default)
                         .error(R.drawable.scheduled_block_default)

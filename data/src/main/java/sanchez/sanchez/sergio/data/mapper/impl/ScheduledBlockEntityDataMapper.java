@@ -2,12 +2,29 @@ package sanchez.sanchez.sergio.data.mapper.impl;
 
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
+import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
+import sanchez.sanchez.sergio.data.utils.AppUtils;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
  * Scheduled Block Entity Data Mapper
  */
 public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> {
+
+    private final IAppUtils appUtils;
+    private final ApiEndPointsHelper apiEndPointsHelper;
+
+    /**
+     *
+     * @param apiEndPointsHelper
+     * @param appUtils
+     */
+    public ScheduledBlockEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper,
+                                          final IAppUtils appUtils) {
+        this.apiEndPointsHelper = apiEndPointsHelper;
+        this.appUtils = appUtils;
+    }
 
     /**
      * Transform
@@ -24,6 +41,10 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockEntity.setName(originModel.getName());
         scheduledBlockEntity.setRepeatable(originModel.isRepeatable());
         scheduledBlockEntity.setWeeklyFrequency(originModel.getWeeklyFrequency());
+        scheduledBlockEntity.setImage(appUtils.isValidString(originModel.getImage()) ?
+                apiEndPointsHelper.getScheduledBlockImageUrl(originModel.getChild(),
+                        originModel.getIdentity(), originModel.getImage()) : null);
+        scheduledBlockEntity.setChildId(originModel.getChild());
         return scheduledBlockEntity;
 
     }
@@ -43,6 +64,7 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockDTO.setWeeklyFrequency(originModel.getWeeklyFrequency());
         scheduledBlockDTO.setStartAt(originModel.getStartAt());
         scheduledBlockDTO.setEndAt(originModel.getEndAt());
+        scheduledBlockDTO.setChild(originModel.getChildId());
         return scheduledBlockDTO;
     }
 }

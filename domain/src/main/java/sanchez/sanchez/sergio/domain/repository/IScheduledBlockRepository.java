@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.domain.repository;
 import org.joda.time.LocalTime;
 import java.util.List;
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 
@@ -69,4 +70,14 @@ public interface IScheduledBlockRepository {
      */
     Observable<String> saveScheduledBlockStatus(final String childId,
                                                 final List<ScheduledBlockStatusEntity> saveScheduledStatus);
+
+
+    /**
+     * Upload Image
+     * @param childId
+     * @param blockId
+     * @param imageURL
+     * @return
+     */
+    Observable<ImageEntity> uploadImage(final String childId, final String blockId, String imageURL);
 }

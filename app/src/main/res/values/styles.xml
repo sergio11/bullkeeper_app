@@ -15,6 +15,7 @@
         <item name="colorPrimary">@color/cyanBrilliant</item>
         <item name="colorPrimaryDark">@color/darkModerateBlue</item>
         <item name="colorAccent">@color/darkModerateBlue</item>
+        <item name="fontPath">fonts/VAGRoundedBT.ttf</item>
     </style>
 
     <!-- The launcher theme. -->

@@ -17,6 +17,7 @@ public final class ScheduledBlockEntity implements Serializable {
     private LocalTime endAt;
     private int[] weeklyFrequency;
     private String image;
+    private String childId;
 
     public ScheduledBlockEntity(){}
 
@@ -30,10 +31,11 @@ public final class ScheduledBlockEntity implements Serializable {
      * @param endAt
      * @param weeklyFrequency
      * @param  image
+     * @param childId
      */
     public ScheduledBlockEntity(final String identity, final String name, final boolean enable, final boolean repeatable,
                                 final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
-                                final String image) {
+                                final String image, final String childId) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -42,6 +44,7 @@ public final class ScheduledBlockEntity implements Serializable {
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
         this.image = image;
+        this.childId = childId;
     }
 
     public String getIdentity() {
@@ -106,6 +109,14 @@ public final class ScheduledBlockEntity implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getChildId() {
+        return childId;
+    }
+
+    public void setChildId(String childId) {
+        this.childId = childId;
     }
 
     @Override

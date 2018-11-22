@@ -79,17 +79,20 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
      * @param endAt
      * @param weeklyFrequency
      * @param recurringWeeklyEnabled
+     * @param currentImage
      */
     public void saveScheduledBlock(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                    final LocalTime endAt, final int[] weeklyFrequency,
-                                   final boolean recurringWeeklyEnabled, final String childId ){
+                                   final boolean recurringWeeklyEnabled, final String childId,
+                                   final String currentImage){
 
 
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.saving_scheduled_block_info);
 
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
-                SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt, weeklyFrequency, recurringWeeklyEnabled, childId));
+                SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt,
+                            weeklyFrequency, recurringWeeklyEnabled, childId, currentImage));
 
     }
 

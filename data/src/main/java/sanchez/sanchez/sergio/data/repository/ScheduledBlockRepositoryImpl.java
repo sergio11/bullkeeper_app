@@ -4,16 +4,24 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import java.io.File;
 import java.util.List;
 import io.reactivex.Observable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
+import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.services.IScheduledBlockService;
+import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.repository.IScheduledBlockRepository;
+import timber.log.Timber;
 
 /**
  * Scheduled Block Repository Impl
@@ -27,6 +35,7 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
     private final IScheduledBlockService scheduledBlockService;
     private final AbstractDataMapper<SaveScheduledBlockStatusDTO,
             ScheduledBlockStatusEntity> saveSchedulesBlockStatusMapper;
+    private final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper;
 
     /**
      *
@@ -37,10 +46,12 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
     public ScheduledBlockRepositoryImpl(final AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> scheduledBlockDataMapper,
                                         final IScheduledBlockService scheduledBlockService,
                                         final AbstractDataMapper<SaveScheduledBlockStatusDTO,
-                                                ScheduledBlockStatusEntity> saveSchedulesBlockStatusMapper) {
+                                                ScheduledBlockStatusEntity> saveSchedulesBlockStatusMapper,
+                                        final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper) {
         this.scheduledBlockDataMapper = scheduledBlockDataMapper;
         this.scheduledBlockService = scheduledBlockService;
         this.saveSchedulesBlockStatusMapper = saveSchedulesBlockStatusMapper;
+        this.imageDataMapper = imageDataMapper;
     }
 
     /**
@@ -163,5 +174,38 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
                 saveSchedulesBlockStatusMapper.transformInverse(saveScheduledStatus))
                 .map(response -> response != null && response.getData() != null
                         ? response.getData(): null);
+    }
+
+    /**
+     * Upload Image
+     * @param imageURL
+     * @return
+     */
+    @Override
+    public Observable<ImageEntity> uploadImage(final String childId, final String blockId, String imageURL) {
+        Preconditions.checkNotNull(childId, "Child id can not be null");
+        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(blockId, "Child id can not be null");
+        Preconditions.checkState(!blockId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(imageURL, "Child id can not be null");
+        Preconditions.checkState(!imageURL.isEmpty(), "Child id can not be empty");
+
+
+        final File imageFile = new File(imageURL);
+        Preconditions.checkState(imageFile.exists()
+                && imageFile.canRead(), "File can not be read");
+
+        // Create Request File
+        final RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),
+                imageFile);
+        // Create Request Part
+        final MultipartBody.Part requestPart = MultipartBody.Part.createFormData("scheduledBlockImage",
+                imageFile.getName(), requestFile);
+
+        return scheduledBlockService.uploadScheduledBlockImage(childId, blockId, requestPart)
+                .map(imageDTOAPIResponse ->
+                imageDTOAPIResponse != null && imageDTOAPIResponse.getData() != null
+                        ? imageDTOAPIResponse.getData() : null)
+                .map(imageDataMapper::transform).doOnError(throwable -> Timber.e(throwable));
     }
 }

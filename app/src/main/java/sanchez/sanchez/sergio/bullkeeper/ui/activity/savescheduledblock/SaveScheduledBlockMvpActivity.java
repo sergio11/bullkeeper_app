@@ -103,7 +103,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @BindView(R.id.nameInput)
     @NotEmpty(messageResId = R.string.scheduled_block_name_field_error_not_blank)
-    @Length(min = 3, max = 15)
+    @Length(min = 3, max = 30)
     protected AppCompatEditText nameInput;
 
 
@@ -192,6 +192,13 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @State
     protected String currentImagePath;
+
+
+    /**
+     * Scheduled Block Image
+     */
+    @State
+    protected String scheduledBlockImage;
 
     /**
      * Scheduled Block Identity
@@ -450,7 +457,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
 
         // Save Scheduled Block
         getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
-                scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity);
+                scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity,
+                currentImagePath);
 
     }
 
@@ -548,15 +556,16 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     private void drawCurrentState() {
 
         if(appUtils.isValidString(currentImagePath)) {
-            if(URLUtil.isNetworkUrl(currentImagePath)) {
-                picasso.load(currentImagePath)
+            scheduledBlockImageView.setImageURI(Uri.parse(currentImagePath));
+        } else {
+            if(appUtils.isValidString(scheduledBlockImage))
+                picasso.load(scheduledBlockImage)
                         .placeholder(R.drawable.scheduled_block_default)
                         .error(R.drawable.scheduled_block_default)
                         .noFade()
                         .into(scheduledBlockImageView);
-            }
-        } else {
-            scheduledBlockImageView.setImageResource(R.drawable.scheduled_block_default);
+            else
+                scheduledBlockImageView.setImageResource(R.drawable.parent_default);
         }
 
         nameInput.setText(scheduledBlockName);
@@ -575,7 +584,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     public void onScheduledBlockLoaded(ScheduledBlockEntity scheduledBlockEntity) {
         Preconditions.checkNotNull(scheduledBlockEntity, "Scheduled Block Entity can not be null");
 
-        currentImagePath = scheduledBlockEntity.getImage();
+        scheduledBlockImage = scheduledBlockEntity.getImage();
         scheduledBlockIdentity = scheduledBlockEntity.getIdentity();
         scheduledBlockName = scheduledBlockEntity.getName();
         scheduledBlocksWeeklyFrequency = scheduledBlockEntity.getWeeklyFrequency();
@@ -597,14 +606,9 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @OnClick(R.id.scheduledBlockImage)
     protected void onClickScheduledBlockImage() {
-
-        if(currentImagePath != null) {
-            navigatorImpl.showPhotoViewerDialog(this,
-                    currentImagePath);
-        } else {
-            navigatorImpl.showPhotoViewerDialog(this,
-                    R.drawable.scheduled_block_default);
-        }
+        navigatorImpl.showPhotoViewerDialog(this,
+                currentImagePath != null ? currentImagePath :
+                        scheduledBlockImage);
     }
 
 
