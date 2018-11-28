@@ -99,14 +99,49 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
      */
     public static class Params {
 
+        /**
+         * Identity
+         */
         private final String identity;
+
+        /**
+         * Name
+         */
         private final String name;
+
+        /**
+         * Enable
+         */
         private final boolean enable;
+
+        /**
+         * Start At
+         */
         private final LocalTime startAt;
+
+        /**
+         * End At
+         */
         private final LocalTime endAt;
+
+        /**
+         * Weekly Frequency
+         */
         private final int[] weeklyFrequency;
+
+        /**
+         * Recurring Weekly Enabled
+         */
         private final boolean recurringWeeklyEnabled;
+
+        /**
+         * Child Id
+         */
         private final String childId;
+
+        /**
+         * Image
+         */
         private final String image;
 
         /**

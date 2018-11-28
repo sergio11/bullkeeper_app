@@ -169,16 +169,16 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
 
         switch (alertLevelEnum) {
             case WARNING:
-                observable = alertService.clearWarningAlertsOfSonForSelfParent(sonIdentity);
+                observable = alertService.clearWarningAlertsOfSonForSelfGuardian(sonIdentity);
                 break;
             case DANGER:
-                observable = alertService.clearDangerAlertsOfSonForSelfParent(sonIdentity);
+                observable = alertService.clearDangerAlertsOfSonForSelfGuardian(sonIdentity);
                 break;
             case SUCCESS:
-                observable = alertService.clearSuccessAlertsOfSonForSelfParent(sonIdentity);
+                observable = alertService.clearSuccessAlertsOfSonForSelfGuardian(sonIdentity);
                 break;
                 default:
-                    observable = alertService.clearInfoAlertsOfSonForSelfParent(sonIdentity);
+                    observable = alertService.clearInfoAlertsOfSonForSelfGuardian(sonIdentity);
 
         }
 
@@ -255,16 +255,16 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
 
         switch (alertLevelEnum) {
             case WARNING:
-                observable = alertService.getWarningAlertsForSelfParent(count, lastMinutes);
+                observable = alertService.getWarningAlertsForSelfGuardian(count, lastMinutes);
                 break;
             case SUCCESS:
-                observable = alertService.getSuccessAlertsForSelfParent(count, lastMinutes);
+                observable = alertService.getSuccessAlertsForSelfGuardian(count, lastMinutes);
                 break;
             case DANGER:
-                observable = alertService.getDangerAlertsForSelfParent(count, lastMinutes);
+                observable = alertService.getDangerAlertsForSelfGuardian(count, lastMinutes);
                 break;
             default:
-                observable = alertService.getInformationAlertsForSelfParent(count, lastMinutes);
+                observable = alertService.getInformationAlertsForSelfGuardian(count, lastMinutes);
 
         }
 
@@ -297,16 +297,16 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
 
         switch (alertLevelEnum) {
             case WARNING:
-                observable = alertService.getWarningAlertsOfSonForSelfParent(sonId, count, lastMinutes);
+                observable = alertService.getWarningAlertsOfSonForSelfGuardian(sonId, count, lastMinutes);
                 break;
             case SUCCESS:
-                observable = alertService.getSuccessAlertsOfSonForSelfParent(sonId, count, lastMinutes);
+                observable = alertService.getSuccessAlertsOfSonForSelfGuardian(sonId, count, lastMinutes);
                 break;
             case DANGER:
-                observable = alertService.getDangerAlertsOfSonForSelfParent(sonId, count, lastMinutes);
+                observable = alertService.getDangerAlertsOfSonForSelfGuardian(sonId, count, lastMinutes);
                 break;
             default:
-                observable = alertService.getInfoAlertsOfSonForSelfParent(sonId, count, lastMinutes);
+                observable = alertService.getInfoAlertsOfSonForSelfGuardian(sonId, count, lastMinutes);
                 break;
         }
 
@@ -325,7 +325,7 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
         Preconditions.checkNotNull(sonId, "Son Id can not be null");
         Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
 
-        return alertService.getDangerAlertsOfSonForSelfParent(sonId, TEN_ALERTS, FIFTEEN_LAST_MINUTES)
+        return alertService.getDangerAlertsOfSonForSelfGuardian(sonId, TEN_ALERTS, FIFTEEN_LAST_MINUTES)
                 .map(response -> response != null
                         && response.getData() != null ? response.getData() : null)
                 .map(alertDataMapper::transform);
@@ -341,7 +341,7 @@ public final class AlertsRepositoryImpl implements IAlertsRepository {
         Preconditions.checkNotNull(sonId, "Son Id can not be null");
         Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
 
-        return alertService.getWarningAlertsOfSonForSelfParent(sonId, TEN_ALERTS, FIFTEEN_LAST_MINUTES)
+        return alertService.getWarningAlertsOfSonForSelfGuardian(sonId, TEN_ALERTS, FIFTEEN_LAST_MINUTES)
                 .map(response -> response != null
                         && response.getData() != null ? response.getData() : null)
                 .map(alertDataMapper::transform);

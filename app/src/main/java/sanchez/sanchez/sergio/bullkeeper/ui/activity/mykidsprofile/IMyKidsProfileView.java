@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 
 /**
@@ -15,9 +15,9 @@ public interface IMyKidsProfileView extends ISupportView {
 
     /**
      * Son Entity
-     * @param sonEntity
+     * @param kidEntity
      */
-    void onSonProfileLoaded(final SonEntity sonEntity);
+    void onSonProfileLoaded(final KidEntity kidEntity);
 
 
     /**

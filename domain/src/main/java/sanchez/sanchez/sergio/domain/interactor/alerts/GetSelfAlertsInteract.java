@@ -1,8 +1,5 @@
 package sanchez.sanchez.sergio.domain.interactor.alerts;
 
-import org.omg.PortableInterceptor.SUCCESSFUL;
-
-import java.net.URLEncoder;
 import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;

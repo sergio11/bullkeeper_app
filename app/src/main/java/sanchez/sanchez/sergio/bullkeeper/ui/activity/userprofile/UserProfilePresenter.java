@@ -6,10 +6,10 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.parents.DeleteAccountInteract;
-import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
-import sanchez.sanchez.sergio.domain.interactor.parents.UpdateSelfInformationInteract;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import timber.log.Timber;
 
 /**
@@ -20,7 +20,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     /**
      * Get Parent Information Interact
      */
-    private final GetParentInformationInteract getParentInformationInteract;
+    private final GetGuardianInformationInteract getGuardianInformationInteract;
 
     /**
      * Update Self Information Interact
@@ -34,13 +34,13 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
 
     /**
      * User Profile Presenter
-     * @param getParentInformationInteract
+     * @param getGuardianInformationInteract
      */
     @Inject
-    public UserProfilePresenter(final GetParentInformationInteract getParentInformationInteract,
+    public UserProfilePresenter(final GetGuardianInformationInteract getGuardianInformationInteract,
                                 final UpdateSelfInformationInteract updateSelfInformationInteract,
                                 final DeleteAccountInteract deleteAccountInteract) {
-        this.getParentInformationInteract = getParentInformationInteract;
+        this.getGuardianInformationInteract = getGuardianInformationInteract;
         this.updateSelfInformationInteract = updateSelfInformationInteract;
         this.deleteAccountInteract = deleteAccountInteract;
     }
@@ -58,7 +58,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
      */
     public void loadProfileInfo(){
 
-        getParentInformationInteract.execute(new GetParentInformationObserver(), null);
+        getGuardianInformationInteract.execute(new GetParentInformationObserver(), null);
     }
 
     /**
@@ -120,17 +120,17 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     /**
      * Get Self Information Observer
      */
-    private final class GetParentInformationObserver extends BasicCommandCallBackWrapper<ParentEntity> {
+    private final class GetParentInformationObserver extends BasicCommandCallBackWrapper<GuardianEntity> {
 
         /**
          * On Success
-         * @param parentEntity
+         * @param guardianEntity
          */
         @Override
-        protected void onSuccess(ParentEntity parentEntity) {
+        protected void onSuccess(GuardianEntity guardianEntity) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onSelfInformationLoaded(parentEntity);
+                getView().onSelfInformationLoaded(guardianEntity);
             }
 
         }
@@ -141,7 +141,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     /**
      * Update Self Information Observer
      */
-    private final class UpdateSelfInformationObserver extends CommandCallBackWrapper<ParentEntity, UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor,
+    private final class UpdateSelfInformationObserver extends CommandCallBackWrapper<GuardianEntity, UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor,
             UpdateSelfInformationInteract.UpdateSelfInformationApiErrors> implements UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.IUpdateSelfInformationApiErrorVisitor {
 
 
@@ -151,10 +151,10 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
 
 
         @Override
-        protected void onSuccess(ParentEntity parentEntity) {
+        protected void onSuccess(GuardianEntity guardianEntity) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onSelfInformationUpdate(parentEntity);
+                getView().onSelfInformationUpdate(guardianEntity);
             }
         }
 

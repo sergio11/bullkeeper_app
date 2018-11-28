@@ -40,7 +40,7 @@ import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
@@ -492,23 +492,23 @@ public class SignupMvpFragment extends
      * On Signup Success
      */
     @Override
-    public void onSignupSuccess(final ParentEntity parentEntity) {
+    public void onSignupSuccess(final GuardianEntity guardianEntity) {
 
         resetFields();
 
         final String message = String.format(appUtils.getCurrentLocale(), getString(R.string.signup_success),
-                parentEntity.getFullName());
+                guardianEntity.getFullName());
 
         showConfirmationDialog(message, new ConfirmationDialogFragment.ConfirmationDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
                 activityHandler.openMailApp();
-                activityHandler.goToLogin(parentEntity.getEmail());
+                activityHandler.goToLogin(guardianEntity.getEmail());
             }
 
             @Override
             public void onRejected(DialogFragment dialog) {
-                activityHandler.goToLogin(parentEntity.getEmail());
+                activityHandler.goToLogin(guardianEntity.getEmail());
             }
         });
 

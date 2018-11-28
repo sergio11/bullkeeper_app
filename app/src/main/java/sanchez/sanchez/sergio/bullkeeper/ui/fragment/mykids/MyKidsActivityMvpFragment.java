@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.IMyKidsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsAdapter;
+import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import timber.log.Timber;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
@@ -21,7 +23,7 @@ import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBA
  * My Kids Activity Fragment
  */
 public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragmentPresenter,
-        IMyKidsView, IMyKidsActivityHandler, MyKidsComponent, SonEntity> implements IMyKidsView,
+        IMyKidsView, IMyKidsActivityHandler, MyKidsComponent, SupervisedChildrenEntity> implements IMyKidsView,
         MyKidsAdapter.OnMyKidsListener {
 
     public static String TAG = "MY_KIDS_ACTIVITY_FRAGMENT";
@@ -56,8 +58,8 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
      */
     @NotNull
     @Override
-    protected SupportRecyclerViewAdapter<SonEntity> getAdapter() {
-        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(activity, new ArrayList<SonEntity>(), picasso);
+    protected SupportRecyclerViewAdapter<SupervisedChildrenEntity> getAdapter() {
+        final MyKidsAdapter myKidsAdapter = new MyKidsAdapter(activity, new ArrayList<SupervisedChildrenEntity>(), picasso);
         myKidsAdapter.setOnSupportRecyclerViewListener(this);
         myKidsAdapter.setOnMyKidsListenerListener(this);
         return myKidsAdapter;
@@ -81,11 +83,12 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
 
     /**
      * ON Item Click
-     * @param sonEntity
+     * @param supervisedChildrenEntity
      */
     @Override
-    public void onItemClick(SonEntity sonEntity) {
-        activityHandler.navigateToMyKidDetail(sonEntity.getIdentity());
+    public void onItemClick(final SupervisedChildrenEntity supervisedChildrenEntity) {
+        final KidEntity kidEntity = supervisedChildrenEntity.getKid();
+        activityHandler.navigateToMyKidDetail(kidEntity.getIdentity());
     }
 
     /**
@@ -115,52 +118,57 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
 
     /**
      * On Detail Action CLicked
-     * @param sonEntity
+     * @param kidEntity
+     * @param role
      */
     @Override
-    public void onDetailActionClicked(SonEntity sonEntity) {
-        Timber.d("On Detail for -> %s ", sonEntity.getIdentity());
-        activityHandler.navigateToMyKidDetail(sonEntity.getIdentity());
+    public void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        Timber.d("On Detail for -> %s ", kidEntity.getIdentity());
+        activityHandler.navigateToMyKidDetail(kidEntity.getIdentity());
     }
 
     /**
      * On Results Action Clicked
-     * @param sonEntity
+     * @param kidEntity
+     * @param role
      */
     @Override
-    public void onResultsActionClicked(final SonEntity sonEntity) {
-        Timber.d("On Results for -> %s ", sonEntity.getIdentity());
-        activityHandler.navigateToKidsResults(sonEntity.getIdentity());
+    public void onResultsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        Timber.d("On Results for -> %s ", kidEntity.getIdentity());
+        activityHandler.navigateToKidsResults(kidEntity.getIdentity());
     }
 
     /**
      * On Alerts Action Clicked
-     * @param sonEntity
+     * @param kidEntity
+     * @param role
      */
     @Override
-    public void onAlertsActionClicked(final SonEntity sonEntity) {
-        Timber.d("On Alerts for -> %s ", sonEntity.getIdentity());
-        activityHandler.navigateToSonAlerts(sonEntity.getIdentity());
+    public void onAlertsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        Timber.d("On Alerts for -> %s ", kidEntity.getIdentity());
+        activityHandler.navigateToSonAlerts(kidEntity.getIdentity());
     }
 
     /**
      * On Relations Action Clicked
-     * @param sonEntity
+     * @param kidEntity
+     * @param role
      */
     @Override
-    public void onRelationsActionClicked(final SonEntity sonEntity) {
-        Timber.d("On Relations for -> %s ", sonEntity.getIdentity());
-        activityHandler.navigateToRelations(sonEntity.getIdentity());
+    public void onRelationsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        Timber.d("On Relations for -> %s ", kidEntity.getIdentity());
+        activityHandler.navigateToRelations(kidEntity.getIdentity());
     }
 
     /**
      * On Profile Action Clicked
-     * @param sonEntity
+     * @param kidEntity
+     * @param role
      */
     @Override
-    public void onProfileActionClicked(final SonEntity sonEntity) {
-        Timber.d("On Profile for -> %s ", sonEntity.getIdentity());
-        activityHandler.navigateToMyKidsProfile(sonEntity.getIdentity());
+    public void onProfileActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        Timber.d("On Profile for -> %s ", kidEntity.getIdentity());
+        activityHandler.navigateToMyKidsProfile(kidEntity.getIdentity());
 
     }
 

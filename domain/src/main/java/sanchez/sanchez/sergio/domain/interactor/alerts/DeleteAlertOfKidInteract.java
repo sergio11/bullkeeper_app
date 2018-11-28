@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.domain.interactor.alerts;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -9,9 +8,10 @@ import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 
 /**
- * Clear Alerts By Son Interact
+ * Delete Alert Of Kid Interact
  */
-public final class ClearAlertsBySonInteract extends UseCase<String, ClearAlertsBySonInteract.Params> {
+public final class DeleteAlertOfKidInteract
+        extends UseCase<String, DeleteAlertOfKidInteract.Params> {
 
     private final IAlertsRepository alertsRepository;
 
@@ -19,7 +19,7 @@ public final class ClearAlertsBySonInteract extends UseCase<String, ClearAlertsB
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public ClearAlertsBySonInteract(final IThreadExecutor threadExecutor,
+    public DeleteAlertOfKidInteract(final IThreadExecutor threadExecutor,
                                     final IPostExecutionThread postExecutionThread,
                                     final IAlertsRepository alertsRepository) {
         super(threadExecutor, postExecutionThread);
@@ -34,9 +34,9 @@ public final class ClearAlertsBySonInteract extends UseCase<String, ClearAlertsB
     @Override
     protected Observable<String> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getSonIdentity(), "Son Identity can not be null");
-        Preconditions.checkState(!params.getSonIdentity().isEmpty(), "Son identity can not be empty");
-        return alertsRepository.clearAlertsOfSon(params.getSonIdentity());
+        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
+        Preconditions.checkNotNull(params.getAlert(), "Alert Identity can not be null");
+        return alertsRepository.deleteAlertOfSon(params.getKid(), params.getAlert());
     }
 
     /**
@@ -44,23 +44,24 @@ public final class ClearAlertsBySonInteract extends UseCase<String, ClearAlertsB
      */
     public static class Params {
 
-        private final String sonIdentity;
+        private final String kid;
+        private final String alert;
 
-        public Params(String sonIdentity) {
-            this.sonIdentity = sonIdentity;
+        public Params(String kid, String alert) {
+            this.kid = kid;
+            this.alert = alert;
         }
 
-        public String getSonIdentity() {
-            return sonIdentity;
+        public String getKid() {
+            return kid;
         }
 
-        /**
-         * Create
-         * @param sonIdentity
-         * @return
-         */
-        public static Params create(final String sonIdentity) {
-            return new Params(sonIdentity);
+        public String getAlert() {
+            return alert;
+        }
+
+        public static Params create(final String son, final String alert){
+            return new Params(son, alert);
         }
     }
 }

@@ -14,7 +14,7 @@ public final class AlertEntity implements Serializable {
     private String payload;
     private Date createAt;
     private String since;
-    private SonEntity son;
+    private KidEntity son;
     private AlertCategoryEnum category;
 
     public AlertEntity(){}
@@ -71,11 +71,11 @@ public final class AlertEntity implements Serializable {
         this.since = since;
     }
 
-    public SonEntity getSon() {
+    public KidEntity getSon() {
         return son;
     }
 
-    public void setSon(SonEntity son) {
+    public void setSon(KidEntity son) {
         this.son = son;
     }
 

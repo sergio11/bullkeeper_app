@@ -9,39 +9,45 @@ import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
-import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
-import sanchez.sanchez.sergio.data.net.services.IParentsService;
-import sanchez.sanchez.sergio.data.repository.ParentRepositoryImpl;
+import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
+import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
+import sanchez.sanchez.sergio.data.repository.GuardianRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
-import sanchez.sanchez.sergio.domain.interactor.parents.DeleteAccountInteract;
-import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
-import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
-import sanchez.sanchez.sergio.domain.interactor.parents.UpdateSelfInformationInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
-import sanchez.sanchez.sergio.domain.repository.IParentRepository;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
- * Parent Module
+ * Guardian Module
  */
 @Module
-public class ParentModule {
+public class GuardianModule {
 
     /**
-     * Provide Parents Service
+     * Provide Guardians Service
      * @return
      */
     @Provides @PerActivity
-    public IParentsService provideParentsService(final Retrofit retrofit){
-        return retrofit.create(IParentsService.class);
+    public IGuardiansService provideGuardianService(final Retrofit retrofit){
+        return retrofit.create(IGuardiansService.class);
     }
 
-
+    /**
+     * Provide Support Image Picker
+     * @param appContext
+     * @return
+     */
     @Provides @PerActivity
     public SupportImagePicker provideSupportImagePicker(final Context appContext) {
         return new SupportImagePicker(appContext);
@@ -52,11 +58,13 @@ public class ParentModule {
      * @return
      */
     @Provides @PerActivity
-    public IParentRepository provideParentRepository(final IParentsService parentsService,
-                                                     final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
-                                                     final AbstractDataMapper<ParentDTO, ParentEntity> parentDataMapper,
-                                                     final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper){
-        return new ParentRepositoryImpl(parentsService, sonDataMapper, parentDataMapper, imageDataMapper);
+    public IGuardianRepository provideGuardianRepository(final IGuardiansService parentsService,
+                                                         final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper,
+                                                         final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper,
+                                                         final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
+                                                         final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
+                                                            childrenOfSelfGuardianDataMapper){
+        return new GuardianRepositoryImpl(parentsService, sonDataMapper, parentDataMapper, imageDataMapper, childrenOfSelfGuardianDataMapper);
     }
 
     /**
@@ -65,7 +73,7 @@ public class ParentModule {
      */
     @Provides @PerActivity
     public GetSelfChildrenInteract provideGetSelfChildrenInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                  final IParentRepository parentRepository){
+                                                                  final IGuardianRepository parentRepository){
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
@@ -73,19 +81,19 @@ public class ParentModule {
     }
 
     /**
-     * Provide Get Parent Information Interact
+     * Provide Get Guardian Information Interact
      * @param threadExecutor
      * @param postExecutionThread
      * @param parentRepository
      * @return
      */
     @Provides @PerActivity
-    public GetParentInformationInteract provideGetParentInformationInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                            final IParentRepository parentRepository) {
+    public GetGuardianInformationInteract provideGetGuardianInformationInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                final IGuardianRepository parentRepository) {
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
-        return new GetParentInformationInteract(threadExecutor, postExecutionThread, parentRepository);
+        return new GetGuardianInformationInteract(threadExecutor, postExecutionThread, parentRepository);
     }
 
     /**
@@ -97,7 +105,7 @@ public class ParentModule {
      */
     @Provides @PerActivity
     public UpdateSelfInformationInteract provideUpdateSelfInformationInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                              final IParentRepository parentRepository, final IAppUtils appUtils){
+                                                                              final IGuardianRepository parentRepository, final IAppUtils appUtils){
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
@@ -113,7 +121,7 @@ public class ParentModule {
      */
     @Provides @PerActivity
     public DeleteAccountInteract provideDeleteAccountInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                              final IParentRepository parentRepository){
+                                                              final IGuardianRepository parentRepository){
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");

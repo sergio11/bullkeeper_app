@@ -9,10 +9,10 @@ import java.util.Map;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 
 /**
- * Son DTO
+ * Kid DTO
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class SonDTO implements Serializable {
+public final class KidDTO implements Serializable {
 
     /**
      * Identity
@@ -145,7 +145,7 @@ public final class SonDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "SonDTO{" +
+        return "KidDTO{" +
                 "identity='" + identity + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

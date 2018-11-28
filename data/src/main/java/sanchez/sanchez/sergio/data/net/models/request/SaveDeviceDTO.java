@@ -8,9 +8,15 @@ import java.io.Serializable;
  */
 public final class SaveDeviceDTO implements Serializable {
 
+    /**
+     * Device Id
+     */
     @JsonProperty("device_id")
     private String deviceId;
 
+    /**
+     * Registration Token
+     */
     @JsonProperty("registration_token")
     private String registrationToken;
 

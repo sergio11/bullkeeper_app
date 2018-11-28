@@ -4,7 +4,7 @@ import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AlertsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
-import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.HomeMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.HomePresenter;
@@ -17,7 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsFragme
 @Component(
         dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
-                 ParentModule.class, AlertsModule.class })
+                 GuardianModule.class, AlertsModule.class })
 public interface HomeComponent extends ActivityComponent {
 
     /**

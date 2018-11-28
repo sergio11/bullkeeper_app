@@ -38,7 +38,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragm
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import timber.log.Timber;
 
@@ -75,6 +75,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @State
     protected ArrayList<TerminalItem> terminalItemsList = new ArrayList<>();
+
+    /**
+     * Section Tab Selected
+     */
+    @State
+    protected int sectionTabSelected = 0;
 
     /**
      * Unselected tab icons
@@ -366,11 +372,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     /**
      * Setup Sections Pager Adapter
      */
-    private void setupSectionsPagerAdapter(){
+    private void setupSectionsPagerAdapter(final int tabSelected){
 
         // Create Sections Pager Adapter
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), kidIdentity,
                 terminalItemsList);
+
         viewpager.setAdapter(sectionsPagerAdapter);
 
         // Create Tab Layout
@@ -387,6 +394,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tab.setIcon(selectedTabIcons[tab.getPosition()]);
+                sectionTabSelected = tab.getPosition();
             }
 
             @Override
@@ -398,18 +406,21 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
+        viewpager.setCurrentItem(tabSelected);
+
     }
 
     /**
      * On Son Loaded
-     * @param sonEntity
+     * @param kidEntity
      */
     @Override
-    public void onSonLoaded(SonEntity sonEntity) {
+    public void onSonLoaded(KidEntity kidEntity) {
 
-        if(appUtils.isValidString(sonEntity.getProfileImage()))
+
+        if(appUtils.isValidString(kidEntity.getProfileImage()))
             // Set Author Image
-            picasso.load(sonEntity.getProfileImage())
+            picasso.load(kidEntity.getProfileImage())
                     .placeholder(R.drawable.kid_default_image)
                     .error(R.drawable.kid_default_image)
                     .noFade()
@@ -417,17 +428,17 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         else
             profileImage.setImageResource(R.drawable.kid_default_image);
 
-        kidNameTextView.setText(sonEntity.getFullName());
+        kidNameTextView.setText(kidEntity.getFullName());
 
 
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
 
         // Set Kid Birthday
-        kidBirthdayTextView.setText(simpleDateFormat.format(sonEntity.getBirthdate()));
+        kidBirthdayTextView.setText(simpleDateFormat.format(kidEntity.getBirthdate()));
 
-        kidSchoolTextView.setText(sonEntity.getSchool().getName());
+        kidSchoolTextView.setText(kidEntity.getSchool().getName());
 
-        for(final TerminalEntity terminalEntity: sonEntity.getTerminalEntities()) {
+        for(final TerminalEntity terminalEntity: kidEntity.getTerminalEntities()) {
             final TerminalItem terminalItem = new TerminalItem(terminalEntity.getIdentity(),
                     terminalEntity.getDeviceName());
             terminalItemsList.add(terminalItem);
@@ -437,7 +448,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         // Check Terminals linked
         if(terminalItemsList.isEmpty()) {
             showNoticeDialog(String.format(Locale.getDefault(), getString(R.string.kids_results_no_terminals_linked),
-                    sonEntity.getFirstName()), new NoticeDialogFragment.NoticeDialogListener() {
+                    kidEntity.getFirstName()), new NoticeDialogFragment.NoticeDialogListener() {
                 @Override
                 public void onAccepted(DialogFragment dialog) {
                     closeActivity();
@@ -450,7 +461,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     getString(R.string.kids_results_terminals_count), terminalItemsList.size()));
 
             // Setup Sections Pager Adapter
-            setupSectionsPagerAdapter();
+            setupSectionsPagerAdapter(sectionTabSelected);
 
             // Enable All Components
             toggleAllComponents(true);

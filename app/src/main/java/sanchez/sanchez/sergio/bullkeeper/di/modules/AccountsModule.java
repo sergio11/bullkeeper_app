@@ -6,17 +6,17 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
-import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
+import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
+import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.data.repository.AccountsRepositoryImpl;
 import sanchez.sanchez.sergio.data.net.services.IAuthenticationService;
-import sanchez.sanchez.sergio.data.net.services.IParentsService;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
-import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterParentInteract;
+import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterGuardianInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.ResetPasswordInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
@@ -43,8 +43,8 @@ public class AccountsModule {
      * @return
      */
     @Provides @PerActivity
-    public IParentsService provideParentsService(final Retrofit retrofit) {
-        return retrofit.create(IParentsService.class);
+    public IGuardiansService provideParentsService(final Retrofit retrofit) {
+        return retrofit.create(IGuardiansService.class);
     }
 
     /**
@@ -54,8 +54,8 @@ public class AccountsModule {
      */
     @Provides @PerActivity
     public IAccountsRepository provideAccountsRepository(
-            final IAuthenticationService authenticationService, final IParentsService parentsService,
-            final AbstractDataMapper<ParentDTO, ParentEntity> parentDataMapper) {
+            final IAuthenticationService authenticationService, final IGuardiansService parentsService,
+            final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper) {
         return new AccountsRepositoryImpl(authenticationService, parentsService, parentDataMapper);
     }
 
@@ -98,13 +98,13 @@ public class AccountsModule {
      * @return
      */
     @Provides @PerActivity
-    public RegisterParentInteract provideRegisterParentInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                final IAccountsRepository accountsRepository, final IAppUtils appUtils){
+    public RegisterGuardianInteract provideRegisterParentInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                  final IAccountsRepository accountsRepository, final IAppUtils appUtils){
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(accountsRepository, "Accounts Repository can not be null");
         Preconditions.checkNotNull(appUtils, "App Utils can not ben null");
-        return new RegisterParentInteract(threadExecutor, postExecutionThread, accountsRepository, appUtils);
+        return new RegisterGuardianInteract(threadExecutor, postExecutionThread, accountsRepository, appUtils);
     }
 
     @Provides @PerActivity

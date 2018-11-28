@@ -11,17 +11,17 @@ import sanchez.sanchez.sergio.data.net.services.IAlertService;
 import sanchez.sanchez.sergio.data.repository.AlertsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsByKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsByLevelInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsBySonInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsOfSonByLevelInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsOfKidByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearSelfAlertsInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertDetailInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsByKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetDangerAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsOfSonByLevelInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsOfKidByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetWarningAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
@@ -82,9 +82,9 @@ public class AlertsModule {
      */
     @Provides
     @PerActivity
-    public DeleteAlertOfSonInteract provideDeleteAlertOfSonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    public DeleteAlertOfKidInteract provideDeleteAlertOfSonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                     final IAlertsRepository alertsRepository){
-        return new DeleteAlertOfSonInteract(threadExecutor, postExecutionThread, alertsRepository);
+        return new DeleteAlertOfKidInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
 
     /**
@@ -110,9 +110,9 @@ public class AlertsModule {
      */
     @Provides
     @PerActivity
-    public GetAlertsBySonInteract provideGetAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    public GetAlertsByKidInteract provideGetAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                 final IAlertsRepository alertsRepository) {
-        return new GetAlertsBySonInteract(threadExecutor, postExecutionThread, alertsRepository);
+        return new GetAlertsByKidInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
 
     /**
@@ -124,9 +124,9 @@ public class AlertsModule {
      */
     @Provides
     @PerActivity
-    public ClearAlertsBySonInteract provideClearAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    public ClearAlertsByKidInteract provideClearAlertsBySonInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                     final IAlertsRepository alertsRepository){
-        return new ClearAlertsBySonInteract(threadExecutor, postExecutionThread, alertsRepository);
+        return new ClearAlertsByKidInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
 
     /**
@@ -191,9 +191,9 @@ public class AlertsModule {
      * @return
      */
     @Provides @PerActivity
-    public GetSelfAlertsOfSonByLevelInteract provideGetSelfAlertsOfSonByLevelInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    public GetSelfAlertsOfKidByLevelInteract provideGetSelfAlertsOfSonByLevelInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                                       final IAlertsRepository alertsRepository, final IPreferenceRepository preferenceRepository){
-        return new GetSelfAlertsOfSonByLevelInteract(threadExecutor, postExecutionThread, alertsRepository, preferenceRepository);
+        return new GetSelfAlertsOfKidByLevelInteract(threadExecutor, postExecutionThread, alertsRepository, preferenceRepository);
     }
 
     /**
@@ -201,9 +201,9 @@ public class AlertsModule {
      * @return
      */
     @Provides @PerActivity
-    public ClearAlertsOfSonByLevelInteract provideClearAlertsOfSonByLevelInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    public ClearAlertsOfKidByLevelInteract provideClearAlertsOfSonByLevelInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                                   final IAlertsRepository alertsRepository){
-        return new ClearAlertsOfSonByLevelInteract(threadExecutor, postExecutionThread, alertsRepository);
+        return new ClearAlertsOfKidByLevelInteract(threadExecutor, postExecutionThread, alertsRepository);
     }
 
     /**

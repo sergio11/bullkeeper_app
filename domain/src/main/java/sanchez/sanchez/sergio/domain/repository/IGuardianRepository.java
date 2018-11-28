@@ -1,27 +1,26 @@
 package sanchez.sanchez.sergio.domain.repository;
 
-import java.util.List;
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
- * Parent Repository
+ * Guardian Repository
  */
-public interface IParentRepository {
+public interface IGuardianRepository {
 
     /**
      * Get Self Children
      * @return
      */
-    Observable<List<SonEntity>> getSelfChildren();
+    Observable<ChildrenOfSelfGuardianEntity> getSelfChildren();
 
     /**
-     * Get Parent Self Information
+     * Get Guardian Self Information
      * @return
      */
-    Observable<ParentEntity> getParentSelfInformation();
+    Observable<GuardianEntity> getGuardianSelfInformation();
 
     /**
      * Update Self Information
@@ -32,8 +31,8 @@ public interface IParentRepository {
      * @param telephone
      * @return
      */
-    Observable<ParentEntity> updateSelfInformation(final String firstName, final String lastName,
-                                                   final String birthdate, final String email, final String telephone);
+    Observable<GuardianEntity> updateSelfInformation(final String firstName, final String lastName,
+                                                     final String birthdate, final String email, final String telephone);
 
 
     /**

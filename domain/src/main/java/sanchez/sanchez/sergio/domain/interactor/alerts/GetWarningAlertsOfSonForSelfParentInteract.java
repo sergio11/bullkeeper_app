@@ -40,7 +40,7 @@ public final class GetWarningAlertsOfSonForSelfParentInteract extends UseCase<Li
     @Override
     protected Observable<List<AlertEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        return alertsRepository.getTenWarningAlertsForTheChild(params.getSonId());
+        return alertsRepository.getTenWarningAlertsForTheChild(params.getKid());
     }
 
     /**
@@ -48,52 +48,52 @@ public final class GetWarningAlertsOfSonForSelfParentInteract extends UseCase<Li
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
 
-        private Params(String sonId) {
-            this.sonId = sonId;
+        private Params(String kid) {
+            this.kid = kid;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @return
          */
-        public static Params create(final String sonId) {
-            return new Params(sonId);
+        public static Params create(final String kid) {
+            return new Params(kid);
         }
     }
 
     /**
-     * Get Warning Alerts Of Son for self parent
+     * Get Warning Alerts Of Kid for self parent
      */
-    public enum GetWarningAlertsOfSonForSelfParentApiErrors implements ISupportVisitable<GetWarningAlertsOfSonForSelfParentApiErrors.IGetWarningAlertsOfSonForSelfParentErrorVisitor> {
+    public enum GetWarningAlertsOfKidForSelfParentApiErrors implements ISupportVisitable<GetWarningAlertsOfKidForSelfParentApiErrors.IGetWarningAlertsOfKidForSelfParentErrorVisitor> {
 
         /**
-         * No Alerts By Son Founded
+         * No Alerts By Kid Founded
          */
-        NO_ALERTS_BY_SON_FOUNDED(){
+        NO_ALERTS_BY_KID_FOUNDED(){
             @Override
-            public <E> void accept(IGetWarningAlertsOfSonForSelfParentErrorVisitor visitor, E data) {
-                visitor.visitNoAlertsBySonFounded(this);
+            public <E> void accept(IGetWarningAlertsOfKidForSelfParentErrorVisitor visitor, E data) {
+                visitor.visitNoAlertsBySonFound(this);
             }
         };
 
 
         /**
-         * Get Warning Alerts Of Son For Self Parent Error Visitor
+         * Get Warning Alerts Of Kid For Self Parent Error Visitor
          */
-        public interface IGetWarningAlertsOfSonForSelfParentErrorVisitor extends ISupportVisitor {
+        public interface IGetWarningAlertsOfKidForSelfParentErrorVisitor extends ISupportVisitor {
 
             /**
-             * Visit No Alerts By Son Founded
+             * Visit No Alerts By Kid Founded
              * @param apiErrors
              */
-            void visitNoAlertsBySonFounded(final GetWarningAlertsOfSonForSelfParentApiErrors apiErrors);
+            void visitNoAlertsBySonFound(final GetWarningAlertsOfKidForSelfParentApiErrors apiErrors);
         }
 
     }

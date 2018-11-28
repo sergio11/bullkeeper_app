@@ -16,9 +16,9 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
- * Get Self Alerts Of Son By level Interact
+ * Get Self Alerts Of Kid By level Interact
  */
-public final class GetSelfAlertsOfSonByLevelInteract extends UseCase<List<AlertEntity>, GetSelfAlertsOfSonByLevelInteract.Params> {
+public final class GetSelfAlertsOfKidByLevelInteract extends UseCase<List<AlertEntity>, GetSelfAlertsOfKidByLevelInteract.Params> {
 
     /**
      * Alerts Repository
@@ -37,7 +37,7 @@ public final class GetSelfAlertsOfSonByLevelInteract extends UseCase<List<AlertE
      * @param alertsRepository
      * @param preferenceRepository
      */
-    public GetSelfAlertsOfSonByLevelInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    public GetSelfAlertsOfKidByLevelInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                              final IAlertsRepository alertsRepository, final IPreferenceRepository preferenceRepository) {
         super(threadExecutor, postExecutionThread);
         this.alertsRepository = alertsRepository;
@@ -53,35 +53,35 @@ public final class GetSelfAlertsOfSonByLevelInteract extends UseCase<List<AlertE
     protected Observable<List<AlertEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         return alertsRepository.getSelfAlertsOfSonByLevel(preferenceRepository.getFilterAlertsCount(),
-                preferenceRepository.getFilterAgeOfAlerts(), params.getSonId(), params.getAlertLevel());
+                preferenceRepository.getFilterAgeOfAlerts(), params.getKid(), params.getAlertLevel());
     }
 
 
     /**
-     * Get Self Alerts Of Son By Level API Error
+     * Get Self Alerts Of Kid By Level API Error
      */
-    public enum GetSelfAlertsOfSonByLevelApiErrors implements ISupportVisitable<GetSelfAlertsOfSonByLevelApiErrors.IGetSelfAlertsOfSonByLevelApiErrorVisitor> {
+    public enum GetSelfAlertsOfKidByLevelApiErrors implements ISupportVisitable<GetSelfAlertsOfKidByLevelApiErrors.IGetSelfAlertsOfKidByLevelApiErrorVisitor> {
 
         /**
          * No Alerts Found
          */
         NO_ALERTS_FOUND() {
             @Override
-            public <E> void accept(IGetSelfAlertsOfSonByLevelApiErrorVisitor visitor, E data) {
+            public <E> void accept(IGetSelfAlertsOfKidByLevelApiErrorVisitor visitor, E data) {
                 visitor.visitNoAlertsFounded(this);
             }
         };
 
         /**
-         * Get Self Alerts of Son By Level Api Error Visitor
+         * Get Self Alerts of Kid By Level Api Error Visitor
          */
-        public interface IGetSelfAlertsOfSonByLevelApiErrorVisitor extends ISupportVisitor {
+        public interface IGetSelfAlertsOfKidByLevelApiErrorVisitor extends ISupportVisitor {
 
             /**
              * Visit No Alerts Founded
              * @param error
              */
-            void visitNoAlertsFounded(final GetSelfAlertsOfSonByLevelApiErrors error);
+            void visitNoAlertsFounded(final GetSelfAlertsOfKidByLevelApiErrors error);
 
         }
     }
@@ -91,16 +91,16 @@ public final class GetSelfAlertsOfSonByLevelInteract extends UseCase<List<AlertE
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
         private final AlertLevelEnum alertLevel;
 
-        public Params(final String sonId, final AlertLevelEnum alertLevel) {
-            this.sonId = sonId;
+        public Params(final String kid, final AlertLevelEnum alertLevel) {
+            this.kid = kid;
             this.alertLevel = alertLevel;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         public AlertLevelEnum getAlertLevel() {
@@ -112,8 +112,8 @@ public final class GetSelfAlertsOfSonByLevelInteract extends UseCase<List<AlertE
          * @param alertLevel
          * @return
          */
-        public static Params create(final String sonId, final AlertLevelEnum alertLevel) {
-            return new Params(sonId, alertLevel);
+        public static Params create(final String kid, final AlertLevelEnum alertLevel) {
+            return new Params(kid, alertLevel);
         }
     }
 

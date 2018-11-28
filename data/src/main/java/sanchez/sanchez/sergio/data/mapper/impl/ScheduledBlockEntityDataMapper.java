@@ -3,7 +3,6 @@ package sanchez.sanchez.sergio.data.mapper.impl;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
-import sanchez.sanchez.sergio.data.utils.AppUtils;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -42,9 +41,9 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockEntity.setRepeatable(originModel.isRepeatable());
         scheduledBlockEntity.setWeeklyFrequency(originModel.getWeeklyFrequency());
         scheduledBlockEntity.setImage(appUtils.isValidString(originModel.getImage()) ?
-                apiEndPointsHelper.getScheduledBlockImageUrl(originModel.getChild(),
+                apiEndPointsHelper.getScheduledBlockImageUrl(originModel.getKid(),
                         originModel.getIdentity(), originModel.getImage()) : null);
-        scheduledBlockEntity.setChildId(originModel.getChild());
+        scheduledBlockEntity.setChildId(originModel.getKid());
         return scheduledBlockEntity;
 
     }
@@ -64,7 +63,7 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockDTO.setWeeklyFrequency(originModel.getWeeklyFrequency());
         scheduledBlockDTO.setStartAt(originModel.getStartAt());
         scheduledBlockDTO.setEndAt(originModel.getEndAt());
-        scheduledBlockDTO.setChild(originModel.getChildId());
+        scheduledBlockDTO.setKid(originModel.getChildId());
         return scheduledBlockDTO;
     }
 }

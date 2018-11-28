@@ -10,32 +10,59 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SocialMediaDTO implements Serializable {
 
+    /**
+     * Identity
+     */
     @JsonProperty("identity")
     private String identity;
 
+    /**
+     * Access Token
+     */
     @JsonProperty("access_token")
     private String accessToken;
 
+    /**
+     * Refresh Token
+     */
     @JsonProperty("refresh_token")
     private String refreshToken;
 
+    /**
+     * Type
+     */
     @JsonProperty("type")
     private String type;
 
+    /**
+     * Invalid Token
+     */
     @JsonProperty("invalid_token")
     private boolean invalidToken;
 
+    /**
+     * User Social Name
+     */
     @JsonProperty("user_social_name")
     private String userSocialName;
 
+    /**
+     * User Social Full Name
+     */
     @JsonProperty("user_social_full_name")
     private String userSocialFullName;
 
+    /**
+     * User Picture
+     */
     @JsonProperty("user_picture")
     private String userPicture;
 
-    @JsonProperty("son_identity")
-    private String son;
+    /**
+     * Kid
+     */
+    @JsonProperty("kid")
+    private String kid;
 
 
     public String getIdentity() {
@@ -102,12 +129,12 @@ public final class SocialMediaDTO implements Serializable {
         this.userPicture = userPicture;
     }
 
-    public String getSon() {
-        return son;
+    public String getKid() {
+        return kid;
     }
 
-    public void setSon(String son) {
-        this.son = son;
+    public void setKid(String kid) {
+        this.kid = kid;
     }
 
     @Override
@@ -121,7 +148,7 @@ public final class SocialMediaDTO implements Serializable {
                 ", userSocialName='" + userSocialName + '\'' +
                 ", userSocialFullName='" + userSocialFullName + '\'' +
                 ", userPicture='" + userPicture + '\'' +
-                ", son='" + son + '\'' +
+                ", kid='" + kid + '\'' +
                 '}';
     }
 }

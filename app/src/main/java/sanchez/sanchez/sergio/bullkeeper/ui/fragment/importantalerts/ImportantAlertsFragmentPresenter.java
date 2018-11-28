@@ -45,8 +45,8 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
         Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
 
         final String sonId = args.getString(SON_IDENTITY_ARG);
-        getWarningAlertsOfSonForSelfParentInteract.execute(new GetWarningAlertsOfSonForSelfParentObservable(
-                GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors.class),
+        getWarningAlertsOfSonForSelfParentInteract.execute(new GetWarningAlertsOfKidForSelfParentObservable(
+                GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors.class),
                 GetWarningAlertsOfSonForSelfParentInteract.Params.create(sonId));
     }
 
@@ -54,13 +54,13 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
     /**
      * Get Warning Alerts Of Son For Self Parent Observable
      */
-    public class GetWarningAlertsOfSonForSelfParentObservable extends CommandCallBackWrapper<List<AlertEntity>,
-            GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors.IGetWarningAlertsOfSonForSelfParentErrorVisitor,
-            GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors>
-            implements GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors.IGetWarningAlertsOfSonForSelfParentErrorVisitor {
+    public class GetWarningAlertsOfKidForSelfParentObservable extends CommandCallBackWrapper<List<AlertEntity>,
+            GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors.IGetWarningAlertsOfKidForSelfParentErrorVisitor,
+            GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors>
+            implements GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors.IGetWarningAlertsOfKidForSelfParentErrorVisitor {
 
 
-        public GetWarningAlertsOfSonForSelfParentObservable(Class<GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors> apiErrors) {
+        public GetWarningAlertsOfKidForSelfParentObservable(Class<GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -82,7 +82,7 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
          * @param apiErrors
          */
         @Override
-        public void visitNoAlertsBySonFounded(GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfSonForSelfParentApiErrors apiErrors) {
+        public void visitNoAlertsBySonFound(GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors apiErrors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();

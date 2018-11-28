@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -16,12 +15,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 
 /**
  * My Kids Home Adapter
  */
-public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEntity>{
+public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SupervisedChildrenEntity>{
 
     private OnMyKidsListener listener;
     private final Picasso picasso;
@@ -33,7 +34,7 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
      * @param context
      * @param data
      */
-    public MyKidsStatusAdapter(Context context, ArrayList<SonEntity> data, final Picasso picasso) {
+    public MyKidsStatusAdapter(Context context, ArrayList<SupervisedChildrenEntity> data, final Picasso picasso) {
         super(context, data, MIN_KIDS_COUNT);
         this.picasso = picasso;
     }
@@ -74,7 +75,7 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
      * My Kids View Holder
      */
     public class MyKidsViewHolder
-            extends SupportItemViewHolder<SonEntity> {
+            extends SupportItemViewHolder<SupervisedChildrenEntity> {
 
         private CircleImageView childImage;
         private TextView childName, alertCount;
@@ -90,18 +91,19 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
 
         /**
          * On Bind
-         * @param sonEntity
+         * @param supervisedChildrenEntity
          */
         @SuppressLint("ClickableViewAccessibility")
         @Override
-        public void bind(final SonEntity sonEntity){
-            super.bind(sonEntity);
+        public void bind(final SupervisedChildrenEntity supervisedChildrenEntity){
+            super.bind(supervisedChildrenEntity);
 
+            final KidEntity kidEntity = supervisedChildrenEntity.getKid();
 
-            if(sonEntity.getProfileImage() != null &&
-                    !sonEntity.getProfileImage().isEmpty())
+            if(kidEntity.getProfileImage() != null &&
+                    !kidEntity.getProfileImage().isEmpty())
                 // Set Child Image
-                picasso.load(sonEntity.getProfileImage())
+                picasso.load(kidEntity.getProfileImage())
                         .placeholder(R.drawable.kid_default_image)
                         .error(R.drawable.kid_default_image)
                         .into(childImage);
@@ -111,8 +113,10 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listener != null)
-                        listener.onDetailActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                    if(listener != null) {
+                        final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
+                        listener.onDetailActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                    }
                 }
             });
 
@@ -131,16 +135,16 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
                         };
 
                         for (final AlertLevelEnum alertLevel : alertLevelEnumsPriority) {
-                            if (sonEntity.getAlertStatistics().containsKey(alertLevel)) {
+                            if (kidEntity.getAlertStatistics().containsKey(alertLevel)) {
                                 alertLevelEnum = alertLevel;
-                                alertLevelValue = sonEntity.getAlertStatistics().get(alertLevel);
+                                alertLevelValue = kidEntity.getAlertStatistics().get(alertLevel);
                                 break;
                             }
                         }
 
                         if(alertLevelEnum != null)
                             listener.onShowAlertsDetail(alertLevelEnum,
-                                    String.valueOf(alertLevelValue), sonEntity.getIdentity());
+                                    String.valueOf(alertLevelValue), kidEntity.getIdentity());
 
                         return true;
 
@@ -151,27 +155,27 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
             });
 
 
-            if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.DANGER)) {
+            if(kidEntity.getAlertStatistics().containsKey(AlertLevelEnum.DANGER)) {
                 childImage.setBorderColor(ContextCompat.getColor(context, R.color.redDanger));
-                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                alertCount.setText(String.valueOf(kidEntity.getAlertStatistics()
                         .get(AlertLevelEnum.DANGER)));
                 alertCount.setVisibility(View.VISIBLE);
                 alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_danger));
-            } else if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.WARNING)) {
+            } else if(kidEntity.getAlertStatistics().containsKey(AlertLevelEnum.WARNING)) {
                 childImage.setBorderColor(ContextCompat.getColor(context, R.color.yellowWarning));
-                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                alertCount.setText(String.valueOf(kidEntity.getAlertStatistics()
                         .get(AlertLevelEnum.WARNING)));
                 alertCount.setVisibility(View.VISIBLE);
                 alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_warning));
-            } else if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.SUCCESS)) {
+            } else if(kidEntity.getAlertStatistics().containsKey(AlertLevelEnum.SUCCESS)) {
                 childImage.setBorderColor(ContextCompat.getColor(context, R.color.greenSuccess));
-                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                alertCount.setText(String.valueOf(kidEntity.getAlertStatistics()
                         .get(AlertLevelEnum.SUCCESS)));
                 alertCount.setVisibility(View.VISIBLE);
                 alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_success));
-            } else if(sonEntity.getAlertStatistics().containsKey(AlertLevelEnum.INFO)) {
+            } else if(kidEntity.getAlertStatistics().containsKey(AlertLevelEnum.INFO)) {
                 childImage.setBorderColor(ContextCompat.getColor(context, R.color.cyanBrilliant));
-                alertCount.setText(String.valueOf(sonEntity.getAlertStatistics()
+                alertCount.setText(String.valueOf(kidEntity.getAlertStatistics()
                         .get(AlertLevelEnum.INFO)));
                 alertCount.setVisibility(View.VISIBLE);
                 alertCount.setBackground(ContextCompat.getDrawable(context, R.drawable.background_alert_count_info));
@@ -181,7 +185,7 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
                 alertCount.setVisibility(View.GONE);
             }
 
-            childName.setText(sonEntity.getFullName());
+            childName.setText(kidEntity.getFullName());
         }
     }
 
@@ -192,9 +196,9 @@ public final class MyKidsStatusAdapter extends SupportRecyclerViewAdapter<SonEnt
 
         /**
          * On Detail Action Clicked
-         * @param sonEntity
+         * @param kidEntity
          */
-        void onDetailActionClicked(final SonEntity sonEntity);
+        void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
          * On Default Item Clicked

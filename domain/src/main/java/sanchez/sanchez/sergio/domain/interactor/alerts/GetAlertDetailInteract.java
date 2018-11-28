@@ -37,7 +37,7 @@ public final class GetAlertDetailInteract extends UseCase<AlertEntity, GetAlertD
     @Override
     protected Observable<AlertEntity> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        return alertsRepository.getAlertById(params.getSonId(), params.getAlertId());
+        return alertsRepository.getAlertById(params.getKid(), params.getAlertId());
     }
 
     /**
@@ -77,16 +77,16 @@ public final class GetAlertDetailInteract extends UseCase<AlertEntity, GetAlertD
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
         private final String alertId;
 
-        public Params(String sonId, String alertId) {
-            this.sonId = sonId;
+        public Params(String kid, String alertId) {
+            this.kid = kid;
             this.alertId = alertId;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         public String getAlertId() {
@@ -95,12 +95,12 @@ public final class GetAlertDetailInteract extends UseCase<AlertEntity, GetAlertD
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @param alertId
          * @return
          */
-        public static Params create(final String sonId, final String alertId) {
-            return new Params(sonId, alertId);
+        public static Params create(final String kid, final String alertId) {
+            return new Params(kid, alertId);
         }
 
     }

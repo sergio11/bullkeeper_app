@@ -8,29 +8,53 @@ import java.io.Serializable;
  */
 public final class SaveSocialMediaDTO implements Serializable {
 
+    /**
+     * Identity
+     */
     @JsonProperty("identity")
     private String identity;
 
+    /**
+     * Access Token
+     */
     @JsonProperty("access_token")
     private String accessToken;
 
+    /**
+     * Refresh Token
+     */
     @JsonProperty("refresh_token")
     private String refreshToken;
 
+    /**
+     * Type
+     */
     @JsonProperty("type")
     private String type;
 
+    /**
+     * User Social Name
+     */
     @JsonProperty("user_social_name")
     private String userSocialName;
 
+    /**
+     * Usre Social Full Name
+     */
     @JsonProperty("user_social_full_name")
     private String userSocialFullName;
 
+    /**
+     * User Picture
+     */
     @JsonProperty("user_picture")
     private String userPicture;
 
-    @JsonProperty("son")
-    private String son;
+    /**
+     * Kid
+     */
+    @JsonProperty("kid")
+    private String kid;
 
 
     public String getIdentity() {
@@ -89,12 +113,12 @@ public final class SaveSocialMediaDTO implements Serializable {
         this.userPicture = userPicture;
     }
 
-    public String getSon() {
-        return son;
+    public String getKid() {
+        return kid;
     }
 
-    public void setSon(String son) {
-        this.son = son;
+    public void setKid(String kid) {
+        this.kid = kid;
     }
 
     @Override
@@ -107,7 +131,7 @@ public final class SaveSocialMediaDTO implements Serializable {
                 ", userSocialName='" + userSocialName + '\'' +
                 ", userSocialFullName='" + userSocialFullName + '\'' +
                 ", userPicture='" + userPicture + '\'' +
-                ", son='" + son + '\'' +
+                ", kid='" + kid + '\'' +
                 '}';
     }
 }

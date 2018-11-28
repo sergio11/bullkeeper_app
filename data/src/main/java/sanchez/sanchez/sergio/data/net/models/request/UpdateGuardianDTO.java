@@ -4,47 +4,62 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * Register Parent
+ * Update Guardian DTO
  */
-public final class RegisterParentDTO implements Serializable {
+public final class UpdateGuardianDTO implements Serializable {
 
+    /**
+     * First Name
+     */
     @JsonProperty("first_name")
     private String firstName;
 
+    /**
+     * Last Name
+     */
     @JsonProperty("last_name")
     private String lastName;
 
+    /**
+     * Birth Date
+     */
     @JsonProperty("birthdate")
     private String birthdate;
 
+    /**
+     * Email
+     */
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("password_clear")
-    private String passwordClear;
-
-    @JsonProperty("confirm_password")
-    private String confirmPassword;
-
-    @JsonProperty("locale")
-    private String locale;
-
+    /**
+     * Telephone
+     */
     @JsonProperty("telephone")
     private String telephone;
 
-    public RegisterParentDTO(){}
+    /**
+     * 
+     */
+    private String profileImage;
 
-    public RegisterParentDTO(final String firstName, final String lastName, final String birthdate, final String email,
-                             final String passwordClear, final String confirmPassword, final String locale,
-                             final String telephone) {
+    public UpdateGuardianDTO(){}
+
+    public UpdateGuardianDTO(String firstName, String lastName, String birthdate, String email, String telephone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.email = email;
-        this.passwordClear = passwordClear;
-        this.confirmPassword = confirmPassword;
-        this.locale = locale;
         this.telephone = telephone;
+    }
+
+    public UpdateGuardianDTO(String firstName, String lastName, String birthdate, String email, String telephone, String profileImage) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.telephone = telephone;
+        this.profileImage = profileImage;
     }
 
     public String getFirstName() {
@@ -79,30 +94,6 @@ public final class RegisterParentDTO implements Serializable {
         this.email = email;
     }
 
-    public String getPasswordClear() {
-        return passwordClear;
-    }
-
-    public void setPasswordClear(String passwordClear) {
-        this.passwordClear = passwordClear;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
-
     public String getTelephone() {
         return telephone;
     }
@@ -111,15 +102,22 @@ public final class RegisterParentDTO implements Serializable {
         this.telephone = telephone;
     }
 
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     @Override
     public String toString() {
-        return "RegisterParentDTO{" +
+        return "UpdateGuardianDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthdate='" + birthdate + '\'' +
                 ", email='" + email + '\'' +
-                ", passwordClear='" + passwordClear + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
                 ", telephone='" + telephone + '\'' +
                 '}';
     }

@@ -4,19 +4,58 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Parent Entity
+ * Guardian Entity
  */
-public final class ParentEntity implements Serializable {
+public final class GuardianEntity implements Serializable {
 
+    /**
+     * Identity
+     */
     private String identity;
+
+    /**
+     * First Name
+     */
     private String firstName;
+
+    /**
+     * Last Name
+     */
     private String lastName;
+
+    /**
+     * Birth Date
+     */
     private Date birthdate;
+
+    /**
+     * Age
+     */
     private Integer age;
+
+    /**
+     * Email
+     */
     private String email;
+
+    /**
+     * Phone Prefix
+     */
     private String phonePrefix;
+
+    /**
+     * Phone Number
+     */
     private String phoneNumber;
+
+    /**
+     * FB id
+     */
     private String fbId;
+
+    /**
+     * Children
+     */
     private Long children;
     private String locale;
     private String profileImage;

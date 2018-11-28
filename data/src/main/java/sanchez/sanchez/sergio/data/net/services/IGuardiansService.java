@@ -1,75 +1,69 @@
 package sanchez.sanchez.sergio.data.net.services;
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import sanchez.sanchez.sergio.data.net.models.request.RegisterParentDTO;
+import sanchez.sanchez.sergio.data.net.models.request.RegisterGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
-import sanchez.sanchez.sergio.data.net.models.request.UpdateParentDTO;
+import sanchez.sanchez.sergio.data.net.models.request.UpdateGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
-import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
+import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
-import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 
 /**
- * Parent Service Interface
+ * Guardians Service Interface
  */
-public interface IParentsService {
+public interface IGuardiansService {
 
     /**
      * Reset Password
      * @param resetPasswordRequestDTO
      * @return
      */
-    @POST("parents/reset-password")
+    @POST("guardians/reset-password")
     Observable<APIResponse<String>> resetPassword(@Body final ResetPasswordRequestDTO resetPasswordRequestDTO);
 
     /**
      * Register Parent
-     * @param registerParentDTO
+     * @param registerGuardianDTO
      * @return
      */
-    @POST("parents/")
-    Observable<APIResponse<ParentDTO>> register(@Body final RegisterParentDTO registerParentDTO);
+    @POST("guardians/")
+    Observable<APIResponse<GuardianDTO>> register(@Body final RegisterGuardianDTO registerGuardianDTO);
 
     /**
      * Get Self Children
      * @return
      */
-    @GET("parents/self/children")
-    Observable<APIResponse<List<SonDTO>>> getSelfChildren();
+    @GET("guardians/self/children")
+    Observable<APIResponse<ChildrenOfSelfGuardianDTO>> getSelfChildren();
 
 
     /**
-     * Get Parent Self Information
+     * Get Guardian Self Information
      */
-    @GET("parents/self")
-    Observable<APIResponse<ParentDTO>> getParentSelfInformation();
+    @GET("guardians/self")
+    Observable<APIResponse<GuardianDTO>> getParentSelfInformation();
 
     /**
-     * Update Self Parent
+     * Update Self Guardian
      * @return
      */
-    @POST("parents/self")
-    Observable<APIResponse<ParentDTO>> updateSelfParent(@Body final UpdateParentDTO updateParentDTO);
+    @POST("guardians/self")
+    Observable<APIResponse<GuardianDTO>> updateSelfParent(@Body final UpdateGuardianDTO updateGuardianDTO);
 
     /**
      * Upload Profile Image
      * @return
      */
     @Multipart
-    @POST("parents/self/image")
+    @POST("guardians/self/image")
     Observable<APIResponse<ImageDTO>> uploadProfileImage(@Part final MultipartBody.Part image);
 
 
@@ -78,7 +72,7 @@ public interface IParentsService {
      * Delete Self Account
      * @return
      */
-    @DELETE("parents/self/delete")
+    @DELETE("guardians/self/delete")
     Observable<APIResponse<String>> deleteSelfAccount();
 
 }

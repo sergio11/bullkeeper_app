@@ -4,8 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterParentInteract;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+
+import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterGuardianInteract;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 
@@ -14,11 +15,11 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
  */
 public final class SignupFragmentPresenter extends SupportPresenter<ISignupView> {
 
-    private final RegisterParentInteract registerParentInteract;
+    private final RegisterGuardianInteract registerGuardianInteract;
 
     @Inject
-    public SignupFragmentPresenter(final RegisterParentInteract registerParentInteract){
-        this.registerParentInteract = registerParentInteract;
+    public SignupFragmentPresenter(final RegisterGuardianInteract registerGuardianInteract){
+        this.registerGuardianInteract = registerGuardianInteract;
     }
 
 
@@ -38,8 +39,8 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.signup_in_progress);
 
-        registerParentInteract.execute(new SignupObserver(RegisterParentInteract.SignupApiErrors.class),
-                RegisterParentInteract.Params.create(name, surname, birthday, email, password, confirmPassword,
+        registerGuardianInteract.execute(new SignupObserver(RegisterGuardianInteract.SignupApiErrors.class),
+                RegisterGuardianInteract.Params.create(name, surname, birthday, email, password, confirmPassword,
                         telephone));
 
     }
@@ -47,14 +48,14 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
     /**
      * Signup Observer
      */
-    private final class SignupObserver extends CommandCallBackWrapper<ParentEntity, RegisterParentInteract.SignupApiErrors.ISignupApiErrorVisitor,
-            RegisterParentInteract.SignupApiErrors> implements RegisterParentInteract.SignupApiErrors.ISignupApiErrorVisitor {
+    private final class SignupObserver extends CommandCallBackWrapper<GuardianEntity, RegisterGuardianInteract.SignupApiErrors.ISignupApiErrorVisitor,
+            RegisterGuardianInteract.SignupApiErrors> implements RegisterGuardianInteract.SignupApiErrors.ISignupApiErrorVisitor {
 
         /**
          *
          * @param apiErrors
          */
-        public SignupObserver(Class<RegisterParentInteract.SignupApiErrors> apiErrors) {
+        public SignupObserver(Class<RegisterGuardianInteract.SignupApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -63,7 +64,7 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
          * @param response
          */
         @Override
-        protected void onSuccess(final ParentEntity response) {
+        protected void onSuccess(final GuardianEntity response) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onSignupSuccess(response);
@@ -76,7 +77,7 @@ public final class SignupFragmentPresenter extends SupportPresenter<ISignupView>
          * @param errors
          */
         @Override
-        public void visitValidationError(RegisterParentInteract.SignupApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+        public void visitValidationError(RegisterGuardianInteract.SignupApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {

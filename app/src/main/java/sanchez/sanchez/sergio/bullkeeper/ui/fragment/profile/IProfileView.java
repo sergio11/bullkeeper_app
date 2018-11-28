@@ -1,9 +1,8 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
-import java.util.List;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 
 /**
  * Home View
@@ -12,15 +11,15 @@ public interface IProfileView extends ISupportView {
 
     /**
      * On User Profile Loaded
-     * @param parentEntity
+     * @param guardianEntity
      */
-    void onUserProfileLoaded(final ParentEntity parentEntity);
+    void onUserProfileLoaded(final GuardianEntity guardianEntity);
 
     /**
      * On Children Loaded
      * @param children
      */
-    void onChildrenLoaded(final List<SonEntity> children);
+    void onChildrenLoaded(final ChildrenOfSelfGuardianEntity children);
 
     /**
      * On No Children Founded

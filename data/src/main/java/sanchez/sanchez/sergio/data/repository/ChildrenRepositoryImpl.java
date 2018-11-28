@@ -8,21 +8,21 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
-import sanchez.sanchez.sergio.data.net.models.request.RegisterSonDTO;
-import sanchez.sanchez.sergio.data.net.models.request.UpdateSonDTO;
+import sanchez.sanchez.sergio.data.net.models.request.RegisterKidDTO;
+import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import timber.log.Timber;
 
@@ -32,7 +32,7 @@ import timber.log.Timber;
 public final class ChildrenRepositoryImpl implements IChildrenRepository {
 
     private final IChildrenService childrenService;
-    private final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper;
+    private final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper;
     private final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper;
     private final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper;
     private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
@@ -47,7 +47,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
      * @param sentimentAnalysisStatisticsDataMapper
      */
     public ChildrenRepositoryImpl(final IChildrenService childrenService,
-                                  final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
+                                  final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                   final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
                                   final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
@@ -68,7 +68,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
      * @return
      */
     @Override
-    public Observable<SonEntity> getSonById(String sonId) {
+    public Observable<KidEntity> getSonById(String sonId) {
         Preconditions.checkNotNull(sonId, "Son Id can not be null");
         Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
         return childrenService.getSonById(sonId).map(response ->
@@ -85,14 +85,14 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
      * @return
      */
     @Override
-    public Observable<SonEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
+    public Observable<KidEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
                                                             final String birthdate, final String school) {
         Preconditions.checkNotNull(firstName, "Firstname can not be null");
         Preconditions.checkNotNull(lastName, "Lastname can not be null");
         Preconditions.checkNotNull(birthdate, "Birthdate can not be null");
         Preconditions.checkNotNull(school, "School can not be null");
 
-        return childrenService.addSonToSelfParent(new RegisterSonDTO(firstName, lastName, birthdate, school))
+        return childrenService.addSonToSelfParent(new RegisterKidDTO(firstName, lastName, birthdate, school))
                 .map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(sonDataMapper::transform);
     }
@@ -107,7 +107,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
      * @return
      */
     @Override
-    public Observable<SonEntity> saveSonInformation(final String identity, final String firstName,
+    public Observable<KidEntity> saveSonInformation(final String identity, final String firstName,
                                                     final String lastName, final String birthdate,
                                                     final String school) {
 
@@ -117,7 +117,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
         Preconditions.checkNotNull(birthdate, "Birthdate can not be null");
         Preconditions.checkNotNull(school, "School can not be null");
 
-        return childrenService.saveSonInformation(new UpdateSonDTO(identity, firstName, lastName, birthdate, school))
+        return childrenService.saveSonInformation(new UpdateKidDTO(identity, firstName, lastName, birthdate, school))
                 .map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(sonDataMapper::transform);
     }

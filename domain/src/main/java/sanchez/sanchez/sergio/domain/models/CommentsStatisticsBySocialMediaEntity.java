@@ -8,8 +8,14 @@ import java.util.List;
  */
 public final class CommentsStatisticsBySocialMediaEntity implements Serializable {
 
+    /**
+     * Title
+     */
     private String title;
 
+    /**
+     * Comments By Social Media Entities
+     */
     private List<CommentsBySocialMediaEntity> commentsBySocialMediaEntities;
 
 

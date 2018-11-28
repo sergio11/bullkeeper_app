@@ -21,7 +21,7 @@ public final class SaveSocialMediaDataMapper extends AbstractDataMapper<SaveSoci
         socialMediaEntity.setIdentity(originModel.getIdentity());
         socialMediaEntity.setAccessToken(originModel.getAccessToken());
         socialMediaEntity.setRefreshToken(originModel.getRefreshToken());
-        socialMediaEntity.setUserFullName(originModel.getSon());
+        socialMediaEntity.setUserFullName(originModel.getKid());
         socialMediaEntity.setType(SocialMediaTypeEnum.valueOf(originModel.getType()));
         return socialMediaEntity;
     }
@@ -37,7 +37,7 @@ public final class SaveSocialMediaDataMapper extends AbstractDataMapper<SaveSoci
         saveSocialMediaDTO.setIdentity(originModel.getIdentity());
         saveSocialMediaDTO.setAccessToken(originModel.getAccessToken());
         saveSocialMediaDTO.setRefreshToken(originModel.getRefreshToken());
-        saveSocialMediaDTO.setSon(originModel.getSonIdentity());
+        saveSocialMediaDTO.setKid(originModel.getKid());
         saveSocialMediaDTO.setType(originModel.getType().name());
         saveSocialMediaDTO.setUserSocialName(originModel.getUserSocialName());
         saveSocialMediaDTO.setUserSocialFullName(originModel.getUserFullName());

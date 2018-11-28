@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
-import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile.UserProfileMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile.UserProfilePresenter;
@@ -14,7 +14,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile.UserProfilePres
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
-                 ParentModule.class })
+                 GuardianModule.class })
 public interface UserProfileComponent extends ActivityComponent {
 
     /**

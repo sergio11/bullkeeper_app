@@ -9,9 +9,9 @@ import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 
 /**
- * Delete Alert Of Son Interact
+ * Clear Alerts By Kid Interact
  */
-public final class DeleteAlertOfSonInteract extends UseCase<String, DeleteAlertOfSonInteract.Params> {
+public final class ClearAlertsByKidInteract extends UseCase<String, ClearAlertsByKidInteract.Params> {
 
     private final IAlertsRepository alertsRepository;
 
@@ -19,7 +19,7 @@ public final class DeleteAlertOfSonInteract extends UseCase<String, DeleteAlertO
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public DeleteAlertOfSonInteract(final IThreadExecutor threadExecutor,
+    public ClearAlertsByKidInteract(final IThreadExecutor threadExecutor,
                                     final IPostExecutionThread postExecutionThread,
                                     final IAlertsRepository alertsRepository) {
         super(threadExecutor, postExecutionThread);
@@ -34,31 +34,33 @@ public final class DeleteAlertOfSonInteract extends UseCase<String, DeleteAlertO
     @Override
     protected Observable<String> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getSon(), "Son Identity can not be null");
-        Preconditions.checkNotNull(params.getAlert(), "Alert Identity can not be null");
-        return alertsRepository.deleteAlertOfSon(params.getSon(), params.getAlert());
+        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
+        Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
+        return alertsRepository.clearAlertsOfSon(params.getKid());
     }
 
+    /**
+     * Params
+     */
     public static class Params {
 
-        private final String son;
-        private final String alert;
+        private final String kid;
 
-        public Params(String son, String alert) {
-            this.son = son;
-            this.alert = alert;
+        public Params(String kid) {
+            this.kid = kid;
         }
 
-        public String getSon() {
-            return son;
+        public String getKid() {
+            return kid;
         }
 
-        public String getAlert() {
-            return alert;
-        }
-
-        public static Params create(final String son, final String alert){
-            return new Params(son, alert);
+        /**
+         * Create
+         * @param kid
+         * @return
+         */
+        public static Params create(final String kid) {
+            return new Params(kid);
         }
     }
 }

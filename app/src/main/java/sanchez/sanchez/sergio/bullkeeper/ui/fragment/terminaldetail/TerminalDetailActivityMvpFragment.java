@@ -16,11 +16,14 @@ import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.di.components.TerminalComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.ITerminalDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+
+import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
 
 /**
@@ -186,7 +189,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @Override
     protected int getToolbarType() {
-        return TOOLBAR_WITH_MENU;
+        return RETURN_TOOLBAR;
     }
 
     /**
@@ -279,4 +282,5 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             public void onRejected(DialogFragment dialog) {}
         });
     }
+
 }

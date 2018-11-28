@@ -18,31 +18,31 @@ public interface ITerminalService {
 
     /**
      * Get Monitored Terminals
-     * @param childId
+     * @param kid
      * @return
      */
-    @GET("children/{son}/terminal")
-    Observable<APIResponse<List<TerminalDTO>>> getMonitoredTerminals(final @Path("son") String childId);
+    @GET("children/{kid}/terminal")
+    Observable<APIResponse<List<TerminalDTO>>> getMonitoredTerminals(final @Path("kid") String kid);
 
     /**
      * Get Terminal Detail
-     * @param childId
+     * @param kid
      * @param terminal
      * @return
      */
-    @GET("children/{son}/terminal/{terminal}")
+    @GET("children/{kid}/terminal/{terminal}")
     Observable<APIResponse<TerminalDetailDTO>> getTerminalDetail(
-            final @Path("son") String childId, final @Path("terminal") String terminal);
+            final @Path("kid") String kid, final @Path("terminal") String terminal);
 
 
     /**
      * Delete Terminal
-     * @param childId
+     * @param kid
      * @param terminal
      * @return
      */
-    @DELETE("children/{son}/terminal/{terminal}")
-    Observable<APIResponse<String>> deleteTerminal(final @Path("son") String childId,
+    @DELETE("children/{kid}/terminal/{terminal}")
+    Observable<APIResponse<String>> deleteTerminal(final @Path("kid") String kid,
                                                    final @Path("terminal") String terminal);
 
 }

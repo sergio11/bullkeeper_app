@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.AppRulesModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
-import sanchez.sanchez.sergio.bullkeeper.di.modules.ParentModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScreenTimeAllowanceModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
@@ -37,7 +37,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowance
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
-                 ParentModule.class, ChildrenProfileModule.class, AlertsModule.class,
+                 GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
                 AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class })
 public interface MyKidsComponent extends StatsComponent {

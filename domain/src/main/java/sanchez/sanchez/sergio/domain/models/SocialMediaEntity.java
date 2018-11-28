@@ -15,13 +15,13 @@ public final class SocialMediaEntity implements Serializable {
     private String userSocialName;
     private String userPicture;
     private String userFullName;
-    private String sonIdentity;
+    private String kid;
 
     public SocialMediaEntity(){}
 
     public SocialMediaEntity(String identity, String accessToken, String refreshToken,
                              SocialMediaTypeEnum type, Boolean invalidToken,
-                             String userSocialName, String userPicture, String userFullName, String sonIdentity) {
+                             String userSocialName, String userPicture, String userFullName, String kid) {
         this.identity = identity;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
@@ -30,7 +30,7 @@ public final class SocialMediaEntity implements Serializable {
         this.userSocialName = userSocialName;
         this.userPicture = userPicture;
         this.userFullName = userFullName;
-        this.sonIdentity = sonIdentity;
+        this.kid = kid;
     }
 
     public String getIdentity() {
@@ -97,12 +97,12 @@ public final class SocialMediaEntity implements Serializable {
         this.userFullName = userFullName;
     }
 
-    public String getSonIdentity() {
-        return sonIdentity;
+    public String getKid() {
+        return kid;
     }
 
-    public void setSonIdentity(String sonIdentity) {
-        this.sonIdentity = sonIdentity;
+    public void setKid(String kid) {
+        this.kid = kid;
     }
 
     @Override

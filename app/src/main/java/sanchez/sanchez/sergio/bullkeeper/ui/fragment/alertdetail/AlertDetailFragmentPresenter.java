@@ -4,7 +4,7 @@ import android.os.Bundle;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertDetailInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 
@@ -21,18 +21,18 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
     /**
      * Delete Alert Of Son Interact
      */
-    private final DeleteAlertOfSonInteract deleteAlertOfSonInteract;
+    private final DeleteAlertOfKidInteract deleteAlertOfKidInteract;
 
     /**
      *
      * @param getAlertDetailInteract
-     * @param deleteAlertOfSonInteract
+     * @param deleteAlertOfKidInteract
      */
     @Inject
     public AlertDetailFragmentPresenter(final GetAlertDetailInteract getAlertDetailInteract,
-                                        final DeleteAlertOfSonInteract deleteAlertOfSonInteract){
+                                        final DeleteAlertOfKidInteract deleteAlertOfKidInteract){
         this.getAlertDetailInteract = getAlertDetailInteract;
-        this.deleteAlertOfSonInteract = deleteAlertOfSonInteract;
+        this.deleteAlertOfKidInteract = deleteAlertOfKidInteract;
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
         final String sonId = args.getString(AlertDetailActivityMvpFragment.SON_ID_ARG);
         final String alertId = args.getString(AlertDetailActivityMvpFragment.ALERT_ID_ARG);
 
-        deleteAlertOfSonInteract.execute(new DeleteAlertOfSonObserver() , DeleteAlertOfSonInteract.Params.create(sonId, alertId));
+        deleteAlertOfKidInteract.execute(new DeleteAlertOfSonObserver() , DeleteAlertOfKidInteract.Params.create(sonId, alertId));
 
     }
 

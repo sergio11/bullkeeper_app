@@ -315,16 +315,16 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 actionButton.setVisibility(View.GONE);
                 break;
 
-            case STATISTICS_SON:
+            case STATISTICS_KID:
                 // Statistics Son Category
-                alertDetailActions.setText(getString(R.string.alert_category_statistics_son_desc));
-                actionButton.setText(getString(R.string.alert_category_statistics_son_action_text));
+                alertDetailActions.setText(getString(R.string.alert_category_statistics_kid_desc));
+                actionButton.setText(getString(R.string.alert_category_statistics_kid_action_text));
                 break;
 
-            case INFORMATION_SON:
+            case INFORMATION_KID:
                 // Information Son Category
-                alertDetailActions.setText(getString(R.string.alert_category_information_son_desc));
-                actionButton.setText(getString(R.string.alert_category_information_son_action_text));
+                alertDetailActions.setText(getString(R.string.alert_category_information_kid_desc));
+                actionButton.setText(getString(R.string.alert_category_information_kid_action_text));
                 break;
 
             case GENERAL_STATISTICS:

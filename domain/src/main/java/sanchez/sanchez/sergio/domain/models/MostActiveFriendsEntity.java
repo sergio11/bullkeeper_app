@@ -5,7 +5,14 @@ import java.util.List;
 
 public final class MostActiveFriendsEntity implements Serializable {
 
+    /**
+     * Title
+     */
     private String title;
+
+    /**
+     * Friends
+     */
     private List<SocialMediaFriendEntity> friends;
 
     public MostActiveFriendsEntity(){}

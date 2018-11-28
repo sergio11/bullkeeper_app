@@ -11,8 +11,8 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -43,21 +43,21 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
     }
 
     /**
-     * Save Son Information
+     * Save Kid Information
      * @param params
      * @return
      */
-    private Observable<SonEntity> saveSonInformation(final Params params) {
-        return childrenRepository.saveSonInformation(params.getSonId(), params.getFirstname(), params.getLastName(),
+    private Observable<KidEntity> saveKidInformation(final Params params) {
+        return childrenRepository.saveSonInformation(params.getKid(), params.getFirstname(), params.getLastName(),
                 params.getBirthday(), params.getSchool());
     }
 
     /**
-     * Add To Self Parent
+     * Add Kid To Self Parent
      * @param params
      * @return
      */
-    private Observable<SonEntity> addSonToSelfParent(final Params params){
+    private Observable<KidEntity> addKidToSelfParent(final Params params){
         return childrenRepository.addSonToSelfParentInteract(params.getFirstname(), params.getLastName(),
                 params.getBirthday(), params.getSchool());
     }
@@ -68,37 +68,37 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      * @param params
      * @return
      */
-    private Observable<SonEntity> saveSonProfile(final Params params) {
+    private Observable<KidEntity> saveKidProfile(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
-        return (appUtils.isValidString(params.getSonId()) ? saveSonInformation(params):
-                addSonToSelfParent(params)).flatMap(new Function<SonEntity, ObservableSource<SonEntity>>() {
+        return (appUtils.isValidString(params.getKid()) ? saveKidInformation(params):
+                addKidToSelfParent(params)).flatMap(new Function<KidEntity, ObservableSource<KidEntity>>() {
             @Override
-            public ObservableSource<SonEntity> apply(final SonEntity sonEntity) throws Exception {
+            public ObservableSource<KidEntity> apply(final KidEntity kidEntity) throws Exception {
 
                 if(appUtils.isValidString(params.getProfileImage())) {
 
-                    if(!appUtils.isValidString(sonEntity.getProfileImage()) ||
-                            !sonEntity.getProfileImage().equalsIgnoreCase(params.getProfileImage())) {
+                    if(!appUtils.isValidString(kidEntity.getProfileImage()) ||
+                            !kidEntity.getProfileImage().equalsIgnoreCase(params.getProfileImage())) {
 
-                        return childrenRepository.uploadProfileImage(sonEntity.getIdentity(),
-                                params.getProfileImage()).map(new Function<ImageEntity, SonEntity>() {
+                        return childrenRepository.uploadProfileImage(kidEntity.getIdentity(),
+                                params.getProfileImage()).map(new Function<ImageEntity, KidEntity>() {
                             @Override
-                            public SonEntity apply(ImageEntity imageEntity) throws Exception {
-                                sonEntity.setProfileImage(imageEntity.getUrl());
-                                return sonEntity;
+                            public KidEntity apply(ImageEntity imageEntity) throws Exception {
+                                kidEntity.setProfileImage(imageEntity.getUrl());
+                                return kidEntity;
                             }
                         });
 
                     } else {
 
-                        return Observable.just(sonEntity);
+                        return Observable.just(kidEntity);
                     }
 
 
                 } else {
 
-                    return Observable.just(sonEntity);
+                    return Observable.just(kidEntity);
                 }
             }
         });
@@ -115,18 +115,18 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.socialMediaEntities, "Social Media Entities can not be null");
 
-        return saveSonProfile(params)
-                .flatMap(new Function<SonEntity, ObservableSource<Result>>() {
+        return saveKidProfile(params)
+                .flatMap(new Function<KidEntity, ObservableSource<Result>>() {
                     @Override
-                    public ObservableSource<Result> apply(final SonEntity sonEntity) throws Exception {
+                    public ObservableSource<Result> apply(final KidEntity kidEntity) throws Exception {
                         return !params.socialMediaEntities.isEmpty() ?
-                                socialMediaRepository.saveAllSocialMedia(sonEntity.getIdentity(), params.socialMediaEntities)
+                                socialMediaRepository.saveAllSocialMedia(kidEntity.getIdentity(), params.socialMediaEntities)
                                 .map(new Function<List<SocialMediaEntity>, Result>() {
                                     @Override
                                     public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
-                                        return new Result(sonEntity, socialMediaEntities);
+                                        return new Result(kidEntity, socialMediaEntities);
                                     }
-                                }) : Observable.just(new Result(sonEntity, params.socialMediaEntities));
+                                }) : Observable.just(new Result(kidEntity, params.socialMediaEntities));
                     }
                 });
 
@@ -168,16 +168,16 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      */
     public static class Result {
 
-        private final SonEntity sonEntity;
+        private final KidEntity kidEntity;
         private final List<SocialMediaEntity> socialMediaEntities;
 
-        public Result(SonEntity sonEntity, List<SocialMediaEntity> socialMediaEntities) {
-            this.sonEntity = sonEntity;
+        public Result(KidEntity kidEntity, List<SocialMediaEntity> socialMediaEntities) {
+            this.kidEntity = kidEntity;
             this.socialMediaEntities = socialMediaEntities;
         }
 
-        public SonEntity getSonEntity() {
-            return sonEntity;
+        public KidEntity getKidEntity() {
+            return kidEntity;
         }
 
         public List<SocialMediaEntity> getSocialMediaEntities() {
@@ -191,7 +191,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
         private final String firstname;
         private final String lastName;
         private final String birthday;
@@ -199,9 +199,19 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
         private final String profileImage;
         private final List<SocialMediaEntity> socialMediaEntities;
 
-        private Params(String sonId, String firstname, String lastName, String birthday, String school, String profileImage,
+        /***
+         *
+         * @param kid
+         * @param firstname
+         * @param lastName
+         * @param birthday
+         * @param school
+         * @param profileImage
+         * @param socialMediaEntities
+         */
+        private Params(String kid, String firstname, String lastName, String birthday, String school, String profileImage,
                        final List<SocialMediaEntity> socialMediaEntities) {
-            this.sonId = sonId;
+            this.kid = kid;
             this.firstname = firstname;
             this.lastName = lastName;
             this.birthday = birthday;
@@ -210,8 +220,8 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
             this.socialMediaEntities = socialMediaEntities;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         public String getFirstname() {
@@ -240,7 +250,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @param firstname
          * @param lastName
          * @param birthday
@@ -248,10 +258,10 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
          * @param profileImage
          * @return
          */
-        public static Params create(final String sonId, final String firstname, final String lastName,
+        public static Params create(final String kid, final String firstname, final String lastName,
                                     final String birthday, final String school,
                                     final String profileImage, final List<SocialMediaEntity> socialMediaEntities) {
-            return new Params(sonId, firstname, lastName, birthday, school, profileImage, socialMediaEntities);
+            return new Params(kid, firstname, lastName, birthday, school, profileImage, socialMediaEntities);
         }
     }
 

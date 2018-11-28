@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Parent DTO
+ * Guardian DTO
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class ParentDTO implements Serializable {
+public final class GuardianDTO implements Serializable {
 
     @JsonProperty("identity")
     private String identity;
@@ -146,7 +146,7 @@ public final class ParentDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "ParentDTO{" +
+        return "GuardianDTO{" +
                 "identity='" + identity + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

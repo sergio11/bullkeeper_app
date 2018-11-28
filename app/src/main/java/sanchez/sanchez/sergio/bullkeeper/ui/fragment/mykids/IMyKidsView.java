@@ -1,8 +1,9 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportLCEView;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 
-public interface IMyKidsView extends ISupportLCEView<SonEntity> {
-
-}
+/**
+ * My Kids View
+ */
+public interface IMyKidsView extends ISupportLCEView<SupervisedChildrenEntity> {}

@@ -5,29 +5,56 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Register Son DTO
+ * Update Kid DTO
  */
-public final class RegisterSonDTO implements Serializable {
+public final class UpdateKidDTO implements Serializable{
 
+    /**
+     * Identity
+     */
+    @JsonProperty("identity")
+    private String identity;
+
+    /**
+     * First Name
+     */
     @JsonProperty("first_name")
     private String firstName;
 
+    /**
+     * Last Name
+     */
     @JsonProperty("last_name")
     private String lastName;
 
+    /**
+     * Birth Date
+     */
     @JsonProperty("birthdate")
     private String birthdate;
 
+    /**
+     * School
+     */
     @JsonProperty("school")
     private String school;
 
-    public RegisterSonDTO(){}
+    public UpdateKidDTO(){}
 
-    public RegisterSonDTO(String firstName, String lastName, String birthdate, String school) {
+    public UpdateKidDTO(String identity, String firstName, String lastName, String birthdate, String school) {
+        this.identity = identity;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.school = school;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
     public String getFirstName() {
@@ -64,8 +91,9 @@ public final class RegisterSonDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "RegisterSonDTO{" +
-                "firstName='" + firstName + '\'' +
+        return "UpdateKidDTO{" +
+                "identity='" + identity + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthdate='" + birthdate + '\'' +
                 ", school='" + school + '\'' +

@@ -25,7 +25,7 @@ public final class SocialMediaDataMapper extends AbstractDataMapper<SocialMediaD
         socialMediaEntity.setUserPicture(originModel.getUserPicture());
         socialMediaEntity.setUserSocialName(originModel.getUserSocialName());
         socialMediaEntity.setType(SocialMediaTypeEnum.valueOf(originModel.getType()));
-        socialMediaEntity.setSonIdentity(originModel.getSon());
+        socialMediaEntity.setKid(originModel.getKid());
         return socialMediaEntity;
     }
 
@@ -45,7 +45,7 @@ public final class SocialMediaDataMapper extends AbstractDataMapper<SocialMediaD
         socialMediaDTO.setType(originModel.getType().name());
         socialMediaDTO.setUserPicture(originModel.getUserPicture());
         socialMediaDTO.setUserSocialName(originModel.getUserSocialName());
-        socialMediaDTO.setSon(originModel.getSonIdentity());
+        socialMediaDTO.setKid(originModel.getKid());
         return socialMediaDTO;
     }
 }

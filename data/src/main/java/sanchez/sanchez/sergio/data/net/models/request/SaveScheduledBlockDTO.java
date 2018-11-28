@@ -52,10 +52,10 @@ public final class SaveScheduledBlockDTO implements Serializable {
     private int[] weeklyFrequency;
 
     /**
-     * Son
+     * Kid
      */
-    @JsonProperty("son")
-    private String son;
+    @JsonProperty("kid")
+    private String kid;
 
     public SaveScheduledBlockDTO(){}
 
@@ -68,9 +68,9 @@ public final class SaveScheduledBlockDTO implements Serializable {
      * @param startAt
      * @param endAt
      * @param weeklyFrequency
-     * @param son
+     * @param kid
      */
-    public SaveScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable, String startAt, String endAt, int[] weeklyFrequency, String son) {
+    public SaveScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable, String startAt, String endAt, int[] weeklyFrequency, String kid) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -78,7 +78,7 @@ public final class SaveScheduledBlockDTO implements Serializable {
         this.startAt = startAt;
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
-        this.son = son;
+        this.kid = kid;
     }
 
     public String getIdentity() {
@@ -137,11 +137,11 @@ public final class SaveScheduledBlockDTO implements Serializable {
         this.weeklyFrequency = weeklyFrequency;
     }
 
-    public String getSon() {
-        return son;
+    public String getKid() {
+        return kid;
     }
 
-    public void setSon(String son) {
-        this.son = son;
+    public void setKid(String kid) {
+        this.kid = kid;
     }
 }

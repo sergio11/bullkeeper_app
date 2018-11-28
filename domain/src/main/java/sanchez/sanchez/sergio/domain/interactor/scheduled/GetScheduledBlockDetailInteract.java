@@ -53,7 +53,14 @@ public final class GetScheduledBlockDetailInteract extends UseCase<ScheduledBloc
      */
     public static class Params {
 
+        /**
+         * Child Id
+         */
         private final String childId;
+
+        /**
+         * Block Id
+         */
         private final String blockId;
 
         /**

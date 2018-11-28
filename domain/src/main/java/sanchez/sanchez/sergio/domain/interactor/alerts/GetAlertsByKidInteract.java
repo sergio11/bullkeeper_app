@@ -14,9 +14,10 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
- *  Get Alerts By Son Interact
+ *  Get Alerts By Kid Interact
  */
-public final class GetAlertsBySonInteract extends UseCase<List<AlertEntity>, GetAlertsBySonInteract.Params> {
+public final class GetAlertsByKidInteract
+            extends UseCase<List<AlertEntity>, GetAlertsByKidInteract.Params> {
 
 
     private final IAlertsRepository alertsRepository;
@@ -25,7 +26,7 @@ public final class GetAlertsBySonInteract extends UseCase<List<AlertEntity>, Get
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public GetAlertsBySonInteract(final IThreadExecutor threadExecutor,
+    public GetAlertsByKidInteract(final IThreadExecutor threadExecutor,
                                   final IPostExecutionThread postExecutionThread, final IAlertsRepository alertsRepository) {
         super(threadExecutor, postExecutionThread);
         this.alertsRepository = alertsRepository;
@@ -39,9 +40,9 @@ public final class GetAlertsBySonInteract extends UseCase<List<AlertEntity>, Get
     @Override
     protected Observable<List<AlertEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkState(params.getSonIdentity() != null, "Son Identity ca not be null");
-        Preconditions.checkState(!params.getSonIdentity().isEmpty(), "Son Identity can not be null");
-        return alertsRepository.getAlertsBySon(params.getSonIdentity());
+        Preconditions.checkState(params.getKid() != null, "Kid ca not be null");
+        Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be null");
+        return alertsRepository.getAlertsBySon(params.getKid());
     }
 
     /**
@@ -49,38 +50,39 @@ public final class GetAlertsBySonInteract extends UseCase<List<AlertEntity>, Get
      */
     public static class Params {
 
-        private final String sonIdentity;
+        private final String kid;
 
-        public Params(String sonIdentity) {
-            this.sonIdentity = sonIdentity;
+        public Params(String kid) {
+            this.kid = kid;
         }
 
-        public String getSonIdentity() {
-            return sonIdentity;
+        public String getKid() {
+            return kid;
         }
 
         /**
          * Create
-         * @param sonIdentity
+         * @param kid
          * @return
          */
-        public static Params create(final String sonIdentity) {
-            return new Params(sonIdentity);
+        public static Params create(final String kid) {
+            return new Params(kid);
         }
     }
 
     /**
-     * Get Alerts By Son Api Errors
+     * Get Alerts By Kid Api Errors
      */
-    public enum GetAlertsBySonApiErrors implements ISupportVisitable<GetAlertsBySonApiErrors.IGetAlertsBySonErrorVisitor> {
+    public enum GetAlertsByKidApiErrors
+            implements ISupportVisitable<GetAlertsByKidApiErrors.IGetAlertsByKidErrorVisitor> {
 
         /**
          * Bad Credentials Error
          */
-        NO_ALERTS_BY_SON_FOUNDED(){
+        NO_ALERTS_BY_KID_FOUNDED(){
             @Override
-            public <E> void accept(IGetAlertsBySonErrorVisitor visitor, E data) {
-                visitor.visitNoAlertsBySonFounded(this);
+            public <E> void accept(IGetAlertsByKidErrorVisitor visitor, E data) {
+                visitor.visitNoAlertsByKidFound(this);
             }
         };
 
@@ -88,13 +90,13 @@ public final class GetAlertsBySonInteract extends UseCase<List<AlertEntity>, Get
         /**
          * Get Alerts Api Error Visitor
          */
-        public interface IGetAlertsBySonErrorVisitor extends ISupportVisitor {
+        public interface IGetAlertsByKidErrorVisitor extends ISupportVisitor {
 
             /**
-             * Visit No Alerts By Son Founded
+             * Visit No Alerts By Kid Founded
              * @param apiErrors
              */
-            void visitNoAlertsBySonFounded(final GetAlertsBySonApiErrors apiErrors);
+            void visitNoAlertsByKidFound(final GetAlertsByKidApiErrors apiErrors);
         }
 
     }

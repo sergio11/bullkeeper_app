@@ -10,14 +10,14 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsByLevelInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsBySonInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsOfSonByLevelInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsByKidInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.ClearAlertsOfKidByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.ClearSelfAlertsInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsBySonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfKidInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetAlertsByKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsByLevelInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsInteract;
-import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsOfSonByLevelInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfAlertsOfKidByLevelInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import timber.log.Timber;
@@ -38,7 +38,7 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
     /**
      * Delete Alert Of Son Interact
      */
-    private final DeleteAlertOfSonInteract deleteAlertOfSonInteract;
+    private final DeleteAlertOfKidInteract deleteAlertOfKidInteract;
 
     /**
      * Clear Self Alerts
@@ -48,12 +48,12 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
     /**
      * Get Alerts By Son
      */
-    private final GetAlertsBySonInteract getAlertsBySonInteract;
+    private final GetAlertsByKidInteract getAlertsByKidInteract;
 
     /**
      * Clear Alerts By Son
      */
-    private final ClearAlertsBySonInteract clearAlertsBySonInteract;
+    private final ClearAlertsByKidInteract clearAlertsByKidInteract;
 
     /**
      * Get Self Alerts By Level Interact
@@ -68,12 +68,12 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
     /**
      * Get Self Alerts Of Son By Level Interact
      */
-    private final GetSelfAlertsOfSonByLevelInteract getSelfAlertsOfSonByLevelInteract;
+    private final GetSelfAlertsOfKidByLevelInteract getSelfAlertsOfKidByLevelInteract;
 
     /**
      * Clear Alerts Of Son By Level Interact
      */
-    private final ClearAlertsOfSonByLevelInteract clearAlertsOfSonByLevelInteract;
+    private final ClearAlertsOfKidByLevelInteract clearAlertsOfKidByLevelInteract;
 
     /**
      *
@@ -81,23 +81,23 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
      */
     @Inject
     public AlertListPresenter(final GetSelfAlertsInteract getSelfAlertsInteract,
-                              final DeleteAlertOfSonInteract deleteAlertOfSonInteract,
+                              final DeleteAlertOfKidInteract deleteAlertOfKidInteract,
                               final ClearSelfAlertsInteract clearSelfAlertsInteract,
-                              final GetAlertsBySonInteract getAlertsBySonInteract,
-                              final ClearAlertsBySonInteract clearAlertsBySonInteract,
+                              final GetAlertsByKidInteract getAlertsByKidInteract,
+                              final ClearAlertsByKidInteract clearAlertsByKidInteract,
                               final GetSelfAlertsByLevelInteract getSelfAlertsByLevelInteract,
-                              final GetSelfAlertsOfSonByLevelInteract getSelfAlertsOfSonByLevelInteract,
-                              final ClearAlertsOfSonByLevelInteract clearAlertsOfSonByLevelInteract,
+                              final GetSelfAlertsOfKidByLevelInteract getSelfAlertsOfKidByLevelInteract,
+                              final ClearAlertsOfKidByLevelInteract clearAlertsOfKidByLevelInteract,
                               final ClearAlertsByLevelInteract clearAlertsByLevelInteract) {
         super();
         this.getSelfAlertsInteract = getSelfAlertsInteract;
-        this.deleteAlertOfSonInteract = deleteAlertOfSonInteract;
+        this.deleteAlertOfKidInteract = deleteAlertOfKidInteract;
         this.clearSelfAlertsInteract = clearSelfAlertsInteract;
-        this.getAlertsBySonInteract = getAlertsBySonInteract;
-        this.clearAlertsBySonInteract = clearAlertsBySonInteract;
+        this.getAlertsByKidInteract = getAlertsByKidInteract;
+        this.clearAlertsByKidInteract = clearAlertsByKidInteract;
         this.getSelfAlertsByLevelInteract = getSelfAlertsByLevelInteract;
-        this.getSelfAlertsOfSonByLevelInteract = getSelfAlertsOfSonByLevelInteract;
-        this.clearAlertsOfSonByLevelInteract = clearAlertsOfSonByLevelInteract;
+        this.getSelfAlertsOfKidByLevelInteract = getSelfAlertsOfKidByLevelInteract;
+        this.clearAlertsOfKidByLevelInteract = clearAlertsOfKidByLevelInteract;
         this.clearAlertsByLevelInteract = clearAlertsByLevelInteract;
     }
 
@@ -113,15 +113,15 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
             final String sonIdentity = args.getString(SON_IDENTITY_ARG);
             final AlertLevelEnum alertLevelEnum = (AlertLevelEnum) args.getSerializable(ALERT_LEVEL_ARG);
             Timber.d("Load Alerts for -> %s and level -> %s", sonIdentity, alertLevelEnum.name());
-            getSelfAlertsOfSonByLevelInteract.execute(new GetSelfAlertsOfSonByLevelObservable(GetSelfAlertsOfSonByLevelInteract.GetSelfAlertsOfSonByLevelApiErrors.class),
-                    GetSelfAlertsOfSonByLevelInteract.Params.create(sonIdentity, alertLevelEnum));
+            getSelfAlertsOfKidByLevelInteract.execute(new GetSelfAlertsOfKidByLevelObservable(GetSelfAlertsOfKidByLevelInteract.GetSelfAlertsOfKidByLevelApiErrors.class),
+                    GetSelfAlertsOfKidByLevelInteract.Params.create(sonIdentity, alertLevelEnum));
 
         } else if(args.containsKey(SON_IDENTITY_ARG)) {
             final String sonIdentity = args.getString(SON_IDENTITY_ARG);
             Timber.d("Load alerts for child -> %s", sonIdentity);
             // Get Alerts By Son
-            getAlertsBySonInteract.execute(new GetAlertsBySonObservable(GetAlertsBySonInteract.GetAlertsBySonApiErrors.class),
-                    GetAlertsBySonInteract.Params.create(sonIdentity));
+            getAlertsByKidInteract.execute(new GetAlertsByKidObservable(GetAlertsByKidInteract.GetAlertsByKidApiErrors.class),
+                    GetAlertsByKidInteract.Params.create(sonIdentity));
 
         } else if (args.containsKey(ALERT_LEVEL_ARG)){
             final AlertLevelEnum alertLevelEnum = (AlertLevelEnum) args.getSerializable(ALERT_LEVEL_ARG);
@@ -163,7 +163,7 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
 
-        clearAlertsBySonInteract.execute(new ClearAlertsBySonObservable(), ClearAlertsBySonInteract.Params.create(identity));
+        clearAlertsByKidInteract.execute(new ClearAlertsBySonObservable(), ClearAlertsByKidInteract.Params.create(identity));
     }
 
     /**
@@ -186,8 +186,8 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
         Preconditions.checkState(!sonIdentity.isEmpty(), "Son Identity can not be null");
         Preconditions.checkNotNull(alertLevelEnum, "Alert level can not be null");
 
-        clearAlertsOfSonByLevelInteract.execute(new ClearAlertsOfSonByLevelObservable(),
-                ClearAlertsOfSonByLevelInteract.Params.create(sonIdentity, alertLevelEnum));
+        clearAlertsOfKidByLevelInteract.execute(new ClearAlertsOfSonByLevelObservable(),
+                ClearAlertsOfKidByLevelInteract.Params.create(sonIdentity, alertLevelEnum));
 
     }
 
@@ -200,7 +200,7 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
         Preconditions.checkState(!sonIdentity.isEmpty(), "Son Identity can not be null");
         Preconditions.checkState(!alertIdentity.isEmpty(), "Alert Identity can not be null");
 
-        deleteAlertOfSonInteract.execute(new DeleteAlertOfSonObservable(), DeleteAlertOfSonInteract.Params.create(sonIdentity, alertIdentity));
+        deleteAlertOfKidInteract.execute(new DeleteAlertOfSonObservable(), DeleteAlertOfKidInteract.Params.create(sonIdentity, alertIdentity));
     }
 
 
@@ -281,13 +281,13 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
     /**
      * Clear Self Alerts Observable
      */
-    public class GetAlertsBySonObservable extends CommandCallBackWrapper<List<AlertEntity>,
-            GetAlertsBySonInteract.GetAlertsBySonApiErrors.IGetAlertsBySonErrorVisitor,
-            GetAlertsBySonInteract.GetAlertsBySonApiErrors>
-        implements GetAlertsBySonInteract.GetAlertsBySonApiErrors.IGetAlertsBySonErrorVisitor{
+    public class GetAlertsByKidObservable extends CommandCallBackWrapper<List<AlertEntity>,
+            GetAlertsByKidInteract.GetAlertsByKidApiErrors.IGetAlertsByKidErrorVisitor,
+            GetAlertsByKidInteract.GetAlertsByKidApiErrors>
+        implements GetAlertsByKidInteract.GetAlertsByKidApiErrors.IGetAlertsByKidErrorVisitor {
 
 
-        public GetAlertsBySonObservable(Class<GetAlertsBySonInteract.GetAlertsBySonApiErrors> apiErrors) {
+        public GetAlertsByKidObservable(Class<GetAlertsByKidInteract.GetAlertsByKidApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -306,7 +306,7 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
         }
 
         @Override
-        public void visitNoAlertsBySonFounded(GetAlertsBySonInteract.GetAlertsBySonApiErrors apiErrors) {
+        public void visitNoAlertsByKidFound(GetAlertsByKidInteract.GetAlertsByKidApiErrors apiErrors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
@@ -390,13 +390,13 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
     /**
      * Get Self Alerts of Son By Level Observable
      */
-    public class GetSelfAlertsOfSonByLevelObservable extends CommandCallBackWrapper<List<AlertEntity>,
-            GetSelfAlertsOfSonByLevelInteract.GetSelfAlertsOfSonByLevelApiErrors.IGetSelfAlertsOfSonByLevelApiErrorVisitor,
-            GetSelfAlertsOfSonByLevelInteract.GetSelfAlertsOfSonByLevelApiErrors>
-            implements GetSelfAlertsOfSonByLevelInteract.GetSelfAlertsOfSonByLevelApiErrors.IGetSelfAlertsOfSonByLevelApiErrorVisitor {
+    public class GetSelfAlertsOfKidByLevelObservable extends CommandCallBackWrapper<List<AlertEntity>,
+            GetSelfAlertsOfKidByLevelInteract.GetSelfAlertsOfKidByLevelApiErrors.IGetSelfAlertsOfKidByLevelApiErrorVisitor,
+            GetSelfAlertsOfKidByLevelInteract.GetSelfAlertsOfKidByLevelApiErrors>
+            implements GetSelfAlertsOfKidByLevelInteract.GetSelfAlertsOfKidByLevelApiErrors.IGetSelfAlertsOfKidByLevelApiErrorVisitor {
 
 
-        public GetSelfAlertsOfSonByLevelObservable(Class<GetSelfAlertsOfSonByLevelInteract.GetSelfAlertsOfSonByLevelApiErrors> apiErrors) {
+        public GetSelfAlertsOfKidByLevelObservable(Class<GetSelfAlertsOfKidByLevelInteract.GetSelfAlertsOfKidByLevelApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -417,7 +417,7 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
          * @param error
          */
         @Override
-        public void visitNoAlertsFounded(GetSelfAlertsOfSonByLevelInteract.GetSelfAlertsOfSonByLevelApiErrors error) {
+        public void visitNoAlertsFounded(GetSelfAlertsOfKidByLevelInteract.GetSelfAlertsOfKidByLevelApiErrors error) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();

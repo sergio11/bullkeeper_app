@@ -10,9 +10,10 @@ import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.IAlertsRepository;
 
 /**
- * Clear Alerts Of Son By Level Interact
+ * Clear Alerts Of Kid By Level Interact
  */
-public final class ClearAlertsOfSonByLevelInteract extends UseCase<String, ClearAlertsOfSonByLevelInteract.Params> {
+public final class ClearAlertsOfKidByLevelInteract
+        extends UseCase<String, ClearAlertsOfKidByLevelInteract.Params> {
 
     private final IAlertsRepository alertsRepository;
 
@@ -20,7 +21,7 @@ public final class ClearAlertsOfSonByLevelInteract extends UseCase<String, Clear
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public ClearAlertsOfSonByLevelInteract(final IThreadExecutor threadExecutor,
+    public ClearAlertsOfKidByLevelInteract(final IThreadExecutor threadExecutor,
                                            final IPostExecutionThread postExecutionThread,
                                            final IAlertsRepository alertsRepository) {
         super(threadExecutor, postExecutionThread);
@@ -35,10 +36,10 @@ public final class ClearAlertsOfSonByLevelInteract extends UseCase<String, Clear
     @Override
     protected Observable<String> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getSonId(), "Son Id can not be null");
-        Preconditions.checkNotNull(!params.getSonId().isEmpty(), "Son Id can not be empty");
+        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
+        Preconditions.checkNotNull(!params.getKid().isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(params.getAlertLevelEnum(), "Alert level enum can not be null");
-        return alertsRepository.clearAlertsOfSonByLevel(params.getSonId(), params.getAlertLevelEnum());
+        return alertsRepository.clearAlertsOfSonByLevel(params.getKid(), params.getAlertLevelEnum());
     }
 
     /**
@@ -47,9 +48,9 @@ public final class ClearAlertsOfSonByLevelInteract extends UseCase<String, Clear
     public static class Params {
 
         /**
-         * Son Identity
+         * Kid
          */
-        private final String sonId;
+        private final String kid;
 
         /**
          * Alert Level Enum
@@ -57,16 +58,16 @@ public final class ClearAlertsOfSonByLevelInteract extends UseCase<String, Clear
         private final AlertLevelEnum alertLevelEnum;
 
         /**
-         * @param sonId
+         * @param kid
          * @param alertLevelEnum
          */
-        public Params(final String sonId, final AlertLevelEnum alertLevelEnum) {
-            this.sonId = sonId;
+        public Params(final String kid, final AlertLevelEnum alertLevelEnum) {
+            this.kid = kid;
             this.alertLevelEnum = alertLevelEnum;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         public AlertLevelEnum getAlertLevelEnum() {
@@ -75,12 +76,12 @@ public final class ClearAlertsOfSonByLevelInteract extends UseCase<String, Clear
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @param alertLevelEnum
          * @return
          */
-        public static Params create(final String sonId, final AlertLevelEnum alertLevelEnum) {
-            return new Params(sonId, alertLevelEnum);
+        public static Params create(final String kid, final AlertLevelEnum alertLevelEnum) {
+            return new Params(kid, alertLevelEnum);
         }
     }
 }

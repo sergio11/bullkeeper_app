@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Son Entity
  */
-public final class SonEntity implements Serializable {
+public final class KidEntity implements Serializable {
 
     /**
      * Identity
@@ -134,7 +134,7 @@ public final class SonEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "SonEntity{" +
+        return "KidEntity{" +
                 "identity='" + identity + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

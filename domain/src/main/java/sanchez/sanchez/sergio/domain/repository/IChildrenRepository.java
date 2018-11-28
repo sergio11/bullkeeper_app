@@ -6,9 +6,9 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 
 /**
  * Children Repository
@@ -20,7 +20,7 @@ public interface IChildrenRepository {
      * @param sonId
      * @return
      */
-    Observable<SonEntity> getSonById(final String sonId);
+    Observable<KidEntity> getSonById(final String sonId);
 
     /**
      * Add Son To Self Parent Interact
@@ -30,7 +30,7 @@ public interface IChildrenRepository {
      * @param school
      * @return
      */
-    Observable<SonEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
+    Observable<KidEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
                                                      final String birthdate, final String school);
 
     /**
@@ -42,7 +42,7 @@ public interface IChildrenRepository {
      * @param school
      * @return
      */
-    Observable<SonEntity> saveSonInformation(final String identity, final String firstName,
+    Observable<KidEntity> saveSonInformation(final String identity, final String firstName,
                                              final String lastName, final String birthdate, final String school);
 
 

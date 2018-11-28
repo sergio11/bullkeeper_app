@@ -1,13 +1,10 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import android.os.Bundle;
-
-import java.util.List;
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
-import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 
 /**
  * My Kids Fragment Presenter
@@ -46,7 +43,7 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
     /**
      * Get Children Observer
      */
-    private final class GetChildrenObserver extends CommandCallBackWrapper<List<SonEntity>, GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor,
+    private final class GetChildrenObserver extends CommandCallBackWrapper<ChildrenOfSelfGuardianEntity, GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor,
             GetSelfChildrenInteract.GetChildrenApiErrors> implements GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor {
 
         /**
@@ -57,11 +54,11 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
         }
 
         @Override
-        protected void onSuccess(List<SonEntity> myKids) {
+        protected void onSuccess(final ChildrenOfSelfGuardianEntity myKids) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                if(myKids != null && !myKids.isEmpty())
-                    getView().onDataLoaded(myKids);
+                if(myKids.getConfirmed() > 0)
+                    getView().onDataLoaded(myKids.getSupervisedChildrenEntities());
                 else
                     getView().onNoDataFound();
             }
@@ -73,7 +70,7 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
          * @param error
          */
         @Override
-        public void visitNoChildrenFoundForSelfParent(GetSelfChildrenInteract.GetChildrenApiErrors error) {
+        public void visitNoChildrenFoundForSelfGuardian(GetSelfChildrenInteract.GetChildrenApiErrors error) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();

@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.signup;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 
 /**
@@ -14,7 +14,7 @@ public interface ISignupView extends ISupportView {
     /**
      * On Signup Success
      */
-    void onSignupSuccess(final ParentEntity parentEntity);
+    void onSignupSuccess(final GuardianEntity guardianEntity);
 
     /**
      * On Validation Errors

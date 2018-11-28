@@ -44,6 +44,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolM
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
@@ -55,7 +56,6 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpActivity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 import timber.log.Timber;
 
 /**
@@ -670,23 +670,23 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
     /**
      * On Son Profile Loaded
-     * @param sonEntity
+     * @param kidEntity
      */
     @Override
-    public void onSonProfileLoaded(final SonEntity sonEntity) {
-        Preconditions.checkNotNull(sonEntity, "Son Entity can not be null");
+    public void onSonProfileLoaded(final KidEntity kidEntity) {
+        Preconditions.checkNotNull(kidEntity, "Son Entity can not be null");
 
-        Timber.d("Son Profile Image Url -> %s", sonEntity.getProfileImage());
+        Timber.d("Son Profile Image Url -> %s", kidEntity.getProfileImage());
 
         // Save Current State
-        myKidIdentity = sonEntity.getIdentity();
-        currentImagePath = sonEntity.getProfileImage();
+        myKidIdentity = kidEntity.getIdentity();
+        currentImagePath = kidEntity.getProfileImage();
         profileMode = KidProfileMode.EDIT_CURRENT_SON_MODE;
 
-        myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), sonEntity.getFullName()));
+        myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), kidEntity.getFullName()));
 
-        if(appUtils.isValidString(sonEntity.getProfileImage()))
-            picasso.load(sonEntity.getProfileImage())
+        if(appUtils.isValidString(kidEntity.getProfileImage()))
+            picasso.load(kidEntity.getProfileImage())
                     .placeholder(R.drawable.kid_default_image)
                     .error(R.drawable.kid_default_image)
                     .noFade()
@@ -695,25 +695,25 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             profileImageView.setImageResource(R.drawable.kid_default_image);
 
 
-        if(sonEntity.getFirstName() != null &&
-                !sonEntity.getFirstName().isEmpty()) {
-            firstName = sonEntity.getFirstName();
-            nameInput.setText(sonEntity.getFirstName());
+        if(kidEntity.getFirstName() != null &&
+                !kidEntity.getFirstName().isEmpty()) {
+            firstName = kidEntity.getFirstName();
+            nameInput.setText(kidEntity.getFirstName());
         }
 
-        if(sonEntity.getLastName() != null &&
-                !sonEntity.getLastName().isEmpty()) {
-            lastName = sonEntity.getLastName();
-            surnameInput.setText(sonEntity.getLastName());
+        if(kidEntity.getLastName() != null &&
+                !kidEntity.getLastName().isEmpty()) {
+            lastName = kidEntity.getLastName();
+            surnameInput.setText(kidEntity.getLastName());
         }
 
-        if(sonEntity.getBirthdate() != null) {
-            birthdayInput.setDateSelected(sonEntity.getBirthdate());
+        if(kidEntity.getBirthdate() != null) {
+            birthdayInput.setDateSelected(kidEntity.getBirthdate());
         }
 
-        if(sonEntity.getSchool() != null) {
-            school = sonEntity.getSchool();
-            schoolInput.setText(sonEntity.getSchool().getName());
+        if(kidEntity.getSchool() != null) {
+            school = kidEntity.getSchool();
+            schoolInput.setText(kidEntity.getSchool().getName());
             showSchoolDetailImageView.setVisibility(View.VISIBLE);
         }
 
@@ -985,7 +985,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         socialMediaEntityObtained.setUserFullName(socialUser.fullName);
         socialMediaEntityObtained.setUserPicture(socialUser.profilePictureUrl);
         socialMediaEntityObtained.setType(socialMediaTypeEnum);
-        socialMediaEntityObtained.setSonIdentity(myKidIdentity);
+        socialMediaEntityObtained.setKid(myKidIdentity);
 
         if(!socialMedias.isEmpty()) {
 

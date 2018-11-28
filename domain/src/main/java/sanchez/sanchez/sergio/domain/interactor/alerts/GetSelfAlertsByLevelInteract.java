@@ -18,7 +18,8 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Get Self Alerts By level Interact
  */
-public final class GetSelfAlertsByLevelInteract extends UseCase<List<AlertEntity>, GetSelfAlertsByLevelInteract.Params> {
+public final class GetSelfAlertsByLevelInteract extends UseCase<List<AlertEntity>,
+        GetSelfAlertsByLevelInteract.Params> {
 
     /**
      * Alerts Repository

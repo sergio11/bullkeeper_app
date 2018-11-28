@@ -1,13 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile;
 
-import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.parents.GetParentInformationInteract;
-import sanchez.sanchez.sergio.domain.interactor.parents.GetSelfChildrenInteract;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 
 /**
  * Profile Presenter
@@ -21,17 +20,17 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
     /**
      * Get Parent Information Interact
      */
-    private final GetParentInformationInteract getParentInformationInteract;
+    private final GetGuardianInformationInteract getGuardianInformationInteract;
 
 
     /**
      * @param getSelfChildrenInteract
-     * @param getParentInformationInteract
+     * @param getGuardianInformationInteract
      */
     @Inject
     public ProfileFragmentPresenter(final GetSelfChildrenInteract getSelfChildrenInteract,
-                                    final GetParentInformationInteract getParentInformationInteract){
-        this.getParentInformationInteract = getParentInformationInteract;
+                                    final GetGuardianInformationInteract getGuardianInformationInteract){
+        this.getGuardianInformationInteract = getGuardianInformationInteract;
         this.getSelfChildrenInteract = getSelfChildrenInteract;
     }
 
@@ -53,24 +52,24 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
             getView().showProgressDialog(R.string.home_load_profile_information_progress);
         }
 
-        getParentInformationInteract.execute(new LoadProfileObserver(), null);
+        getGuardianInformationInteract.execute(new LoadProfileObserver(), null);
         getSelfChildrenInteract.execute(new LoadChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
     }
 
     /**
      * Load Profile Observer
      */
-    public class LoadProfileObserver extends BasicCommandCallBackWrapper<ParentEntity>  {
+    public class LoadProfileObserver extends BasicCommandCallBackWrapper<GuardianEntity>  {
 
         /**
          * On Success
-         * @param parentEntity
+         * @param guardianEntity
          */
         @Override
-        protected void onSuccess(ParentEntity parentEntity) {
+        protected void onSuccess(GuardianEntity guardianEntity) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onUserProfileLoaded(parentEntity);
+                getView().onUserProfileLoaded(guardianEntity);
             }
         }
     }
@@ -79,7 +78,7 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
     /**
      * Load Children Observer
      */
-    public class LoadChildrenObserver extends CommandCallBackWrapper<List<SonEntity>, GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor,
+    public class LoadChildrenObserver extends CommandCallBackWrapper<ChildrenOfSelfGuardianEntity, GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor,
             GetSelfChildrenInteract.GetChildrenApiErrors> implements GetSelfChildrenInteract.GetChildrenApiErrors.IGetChildrenApiErrorVisitor {
 
         /**
@@ -95,18 +94,18 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
          * @param children
          */
         @Override
-        protected void onSuccess(List<SonEntity> children) {
+        protected void onSuccess(ChildrenOfSelfGuardianEntity children) {
             if (isViewAttached() && getView() != null) {
                 getView().onChildrenLoaded(children);
             }
         }
 
         /**
-         * Visit No Children Found For Self Parent
+         * Visit No Children Found For Self Guardian
          * @param error
          */
         @Override
-        public void visitNoChildrenFoundForSelfParent(GetSelfChildrenInteract.GetChildrenApiErrors error) {
+        public void visitNoChildrenFoundForSelfGuardian(GetSelfChildrenInteract.GetChildrenApiErrors error) {
             if (isViewAttached() && getView() != null) {
                 getView().onNoChildrenFounded();
             }

@@ -7,9 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public final class JwtAuthenticationRequestDTO {
 
+    /**
+     * Email
+     */
     @JsonProperty("email")
     private String email;
 
+    /**
+     * Password
+     */
     @JsonProperty("password")
     private String password;
 

@@ -8,8 +8,8 @@ import io.reactivex.functions.BiFunction;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
 
@@ -53,13 +53,13 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         Preconditions.checkNotNull(params, "Params can not be null");
 
         return Observable.zip(
-                childrenRepository.getSonById(params.getSonId()),
-                socialMediaRepository.getAllSocialMediaBySonId(params.getSonId())
+                childrenRepository.getSonById(params.getKid()),
+                socialMediaRepository.getAllSocialMediaBySonId(params.getKid())
                     .onErrorReturnItem(new ArrayList<SocialMediaEntity>()),
-                new BiFunction<SonEntity, List<SocialMediaEntity>, Result>() {
+                new BiFunction<KidEntity, List<SocialMediaEntity>, Result>() {
                     @Override
-                    public Result apply(SonEntity sonEntity, List<SocialMediaEntity> socialMediaEntities) throws Exception {
-                        return new Result(sonEntity, socialMediaEntities);
+                    public Result apply(KidEntity kidEntity, List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                        return new Result(kidEntity, socialMediaEntities);
                     }
                 });
     }
@@ -69,23 +69,23 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
 
-        public Params(String sonId) {
-            this.sonId = sonId;
+        public Params(String kid) {
+            this.kid = kid;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @return
          */
-        public static Params create(final String sonId) {
-            return new Params(sonId);
+        public static Params create(final String kid) {
+            return new Params(kid);
         }
     }
 
@@ -94,20 +94,20 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
      */
     public static class Result {
 
-        private final SonEntity sonEntity;
+        private final KidEntity kidEntity;
         private final List<SocialMediaEntity> socialMediaEntities;
 
         /**
-         * @param sonEntity
+         * @param kidEntity
          * @param socialMediaEntities
          */
-        public Result(SonEntity sonEntity, List<SocialMediaEntity> socialMediaEntities) {
-            this.sonEntity = sonEntity;
+        public Result(KidEntity kidEntity, List<SocialMediaEntity> socialMediaEntities) {
+            this.kidEntity = kidEntity;
             this.socialMediaEntities = socialMediaEntities;
         }
 
-        public SonEntity getSonEntity() {
-            return sonEntity;
+        public KidEntity getKidEntity() {
+            return kidEntity;
         }
 
         public List<SocialMediaEntity> getSocialMediaEntities() {

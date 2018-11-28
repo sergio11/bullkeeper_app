@@ -8,7 +8,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
-import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfSonInteract;
+import sanchez.sanchez.sergio.domain.interactor.alerts.DeleteAlertOfKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetSelfLastAlertsInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import timber.log.Timber;
@@ -26,16 +26,16 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
     /**
      * Delete Alert Of Son Interact
      */
-    private final DeleteAlertOfSonInteract deleteAlertOfSonInteract;
+    private final DeleteAlertOfKidInteract deleteAlertOfKidInteract;
 
     /**
      * @param getSelfLastAlertsInteract
      */
     @Inject
     public LastAlertsFragmentPresenter(final GetSelfLastAlertsInteract getSelfLastAlertsInteract,
-                                       final DeleteAlertOfSonInteract deleteAlertOfSonInteract) {
+                                       final DeleteAlertOfKidInteract deleteAlertOfKidInteract) {
         this.getSelfLastAlertsInteract = getSelfLastAlertsInteract;
-        this.deleteAlertOfSonInteract = deleteAlertOfSonInteract;
+        this.deleteAlertOfKidInteract = deleteAlertOfKidInteract;
     }
 
 
@@ -67,8 +67,8 @@ public final class LastAlertsFragmentPresenter extends SupportLCEPresenter<ILast
         Preconditions.checkState(!sonIdentity.isEmpty(), "Son Identity can not be null");
         Preconditions.checkState(!alertIdentity.isEmpty(), "Alert Identity can not be null");
         Timber.d("Delete Alert Of Son");
-        deleteAlertOfSonInteract.execute(new DeleteAlertOfSonObservable(),
-                DeleteAlertOfSonInteract.Params.create(sonIdentity, alertIdentity));
+        deleteAlertOfKidInteract.execute(new DeleteAlertOfSonObservable(),
+                DeleteAlertOfKidInteract.Params.create(sonIdentity, alertIdentity));
     }
 
 

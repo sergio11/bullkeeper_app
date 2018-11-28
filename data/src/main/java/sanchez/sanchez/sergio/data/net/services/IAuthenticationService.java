@@ -18,7 +18,7 @@ public interface IAuthenticationService {
      * @param authorizationRequest
      * @return
      */
-    @POST("parents/auth/")
+    @POST("guardians/auth/")
     Observable<APIResponse<JwtAuthenticationResponseDTO>> getAuthorizationToken(
             @Body JwtAuthenticationRequestDTO authorizationRequest);
 
@@ -28,7 +28,7 @@ public interface IAuthenticationService {
      * @param authorizationRequest
      * @return
      */
-    @POST("parents/auth/facebook")
+    @POST("guardians/auth/facebook")
     Observable<APIResponse<JwtAuthenticationResponseDTO>> getAuthorizationTokenByFacebook(
             @Body JwtSocialAuthenticationRequestDTO authorizationRequest);
 
@@ -37,7 +37,7 @@ public interface IAuthenticationService {
      * @param authorizationRequest
      * @return
      */
-    @POST("parents/auth/google")
+    @POST("guardians/auth/google")
     Observable<APIResponse<JwtAuthenticationResponseDTO>> getAuthorizationTokenByGoogle(
             @Body JwtSocialAuthenticationRequestDTO authorizationRequest);
 

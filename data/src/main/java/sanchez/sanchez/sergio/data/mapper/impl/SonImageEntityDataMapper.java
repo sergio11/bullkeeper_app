@@ -18,7 +18,7 @@ public class SonImageEntityDataMapper extends ImageEntityDataMapper {
     @Override
     public ImageEntity transform(ImageDTO originModel) {
         final ImageEntity imageEntity = super.transform(originModel);
-        imageEntity.setUrl(apiEndPointsHelper.getSonProfileUrl(originModel.getIdentity()));
+        imageEntity.setUrl(apiEndPointsHelper.getKidProfileUrl(originModel.getIdentity()));
         return imageEntity;
     }
 }

@@ -57,21 +57,21 @@ public interface IAlertService {
      * Clear Self Alerts
      * @return
      */
-    @DELETE("parents/self/alerts")
+    @DELETE("guardians/self/alerts")
     Observable<APIResponse<String>> clearSelfAlerts();
 
     /**
      * Clear Self Warning Alerts
      * @return
      */
-    @DELETE("parents/self/alerts/warning")
+    @DELETE("guardians/self/alerts/warning")
     Observable<APIResponse<String>> clearSelfWarningAlerts();
 
     /**
      * Clear Self Information Alerts
      * @return
      */
-    @DELETE("parents/self/alerts/info")
+    @DELETE("guardians/self/alerts/info")
     Observable<APIResponse<String>> clearSelfInformationAlerts();
 
 
@@ -79,21 +79,21 @@ public interface IAlertService {
      * Clear Self Danger Alerts
      * @return
      */
-    @DELETE("parents/self/alerts/danger")
+    @DELETE("guardians/self/alerts/danger")
     Observable<APIResponse<String>> clearSelfDangerAlerts();
 
     /**
      * Clear Self Success Alerts
      * @return
      */
-    @DELETE("parents/self/alerts/success")
+    @DELETE("guardians/self/alerts/success")
     Observable<APIResponse<String>> clearSelfSuccessAlerts();
 
     /**
      * Get Self Alerts
      * @return
      */
-    @GET("parents/self/alerts")
+    @GET("guardians/self/alerts")
     Observable<APIResponse<List<AlertDTO>>> getSelfAlerts(
             @Query("count") String count,
             @Query("days_ago") String daysAgo,
@@ -103,109 +103,109 @@ public interface IAlertService {
      * Get Self Alerts
      * @return
      */
-    @GET("parents/self/alerts")
+    @GET("guardians/self/alerts")
     Observable<APIResponse<List<AlertDTO>>> getSelfAlerts();
 
     /**
      * Get Self Alerts Last
      * @return
      */
-    @GET("parents/self/alerts/last")
+    @GET("guardians/self/alerts/last")
     Observable<APIResponse<AlertsPageDTO>> getSelfAlertsLast();
 
     /**
      * Get Self Alerts Last
      * @return
      */
-    @GET("parents/self/alerts/last")
+    @GET("guardians/self/alerts/last")
     Observable<APIResponse<AlertsPageDTO>> getSelfAlertsLast(final @Query("count") String count,
                                                              final @Query("last_minutes") String lastMinutes,
                                                              final @Query("levels") String levels);
 
 
     /**
-     * Get Danger Alerts for self parent
+     * Get Danger Alerts for self guardians
      * @return
      */
-    @GET("parents/self/alerts/danger")
-    Observable<APIResponse<List<AlertDTO>>> getDangerAlertsForSelfParent(
+    @GET("guardians/self/alerts/danger")
+    Observable<APIResponse<List<AlertDTO>>> getDangerAlertsForSelfGuardian(
             final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
     /**
-     * Get Information Alerts for self parent
+     * Get Information Alerts for self guardians
      * @return
      */
-    @GET("parents/self/alerts/info")
-    Observable<APIResponse<List<AlertDTO>>> getInformationAlertsForSelfParent(
-            final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
-
-
-    /**
-     * Get success alerts for self parent
-     * @return
-     */
-    @GET("parents/self/alerts/success")
-    Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsForSelfParent(
+    @GET("guardians/self/alerts/info")
+    Observable<APIResponse<List<AlertDTO>>> getInformationAlertsForSelfGuardian(
             final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
 
     /**
-     * Get warning alerts for self parent
+     * Get success alerts for self guardian
      * @return
      */
-    @GET("parents/self/alerts/warning")
-    Observable<APIResponse<List<AlertDTO>>> getWarningAlertsForSelfParent(
+    @GET("guardians/self/alerts/success")
+    Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsForSelfGuardian(
+            final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
+
+
+    /**
+     * Get warning alerts for self guardian
+     * @return
+     */
+    @GET("guardians/self/alerts/warning")
+    Observable<APIResponse<List<AlertDTO>>> getWarningAlertsForSelfGuardian(
             final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
     /**
-     * Get warning alerts for self parent
+     * Get warning alerts for self guardian
      * @return
      */
     @GET("children/{id}/alerts/warning")
-    Observable<APIResponse<List<AlertDTO>>> getWarningAlertsOfSonForSelfParent(
+    Observable<APIResponse<List<AlertDTO>>> getWarningAlertsOfSonForSelfGuardian(
             final @Path("id") String id, final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
     /**
-     * Get info alerts for self parent
+     * Get info alerts for self guardian
      * @return
      */
     @GET("children/{id}/alerts/info")
-    Observable<APIResponse<List<AlertDTO>>> getInfoAlertsOfSonForSelfParent(
+    Observable<APIResponse<List<AlertDTO>>> getInfoAlertsOfSonForSelfGuardian(
             final @Query("count") String count, final @Query("last_minutes") String lastMinutes,
             final @Path("id") String id);
 
 
     /**
-     * Get danger alerts of son for self parent
+     * Get danger alerts of son for self guardian
      * @return
      */
     @GET("children/{id}/alerts/danger")
-    Observable<APIResponse<List<AlertDTO>>> getDangerAlertsOfSonForSelfParent(
+    Observable<APIResponse<List<AlertDTO>>> getDangerAlertsOfSonForSelfGuardian(
             final @Path("id") String id, final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
 
     /**
-     * Get success alerts of son for self parent
+     * Get success alerts of son for self guardian
      * @return
      */
     @GET("children/{id}/alerts/success")
-    Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsOfSonForSelfParent(
+    Observable<APIResponse<List<AlertDTO>>> getSuccessAlertsOfSonForSelfGuardian(
             final @Path("id") String id, final @Query("count") String count, final @Query("last_minutes") String lastMinutes);
 
 
     /**
-     * Clear warning alerts of son for self parent
+     * Clear warning alerts of son for self guardian
      * @return
      */
     @DELETE("children/{id}/alerts/warning")
-    Observable<APIResponse<String>> clearWarningAlertsOfSonForSelfParent(final @Path("id") String id);
+    Observable<APIResponse<String>> clearWarningAlertsOfSonForSelfGuardian(final @Path("id") String id);
 
     /**
-     * Delete info alerts for self parent
+     * Delete info alerts for self guardian
      * @return
      */
     @DELETE("children/{id}/alerts/info")
-    Observable<APIResponse<String>> clearInfoAlertsOfSonForSelfParent(final @Path("id") String id);
+    Observable<APIResponse<String>> clearInfoAlertsOfSonForSelfGuardian(final @Path("id") String id);
 
 
     /**
@@ -213,7 +213,7 @@ public interface IAlertService {
      * @return
      */
     @GET("children/{id}/alerts/danger")
-    Observable<APIResponse<String>> clearDangerAlertsOfSonForSelfParent(final @Path("id") String id);
+    Observable<APIResponse<String>> clearDangerAlertsOfSonForSelfGuardian(final @Path("id") String id);
 
 
     /**
@@ -221,5 +221,5 @@ public interface IAlertService {
      * @return
      */
     @GET("children/{id}/alerts/success")
-    Observable<APIResponse<String>> clearSuccessAlertsOfSonForSelfParent(final @Path("id") String id);
+    Observable<APIResponse<String>> clearSuccessAlertsOfSonForSelfGuardian(final @Path("id") String id);
 }

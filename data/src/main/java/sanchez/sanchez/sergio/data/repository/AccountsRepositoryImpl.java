@@ -4,12 +4,12 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.JwtAuthenticationRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.request.JwtSocialAuthenticationRequestDTO;
-import sanchez.sanchez.sergio.data.net.models.request.RegisterParentDTO;
+import sanchez.sanchez.sergio.data.net.models.request.RegisterGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
-import sanchez.sanchez.sergio.data.net.models.response.ParentDTO;
+import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.services.IAuthenticationService;
-import sanchez.sanchez.sergio.data.net.services.IParentsService;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 
 /**
@@ -18,16 +18,16 @@ import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 public final class AccountsRepositoryImpl implements IAccountsRepository {
 
     private final IAuthenticationService authenticationService;
-    private final IParentsService parentsService;
-    private final AbstractDataMapper<ParentDTO, ParentEntity> parentDataMapper;
+    private final IGuardiansService parentsService;
+    private final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper;
 
     /**
      * @param authenticationService
      * @param parentsService
      */
     public AccountsRepositoryImpl(final IAuthenticationService authenticationService,
-                                  final IParentsService parentsService,
-                                  final  AbstractDataMapper<ParentDTO, ParentEntity> parentDataMapper) {
+                                  final IGuardiansService parentsService,
+                                  final  AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper) {
         this.authenticationService = authenticationService;
         this.parentsService = parentsService;
         this.parentDataMapper = parentDataMapper;
@@ -84,9 +84,9 @@ public final class AccountsRepositoryImpl implements IAccountsRepository {
      * @return
      */
     @Override
-    public Observable<ParentEntity> registerParent(final String firstName, final String lastName, final String birthdate,
-                                                   final String email, final String passwordClear, final String confirmPassword, final String locale, final String telephone) {
-        return parentsService.register(new RegisterParentDTO(firstName, lastName, birthdate, email,
+    public Observable<GuardianEntity> registerParent(final String firstName, final String lastName, final String birthdate,
+                                                     final String email, final String passwordClear, final String confirmPassword, final String locale, final String telephone) {
+        return parentsService.register(new RegisterGuardianDTO(firstName, lastName, birthdate, email,
                 passwordClear, confirmPassword, locale, telephone)).map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(parentDataMapper::transform);
     }

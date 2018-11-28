@@ -49,7 +49,7 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
 
         if(isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_son_information);
+            getView().showProgressDialog(R.string.loading_kid_information);
 
         getInformationAboutTheChildAndTheirSocialMediaInteract.execute(new GetInformationAboutTheChildAndTheirSocialMediaObservable(),
                 GetInformationAboutTheChildAndTheirSocialMediaInteract.Params.create(sonId));
@@ -69,7 +69,7 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
                         final List<SocialMediaEntity> socialMediaEntities) {
 
         if(isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_son_information);
+            getView().showProgressDialog(R.string.loading_kid_information);
 
         saveChildrenInteract.execute(new SaveChildrenObservable(SaveChildrenInteract.SaveChildrenApiErrors.class),
                 SaveChildrenInteract.Params.create(identity, firstname, surname, birthday, school,
@@ -91,7 +91,7 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         protected void onSuccess(GetInformationAboutTheChildAndTheirSocialMediaInteract.Result response) {
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onSonProfileLoaded(response.getSonEntity());
+                getView().onSonProfileLoaded(response.getKidEntity());
                 getView().onSocialMediaLoaded(response.getSocialMediaEntities());
             }
         }
@@ -116,12 +116,12 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
         @Override
         protected void onSuccess(SaveChildrenInteract.Result result) {
             Preconditions.checkNotNull(result, "Result can not be null");
-            Preconditions.checkNotNull(result.getSonEntity(), "Son Entity can not be null");
+            Preconditions.checkNotNull(result.getKidEntity(), "Son Entity can not be null");
             Preconditions.checkNotNull(result.getSocialMediaEntities(), "Social Media can not be null");
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.child_information_saved);
-                getView().onSonProfileLoaded(result.getSonEntity());
+                getView().onSonProfileLoaded(result.getKidEntity());
                 getView().onSocialMediaLoaded(result.getSocialMediaEntities());
             }
         }

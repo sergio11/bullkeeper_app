@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 
 
 /**
@@ -14,15 +14,15 @@ public interface IUserProfileView extends ISupportView {
 
     /**
      * On Self Information Loaded
-     * @param parentEntity
+     * @param guardianEntity
      */
-    void onSelfInformationLoaded(final ParentEntity parentEntity);
+    void onSelfInformationLoaded(final GuardianEntity guardianEntity);
 
     /**
      * On Self Information Update
-     * @param parentEntity
+     * @param guardianEntity
      */
-    void onSelfInformationUpdate(final ParentEntity parentEntity);
+    void onSelfInformationUpdate(final GuardianEntity guardianEntity);
 
 
     /**

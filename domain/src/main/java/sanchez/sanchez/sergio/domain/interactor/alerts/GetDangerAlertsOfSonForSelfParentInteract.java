@@ -12,9 +12,10 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
- * Get Danger Alerts Of Son For Self Parent
+ * Get Danger Alerts Of Kid For Self Guardian
  */
-public final class GetDangerAlertsOfSonForSelfParentInteract extends UseCase<List<AlertEntity>, GetDangerAlertsOfSonForSelfParentInteract.Params> {
+public final class GetDangerAlertsOfSonForSelfParentInteract
+        extends UseCase<List<AlertEntity>, GetDangerAlertsOfSonForSelfParentInteract.Params> {
 
     /**
      * Alerts Repository
@@ -38,7 +39,7 @@ public final class GetDangerAlertsOfSonForSelfParentInteract extends UseCase<Lis
     @Override
     protected Observable<List<AlertEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        return alertsRepository.getTenDangerAlertsForTheChild(params.getSonId());
+        return alertsRepository.getTenDangerAlertsForTheChild(params.getKid());
     }
 
     /**
@@ -46,52 +47,53 @@ public final class GetDangerAlertsOfSonForSelfParentInteract extends UseCase<Lis
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
 
-        private Params(String sonId) {
-            this.sonId = sonId;
+        private Params(String kid) {
+            this.kid = kid;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @return
          */
-        public static Params create(final String sonId) {
-            return new Params(sonId);
+        public static Params create(final String kid) {
+            return new Params(kid);
         }
     }
 
     /**
-     * Get Danger Alerts Of Son for self parent
+     * Get Danger Alerts Of Kid for self parent
      */
-    public enum GetDangerAlertsOfSonForSelfParentApiErrors implements ISupportVisitable<GetDangerAlertsOfSonForSelfParentApiErrors.IGetDangerAlertsOfSonForSelfParentErrorVisitor> {
+    public enum GetDangerAlertsOfKidForSelfGuardianApiErrors
+            implements ISupportVisitable<GetDangerAlertsOfKidForSelfGuardianApiErrors.IGetDangerAlertsOfKidForSelfGuardianErrorVisitor> {
 
         /**
-         * No Alerts By Son Founded
+         * No Alerts By Kid Founded
          */
-        NO_ALERTS_BY_SON_FOUNDED(){
+        NO_ALERTS_BY_KID_FOUNDED(){
             @Override
-            public <E> void accept(IGetDangerAlertsOfSonForSelfParentErrorVisitor visitor, E data) {
-                visitor.visitNoAlertsBySonFounded(this);
+            public <E> void accept(IGetDangerAlertsOfKidForSelfGuardianErrorVisitor visitor, E data) {
+                visitor.visitNoAlertsByKidFounded(this);
             }
         };
 
 
         /**
-         * Get Danger Alerts Of Son For Self Parent Error Visitor
+         * Get Danger Alerts Of Kid For Self Guardian Error Visitor
          */
-        public interface IGetDangerAlertsOfSonForSelfParentErrorVisitor extends ISupportVisitor {
+        public interface IGetDangerAlertsOfKidForSelfGuardianErrorVisitor extends ISupportVisitor {
 
             /**
-             * Visit No Alerts By Son Founded
+             * Visit No Alerts By Kid Found
              * @param apiErrors
              */
-            void visitNoAlertsBySonFounded(final GetDangerAlertsOfSonForSelfParentApiErrors apiErrors);
+            void visitNoAlertsByKidFounded(final GetDangerAlertsOfKidForSelfGuardianApiErrors apiErrors);
         }
 
     }

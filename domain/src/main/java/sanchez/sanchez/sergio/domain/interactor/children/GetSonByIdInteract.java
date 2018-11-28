@@ -6,13 +6,13 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 
 /**
  * Get Son By Id Interact
  */
-public class GetSonByIdInteract extends UseCase<SonEntity, GetSonByIdInteract.Params> {
+public class GetSonByIdInteract extends UseCase<KidEntity, GetSonByIdInteract.Params> {
 
     /**
      * Children Repository
@@ -37,11 +37,11 @@ public class GetSonByIdInteract extends UseCase<SonEntity, GetSonByIdInteract.Pa
      * @return
      */
     @Override
-    protected Observable<SonEntity> buildUseCaseObservable(Params params) {
+    protected Observable<KidEntity> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getSonId(), "Son Id can not be null");
-        Preconditions.checkState(!params.sonId.isEmpty(), "Son Id can not be empty");
-        return childrenRepository.getSonById(params.sonId);
+        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
+        Preconditions.checkState(!params.kid.isEmpty(), "Kid can not be empty");
+        return childrenRepository.getSonById(params.kid);
     }
 
     /**
@@ -49,23 +49,23 @@ public class GetSonByIdInteract extends UseCase<SonEntity, GetSonByIdInteract.Pa
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
 
-        public Params(String sonId) {
-            this.sonId = sonId;
+        public Params(String kid) {
+            this.kid = kid;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @return
          */
-        public static Params create(final String sonId) {
-            return new Params(sonId);
+        public static Params create(final String kid) {
+            return new Params(kid);
         }
     }
 }

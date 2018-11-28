@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 
 /**
  * My Kids Detail Presenter
@@ -45,7 +45,7 @@ public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailV
     private void loadSonData(final String sonId){
 
         if (isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_son_information);
+            getView().showProgressDialog(R.string.loading_kid_information);
 
         getSonByIdInteract.execute(new GetSonByIdObservable(),
                 GetSonByIdInteract.Params.create(sonId));
@@ -54,16 +54,16 @@ public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailV
     /**
      * Get Son By Id Observable
      */
-    public class GetSonByIdObservable extends BasicCommandCallBackWrapper<SonEntity> {
+    public class GetSonByIdObservable extends BasicCommandCallBackWrapper<KidEntity> {
 
         /**
          * On Success
-         * @param sonEntity
+         * @param kidEntity
          */
         @Override
-        protected void onSuccess(SonEntity sonEntity) {
+        protected void onSuccess(KidEntity kidEntity) {
             if (isViewAttached() && getView() != null)
-                getView().onSonLoaded(sonEntity);
+                getView().onSonLoaded(kidEntity);
         }
     }
 

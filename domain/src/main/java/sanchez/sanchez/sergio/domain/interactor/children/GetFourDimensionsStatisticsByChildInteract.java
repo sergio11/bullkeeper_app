@@ -43,11 +43,11 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
     @Override
     protected Observable<List<DimensionEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getSonId(), "Son Id can not be null");
-        Preconditions.checkNotNull(!params.getSonId().isEmpty(), "Son Id can not be empty");
+        Preconditions.checkNotNull(params.getKid(), "Kid Id can not be null");
+        Preconditions.checkNotNull(!params.getKid().isEmpty(), "Kid Id can not be empty");
         Preconditions.checkState(params.daysAgo > 0, "Days Ago must be greater than 0");
 
-        return childrenRepository.getDimensionsStatisticsByChild(params.getSonId(), params.getDaysAgo());
+        return childrenRepository.getDimensionsStatisticsByChild(params.getKid(), params.getDaysAgo());
     }
 
     /**
@@ -55,16 +55,16 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
         private final int daysAgo;
 
-        private Params(final String sonId, final int daysAgo) {
-            this.sonId = sonId;
+        private Params(final String kid, final int daysAgo) {
+            this.kid = kid;
             this.daysAgo = daysAgo;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         public int getDaysAgo() {

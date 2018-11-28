@@ -7,24 +7,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public final class AddSchoolDTO {
 
+    /**
+     * Name
+     */
     @JsonProperty("name")
     private String name;
 
+    /**
+     * Residence
+     */
     @JsonProperty("residence")
     private String residence;
 
+    /**
+     * Province
+     */
     @JsonProperty("province")
     private String province;
 
+    /**
+     * Latitude
+     */
     @JsonProperty("latitude")
     private Double latitude;
 
+    /**
+     * Longitude
+     */
     @JsonProperty("longitude")
     private Double longitude;
 
+    /**
+     * Tfno
+     */
     @JsonProperty("tfno")
     private String tfno;
 
+    /**
+     * Email
+     */
     @JsonProperty("email")
     private String email;
 

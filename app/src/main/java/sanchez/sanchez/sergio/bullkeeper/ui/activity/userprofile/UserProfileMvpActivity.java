@@ -36,7 +36,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpActivity
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import timber.log.Timber;
 
 /**
@@ -170,7 +170,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      * Parent Entity
      */
     @State
-    protected ParentEntity parentEntity = new ParentEntity();
+    protected GuardianEntity guardianEntity = new GuardianEntity();
 
     /**
      * Current Image Path
@@ -360,11 +360,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected void onResetFields() {
         super.onResetFields();
 
-        nameInput.setText(parentEntity.getFirstName());
-        surnameInput.setText(parentEntity.getLastName());
-        birthdayInput.setDateSelected(parentEntity.getBirthdate());
-        emailInput.setText(parentEntity.getEmail());
-        tfnoInput.setText(parentEntity.getPhone());
+        nameInput.setText(guardianEntity.getFirstName());
+        surnameInput.setText(guardianEntity.getLastName());
+        birthdayInput.setDateSelected(guardianEntity.getBirthdate());
+        emailInput.setText(guardianEntity.getEmail());
+        tfnoInput.setText(guardianEntity.getPhone());
     }
 
     /**
@@ -419,7 +419,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     protected void onClickProfileImage() {
         navigatorImpl.showPhotoViewerDialog(this,
                 currentImagePath != null ? currentImagePath :
-                parentEntity.getProfileImage());
+                guardianEntity.getProfileImage());
     }
 
 
@@ -429,7 +429,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
         supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                getString(R.string.change_profile_picture), parentEntity.getFullName()));
+                getString(R.string.change_profile_picture), guardianEntity.getFullName()));
         return true;
     }
 
@@ -444,7 +444,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
             permissionManager.checkSinglePermission(Manifest.permission.CAMERA, getString(R.string.camera_permission_reason));
         else
             supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                    getString(R.string.change_profile_picture), parentEntity.getFullName()));
+                    getString(R.string.change_profile_picture), guardianEntity.getFullName()));
 
     }
 
@@ -458,7 +458,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         if(permission.equalsIgnoreCase(Manifest.permission.CAMERA)) {
             supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                    getString(R.string.change_profile_picture), parentEntity.getFullName()));
+                    getString(R.string.change_profile_picture), guardianEntity.getFullName()));
         }
 
     }
@@ -473,7 +473,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         if(permission.equalsIgnoreCase(Manifest.permission.CAMERA)) {
             supportImagePicker.pickImage(this, String.format(Locale.getDefault(),
-                    getString(R.string.change_profile_picture), parentEntity.getFullName()), true);
+                    getString(R.string.change_profile_picture), guardianEntity.getFullName()), true);
         }
 
     }
@@ -500,30 +500,30 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     private void updateProfileForm() {
 
-        if(parentEntity.getFirstName() != null &&
-                !parentEntity.getFirstName().isEmpty())
-            nameInput.setText(parentEntity.getFirstName());
+        if(guardianEntity.getFirstName() != null &&
+                !guardianEntity.getFirstName().isEmpty())
+            nameInput.setText(guardianEntity.getFirstName());
 
-        if(parentEntity.getLastName() != null &&
-                !parentEntity.getLastName().isEmpty())
-            surnameInput.setText(parentEntity.getLastName());
+        if(guardianEntity.getLastName() != null &&
+                !guardianEntity.getLastName().isEmpty())
+            surnameInput.setText(guardianEntity.getLastName());
 
-        if (parentEntity.getEmail() != null &&
-                !parentEntity.getEmail().isEmpty())
-            emailInput.setText(parentEntity.getEmail());
+        if (guardianEntity.getEmail() != null &&
+                !guardianEntity.getEmail().isEmpty())
+            emailInput.setText(guardianEntity.getEmail());
 
 
-        if(parentEntity.getPhone() != null && !parentEntity.getPhone().isEmpty())
-            tfnoInput.setText(parentEntity.getPhoneNumber());
+        if(guardianEntity.getPhone() != null && !guardianEntity.getPhone().isEmpty())
+            tfnoInput.setText(guardianEntity.getPhoneNumber());
 
-        if(parentEntity.getBirthdate() != null)
-            birthdayInput.setDateSelected(parentEntity.getBirthdate());
+        if(guardianEntity.getBirthdate() != null)
+            birthdayInput.setDateSelected(guardianEntity.getBirthdate());
 
         if(appUtils.isValidString(currentImagePath)) {
             profileImageView.setImageURI(Uri.parse(currentImagePath));
         } else {
-            if(appUtils.isValidString(parentEntity.getProfileImage()))
-                picasso.load(parentEntity.getProfileImage())
+            if(appUtils.isValidString(guardianEntity.getProfileImage()))
+                picasso.load(guardianEntity.getProfileImage())
                         .placeholder(R.drawable.parent_default)
                         .error(R.drawable.parent_default)
                         .noFade()
@@ -535,11 +535,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
     /**
      * On Self Information Loaded
-     * @param parentEntity
+     * @param guardianEntity
      */
     @Override
-    public void onSelfInformationLoaded(final ParentEntity parentEntity) {
-        this.parentEntity = parentEntity;
+    public void onSelfInformationLoaded(final GuardianEntity guardianEntity) {
+        this.guardianEntity = guardianEntity;
         Timber.d("Self Information Loaded...");
         updateProfileForm();
         toggleAllComponents(true);
@@ -547,11 +547,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
     /**
      * On Self Information Update
-     * @param parentEntity
+     * @param guardianEntity
      */
     @Override
-    public void onSelfInformationUpdate(final ParentEntity parentEntity) {
-        this.parentEntity = parentEntity;
+    public void onSelfInformationUpdate(final GuardianEntity guardianEntity) {
+        this.guardianEntity = guardianEntity;
         updateProfileForm();
         showNoticeDialog(R.string.profile_information_updated_successfully);
         toggleAllComponents(true);

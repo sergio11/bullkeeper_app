@@ -31,7 +31,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsM
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 
 /**
  * Kids Results Activity
@@ -278,13 +278,13 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
     /**
      * On Son Loaded
-     * @param sonEntity
+     * @param kidEntity
      */
     @Override
-    public void onSonLoaded(SonEntity sonEntity) {
+    public void onSonLoaded(KidEntity kidEntity) {
 
-        if(appUtils.isValidString(sonEntity.getProfileImage()))
-            picasso.load(sonEntity.getProfileImage())
+        if(appUtils.isValidString(kidEntity.getProfileImage()))
+            picasso.load(kidEntity.getProfileImage())
                 .placeholder(R.drawable.kid_default_image)
                 .error(R.drawable.kid_default_image)
                 .noFade()
@@ -292,7 +292,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
         else
             profileImageView.setImageResource(R.drawable.kid_default_image);
 
-        kidNameText.setText(sonEntity.getFullName());
+        kidNameText.setText(kidEntity.getFullName());
 
 
     }

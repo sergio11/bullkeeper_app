@@ -17,7 +17,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 public interface ISocialMediaService {
 
     /**
-     * Get All Social Media By Son Id
+     * Get All Social Media By Kid Id
      * @param id
      * @return
      */
@@ -27,22 +27,22 @@ public interface ISocialMediaService {
 
     /**
      * Save All Social Media
-     * @param idSon
+     * @param kid
      * @param socialMedias
      * @return
      */
-    @POST("children/{id}/social/save/all")
+    @POST("children/{kid}/social/save/all")
     Observable<APIResponse<List<SocialMediaDTO>>> saveAllSocialMedia(
-            @Path("id") final String idSon, @Body final List<SaveSocialMediaDTO> socialMedias);
+            @Path("kid") final String kid, @Body final List<SaveSocialMediaDTO> socialMedias);
 
     /**
      * Delete Social Media
-     * @param son
+     * @param kid
      * @param idSocial
      * @return
      */
-    @DELETE("{son}/social/delete/{social}")
-    Observable<APIResponse<SocialMediaDTO>> deleteSocialMedia(@Path("son") final String son,
+    @DELETE("{kid}/social/delete/{social}")
+    Observable<APIResponse<SocialMediaDTO>> deleteSocialMedia(@Path("kid") final String kid,
                                                               @Path("social") final String idSocial);
 
 }

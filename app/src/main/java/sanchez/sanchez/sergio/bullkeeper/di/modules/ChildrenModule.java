@@ -10,9 +10,9 @@ import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.data.repository.ChildrenRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -25,9 +25,9 @@ import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 
 /**
@@ -58,7 +58,7 @@ public class ChildrenModule {
      */
     @Provides @PerActivity
     IChildrenRepository provideChildrenRepository(final IChildrenService childrenService,
-                                                  final AbstractDataMapper<SonDTO, SonEntity> sonDataMapper,
+                                                  final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper,
                                                   @Named("SonImageEntity") final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                                   final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
                                                   final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity>
@@ -72,14 +72,14 @@ public class ChildrenModule {
     }
 
     /**
-     * Provide Get Son By Id Interact
+     * Provide Get Kid By Id Interact
      * @param threadExecutor
      * @param postExecutionThread
      * @param childrenRepository
      * @return
      */
     @Provides @PerActivity
-    GetSonByIdInteract provideGetSonByIdInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    GetSonByIdInteract provideGetKidByIdInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                  final IChildrenRepository childrenRepository){
         return new GetSonByIdInteract(threadExecutor, postExecutionThread, childrenRepository);
     }

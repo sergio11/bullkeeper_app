@@ -1,22 +1,19 @@
-package sanchez.sanchez.sergio.domain.interactor.parents;
+package sanchez.sanchez.sergio.domain.interactor.guardians;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Timer;
 
 import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
-import sanchez.sanchez.sergio.domain.repository.IParentRepository;
+import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
@@ -24,9 +21,9 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Update Self Children Interact
  */
-public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, UpdateSelfInformationInteract.Params> {
+public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity, UpdateSelfInformationInteract.Params> {
 
-    private final IParentRepository parentRepository;
+    private final IGuardianRepository parentRepository;
     private final IAppUtils appUtils;
 
     /**
@@ -37,7 +34,7 @@ public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, U
      */
     @Inject
     public UpdateSelfInformationInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                         final IParentRepository parentRepository,  final IAppUtils appUtils) {
+                                         final IGuardianRepository parentRepository, final IAppUtils appUtils) {
         super(threadExecutor, postExecutionThread);
         this.parentRepository = parentRepository;
         this.appUtils = appUtils;
@@ -49,7 +46,7 @@ public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, U
      * @return
      */
     @Override
-    protected Observable<ParentEntity> buildUseCaseObservable(final Params params) {
+    protected Observable<GuardianEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
         return appUtils.isValidString(params.getProfileImage()) ? (
@@ -58,10 +55,10 @@ public final class UpdateSelfInformationInteract extends UseCase<ParentEntity, U
                         parentRepository.uploadProfileImage(params.getProfileImage()),
                         parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
                                 params.getBirthdate(), params.getEmail(), params.getTelephone()),
-                        new BiFunction<ImageEntity, ParentEntity, ParentEntity>() {
+                        new BiFunction<ImageEntity, GuardianEntity, GuardianEntity>() {
                             @Override
-                            public ParentEntity apply(ImageEntity imageEntity, ParentEntity parentEntity) throws Exception {
-                                return parentEntity;
+                            public GuardianEntity apply(ImageEntity imageEntity, GuardianEntity guardianEntity) throws Exception {
+                                return guardianEntity;
                             }
                         })
         )

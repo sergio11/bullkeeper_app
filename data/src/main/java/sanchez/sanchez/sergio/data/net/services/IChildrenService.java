@@ -13,18 +13,18 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import sanchez.sanchez.sergio.data.net.models.request.RegisterSonDTO;
-import sanchez.sanchez.sergio.data.net.models.request.UpdateSonDTO;
+import sanchez.sanchez.sergio.data.net.models.request.RegisterKidDTO;
+import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommunitiesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SonDTO;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -39,7 +39,7 @@ public interface IChildrenService {
      * @return
      */
     @GET("children/{id}")
-    Observable<APIResponse<SonDTO>> getSonById(@Path("id") final String id);
+    Observable<APIResponse<KidDTO>> getSonById(@Path("id") final String id);
 
 
     /**
@@ -128,19 +128,19 @@ public interface IChildrenService {
 
     /**
      * Add Son To Self Parent
-     * @param registerSonDTO
+     * @param registerKidDTO
      * @return
      */
     @POST("parents/self/children/add")
-    Observable<APIResponse<SonDTO>> addSonToSelfParent(final @Body RegisterSonDTO registerSonDTO);
+    Observable<APIResponse<KidDTO>> addSonToSelfParent(final @Body RegisterKidDTO registerKidDTO);
 
     /**
      * Save Son Information
-     * @param updateSonDTO
+     * @param updateKidDTO
      * @return
      */
     @POST("parents/self/children/update")
-    Observable<APIResponse<SonDTO>> saveSonInformation(final @Body UpdateSonDTO updateSonDTO);
+    Observable<APIResponse<KidDTO>> saveSonInformation(final @Body UpdateKidDTO updateKidDTO);
 
 
     /**

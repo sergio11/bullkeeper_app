@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.domain.interactor.parents;
+package sanchez.sanchez.sergio.domain.interactor.guardians;
 
 import java.util.List;
 
@@ -8,17 +8,17 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
-import sanchez.sanchez.sergio.domain.repository.IParentRepository;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
+import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
  * Get Self Children Interact
  */
-public final class GetSelfChildrenInteract extends UseCase<List<SonEntity>, Void> {
+public final class GetSelfChildrenInteract extends UseCase<ChildrenOfSelfGuardianEntity, Void> {
 
-    private final IParentRepository parentRepository;
+    private final IGuardianRepository parentRepository;
 
     /**
      * Get Self Children Interact
@@ -28,7 +28,7 @@ public final class GetSelfChildrenInteract extends UseCase<List<SonEntity>, Void
      */
     @Inject
     public GetSelfChildrenInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                   final IParentRepository parentRepository) {
+                                   final IGuardianRepository parentRepository) {
         super(threadExecutor, postExecutionThread);
         this.parentRepository = parentRepository;
     }
@@ -39,21 +39,23 @@ public final class GetSelfChildrenInteract extends UseCase<List<SonEntity>, Void
      * @return
      */
     @Override
-    protected Observable<List<SonEntity>> buildUseCaseObservable(final Void params) {
+    protected Observable<ChildrenOfSelfGuardianEntity> buildUseCaseObservable(final Void params) {
         return parentRepository.getSelfChildren();
     }
 
 
-
+    /**
+     *
+     */
     public enum GetChildrenApiErrors implements ISupportVisitable<GetChildrenApiErrors.IGetChildrenApiErrorVisitor> {
 
         /**
-         * No Children Found For Self Parent
+         * No Children Found For Self Guardian
          */
-        NO_CHILDREN_FOUND_FOR_SELF_PARENT() {
+        NO_CHILDREN_FOUND_FOR_SELF_GUARDIAN() {
             @Override
             public <E> void accept(IGetChildrenApiErrorVisitor visitor, E data) {
-                visitor.visitNoChildrenFoundForSelfParent(this);
+                visitor.visitNoChildrenFoundForSelfGuardian(this);
             }
         };
 
@@ -62,11 +64,11 @@ public final class GetSelfChildrenInteract extends UseCase<List<SonEntity>, Void
          */
         public interface IGetChildrenApiErrorVisitor extends ISupportVisitor {
             /**
-             * Visit No Children Found For Self Parent
+             * Visit No Children Found For Self Guardian
              *
              * @param error
              */
-            void visitNoChildrenFoundForSelfParent(final GetChildrenApiErrors error);
+            void visitNoChildrenFoundForSelfGuardian(final GetChildrenApiErrors error);
 
         }
     }

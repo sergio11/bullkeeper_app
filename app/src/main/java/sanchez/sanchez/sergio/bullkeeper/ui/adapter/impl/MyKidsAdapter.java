@@ -14,16 +14,25 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 
 /**
  * My Kids Adapter
  */
-public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
+public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedChildrenEntity>{
 
+    /**
+     * Listener
+     */
     private OnMyKidsListener listener;
+
+    /**
+     * Picasso
+     */
     private final Picasso picasso;
 
     /**
@@ -32,7 +41,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
      * @param data
      * @param picasso
      */
-    public MyKidsAdapter(Context context, ArrayList<SonEntity> data, final Picasso picasso) {
+    public MyKidsAdapter(Context context, ArrayList<SupervisedChildrenEntity> data, final Picasso picasso) {
         super(context, data);
         this.picasso = picasso;
     }
@@ -63,7 +72,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
      * My Kids View Holder
      */
     public class MyKidsViewHolder
-            extends SupportItemViewHolder<SonEntity> {
+            extends SupportItemViewHolder<SupervisedChildrenEntity> {
 
         private ImageView childImage;
         private ImageButton resultsAction, alertsAction, relationsAction, profileAction;
@@ -86,23 +95,25 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
         /**
          * On Bind
-         * @param sonEntity
+         * @param supervisedChildrenEntity
          */
         @SuppressLint("ClickableViewAccessibility")
         @Override
-        public void bind(SonEntity sonEntity){
-            super.bind(sonEntity);
+        public void bind(final SupervisedChildrenEntity supervisedChildrenEntity){
+            super.bind(supervisedChildrenEntity);
+
+            final KidEntity kidEntity = supervisedChildrenEntity.getKid();
 
             // Set Child Name
-            childName.setText(sonEntity.getFullName());
+            childName.setText(kidEntity.getFullName());
             // Set School Name
-            schoolName.setText(sonEntity.getSchool().getName());
+            schoolName.setText(kidEntity.getSchool().getName());
 
             // Check Terminals linked
-            if(!sonEntity.getTerminalEntities().isEmpty()) {
+            if(!kidEntity.getTerminalEntities().isEmpty()) {
                 terminalsTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.has_terminals_linked),
-                        sonEntity.getTerminalEntities().size()));
+                        kidEntity.getTerminalEntities().size()));
             } else {
                 terminalsTextView.setText(R.string.not_have_any_linked_devices);
             }
@@ -125,8 +136,10 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             resultsAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listener != null)
-                        listener.onResultsActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                    if(listener != null) {
+                        final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
+                        listener.onResultsActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                    }
                 }
             });
 
@@ -148,8 +161,10 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             alertsAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listener != null)
-                        listener.onAlertsActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                    if(listener != null) {
+                        final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
+                        listener.onAlertsActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                    }
                 }
             });
 
@@ -171,8 +186,10 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             relationsAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listener != null)
-                        listener.onRelationsActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                    if(listener != null) {
+                        final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
+                        listener.onRelationsActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                    }
                 }
             });
 
@@ -194,15 +211,17 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             profileAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listener != null)
-                        listener.onProfileActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                    if(listener != null) {
+                        final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
+                        listener.onProfileActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                    }
                 }
             });
 
-            if(sonEntity.getProfileImage() != null &&
-                    !sonEntity.getProfileImage().isEmpty())
+            if(kidEntity.getProfileImage() != null &&
+                    !kidEntity.getProfileImage().isEmpty())
                 // Set Child Image
-                picasso.load(sonEntity.getProfileImage())
+                picasso.load(kidEntity.getProfileImage())
                         .placeholder(R.drawable.kid_default_image)
                         .error(R.drawable.kid_default_image)
                         .into(childImage);
@@ -213,8 +232,10 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
             childImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(listener != null)
-                        listener.onDetailActionClicked(getItemByAdapterPosition(getAdapterPosition()));
+                    if(listener != null) {
+                        final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
+                        listener.onDetailActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                    }
                 }
             });
         }
@@ -227,32 +248,37 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SonEntity>{
 
         /**
          * On Detail Action Clicked
-         * @param sonEntity
+         * @param kidEntity
+         * @param role
          */
-        void onDetailActionClicked(final SonEntity sonEntity);
+        void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
          * On Results Action Clicked
-         * @param sonEntity
+         * @param kidEntity
+         * @param role
          */
-        void onResultsActionClicked(final SonEntity sonEntity);
+        void onResultsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
          * On Alerts Action Clicked
-         * @param sonEntity
+         * @param kidEntity
+         * @param role
          */
-        void onAlertsActionClicked(final SonEntity sonEntity);
+        void onAlertsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
          * On Relations Action Clicked
-         * @param sonEntity
+         * @param kidEntity
+         * @param role
          */
-        void onRelationsActionClicked(final SonEntity sonEntity);
+        void onRelationsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
          * On Profile Action Clicked
-         * @param sonEntity
+         * @param kidEntity
+         * @param role
          */
-        void onProfileActionClicked(final SonEntity sonEntity);
+        void onProfileActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
     }
 }

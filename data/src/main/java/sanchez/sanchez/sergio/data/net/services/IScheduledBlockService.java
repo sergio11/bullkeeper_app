@@ -50,12 +50,13 @@ public interface IScheduledBlockService {
 
     /**
      * Delete Scheduled Block
-     * @param childId
+     * @param kid
      * @param blockId
      * @return
      */
-    @DELETE("children/{childId}/scheduled-blocks/{blockId}")
-    Observable<APIResponse<String>> deleteScheduledBlock(@Path("childId") final String childId,  @Path("blockId") final String blockId);
+    @DELETE("children/{kid}/scheduled-blocks/{blockId}")
+    Observable<APIResponse<String>> deleteScheduledBlock(@Path("kid") final String kid,
+                                                         @Path("blockId") final String blockId);
 
     /**
      * Save Scheduled Block
@@ -67,26 +68,26 @@ public interface IScheduledBlockService {
 
     /**
      * Save Scheduled Block Status
-     * @param childId
+     * @param kid
      * @param saveScheduledStatus
      * @return
      */
-    @POST("children/{son}/scheduled-blocks/status")
-    Observable<APIResponse<String>> saveScheduledBlockStatus(@Path("son") final String childId,
+    @POST("children/{kid}/scheduled-blocks/status")
+    Observable<APIResponse<String>> saveScheduledBlockStatus(@Path("kid") final String kid,
                                                                         final @Body List<SaveScheduledBlockStatusDTO> saveScheduledStatus);
 
 
     /**
      * Upload Scheduled Block
-     * @param childId
+     * @param kid
      * @param blockId
      * @param image
      * @return
      */
     @Multipart
-    @POST("children/{son}/scheduled-blocks/{block}/image")
+    @POST("children/{kid}/scheduled-blocks/{block}/image")
     Observable<APIResponse<ImageDTO>> uploadScheduledBlockImage(
-            @Path("son") final String childId,
+            @Path("kid") final String kid,
             @Path("block") final String blockId,
             @Part final MultipartBody.Part image);
 

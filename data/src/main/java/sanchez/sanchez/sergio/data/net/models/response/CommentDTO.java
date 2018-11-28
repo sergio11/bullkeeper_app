@@ -11,45 +11,87 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class CommentDTO implements Serializable {
 
+    /**
+     * Identity
+     */
     @JsonProperty("identity")
     private String identity;
 
+    /**
+     * Message
+     */
     @JsonProperty("message")
     private String message;
 
+    /**
+     * Likes
+     */
     @JsonProperty("likes")
     private int likes;
 
+    /**
+     * Social Media
+     */
     @JsonProperty("social_media")
     private String socialMedia;
 
+    /**
+     * Created Time
+     */
     @JsonProperty("created_time")
     private Date createdTime;
 
+    /**
+     * Extracted At
+     */
     @JsonProperty("extracted_at")
     private Date extractedAt;
 
+    /**
+     * Extracted At Since
+     */
     @JsonProperty("extracted_at_since")
     private String extractedAtSince;
 
+    /**
+     * Author Name
+     */
     @JsonProperty("author_name")
     private String authorName;
 
+    /**
+     * Author Photo
+     */
     @JsonProperty("author_photo")
     private String authorPhoto;
 
+    /**
+     * Adult
+     */
     @JsonProperty("adult")
     private String adult;
 
+    /**
+     * Bullying
+     */
     @JsonProperty("bullying")
     private String bullying;
 
+    /**
+     * Drugs
+     */
     @JsonProperty("drugs")
     private String drugs;
 
+    /**
+     * Sentiment
+     */
     @JsonProperty("sentiment")
     private String sentiment;
 
+    /**
+     * Violence
+     */
     @JsonProperty("violence")
     private String violence;
 

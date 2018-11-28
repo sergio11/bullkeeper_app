@@ -11,27 +11,51 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class AlertDTO implements Serializable {
 
+    /**
+     * Identity
+     */
     @JsonProperty("identity")
     private String identity;
 
+    /**
+     * Level
+     */
     @JsonProperty("level")
     private String level;
 
+    /**
+     * Title
+     */
     @JsonProperty("title")
     private String title;
 
+    /**
+     * Payload
+     */
     @JsonProperty("payload")
     private String payload;
 
+    /**
+     * Create At
+     */
     @JsonProperty("create_at")
     private Date createAt;
 
+    /**
+     * Since
+     */
     @JsonProperty("since")
     private String since;
 
-    @JsonProperty("son")
-    private SonDTO son;
+    /**
+     * Kid
+     */
+    @JsonProperty("kid")
+    private KidDTO kid;
 
+    /**
+     * Category
+     */
     @JsonProperty("category")
     private String category;
 
@@ -84,12 +108,12 @@ public final class AlertDTO implements Serializable {
         this.since = since;
     }
 
-    public SonDTO getSon() {
-        return son;
+    public KidDTO getKid() {
+        return kid;
     }
 
-    public void setSon(SonDTO son) {
-        this.son = son;
+    public void setKid(KidDTO kid) {
+        this.kid = kid;
     }
 
     public String getCategory() {
@@ -109,7 +133,7 @@ public final class AlertDTO implements Serializable {
                 ", payload='" + payload + '\'' +
                 ", createAt=" + createAt +
                 ", since='" + since + '\'' +
-                ", son=" + son +
+                ", kid=" + kid +
                 ", category='" + category + '\'' +
                 '}';
     }

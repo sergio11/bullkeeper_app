@@ -1,7 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 
 
 /**
@@ -11,8 +11,8 @@ public interface IMyKidsDetailView extends ISupportView {
 
     /**
      * On Son Loaded
-     * @param sonEntity
+     * @param kidEntity
      */
-    void onSonLoaded(final SonEntity sonEntity);
+    void onSonLoaded(final KidEntity kidEntity);
 
 }

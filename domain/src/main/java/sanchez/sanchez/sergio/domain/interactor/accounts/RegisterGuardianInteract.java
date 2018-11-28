@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
@@ -18,7 +18,7 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Register Parent Interact
  */
-public final class RegisterParentInteract extends UseCase<ParentEntity, RegisterParentInteract.Params> {
+public final class RegisterGuardianInteract extends UseCase<GuardianEntity, RegisterGuardianInteract.Params> {
 
     /**
      * Account Repository
@@ -34,15 +34,15 @@ public final class RegisterParentInteract extends UseCase<ParentEntity, Register
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public RegisterParentInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                  final IAccountsRepository accountsRepository, final IAppUtils appUtils) {
+    public RegisterGuardianInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                    final IAccountsRepository accountsRepository, final IAppUtils appUtils) {
         super(threadExecutor, postExecutionThread);
         this.accountsRepository = accountsRepository;
         this.appUtils = appUtils;
     }
 
     @Override
-    protected Observable<ParentEntity> buildUseCaseObservable(final RegisterParentInteract.Params params) {
+    protected Observable<GuardianEntity> buildUseCaseObservable(final RegisterGuardianInteract.Params params) {
 
         Preconditions.checkNotNull(params, "Register params can not be null");
 

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,8 +27,11 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.IHomeActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
-import sanchez.sanchez.sergio.domain.models.ParentEntity;
-import sanchez.sanchez.sergio.domain.models.SonEntity;
+import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 
 
 /**
@@ -206,7 +208,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         myChildList.setLayoutManager(new LinearLayoutManager(appContext,
                 LinearLayoutManager.HORIZONTAL, false));
-        myKidsStatusAdapter = new MyKidsStatusAdapter(activity, new ArrayList<SonEntity>(), picasso);
+        myKidsStatusAdapter = new MyKidsStatusAdapter(activity, new ArrayList<SupervisedChildrenEntity>(), picasso);
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);
@@ -271,18 +273,18 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
     /**
      * On User Profile Loaded
-     * @param parentEntity
+     * @param guardianEntity
      */
     @Override
-    public void onUserProfileLoaded(ParentEntity parentEntity) {
-        Preconditions.checkNotNull(parentEntity, "Parent Entity can not be null");
+    public void onUserProfileLoaded(GuardianEntity guardianEntity) {
+        Preconditions.checkNotNull(guardianEntity, "Parent Entity can not be null");
 
-        preferencesRepositoryImpl.setPrefCurrentUserIdentity(parentEntity.getIdentity());
+        preferencesRepositoryImpl.setPrefCurrentUserIdentity(guardianEntity.getIdentity());
 
-        userProfileText.setText(parentEntity.getFullName());
+        userProfileText.setText(guardianEntity.getFullName());
 
-        if(appUtils.isValidString(parentEntity.getProfileImage()))
-            picasso.load(parentEntity.getProfileImage()).placeholder(R.drawable.parent_default)
+        if(appUtils.isValidString(guardianEntity.getProfileImage()))
+            picasso.load(guardianEntity.getProfileImage()).placeholder(R.drawable.parent_default)
                 .error(R.drawable.parent_default)
                 .into(userProfileImage);
         else
@@ -296,11 +298,12 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      * @param children
      */
     @Override
-    public void onChildrenLoaded(List<SonEntity> children) {
+    public void onChildrenLoaded(final ChildrenOfSelfGuardianEntity children) {
         Preconditions.checkNotNull(children, "Children can not be null");
-        Preconditions.checkState(!children.isEmpty(), "Children can not be empty");
+        Preconditions.checkState(children.getConfirmed() > 0,
+                "Children can not be empty");
 
-        if(children.size() >= MIN_KIDS_COUNT) {
+        if(children.getConfirmed() >= MIN_KIDS_COUNT) {
             addChildBtn.setVisibility(View.VISIBLE);
             infoChildBtn.setVisibility(View.GONE);
         } else {
@@ -308,7 +311,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
             infoChildBtn.setVisibility(View.VISIBLE);
         }
 
-        myKidsStatusAdapter.setData(children);
+        myKidsStatusAdapter.setData(children.getSupervisedChildrenEntities());
         myKidsStatusAdapter.notifyDataSetChanged();
         final LayoutAnimationController controller =
                 AnimationUtils.loadLayoutAnimation(appContext, R.anim.layout_animation_fall_down);
@@ -337,11 +340,11 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
     /**
      * On Detail Action Clicked
-     * @param sonEntity
+     * @param kidEntity
      */
     @Override
-    public void onDetailActionClicked(SonEntity sonEntity) {
-        activityHandler.goToChildDetail(sonEntity.getIdentity());
+    public void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        activityHandler.goToChildDetail(kidEntity.getIdentity());
     }
 
     /**
