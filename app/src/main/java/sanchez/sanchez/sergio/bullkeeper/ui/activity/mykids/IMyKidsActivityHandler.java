@@ -48,4 +48,9 @@ public interface IMyKidsActivityHandler extends IBasicActivityHandler {
      */
     void navigateToRelations(final String identity);
 
+    /**
+     * Navigate To Invitations
+     */
+    void navigateToInvitations();
+
 }

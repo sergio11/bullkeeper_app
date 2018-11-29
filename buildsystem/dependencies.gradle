@@ -64,6 +64,7 @@ ext {
     parcelerVersion = '1.1.11'
     jodaTimeVersion = '2.10'
     commonLang3Version = '3.8.1'
+    fancyShowCaseView = '1.1.0'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -127,7 +128,8 @@ ext {
             parceler:           "org.parceler:parceler:${parcelerVersion}",
             jodaTime:           "joda-time:joda-time:${jodaTimeVersion}",
             commonLang3:        "org.apache.commons:commons-lang3:${commonLang3Version}",
-            speedDial:          "com.leinardi.android:speed-dial:${speedDialVersion}"
+            speedDial:          "com.leinardi.android:speed-dial:${speedDialVersion}",
+            fancyShowCaseView:  "com.github.faruktoptas:FancyShowCaseView:${fancyShowCaseView}"
     ]
 
     presentationTestDependencies = [

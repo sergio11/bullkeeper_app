@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.navigation;
 
+import android.app.Activity;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
@@ -386,5 +387,10 @@ public interface INavigator {
      */
     void showChildAlertsDetailDialog(final AppCompatActivity appCompatActivity, final AlertLevelEnum alertLevelEnum,
                                      final String alertLevelValue, final String kidIdentityValue);
+
+    /**
+     *  Navigate To Invitations
+     */
+    void navigateToInvitations(final Activity activity);
 
 }

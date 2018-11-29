@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.navigation.impl;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.DrawableRes;
@@ -8,6 +9,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
@@ -645,5 +647,14 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(kidIdentityValue, "Kid Identity value can not be null");
 
         ChildAlertsDetailDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentityValue);
+    }
+
+    /**
+     * Navigate To Invitations
+     */
+    @Override
+    public void navigateToInvitations(final Activity activity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        activity.startActivity(InvitationsListMvpActivity.getCallingIntent(activity));
     }
 }

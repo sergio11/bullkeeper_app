@@ -152,4 +152,17 @@
         app:layout_constraintGuide_begin="100dp" />
 
 
+    <!-- Role Image View -->
+    <ImageView
+        android:id="@+id/roleImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/common_margin"
+        android:rotation="45"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/content_not_be_loaded" />
+
+
 </android.support.constraint.ConstraintLayout>

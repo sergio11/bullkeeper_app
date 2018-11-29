@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Locale;
-
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -74,7 +72,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
     public class MyKidsViewHolder
             extends SupportItemViewHolder<SupervisedChildrenEntity> {
 
-        private ImageView childImage;
+        private ImageView childImage, roleImageView;
         private ImageButton resultsAction, alertsAction, relationsAction, profileAction;
         private TextView childName, schoolName, terminalsTextView;
 
@@ -90,6 +88,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
             childName = itemView.findViewById(R.id.childName);
             schoolName = itemView.findViewById(R.id.schoolName);
             terminalsTextView = itemView.findViewById(R.id.terminalsTextView);
+            roleImageView = itemView.findViewById(R.id.roleImageView);
 
         }
 
@@ -238,6 +237,23 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
                     }
                 }
             });
+
+
+            switch (supervisedChildrenEntity.getGuardianRolesEnum()) {
+
+                case ADMIN:
+                    roleImageView.setImageResource(R.drawable.crown_solid_white);
+                    break;
+                case DATA_VIEWER:
+                    roleImageView.setImageResource(R.drawable.eye_solid_white);
+                    break;
+                case PARENTAL_CONTROL_RULE_EDITOR:
+                    roleImageView.setImageResource(R.drawable.child_white);
+                    break;
+
+            }
+
+
         }
     }
 

@@ -2,11 +2,17 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import javax.inject.Inject;
+import butterknife.BindView;
 import butterknife.OnClick;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
@@ -39,6 +45,30 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
      */
     @Inject
     protected Activity activity;
+
+
+    /**
+     * Views
+     * ============
+     */
+
+    /**
+     * See Invitations Container
+     */
+    @BindView(R.id.seeInvitationsContainer)
+    protected FrameLayout seeInvitationsContainer;
+
+    /**
+     * See Invitations Image View
+     */
+    @BindView(R.id.seeInvitations)
+    protected ImageView seeInvitationsImageView;
+
+    /**
+     * Invitations Count Text View
+     */
+    @BindView(R.id.invitationsCount)
+    protected TextView invitationsCountTextView;
 
 
     public MyKidsActivityMvpFragment() {}
@@ -106,6 +136,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     protected int getLayoutRes() {
         return R.layout.fragment_my_kids;
     }
+
 
     /**
      * Initialize Injector
@@ -187,5 +218,29 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     @OnClick(R.id.addChild)
     protected void addChild() {
         activityHandler.navigateToAddChild();
+    }
+
+    /**
+     * On See Invitations
+     */
+    @OnClick(R.id.seeInvitations)
+    protected void onSeeInvitations(){
+
+    }
+
+    /**
+     * On Pending Request Avaliable
+     */
+    @Override
+    public void onPendingRequestsAvailable(final long count) {
+
+        seeInvitationsContainer.setVisibility(View.VISIBLE);
+        invitationsCountTextView.setText(String.valueOf(count));
+
+        new FancyShowCaseView.Builder(activity)
+                .focusOn(seeInvitationsImageView)
+                .title("Focus on View")
+                .build()
+                .show();
     }
 }

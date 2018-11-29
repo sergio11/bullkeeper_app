@@ -1,99 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:background="@android:color/transparent"
-    tools:context=".ui.fragment.mykids.MyKidsActivityMvpFragment">
+    tools:context=".ui.activity.invitations.InvitationsListMvpActivity">
 
     <!-- Include Toolbar -->
     <include
         android:id="@+id/appToolbarInclude"
         layout="@layout/app_translucent_toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- My Kids Header -->
+    <!-- Alerts Header -->
     <RelativeLayout
-        android:id="@+id/myKidsHeader"
-        style="@style/CommonSection"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:id="@+id/myAlertsHeader"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appToolbarInclude"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude">
+        android:background="@drawable/common_section_translucent_background"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/myKidsHeaderImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:contentDescription="@string/my_kids_content_description"
+            android:id="@+id/invitationsIcon"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/supervise_child_white"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/child_white" />
+            android:layout_centerVertical="true"/>
 
+        <!-- Invitations Message -->
         <TextView
+            android:id="@+id/invitationsHeaderTitle"
             style="@style/CommonStrongText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/myKidsHeaderImage"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/bellIcon"
             android:layout_centerVertical="true"
-            android:text="@string/my_kids_title"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/invitations_title"
             android:textColor="@color/commonWhite" />
 
-        <!-- See Invitations -->
-        <FrameLayout
-            android:id="@+id/seeInvitationsContainer"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="8dp"
-            android:layout_centerVertical="true"
-            android:visibility="gone"
-            android:layout_toStartOf="@id/addChild">
 
-            <ImageView
-                android:id="@+id/seeInvitations"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true">
+
+
+            <!-- Clear Invitations -->
+            <ImageButton
+                android:id="@+id/clearInvitations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:contentDescription="@string/content_not_be_loaded"
-                android:src="@drawable/supervise_child_white"/>
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:src="@drawable/trash_white"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/content_not_be_loaded" />
 
-            <TextView
-                android:id="@+id/invitationsCount"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                style="@style/CommonStrongText.Small"
-                android:layout_marginStart="10dp"
-                android:padding="0dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="@color/commonWhite"
-                android:text="-"
-                android:background="@drawable/background_alert_count_danger"
-                android:layout_gravity="end"/>
-
-        </FrameLayout>
-
-        <!-- Add Child -->
-        <ImageView
-            android:id="@+id/addChild"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/content_not_be_loaded"
-            android:src="@drawable/user_plus_solid_white"/>
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -105,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -116,12 +107,13 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:scrollbarThumbVertical="@android:color/white"
+            android:scrollbars="vertical"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-
-    <!-- Error Ocurred -->
+    <!-- Error Occurred -->
     <include android:id="@+id/errorOccurred"
         layout="@layout/error_ocurred_layout"
         android:layout_width="0dp"
@@ -130,13 +122,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"/>
-
 
     <!-- No Data Found -->
     <include android:id="@+id/noDataFound"
@@ -147,7 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -155,7 +146,7 @@
         android:layout_marginTop="8dp"
         />
 
-    <!-- No Data Found -->
+    <!-- Loading -->
     <include android:id="@+id/loading"
         layout="@layout/loading_data_layout"
         android:layout_width="0dp"
@@ -164,12 +155,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/myAlertsHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         />
-
 </android.support.constraint.ConstraintLayout>

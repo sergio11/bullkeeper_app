@@ -57,10 +57,16 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
         protected void onSuccess(final ChildrenOfSelfGuardianEntity myKids) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
+
                 if(myKids.getConfirmed() > 0)
                     getView().onDataLoaded(myKids.getSupervisedChildrenEntities());
                 else
                     getView().onNoDataFound();
+
+
+                if(myKids.getNoConfirmed() > 0)
+                    getView().onPendingRequestsAvailable(myKids.getNoConfirmed());
+
             }
         }
 

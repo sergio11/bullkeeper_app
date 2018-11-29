@@ -148,6 +148,14 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     }
 
     /**
+     * Navigate To Invitations
+     */
+    @Override
+    public void navigateToInvitations() {
+        navigatorImpl.navigateToInvitations(this);
+    }
+
+    /**
      * Get Background
      * @return
      */

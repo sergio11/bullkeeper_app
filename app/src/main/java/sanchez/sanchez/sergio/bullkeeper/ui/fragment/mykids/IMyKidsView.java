@@ -6,4 +6,11 @@ import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 /**
  * My Kids View
  */
-public interface IMyKidsView extends ISupportLCEView<SupervisedChildrenEntity> {}
+public interface IMyKidsView extends ISupportLCEView<SupervisedChildrenEntity> {
+
+    /**
+     * On Pending Requests Avaliable
+     */
+    void onPendingRequestsAvailable(final long count);
+
+}

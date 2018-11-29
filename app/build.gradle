@@ -168,6 +168,9 @@ dependencies {
     // Common Lang 3
     implementation presentationDependencies.commonLang3
 
+    // Fancy Show Case
+    implementation presentationDependencies.fancyShowCaseView
+
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
     androidTestImplementation presentationTestDependencies.dexmakerMockito

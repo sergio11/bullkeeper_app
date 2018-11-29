@@ -708,4 +708,10 @@
     <string name="has_not_registered_applications">Has not registered applications</string>
     <string name="has_terminals_linked" formatted="false">Has %d linked devices</string>
     <string name="not_have_any_linked_devices">Not have any linked devices</string>
+
+    <!-- Invitations -->
+    <string name="invitations_title">Invitations</string>
+    <string name="invitation_item_removed">The invitation was removed</string>
+
+
 </resources>
