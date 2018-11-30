@@ -16,6 +16,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.CommentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.KidGuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
@@ -44,6 +45,7 @@ import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocia
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
@@ -66,6 +68,7 @@ import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
@@ -332,5 +335,18 @@ public class DataMapperModule {
         return new ChildrenOfSelfGuardianEntityDataMapper(supervisedChildrenEntityAbstractDataMapper);
     }
 
+    /**
+     * Provide Kid Guardian Data Mapper
+     * @param kidEntityAbstractDataMapper
+     * @param guardianEntityAbstractDataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> provideKidGuardianDataMapper(
+            final AbstractDataMapper<KidDTO, KidEntity> kidEntityAbstractDataMapper,
+            final AbstractDataMapper<GuardianDTO, GuardianEntity> guardianEntityAbstractDataMapper
+    ){
+        return new KidGuardianEntityDataMapper(kidEntityAbstractDataMapper, guardianEntityAbstractDataMapper);
+    }
 
 }

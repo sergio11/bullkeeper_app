@@ -59,7 +59,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      * Args
      */
     private static final String SCHEDULED_BLOCK_IDENTITY_ARG = "SCHEDULED_BLOCK_IDENTITY";
-    private static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    private static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Fields

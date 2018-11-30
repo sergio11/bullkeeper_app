@@ -7,4 +7,17 @@ import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
  * Invitations List View
  */
 public interface IInvitationsListView
-        extends ISupportLCEView<SupervisedChildrenEntity> {}
+        extends ISupportLCEView<SupervisedChildrenEntity> {
+
+    /**
+     * On All Invitations Cleared
+     */
+    void onAllInvitationsCleared();
+
+    /**
+     * On Invitation Cleared
+     */
+    void onInvitationCleared();
+
+
+}

@@ -6,15 +6,19 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.SupervisedChildrenDTO;
 import sanchez.sanchez.sergio.data.net.services.ISupervisedChildrenService;
 import sanchez.sanchez.sergio.data.repository.SupervisedChildrenRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.children.DeleteSupervisedChildrenConfirmedInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.DeleteAllSupervisedChildrenNoConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.DeleteSupervisedChildrenNoConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenConfirmedDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenNoConfirmedInteract;
+import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import sanchez.sanchez.sergio.domain.repository.ISupervisedChildrenRepository;
 
 /**
@@ -42,23 +46,26 @@ public class InvitationsModule {
      */
     @Provides
     @PerActivity
-    public ISupervisedChildrenRepository provideSupervisedChildrenRepository(final ISupervisedChildrenService supervisedChildrenService) {
+    public ISupervisedChildrenRepository provideSupervisedChildrenRepository(
+            final ISupervisedChildrenService supervisedChildrenService,
+            final AbstractDataMapper<SupervisedChildrenDTO, SupervisedChildrenEntity> supervisedChildrenEntityAbstractDataMapper) {
         Preconditions.checkNotNull(supervisedChildrenService, "Supervised Children Service");
-        return new SupervisedChildrenRepositoryImpl(supervisedChildrenService);
+        return new SupervisedChildrenRepositoryImpl(supervisedChildrenService,
+                supervisedChildrenEntityAbstractDataMapper);
     }
 
 
     /**
-     * Provide Delete Supervised Children No Confirmed Interact
+     * Provide Delete All Supervised Children No Confirmed Interact
      * @return
      */
     @Provides
     @PerActivity
-    public DeleteSupervisedChildrenNoConfirmedInteract provideDeleteSupervisedChildrenNoConfirmedInteract(
+    public DeleteAllSupervisedChildrenNoConfirmedInteract provideDeleteAllSupervisedChildrenNoConfirmedInteract(
             final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
             final ISupervisedChildrenRepository supervisedChildrenRepository
     ){
-        return new DeleteSupervisedChildrenNoConfirmedInteract(threadExecutor,
+        return new DeleteAllSupervisedChildrenNoConfirmedInteract(threadExecutor,
                 postExecutionThread, supervisedChildrenRepository);
     }
 
@@ -113,6 +120,25 @@ public class InvitationsModule {
             final ISupervisedChildrenRepository supervisedChildrenRepository
     ){
         return new GetSupervisedChildrenNoConfirmedInteract(threadExecutor, postExecutionThread,
+                supervisedChildrenRepository);
+    }
+
+
+    /**
+     * Provide Delete Supervised Children No Confirm
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param supervisedChildrenRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public DeleteSupervisedChildrenNoConfirmedInteract provideDeleteSupervisedChildrenNoConfirmedInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final ISupervisedChildrenRepository supervisedChildrenRepository
+    )
+    {
+        return new DeleteSupervisedChildrenNoConfirmedInteract(threadExecutor, postExecutionThread,
                 supervisedChildrenRepository);
     }
 

@@ -13,7 +13,7 @@ import sanchez.sanchez.sergio.domain.models.AlertEntity;
  */
 public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<IImportantAlertsFragmentView> {
 
-    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Danger Alerts Of Son For Self Parent

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.domain.interactor.children;
 
+import com.fernandocejas.arrow.checks.Preconditions;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -12,7 +13,9 @@ import sanchez.sanchez.sergio.domain.repository.ISupervisedChildrenRepository;
 public final class DeleteSupervisedChildrenConfirmedInteract
         extends UseCase<String, DeleteSupervisedChildrenConfirmedInteract.Params> {
 
-
+    /**
+     * Supervised Children Repository
+     */
     private final ISupervisedChildrenRepository supervisedChildrenRepository;
 
     /**
@@ -35,7 +38,11 @@ public final class DeleteSupervisedChildrenConfirmedInteract
      */
     @Override
     protected Observable<String> buildUseCaseObservable(Params params) {
-        return null;
+        Preconditions.checkNotNull(params, "Params can not be null");
+        Preconditions.checkNotNull(params.getKid(), "Kid id can not be null");
+
+        return supervisedChildrenRepository.deleteSupervisedChildrenConfirmed(params.getKid());
+
     }
 
 

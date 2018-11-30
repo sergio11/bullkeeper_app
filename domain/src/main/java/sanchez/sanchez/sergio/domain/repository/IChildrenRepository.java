@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 
@@ -23,15 +24,15 @@ public interface IChildrenRepository {
     Observable<KidEntity> getSonById(final String sonId);
 
     /**
-     * Add Son To Self Parent Interact
+     * Add Son To Self Guardian
      * @param firstName
      * @param lastName
      * @param birthdate
      * @param school
      * @return
      */
-    Observable<KidEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
-                                                     final String birthdate, final String school);
+    Observable<KidEntity> addSonToSelfGuardian(final String firstName, final String lastName,
+                                               final String birthdate, final String school);
 
     /**
      * Save Son Information
@@ -87,5 +88,23 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<AlertsStatisticsEntity> getAlertsStatistics(final String kidIdentity, final int daysAgo);
+
+    /**
+     * Save Guardians
+     * @param kid
+     * @param guardianEntities
+     * @return
+     */
+    Observable<List<KidGuardianEntity>> saveGuardians(
+            final String kid,
+            final List<KidGuardianEntity> guardianEntities);
+
+
+    /**
+     * Get Guardians
+     * @param kid
+     * @return
+     */
+    Observable<List<KidGuardianEntity>> getGuardians(final String kid);
 
 }

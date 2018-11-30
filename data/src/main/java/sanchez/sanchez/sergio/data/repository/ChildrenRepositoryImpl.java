@@ -13,6 +13,7 @@ import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
@@ -21,6 +22,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
@@ -38,6 +40,9 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
     private final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper;
     private final AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> alertsStatisticsDataMapper;
+    private final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper;
+
+
     /**
      * @param childrenService
      * @param sonDataMapper
@@ -52,7 +57,8 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
                                   final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
                                   final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
                                   final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper,
-                                  final AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> alertsStatisticsDataMapper) {
+                                  final AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> alertsStatisticsDataMapper,
+                                  final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper) {
         this.childrenService = childrenService;
         this.sonDataMapper = sonDataMapper;
         this.imageDataMapper = imageDataMapper;
@@ -60,6 +66,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
         this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
         this.sentimentAnalysisStatisticsDataMapper = sentimentAnalysisStatisticsDataMapper;
         this.alertsStatisticsDataMapper = alertsStatisticsDataMapper;
+        this.kidGuardianEntityAbstractDataMapper = kidGuardianEntityAbstractDataMapper;
     }
 
     /**
@@ -71,7 +78,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     public Observable<KidEntity> getSonById(String sonId) {
         Preconditions.checkNotNull(sonId, "Son Id can not be null");
         Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
-        return childrenService.getSonById(sonId).map(response ->
+        return childrenService.getKidById(sonId).map(response ->
             response != null && response.getData() != null ? response.getData() : null)
                 .map(sonDataMapper::transform);
     }
@@ -85,14 +92,14 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
      * @return
      */
     @Override
-    public Observable<KidEntity> addSonToSelfParentInteract(final String firstName, final String lastName,
-                                                            final String birthdate, final String school) {
+    public Observable<KidEntity> addSonToSelfGuardian(final String firstName, final String lastName,
+                                                      final String birthdate, final String school) {
         Preconditions.checkNotNull(firstName, "Firstname can not be null");
         Preconditions.checkNotNull(lastName, "Lastname can not be null");
         Preconditions.checkNotNull(birthdate, "Birthdate can not be null");
         Preconditions.checkNotNull(school, "School can not be null");
 
-        return childrenService.addSonToSelfParent(new RegisterKidDTO(firstName, lastName, birthdate, school))
+        return childrenService.addSonToSelfGuardian(new RegisterKidDTO(firstName, lastName, birthdate, school))
                 .map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(sonDataMapper::transform);
     }
@@ -117,7 +124,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
         Preconditions.checkNotNull(birthdate, "Birthdate can not be null");
         Preconditions.checkNotNull(school, "School can not be null");
 
-        return childrenService.saveSonInformation(new UpdateKidDTO(identity, firstName, lastName, birthdate, school))
+        return childrenService.saveKidInformation(new UpdateKidDTO(identity, firstName, lastName, birthdate, school))
                 .map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(sonDataMapper::transform);
     }
@@ -217,5 +224,43 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
                 .map(response -> response != null && response.getData() != null ?
                     response.getData() : null)
                 .map(alertsStatisticsDataMapper::transform);
+    }
+
+    /**
+     * Save Guardians
+     * @param kid
+     * @param guardianEntities
+     * @return
+     */
+    @Override
+    public Observable<List<KidGuardianEntity>> saveGuardians(
+            final String kid,
+            final List<KidGuardianEntity> guardianEntities) {
+
+        Preconditions.checkNotNull(kid, "Kid id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid id can not be empty");
+        Preconditions.checkNotNull(guardianEntities, "Guardians Entities can not be null");
+
+        return childrenService.saveGuardians(kid,
+                kidGuardianEntityAbstractDataMapper.transformInverse(guardianEntities))
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData(): null)
+                .map(kidGuardianEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Get Guardians
+     * @param kid
+     * @return
+     */
+    @Override
+    public Observable<List<KidGuardianEntity>> getGuardians(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        return childrenService.getGuardians(kid)
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData(): null)
+                .map(kidGuardianEntityAbstractDataMapper::transform);
     }
 }

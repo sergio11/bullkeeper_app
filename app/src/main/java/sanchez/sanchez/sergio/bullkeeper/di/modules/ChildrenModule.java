@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import javax.inject.Named;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -11,6 +10,7 @@ import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
@@ -26,6 +26,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
@@ -54,6 +55,7 @@ public class ChildrenModule {
      * @param socialMediaDataMapper
      * @param sentimentAnalysisDataMapper
      * @param alertsStatisticsDataMapper
+     * @param kidGuardianEntityAbstractDataMapper
      * @return
      */
     @Provides @PerActivity
@@ -66,9 +68,11 @@ public class ChildrenModule {
                                                   final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity>
                                                           sentimentAnalysisDataMapper,
                                                   final AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity>
-                                                          alertsStatisticsDataMapper) {
+                                                          alertsStatisticsDataMapper,
+                                                  final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity>
+                                                        kidGuardianEntityAbstractDataMapper) {
         return new ChildrenRepositoryImpl(childrenService, sonDataMapper, imageDataMapper, dimensionDataMapper, socialMediaDataMapper,
-                sentimentAnalysisDataMapper, alertsStatisticsDataMapper);
+                sentimentAnalysisDataMapper, alertsStatisticsDataMapper, kidGuardianEntityAbstractDataMapper);
     }
 
     /**

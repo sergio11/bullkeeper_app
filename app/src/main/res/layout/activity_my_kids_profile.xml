@@ -209,6 +209,7 @@
             </LinearLayout>
 
 
+            <!-- Social Medias -->
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -366,6 +367,14 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+
+
+            <!-- Kid Guardians -->
+            <FrameLayout
+                android:id="@+id/kidGuardiansContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_margin" />
 
         </LinearLayout>
 

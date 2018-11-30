@@ -24,7 +24,7 @@ public final class AppRulesFragmentPresenter extends SupportLCEPresenter<IAppRul
     /**
      * Args
      */
-    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
     public static final String TERMINALS_ARG = "TERMINALS_ARG";
     public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
 

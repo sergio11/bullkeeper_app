@@ -22,6 +22,7 @@ import sanchez.sanchez.sergio.data.net.models.response.CommunitiesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
@@ -39,7 +40,7 @@ public interface IChildrenService {
      * @return
      */
     @GET("children/{id}")
-    Observable<APIResponse<KidDTO>> getSonById(@Path("id") final String id);
+    Observable<APIResponse<KidDTO>> getKidById(@Path("id") final String id);
 
 
     /**
@@ -48,7 +49,8 @@ public interface IChildrenService {
      * @return
      */
     @GET("children/{id}/social/invalid")
-    Observable<APIResponse<List<SocialMediaDTO>>> getInvalidSocialMediaBySonId(@Path("id") final String id);
+    Observable<APIResponse<List<SocialMediaDTO>>> getInvalidSocialMediaByKidId(
+            @Path("id") final String id);
 
 
     /**
@@ -57,7 +59,7 @@ public interface IChildrenService {
      * @return
      */
     @DELETE("children/{id}")
-    Observable<APIResponse<String>> deleteSonById(@Path("id") final String id);
+    Observable<APIResponse<String>> deleteKidById(@Path("id") final String id);
 
     /**
      *
@@ -113,7 +115,7 @@ public interface IChildrenService {
                                                                      @Query("days_ago") final Integer daysAgo);
 
     /**
-     * Get Comments By Son
+     * Get Comments By Kid
      * @param sonId
      * @param authorId
      * @param daysAgo
@@ -122,25 +124,25 @@ public interface IChildrenService {
      * @return
      */
     @GET("children/{id}/comments")
-    Observable<APIResponse<List<CommentDTO>>> getCommentsBySon(@Path("id") final String sonId, @Query("author") final String authorId,
+    Observable<APIResponse<List<CommentDTO>>> getCommentsByKid(@Path("id") final String sonId, @Query("author") final String authorId,
                                                                @Query("days_ago") final Integer daysAgo, @Query("social_media") final List<SocialMediaTypeEnum> SocialMedia,
                                                                final Map<DimensionCategoryEnum, String> dimensions);
 
     /**
-     * Add Son To Self Parent
+     * Add Kid To Self Guardian
      * @param registerKidDTO
      * @return
      */
     @POST("parents/self/children/add")
-    Observable<APIResponse<KidDTO>> addSonToSelfParent(final @Body RegisterKidDTO registerKidDTO);
+    Observable<APIResponse<KidDTO>> addSonToSelfGuardian(final @Body RegisterKidDTO registerKidDTO);
 
     /**
-     * Save Son Information
+     * Save Kid Information
      * @param updateKidDTO
      * @return
      */
     @POST("parents/self/children/update")
-    Observable<APIResponse<KidDTO>> saveSonInformation(final @Body UpdateKidDTO updateKidDTO);
+    Observable<APIResponse<KidDTO>> saveKidInformation(final @Body UpdateKidDTO updateKidDTO);
 
 
     /**
@@ -151,6 +153,25 @@ public interface IChildrenService {
     @POST("children/{id}/image")
     Observable<APIResponse<ImageDTO>> uploadProfileImage(@Path("id") final String id, @Part final MultipartBody.Part image);
 
+    /**
+     * Save Guardians
+     * @param kid
+     * @param kidGuardianDTOList
+     * @return
+     */
+    @POST("children/{id}/guardians")
+    Observable<APIResponse<List<KidGuardianDTO>>> saveGuardians(
+            @Path("id") final String kid,
+            @Body final List<KidGuardianDTO> kidGuardianDTOList);
 
+
+    /**
+     * Get Guardians
+     * @param kid
+     * @return
+     */
+    @GET("children/{id}/guardians")
+    Observable<APIResponse<List<KidGuardianDTO>>> getGuardians(
+            @Path("id") final String kid);
 
 }

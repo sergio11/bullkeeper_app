@@ -25,6 +25,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocator
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksFragmentPresenter;
@@ -103,6 +105,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final TerminalsMvpFragment terminalsMvpFragment);
 
+    /**
+     * Inject into Kid Guardian Mvp Fragment
+     * @param kidGuardiansMvpFragment
+     */
+    void inject(final KidGuardiansMvpFragment kidGuardiansMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -114,4 +122,5 @@ public interface MyKidsComponent extends StatsComponent {
     TimeAllowanceFragmentPresenter timeAllowanceFragmentPresenter();
     FamilyLocatorFragmentPresenter familyLocatorFragmentPresenter();
     TerminalsFragmentPresenter terminalsFragmentPresenter();
+    KidGuardiansFragmentPresenter kidGuardiansFragmentPresenter();
 }

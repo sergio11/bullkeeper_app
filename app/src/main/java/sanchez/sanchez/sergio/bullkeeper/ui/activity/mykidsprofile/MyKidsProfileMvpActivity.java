@@ -44,7 +44,9 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolM
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansMvpFragment;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
@@ -213,6 +215,17 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected ImageView showSchoolDetailImageView;
 
     /**
+     * Kid Guardian Container View
+     */
+    @BindView(R.id.kidGuardiansContainer)
+    protected View kidGuardiansContainerView;
+
+    /**
+     * Kid Guardian Mvp Fragment
+     */
+    protected KidGuardiansMvpFragment kidGuardiansMvpFragment;
+
+    /**
      * Picasso
      */
     @Inject
@@ -269,6 +282,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @State
     protected ArrayList<SocialMediaEntity> socialMedias = new ArrayList<>();
+
 
     /**
      * Get Calling Intent
@@ -362,6 +376,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         googleStatusTextView.setEnabled(isEnable);
     }
 
+
     /**
      * On View Ready
      * @param savedInstanceState
@@ -377,7 +392,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             // Get Kid identity
             myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
             // Load Son Data
-            getPresenter().loadSonData(myKidIdentity);
+            getPresenter().loadKidData(myKidIdentity);
         }
 
         myKidsProfileTitle.setText(getString(R.string.my_kids_profile_name_default));
@@ -435,6 +450,15 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 }
             }
         });
+
+
+        if(appUtils.isValidString(myKidIdentity)) {
+            kidGuardiansMvpFragment = KidGuardiansMvpFragment.newInstance(myKidIdentity);
+            kidGuardiansContainerView.setVisibility(View.VISIBLE);
+            addFragment(R.id.kidGuardiansContainer, kidGuardiansMvpFragment, false);
+        } else {
+            kidGuardiansContainerView.setVisibility(View.GONE);
+        }
 
     }
 
@@ -615,11 +639,15 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         final String name = nameInput.getText().toString();
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getDateSelectedAsText();
+        final List<KidGuardianEntity> kidGuardianEntities =
+                kidGuardiansMvpFragment != null ?
+                kidGuardiansMvpFragment.getKidGuardianEntities(): new ArrayList<KidGuardianEntity>();
 
         toggleAllComponents(false);
 
-        getPresenter().saveSon(myKidIdentity, name, surname, birthday,
-                school != null ? school.getIdentity() : "", currentImagePath, socialMedias);
+        getPresenter().saveKid(myKidIdentity, name, surname, birthday,
+                school != null ? school.getIdentity() : "", currentImagePath,
+                socialMedias, kidGuardianEntities);
 
     }
 

@@ -13,7 +13,7 @@ import sanchez.sanchez.sergio.domain.models.TerminalEntity;
  */
 public final class TerminalsFragmentPresenter extends SupportLCEPresenter<ITerminalsFragmentView> {
 
-    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Monitored Terminals Interact

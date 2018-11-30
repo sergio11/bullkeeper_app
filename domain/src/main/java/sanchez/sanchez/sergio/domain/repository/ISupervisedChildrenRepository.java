@@ -15,10 +15,15 @@ public interface ISupervisedChildrenRepository {
     Observable<String> deleteSupervisedChildrenNoConfirmed();
 
     /**
-     * Delete Supervised Children Confirmed Interact
+     * Delete Supervised Children No Confirmed
+     */
+    Observable<String> deleteSupervisedChildrenNoConfirmed(final String kid);
+
+    /**
+     * Delete Supervised Children Confirmed
      * @return
      */
-    Observable<String> deleteSupervisedChildrenConfirmedInteract();
+    Observable<String> deleteSupervisedChildrenConfirmed(final String kid);
 
     /**
      * Get Supervised Children Confirmed Detail
@@ -28,7 +33,7 @@ public interface ISupervisedChildrenRepository {
 
 
     /**
-     *
+     * Get Supervised Children No Confirmed
      * @return
      */
      Observable<List<SupervisedChildrenEntity>> getSupervisedChildrenNoConfirmed();

@@ -14,7 +14,7 @@ import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
 
 /**
- * Get Information About The Child And Their Social Media Interact
+ * Get Information About The Child and their Social Media
  */
 public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extends UseCase<GetInformationAboutTheChildAndTheirSocialMediaInteract.Result,
         GetInformationAboutTheChildAndTheirSocialMediaInteract.Params> {
@@ -28,6 +28,7 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
      * Social Media Repository
      */
     private final ISocialMediaRepository socialMediaRepository;
+
 
 
     /**
@@ -44,7 +45,6 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
     }
 
     /**
-     *
      * @param params
      * @return
      */
@@ -55,13 +55,22 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         return Observable.zip(
                 childrenRepository.getSonById(params.getKid()),
                 socialMediaRepository.getAllSocialMediaBySonId(params.getKid())
-                    .onErrorReturnItem(new ArrayList<SocialMediaEntity>()),
+                        .onErrorReturnItem(new ArrayList<SocialMediaEntity>()),
                 new BiFunction<KidEntity, List<SocialMediaEntity>, Result>() {
+                    /**
+                     * Apply
+                     * @param kidEntity
+                     * @param socialMediaEntities
+                     * @return
+                     * @throws Exception
+                     */
                     @Override
-                    public Result apply(KidEntity kidEntity, List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                    public Result apply(final KidEntity kidEntity,
+                                        final List<SocialMediaEntity> socialMediaEntities) throws Exception {
                         return new Result(kidEntity, socialMediaEntities);
                     }
                 });
+
     }
 
     /**
@@ -94,14 +103,22 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
      */
     public static class Result {
 
+        /**
+         * Kid
+         */
         private final KidEntity kidEntity;
+
+        /**
+         * Social Media Entities
+         */
         private final List<SocialMediaEntity> socialMediaEntities;
 
         /**
          * @param kidEntity
          * @param socialMediaEntities
          */
-        public Result(KidEntity kidEntity, List<SocialMediaEntity> socialMediaEntities) {
+        public Result(final KidEntity kidEntity,
+                      final List<SocialMediaEntity> socialMediaEntities) {
             this.kidEntity = kidEntity;
             this.socialMediaEntities = socialMediaEntities;
         }
@@ -113,5 +130,6 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         public List<SocialMediaEntity> getSocialMediaEntities() {
             return socialMediaEntities;
         }
+
     }
 }

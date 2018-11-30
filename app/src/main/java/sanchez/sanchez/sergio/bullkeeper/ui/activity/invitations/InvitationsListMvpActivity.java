@@ -5,16 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-
+import android.widget.ImageButton;
+import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import javax.inject.Inject;
+import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
@@ -25,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.InvitationsAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
@@ -49,6 +55,23 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Views
+     * =============
+     */
+
+    /**
+     * Invitations Header Title Text View
+     */
+    @BindView(R.id.invitationsHeaderTitle)
+    protected TextView invitationsHeaderTitleTextView;
+
+    /**
+     * Clear Invitations
+     */
+    @BindView(R.id.clearInvitations)
+    protected ImageButton clearInvitationsImageButton;
 
     /**
      * Get Calling Intent
@@ -176,7 +199,7 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_alert_list;
+        return R.layout.activity_invitation_list;
     }
 
     /**
@@ -220,4 +243,52 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
         getPresenter().clearInvitations();
     }
 
+    /**
+     *
+     */
+    @Override
+    public void onAllInvitationsCleared() {
+        showNoticeDialog(R.string.invitations_cleared_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                recyclerViewAdapter.removeAll();
+                closeActivity();
+            }
+        });
+    }
+
+    /**
+     * On Data Loaded
+     * @param dataLoaded
+     */
+    @Override
+    public void onDataLoaded(List<SupervisedChildrenEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+        clearInvitationsImageButton.setVisibility(View.VISIBLE);
+        clearInvitationsImageButton.setEnabled(true);
+        invitationsHeaderTitleTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.invitations_title_count),dataLoaded.size()));
+
+    }
+
+    /**
+     * On No Data Found
+     */
+    @Override
+    public void onNoDataFound() {
+        super.onNoDataFound();
+        clearInvitationsImageButton.setVisibility(View.GONE);
+        clearInvitationsImageButton.setEnabled(false);
+        invitationsHeaderTitleTextView
+                .setText(getString(R.string.invitations_title_default));
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void onInvitationCleared() {
+        invitationsHeaderTitleTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.invitations_title_count), recyclerView.getAdapter().getItemCount()));
+    }
 }

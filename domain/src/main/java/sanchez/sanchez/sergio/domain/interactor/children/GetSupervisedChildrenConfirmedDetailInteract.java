@@ -15,6 +15,9 @@ import sanchez.sanchez.sergio.domain.repository.ISupervisedChildrenRepository;
 public final class GetSupervisedChildrenConfirmedDetailInteract
     extends UseCase<SupervisedChildrenEntity, GetSupervisedChildrenConfirmedDetailInteract.Params> {
 
+    /**
+     * Suoervised Children Repository
+     */
     private final ISupervisedChildrenRepository supervisedChildrenRepository;
 
     /**
@@ -41,7 +44,7 @@ public final class GetSupervisedChildrenConfirmedDetailInteract
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid id can not be empty");
 
-        return null;
+        return supervisedChildrenRepository.getSupervisedChildrenConfirmedDetail(params.getKid());
 
     }
 

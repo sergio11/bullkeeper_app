@@ -54,4 +54,12 @@ public interface ISupervisedChildrenService {
     @GET("guardians/self/children/no-confirmed")
     Observable<APIResponse<List<SupervisedChildrenDTO>>> getSupervisedChildrenNoConfirmed();
 
+    /**
+     * Delete Supervised Children No Confirmed
+     * @return
+     */
+    @DELETE("guardians/self/children/no-confirmed/{kid}")
+    Observable<APIResponse<String>> deleteSupervisedChildrenNoConfirmed(
+            @Path("kid") final String kid);
+
 }

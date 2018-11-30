@@ -5,6 +5,7 @@ import java.util.List;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 
 
@@ -31,6 +32,5 @@ public interface IMyKidsProfileView extends ISupportView {
      * @param errors
      */
     void onValidationErrors(final List<LinkedHashMap<String, String>> errors);
-
 
 }

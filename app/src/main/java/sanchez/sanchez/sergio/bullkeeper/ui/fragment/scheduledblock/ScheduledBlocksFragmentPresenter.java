@@ -19,7 +19,7 @@ import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
  */
 public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<IScheduledBlocksFragmentView> {
 
-    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Get Scheduled Block By Child Interact

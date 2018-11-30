@@ -1,8 +1,11 @@
 package sanchez.sanchez.sergio.data.repository;
 
-import java.util.List;
+import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.List;
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.SupervisedChildrenDTO;
 import sanchez.sanchez.sergio.data.net.services.ISupervisedChildrenService;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import sanchez.sanchez.sergio.domain.repository.ISupervisedChildrenRepository;
@@ -17,8 +20,20 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
      */
     private final ISupervisedChildrenService supervisedChildrenService;
 
-    public SupervisedChildrenRepositoryImpl(ISupervisedChildrenService supervisedChildrenService) {
+    /**
+     * Supevised Children Entity
+     */
+    private final AbstractDataMapper<SupervisedChildrenDTO, SupervisedChildrenEntity>
+            supervisedChildrenEntityAbstractDataMapper;
+
+    /**
+     * @param supervisedChildrenService
+     * @param supervisedChildrenEntityAbstractDataMapper
+     */
+    public SupervisedChildrenRepositoryImpl(final ISupervisedChildrenService supervisedChildrenService,
+                                            final AbstractDataMapper<SupervisedChildrenDTO, SupervisedChildrenEntity> supervisedChildrenEntityAbstractDataMapper) {
         this.supervisedChildrenService = supervisedChildrenService;
+        this.supervisedChildrenEntityAbstractDataMapper = supervisedChildrenEntityAbstractDataMapper;
     }
 
     /**
@@ -27,7 +42,9 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
      */
     @Override
     public Observable<String> deleteSupervisedChildrenNoConfirmed() {
-        return null;
+        return supervisedChildrenService.deleteSupervisedChildrenNoConfirmed()
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
     }
 
     /**
@@ -35,8 +52,13 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
      * @return
      */
     @Override
-    public Observable<String> deleteSupervisedChildrenConfirmedInteract() {
-        return null;
+    public Observable<String> deleteSupervisedChildrenConfirmed(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        return supervisedChildrenService.deleteSupervisedChildrenConfirmed(kid)
+                .map(response -> response != null && response.getData() != null ?
+                    response.getData(): null);
     }
 
     /**
@@ -46,7 +68,13 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
      */
     @Override
     public Observable<SupervisedChildrenEntity> getSupervisedChildrenConfirmedDetail(String kid) {
-        return null;
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        return supervisedChildrenService.getSupervisedChildrenConfirmedDetail(kid)
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData(): null)
+                .map(supervisedChildrenEntityAbstractDataMapper::transform);
     }
 
     /**
@@ -55,6 +83,9 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
      */
     @Override
     public Observable<List<SupervisedChildrenEntity>> getSupervisedChildrenNoConfirmed() {
-        return null;
+        return supervisedChildrenService.getSupervisedChildrenNoConfirmed()
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData(): null)
+                .map(supervisedChildrenEntityAbstractDataMapper::transform);
     }
 }

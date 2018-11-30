@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.domain.interactor.children;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import io.reactivex.Observable;
@@ -12,6 +13,7 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
@@ -57,8 +59,8 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      * @param params
      * @return
      */
-    private Observable<KidEntity> addKidToSelfParent(final Params params){
-        return childrenRepository.addSonToSelfParentInteract(params.getFirstname(), params.getLastName(),
+    private Observable<KidEntity> addKidToSelfGuardian(final Params params){
+        return childrenRepository.addSonToSelfGuardian(params.getFirstname(), params.getLastName(),
                 params.getBirthday(), params.getSchool());
     }
 
@@ -72,7 +74,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
         Preconditions.checkNotNull(params, "Params can not be null");
 
         return (appUtils.isValidString(params.getKid()) ? saveKidInformation(params):
-                addKidToSelfParent(params)).flatMap(new Function<KidEntity, ObservableSource<KidEntity>>() {
+                addKidToSelfGuardian(params)).flatMap(new Function<KidEntity, ObservableSource<KidEntity>>() {
             @Override
             public ObservableSource<KidEntity> apply(final KidEntity kidEntity) throws Exception {
 
@@ -116,21 +118,66 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
         Preconditions.checkNotNull(params.socialMediaEntities, "Social Media Entities can not be null");
 
         return saveKidProfile(params)
-                .flatMap(new Function<KidEntity, ObservableSource<Result>>() {
+                .map(new Function<KidEntity, Result>() {
+
+                    /**
+                     *
+                     * @param kidEntity
+                     * @return
+                     * @throws Exception
+                     */
                     @Override
-                    public ObservableSource<Result> apply(final KidEntity kidEntity) throws Exception {
-                        return !params.socialMediaEntities.isEmpty() ?
-                                socialMediaRepository.saveAllSocialMedia(kidEntity.getIdentity(), params.socialMediaEntities)
-                                .map(new Function<List<SocialMediaEntity>, Result>() {
-                                    @Override
-                                    public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
-                                        return new Result(kidEntity, socialMediaEntities);
-                                    }
-                                }) : Observable.just(new Result(kidEntity, params.socialMediaEntities));
+                    public Result apply(KidEntity kidEntity) throws Exception {
+                        final Result result = new Result();
+                        result.setKidEntity(kidEntity);
+                        return result;
                     }
+
+                })
+                .flatMap(new Function<Result, ObservableSource<Result>>() {
+
+                    /**
+                     *
+                     * @param result
+                     * @return
+                     * @throws Exception
+                     */
+                    @Override
+                    public ObservableSource<Result> apply(final Result result) throws Exception {
+                        return !params.socialMediaEntities.isEmpty() ?
+                                socialMediaRepository.saveAllSocialMedia(result
+                                            .getKidEntity().getIdentity(), params.socialMediaEntities)
+                                        .map(new Function<List<SocialMediaEntity>, Result>() {
+                                            @Override
+                                            public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                                                result.setSocialMediaEntities(socialMediaEntities);
+                                                return result;
+                                            }
+                                        }) : Observable.just(result);
+                    }
+
+                }).flatMap(new Function<Result, ObservableSource<Result>>() {
+
+                    /**
+                     *
+                     * @param result
+                     * @return
+                     * @throws Exception
+                     */
+                    @Override
+                    public ObservableSource<Result> apply(final Result result) throws Exception {
+                        Preconditions.checkNotNull(result, "Result can not be null");
+                        return childrenRepository.saveGuardians(params.getKid(),
+                                params.getKidGuardianEntities()).map(new Function<List<KidGuardianEntity>, Result>() {
+                            @Override
+                            public Result apply(List<KidGuardianEntity> kidGuardianEntities) throws Exception {
+                                result.setKidGuardianEntities(kidGuardianEntities);
+                                return result;
+                            }
+                        });
+                    }
+
                 });
-
-
     }
 
     /**
@@ -168,20 +215,58 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      */
     public static class Result {
 
-        private final KidEntity kidEntity;
-        private final List<SocialMediaEntity> socialMediaEntities;
+        /**
+         * Kid Entity
+         */
+        private KidEntity kidEntity;
 
-        public Result(KidEntity kidEntity, List<SocialMediaEntity> socialMediaEntities) {
+        /**
+         * Social Media Entities
+         */
+        private List<SocialMediaEntity> socialMediaEntities = new ArrayList<>();
+
+        /**
+         * Kid Guardian Entities
+         */
+        private List<KidGuardianEntity> kidGuardianEntities = new ArrayList<>();
+
+        public Result(){}
+
+        /**
+         *
+         * @param kidEntity
+         * @param socialMediaEntities
+         * @param kidGuardianEntities
+         */
+        public Result(final KidEntity kidEntity, final List<SocialMediaEntity> socialMediaEntities,
+                      final  List<KidGuardianEntity> kidGuardianEntities) {
             this.kidEntity = kidEntity;
             this.socialMediaEntities = socialMediaEntities;
+            this.kidGuardianEntities = kidGuardianEntities;
         }
 
         public KidEntity getKidEntity() {
             return kidEntity;
         }
 
+        public void setKidEntity(KidEntity kidEntity) {
+            this.kidEntity = kidEntity;
+        }
+
         public List<SocialMediaEntity> getSocialMediaEntities() {
             return socialMediaEntities;
+        }
+
+        public void setSocialMediaEntities(List<SocialMediaEntity> socialMediaEntities) {
+            this.socialMediaEntities = socialMediaEntities;
+        }
+
+        public List<KidGuardianEntity> getKidGuardianEntities() {
+            return kidGuardianEntities;
+        }
+
+        public void setKidGuardianEntities(List<KidGuardianEntity> kidGuardianEntities) {
+            this.kidGuardianEntities = kidGuardianEntities;
         }
     }
 
@@ -198,6 +283,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
         private final String school;
         private final String profileImage;
         private final List<SocialMediaEntity> socialMediaEntities;
+        private final List<KidGuardianEntity> kidGuardianEntities;
 
         /***
          *
@@ -209,8 +295,10 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
          * @param profileImage
          * @param socialMediaEntities
          */
-        private Params(String kid, String firstname, String lastName, String birthday, String school, String profileImage,
-                       final List<SocialMediaEntity> socialMediaEntities) {
+        private Params(final String kid, final String firstname, final String lastName,
+                       final String birthday, final String school, final String profileImage,
+                       final List<SocialMediaEntity> socialMediaEntities,
+                       final List<KidGuardianEntity> kidGuardianEntities) {
             this.kid = kid;
             this.firstname = firstname;
             this.lastName = lastName;
@@ -218,6 +306,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
             this.school = school;
             this.profileImage = profileImage;
             this.socialMediaEntities = socialMediaEntities;
+            this.kidGuardianEntities = kidGuardianEntities;
         }
 
         public String getKid() {
@@ -248,6 +337,10 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
             return socialMediaEntities;
         }
 
+        public List<KidGuardianEntity> getKidGuardianEntities() {
+            return kidGuardianEntities;
+        }
+
         /**
          * Create
          * @param kid
@@ -256,12 +349,15 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
          * @param birthday
          * @param school
          * @param profileImage
+         * @param kidGuardianEntities
          * @return
          */
         public static Params create(final String kid, final String firstname, final String lastName,
-                                    final String birthday, final String school,
-                                    final String profileImage, final List<SocialMediaEntity> socialMediaEntities) {
-            return new Params(kid, firstname, lastName, birthday, school, profileImage, socialMediaEntities);
+                                    final String birthday, final String school, final String profileImage,
+                                    final List<SocialMediaEntity> socialMediaEntities,
+                                    final List<KidGuardianEntity> kidGuardianEntities) {
+            return new Params(kid, firstname, lastName,
+                    birthday, school, profileImage, socialMediaEntities, kidGuardianEntities);
         }
     }
 

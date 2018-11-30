@@ -8,17 +8,20 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetInformationAboutTheChildAndTheirSocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.SaveChildrenInteract;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 
 /**
  * My Kids Profile Presenter
  */
-public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfileView> {
+public final class MyKidsProfilePresenter
+        extends SupportPresenter<IMyKidsProfileView> {
 
     /**
-     * Get Information About The Child And Their Social Media Interact
+     * Get Information About The Child And Their Social Media
      */
-    private final GetInformationAboutTheChildAndTheirSocialMediaInteract getInformationAboutTheChildAndTheirSocialMediaInteract;
+    private final GetInformationAboutTheChildAndTheirSocialMediaInteract
+            getInformationAboutTheChildAndTheirSocialMediaInteract;
 
     /**
      * Save Children Interact
@@ -41,39 +44,40 @@ public final class MyKidsProfilePresenter extends SupportPresenter<IMyKidsProfil
 
 
     /**
-     * Load Son Data
-     * @param sonId
+     * Load Kid Data
+     * @param kid
      */
-    public void loadSonData(final String sonId) {
-        Preconditions.checkNotNull(sonId, "Son Id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
+    public void loadKidData(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid Id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid Id can not be empty");
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_kid_information);
 
         getInformationAboutTheChildAndTheirSocialMediaInteract.execute(new GetInformationAboutTheChildAndTheirSocialMediaObservable(),
-                GetInformationAboutTheChildAndTheirSocialMediaInteract.Params.create(sonId));
+                GetInformationAboutTheChildAndTheirSocialMediaInteract.Params.create(kid));
 
     }
 
     /**
-     * Save Son
+     * Save Kid
      * @param identity
      * @param firstname
      * @param surname
      * @param birthday
      * @param school
      */
-    public void saveSon(final String identity, final String firstname, final String surname,
+    public void saveKid(final String identity, final String firstname, final String surname,
                         final String birthday, final String school, final String profileImage,
-                        final List<SocialMediaEntity> socialMediaEntities) {
+                        final List<SocialMediaEntity> socialMediaEntities,
+                        final List<KidGuardianEntity> kidGuardianEntities) {
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_kid_information);
 
         saveChildrenInteract.execute(new SaveChildrenObservable(SaveChildrenInteract.SaveChildrenApiErrors.class),
                 SaveChildrenInteract.Params.create(identity, firstname, surname, birthday, school,
-                        profileImage, socialMediaEntities));
+                        profileImage, socialMediaEntities, kidGuardianEntities));
 
     }
 

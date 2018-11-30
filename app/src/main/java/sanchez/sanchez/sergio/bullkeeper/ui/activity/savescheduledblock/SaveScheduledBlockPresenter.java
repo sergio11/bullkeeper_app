@@ -21,7 +21,7 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
      * Args
      */
     public static final String SCHEDULED_BLOCK_IDENTITY_ARG = "SCHEDULED_BLOCK_IDENTITY";
-    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      * Delete Scheduled Block Interact

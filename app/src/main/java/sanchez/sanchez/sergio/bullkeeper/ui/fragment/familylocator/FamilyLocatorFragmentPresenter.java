@@ -8,7 +8,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
  */
 public final class FamilyLocatorFragmentPresenter extends SupportPresenter<IFamilyLocatorFragmentView> {
 
-    public static final String SON_IDENTITY_ARG = "SON_IDENTITY_ARG";
+    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
      */

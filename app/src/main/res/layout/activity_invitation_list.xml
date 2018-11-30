@@ -60,7 +60,7 @@
             android:layout_marginStart="8dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/invitations_title"
+            android:text="@string/invitations_title_count"
             android:textColor="@color/commonWhite" />
 
 

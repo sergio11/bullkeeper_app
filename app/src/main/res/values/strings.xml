@@ -300,6 +300,8 @@
     <string name="enable_social_media_disable_confirm">We will stop monitoring this social media</string>
     <string name="social_media_configured_title">Social Media Configured</string>
     <string name="social_media_configured_description">Configure social media to allow access to the content that we will analyze</string>
+    <string name="kid_guardians_configured_title">Kid Guardian Configured</string>
+    <string name="kid_guardians_configured_description">Configure the different roles of the child\'s supervisors</string>
     <!-- Comments -->
     <string name="comments_by_child_title" formatted="true">Comments (%d)</string>
     <string name="comments_by_child_title_default">Comments</string>
@@ -710,8 +712,10 @@
     <string name="not_have_any_linked_devices">Not have any linked devices</string>
 
     <!-- Invitations -->
-    <string name="invitations_title">Invitations</string>
     <string name="invitation_item_removed">The invitation was removed</string>
+    <string name="invitations_title_default">Invitations</string>
+    <string name="invitations_title_count" formatted="true">Invitations (%d)</string>
+    <string name="invitations_cleared_successfully">All alerts cleared successfully</string>
 
 
 </resources>
