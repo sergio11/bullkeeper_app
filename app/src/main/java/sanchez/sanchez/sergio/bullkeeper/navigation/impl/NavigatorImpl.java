@@ -22,6 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpA
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.searchguardian.SearchGuardiansMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
@@ -682,5 +683,16 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(conversationId, "Conversation Id can not be null");
         Preconditions.checkState(!conversationId.isEmpty(), "Conversation id can not be empty");
         activity.startActivity(ConversationMessageListMvpActivity.getCallingIntent(activity, conversationId));
+    }
+
+    /**
+     * Navigate To Search Guardian Activity
+     * @param activity
+     * @param requestCode
+     */
+    @Override
+    public void navigateToSearchGuardianActivity(AppCompatActivity activity, int requestCode) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        activity.startActivityForResult(SearchGuardiansMvpActivity.getCallingIntent(activity), requestCode);
     }
 }

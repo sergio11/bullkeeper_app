@@ -406,4 +406,11 @@ public interface INavigator {
      */
     void navigateToConversationMessageList(final Activity activity, final String conversationId);
 
+    /**
+     * Navigate to Search Guardian Activity
+     * @param activity
+     * @param requestCode
+     */
+    void navigateToSearchGuardianActivity(final AppCompatActivity activity, final int requestCode);
+
 }

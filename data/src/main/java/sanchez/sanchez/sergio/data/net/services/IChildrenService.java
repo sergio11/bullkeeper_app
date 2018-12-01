@@ -14,6 +14,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.RegisterKidDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveKidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
@@ -141,7 +142,7 @@ public interface IChildrenService {
      * @param updateKidDTO
      * @return
      */
-    @POST("parents/self/children/update")
+    @POST("guardians/self/children/update")
     Observable<APIResponse<KidDTO>> saveKidInformation(final @Body UpdateKidDTO updateKidDTO);
 
 
@@ -156,13 +157,13 @@ public interface IChildrenService {
     /**
      * Save Guardians
      * @param kid
-     * @param kidGuardianDTOList
+     * @param saveKidGuardianDTOS
      * @return
      */
     @POST("children/{id}/guardians")
     Observable<APIResponse<List<KidGuardianDTO>>> saveGuardians(
             @Path("id") final String kid,
-            @Body final List<KidGuardianDTO> kidGuardianDTOList);
+            @Body final List<SaveKidGuardianDTO> saveKidGuardianDTOS);
 
 
     /**

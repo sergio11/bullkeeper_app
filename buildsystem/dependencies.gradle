@@ -76,9 +76,6 @@ ext {
     espressoVersion = '2.0'
     testingSupportLibVersion = '0.1'
 
-    //Development
-    leakCanaryVersion = '1.6.1'
-
     presentationDependencies = [
             daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
             dagger:             "com.google.dagger:dagger:${daggerVersion}",
@@ -190,6 +187,5 @@ ext {
     ]
 
     developmentDependencies = [
-            leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
     ]
 }

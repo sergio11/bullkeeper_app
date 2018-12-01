@@ -2,14 +2,17 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
+import static com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion.NON_NULL;
 
 /**
  * Kid Guardian
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonSerialize(include=NON_NULL)
 public final class KidGuardianDTO implements Serializable {
+
 
     @JsonProperty("identity")
     private String identity;

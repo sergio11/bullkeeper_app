@@ -725,4 +725,12 @@
     <string name="conversation_message_title">Messages</string>
     <string name="clear_messages_confirm">Do you want to delete all messages from this conversation?</string>
     <string name="all_messages_deleted">All messages were deleted</string>
+
+
+    <!-- Search Guardians -->
+    <string name="search_guardians_title">Search Guardians</string>
+    <string name="search_guardians_query_hint">Search Users ...</string>
+    <string name="search_guardians_message">Make a search by the name, last name or email of user</string>
+    <string name="search_guardians_loading_message">Searching Guardians ...</string>
+    <string name="search_guardian_already_selected">The selected supervisor is already in the list</string>
 </resources>

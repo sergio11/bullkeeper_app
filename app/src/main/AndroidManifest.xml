@@ -268,6 +268,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"/>
 
+        <!-- Search Guardian Mvp Activity -->
+        <activity android:name=".ui.activity.searchguardian.SearchGuardiansMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common" />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

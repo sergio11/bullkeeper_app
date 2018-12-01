@@ -40,11 +40,14 @@ import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.IMyKidsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.searchguardian.SearchGuardiansMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansMvpFragment;
+import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -65,12 +68,14 @@ import timber.log.Timber;
  */
 public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<MyKidsProfilePresenter, IMyKidsProfileView>
         implements HasComponent<MyKidsComponent>,
-        IMyKidsProfileView, PhotoViewerDialog.IPhotoViewerListener {
+        IMyKidsProfileView, PhotoViewerDialog.IPhotoViewerListener,
+        IMyKidsProfileActivityHandler{
 
     private final String CONTENT_FULL_NAME = "MY_KIDS_PROFILE";
     private final String CONTENT_TYPE_NAME = "KIDS";
 
     public final static int SELECT_SCHOOL_REQUEST_CODE = 266;
+    public final static int SELECT_GUARDIAN_REQUEST_CODE = 267;
 
     public enum KidProfileMode { ADD_NEW_SON_MODE, EDIT_CURRENT_SON_MODE }
 
@@ -513,6 +518,14 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
             if (resultCode == Activity.RESULT_CANCELED) {}
 
+        } else if(SELECT_GUARDIAN_REQUEST_CODE == requestCode) {
+
+            if(resultCode == Activity.RESULT_OK){
+
+                final GuardianEntity guardianEntitySelected =
+                        (GuardianEntity) data.getSerializableExtra(SearchGuardiansMvpActivity.GUARDIAN_SELECTED_ARG);
+                kidGuardiansMvpFragment.onGuardianSelected(guardianEntitySelected);
+            }
         }
 
     }
@@ -1209,4 +1222,14 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected int getBackgroundResource() {
         return R.drawable.background_cyan_9;
     }
+
+    /**
+     * Navigate To Search Guardians
+     */
+    @Override
+    public void navigateToSearchGuardians() {
+        navigatorImpl.navigateToSearchGuardianActivity(this, SELECT_GUARDIAN_REQUEST_CODE);
+    }
+
+
 }

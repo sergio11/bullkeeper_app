@@ -20,6 +20,7 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.SearchGuardiansInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
@@ -126,6 +127,23 @@ public class GuardianModule {
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
         return new DeleteAccountInteract(threadExecutor, postExecutionThread, parentRepository);
+    }
+
+    /**
+     * Provide Search Guardians Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param parentRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public SearchGuardiansInteract provideSearchGuardiansInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                  final IGuardianRepository parentRepository){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
+
+        return new SearchGuardiansInteract(threadExecutor, postExecutionThread, parentRepository);
     }
 
 }

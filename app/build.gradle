@@ -186,8 +186,6 @@ dependencies {
     implementation presentationDependencies.supportMultidex
     implementation presentationDependencies.supportMultidexInstrumentation
 
-    //Development
-    implementation developmentDependencies.leakCanary
 
 
     compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {

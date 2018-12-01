@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -9,6 +10,7 @@ import okhttp3.RequestBody;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.RegisterKidDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveKidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
@@ -241,8 +243,21 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
         Preconditions.checkState(!kid.isEmpty(), "Kid id can not be empty");
         Preconditions.checkNotNull(guardianEntities, "Guardians Entities can not be null");
 
-        return childrenService.saveGuardians(kid,
-                kidGuardianEntityAbstractDataMapper.transformInverse(guardianEntities))
+        final List<SaveKidGuardianDTO> saveKidGuardianDTOS = new ArrayList<>();
+        for(final KidGuardianEntity kidGuardianEntity: guardianEntities) {
+            final SaveKidGuardianDTO saveKidGuardianDTO = new SaveKidGuardianDTO();
+            saveKidGuardianDTO.setGuardian(kidGuardianEntity.getGuardian().getIdentity());
+            saveKidGuardianDTO.setKid(kidGuardianEntity.getKid().getIdentity());
+            if(kidGuardianEntity.getIdentity() != null &&
+                    !kidGuardianEntity.getIdentity().isEmpty())
+                saveKidGuardianDTO.setIdentity(kidGuardianEntity.getIdentity());
+            else
+                saveKidGuardianDTO.setIdentity("");
+            saveKidGuardianDTO.setRole(kidGuardianEntity.getRole().name());
+            saveKidGuardianDTOS.add(saveKidGuardianDTO);
+        }
+
+        return childrenService.saveGuardians(kid, saveKidGuardianDTOS)
                 .map(response -> response != null
                         && response.getData() != null ? response.getData(): null)
                 .map(kidGuardianEntityAbstractDataMapper::transform);

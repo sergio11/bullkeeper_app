@@ -107,4 +107,19 @@ public final class KidGuardianEntity implements Serializable {
     public void setRequestAt(Date requestAt) {
         this.requestAt = requestAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        KidGuardianEntity that = (KidGuardianEntity) o;
+
+        return getIdentity() != null ? getIdentity().equals(that.getIdentity()) : that.getIdentity() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getIdentity() != null ? getIdentity().hashCode() : 0;
+    }
 }

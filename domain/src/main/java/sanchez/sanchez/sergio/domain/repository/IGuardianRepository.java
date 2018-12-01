@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.domain.repository;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
@@ -47,6 +49,11 @@ public interface IGuardianRepository {
      */
     Observable<String> deleteSelfAccount();
 
-
+    /**
+     * Search
+     * @param text
+     * @return
+     */
+    Observable<List<GuardianEntity>> search(final String text);
 
 }

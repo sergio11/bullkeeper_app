@@ -38,7 +38,7 @@ public class SearchSchoolMvpActivity extends SupportMvpSearchLCEActivity<SearchS
         ISearchSchoolActivityView, SchoolEntity>
         implements HasComponent<SchoolComponent>, ISearchSchoolActivityView, SchoolAdapter.OnSchoolListener {
 
-    public final static String SCHOOL_SELECTED_ARG = "SCHOOL_SELECTED_ARG";
+    public final static String SCHOOL_SELECTED_ARG = "GUARDIAN_SELECTED_ARG";
 
     private final String CONTENT_FULL_NAME = "SEARCH_SCHOOL";
     private final String CONTENT_TYPE_NAME = "SCHOOLS";

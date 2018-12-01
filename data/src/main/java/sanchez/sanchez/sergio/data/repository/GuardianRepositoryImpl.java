@@ -2,6 +2,8 @@ package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.io.File;
+import java.util.List;
+
 import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
@@ -144,6 +146,22 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     public Observable<String> deleteSelfAccount() {
         return guardianService.deleteSelfAccount().map(response ->
                 response != null && response.getData() != null ? response.getData() : null);
+    }
+
+    /**
+     * Search
+     * @param text
+     * @return
+     */
+    @Override
+    public Observable<List<GuardianEntity>> search(String text) {
+        Preconditions.checkNotNull(text, "Text can not be null");
+        Preconditions.checkState(!text.isEmpty(), "Text can not be empty");
+        return guardianService
+                .searchGuardian(text)
+                .map(response -> response != null && response.getData() != null
+                        ? response.getData(): null)
+                .map(guardianDataMapper::transform);
     }
 
 
