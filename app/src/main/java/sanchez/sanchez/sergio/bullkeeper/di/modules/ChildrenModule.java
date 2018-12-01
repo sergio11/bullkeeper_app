@@ -19,6 +19,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.children.GetAlertsStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetFourDimensionsStatisticsByChildInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetKidGuardiansInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSentimentAnalysisStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSocialMediaActivityStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
@@ -133,6 +134,19 @@ public class ChildrenModule {
     GetAlertsStatisticsInteract provideGetAlertsStatisticsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                    final IChildrenRepository childrenRepository) {
         return new GetAlertsStatisticsInteract(threadExecutor, postExecutionThread, childrenRepository);
+    }
+
+    /**
+     *
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param childrenRepository
+     * @return
+     */
+    @Provides @PerActivity
+    GetKidGuardiansInteract provideGetKidGuardiansInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                           final IChildrenRepository childrenRepository){
+        return new GetKidGuardiansInteract(threadExecutor, postExecutionThread, childrenRepository);
     }
 
 }

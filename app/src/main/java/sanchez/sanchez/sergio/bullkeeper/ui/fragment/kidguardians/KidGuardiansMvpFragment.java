@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import javax.inject.Inject;
+
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
@@ -19,6 +21,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailA
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.KidGuardiansAdapter;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 /**
@@ -29,6 +32,12 @@ public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansF
         implements IKidGuardiansFragmentView {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    /**
+     * Dependencies
+     * ==================
+     */
+
 
     /**
      * App Context
@@ -47,6 +56,18 @@ public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansF
      */
     @Inject
     protected Activity activity;
+
+    /**
+     * Preferences Repository
+     */
+    @Inject
+    protected IPreferenceRepository preferenceRepository;
+
+
+    /**
+     * State
+     * ================
+     */
 
     /**
      * Kid Identity
@@ -168,8 +189,9 @@ public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansF
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<KidGuardianEntity> getAdapter() {
+        final String activeUserIdentity = preferenceRepository.getPrefCurrentUserIdentity();
         final KidGuardiansAdapter kidGuardiansAdapter = new KidGuardiansAdapter(activity, new ArrayList<KidGuardianEntity>(),
-                picasso);
+                picasso, activeUserIdentity);
         kidGuardiansAdapter.setOnSupportRecyclerViewListener(this);
         return kidGuardiansAdapter;
     }
@@ -192,8 +214,21 @@ public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansF
         return kidGuardianEntities;
     }
 
+    /**
+     * Set Kid Guardian Entities
+     * @param kidGuardianEntities
+     */
     public void setKidGuardianEntities(ArrayList<KidGuardianEntity> kidGuardianEntities) {
         this.kidGuardianEntities = kidGuardianEntities;
+    }
+
+    /**
+     * On Add Guardians
+     */
+    @OnClick(R.id.addGuardians)
+    protected void onAddGuardians(){
+
+
     }
 }
 

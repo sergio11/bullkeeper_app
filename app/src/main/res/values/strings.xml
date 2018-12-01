@@ -154,6 +154,8 @@
     <string name="alert_detail_message">Message</string>
     <string name="alert_detail_required_actions">Required Actions</string>
 
+    <string name="kid_guardian_active_user" formatted="false">%s (You)</string>
+
     <!-- Alert Category Success Text -->
     <string name="alert_category_success_text">Success data</string>
     <string name="alert_category_info_text">Informative data</string>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_foreground"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_very_high"
+    android:layout_height="?android:listPreferredItemHeightLarge"
     android:background="@drawable/common_list_item_state"
     android:orientation="vertical">
 
@@ -50,7 +50,7 @@
     <!-- Guardian Name -->
     <TextView
         android:id="@+id/guardianName"
-        style="@style/CommonStrongText"
+        style="@style/CommonStrongText.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
@@ -78,26 +78,26 @@
         <!-- Admin Role -->
         <ImageView
             android:id="@+id/adminRole"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_margin="4dp"
             android:src="@drawable/app_not_allowed_disabled"
             android:contentDescription="@string/content_not_be_loaded" />
 
-        <!-- App Per Scheduled -->
+        <!-- Edit Rules Role -->
         <ImageView
-            android:id="@+id/appPerScheduled"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/editRulesRole"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_margin="4dp"
             android:src="@drawable/app_per_scheduled_disabled"
             android:contentDescription="@string/content_not_be_loaded"/>
 
-        <!-- App Allowed -->
+        <!-- Viewer Role -->
         <ImageView
-            android:id="@+id/appAllowed"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/viewerRole"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_margin="4dp"
             android:src="@drawable/app_allowed_disabled"
             android:contentDescription="@string/content_not_be_loaded"/>

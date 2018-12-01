@@ -48,6 +48,20 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
     }
 
     /**
+     * Delete Supervised Children No Confirmed
+     * @param kid
+     * @return
+     */
+    @Override
+    public Observable<String> deleteSupervisedChildrenNoConfirmed(String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        return supervisedChildrenService.deleteSupervisedChildrenNoConfirmed(kid)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
      * Delete Supervised Children Confirmed Iteract
      * @return
      */

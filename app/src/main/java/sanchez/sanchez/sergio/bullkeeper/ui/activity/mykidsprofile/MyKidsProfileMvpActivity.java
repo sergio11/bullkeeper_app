@@ -451,7 +451,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             }
         });
 
-
         if(appUtils.isValidString(myKidIdentity)) {
             kidGuardiansMvpFragment = KidGuardiansMvpFragment.newInstance(myKidIdentity);
             kidGuardiansContainerView.setVisibility(View.VISIBLE);
@@ -459,7 +458,6 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         } else {
             kidGuardiansContainerView.setVisibility(View.GONE);
         }
-
     }
 
     /**

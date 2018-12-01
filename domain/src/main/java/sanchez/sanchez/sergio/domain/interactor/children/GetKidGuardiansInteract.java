@@ -9,6 +9,8 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
  * Get Kid Guardian Interact
@@ -54,9 +56,16 @@ public final class GetKidGuardiansInteract
      */
     public static class Params {
 
+        /**
+         * Kid
+         */
         private final String kid;
 
-        public Params(String kid) {
+        /**
+         *
+         * @param kid
+         */
+        private Params(String kid) {
             this.kid = kid;
         }
 
@@ -64,10 +73,48 @@ public final class GetKidGuardiansInteract
             return kid;
         }
 
+        /**
+         *
+         * @param kid
+         * @return
+         */
         public static Params create(final String kid) {
             Preconditions.checkNotNull(kid, "Kid can not be null");
             Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
             return new Params(kid);
+        }
+    }
+
+
+    /**
+     * Get Kid Guardians API Errors
+     */
+    public enum GetKidGuardiansApiErrors
+            implements ISupportVisitable<GetKidGuardiansApiErrors
+                            .IGetKidGuardiansApiErrorsVisitor> {
+
+        /**
+         * No Kid Guardian Found
+         */
+        NO_KID_GUARDIAN_FOUND() {
+            @Override
+            public <E> void accept(IGetKidGuardiansApiErrorsVisitor visitor, E data) {
+                visitor.visitKidGuardianFound(this);
+            }
+        };
+
+        /**
+         * Get Kid Guardians API Errors Visitor
+         */
+        public interface IGetKidGuardiansApiErrorsVisitor extends ISupportVisitor {
+
+            /**
+             * Visit No Kid Guardian Found
+             * @param error
+             */
+            void visitKidGuardianFound(
+                    final GetKidGuardiansApiErrors error);
+
         }
     }
 }
