@@ -156,6 +156,14 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     }
 
     /**
+     * Navigate To Conversation List
+     */
+    @Override
+    public void navigateToConversationList() {
+        navigatorImpl.navigateToConversationList(this);
+    }
+
+    /**
      * Get Background
      * @return
      */

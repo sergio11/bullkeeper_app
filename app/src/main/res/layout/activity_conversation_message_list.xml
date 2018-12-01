@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/appToolbarInclude"
+        layout="@layout/app_translucent_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Conversation Message Header -->
+    <RelativeLayout
+        android:id="@+id/conversationMessageHeader"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appToolbarInclude"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/common_section_translucent_background"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/messageIcon"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/chat_menu_white"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/messagesHeaderTitle"
+            style="@style/CommonStrongText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/messageIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/conversation_message_title"
+            android:textColor="@color/commonWhite" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true">
+
+            <!-- Clear Message  -->
+            <ImageButton
+                android:id="@+id/clearMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/trash_white"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- Swipe Refresh Layout -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conversationMessageHeader"
+        app:layout_constraintVertical_bias="0.508"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.stfalcon.chatkit.messages.MessagesList
+                android:id="@+id/messagesList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/input"
+                app:dateHeaderFormat="dd MMMM yyyy"
+                app:dateHeaderTextColor="@color/commonWhite"
+                app:incomingDefaultBubbleColor="@color/darkModerateBlue"
+                app:incomingDefaultBubblePressedColor="@color/darkModerateBlue"
+                app:incomingDefaultBubbleSelectedColor="@color/gray"
+                app:incomingTextColor="@color/commonWhite"
+                app:incomingTextSize="18sp"
+                app:outcomingDefaultBubbleColor="@color/commonWhite"
+                app:outcomingDefaultBubblePressedColor="@color/commonWhite"
+                app:outcomingTextColor="@color/cyanBrilliant"
+                app:outcomingTextSize="18sp"
+                app:textAutoLink="all"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_above="@+id/input"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/commonWhite"/>
+
+            <com.stfalcon.chatkit.messages.MessageInput
+                android:id="@+id/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:inputCursorDrawable="@drawable/shape_custom_cursor"
+                app:inputHint="@string/hint_enter_a_message"
+                app:inputTextColor="@color/commonWhite"
+                app:showAttachmentButton="false"/>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.constraint.ConstraintLayout>

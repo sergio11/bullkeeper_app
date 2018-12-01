@@ -351,6 +351,7 @@
     <string name="menu_item_children">Children</string>
     <string name="menu_item_profile">Profile</string>
     <string name="menu_item_relations">Relations</string>
+    <string name="menu_item_chat">Conversation</string>
 
 
     <!-- Dialogs Strings -->
@@ -719,5 +720,9 @@
     <string name="invitations_title_count" formatted="true">Invitations (%d)</string>
     <string name="invitations_cleared_successfully">All alerts cleared successfully</string>
 
-
+    <!-- Conversations -->
+    <string name="hint_enter_a_message">Type a message…</string>
+    <string name="conversation_message_title">Messages</string>
+    <string name="clear_messages_confirm">Do you want to delete all messages from this conversation?</string>
+    <string name="all_messages_deleted">All messages were deleted</string>
 </resources>

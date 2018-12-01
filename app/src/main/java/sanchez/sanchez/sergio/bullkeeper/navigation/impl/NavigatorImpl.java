@@ -9,6 +9,8 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
@@ -656,5 +658,29 @@ public class NavigatorImpl implements INavigator {
     public void navigateToInvitations(final Activity activity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivity(InvitationsListMvpActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * Navigate To Conversation List
+     * @param activity
+     */
+    @Override
+    public void navigateToConversationList(Activity activity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        //activity.startActivity(ConversationListMvpActivity.getCallingIntent(activity));
+        navigateToConversationMessageList(activity, "132213132132");
+    }
+
+    /**
+     *
+     * @param activity
+     * @param conversationId
+     */
+    @Override
+    public void navigateToConversationMessageList(Activity activity, String conversationId) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(conversationId, "Conversation Id can not be null");
+        Preconditions.checkState(!conversationId.isEmpty(), "Conversation id can not be empty");
+        activity.startActivity(ConversationMessageListMvpActivity.getCallingIntent(activity, conversationId));
     }
 }

@@ -73,8 +73,8 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
             extends SupportItemViewHolder<SupervisedChildrenEntity> {
 
         private ImageView childImage, roleImageView;
-        private ImageButton resultsAction, alertsAction, relationsAction, profileAction;
-        private TextView childName, schoolName, terminalsTextView;
+        private ImageButton resultsAction, alertsAction, chatsAction, profileAction;
+        private TextView childName, schoolName, terminalsTextView, messageCountTextView;
 
 
         MyKidsViewHolder(View itemView) {
@@ -83,12 +83,13 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
             childImage = itemView.findViewById(R.id.childImage);
             resultsAction = itemView.findViewById(R.id.resultsAction);
             alertsAction = itemView.findViewById(R.id.alertsAction);
-            relationsAction = itemView.findViewById(R.id.relationsAction);
+            chatsAction = itemView.findViewById(R.id.chatAction);
             profileAction = itemView.findViewById(R.id.profileAction);
             childName = itemView.findViewById(R.id.childName);
             schoolName = itemView.findViewById(R.id.schoolName);
             terminalsTextView = itemView.findViewById(R.id.terminalsTextView);
             roleImageView = itemView.findViewById(R.id.roleImageView);
+            messageCountTextView = itemView.findViewById(R.id.messageCount);
 
         }
 
@@ -167,30 +168,32 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
                 }
             });
 
-            // Relations Action
-            relationsAction.setOnTouchListener(new View.OnTouchListener() {
+            // chatsAction Action
+            chatsAction.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     switch(motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            relationsAction.setImageResource(R.drawable.link_solid_white);
+                            chatsAction.setImageResource(R.drawable.chat_menu_white);
                             break;
                         default:
-                            relationsAction.setImageResource(R.drawable.link_solid_cyan);
+                            chatsAction.setImageResource(R.drawable.chat_menu_cyan);
                     }
                     return false;
                 }
             });
 
-            relationsAction.setOnClickListener(new View.OnClickListener() {
+            chatsAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(listener != null) {
                         final SupervisedChildrenEntity supervisedChildren = getItemByAdapterPosition(getAdapterPosition());
-                        listener.onRelationsActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
+                        listener.onChatsActionClicked(supervisedChildren.getKid(), supervisedChildren.getGuardianRolesEnum());
                     }
                 }
             });
+
+            messageCountTextView.setText("8");
 
             // Profile Action
             profileAction.setOnTouchListener(new View.OnTouchListener() {
@@ -284,11 +287,11 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
         void onAlertsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
-         * On Relations Action Clicked
+         * On Chats Action Clicked
          * @param kidEntity
          * @param role
          */
-        void onRelationsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
+        void onChatsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role);
 
         /**
          * On Profile Action Clicked

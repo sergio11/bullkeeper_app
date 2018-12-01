@@ -171,6 +171,10 @@ dependencies {
     // Fancy Show Case
     implementation presentationDependencies.fancyShowCaseView
 
+
+    // ChatKit for Android
+    implementation presentationDependencies.chatkit
+
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
     androidTestImplementation presentationTestDependencies.dexmakerMockito
@@ -184,6 +188,7 @@ dependencies {
 
     //Development
     implementation developmentDependencies.leakCanary
+
 
     compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true

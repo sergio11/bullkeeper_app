@@ -181,14 +181,14 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     }
 
     /**
-     * On Relations Action Clicked
+     * On Chats Action Clicked
      * @param kidEntity
      * @param role
      */
     @Override
-    public void onRelationsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
-        Timber.d("On Relations for -> %s ", kidEntity.getIdentity());
-        activityHandler.navigateToRelations(kidEntity.getIdentity());
+    public void onChatsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
+        Timber.d("On Chats for -> %s ", kidEntity.getIdentity());
+        activityHandler.navigateToConversationList();
     }
 
     /**
@@ -225,7 +225,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
      */
     @OnClick(R.id.seeInvitations)
     protected void onSeeInvitations(){
-
+        activityHandler.navigateToInvitations();
     }
 
     /**

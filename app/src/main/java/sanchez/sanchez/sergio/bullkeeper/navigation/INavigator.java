@@ -393,4 +393,17 @@ public interface INavigator {
      */
     void navigateToInvitations(final Activity activity);
 
+    /**
+     * Navigate To Conversation List
+     * @param activity
+     */
+    void navigateToConversationList(final Activity activity);
+
+    /**
+     * Navigate To Conversation Message List
+     * @param activity
+     * @param conversationId
+     */
+    void navigateToConversationMessageList(final Activity activity, final String conversationId);
+
 }
