@@ -12,11 +12,13 @@ import sanchez.sanchez.sergio.data.net.services.ISupervisedChildrenService;
 import sanchez.sanchez.sergio.data.repository.SupervisedChildrenRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.children.AcceptSupervisedChildrenNoConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.DeleteSupervisedChildrenConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.DeleteAllSupervisedChildrenNoConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.DeleteSupervisedChildrenNoConfirmedInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenConfirmedDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenConfirmedInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenNoConfirmedDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSupervisedChildrenNoConfirmedInteract;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import sanchez.sanchez.sergio.domain.repository.ISupervisedChildrenRepository;
@@ -140,6 +142,36 @@ public class InvitationsModule {
     {
         return new DeleteSupervisedChildrenNoConfirmedInteract(threadExecutor, postExecutionThread,
                 supervisedChildrenRepository);
+    }
+
+
+    /**
+     * Get Supervised Children No Confirmed Detail Interact
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetSupervisedChildrenNoConfirmedDetailInteract provideGetSupervisedChildrenNoConfirmedDetailInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final ISupervisedChildrenRepository supervisedChildrenRepository
+    ){
+        return new GetSupervisedChildrenNoConfirmedDetailInteract(threadExecutor, postExecutionThread, supervisedChildrenRepository);
+    }
+
+    /**
+     * Provide Accept Supervised Children No Confirmed Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param supervisedChildrenRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public AcceptSupervisedChildrenNoConfirmedInteract provideAcceptSupervisedChildrenNoConfirmedInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final ISupervisedChildrenRepository supervisedChildrenRepository
+    ){
+        return new AcceptSupervisedChildrenNoConfirmedInteract(threadExecutor, postExecutionThread, supervisedChildrenRepository);
     }
 
 }

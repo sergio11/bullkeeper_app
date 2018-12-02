@@ -5,6 +5,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
@@ -19,8 +23,10 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.IMyKidsProfileActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.KidGuardiansAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
@@ -32,7 +38,7 @@ import timber.log.Timber;
  */
 public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansFragmentPresenter,
         IKidGuardiansFragmentView, IMyKidsProfileActivityHandler, MyKidsComponent, KidGuardianEntity>
-        implements IKidGuardiansFragmentView {
+        implements IKidGuardiansFragmentView, SupportItemTouchHelper.ItemTouchHelperListener  {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
@@ -120,6 +126,11 @@ public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansF
             throw new IllegalArgumentException("You must provide Kid identity");
 
         kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+        // adding item touch helper
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new SupportItemTouchHelper<KidGuardiansAdapter.KidGuardianViewHolder>(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
     }
 
@@ -263,6 +274,52 @@ public class KidGuardiansMvpFragment extends SupportMvpLCEFragment<KidGuardiansF
             showNoticeDialog(R.string.search_guardian_already_selected);
         }
 
+    }
+
+    /**
+     * On Swipe
+     * @param viewHolder
+     * @param direction
+     * @param position
+     */
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof KidGuardiansAdapter.KidGuardianViewHolder) {
+
+            final Integer deletedIndex = viewHolder.getAdapterPosition();
+            final KidGuardianEntity kidGuardianEntity =
+                    recyclerViewAdapter.getItemByAdapterPosition(deletedIndex);
+
+            // Delete item from adapter
+            recyclerViewAdapter.removeItem(deletedIndex);
+
+            if(!kidGuardianEntity.getGuardian().getIdentity()
+                    .equals(preferenceRepository.getPrefCurrentUserIdentity())) {
+
+                showLongSimpleSnackbar(content, getString(R.string.kid_guardians_supervised_eliminated), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(kidGuardianEntity, deletedIndex);
+                    }
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                    }
+                });
+
+            } else {
+
+                showNoticeDialog(R.string.kid_guardians_self_user_can_not_be_eliminated, new NoticeDialogFragment.NoticeDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        recyclerViewAdapter.restoreItem(kidGuardianEntity, deletedIndex);
+                    }
+                });
+
+            }
+
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvp
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
@@ -659,6 +660,19 @@ public class NavigatorImpl implements INavigator {
     public void navigateToInvitations(final Activity activity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivity(InvitationsListMvpActivity.getCallingIntent(activity));
+    }
+
+    /**
+     * Navigate To Invitation Detail
+     * @param activity
+     * @param invitationId
+     */
+    @Override
+    public void navigateToInvitationDetail(Activity activity, String invitationId) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(invitationId, "Invitation Id can not be null");
+        Preconditions.checkState(!invitationId.isEmpty(), "Invitation id can not be null");
+        activity.startActivity(InvitationDetailMvpActivity.getCallingIntent(activity, invitationId));
     }
 
     /**

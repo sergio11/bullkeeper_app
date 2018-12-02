@@ -13,4 +13,9 @@ public interface IMyKidsView extends ISupportLCEView<SupervisedChildrenEntity> {
      */
     void onPendingRequestsAvailable(final long count);
 
+    /**
+     * On No Pending Request Avaliable
+     */
+    void onNoPendingRequestsAvailable();
+
 }

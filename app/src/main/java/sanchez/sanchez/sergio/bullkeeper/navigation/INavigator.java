@@ -394,6 +394,13 @@ public interface INavigator {
     void navigateToInvitations(final Activity activity);
 
     /**
+     * Navigate To Invitation Detail
+     * @param activity
+     * @param invitationId
+     */
+    void navigateToInvitationDetail(final Activity activity, final String invitationId);
+
+    /**
      * Navigate To Conversation List
      * @param activity
      */

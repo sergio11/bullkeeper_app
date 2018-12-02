@@ -9,10 +9,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
@@ -237,10 +240,25 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
         seeInvitationsContainer.setVisibility(View.VISIBLE);
         invitationsCountTextView.setText(String.valueOf(count));
 
+        // See Invitations Show Case
         new FancyShowCaseView.Builder(activity)
-                .focusOn(seeInvitationsImageView)
-                .title("Focus on View")
+                .focusOn(seeInvitationsContainer)
+                .title(String.format(Locale.getDefault(),
+                        getString(R.string.invitations_pending_confirmed_show_case), count))
+                .focusShape(FocusShape.CIRCLE)
+                .enableAutoTextPosition()
+                .focusBorderColor(R.color.commonWhite)
+                .backgroundColor(R.color.cyanBrilliant)
                 .build()
                 .show();
+    }
+
+    /**
+     * On No pending Request Avaliable
+     */
+    @Override
+    public void onNoPendingRequestsAvailable() {
+        seeInvitationsContainer.setVisibility(View.GONE);
+        invitationsCountTextView.setText("-");
     }
 }

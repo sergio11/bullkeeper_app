@@ -283,4 +283,5 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         });
     }
 
+
 }

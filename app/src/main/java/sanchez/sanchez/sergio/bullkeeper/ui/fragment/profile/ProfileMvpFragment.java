@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
+import me.toptas.fancyshowcase.listener.OnCompleteListener;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.MyKidsStatusAdapter;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
@@ -32,6 +36,7 @@ import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
+import timber.log.Timber;
 
 
 /**
@@ -39,7 +44,7 @@ import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
  */
 public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresenter,
         IProfileView, IHomeActivityHandler, HomeComponent> implements IProfileView,
-        MyKidsStatusAdapter.OnMyKidsListener {
+        MyKidsStatusAdapter.OnMyKidsListener, OnCompleteListener {
 
     public static String TAG = "HOME_FRAGMENT";
     private final static Integer MIN_KIDS_COUNT = 3;
@@ -61,6 +66,12 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Inject
     protected Activity activity;
+
+    /**
+     * User Menu View
+     */
+    @BindView(R.id.userMenu)
+    protected View userMenuView;
 
     /**
      * User Profile Image
@@ -212,6 +223,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
         myKidsStatusAdapter.setOnMyKidsListenerListener(this);
 
         myChildList.setAdapter(myKidsStatusAdapter);
+
     }
 
     @Override
@@ -319,6 +331,9 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
         myChildList.scheduleLayoutAnimation();
 
         toggleKidsAllComponents(true);
+
+        launchShowCase();
+
     }
 
     /**
@@ -375,4 +390,49 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     }
 
 
+    /**
+     * Launch Show Case
+     */
+    private void launchShowCase(){
+
+        Timber.d("Launch Show Case");
+
+        // User Menu Show Case
+        final FancyShowCaseView userMenuShowCase = new FancyShowCaseView.Builder(activity)
+                .focusOn(userMenuView)
+                .title("Rounded Rectangle Focus")
+                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                .roundRectRadius(90)
+                .enableAutoTextPosition()
+                .focusBorderColor(R.color.commonWhite)
+                .backgroundColor(R.color.cyanBrilliant)
+                .build();
+
+
+        // My Children Show Case
+        final FancyShowCaseView myChildrenShowCase = new FancyShowCaseView.Builder(activity)
+                .focusOn(myChildList)
+                .title("Rounded Rectangle Focus")
+                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                .roundRectRadius(90)
+                .enableAutoTextPosition()
+                .focusBorderColor(R.color.commonWhite)
+                .backgroundColor(R.color.cyanBrilliant)
+                .build();
+
+        final FancyShowCaseQueue queue =  new FancyShowCaseQueue()
+                .add(userMenuShowCase)
+                .add(myChildrenShowCase);
+
+        queue.setCompleteListener(this);
+
+        queue.show();
+
+    }
+
+
+    @Override
+    public void onComplete() {
+        Timber.d("Show Case Completed");
+    }
 }

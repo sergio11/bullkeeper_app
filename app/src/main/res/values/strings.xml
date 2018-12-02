@@ -75,6 +75,7 @@
     <string name="loading_data">Loading Data ...</string>
     <string name="make_a_search_to_see_results">Make a search to see results</string>
 
+    <string name="generic_loading_text">Please wait ....</string>
 
     <!-- UI Components -->
     <string name="support_edit_weekly_frequency_label">Weekly Frequency</string>
@@ -155,6 +156,7 @@
     <string name="alert_detail_required_actions">Required Actions</string>
 
     <string name="kid_guardian_active_user" formatted="false">%s (You)</string>
+    <string name="kid_guardian_user_no_confirmed" formatted="false">%s (pending invitation)</string>
 
     <!-- Alert Category Success Text -->
     <string name="alert_category_success_text">Success data</string>
@@ -304,6 +306,8 @@
     <string name="social_media_configured_description">Configure social media to allow access to the content that we will analyze</string>
     <string name="kid_guardians_configured_title">Kid Guardian Configured</string>
     <string name="kid_guardians_configured_description">Configure the different roles of the child\'s supervisors</string>
+    <string name="kid_guardians_supervised_eliminated">Supervisor Eliminated</string>
+    <string name="kid_guardians_self_user_can_not_be_eliminated">You can not eliminate yourself as a supervisor</string>
     <!-- Comments -->
     <string name="comments_by_child_title" formatted="true">Comments (%d)</string>
     <string name="comments_by_child_title_default">Comments</string>
@@ -715,11 +719,22 @@
     <string name="not_have_any_linked_devices">Not have any linked devices</string>
 
     <!-- Invitations -->
-    <string name="invitation_item_removed">The invitation was removed</string>
+    <string name="invitation_item_removed">The invitation was deleted</string>
     <string name="invitations_title_default">Invitations</string>
     <string name="invitations_title_count" formatted="true">Invitations (%d)</string>
-    <string name="invitations_cleared_successfully">All alerts cleared successfully</string>
-
+    <string name="invitations_confirm_delete_all">Do you want to delete all supervision invitations received?</string>
+    <string name="invitations_cleared_successfully">All invitations cleared successfully</string>
+    <string name="invitations_pending_confirmed_show_case" formatted="false">You have %d supervision invitations pending confirmation</string>
+    <string name="no_pending_invitations_to_accept">There are no pending invitations to accept</string>
+    <string name="delete_invitation_btn_text">Delete Invitation</string>
+    <string name="accept_invitation_btn_text">Accept Invitation</string>
+    <string name="invitation_was_accepted_successfully">The invitation was accepted</string>
+    <string name="invitation_admin_role_title">Admin Role</string>
+    <string name="invitation_admin_role_description">You can manage the child\'s profile data as well as configure parental control rules and visualize results</string>
+    <string name="invitation_parental_control_rule_editor_title">Rule Editor Role</string>
+    <string name="invitation_parental_control_rule_editor_description">You can configure parental control rules as well as visualize results derived from analyzes performed and alerts</string>
+    <string name="invitation_data_viewer_title">Data Viewer Role</string>
+    <string name="invitation_data_viewer_description">You will be able to see alerts and results derived from the analyzes carried out</string>
     <!-- Conversations -->
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="conversation_message_title">Messages</string>

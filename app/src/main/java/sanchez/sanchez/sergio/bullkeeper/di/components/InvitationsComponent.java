@@ -5,6 +5,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.InvitationsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListPresenter;
 
@@ -24,8 +26,20 @@ public interface InvitationsComponent extends ActivityComponent {
     void inject(final InvitationsListMvpActivity invitationsListMvpActivity);
 
     /**
+     * Inject into Invitation Detail Activity
+     * @param invitationDetailMvpActivity
+     */
+    void inject(final InvitationDetailMvpActivity invitationDetailMvpActivity);
+
+    /**
      *
      * @return
      */
     InvitationsListPresenter invitationsListPresenter();
+
+    /**
+     *
+     * @return
+     */
+    InvitationDetailPresenter invitationDetailPresenter();
 }

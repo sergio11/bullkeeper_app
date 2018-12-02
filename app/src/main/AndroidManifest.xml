@@ -273,6 +273,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common" />
 
+        <!-- Invitation Detail Mvp Activity -->
+        <activity android:name=".ui.activity.invitationdetail.InvitationDetailMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

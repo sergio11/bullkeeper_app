@@ -28,8 +28,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerInvitationsComponen
 import sanchez.sanchez.sergio.bullkeeper.di.components.InvitationsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AlertsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.InvitationsAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
@@ -138,7 +138,9 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
     @Override
     public void onItemClick(SupervisedChildrenEntity supervisedChildrenEntity) {
         Preconditions.checkNotNull(supervisedChildrenEntity, "Supervised Children can not be null");
-
+        Preconditions.checkNotNull(supervisedChildrenEntity.getIdentity(), "Supervised Children Identity can not be null");
+        Preconditions.checkState(!supervisedChildrenEntity.getIdentity().isEmpty(), "Supervised Children Identity can not be empty");
+        navigatorImpl.navigateToInvitationDetail(this, supervisedChildrenEntity.getIdentity());
     }
 
     /**
@@ -156,7 +158,7 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof AlertsAdapter.AlertsViewHolder) {
+        if (viewHolder instanceof InvitationsAdapter.SupervisedChildrenViewHolder) {
 
             final Integer deletedIndex = viewHolder.getAdapterPosition();
             final SupervisedChildrenEntity supervisedChildrenEntity =
@@ -212,7 +214,7 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
 
         // adding item touch helper
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new SupportItemTouchHelper<AlertsAdapter.AlertsViewHolder>(0, ItemTouchHelper.LEFT, this);
+                new SupportItemTouchHelper<InvitationsAdapter.SupervisedChildrenViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
@@ -240,11 +242,20 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @OnClick(R.id.clearInvitations)
     protected void onClearInvitations(){
-        getPresenter().clearInvitations();
+        showConfirmationDialog(R.string.invitations_confirm_delete_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                getPresenter().clearInvitations();
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
+
     }
 
     /**
-     *
+     * On All Invitations Cleared
      */
     @Override
     public void onAllInvitationsCleared() {
@@ -281,6 +292,13 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
         clearInvitationsImageButton.setEnabled(false);
         invitationsHeaderTitleTextView
                 .setText(getString(R.string.invitations_title_default));
+
+        showNoticeDialog(R.string.no_pending_invitations_to_accept, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
     }
 
     /**
@@ -288,7 +306,18 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @Override
     public void onInvitationCleared() {
-        invitationsHeaderTitleTextView.setText(String.format(Locale.getDefault(),
+
+        final int itemCount = recyclerView.getAdapter().getItemCount();
+
+        if(itemCount > 0)
+            invitationsHeaderTitleTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.invitations_title_count), recyclerView.getAdapter().getItemCount()));
+        else
+            showNoticeDialog(R.string.no_pending_invitations_to_accept, new NoticeDialogFragment.NoticeDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    closeActivity();
+                }
+            });
     }
 }

@@ -73,7 +73,7 @@ public final class MyKidsProfilePresenter
                         final List<KidGuardianEntity> kidGuardianEntities) {
 
         if(isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_kid_information);
+            getView().showProgressDialog(R.string.generic_loading_text);
 
         saveChildrenInteract.execute(new SaveChildrenObservable(SaveChildrenInteract.SaveChildrenApiErrors.class),
                 SaveChildrenInteract.Params.create(identity, firstname, surname, birthday, school,

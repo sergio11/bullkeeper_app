@@ -254,6 +254,7 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
             else
                 saveKidGuardianDTO.setIdentity("");
             saveKidGuardianDTO.setRole(kidGuardianEntity.getRole().name());
+            saveKidGuardianDTO.setConfirmed(kidGuardianEntity.isConfirmed());
             saveKidGuardianDTOS.add(saveKidGuardianDTO);
         }
 

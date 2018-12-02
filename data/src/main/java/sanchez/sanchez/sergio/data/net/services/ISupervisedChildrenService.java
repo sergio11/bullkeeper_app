@@ -4,6 +4,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.SupervisedChildrenDTO;
@@ -62,4 +63,22 @@ public interface ISupervisedChildrenService {
     Observable<APIResponse<String>> deleteSupervisedChildrenNoConfirmed(
             @Path("kid") final String kid);
 
+    /**
+     * Get Supervised Children No Confirmed Detail
+     * @param kid
+     * @return
+     */
+    @GET("guardians/self/children/no-confirmed/{kid}")
+    Observable<APIResponse<SupervisedChildrenDTO>>
+        getSupervisedChildrenNoConfirmedDetail(@Path("kid") final String kid);
+
+
+    /**
+     * Accept Supervised Children No Confirmed
+     * @param kid
+     * @return
+     */
+    @POST("guardians/self/children/no-confirmed/{kid}")
+    Observable<APIResponse<String>> acceptSupervisedChildrenNoConfirmed(
+            @Path("kid") final String kid);
 }

@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 
 /**
@@ -60,7 +61,7 @@ public final class InvitationsAdapter
         private Context context;
 
         private ImageView roleImageView, childImage;
-        private TextView kidMessage, kidName;
+        private TextView childName, schoolName;
 
         /**
          * Alerts View Holder
@@ -69,6 +70,10 @@ public final class InvitationsAdapter
          */
         public SupervisedChildrenViewHolder(final Context context, final View itemView) {
             super(itemView);
+            this.childImage = itemView.findViewById(R.id.childImage);
+            this.childName = itemView.findViewById(R.id.childName);
+            this.schoolName = itemView.findViewById(R.id.schoolName);
+            this.roleImageView = itemView.findViewById(R.id.roleImageView);
         }
 
         /**
@@ -79,6 +84,22 @@ public final class InvitationsAdapter
         public void bind(SupervisedChildrenEntity supervisedChildrenEntity) {
             super.bind(supervisedChildrenEntity);
 
+            final KidEntity kidEntity = supervisedChildrenEntity.getKid();
+
+            if (kidEntity.getProfileImage() != null &&
+                    !kidEntity.getProfileImage().isEmpty())
+                picasso.load(kidEntity.getProfileImage())
+                    .error(R.drawable.kid_default_image)
+                    .placeholder(R.drawable.kid_default_image)
+                    .into(childImage);
+            else
+                childImage.setImageResource(R.drawable.kid_default_image);
+
+            // Set Kid name
+            childName.setText(kidEntity.getFullName());
+
+            // Set School Name
+            schoolName.setText(kidEntity.getSchool().getName());
 
             switch (supervisedChildrenEntity.getGuardianRolesEnum()) {
                 case ADMIN:

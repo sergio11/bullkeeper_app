@@ -102,4 +102,33 @@ public final class SupervisedChildrenRepositoryImpl implements ISupervisedChildr
                         && response.getData() != null ? response.getData(): null)
                 .map(supervisedChildrenEntityAbstractDataMapper::transform);
     }
+
+    /**
+     * Get Supervised Children No Confirmed
+     * @param kid
+     * @return
+     */
+    @Override
+    public Observable<SupervisedChildrenEntity> getSupervisedChildrenNoConfirmedDetail(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        return supervisedChildrenService.getSupervisedChildrenNoConfirmedDetail(kid)
+                .map(response -> response != null
+                        && response.getData() != null ? response.getData(): null)
+                .map(supervisedChildrenEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Accept Supervised Children No Confirmed
+     * @param kid
+     * @return
+     */
+    @Override
+    public Observable<String> acceptSupervisedChildrenNoConfirmed(String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        return supervisedChildrenService.acceptSupervisedChildrenNoConfirmed(kid)
+                .map(response -> response != null
+                    && response.getData() != null ? response.getData(): null);
+    }
 }

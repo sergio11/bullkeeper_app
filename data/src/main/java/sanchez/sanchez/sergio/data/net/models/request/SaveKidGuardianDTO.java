@@ -33,6 +33,12 @@ public final class SaveKidGuardianDTO implements Serializable {
     @JsonProperty("role")
     private String role;
 
+    /**
+     * Is Confirmed
+     */
+    @JsonProperty("is_confirmed")
+    private boolean isConfirmed;
+
     public SaveKidGuardianDTO(){}
 
     /**
@@ -42,11 +48,12 @@ public final class SaveKidGuardianDTO implements Serializable {
      * @param guardian
      * @param role
      */
-    public SaveKidGuardianDTO(String identity, String kid, String guardian, String role) {
+    public SaveKidGuardianDTO(String identity, String kid, String guardian, String role, boolean isConfirmed) {
         this.identity = identity;
         this.kid = kid;
         this.guardian = guardian;
         this.role = role;
+        this.isConfirmed = isConfirmed;
     }
 
     public String getIdentity() {
@@ -81,6 +88,14 @@ public final class SaveKidGuardianDTO implements Serializable {
         this.role = role;
     }
 
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
+
     @Override
     public String toString() {
         return "SaveKidGuardianDTO{" +
@@ -88,6 +103,7 @@ public final class SaveKidGuardianDTO implements Serializable {
                 ", kid='" + kid + '\'' +
                 ", guardian='" + guardian + '\'' +
                 ", role='" + role + '\'' +
+                ", isConfirmed=" + isConfirmed +
                 '}';
     }
 }

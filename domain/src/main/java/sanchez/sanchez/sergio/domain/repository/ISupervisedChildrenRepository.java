@@ -27,6 +27,7 @@ public interface ISupervisedChildrenRepository {
 
     /**
      * Get Supervised Children Confirmed Detail
+     * @param kid
      * @return
      */
     Observable<SupervisedChildrenEntity> getSupervisedChildrenConfirmedDetail(final String kid);
@@ -37,5 +38,19 @@ public interface ISupervisedChildrenRepository {
      * @return
      */
      Observable<List<SupervisedChildrenEntity>> getSupervisedChildrenNoConfirmed();
+
+    /**
+     * Get Supervised Children No Confirmed Detail
+     * @param kid
+     * @return
+     */
+    Observable<SupervisedChildrenEntity> getSupervisedChildrenNoConfirmedDetail(final String kid);
+
+    /**
+     * Accept Supervised Children No Confirmed
+     * @param kid
+     * @return
+     */
+    Observable<String> acceptSupervisedChildrenNoConfirmed(final String kid);
 
 }

@@ -66,6 +66,8 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
 
                 if(myKids.getNoConfirmed() > 0)
                     getView().onPendingRequestsAvailable(myKids.getNoConfirmed());
+                else
+                    getView().onNoPendingRequestsAvailable();
 
             }
         }

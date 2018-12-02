@@ -98,8 +98,15 @@ public final class KidGuardiansAdapter extends SupportRecyclerViewAdapter<KidGua
                         context.getString(R.string.kid_guardian_active_user),
                         guardianEntity.getFullName()));
 
-            } else
-                guardianName.setText(guardianEntity.getFullName());
+            } else {
+
+                if (kidGuardianEntity.isConfirmed())
+                    guardianName.setText(guardianEntity.getFullName());
+                else
+                    guardianName.setText(String.format(Locale.getDefault(),
+                            context.getString(R.string.kid_guardian_user_no_confirmed),
+                            guardianEntity.getFullName()));
+            }
 
             // Set Guardian Profile Image
             if(guardianEntity.getProfileImage() != null &&
