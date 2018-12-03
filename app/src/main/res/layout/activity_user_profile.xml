@@ -216,6 +216,53 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <!-- Active Profile -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp">
+
+                <!-- Active Profile Label -->
+                <TextView
+                    android:id="@+id/activeProfileLabel"
+                    style="@style/CommonStrongText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:padding="0dp"
+                    android:textAllCaps="true"
+                    android:text="@string/user_profile_public_profile"
+                    android:textColor="@color/commonWhite"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="start|center_vertical"
+                    />
+
+                <!-- Active Profile Switch -->
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/activeProfileSwitch"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    android:textOff=""
+                    android:textOn=""
+                    android:layout_marginEnd="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    app:theme="@style/CommonSwitch" />
+
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>

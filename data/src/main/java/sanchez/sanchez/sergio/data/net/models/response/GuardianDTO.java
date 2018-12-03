@@ -48,6 +48,9 @@ public final class GuardianDTO implements Serializable {
     @JsonProperty("profile_image")
     private String profileImage;
 
+    @JsonProperty("visible")
+    private boolean visible;
+
     public String getIdentity() {
         return identity;
     }
@@ -142,6 +145,14 @@ public final class GuardianDTO implements Serializable {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     @Override

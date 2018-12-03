@@ -41,6 +41,7 @@ public final class GuardianEntityDataMapper extends AbstractDataMapper<GuardianD
         guardianEntity.setLocale(originModel.getLocale());
         guardianEntity.setPhoneNumber(originModel.getPhoneNumber());
         guardianEntity.setPhonePrefix(originModel.getPhonePrefix());
+        guardianEntity.setVisible(originModel.isVisible());
         if (appUtils.isValidString(originModel.getProfileImage()))
             guardianEntity.setProfileImage(apiEndPointsHelper
                     .getGuardianProfileUrl(originModel.getProfileImage()));
@@ -66,6 +67,7 @@ public final class GuardianEntityDataMapper extends AbstractDataMapper<GuardianD
         guardianDTO.setLocale(originModel.getLocale());
         guardianDTO.setPhoneNumber(originModel.getPhoneNumber());
         guardianDTO.setPhonePrefix(originModel.getPhonePrefix());
+        guardianDTO.setVisible(originModel.isVisible());
         if (appUtils.isValidString(originModel.getProfileImage()))
             guardianDTO.setProfileImage(originModel.getProfileImage());
         return guardianDTO;

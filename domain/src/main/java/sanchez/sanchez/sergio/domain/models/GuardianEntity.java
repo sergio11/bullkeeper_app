@@ -57,8 +57,14 @@ public final class GuardianEntity implements Serializable {
      * Children
      */
     private Long children;
+
+    /**
+     *
+     */
     private String locale;
     private String profileImage;
+
+    private boolean visible;
 
 
     public String getIdentity() {
@@ -167,5 +173,11 @@ public final class GuardianEntity implements Serializable {
         return firstName + " " + lastName;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
 
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

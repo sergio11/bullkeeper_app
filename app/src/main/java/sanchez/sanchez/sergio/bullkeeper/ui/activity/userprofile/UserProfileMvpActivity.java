@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -149,6 +150,12 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @BindView(R.id.deleteAccount)
     protected View deleteAccountView;
 
+    /**
+     * Active Profile Switch
+     */
+    @BindView(R.id.activeProfileSwitch)
+    protected SwitchCompat activeProfileSwitch;
+
 
     /**
      * Picasso
@@ -253,6 +260,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         tfnoInput.setEnabled(isEnable);
         saveChangesView.setEnabled(isEnable);
         deleteAccountView.setEnabled(isEnable);
+        activeProfileSwitch.setEnabled(isEnable);
     }
 
     /**
@@ -337,7 +345,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         final String birthday = birthdayInput.getDateSelectedAsText();
         final String email = emailInput.getText().toString();
         final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
-
+        final boolean visible = activeProfileSwitch.isChecked();
         // Disable All Components
         toggleAllComponents(false);
 
@@ -345,9 +353,9 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         // Update Profile
         if(currentImagePath != null) {
-            getPresenter().updateProfile(name, surname, birthday, email, tfno, currentImagePath);
+            getPresenter().updateProfile(name, surname, birthday, email, tfno, visible, currentImagePath);
         } else {
-            getPresenter().updateProfile(name, surname, birthday, email, tfno);
+            getPresenter().updateProfile(name, surname, birthday, email, tfno, visible);
         }
 
 
@@ -518,6 +526,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         if(guardianEntity.getBirthdate() != null)
             birthdayInput.setDateSelected(guardianEntity.getBirthdate());
+
+        activeProfileSwitch.setChecked(guardianEntity.isVisible());
 
         if(appUtils.isValidString(currentImagePath)) {
             profileImageView.setImageURI(Uri.parse(currentImagePath));

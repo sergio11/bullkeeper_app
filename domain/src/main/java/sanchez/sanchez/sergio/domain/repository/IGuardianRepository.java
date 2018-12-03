@@ -38,10 +38,12 @@ public interface IGuardianRepository {
      * @param birthdate
      * @param email
      * @param telephone
+     * @param visible
      * @return
      */
     Observable<GuardianEntity> updateSelfInformation(final String firstName, final String lastName,
-                                                     final String birthdate, final String email, final String telephone);
+                                                     final String birthdate, final String email, final String telephone,
+                                                     final boolean visible);
 
 
     /**

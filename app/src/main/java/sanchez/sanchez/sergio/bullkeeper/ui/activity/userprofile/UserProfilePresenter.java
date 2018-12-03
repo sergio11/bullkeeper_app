@@ -68,9 +68,10 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
      * @param birthday
      * @param email
      * @param tfno
+     * @param visible
      */
     public void updateProfile(final String name, String surname, String birthday,
-                              final String email, final String tfno) {
+                              final String email, final String tfno, final boolean visible) {
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.updating_profile_data_progress);
@@ -78,7 +79,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
 
         updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.class),
                 UpdateSelfInformationInteract.Params.create(name, surname, birthday, email,
-                        tfno));
+                        tfno, visible));
 
     }
 
@@ -89,10 +90,11 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
      * @param birthday
      * @param email
      * @param tfno
+     * @param visible
      * @param profileImage
      */
     public void updateProfile(final String name, String surname, String birthday,
-                              final String email, final String tfno, final String profileImage) {
+                              final String email, final String tfno, final boolean visible, final String profileImage) {
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.updating_profile_data_progress);
@@ -100,7 +102,7 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
 
         updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.class),
                 UpdateSelfInformationInteract.Params.create(name, surname, birthday, email,
-                        tfno, profileImage));
+                        tfno, visible, profileImage));
 
     }
 

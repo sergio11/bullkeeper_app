@@ -293,7 +293,7 @@
     <string name="delete_account_in_progress">Deleting account, please wait ...</string>
     <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
     <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
-
+    <string name="user_profile_public_profile">Public profile</string>
 
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>

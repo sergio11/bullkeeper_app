@@ -122,8 +122,9 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
      */
     @Override
     public Observable<GuardianEntity> updateSelfInformation(final String firstName, final String lastName, final String birthdate,
-                                                            final String email, final String telephone) {
-        return guardianService.updateSelfParent(new UpdateGuardianDTO(firstName, lastName, birthdate, email, telephone))
+                                                            final String email, final String telephone,
+                                                            final boolean visible) {
+        return guardianService.updateSelfParent(new UpdateGuardianDTO(firstName, lastName, birthdate, email, telephone, visible))
                 .map(listAPIResponse -> listAPIResponse != null &&
                         listAPIResponse.getData() != null ? listAPIResponse.getData() : null)
                 .map(guardianDataMapper::transform);

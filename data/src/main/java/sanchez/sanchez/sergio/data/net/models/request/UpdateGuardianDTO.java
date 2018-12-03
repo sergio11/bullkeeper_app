@@ -39,18 +39,27 @@ public final class UpdateGuardianDTO implements Serializable {
     private String telephone;
 
     /**
-     * 
+     * Profile Image
      */
     private String profileImage;
 
+
+    /**
+     * Visible
+     */
+    @JsonProperty("visible")
+    protected boolean visible = false;
+
     public UpdateGuardianDTO(){}
 
-    public UpdateGuardianDTO(String firstName, String lastName, String birthdate, String email, String telephone) {
+    public UpdateGuardianDTO(String firstName, String lastName,
+                             String birthdate, String email, String telephone, boolean visible) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.email = email;
         this.telephone = telephone;
+        this.visible = visible;
     }
 
     public UpdateGuardianDTO(String firstName, String lastName, String birthdate, String email, String telephone, String profileImage) {
@@ -102,6 +111,13 @@ public final class UpdateGuardianDTO implements Serializable {
         this.telephone = telephone;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 
     public String getProfileImage() {
         return profileImage;
@@ -119,6 +135,8 @@ public final class UpdateGuardianDTO implements Serializable {
                 ", birthdate='" + birthdate + '\'' +
                 ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", visible=" + visible +
                 '}';
     }
 }
