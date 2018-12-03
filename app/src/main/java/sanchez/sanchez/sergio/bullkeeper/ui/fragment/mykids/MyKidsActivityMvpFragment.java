@@ -120,7 +120,8 @@ public class MyKidsActivityMvpFragment extends SupportMvpSearchLCEFragment<MyKid
     @Override
     public void onItemClick(final SupervisedChildrenEntity supervisedChildrenEntity) {
         final KidEntity kidEntity = supervisedChildrenEntity.getKid();
-        activityHandler.navigateToMyKidDetail(kidEntity.getIdentity());
+        if(!supervisedChildrenEntity.getGuardianRolesEnum().equals(GuardianRolesEnum.DATA_VIEWER))
+            activityHandler.navigateToMyKidDetail(kidEntity.getIdentity(), supervisedChildrenEntity.getGuardianRolesEnum());
     }
 
     /**
@@ -157,7 +158,8 @@ public class MyKidsActivityMvpFragment extends SupportMvpSearchLCEFragment<MyKid
     @Override
     public void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
         Timber.d("On Detail for -> %s ", kidEntity.getIdentity());
-        activityHandler.navigateToMyKidDetail(kidEntity.getIdentity());
+        if(!role.equals(GuardianRolesEnum.DATA_VIEWER))
+            activityHandler.navigateToMyKidDetail(kidEntity.getIdentity(), role);
     }
 
     /**

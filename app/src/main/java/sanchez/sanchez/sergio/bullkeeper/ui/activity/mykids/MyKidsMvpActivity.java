@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.fernandocejas.arrow.checks.Preconditions;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 
 /**
  * My Kids Activity
@@ -104,13 +106,18 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     }
 
     /**
-     * Navigate To My Kid Detail
+     *
      * @param identity
+     * @param guardianRolesEnum
      */
     @Override
-    public void navigateToMyKidDetail(String identity) {
-        navigatorImpl.navigateToMyKidsDetail(identity);
+    public void navigateToMyKidDetail(final String identity, final GuardianRolesEnum guardianRolesEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkNotNull(guardianRolesEnum, "Guardian Roles can not be null");
+        Preconditions.checkState(!guardianRolesEnum.equals(GuardianRolesEnum.DATA_VIEWER), "Role is not allowed");
+        navigatorImpl.navigateToMyKidsDetail(identity, guardianRolesEnum);
     }
+
 
     /**
      * Navigate To Kids Results

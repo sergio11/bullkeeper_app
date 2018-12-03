@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
@@ -155,8 +156,9 @@ public interface INavigator {
     /**
      * Navigate To My Kids Detail
      * @param identity
+     * @param role
      */
-    void navigateToMyKidsDetail(final String identity);
+    void navigateToMyKidsDetail(final String identity, final GuardianRolesEnum role);
 
     /**
      * Navigate To Kid Results Settings

@@ -359,7 +359,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Override
     public void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
-        activityHandler.goToChildDetail(kidEntity.getIdentity());
+        activityHandler.goToChildDetail(kidEntity.getIdentity(), role);
     }
 
     /**

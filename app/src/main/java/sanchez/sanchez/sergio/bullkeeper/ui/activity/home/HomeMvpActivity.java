@@ -22,6 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
@@ -140,8 +141,8 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      * @param identity
      */
     @Override
-    public void goToChildDetail(String identity) {
-        navigatorImpl.navigateToMyKidsDetail(identity);
+    public void goToChildDetail(final String identity, final GuardianRolesEnum role) {
+        navigatorImpl.navigateToMyKidsDetail(identity, role);
     }
 
     /**

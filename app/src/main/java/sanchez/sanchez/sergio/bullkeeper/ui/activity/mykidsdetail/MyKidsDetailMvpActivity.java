@@ -38,6 +38,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragm
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import timber.log.Timber;
@@ -49,7 +50,11 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         implements HasComponent<MyKidsComponent>, IMyKidsDetailActivityHandler
         , IMyKidsDetailView, FourDimensionsMvpFragment.OnFourDimensionsListener {
 
+    /**
+     * Args
+     */
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+    public static final String ROLE_ARG = "ROLE_ARG";
 
     private final String CONTENT_FULL_NAME = "MY_KIDS_DETAIL";
     private final String CONTENT_TYPE_NAME = "KIDS";
@@ -69,6 +74,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Role
+     */
+    @State
+    protected GuardianRolesEnum role;
 
     /**
      * Terminal Items List
@@ -163,9 +174,10 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String identity) {
+    public static Intent getCallingIntent(final Context context, final String identity, final GuardianRolesEnum role) {
         final Intent callingIntent = new Intent(context, MyKidsDetailMvpActivity.class);
         callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(ROLE_ARG, role);
         return callingIntent;
     }
 
@@ -218,6 +230,14 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         if(!getIntent().hasExtra(KID_IDENTITY_ARG))
             throw new IllegalArgumentException("You must provide a child identifier");
+
+        if(!getIntent().hasExtra(ROLE_ARG))
+            throw new IllegalArgumentException("You must provide a role");
+
+        role = (GuardianRolesEnum)getIntent().getSerializableExtra(ROLE_ARG);
+
+        if (role.equals(GuardianRolesEnum.DATA_VIEWER))
+            throw new IllegalArgumentException("This role is not allowed");
 
         // Get Kid Identity
         kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);

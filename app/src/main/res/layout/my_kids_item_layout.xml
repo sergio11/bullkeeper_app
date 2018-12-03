@@ -129,9 +129,11 @@
 
         <!-- Profile -->
         <include
+            android:id="@+id/profileMenuItemLayout"
             layout="@layout/profile_menu_item_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="5dp" />
 
     </LinearLayout>

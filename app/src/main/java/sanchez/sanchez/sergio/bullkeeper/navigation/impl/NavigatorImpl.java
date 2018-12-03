@@ -37,6 +37,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocator
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
@@ -310,8 +311,8 @@ public class NavigatorImpl implements INavigator {
      * @param identity
      */
     @Override
-    public void navigateToMyKidsDetail(final String identity) {
-        context.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity));
+    public void navigateToMyKidsDetail(final String identity, final GuardianRolesEnum  role) {
+        context.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role));
     }
 
     /**

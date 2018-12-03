@@ -75,6 +75,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
         private ImageView childImage, roleImageView;
         private ImageButton resultsAction, alertsAction, chatsAction, profileAction;
         private TextView childName, schoolName, terminalsTextView, messageCountTextView;
+        private View profileMenuItemLayout;
 
 
         MyKidsViewHolder(View itemView) {
@@ -90,6 +91,7 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
             terminalsTextView = itemView.findViewById(R.id.terminalsTextView);
             roleImageView = itemView.findViewById(R.id.roleImageView);
             messageCountTextView = itemView.findViewById(R.id.messageCount);
+            profileMenuItemLayout = itemView.findViewById(R.id.profileMenuItemLayout);
 
         }
 
@@ -249,12 +251,15 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
             switch (supervisedChildrenEntity.getGuardianRolesEnum()) {
 
                 case ADMIN:
+                    profileMenuItemLayout.setVisibility(View.VISIBLE);
                     roleImageView.setImageResource(R.drawable.crown_solid_white);
                     break;
                 case DATA_VIEWER:
+                    profileMenuItemLayout.setVisibility(View.GONE);
                     roleImageView.setImageResource(R.drawable.eye_solid_white);
                     break;
                 case PARENTAL_CONTROL_RULE_EDITOR:
+                    profileMenuItemLayout.setVisibility(View.GONE);
                     roleImageView.setImageResource(R.drawable.child_white);
                     break;
 
