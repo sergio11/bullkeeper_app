@@ -157,7 +157,7 @@
 
     <string name="kid_guardian_active_user" formatted="false">%s (You)</string>
     <string name="kid_guardian_user_no_confirmed" formatted="false">%s (pending invitation)</string>
-
+    <string name="search_kids_hint">Find children from your name</string>
     <!-- Alert Category Success Text -->
     <string name="alert_category_success_text">Success data</string>
     <string name="alert_category_info_text">Informative data</string>

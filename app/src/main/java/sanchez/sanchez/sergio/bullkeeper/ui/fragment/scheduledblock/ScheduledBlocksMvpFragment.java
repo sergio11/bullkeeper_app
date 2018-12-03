@@ -305,7 +305,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     @Override
     public void onScheduledBlockDeleted() {
         if(recyclerViewAdapter.getData().isEmpty())
-            showNotFoundState();
+            onShowNotFoundState();
     }
 
     /**
@@ -315,7 +315,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
     public void onAllScheduledBlockDeleted() {
         recyclerViewAdapter.getData().clear();
         recyclerViewAdapter.notifyDataSetChanged();
-        showNotFoundState();
+        onShowNotFoundState();
         showNoticeDialog(R.string.all_scheduled_blocks_deleted_successfully);
     }
 
@@ -423,8 +423,8 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      * Show Not Found State
      */
     @Override
-    protected void showNotFoundState() {
-        super.showNotFoundState();
+    protected void onShowNotFoundState() {
+        super.onShowNotFoundState();
         deleteAllScheduledBlocks.setVisibility(View.GONE);
         scheduledBlockStatusEntities.clear();
         updateHeaderStatus();
@@ -434,8 +434,8 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      * Show Data Founded State
      */
     @Override
-    protected void showDataFoundedState() {
-        super.showDataFoundedState();
+    protected void onShowDataFoundedState() {
+        super.onShowDataFoundedState();
         deleteAllScheduledBlocks.setVisibility(View.VISIBLE);
         scheduledBlockStatusEntities.clear();
         updateHeaderStatus();

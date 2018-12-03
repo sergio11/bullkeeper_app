@@ -19,6 +19,13 @@ public interface IGuardianRepository {
     Observable<ChildrenOfSelfGuardianEntity> getSelfChildren();
 
     /**
+     * Get Self Children
+     * @param queryText
+     * @return
+     */
+    Observable<ChildrenOfSelfGuardianEntity> getSelfChildren(final String queryText);
+
+    /**
      * Get Guardian Self Information
      * @return
      */

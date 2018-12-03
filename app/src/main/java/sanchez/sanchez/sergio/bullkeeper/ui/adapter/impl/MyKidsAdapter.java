@@ -105,7 +105,11 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
             final KidEntity kidEntity = supervisedChildrenEntity.getKid();
 
             // Set Child Name
-            childName.setText(kidEntity.getFullName());
+            if(hasHighlightText())
+                childName.setText(getSpannableString(kidEntity.getFullName()));
+            else
+                childName.setText(kidEntity.getFullName());
+
             // Set School Name
             schoolName.setText(kidEntity.getSchool().getName());
 

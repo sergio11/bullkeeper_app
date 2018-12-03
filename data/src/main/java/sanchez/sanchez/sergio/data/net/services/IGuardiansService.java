@@ -46,6 +46,15 @@ public interface IGuardiansService {
     @GET("guardians/self/children")
     Observable<APIResponse<ChildrenOfSelfGuardianDTO>> getSelfChildren();
 
+    /**
+     * Get Self Children
+     * @return
+     */
+    @GET("guardians/self/children")
+    Observable<APIResponse<ChildrenOfSelfGuardianDTO>> getSelfChildren(
+            final @Query("text") String text
+    );
+
 
     /**
      * Get Guardian Self Information

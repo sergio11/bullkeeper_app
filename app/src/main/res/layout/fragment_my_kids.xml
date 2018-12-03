@@ -19,7 +19,7 @@
 
     <!-- My Kids Header -->
     <RelativeLayout
-        android:id="@+id/myKidsHeader"
+        android:id="@+id/searchHeader"
         style="@style/CommonSection"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -31,8 +31,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude">
 
+        <!-- Search Header Image -->
         <ImageView
-            android:id="@+id/myKidsHeaderImage"
+            android:id="@+id/searchHeaderImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
@@ -41,14 +42,29 @@
             android:layout_centerVertical="true"
             android:src="@drawable/child_white" />
 
+        <!-- Search Header Title -->
         <TextView
+            android:id="@+id/searchHeaderTitle"
             style="@style/CommonStrongText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/myKidsHeaderImage"
+            android:layout_toEndOf="@id/searchHeaderImage"
             android:layout_centerVertical="true"
             android:text="@string/my_kids_title"
             android:textColor="@color/commonWhite" />
+
+        <!-- Search View -->
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:iconifiedByDefault="false"
+            app:searchIcon="@drawable/search_solid_white_50"
+            app:searchHintIcon="@drawable/search_solid_cyan_40"
+            app:closeIcon="@drawable/times_solid_cyan_40"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/seeInvitationsContainer"/>
 
         <!-- See Invitations -->
         <FrameLayout
@@ -105,7 +121,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/searchHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -130,7 +146,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/searchHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -147,7 +163,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/searchHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -164,7 +180,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myKidsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/searchHeader"
         app:layout_constraintVertical_bias="0.508"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"

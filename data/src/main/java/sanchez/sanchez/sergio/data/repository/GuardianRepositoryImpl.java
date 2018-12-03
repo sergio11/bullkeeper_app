@@ -85,6 +85,21 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     }
 
     /**
+     * Get Self Children
+     * @param queryText
+     * @return
+     */
+    @Override
+    public Observable<ChildrenOfSelfGuardianEntity> getSelfChildren(String queryText) {
+        Preconditions.checkNotNull(queryText, "Query text can not be null");
+        Preconditions.checkState(!queryText.isEmpty(), "Query text can not be empty");
+
+        return guardianService.getSelfChildren(queryText).map(listAPIResponse -> listAPIResponse != null &&
+                listAPIResponse.getData() != null ? listAPIResponse.getData() : null)
+                .map(childrenOfSelfGuardianDataMapper::transform);
+    }
+
+    /**
      * Get Parent Self Information
      * @return
      */

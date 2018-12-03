@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.domain.interactor.guardians;
 
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,8 +15,11 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Get Self Children Interact
  */
-public final class GetSelfChildrenInteract extends UseCase<ChildrenOfSelfGuardianEntity, Void> {
+public final class GetSelfChildrenInteract extends UseCase<ChildrenOfSelfGuardianEntity, GetSelfChildrenInteract.Params> {
 
+    /**
+     * Parent Repository
+     */
     private final IGuardianRepository parentRepository;
 
     /**
@@ -34,13 +36,46 @@ public final class GetSelfChildrenInteract extends UseCase<ChildrenOfSelfGuardia
     }
 
     /**
-     *
      * @param params
      * @return
      */
     @Override
-    protected Observable<ChildrenOfSelfGuardianEntity> buildUseCaseObservable(final Void params) {
-        return parentRepository.getSelfChildren();
+    protected Observable<ChildrenOfSelfGuardianEntity> buildUseCaseObservable(Params params) {
+        return params != null && params.getQueryText() != null &&
+                !params.getQueryText().isEmpty() ?
+                    parentRepository.getSelfChildren(params.getQueryText()) :
+                    parentRepository.getSelfChildren();
+    }
+
+
+    /**
+     * Params
+     */
+    public static class Params {
+
+        private final String queryText;
+
+        /**
+         *
+         * @param queryText
+         */
+        private Params(String queryText) {
+            this.queryText = queryText;
+        }
+
+        public String getQueryText() {
+            return queryText;
+        }
+
+        /**
+         * Create
+         * @param queryText
+         * @return
+         */
+        public static Params create(final String queryText) {
+            return new Params(queryText);
+        }
+
     }
 
 

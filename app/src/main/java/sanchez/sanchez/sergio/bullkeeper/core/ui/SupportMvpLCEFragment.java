@@ -74,12 +74,12 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Error Occurred Layout
      */
-    private ErrorOccurredLayout errorOccurredLayout;
+    protected ErrorOccurredLayout errorOccurredLayout;
 
     /**
      * No Data Found Layout
      */
-    private NotDataFoundLayout notDataFoundLayout;
+    protected NotDataFoundLayout notDataFoundLayout;
 
     /**
      * Recycler View Adapter
@@ -89,7 +89,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * LCE Listener
      */
-    private SupportLCEListener lceListener;
+    protected SupportLCEListener lceListener;
 
     /**
      * on Attach
@@ -153,14 +153,14 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         errorOccurredLayout.getRetryAgain().setOnClickListener(this);
 
-        showLoadingState();
+        onShowLoadingState();
 
     }
 
     /**
      * Show Loading State
      */
-    protected void showLoadingState(){
+    protected void onShowLoadingState(){
         errorOccurredLayout.hide();
         notDataFoundLayout.hide();
         content.setVisibility(View.GONE);
@@ -171,7 +171,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Show Not Found State
      */
-    protected void showNotFoundState(){
+    protected void onShowNotFoundState(){
         errorOccurredLayout.hide();
         notDataFoundLayout.show(getString(R.string.no_data_found));
         content.setVisibility(View.GONE);
@@ -183,7 +183,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      * Show Error State
      * @param message
      */
-    protected void showErrorState(final String message){
+    protected void onShowErrorState(final String message){
         content.setEnabled(false);
         loadingView.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
@@ -194,7 +194,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     /**
      * Show Data Founded State
      */
-    protected void showDataFoundedState(){
+    protected void onShowDataFoundedState(){
         loadingView.setVisibility(View.GONE);
         notDataFoundLayout.hide();
         errorOccurredLayout.hide();
@@ -235,7 +235,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onNetworkError() {
-        showErrorState(getString(R.string.network_error_ocurred));
+        onShowErrorState(getString(R.string.network_error_ocurred));
         if(lceListener != null)
             lceListener.onErrorOcurred();
     }
@@ -245,7 +245,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onOtherException() {
-        showErrorState(getString(R.string.unexpected_error_ocurred));
+        onShowErrorState(getString(R.string.unexpected_error_ocurred));
         if(lceListener != null)
             lceListener.onErrorOcurred();
     }
@@ -264,7 +264,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     @Override
     public void onNoDataFound() {
         Timber.d("On No Data Found");
-        showNotFoundState();
+        onShowNotFoundState();
         if(lceListener != null)
             lceListener.onNoDataFound();
     }
@@ -280,7 +280,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         Timber.d("Data Loaded -> %d", dataLoaded.size());
 
-        showDataFoundedState();
+        onShowDataFoundedState();
 
         recyclerViewAdapter.setData(dataLoaded);
         recyclerViewAdapter.notifyDataSetChanged();
@@ -309,7 +309,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      * Load Data
      */
     protected void loadData() {
-        showLoadingState();
+        onShowLoadingState();
         final Bundle args = getArgs();
         if(args != null)
             getPresenter().loadData(args);

@@ -10,13 +10,12 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Locale;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpSearchLCEFragment;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -31,7 +30,7 @@ import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBA
 /**
  * My Kids Activity Fragment
  */
-public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragmentPresenter,
+public class MyKidsActivityMvpFragment extends SupportMvpSearchLCEFragment<MyKidsFragmentPresenter,
         IMyKidsView, IMyKidsActivityHandler, MyKidsComponent, SupervisedChildrenEntity> implements IMyKidsView,
         MyKidsAdapter.OnMyKidsListener {
 
@@ -260,5 +259,14 @@ public class MyKidsActivityMvpFragment extends SupportMvpLCEFragment<MyKidsFragm
     public void onNoPendingRequestsAvailable() {
         seeInvitationsContainer.setVisibility(View.GONE);
         invitationsCountTextView.setText("-");
+    }
+
+    /**
+     * Get Search Hint Res
+     * @return
+     */
+    @Override
+    protected int getSearchHintRes() {
+        return R.string.search_kids_hint;
     }
 }

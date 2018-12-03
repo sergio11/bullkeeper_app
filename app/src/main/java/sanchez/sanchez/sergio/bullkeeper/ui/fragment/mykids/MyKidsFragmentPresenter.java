@@ -1,15 +1,18 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
 import android.os.Bundle;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 
 /**
  * My Kids Fragment Presenter
  */
-public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsView> {
+public final class MyKidsFragmentPresenter extends SupportSearchLCEPresenter<IMyKidsView> {
 
     private final GetSelfChildrenInteract getSelfChildrenInteract;
 
@@ -38,6 +41,19 @@ public final class MyKidsFragmentPresenter extends SupportLCEPresenter<IMyKidsVi
     @Override
     public void loadData(Bundle args) {
         loadData();
+    }
+
+    /**
+     * Load Date
+     * @param queryText
+     */
+    @Override
+    public void loadData(final String queryText) {
+        Preconditions.checkNotNull(queryText, "Query Text can not be null");
+        Preconditions.checkState(!queryText.isEmpty(), "Query Text can not be empty");
+
+        getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), GetSelfChildrenInteract.Params.create(queryText));
+
     }
 
     /**
