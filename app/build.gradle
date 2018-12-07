@@ -175,6 +175,9 @@ dependencies {
     // ChatKit for Android
     implementation presentationDependencies.chatkit
 
+    // An extension library for OkHttp to create a Server-Sent Event (SSE) client.
+    implementation presentationDependencies.oksse
+
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
     androidTestImplementation presentationTestDependencies.dexmakerMockito

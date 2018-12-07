@@ -2,6 +2,8 @@ package sanchez.sanchez.sergio.domain.interactor.conversation;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -40,8 +42,9 @@ public final class DeleteMessagesByCoversationIdInteract
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getId(), "Kid can not be null");
         Preconditions.checkState(!params.getId().isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(params.getMessageIds(), "Message ids can not be null");
 
-        return conversationRepository.deleteMessagesByConversationId(params.getId());
+        return conversationRepository.deleteMessagesByConversationId(params.getId(), params.getMessageIds());
     }
 
     /**
@@ -55,14 +58,38 @@ public final class DeleteMessagesByCoversationIdInteract
         private final String id;
 
         /**
+         * Message Ids
+         */
+        private List<String> messageIds;
+
+        /**
+         *
+         * @param id
+         * @param messageIds
+         */
+        private Params(final String id, final List<String> messageIds) {
+            this.id = id;
+            this.messageIds = messageIds;
+        }
+
+        /**
          * @param id
          */
-        private Params(String id) {
+        private Params(final String id) {
             this.id = id;
         }
 
+
         public String getId() {
             return id;
+        }
+
+        public List<String> getMessageIds() {
+            return messageIds;
+        }
+
+        public void setMessageIds(List<String> messageIds) {
+            this.messageIds = messageIds;
         }
 
         /**
@@ -71,6 +98,14 @@ public final class DeleteMessagesByCoversationIdInteract
          */
         public static Params create(final String kid) {
             return new Params(kid);
+        }
+
+        /**
+         *
+         * @param kid
+         */
+        public static Params create(final String kid, final List<String> messageIds) {
+            return new Params(kid, messageIds);
         }
     }
 }

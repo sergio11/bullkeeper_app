@@ -28,20 +28,41 @@ public final class MessageEntity implements Serializable {
      */
     private String conversation;
 
+    /**
+     * From
+     */
+    private PersonEntity from;
+
+    /**
+     * To
+     */
+    private PersonEntity to;
+
+    /**
+     * Viewed
+     */
+    private boolean viewed;
+
     public MessageEntity(){}
 
     /**
-     * Message Entity
+     *
      * @param identity
      * @param text
      * @param createAt
      * @param conversation
+     * @param from
+     * @param to
+     * @param viewed
      */
-    public MessageEntity(String identity, String text, Date createAt, String conversation) {
+    public MessageEntity(String identity, String text, Date createAt, String conversation, PersonEntity from, PersonEntity to, boolean viewed) {
         this.identity = identity;
         this.text = text;
         this.createAt = createAt;
         this.conversation = conversation;
+        this.from = from;
+        this.to = to;
+        this.viewed = viewed;
     }
 
     public String getIdentity() {
@@ -76,6 +97,30 @@ public final class MessageEntity implements Serializable {
         this.conversation = conversation;
     }
 
+    public PersonEntity getFrom() {
+        return from;
+    }
+
+    public void setFrom(PersonEntity from) {
+        this.from = from;
+    }
+
+    public PersonEntity getTo() {
+        return to;
+    }
+
+    public void setTo(PersonEntity to) {
+        this.to = to;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
+
     @Override
     public String toString() {
         return "MessageEntity{" +
@@ -83,6 +128,9 @@ public final class MessageEntity implements Serializable {
                 ", text='" + text + '\'' +
                 ", createAt=" + createAt +
                 ", conversation='" + conversation + '\'' +
+                ", from=" + from +
+                ", to=" + to +
+                ", viewed=" + viewed +
                 '}';
     }
 }

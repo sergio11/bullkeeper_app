@@ -83,11 +83,12 @@ public final class ConversationRepositoryImpl implements IConversationRepository
      * @return
      */
     @Override
-    public Observable<String> deleteConversationMessages(final String kid) {
+    public Observable<String> deleteConversationMessages(final String kid, final List<String> messageIds) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(messageIds, "Message Ids can not be empty");
 
-        return conversationsService.deleteConversationMessages(kid)
+        return conversationsService.deleteConversationMessages(kid, messageIds)
                 .map(response -> response != null && response.getData() != null ?
                     response.getData(): null);
     }
@@ -145,11 +146,12 @@ public final class ConversationRepositoryImpl implements IConversationRepository
      * @return
      */
     @Override
-    public Observable<String> deleteMessagesByConversationId(String id) {
+    public Observable<String> deleteMessagesByConversationId(final String id, final List<String> messageIds) {
         Preconditions.checkNotNull(id, "Id can not be null");
         Preconditions.checkState(!id.isEmpty(), "Id can not be null");
+        Preconditions.checkNotNull(messageIds, "Message ids can not be null");
 
-        return conversationsService.deleteMessagesByConversationId(id)
+        return conversationsService.deleteMessagesByConversationId(id, messageIds)
                 .map(response -> response != null && response.getData() != null ?
                     response.getData(): null);
     }

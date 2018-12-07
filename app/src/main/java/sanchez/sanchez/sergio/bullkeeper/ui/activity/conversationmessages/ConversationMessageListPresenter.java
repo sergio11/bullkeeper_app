@@ -105,6 +105,19 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
     }
 
     /**
+     * Delete Messages
+     * @param messageIds
+     */
+    public void deleteMessages(final List<String> messageIds){
+        Preconditions.checkNotNull(messageIds, "Message Ids can not be null");
+        Preconditions.checkState(!messageIds.isEmpty(), "Message ids can not be empty");
+
+        deleteConversationMessagesInteract.execute(new DeleteConversationMessagesObservable(),
+                DeleteConversationMessagesInteract.Params.create(args.getString(CONVERSATION_KID_IDENTITY_ARG),
+                        messageIds));
+    }
+
+    /**
      * Delete All Messages
      */
     public void deleteAllMessages(){

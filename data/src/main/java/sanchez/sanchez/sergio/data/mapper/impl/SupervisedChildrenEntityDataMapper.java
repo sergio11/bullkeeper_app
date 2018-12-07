@@ -41,7 +41,7 @@ public class SupervisedChildrenEntityDataMapper
         supervisedChildrenEntity.setIdentity(originModel.getIdentity());
         supervisedChildrenEntity.setGuardianRolesEnum(GuardianRolesEnum.valueOf(originModel.getRole()));
         supervisedChildrenEntity.setKid(kidEntityDataMapper.transform(originModel.getKid()));
-
+        supervisedChildrenEntity.setPendingMessageCount(originModel.getPendingMessageCount());
         return supervisedChildrenEntity;
     }
 
@@ -58,7 +58,7 @@ public class SupervisedChildrenEntityDataMapper
         supervisedChildrenDTO.setIdentity(originModel.getIdentity());
         supervisedChildrenDTO.setRole(originModel.getGuardianRolesEnum().name());
         supervisedChildrenDTO.setKid(kidEntityDataMapper.transformInverse(originModel.getKid()));
-
+        supervisedChildrenDTO.setPendingMessageCount(originModel.getPendingMessageCount());
         return supervisedChildrenDTO;
     }
 }

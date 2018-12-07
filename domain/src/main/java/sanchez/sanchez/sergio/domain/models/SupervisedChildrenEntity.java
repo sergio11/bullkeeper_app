@@ -22,6 +22,11 @@ public final class SupervisedChildrenEntity implements Serializable {
      */
     private GuardianRolesEnum guardianRolesEnum;
 
+    /**
+     * Pending Message Count
+     */
+    private long pendingMessageCount;
+
     public SupervisedChildrenEntity(){}
 
     /**
@@ -29,11 +34,15 @@ public final class SupervisedChildrenEntity implements Serializable {
      * @param identity
      * @param kid
      * @param guardianRolesEnum
+     * @param  pendingMessageCount
      */
-    public SupervisedChildrenEntity(String identity, KidEntity kid, GuardianRolesEnum guardianRolesEnum) {
+    public SupervisedChildrenEntity(final String identity, final KidEntity kid,
+                                    final GuardianRolesEnum guardianRolesEnum,
+                                    final long pendingMessageCount) {
         this.identity = identity;
         this.kid = kid;
         this.guardianRolesEnum = guardianRolesEnum;
+        this.pendingMessageCount = pendingMessageCount;
     }
 
     public String getIdentity() {
@@ -60,12 +69,21 @@ public final class SupervisedChildrenEntity implements Serializable {
         this.guardianRolesEnum = guardianRolesEnum;
     }
 
+    public long getPendingMessageCount() {
+        return pendingMessageCount;
+    }
+
+    public void setPendingMessageCount(long pendingMessageCount) {
+        this.pendingMessageCount = pendingMessageCount;
+    }
+
     @Override
     public String toString() {
         return "SupervisedChildrenEntity{" +
                 "identity='" + identity + '\'' +
                 ", kid=" + kid +
                 ", guardianRolesEnum=" + guardianRolesEnum +
+                ", pendingMessageCount=" + pendingMessageCount +
                 '}';
     }
 }

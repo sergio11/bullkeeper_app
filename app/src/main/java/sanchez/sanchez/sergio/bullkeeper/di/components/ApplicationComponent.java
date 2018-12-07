@@ -2,6 +2,8 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import android.content.Context;
 
+import com.here.oksse.OkSse;
+import com.here.oksse.ServerSentEvent;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
@@ -101,4 +103,5 @@ public interface ApplicationComponent {
     Picasso picasso();
     ScreenManager screenManager();
     UiUtils uiUtils();
+    ServerSentEvent serverSentEvent();
 }

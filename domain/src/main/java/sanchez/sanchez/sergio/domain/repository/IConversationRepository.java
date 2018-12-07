@@ -28,9 +28,10 @@ public interface IConversationRepository {
     /**
      * Delete Conversation Messages
      * @param kid
+     * @param messageIds
      * @return
      */
-    Observable<String> deleteConversationMessages(final String kid);
+    Observable<String> deleteConversationMessages(final String kid, final List<String> messageIds);
 
     /**
      * Get Conversation Messages
@@ -56,9 +57,10 @@ public interface IConversationRepository {
     /**
      * Delete Messages by conversation id
      * @param id
+     * @param messageIds
      * @return
      */
-    Observable<String> deleteMessagesByConversationId(final String id);
+    Observable<String> deleteMessagesByConversationId(final String id, final List<String> messageIds);
 
     /**
      * Get Messages by conversation id

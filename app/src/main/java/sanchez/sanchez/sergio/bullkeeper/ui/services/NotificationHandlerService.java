@@ -7,8 +7,11 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.here.oksse.ServerSentEvent;
+
 import javax.inject.Inject;
 
+import dagger.Lazy;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.events.model.impl.NoticeEvent;
@@ -27,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IntroMvpActivity;
 import sanchez.sanchez.sergio.domain.interactor.device.DeleteDeviceInteract;
 import sanchez.sanchez.sergio.domain.interactor.device.SaveDeviceInteract;
 import sanchez.sanchez.sergio.domain.models.DeviceEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import timber.log.Timber;
 
@@ -65,6 +69,18 @@ public class NotificationHandlerService extends SupportService {
     @Inject
     protected IAppUtils appUtils;
 
+    /**
+     * Server Sent Event
+     */
+    @Inject
+    protected Lazy<ServerSentEvent> serverSentEventLazy;
+
+    /**
+     * Preference Repository
+     */
+    @Inject
+    protected IPreferenceRepository preferenceRepository;
+
 
     /**
      * Silent Notice Event Visitor
@@ -99,6 +115,9 @@ public class NotificationHandlerService extends SupportService {
         public void visit(SigningEvent signingEvent) {
             Preconditions.checkNotNull(signingEvent, "Signing Event can not be null");
             saveDevice();
+
+            serverSentEventLazy.get();
+
         }
     };
 

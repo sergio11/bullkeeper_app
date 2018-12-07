@@ -8,7 +8,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageButton;
-
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -21,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -38,7 +35,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessageUser;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
-
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
@@ -335,6 +331,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         selectionCount = count;
     }
 
+
     /**
      * On Load More
      * @param page
@@ -360,15 +357,38 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      */
     @OnClick(R.id.clearMessage)
     protected void onClearMessage(){
-        showConfirmationDialog(R.string.clear_messages_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAllMessages();
-            }
 
-            @Override
-            public void onRejected(DialogFragment dialog) { }
-        });
+        if(selectionCount > 0) {
+
+            showConfirmationDialog(R.string.delete_selected_messages_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    final List<ConversationMessage> conversationMessages = messagesAdapter.getSelectedMessages();
+                    final List<String> messageIds = new ArrayList<>();
+                    for(final ConversationMessage conversationMessage: conversationMessages) {
+                        messageIds.add(conversationMessage.getId());
+                    }
+                    getPresenter().deleteMessages(messageIds);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) { }
+            });
+
+        } else {
+
+            showConfirmationDialog(R.string.clear_messages_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAllMessages();
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                }
+            });
+        }
+
     }
 
     /**
@@ -396,16 +416,17 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         final List<ConversationMessage> conversationMessagesList = new ArrayList<>();
         for(final MessageEntity messageEntity: messageEntities) {
 
+            final ConversationMessageUser userMessage = new ConversationMessageUser(
+                    messageEntity.getFrom().getIdentity(), messageEntity.getFrom().getFullName(),
+                    messageEntity.getFrom().getProfileImage(), true);
+
             final ConversationMessage conversationMessage =
-                    new ConversationMessage(messageEntity.getIdentity(),
-                            new ConversationMessageUser(
-                                    preferenceRepository.getPrefCurrentUserIdentity(), "Sergio",
-                                    "http://i.imgur.com/pv1tBmT.png", true),
-                                    messageEntity.getText(), messageEntity.getCreateAt());
+                    new ConversationMessage(messageEntity.getIdentity(), userMessage, messageEntity.getText(), messageEntity.getCreateAt());
 
             conversationMessagesList.add(conversationMessage);
         }
 
+        messagesAdapter.clear(true);
         messagesAdapter.addToEnd(conversationMessagesList, false);
 
     }
@@ -431,9 +452,9 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         clearMessageImageButton.setVisibility(View.VISIBLE);
         messagesAdapter.deleteById(SENDING_MESSAGE_ID);
         messagesAdapter.addToStart(
-                new ConversationMessage("1213213", new ConversationMessageUser(
-                        preferenceRepository.getPrefCurrentUserIdentity(), "Sergio",
-                        "https://avatars3.githubusercontent.com/u/6996211?s=460&v=4", true), messageEntity.getText()) , true);
+                new ConversationMessage(messageEntity.getIdentity(), new ConversationMessageUser(
+                        messageEntity.getFrom().getIdentity(), messageEntity.getFrom().getFullName(),
+                        messageEntity.getFrom().getProfileImage(), true), messageEntity.getText()) , true);
     }
 
     /**

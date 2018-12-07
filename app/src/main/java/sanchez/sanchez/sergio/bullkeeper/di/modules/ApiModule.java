@@ -14,11 +14,14 @@ import sanchez.sanchez.sergio.data.net.interceptors.AuthTokenInterceptor;
 import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.here.oksse.OkSse;
+import com.here.oksse.ServerSentEvent;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -120,4 +123,25 @@ public class ApiModule {
                 .downloader(new OkHttp3Downloader(client))
                 .build();
     }
+
+    /**
+     * Provide Ok Sse
+     * @param okHttpClient
+     * @return
+     */
+    @Singleton
+    @Provides
+    public OkSse provideOkSse(final OkHttpClient okHttpClient){
+        return new OkSse(okHttpClient);
+    }
+
+    /**
+     * Provide Server Sent Event
+     * @return
+     */
+    @Provides
+    public ServerSentEvent provideServerSentEvent(final OkSse okSse, final IPreferenceRepository preferenceRepository){
+        return null;
+    }
+
 }

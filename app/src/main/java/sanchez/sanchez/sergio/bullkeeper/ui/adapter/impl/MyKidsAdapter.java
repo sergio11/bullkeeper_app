@@ -199,7 +199,15 @@ public final class MyKidsAdapter extends SupportRecyclerViewAdapter<SupervisedCh
                 }
             });
 
-            messageCountTextView.setText("8");
+
+            if(supervisedChildrenEntity.getPendingMessageCount() > 0) {
+                messageCountTextView.setVisibility(View.VISIBLE);
+                messageCountTextView.setText(
+                        String.valueOf(supervisedChildrenEntity.getPendingMessageCount()));
+            } else {
+                messageCountTextView.setVisibility(View.GONE);
+                messageCountTextView.setText("-");
+            }
 
             // Profile Action
             profileAction.setOnTouchListener(new View.OnTouchListener() {

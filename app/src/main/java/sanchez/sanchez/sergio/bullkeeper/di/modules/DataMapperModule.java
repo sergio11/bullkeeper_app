@@ -21,6 +21,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.KidGuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.MessageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GuardianEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.PersonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockStatusEntityDataMapper;
@@ -51,6 +52,7 @@ import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MessageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.PersonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
@@ -77,6 +79,7 @@ import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
+import sanchez.sanchez.sergio.domain.models.PersonEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -367,16 +370,28 @@ public class DataMapperModule {
         return new ConversationEntityDataMapper(kidGuardianEntityAbstractDataMapper);
     }
 
+
+    /**
+     * Provide Person Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<PersonDTO, PersonEntity> providePersonDataMapper(
+            final ApiEndPointsHelper apiEndPointsHelper,
+            final IAppUtils appUtils
+    ){
+        return new PersonEntityDataMapper(apiEndPointsHelper, appUtils);
+    }
+
     /**
      * Provide Message Data Mapper
+     * @param personEntityAbstractDataMapper
      * @return
      */
     @Provides @PerActivity
     public AbstractDataMapper<MessageDTO, MessageEntity> provideMessageDataMapper(
-
+        final AbstractDataMapper<PersonDTO, PersonEntity> personEntityAbstractDataMapper
     ){
-        return new MessageEntityDataMapper();
+        return new MessageEntityDataMapper(personEntityAbstractDataMapper);
     }
-
-
 }

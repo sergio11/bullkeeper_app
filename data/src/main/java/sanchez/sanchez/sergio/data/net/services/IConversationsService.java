@@ -8,6 +8,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.AddMessageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
@@ -51,7 +52,8 @@ public interface IConversationsService {
      * @return
      */
     @DELETE("conversations/self/{kid}/messages")
-    Observable<APIResponse<String>> deleteConversationMessages(@Path("kid") final String kid);
+    Observable<APIResponse<String>> deleteConversationMessages(@Path("kid") final String kid,
+                                                               @Query("ids") final List<String> messageIds);
 
     /**
      * Get Conversation Messages
@@ -83,7 +85,9 @@ public interface IConversationsService {
      * @return
      */
     @DELETE("conversations/{id}/messages")
-    Observable<APIResponse<String>> deleteMessagesByConversationId(@Path("id") final String id);
+    Observable<APIResponse<String>> deleteMessagesByConversationId(
+            @Path("id") final String id,
+            @Query("ids") final List<String> messageIds);
 
     /**
      * Get Messages by conversation id

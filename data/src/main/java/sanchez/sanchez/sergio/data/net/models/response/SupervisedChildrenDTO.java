@@ -29,6 +29,12 @@ public final class SupervisedChildrenDTO implements Serializable {
     @JsonProperty("role")
     private String role;
 
+    /**
+     * Pending Message Count
+     */
+    @JsonProperty("pending_message_count")
+    private long pendingMessageCount;
+
 
     public SupervisedChildrenDTO() {}
 
@@ -37,12 +43,15 @@ public final class SupervisedChildrenDTO implements Serializable {
      * @param identity
      * @param kid
      * @param role
+     * @param pendingMessageCount
      */
-    public SupervisedChildrenDTO(final String identity, final KidDTO kid, final String role) {
+    public SupervisedChildrenDTO(final String identity, final KidDTO kid,
+                                 final String role, long pendingMessageCount) {
         super();
         this.identity = identity;
         this.kid = kid;
         this.role = role;
+        this.pendingMessageCount = pendingMessageCount;
     }
 
     public String getIdentity() {
@@ -74,8 +83,21 @@ public final class SupervisedChildrenDTO implements Serializable {
         this.role = role;
     }
 
+    public long getPendingMessageCount() {
+        return pendingMessageCount;
+    }
+
+    public void setPendingMessageCount(long pendingMessageCount) {
+        this.pendingMessageCount = pendingMessageCount;
+    }
+
     @Override
     public String toString() {
-        return "SupervisedChildrenDTO [identity=" + identity + ", kid=" + kid + ", role=" + role + "]";
+        return "SupervisedChildrenDTO{" +
+                "identity='" + identity + '\'' +
+                ", kid=" + kid +
+                ", role='" + role + '\'' +
+                ", pendingMessageCount=" + pendingMessageCount +
+                '}';
     }
 }
