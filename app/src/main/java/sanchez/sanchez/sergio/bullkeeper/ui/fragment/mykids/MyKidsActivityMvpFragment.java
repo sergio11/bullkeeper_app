@@ -192,7 +192,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpSearchLCEFragment<MyKid
     @Override
     public void onChatsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
         Timber.d("On Chats for -> %s ", kidEntity.getIdentity());
-        activityHandler.navigateToConversationList();
+        activityHandler.navigateToConversationMessagesList(kidEntity.getIdentity());
     }
 
     /**

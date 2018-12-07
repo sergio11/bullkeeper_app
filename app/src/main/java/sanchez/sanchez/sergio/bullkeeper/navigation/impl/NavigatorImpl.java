@@ -690,14 +690,14 @@ public class NavigatorImpl implements INavigator {
     /**
      *
      * @param activity
-     * @param conversationId
+     * @param kid
      */
     @Override
-    public void navigateToConversationMessageList(Activity activity, String conversationId) {
+    public void navigateToConversationMessageList(Activity activity, String kid) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
-        Preconditions.checkNotNull(conversationId, "Conversation Id can not be null");
-        Preconditions.checkState(!conversationId.isEmpty(), "Conversation id can not be empty");
-        activity.startActivity(ConversationMessageListMvpActivity.getCallingIntent(activity, conversationId));
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        activity.startActivity(ConversationMessageListMvpActivity.getCallingIntent(activity, kid));
     }
 
     /**

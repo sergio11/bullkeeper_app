@@ -166,8 +166,10 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      * Navigate To Conversation List
      */
     @Override
-    public void navigateToConversationList() {
-        navigatorImpl.navigateToConversationList(this);
+    public void navigateToConversationMessagesList(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        navigatorImpl.navigateToConversationMessageList(this, kid);
     }
 
     /**

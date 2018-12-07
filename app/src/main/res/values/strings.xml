@@ -175,9 +175,9 @@
     <string name="apply_changes">Apply Changes</string>
     <string name="loading_alerts_please_wait">Loading alerts, please wait ...</string>
     <string name="deleting_alerts_please_wait">Deleting alerts, please wait ...</string>
-    <string name="deleting_alerts_for_this_child">Clear all alerts for this kid?</string>
+    <string name="deleting_alerts_for_this_child">Clear all alerts for this id?</string>
     <string name="deleting_alerts_for_this_level">Clear all alerts for this level?</string>
-    <string name="deleting_alerts_for_this_level_and_child">Clear all alerts for this kid for this level?</string>
+    <string name="deleting_alerts_for_this_level_and_child">Clear all alerts for this id for this level?</string>
     <string name="loading_alert_detail">Loading alert detail, wait please</string>
     <string name="alert_not_found">The information of the alert could not be obtained</string>
     <string name="deleting_alert_in_progress">Deleting alert, wait please ...</string>
@@ -194,14 +194,14 @@
     <string name="alert_category_information_extraction_desc">Go to the comments list to see them</string>
     <string name="alert_category_information_extraction_action_text">Go to the list of comments</string>
     <!-- Statistics Kid -->
-    <string name="alert_category_statistics_kid_desc">Go to the kid\'s statistics section for more information</string>
-    <string name="alert_category_statistics_kid_action_text">Go to the kid\'s statistics</string>
+    <string name="alert_category_statistics_kid_desc">Go to the id\'s statistics section for more information</string>
+    <string name="alert_category_statistics_kid_action_text">Go to the id\'s statistics</string>
     <!-- General Statistics -->
     <string name="alert_category_general_statistics_desc">Go to the Results section to get more information</string>
     <string name="alert_category_general_statistics_action_text">Go to general statistics</string>
     <!-- Information Kid -->
-    <string name="alert_category_information_kid_desc">Go to the kid\'s editing section for more information</string>
-    <string name="alert_category_information_kid_action_text">Go to edit kid</string>
+    <string name="alert_category_information_kid_desc">Go to the id\'s editing section for more information</string>
+    <string name="alert_category_information_kid_action_text">Go to edit id</string>
     <!-- Default -->
     <string name="alert_category_default">No action required</string>
 
@@ -347,7 +347,7 @@
     <string name="comment_detail_bullying_level_negative">The comment has no relation to bullying.</string>
 
     <!-- Son Detail -->
-    <string name="loading_kid_information">Loading kid information</string>
+    <string name="loading_kid_information">Loading id information</string>
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -373,7 +373,7 @@
     <string name="last_alerts_title" formatted="false">Last Alerts (%d)</string>
     <string name="last_alerts_title_default">Last Alerts</string>
     <string name="home_load_profile_information_progress">Loading profile information ...</string>
-    <string name="home_how_add_child_title">How to add a kid?</string>
+    <string name="home_how_add_child_title">How to add a id?</string>
 
     <string name="kid_detail_dimensions_title">Four Dimensions</string>
     <string name="kid_detail_dimensions_description">Data of the four dimensions analyzed</string>
@@ -403,7 +403,7 @@
 
     <!-- System Alert -->
     <string name="system_alerts_chart_title">All Alerts</string>
-    <string name="system_alerts_chart_description">Set of alerts produced in the system for the kid</string>
+    <string name="system_alerts_chart_description">Set of alerts produced in the system for the id</string>
 
     <!-- System Alert -->
     <string name="likes_chart_title">"Likes" by social media</string>
@@ -740,7 +740,8 @@
     <string name="conversation_message_title">Messages</string>
     <string name="clear_messages_confirm">Do you want to delete all messages from this conversation?</string>
     <string name="all_messages_deleted">All messages were deleted</string>
-
+    <string name="message_add_error">The message could not be sent, please try again</string>
+    <string name="sending_message_wait">sending wait ...</string>
 
     <!-- Search Guardians -->
     <string name="search_guardians_title">Search Guardians</string>
