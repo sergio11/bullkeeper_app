@@ -5,15 +5,19 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
- * Signin Interact
+ * SignIn Interact
  */
-public final class SigninInteract extends UseCase<String, SigninInteract.Params> {
+public final class SigninInteract extends UseCase<AuthenticationResponseEntity, SigninInteract.Params> {
 
+    /**
+     * Account Repository
+     */
     private final IAccountsRepository accountsRepository;
 
     /**
@@ -27,7 +31,7 @@ public final class SigninInteract extends UseCase<String, SigninInteract.Params>
     }
 
     @Override
-    protected Observable<String> buildUseCaseObservable(final SigninInteract.Params params) {
+    protected Observable<AuthenticationResponseEntity> buildUseCaseObservable(final SigninInteract.Params params) {
 
         Preconditions.checkNotNull(params, "Authentication Request can not be null");
         Preconditions.checkNotNull(params.getEmail(), "Email can not be null");

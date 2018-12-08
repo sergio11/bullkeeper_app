@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertsStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledRuleDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AuthenticationResponseEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ChildrenOfSelfGuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
@@ -49,6 +50,7 @@ import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.JwtAuthenticationResponseDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MessageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
@@ -69,6 +71,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
@@ -393,5 +396,14 @@ public class DataMapperModule {
         final AbstractDataMapper<PersonDTO, PersonEntity> personEntityAbstractDataMapper
     ){
         return new MessageEntityDataMapper(personEntityAbstractDataMapper);
+    }
+
+    /**
+     * Provide Authentication Response Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<JwtAuthenticationResponseDTO, AuthenticationResponseEntity> provideAuthenticationResponse(){
+        return new AuthenticationResponseEntityDataMapper();
     }
 }

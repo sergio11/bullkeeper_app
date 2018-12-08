@@ -1,28 +1,33 @@
-package sanchez.sanchez.sergio.data.net.models.response;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+package sanchez.sanchez.sergio.domain.models;
 
 import java.io.Serializable;
 
 /**
- * Jwt Authentication Response DTO
+ * Authentication Response Entity
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public final class JwtAuthenticationResponseDTO implements Serializable {
+public final class AuthenticationResponseEntity implements Serializable {
 
     /**
      * Identity
      */
-    @JsonProperty("identity")
     private String identity;
 
     /**
      * Token
      */
-    @JsonProperty("token")
     private String token;
 
+    public AuthenticationResponseEntity(){}
+
+    /**
+     *
+     * @param identity
+     * @param token
+     */
+    public AuthenticationResponseEntity(String identity, String token) {
+        this.identity = identity;
+        this.token = token;
+    }
 
     public String getIdentity() {
         return identity;
@@ -42,7 +47,7 @@ public final class JwtAuthenticationResponseDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "JwtAuthenticationResponseDTO{" +
+        return "AuthenticationResponseEntity{" +
                 "identity='" + identity + '\'' +
                 ", token='" + token + '\'' +
                 '}';

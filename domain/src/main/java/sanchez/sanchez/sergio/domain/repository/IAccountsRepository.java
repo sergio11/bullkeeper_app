@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.domain.repository;
 
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 
 /**
@@ -15,14 +16,14 @@ public interface IAccountsRepository {
      * @param password
      * @return
      */
-    Observable<String> getAuthorizationToken(final String email, final String password);
+    Observable<AuthenticationResponseEntity> getAuthorizationToken(final String email, final String password);
 
     /**
      * Get Authorization Token By Facebook
      * @param token
      * @return
      */
-    Observable<String> getAuthorizationTokenByFacebook(final String token);
+    Observable<AuthenticationResponseEntity> getAuthorizationTokenByFacebook(final String token);
 
     /**
      * Reset Password

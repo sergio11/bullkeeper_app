@@ -3,15 +3,17 @@ package sanchez.sanchez.sergio.domain.interactor.accounts;
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 
 /**
  * Signin Facebook Interact
  */
-public final class SigninFacebookInteract extends UseCase<String, SigninFacebookInteract.Params> {
+public final class SigninFacebookInteract extends UseCase<AuthenticationResponseEntity, SigninFacebookInteract.Params> {
 
     private final IAccountsRepository accountsRepository;
 
@@ -25,8 +27,13 @@ public final class SigninFacebookInteract extends UseCase<String, SigninFacebook
         this.accountsRepository = accountsRepository;
     }
 
+    /**
+     *
+     * @param params
+     * @return
+     */
     @Override
-    protected Observable<String> buildUseCaseObservable(final SigninFacebookInteract.Params params) {
+    protected Observable<AuthenticationResponseEntity> buildUseCaseObservable(final SigninFacebookInteract.Params params) {
 
         Preconditions.checkNotNull(params, "Signin Facebook can not be null");
         Preconditions.checkNotNull(params.getAccessToken(), "Access Token can not be null");
@@ -61,6 +68,7 @@ public final class SigninFacebookInteract extends UseCase<String, SigninFacebook
             return new Params(accessToken);
         }
     }
+
 
 
 }

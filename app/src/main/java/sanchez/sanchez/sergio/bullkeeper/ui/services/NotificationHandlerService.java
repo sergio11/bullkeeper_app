@@ -7,11 +7,11 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.here.oksse.OkSse;
 import com.here.oksse.ServerSentEvent;
-
 import javax.inject.Inject;
-
-import dagger.Lazy;
+import okhttp3.Request;
+import okhttp3.Response;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.events.model.impl.NoticeEvent;
@@ -27,6 +27,7 @@ import sanchez.sanchez.sergio.bullkeeper.events.handler.ISigningEventVisitor;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IntroMvpActivity;
+import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.interactor.device.DeleteDeviceInteract;
 import sanchez.sanchez.sergio.domain.interactor.device.SaveDeviceInteract;
 import sanchez.sanchez.sergio.domain.models.DeviceEntity;
@@ -37,7 +38,8 @@ import timber.log.Timber;
 /**
  * Notification Handler Service
  */
-public class NotificationHandlerService extends SupportService {
+public class NotificationHandlerService extends SupportService
+        implements ServerSentEvent.Listener {
 
     /**
      * Local System Notification
@@ -70,16 +72,30 @@ public class NotificationHandlerService extends SupportService {
     protected IAppUtils appUtils;
 
     /**
-     * Server Sent Event
+     * Api End Points Helper
      */
     @Inject
-    protected Lazy<ServerSentEvent> serverSentEventLazy;
+    protected ApiEndPointsHelper apiEndPointsHelper;
+
+    /**
+     * OK SSE Client
+     */
+    @Inject
+    protected OkSse okSse;
 
     /**
      * Preference Repository
      */
     @Inject
     protected IPreferenceRepository preferenceRepository;
+
+
+    /**
+     * State
+     * ==============
+     */
+
+    protected ServerSentEvent serverSentEvent;
 
 
     /**
@@ -115,9 +131,7 @@ public class NotificationHandlerService extends SupportService {
         public void visit(SigningEvent signingEvent) {
             Preconditions.checkNotNull(signingEvent, "Signing Event can not be null");
             saveDevice();
-
-            serverSentEventLazy.get();
-
+            startListenSse();
         }
     };
 
@@ -128,11 +142,15 @@ public class NotificationHandlerService extends SupportService {
         @Override
         public void visit(LogoutEvent logoutEvent) {
             Preconditions.checkNotNull(logoutEvent, "Logout Event");
+            stopListenSse();
             notificationHelper.showNoticeNotification(getString(R.string.logout_notification_title),
                     getString(R.string.logout_notification_description), IntroMvpActivity.getCallingIntent(getApplicationContext(), false));
         }
     };
 
+    /**
+     *
+     */
     private int silentNotificationRegisterKey,
             notificationRegisterKey, signingNotificationKey, logoutNotificationKey;
 
@@ -176,6 +194,11 @@ public class NotificationHandlerService extends SupportService {
         localSystemNotification.unregisterEventListener(logoutNotificationKey);
     }
 
+    /**
+     *
+     * @param intent
+     * @return
+     */
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -210,6 +233,121 @@ public class NotificationHandlerService extends SupportService {
             }
         });
 
+    }
+
+    /**
+     * Start Listen SSE
+     */
+    protected void startListenSse(){
+
+        if (serverSentEvent != null) {
+            serverSentEvent.close();
+            serverSentEvent = null;
+        }
+
+        if(!preferenceRepository.getPrefCurrentUserIdentity()
+                .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE)) {
+
+            Timber.d("Start Listen SSE");
+            final Request eventSubscriptionRequest = new Request.Builder()
+                    .url(apiEndPointsHelper.getEventSubscriptionUrl(preferenceRepository
+                            .getPrefCurrentUserIdentity()))
+                    .build();
+            serverSentEvent = okSse.newServerSentEvent(eventSubscriptionRequest, this);
+        }
+
+    }
+
+    /**
+     * Stop Listen Sse
+     */
+    protected void stopListenSse(){
+        if(serverSentEvent != null) {
+            serverSentEvent.close();
+            serverSentEvent = null;
+        }
+    }
+
+    /**
+     *
+     * @param sse
+     * @param response
+     */
+    @Override
+    public void onOpen(ServerSentEvent sse, Response response) {
+        Timber.d("ServerSentEventHandler: On Open");
+    }
+
+    /**
+     *
+     * @param sse
+     * @param id
+     * @param event
+     * @param message
+     */
+    @Override
+    public void onMessage(ServerSentEvent sse, String id, String event, String message) {
+        Timber.d("ServerSentEventHandler: On Message -> %s", message);
+    }
+
+    /**
+     *
+     * @param sse
+     * @param comment
+     */
+    @Override
+    public void onComment(ServerSentEvent sse, String comment) {
+        Timber.d("ServerSentEventHandler: On Comment -> %s", comment);
+
+    }
+
+    /**
+     *
+     * @param sse
+     * @param milliseconds
+     * @return
+     */
+    @Override
+    public boolean onRetryTime(ServerSentEvent sse, long milliseconds) {
+        Timber.d("ServerSentEventHandler: On Retry Time");
+        return false;
+    }
+
+    /**
+     *
+     * @param sse
+     * @param throwable
+     * @param response
+     * @return
+     */
+    @Override
+    public boolean onRetryError(ServerSentEvent sse, Throwable throwable, Response response) {
+        Timber.d("ServerSentEventHandler: On Retry Error");
+        return false;
+    }
+
+    /**
+     *
+     * @param sse
+     */
+    @Override
+    public void onClosed(ServerSentEvent sse) {
+        Timber.d("ServerSentEventHandler: On Closed");
+        if(!preferenceRepository.getPrefCurrentUserIdentity()
+                .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE))
+            startListenSse();
+    }
+
+    /**
+     *
+     * @param sse
+     * @param originalRequest
+     * @return
+     */
+    @Override
+    public Request onPreRetry(ServerSentEvent sse, Request originalRequest) {
+        Timber.d("ServerSentEventHandler: On Pre Retry");
+        return null;
     }
 
     /**

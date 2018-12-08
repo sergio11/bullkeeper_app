@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.PreferencesRepositoryImpl;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import timber.log.Timber;
 
 /**
@@ -56,7 +57,8 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
             getView().showProgressDialog(R.string.authenticating_wait);
 
         // Execute Signin Interact
-        signinInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class), SigninInteract.Params.create(mail, password));
+        signinInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class),
+                SigninInteract.Params.create(mail, password));
 
     }
 
@@ -72,14 +74,15 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
             getView().showProgressDialog(R.string.authenticating_wait);
 
         // Execute Signin Facebook
-        signinFacebookInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class), SigninFacebookInteract.Params.create(accessToken.getToken()));
+        signinFacebookInteract.execute(new SigninObserver(SigninInteract.SigninApiErrors.class),
+                SigninFacebookInteract.Params.create(accessToken.getToken()));
     }
 
 
     /**
      * Signin Observer
      */
-    private final class SigninObserver extends CommandCallBackWrapper<String, SigninInteract.SigninApiErrors.ISigninApiErrorVisitor,
+    private final class SigninObserver extends CommandCallBackWrapper<AuthenticationResponseEntity, SigninInteract.SigninApiErrors.ISigninApiErrorVisitor,
             SigninInteract.SigninApiErrors> implements SigninInteract.SigninApiErrors.ISigninApiErrorVisitor {
 
         /**
@@ -92,12 +95,14 @@ public final class SigninFragmentPresenter extends SupportPresenter<ISigninView>
 
         /**
          * On Success
-         * @param authToken
+         * @param responseEntity
          */
         @Override
-        protected void onSuccess(String authToken) {
+        protected void onSuccess(AuthenticationResponseEntity responseEntity) {
             // Save Token on preferences
-            preferencesRepositoryImpl.setAuthToken(authToken);
+            preferencesRepositoryImpl.setAuthToken(responseEntity.getToken());
+            // Save User Identity
+            preferencesRepositoryImpl.setPrefCurrentUserIdentity(responseEntity.getIdentity());
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onLoginSuccess();

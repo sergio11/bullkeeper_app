@@ -54,4 +54,15 @@ public final class ApiEndPointsHelper {
                 childId, scheduledBlockId, imageId);
     }
 
+    /**
+     * Get Event Subscription URL
+     * @param subscriberId
+     * @return
+     */
+    public String getEventSubscriptionUrl(final String subscriberId) {
+        Preconditions.checkNotNull(subscriberId, "Subscriber id can not be null");
+        Preconditions.checkState(!subscriberId.isEmpty(), "Subscriber id can not be empty");
+        return baseUrl + String.format("events/subscribe/%s", subscriberId);
+    }
+
 }

@@ -7,8 +7,10 @@ import sanchez.sanchez.sergio.data.net.models.request.JwtSocialAuthenticationReq
 import sanchez.sanchez.sergio.data.net.models.request.RegisterGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.JwtAuthenticationResponseDTO;
 import sanchez.sanchez.sergio.data.net.services.IAuthenticationService;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 
@@ -17,20 +19,42 @@ import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
  */
 public final class AccountsRepositoryImpl implements IAccountsRepository {
 
+    /**
+     * Authentication Service
+     */
     private final IAuthenticationService authenticationService;
-    private final IGuardiansService parentsService;
-    private final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper;
+
+    /**
+     * Guardians Service
+     */
+    private final IGuardiansService guardiansService;
+
+    /**
+     * Guardians Data Mapper
+     */
+    private final AbstractDataMapper<GuardianDTO, GuardianEntity> guardiansDataMapper;
+
+    /**
+     * Authentication Response
+     */
+    private final AbstractDataMapper<JwtAuthenticationResponseDTO, AuthenticationResponseEntity>
+            authenticationResponseDataMapper;
 
     /**
      * @param authenticationService
-     * @param parentsService
+     * @param guardiansService
+     * @param authenticationResponseDataMapper
      */
     public AccountsRepositoryImpl(final IAuthenticationService authenticationService,
-                                  final IGuardiansService parentsService,
-                                  final  AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper) {
+                                  final IGuardiansService guardiansService,
+                                  final  AbstractDataMapper<GuardianDTO, GuardianEntity>
+                                          guardiansDataMapper,
+                                  final AbstractDataMapper<JwtAuthenticationResponseDTO, AuthenticationResponseEntity>
+                                          authenticationResponseDataMapper) {
         this.authenticationService = authenticationService;
-        this.parentsService = parentsService;
-        this.parentDataMapper = parentDataMapper;
+        this.guardiansService = guardiansService;
+        this.guardiansDataMapper = guardiansDataMapper;
+        this.authenticationResponseDataMapper = authenticationResponseDataMapper;
     }
 
     /**
@@ -40,11 +64,12 @@ public final class AccountsRepositoryImpl implements IAccountsRepository {
      * @return
      */
     @Override
-    public Observable<String> getAuthorizationToken(final String email, final String password) {
+    public Observable<AuthenticationResponseEntity> getAuthorizationToken(final String email, final String password) {
         return authenticationService.getAuthorizationToken(new JwtAuthenticationRequestDTO(email, password))
                 .map(response -> response != null
                 && response.getData() != null ?
-                        response.getData().getToken() : null);
+                        response.getData() : null)
+                .map(authenticationResponseDataMapper::transform);
     }
 
     /**
@@ -53,11 +78,12 @@ public final class AccountsRepositoryImpl implements IAccountsRepository {
      * @return
      */
     @Override
-    public Observable<String> getAuthorizationTokenByFacebook(final String token) {
+    public Observable<AuthenticationResponseEntity> getAuthorizationTokenByFacebook(final String token) {
         return authenticationService.getAuthorizationTokenByFacebook(new JwtSocialAuthenticationRequestDTO(token))
                 .map(response -> response != null
                         && response.getData() != null ?
-                        response.getData().getToken() : null);
+                        response.getData() : null)
+                .map(authenticationResponseDataMapper::transform);
     }
 
     /**
@@ -67,7 +93,7 @@ public final class AccountsRepositoryImpl implements IAccountsRepository {
      */
     @Override
     public Observable<String> resetPassword(final String email) {
-        return parentsService.resetPassword(new ResetPasswordRequestDTO(email))
+        return guardiansService.resetPassword(new ResetPasswordRequestDTO(email))
                 .map(response -> response != null && response.getData() != null ? response.getData() : null);
     }
 
@@ -86,8 +112,8 @@ public final class AccountsRepositoryImpl implements IAccountsRepository {
     @Override
     public Observable<GuardianEntity> registerParent(final String firstName, final String lastName, final String birthdate,
                                                      final String email, final String passwordClear, final String confirmPassword, final String locale, final String telephone) {
-        return parentsService.register(new RegisterGuardianDTO(firstName, lastName, birthdate, email,
+        return guardiansService.register(new RegisterGuardianDTO(firstName, lastName, birthdate, email,
                 passwordClear, confirmPassword, locale, telephone)).map(response -> response != null && response.getData() != null ? response.getData() : null)
-                .map(parentDataMapper::transform);
+                .map(guardiansDataMapper::transform);
     }
 }

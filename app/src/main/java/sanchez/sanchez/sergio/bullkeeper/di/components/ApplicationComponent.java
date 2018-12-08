@@ -8,6 +8,7 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 import dagger.Component;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
@@ -103,5 +104,5 @@ public interface ApplicationComponent {
     Picasso picasso();
     ScreenManager screenManager();
     UiUtils uiUtils();
-    ServerSentEvent serverSentEvent();
+    OkSse okSse();
 }

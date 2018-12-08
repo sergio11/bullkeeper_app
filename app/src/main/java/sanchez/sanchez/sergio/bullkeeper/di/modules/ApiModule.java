@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import android.content.Context;
+
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -14,14 +15,12 @@ import sanchez.sanchez.sergio.data.net.interceptors.AuthTokenInterceptor;
 import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.here.oksse.OkSse;
-import com.here.oksse.ServerSentEvent;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -30,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import org.joda.time.LocalTime;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Api Module
@@ -59,6 +59,7 @@ public class ApiModule {
         if (BuildConfig.DEBUG) {
 
             client = new OkHttpClient.Builder()
+                    .readTimeout(0, TimeUnit.SECONDS)
                     .addInterceptor(authTokenInterceptor)
                     .addInterceptor(new LoggingInterceptor.Builder()
                             .setLevel(Level.BASIC)
@@ -71,9 +72,11 @@ public class ApiModule {
                     .build();
         }else{
             client = new OkHttpClient.Builder()
+                    .readTimeout(0, TimeUnit.SECONDS)
                     .addInterceptor(authTokenInterceptor)
                     .build();
         }
+
         return client;
     }
 
@@ -133,15 +136,6 @@ public class ApiModule {
     @Provides
     public OkSse provideOkSse(final OkHttpClient okHttpClient){
         return new OkSse(okHttpClient);
-    }
-
-    /**
-     * Provide Server Sent Event
-     * @return
-     */
-    @Provides
-    public ServerSentEvent provideServerSentEvent(final OkSse okSse, final IPreferenceRepository preferenceRepository){
-        return null;
     }
 
 }

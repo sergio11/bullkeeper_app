@@ -7,6 +7,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.JwtAuthenticationResponseDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.data.repository.AccountsRepositoryImpl;
 import sanchez.sanchez.sergio.data.net.services.IAuthenticationService;
@@ -16,6 +17,7 @@ import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterGuardianInterac
 import sanchez.sanchez.sergio.domain.interactor.accounts.ResetPasswordInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
+import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -54,9 +56,13 @@ public class AccountsModule {
      */
     @Provides @PerActivity
     public IAccountsRepository provideAccountsRepository(
-            final IAuthenticationService authenticationService, final IGuardiansService parentsService,
-            final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper) {
-        return new AccountsRepositoryImpl(authenticationService, parentsService, parentDataMapper);
+            final IAuthenticationService authenticationService,
+            final IGuardiansService guardianService,
+            final AbstractDataMapper<GuardianDTO, GuardianEntity> guardianDataMapper,
+            final AbstractDataMapper<JwtAuthenticationResponseDTO, AuthenticationResponseEntity>
+                responseEntityAbstractDataMapper) {
+        return new AccountsRepositoryImpl(authenticationService,
+                guardianService, guardianDataMapper, responseEntityAbstractDataMapper);
     }
 
 
