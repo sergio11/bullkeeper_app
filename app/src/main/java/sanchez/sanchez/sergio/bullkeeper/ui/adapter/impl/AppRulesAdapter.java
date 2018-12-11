@@ -1,7 +1,10 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -122,8 +125,19 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
         public void bind(final AppInstalledEntity appInstalledEntity) {
             super.bind(appInstalledEntity);
 
+
+
             // Set App Name
             appInstalledName.setText(appInstalledEntity.getAppName());
+
+            if(appInstalledEntity.getIconEncodedString() != null &&
+                    !appInstalledEntity.getIconEncodedString().isEmpty()) {
+                byte[] decodedString = Base64.decode(appInstalledEntity.getIconEncodedString(),
+                        Base64.DEFAULT);
+                final Bitmap decodedByte =
+                        BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                appInstalledImage.setImageBitmap(decodedByte);
+            }
 
             switch (appInstalledEntity.getAppRuleEnum()) {
 

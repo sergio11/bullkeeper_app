@@ -49,18 +49,18 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
     /**
      * Get App Installed By Child
      *
-     * @param childId
-     * @param terminalId
+     * @param kid
+     * @param terminal
      * @return
      */
     @Override
-    public Observable<List<AppInstalledEntity>> getAppInstalledByChild(final String childId, final String terminalId) {
-        Preconditions.checkNotNull(childId, "Child id can not be null");
-        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
-        Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
-        Preconditions.checkState(!terminalId.isEmpty(), "Terminal Id can not be empty");
+    public Observable<List<AppInstalledEntity>> getAppInstalledByChild(final String kid, final String terminal) {
+        Preconditions.checkNotNull(kid, "Child id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal Id can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal Id can not be empty");
 
-        return appRulesService.getAppInstalledByChild(childId, terminalId)
+        return appRulesService.getAppInstalledByChild(kid, terminal)
                 .map(response -> response != null && response.getData() != null
                         ? response.getData() : null)
                 .map(appInstalledDataMapper::transform);
@@ -68,25 +68,48 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
 
     /**
      * Update App Installed Rules By Child
-     * @param childId
+     * @param kid
      * @param terminalId
      * @param appInstalledRuleEntities
      * @return
      */
     @Override
-    public Observable<String> updateAppInstalledRulesByChild(final String childId, final String terminalId,
+    public Observable<String> updateAppInstalledRulesByChild(final String kid, final String terminalId,
                                                              final List<AppInstalledRuleEntity> appInstalledRuleEntities) {
-        Preconditions.checkNotNull(childId, "Child id can not be null");
-        Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(kid, "Child id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
         Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
         Preconditions.checkState(!terminalId.isEmpty(), "Terminal Id can not be empty");
         Preconditions.checkNotNull(appInstalledRuleEntities, "App Installed Rule can not be null");
         Preconditions.checkState(!appInstalledRuleEntities.isEmpty(), "App Installed Rules can not be empty");
 
-        return appRulesService.updateAppInstalledRulesByChild(childId, terminalId,
+        return appRulesService.updateAppInstalledRulesByChild(kid, terminalId,
                 appInstalledRuleDataMapper.transformInverse(appInstalledRuleEntities))
                     .map(response -> response != null && response.getData() != null ?
                         response.getData(): null);
+    }
+
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param app
+     * @return
+     */
+    @Override
+    public Observable<AppInstalledEntity> getAppInstalledDetail(final String kid, final String terminal,
+                                                                final String app) {
+        Preconditions.checkNotNull(kid, "Child id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal Id can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal Id can not be empty");
+        Preconditions.checkNotNull(app, "App can not be null");
+        Preconditions.checkState(!app.isEmpty(), "App can not be empty");
+
+        return appRulesService.getAppInstalledDetail(kid, terminal, app)
+                .map(response -> response != null && response.getData() != null ?
+                    response.getData(): null)
+                .map(appInstalledDataMapper::transform);
     }
 
 }

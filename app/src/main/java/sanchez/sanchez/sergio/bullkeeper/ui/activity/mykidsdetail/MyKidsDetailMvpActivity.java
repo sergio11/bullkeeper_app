@@ -380,6 +380,24 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     *
+     * @param kid
+     * @param terminal
+     * @param app
+     */
+    @Override
+    public void navigateToAppInstalledDetail(String kid, String terminal, String app) {
+        Preconditions.checkNotNull(kid, "kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "kid can not be empty");
+        Preconditions.checkNotNull(terminal, "terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "terminal can not be empty");
+        Preconditions.checkNotNull(app, "app can not be null");
+        Preconditions.checkState(!app.isEmpty(), "app can not be empty");
+
+        navigatorImpl.navigateToAppDetailActivity(this, kid, terminal, app);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue

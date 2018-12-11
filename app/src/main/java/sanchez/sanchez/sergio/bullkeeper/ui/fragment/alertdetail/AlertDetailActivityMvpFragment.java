@@ -30,7 +30,7 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
         IAlertDetailView, IAlertDetailActivityHandler, AlertsComponent> implements IAlertDetailView {
 
     public static String ALERT_ID_ARG = "TERMINAL_ID_ARG";
-    public static String SON_ID_ARG = "CHILD_ID_ARG";
+    public static String SON_ID_ARG = "KID_ID_ARG";
 
     /**
      * Alert Detail Background

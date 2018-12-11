@@ -61,6 +61,11 @@ public final class AppInstalledDTO implements Serializable {
     @JsonProperty("app_rule")
     private String appRule;
 
+    /**
+     * Icon Encoded String
+     */
+    @JsonProperty("icon_encoded_string")
+    private String iconEncodedString;
 
     public AppInstalledDTO(){}
 
@@ -74,10 +79,11 @@ public final class AppInstalledDTO implements Serializable {
      * @param versionCode
      * @param appName
      * @param appRule
+     * @param iconEncodedString
      */
     public AppInstalledDTO(String identity, String packageName, long firstInstallTime, long lastUpdateTime,
                            String versionName, String versionCode, String appName,
-                           String appRule) {
+                           String appRule, String iconEncodedString) {
         this.identity = identity;
         this.packageName = packageName;
         this.firstInstallTime = firstInstallTime;
@@ -150,6 +156,29 @@ public final class AppInstalledDTO implements Serializable {
 
     public void setAppRule(String appRule) {
         this.appRule = appRule;
+    }
+
+    public String getIconEncodedString() {
+        return iconEncodedString;
+    }
+
+    public void setIconEncodedString(String iconEncodedString) {
+        this.iconEncodedString = iconEncodedString;
+    }
+
+    @Override
+    public String toString() {
+        return "AppInstalledDTO{" +
+                "identity='" + identity + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", firstInstallTime=" + firstInstallTime +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", versionName='" + versionName + '\'' +
+                ", versionCode='" + versionCode + '\'' +
+                ", appName='" + appName + '\'' +
+                ", appRule='" + appRule + '\'' +
+                ", iconEncodedString='" + iconEncodedString + '\'' +
+                '}';
     }
 }
 

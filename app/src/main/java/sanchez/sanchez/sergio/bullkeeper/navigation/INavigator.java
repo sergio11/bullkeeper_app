@@ -422,4 +422,13 @@ public interface INavigator {
      */
     void navigateToSearchGuardianActivity(final AppCompatActivity activity, final int requestCode);
 
+    /**
+     * Navigate To App Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param app
+     */
+    void navigateToAppDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String app);
+
 }

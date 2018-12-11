@@ -257,11 +257,15 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
 
     /**
      * On Item Click
-     * @param item
+     * @param appInstalled
      */
     @Override
-    public void onItemClick(AppInstalledEntity item) {
-        Preconditions.checkNotNull(item, "Item can not be null");
+    public void onItemClick(AppInstalledEntity appInstalled) {
+        Preconditions.checkNotNull(appInstalled, "App Installed can not be null");
+        Preconditions.checkNotNull(appInstalled.getIdentity(), "App Installed Identity can not be null");
+        Preconditions.checkState(!appInstalled.getIdentity().isEmpty(), "App Installed Identity can not be empty");
+        activityHandler.navigateToAppInstalledDetail(kidIdentity, terminalIdentity,
+                appInstalled.getIdentity());
     }
 
 
@@ -390,6 +394,7 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Timber.d("New Position Selected -> %d", position);
         currentTerminalPos = position;
+        terminalIdentity = terminalItems.get(currentTerminalPos).getIdentity();
         loadData();
     }
 

@@ -718,6 +718,14 @@
     <string name="has_terminals_linked" formatted="false">Has %d linked devices</string>
     <string name="not_have_any_linked_devices">Not have any linked devices</string>
 
+    <!-- Apps Installed -->
+    <string name="app_installed_detail_title">App Installed Detail</string>
+    <string name="app_first_install_time" formatted="false">First Install Time: %s</string>
+    <string name="app_last_update_time" formatted="false">Last Update Time: %s</string>
+    <string name="app_version_code" formatted="false">Version Code: %s</string>
+    <string name="app_version_name" formatted="false">Version Name: %s</string>
+    <string name="app_current_rule_title">App Rule</string>
+
     <!-- Invitations -->
     <string name="invitation_item_removed">The invitation was deleted</string>
     <string name="invitations_title_default">Invitations</string>

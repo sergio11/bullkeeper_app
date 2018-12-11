@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
@@ -709,5 +710,26 @@ public class NavigatorImpl implements INavigator {
     public void navigateToSearchGuardianActivity(AppCompatActivity activity, int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivityForResult(SearchGuardiansMvpActivity.getCallingIntent(activity), requestCode);
+    }
+
+    /**
+     *
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param app
+     */
+    @Override
+    public void navigateToAppDetailActivity(final AppCompatActivity activity, final String kid,
+                                            final String terminal, final String app) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(app, "App can not be null");
+        Preconditions.checkState(!app.isEmpty(), "App can not be empty");
+
+        activity.startActivity(AppDetailMvpActivity.getCallingIntent(context, kid, terminal, app));
     }
 }

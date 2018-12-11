@@ -20,22 +20,36 @@ public interface IAppRulesService {
 
     /**
      * Get App Installed
-     * @param sonId
-     * @param terminalId
+     * @param kid
+     * @param terminal
      * @return
      */
-    @GET("children/{sonId}/terminal/{terminalId}/apps")
+    @GET("children/{kid}/terminal/{terminal}/apps")
     Observable<APIResponse<List<AppInstalledDTO>>> getAppInstalledByChild(
-            @Path("sonId") final String sonId, @Path("terminalId") final String terminalId);
+            @Path("kid") final String kid, @Path("terminal") final String terminal);
 
     /**
      * Update App Installed Rules By Child
-     * @param sonId
-     * @param terminalId
+     * @param kid
+     * @param terminal
      * @return
      */
-    @POST("children/{sonId}/terminal/{terminal}/apps/rules")
+    @POST("children/{kid}/terminal/{terminal}/apps/rules")
     Observable<APIResponse<String>> updateAppInstalledRulesByChild(
-            @Path("sonId") final String sonId, @Path("terminalId") final String terminalId,
+            @Path("kid") final String kid, @Path("terminal") final String terminal,
             final @Body List<AppInstalledRuleDTO> appInstalledRuleDTOs);
+
+
+    /**
+     * Get App Installed Detail
+     * @param kid
+     * @param terminal
+     * @param app
+     * @return
+     */
+    @GET("children/{kid}/terminal/{terminal}/apps/{app}")
+    Observable<APIResponse<AppInstalledDTO>> getAppInstalledDetail(
+            @Path("kid") final String kid, @Path("terminal") final String terminal,
+            @Path("app") final String app);
+
 }

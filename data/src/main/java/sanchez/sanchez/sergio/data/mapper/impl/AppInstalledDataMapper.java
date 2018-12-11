@@ -30,6 +30,7 @@ public final class AppInstalledDataMapper extends AbstractDataMapper<AppInstalle
         appInstalledEntity.setVersionCode(originModel.getVersionCode());
         appInstalledEntity.setVersionName(originModel.getVersionName());
         appInstalledEntity.setAppRuleEnum(AppRuleEnum.valueOf(originModel.getAppRule()));
+        appInstalledEntity.setIconEncodedString(originModel.getIconEncodedString());
         return appInstalledEntity;
     }
 
@@ -51,6 +52,7 @@ public final class AppInstalledDataMapper extends AbstractDataMapper<AppInstalle
         appInstalledDTO.setVersionCode(originModel.getVersionCode());
         appInstalledDTO.setVersionName(originModel.getVersionName());
         appInstalledDTO.setAppRule(originModel.getAppRuleEnum().name());
+        appInstalledDTO.setIconEncodedString(originModel.getIconEncodedString());
         return appInstalledDTO;
     }
 }

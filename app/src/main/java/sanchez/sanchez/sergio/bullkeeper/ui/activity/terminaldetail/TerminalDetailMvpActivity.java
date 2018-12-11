@@ -26,7 +26,7 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
      * Args
      */
     public static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
-    public static String SON_ID_ARG = "CHILD_ID_ARG";
+    public static String SON_ID_ARG = "KID_ID_ARG";
 
     /**
      * Terminal Component

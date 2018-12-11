@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/appToolbarInclude"
+        layout="@layout/app_translucent_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
+
+    <!-- Content -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/appToolbarInclude"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- App Installed Data -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Title -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/app_installed_detail_title"/>
+
+                    <View
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/cyanBrilliant"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical">
+
+                        <!-- App Installed Image  -->
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/appInstalledImage"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/app_installed_default"
+                            android:layout_gravity="center"
+                            app:civ_border_color="@color/commonWhite"
+                            app:civ_border_width="@dimen/common_image_stroke_width"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!-- App Installed Name -->
+                            <TextView
+                                android:id="@+id/appInstalledName"
+                                style="@style/CommonStrongText"
+                                android:padding="0dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/common_margin"
+                                android:gravity="start|center_vertical"
+                                android:text="-"
+                                android:textColor="@color/cyanBrilliant"
+                                android:drawablePadding="@dimen/common_padding" />
+
+                            <!-- App Installed Package Name -->
+                            <TextView
+                                android:id="@+id/appInstalledPackageName"
+                                style="@style/CommonStrongText.Big"
+                                android:padding="0dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/common_margin"
+                                android:gravity="start|center_vertical"
+                                android:text="-"
+                                android:textColor="@color/cyanBrilliant"
+                                android:drawablePadding="@dimen/common_padding" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <!-- App First Install Time -->
+                    <TextView
+                        android:id="@+id/appfirstInstallTime"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+                    <!-- App Last Update Time -->
+                    <TextView
+                        android:id="@+id/appLastUpdateTime"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+                    <!-- App Version Code -->
+                    <TextView
+                        android:id="@+id/appVersionCode"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+                    <!-- App Version Name -->
+                    <TextView
+                        android:id="@+id/appVersionName"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- App Rules -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CommonStrongText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/app_current_rule_title"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/apps_cyan_solid" />
+
+                    <!-- App Rules -->
+                    <LinearLayout
+                        android:id="@+id/appRules"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <!-- App Not Allowed -->
+                        <ImageView
+                            android:id="@+id/appNotAllowed"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="4dp"
+                            android:src="@drawable/app_not_allowed_disabled"
+                            android:contentDescription="@string/content_not_be_loaded" />
+
+                        <!-- App Per Scheduled -->
+                        <ImageView
+                            android:id="@+id/appPerScheduled"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="4dp"
+                            android:src="@drawable/app_per_scheduled_disabled"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                        <!-- App Allowed -->
+                        <ImageView
+                            android:id="@+id/appAllowed"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="4dp"
+                            android:src="@drawable/app_allowed_disabled"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

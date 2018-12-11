@@ -7,14 +7,50 @@ import java.io.Serializable;
  */
 public class AppInstalledEntity implements Serializable {
 
+    /**
+     * Identity
+     */
     private String identity;
+
+    /**
+     * Package Name
+     */
     private String packageName;
+
+    /**
+     * First Install Time
+     */
     private long firstInstallTime;
+
+    /**
+     * Last Update Time
+     */
     private long lastUpdateTime;
+
+    /**
+     * Version Name
+     */
     private String versionName;
+
+    /**
+     * Version Code
+     */
     private String versionCode;
+
+    /**
+     * App Name
+     */
     private String appName;
+
+    /**
+     * App Rule Enum
+     */
     private AppRuleEnum appRuleEnum = AppRuleEnum.NEVER_ALLOWED;
+
+    /**
+     * Icon Encoded String
+     */
+    private String iconEncodedString;
 
     public AppInstalledEntity(){}
 
@@ -27,10 +63,11 @@ public class AppInstalledEntity implements Serializable {
      * @param versionCode
      * @param appName
      * @param appRuleEnum
+     * @param iconEncodedString
      */
     public AppInstalledEntity(final String identity, final String packageName, final long firstInstallTime,
                               final long lastUpdateTime, final String versionName, final String versionCode,
-                              final String appName, final AppRuleEnum appRuleEnum) {
+                              final String appName, final AppRuleEnum appRuleEnum, final String iconEncodedString) {
         this.identity = identity;
         this.packageName = packageName;
         this.firstInstallTime = firstInstallTime;
@@ -39,6 +76,7 @@ public class AppInstalledEntity implements Serializable {
         this.versionCode = versionCode;
         this.appName = appName;
         this.appRuleEnum = appRuleEnum;
+        this.iconEncodedString = iconEncodedString;
     }
 
     public String getIdentity() {
@@ -103,5 +141,28 @@ public class AppInstalledEntity implements Serializable {
 
     public void setAppRuleEnum(AppRuleEnum appRuleEnum) {
         this.appRuleEnum = appRuleEnum;
+    }
+
+    public String getIconEncodedString() {
+        return iconEncodedString;
+    }
+
+    public void setIconEncodedString(String iconEncodedString) {
+        this.iconEncodedString = iconEncodedString;
+    }
+
+    @Override
+    public String toString() {
+        return "AppInstalledEntity{" +
+                "identity='" + identity + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", firstInstallTime=" + firstInstallTime +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", versionName='" + versionName + '\'' +
+                ", versionCode='" + versionCode + '\'' +
+                ", appName='" + appName + '\'' +
+                ", appRuleEnum=" + appRuleEnum +
+                ", iconEncodedString='" + iconEncodedString + '\'' +
+                '}';
     }
 }

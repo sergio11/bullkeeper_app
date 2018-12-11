@@ -14,22 +14,32 @@ public interface IAppRulesRepository {
 
     /**
      * Get APP Installed By Child
-     * @param childId
-     * @param terminalId
+     * @param kid
+     * @param terminal
      * @return
      */
-    Observable<List<AppInstalledEntity>> getAppInstalledByChild(final String childId,
-                                                                final String terminalId);
+    Observable<List<AppInstalledEntity>> getAppInstalledByChild(final String kid,
+                                                                final String terminal);
 
     /**
      * Update App Installed Rules By Child
-     * @param childId
-     * @param terminalId
+     * @param kid
+     * @param terminal
      * @param appInstalledRuleEntities
      * @return
      */
-    Observable<String> updateAppInstalledRulesByChild(final String childId, final String terminalId,
+    Observable<String> updateAppInstalledRulesByChild(final String kid, final String terminal,
                                                 final List<AppInstalledRuleEntity> appInstalledRuleEntities);
 
+
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param app
+     * @return
+     */
+    Observable<AppInstalledEntity> getAppInstalledDetail(final String kid, final String terminal,
+                                                         final String app);
 
 }

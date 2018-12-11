@@ -54,4 +54,12 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToTerminalDetail(final String childId, final String terminalId);
 
+    /**
+     * Navigate To App Installed Detail
+     * @param kid
+     * @param terminal
+     * @param app
+     */
+    void navigateToAppInstalledDetail(final String kid, final String terminal, final String app);
+
 }
