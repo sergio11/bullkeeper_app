@@ -11,7 +11,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvp
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
@@ -25,16 +24,17 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolL
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.searchguardian.SearchGuardiansMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.smsdetail.SmsDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesInfoDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesInfoDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorInfoDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorInfoDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
@@ -731,5 +731,28 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkState(!app.isEmpty(), "App can not be empty");
 
         activity.startActivity(AppDetailMvpActivity.getCallingIntent(context, kid, terminal, app));
+    }
+
+    /**
+     * Navigate To Sms Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param sms
+     */
+    @Override
+    public void navigateToSmsDetailActivity(final AppCompatActivity activity,
+                                            final String kid,
+                                            final String terminal,
+                                            final String sms) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(sms, "sms can not be null");
+        Preconditions.checkState(!sms.isEmpty(), "sms can not be empty");
+
+        activity.startActivity(SmsDetailMvpActivity.getCallingIntent(context, kid, terminal, sms));
     }
 }

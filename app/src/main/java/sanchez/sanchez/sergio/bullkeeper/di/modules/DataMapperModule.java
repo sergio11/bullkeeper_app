@@ -28,6 +28,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockStatusEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SchoolEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SentimentAnalysisStatisticsEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SmsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaActivityStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaLikesStatisticsDataMapper;
@@ -58,6 +59,7 @@ import sanchez.sanchez.sergio.data.net.models.response.PersonDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SmsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
@@ -87,6 +89,7 @@ import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SmsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
@@ -405,5 +408,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<JwtAuthenticationResponseDTO, AuthenticationResponseEntity> provideAuthenticationResponse(){
         return new AuthenticationResponseEntityDataMapper();
+    }
+
+    /**
+     * Provide Sms Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SmsDTO, SmsEntity> provideSmsEntityDataMapper(){
+        return new SmsEntityDataMapper();
     }
 }

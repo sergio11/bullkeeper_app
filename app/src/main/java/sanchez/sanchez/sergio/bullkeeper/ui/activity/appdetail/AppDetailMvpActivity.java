@@ -10,7 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AppInstalledComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerAppInstalledComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.appdetail.AppInstalledDetailActivityMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail.AppInstalledDetailActivityMvpFragment;
 
 
 /**

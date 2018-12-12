@@ -7,8 +7,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.appdetail.AppInstalledDetailActivityMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.appdetail.AppInstalledDetailFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail.AppInstalledDetailActivityMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail.AppInstalledDetailFragmentPresenter;
 
 /**
  * App Installed Component

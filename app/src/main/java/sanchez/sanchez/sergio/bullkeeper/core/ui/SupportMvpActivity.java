@@ -173,8 +173,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
         final ContentViewEvent contentViewEvent = onCreateContentViewEvent();
         if(contentViewEvent == null)
-            throw new IllegalStateException("Content View can not be null - you must track the content int he app");
-        // track content views in the app
+            throw new IllegalStateException("Content View can not be null - you must track the content int he sms");
+        // track content views in the sms
         Answers.getInstance().logContentView(contentViewEvent);
 
         createAt = new Date();

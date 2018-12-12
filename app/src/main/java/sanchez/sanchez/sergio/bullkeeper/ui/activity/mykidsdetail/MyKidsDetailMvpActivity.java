@@ -27,21 +27,21 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.scheduledblock.ScheduledBlocksMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.TerminalsMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.TimeAllowanceMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
-import timber.log.Timber;
 
 /**
  * My Kids Detail Activity
@@ -102,6 +102,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.mobile_cyan_tab,
             R.drawable.scheduled_blocks,
             R.drawable.app_rules_tab_cyan,
+            R.drawable.sms_tab_cyan,
             R.drawable.hourglass_tab_cyan,
             R.drawable.family_locator_tab_cyan
     };
@@ -115,6 +116,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.mobile_dark_tab,
             R.drawable.scheduled_blocks_dark,
             R.drawable.app_rules_tab_dark,
+            R.drawable.sms_tab_dark,
             R.drawable.hourglass_tab_dark,
             R.drawable.family_locator_tab_dark
     };
@@ -206,7 +208,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                 .build();
 
         this.myKidsComponent.inject(this);
-
     }
 
     /**
@@ -391,10 +392,28 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         Preconditions.checkState(!kid.isEmpty(), "kid can not be empty");
         Preconditions.checkNotNull(terminal, "terminal can not be null");
         Preconditions.checkState(!terminal.isEmpty(), "terminal can not be empty");
-        Preconditions.checkNotNull(app, "app can not be null");
-        Preconditions.checkState(!app.isEmpty(), "app can not be empty");
+        Preconditions.checkNotNull(app, "sms can not be null");
+        Preconditions.checkState(!app.isEmpty(), "sms can not be empty");
 
         navigatorImpl.navigateToAppDetailActivity(this, kid, terminal, app);
+    }
+
+    /**
+     * Navigate To SMS Detail
+     * @param kid
+     * @param terminal
+     * @param sms
+     */
+    @Override
+    public void navigateToSmsDetail(final String kid, final String terminal, final String sms) {
+        Preconditions.checkNotNull(kid, "kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "kid can not be empty");
+        Preconditions.checkNotNull(terminal, "terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "terminal can not be empty");
+        Preconditions.checkNotNull(sms, "sms can not be null");
+        Preconditions.checkState(!sms.isEmpty(), "sms can not be empty");
+
+        navigatorImpl.navigateToSmsDetailActivity(this, kid, terminal, sms);
     }
 
     /**
@@ -517,9 +536,10 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int TERMINALS_TAB = 2;
         private final static int SCHEDULED_BLOCKS_TAB = 3;
         private final static int APP_RULES_TAB = 4;
-        private final static int TIME_ALLOWANCE_TAB = 5;
-        private final static int FAMILY_LOCATOR_TAB = 6;
-        private final static int SECTION_COUNT = 7;
+        private final static int SMS_LIST_TAB = 5;
+        private final static int TIME_ALLOWANCE_TAB = 6;
+        private final static int FAMILY_LOCATOR_TAB = 7;
+        private final static int SECTION_COUNT = 8;
 
         private final String kidIdentity;
         private final ArrayList<TerminalItem> terminalItems;
@@ -549,6 +569,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
                 case APP_RULES_TAB:
                     return AppRulesMvpFragment.newInstance(kidIdentity, terminalItems);
+                case SMS_LIST_TAB:
+                    return SmsListMvpFragment.newInstance(kidIdentity, terminalItems);
                 case TIME_ALLOWANCE_TAB:
                     return TimeAllowanceMvpFragment.newInstance(kidIdentity);
                 case FAMILY_LOCATOR_TAB:
@@ -584,6 +606,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.scheduled_blocks_tab);
                 case APP_RULES_TAB:
                     return getString(R.string.app_rules_title);
+                case SMS_LIST_TAB:
+                    return getString(R.string.sms_list_title_tab);
                 case TIME_ALLOWANCE_TAB:
                     return getString(R.string.time_allowance_title);
                 case FAMILY_LOCATOR_TAB:

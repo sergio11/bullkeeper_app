@@ -688,6 +688,12 @@
     <string name="app_rule_never_allowed">The application can not be used</string>
     <string name="app_rule_per_scheduled">The use of the application will adjust to the daily habit configured</string>
     <string name="app_rules_applied_successfully">The application rules were applied successfully</string>
+
+   <!-- SMS List -->
+    <string name="sms_list_title_tab">SMS</string>
+    <string name="sms_list_title">SMS Registered in the terminal</string>
+    <string name="sms_list_description">List of SMS registered in the supervised terminal</string>
+
     <!-- Screen Time Allowance -->
     <string name="time_allowance_title">Time Allowance</string>
     <string name="screen_time_allowance_title">Screen Time Allowance</string>

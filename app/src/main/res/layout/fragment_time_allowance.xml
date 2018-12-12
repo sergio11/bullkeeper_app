@@ -11,7 +11,7 @@
     android:overScrollMode="never"
     android:orientation="vertical"
     android:background="@android:color/transparent"
-    tools:context=".ui.fragment.timeallowance.TimeAllowanceMvpFragment">
+    tools:context=".ui.fragment.kiddetail.timeallowance.TimeAllowanceMvpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

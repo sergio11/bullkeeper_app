@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScreenTimeAllowanceModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.SmsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.TerminalsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
@@ -19,29 +20,35 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.MyKidsDetailMv
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.MyKidsDetailPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfileMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfilePresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.apprules.AppRulesMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.familylocator.FamilyLocatorMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids.MyKidsFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.scheduledblock.ScheduledBlocksMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.timeallowance.TimeAllowanceMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.scheduledblock.ScheduledBlocksFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.scheduledblock.ScheduledBlocksMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.TerminalsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.TerminalsMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.TimeAllowanceFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.TimeAllowanceMvpFragment;
 
+/**
+ * My Kids Component
+ */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = { ActivityModule.class, DataMapperModule.class,
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
-                AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class })
+                AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class,
+                SmsModule.class })
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -111,6 +118,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final KidGuardiansMvpFragment kidGuardiansMvpFragment);
 
+    /**
+     * Inject into Sms List Mvp Fragment
+     * @param smsListMvpFragment
+     */
+    void inject(final SmsListMvpFragment smsListMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -123,4 +136,5 @@ public interface MyKidsComponent extends StatsComponent {
     FamilyLocatorFragmentPresenter familyLocatorFragmentPresenter();
     TerminalsFragmentPresenter terminalsFragmentPresenter();
     KidGuardiansFragmentPresenter kidGuardiansFragmentPresenter();
+    SmsListFragmentPresenter smsListFragmentPresenter();
 }

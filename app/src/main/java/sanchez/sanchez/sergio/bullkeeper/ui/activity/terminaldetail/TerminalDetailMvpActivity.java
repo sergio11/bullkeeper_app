@@ -10,7 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerTerminalComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.TerminalComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminaldetail.TerminalDetailActivityMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail.TerminalDetailActivityMvpFragment;
 
 /**
  * Terminal Detail

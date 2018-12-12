@@ -92,7 +92,7 @@ public class LegalContentActivity extends AppCompatActivity {
 
         // Enable the caching for web view
         textLicenceWebView.getSettings().setAppCacheEnabled(true);
-        // Specify the app cache path
+        // Specify the sms cache path
         textLicenceWebView.getSettings().setAppCachePath(getCacheDir().getPath());
 
         // Set the cache mode

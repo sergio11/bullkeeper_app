@@ -7,9 +7,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.TerminalsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminaldetail.TerminalDetailActivityMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminaldetail.TerminalDetailFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.terminals.TerminalsMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail.TerminalDetailActivityMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail.TerminalDetailFragmentPresenter;
 
 /**
  * Terminal Component
