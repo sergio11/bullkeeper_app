@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_foreground"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_very_high"
@@ -43,7 +42,7 @@
         android:layout_height="match_parent"
         android:background="@color/commonWhite"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@id/appInstalledImageContainer"/>
+        android:layout_toEndOf="@id/smsImageContainer"/>
 
     <!-- Address -->
     <TextView
@@ -74,7 +73,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:gravity="start|center_vertical"
-        android:padding="8dp"
+        android:padding="0dp"
         android:singleLine="true"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
@@ -92,7 +91,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:gravity="start|center_vertical"
-        android:padding="8dp"
+        android:padding="0dp"
         android:singleLine="true"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />

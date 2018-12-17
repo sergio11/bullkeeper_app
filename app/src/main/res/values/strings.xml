@@ -696,6 +696,7 @@
     <string name="sms_list_description">List of SMS registered in the supervised terminal</string>
     <string name="message_read">Message read</string>
     <string name="unread_message">Unread message</string>
+    <string name="sms_date_time" formatted="false">Date: %s</string>
     <!-- Calls List -->
     <string name="call_list_title_tab">Calls</string>
     <string name="call_list_title">Call Registered in the terminal</string>

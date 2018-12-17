@@ -83,9 +83,12 @@ public final class SmsListAdapter extends SupportRecyclerViewAdapter<SmsEntity> 
             addressTextView.setText(smsEntity.getAddress());
 
             // Set Sms Date
-            final SimpleDateFormat  simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format),
+            final SimpleDateFormat  simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_time_format),
                     Locale.getDefault());
-            smsDateTextView.setText(simpleDateFormat.format(smsEntity.getDate()));
+
+            smsDateTextView.setText(String.format(Locale.getDefault(),
+                    context.getString(R.string.sms_date_time),
+                    simpleDateFormat.format(smsEntity.getDate())));
 
             // Set Read State
             if(smsEntity.getReadState().equals(SmsReadStateEnum.VIEWED)) {
