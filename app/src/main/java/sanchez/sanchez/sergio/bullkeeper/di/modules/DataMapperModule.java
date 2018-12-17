@@ -16,6 +16,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.AuthenticationResponseEntityDataM
 import sanchez.sanchez.sergio.data.mapper.impl.ChildrenOfSelfGuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.ContactEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ConversationEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
@@ -49,6 +50,7 @@ import sanchez.sanchez.sergio.data.net.models.response.CallDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.response.ContactDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
@@ -80,6 +82,7 @@ import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
+import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
@@ -429,5 +432,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<CallDetailDTO, CallDetailEntity> provideCallDetailEntityDataMapper(){
         return new CallDetailDataMapper();
+    }
+
+    /**
+     * Provide Contact Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<ContactDTO, ContactEntity> provideContactEntityDataMapper(){
+        return new ContactEntityDataMapper();
     }
 }

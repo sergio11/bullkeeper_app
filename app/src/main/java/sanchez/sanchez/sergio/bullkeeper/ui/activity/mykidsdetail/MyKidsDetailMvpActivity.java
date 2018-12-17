@@ -29,6 +29,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
@@ -105,6 +106,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.app_rules_tab_cyan,
             R.drawable.sms_tab_cyan,
             R.drawable.calls_tab_cyan,
+            R.drawable.contacts_tab_cyan,
             R.drawable.hourglass_tab_cyan,
             R.drawable.family_locator_tab_cyan
     };
@@ -120,6 +122,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.app_rules_tab_dark,
             R.drawable.sms_tab_dark,
             R.drawable.calls_tab_dark_cyan,
+            R.drawable.contacts_tab_dark_cyan,
             R.drawable.hourglass_tab_dark,
             R.drawable.family_locator_tab_dark
     };
@@ -541,9 +544,10 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int APP_RULES_TAB = 4;
         private final static int SMS_LIST_TAB = 5;
         private final static int CALLS_LIST_TAB = 6;
-        private final static int TIME_ALLOWANCE_TAB = 7;
-        private final static int FAMILY_LOCATOR_TAB = 8;
-        private final static int SECTION_COUNT = 9;
+        private final static int CONTACTS_LIST_TAB = 7;
+        private final static int TIME_ALLOWANCE_TAB = 8;
+        private final static int FAMILY_LOCATOR_TAB = 9;
+        private final static int SECTION_COUNT = 10;
 
         private final String kidIdentity;
         private final ArrayList<TerminalItem> terminalItems;
@@ -577,6 +581,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return SmsListMvpFragment.newInstance(kidIdentity, terminalItems);
                 case CALLS_LIST_TAB:
                     return CallsListMvpFragment.newInstance(kidIdentity, terminalItems);
+                case CONTACTS_LIST_TAB:
+                    return ContactListMvpFragment.newInstance(kidIdentity, terminalItems);
                 case TIME_ALLOWANCE_TAB:
                     return TimeAllowanceMvpFragment.newInstance(kidIdentity);
                 case FAMILY_LOCATOR_TAB:
@@ -616,6 +622,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.sms_list_title_tab);
                 case CALLS_LIST_TAB:
                     return getString(R.string.call_list_title_tab);
+                case CONTACTS_LIST_TAB:
+                    return getString(R.string.contact_list_title_tab);
                 case TIME_ALLOWANCE_TAB:
                     return getString(R.string.time_allowance_title);
                 case FAMILY_LOCATOR_TAB:

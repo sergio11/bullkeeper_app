@@ -704,7 +704,11 @@
     <string name="call_phone_number" formatted="false">Tfno: %s</string>
     <string name="call_date_time" formatted="false">Date: %s</string>
     <string name="call_duration" formatted="false">Duration: %02d minutes %02d seconds</string>
-
+    <!-- Contact List -->
+    <string name="contact_list_title_tab">Contacts</string>
+    <string name="contact_list_title">Contacts registered in the terminal</string>
+    <string name="contact_list_description">List of contacts registered in the supervised terminal</string>
+    <string name="contact_phonenumber">Tfno: %s</string>
     <!-- Screen Time Allowance -->
     <string name="time_allowance_title">Time Allowance</string>
     <string name="screen_time_allowance_title">Screen Time Allowance</string>
