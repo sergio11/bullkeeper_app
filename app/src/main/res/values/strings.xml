@@ -62,6 +62,7 @@
 
     <!-- Date Format -->
     <string name="date_format">yyyy-MM-dd</string>
+    <string name="date_time_format">yyyy-MM-dd HH:mm:ss</string>
     <string name="date_format_server_response">yyyy/MM/dd</string>
 
     <string name="joda_local_time_format_server_response">HH:mm:ss.SSS</string>
@@ -693,6 +694,15 @@
     <string name="sms_list_title_tab">SMS</string>
     <string name="sms_list_title">SMS Registered in the terminal</string>
     <string name="sms_list_description">List of SMS registered in the supervised terminal</string>
+    <string name="message_read">Message read</string>
+    <string name="unread_message">Unread message</string>
+    <!-- Calls List -->
+    <string name="call_list_title_tab">Calls</string>
+    <string name="call_list_title">Call Registered in the terminal</string>
+    <string name="call_list_description">List of Calls registered in the supervised terminal</string>
+    <string name="call_phone_number" formatted="false">Tfno: %s</string>
+    <string name="call_date_time" formatted="false">Date: %s</string>
+    <string name="call_duration" formatted="false">Duration: %02d minutes %02d seconds</string>
 
     <!-- Screen Time Allowance -->
     <string name="time_allowance_title">Time Allowance</string>

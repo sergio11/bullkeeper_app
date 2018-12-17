@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_foreground"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_very_high"
     android:background="@drawable/common_list_item_state"
     android:orientation="vertical">
 
-    <!-- SMS Image Container -->
     <FrameLayout
-        android:id="@+id/smsImageContainer"
+        android:id="@+id/callDetailImageContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -22,9 +20,9 @@
         android:background="@color/darkModerateBlue">
 
 
-        <!-- Sms Folder Icon  -->
+        <!-- Call Detail Type  -->
         <ImageView
-            android:id="@+id/smsFolderIcon"
+            android:id="@+id/callDetailType"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
@@ -43,11 +41,11 @@
         android:layout_height="match_parent"
         android:background="@color/commonWhite"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@id/appInstalledImageContainer"/>
+        android:layout_toEndOf="@id/callDetailImageContainer"/>
 
-    <!-- Address -->
+    <!-- Phone Number -->
     <TextView
-        android:id="@+id/addressText"
+        android:id="@+id/phoneNumberText"
         style="@style/CommonStrongText.Big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,37 +60,37 @@
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
 
-    <!-- Sms Date -->
+    <!-- Call Date -->
     <TextView
-        android:id="@+id/smsDate"
+        android:id="@+id/callDate"
         style="@style/CommonStrongText.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
-        android:layout_below="@id/addressText"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/phoneNumberText"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:gravity="start|center_vertical"
-        android:padding="8dp"
+        android:padding="0dp"
         android:singleLine="true"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
 
 
-    <!-- Sms Read State -->
+    <!-- Call Duration -->
     <TextView
-        android:id="@+id/smsReadState"
+        android:id="@+id/callDuration"
         style="@style/CommonStrongText.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
-        android:layout_below="@id/smsDate"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/callDate"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:gravity="start|center_vertical"
-        android:padding="8dp"
+        android:padding="0dp"
         android:singleLine="true"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />

@@ -41,9 +41,9 @@ public final class GetSmsListInteract extends UseCase<List<SmsEntity>, GetSmsLis
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid id can not be null");
-        Preconditions.checkNotNull(params.getTerminal(), "Params can not be null");
+        Preconditions.checkNotNull(params.getTerminal(), "Terminal can not be null");
         Preconditions.checkState(!params.getTerminal().isEmpty(),
-                "Terminal Id can not be null");
+                "Terminal can not be null");
 
         return smsRepository.getSmsList(params.getKid(), params.getTerminal());
     }

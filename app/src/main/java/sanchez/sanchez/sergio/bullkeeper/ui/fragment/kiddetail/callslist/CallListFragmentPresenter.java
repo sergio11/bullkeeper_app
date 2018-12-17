@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -7,13 +7,13 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
-import sanchez.sanchez.sergio.domain.interactor.sms.GetSmsListInteract;
-import sanchez.sanchez.sergio.domain.models.SmsEntity;
+import sanchez.sanchez.sergio.domain.interactor.calls.GetCallDetailsInteract;
+import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
 
 /**
- * SMS List Fragment Presenter
+ * Call List Fragment Presenter
  */
-public final class SmsListFragmentPresenter extends SupportLCEPresenter<ISmsListFragmentView> {
+public final class CallListFragmentPresenter extends SupportLCEPresenter<ICallsListFragmentView> {
 
     /**
      * Args
@@ -23,17 +23,16 @@ public final class SmsListFragmentPresenter extends SupportLCEPresenter<ISmsList
     public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
 
     /**
-     * Get Sms List Interact
+     * Get Calls Details Interact
      */
-    private final GetSmsListInteract getSmsListInteract;
+    private final GetCallDetailsInteract getCallDetailsInteract;
 
     /**
-     *
-     * @param getSmsListInteract
+     * @param getCallDetailsInteract
      */
     @Inject
-    public SmsListFragmentPresenter(final GetSmsListInteract getSmsListInteract){
-        this.getSmsListInteract = getSmsListInteract;
+    public CallListFragmentPresenter(final GetCallDetailsInteract getCallDetailsInteract){
+        this.getCallDetailsInteract = getCallDetailsInteract;
     }
 
     /**
@@ -60,57 +59,55 @@ public final class SmsListFragmentPresenter extends SupportLCEPresenter<ISmsList
                 terminalItems.get(args.getInt(CURRENT_TERMINAL_POS_ARG));
 
         if(terminalItem != null)
-            getSmsListInteract.execute(new GetSmsListObservable(GetSmsListInteract.GetSmsListApiErrors.class),
-                    GetSmsListInteract.Params.create(
+            getCallDetailsInteract.execute(new GetCallsListObservable(GetCallDetailsInteract.GetCallDetailsListApiErrors.class),
+                    GetCallDetailsInteract.Params.create(
                             args.getString(KID_IDENTITY_ARG),
                             terminalItem.getIdentity()));
     }
 
 
     /**
-     * Get SMS List Observable
+     * Get Call List Observable
      */
-    public class GetSmsListObservable extends CommandCallBackWrapper<List<SmsEntity>,
-            GetSmsListInteract.GetSmsListApiErrors.IGetSmsListApiErrorsVisitor,
-            GetSmsListInteract.GetSmsListApiErrors>
-            implements GetSmsListInteract.GetSmsListApiErrors.IGetSmsListApiErrorsVisitor {
+    public class GetCallsListObservable extends CommandCallBackWrapper<List<CallDetailEntity>,
+            GetCallDetailsInteract.GetCallDetailsListApiErrors.IGetCallDetailsListApiErrorsVisitor,
+            GetCallDetailsInteract.GetCallDetailsListApiErrors>
+            implements GetCallDetailsInteract.GetCallDetailsListApiErrors.IGetCallDetailsListApiErrorsVisitor {
+
 
         /**
          *
          * @param apiErrors
          */
-        public GetSmsListObservable(Class<GetSmsListInteract.GetSmsListApiErrors> apiErrors) {
+        public GetCallsListObservable(final Class<GetCallDetailsInteract.GetCallDetailsListApiErrors> apiErrors) {
             super(apiErrors);
         }
 
         /**
-         *
-         * @param response
+         * On Success
+         * @param calls
          */
         @Override
-        protected void onSuccess(List<SmsEntity> response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
-            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
-
-            if (isViewAttached() && getView() != null){
+        protected void onSuccess(final List<CallDetailEntity> calls) {
+            Preconditions.checkNotNull(calls, "Calls can not be null");
+            if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onDataLoaded(response);
+                getView().onDataLoaded(calls);
             }
         }
 
         /**
-         * Visit No SMS Found
+         * Visit No Calls Found
          * @param apiErrorsVisitor
          */
         @Override
-        public void visitNoSmsFound(GetSmsListInteract.GetSmsListApiErrors.IGetSmsListApiErrorsVisitor apiErrorsVisitor) {
-            Preconditions.checkNotNull(apiErrorsVisitor, "Api Errors Visitor");
+        public void visitNoCallsFound(final GetCallDetailsInteract.GetCallDetailsListApiErrors
+                .IGetCallDetailsListApiErrorsVisitor apiErrorsVisitor) {
+            Preconditions.checkNotNull(apiErrorsVisitor, "Api Errors Visitor can not be null");
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
             }
         }
     }
-
-
 }

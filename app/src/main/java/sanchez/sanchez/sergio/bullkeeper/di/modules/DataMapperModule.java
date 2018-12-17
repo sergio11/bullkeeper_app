@@ -5,6 +5,7 @@ import javax.inject.Named;
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.data.mapper.impl.CallDetailDataMapper;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertPageEntityDataMapper;
@@ -44,6 +45,7 @@ import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.CallDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
@@ -74,6 +76,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
+import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
@@ -417,5 +420,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<SmsDTO, SmsEntity> provideSmsEntityDataMapper(){
         return new SmsEntityDataMapper();
+    }
+
+    /**
+     * Provide Call Detail Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<CallDetailDTO, CallDetailEntity> provideCallDetailEntityDataMapper(){
+        return new CallDetailDataMapper();
     }
 }

@@ -4,6 +4,7 @@ import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AlertsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AppRulesModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.CallModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
@@ -22,6 +23,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfile
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile.MyKidsProfilePresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallListFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
@@ -48,7 +51,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.Tim
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
                 AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class,
-                SmsModule.class })
+                SmsModule.class, CallModule.class })
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -124,6 +127,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final SmsListMvpFragment smsListMvpFragment);
 
+    /**
+     * Inject into Calls List Mvp Fragment
+     * @param callsListMvpFragment
+     */
+    void inject(final CallsListMvpFragment callsListMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -137,4 +146,5 @@ public interface MyKidsComponent extends StatsComponent {
     TerminalsFragmentPresenter terminalsFragmentPresenter();
     KidGuardiansFragmentPresenter kidGuardiansFragmentPresenter();
     SmsListFragmentPresenter smsListFragmentPresenter();
+    CallListFragmentPresenter callListFragmentPresenter();
 }
