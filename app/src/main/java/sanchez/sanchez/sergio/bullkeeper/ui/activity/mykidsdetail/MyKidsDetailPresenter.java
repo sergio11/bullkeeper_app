@@ -1,12 +1,8 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
-import android.os.Bundle;
-
 import javax.inject.Inject;
-
-import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetKidByIdInteract;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 
 /**
@@ -17,44 +13,28 @@ public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailV
     public final static String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     /**
-     * Get Son By Id Interact
+     * Get Kid By Id Interact
      */
-    private final GetSonByIdInteract getSonByIdInteract;
+    private final GetKidByIdInteract getKidByIdInteract;
 
     @Inject
-    public MyKidsDetailPresenter(final GetSonByIdInteract getSonByIdInteract) {
-        this.getSonByIdInteract = getSonByIdInteract;
+    public MyKidsDetailPresenter(final GetKidByIdInteract getKidByIdInteract) {
+        this.getKidByIdInteract = getKidByIdInteract;
     }
-
-    /**
-     * On Init
-     */
-    @Override
-    protected void onInit(final Bundle args) {
-        super.onInit();
-        if(args != null && args.containsKey(KID_IDENTITY_ARG)) {
-            // Load Son Data
-            loadSonData(args.getString(KID_IDENTITY_ARG));
-        }
-    }
-
 
     /**
      * Load Son Data
      */
-    private void loadSonData(final String sonId){
+    public void loadKidData(final String kid){
 
-        if (isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_kid_information);
-
-        getSonByIdInteract.execute(new GetSonByIdObservable(),
-                GetSonByIdInteract.Params.create(sonId));
+        getKidByIdInteract.execute(new GetKidByIdObservable(),
+                GetKidByIdInteract.Params.create(kid));
     }
 
     /**
-     * Get Son By Id Observable
+     * Get Kid By Id Observable
      */
-    public class GetSonByIdObservable extends BasicCommandCallBackWrapper<KidEntity> {
+    public class GetKidByIdObservable extends BasicCommandCallBackWrapper<KidEntity> {
 
         /**
          * On Success
@@ -63,7 +43,7 @@ public final class MyKidsDetailPresenter extends SupportPresenter<IMyKidsDetailV
         @Override
         protected void onSuccess(KidEntity kidEntity) {
             if (isViewAttached() && getView() != null)
-                getView().onSonLoaded(kidEntity);
+                getView().onKidLoaded(kidEntity);
         }
     }
 

@@ -44,6 +44,7 @@ import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import timber.log.Timber;
 
 /**
  * My Kids Detail Activity
@@ -248,7 +249,13 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         // Get Kid Identity
         kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
+
+        showProgressDialog(R.string.generic_loading_text);
+        // Load Son Data
+        getPresenter().loadKidData(kidIdentity);
     }
+
+
 
     /**
      * Get Args
@@ -478,7 +485,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * @param kidEntity
      */
     @Override
-    public void onSonLoaded(KidEntity kidEntity) {
+    public void onKidLoaded(KidEntity kidEntity) {
 
 
         if(appUtils.isValidString(kidEntity.getProfileImage()))
@@ -501,12 +508,13 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         kidSchoolTextView.setText(kidEntity.getSchool().getName());
 
+        terminalItemsList.clear();
+
         for(final TerminalEntity terminalEntity: kidEntity.getTerminalEntities()) {
             final TerminalItem terminalItem = new TerminalItem(terminalEntity.getIdentity(),
                     terminalEntity.getDeviceName());
             terminalItemsList.add(terminalItem);
         }
-
 
         // Check Terminals linked
         if(terminalItemsList.isEmpty()) {

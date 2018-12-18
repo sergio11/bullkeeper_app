@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetKidByIdInteract;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 
 /**
@@ -21,15 +21,15 @@ public final class KidsResultsActivityPresenter extends SupportPresenter<IKidsRe
     /**
      * Get Son By Id Interact
      */
-    private final GetSonByIdInteract getSonByIdInteract;
+    private final GetKidByIdInteract getKidByIdInteract;
 
     /**
      * Kids Results Activity Presenter
-     * @param getSonByIdInteract
+     * @param getKidByIdInteract
      */
     @Inject
-    public KidsResultsActivityPresenter(final GetSonByIdInteract getSonByIdInteract) {
-        this.getSonByIdInteract = getSonByIdInteract;
+    public KidsResultsActivityPresenter(final GetKidByIdInteract getKidByIdInteract) {
+        this.getKidByIdInteract = getKidByIdInteract;
     }
 
     /**
@@ -55,8 +55,8 @@ public final class KidsResultsActivityPresenter extends SupportPresenter<IKidsRe
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.loading_kid_information);
 
-        getSonByIdInteract.execute(new GetSonByIdObservable(),
-                GetSonByIdInteract.Params.create(sonId));
+        getKidByIdInteract.execute(new GetSonByIdObservable(),
+                GetKidByIdInteract.Params.create(sonId));
     }
 
     /**

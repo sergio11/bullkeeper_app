@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactListInteract;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
 
@@ -26,6 +27,11 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
      * Get Contact List Interact
      */
     private final GetContactListInteract getContactListInteract;
+
+    /**
+     * Is Loading Data
+     */
+    private boolean isLoadingData = false;
 
     /**
      *
@@ -56,14 +62,24 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
         Preconditions.checkState(!terminalItems.isEmpty(), "Terminal list can not be empty");
         Preconditions.checkState(args.containsKey(CURRENT_TERMINAL_POS_ARG), "You must provide a terminal pos");
 
+        if (isLoadingData)
+            return;
+
+        isLoadingData = true;
+
         final TerminalItem terminalItem =
                 terminalItems.get(args.getInt(CURRENT_TERMINAL_POS_ARG));
 
-        if(terminalItem != null)
+        if(terminalItem != null) {
+
+            if (isViewAttached() && getView() != null)
+                getView().onShowLoading();
+
             getContactListInteract.execute(new GetContactListObservable(GetContactListInteract.GetContactListApiErrors.class),
                     GetContactListInteract.Params.create(
                             args.getString(KID_IDENTITY_ARG),
                             terminalItem.getIdentity()));
+        }
     }
 
 
@@ -84,6 +100,35 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
         }
 
         /**
+         * On Network Error
+         */
+        @Override
+        protected void onNetworkError() {
+            super.onNetworkError();
+            isLoadingData = false;
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            super.onOtherException(ex);
+            isLoadingData = false;
+        }
+
+        /**
+         * On Api Exception
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            super.onApiException(response);
+            isLoadingData = false;
+        }
+
+        /**
          *
          * @param response
          */
@@ -96,6 +141,9 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
                 getView().hideProgressDialog();
                 getView().onDataLoaded(response);
             }
+
+            isLoadingData = false;
+
         }
 
         /**
@@ -109,6 +157,8 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
             }
+
+            isLoadingData = false;
         }
     }
 

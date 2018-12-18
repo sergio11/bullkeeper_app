@@ -297,12 +297,10 @@ public final class AlertListPresenter extends SupportLCEPresenter<IAlertListView
          */
         @Override
         protected void onSuccess(List<AlertEntity> alertEntities) {
-
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onDataLoaded(alertEntities);
             }
-
         }
 
         @Override

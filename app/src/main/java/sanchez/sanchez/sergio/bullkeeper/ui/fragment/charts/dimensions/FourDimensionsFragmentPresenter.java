@@ -60,6 +60,7 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
 
         Timber.d("Load Data for Son Id %s", sonId);
 
+
         getFourDimensionsStatisticsByChildInteract.execute(new GetFourDimensionsStatisticsByChildObservable(GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.class),
                 GetFourDimensionsStatisticsByChildInteract.Params.create(sonId, preferenceRepository.getAgeOfResultsAsInt()));
     }

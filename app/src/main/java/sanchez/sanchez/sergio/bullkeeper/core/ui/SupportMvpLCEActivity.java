@@ -244,6 +244,13 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
         onShowNotFoundState();
     }
 
+    /**
+     * On Show Loading
+     */
+    @Override
+    public void onShowLoading() {
+        onShowLoadingState();
+    }
 
     /**
      * On Data Loaded

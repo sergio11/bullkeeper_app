@@ -87,7 +87,6 @@ public final class RelationsMvpPresenter extends SupportLCEPresenter<IRelationsV
 
             if (isViewAttached() && getView() != null)
                 getView().onDataLoaded(response.getFriends());
-
         }
 
         /**
@@ -98,7 +97,6 @@ public final class RelationsMvpPresenter extends SupportLCEPresenter<IRelationsV
         public void visitNoActiveFriendsInThisPeriod(GetMostActiveFriendsInteract.GetMostActiveFriendsApiErrors apiErrors) {
             if (isViewAttached() && getView() != null)
                 getView().onNoDataFound();
-
         }
     }
 

@@ -12,7 +12,7 @@ import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 /**
  * Get Son By Id Interact
  */
-public class GetSonByIdInteract extends UseCase<KidEntity, GetSonByIdInteract.Params> {
+public class GetKidByIdInteract extends UseCase<KidEntity, GetKidByIdInteract.Params> {
 
     /**
      * Children Repository
@@ -24,7 +24,7 @@ public class GetSonByIdInteract extends UseCase<KidEntity, GetSonByIdInteract.Pa
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public GetSonByIdInteract(final IThreadExecutor threadExecutor,
+    public GetKidByIdInteract(final IThreadExecutor threadExecutor,
                               final IPostExecutionThread postExecutionThread,
                               final IChildrenRepository childrenRepository) {
         super(threadExecutor, postExecutionThread);

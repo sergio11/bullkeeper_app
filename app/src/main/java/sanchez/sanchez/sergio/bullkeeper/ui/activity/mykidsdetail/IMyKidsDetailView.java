@@ -10,9 +10,9 @@ import sanchez.sanchez.sergio.domain.models.KidEntity;
 public interface IMyKidsDetailView extends ISupportView {
 
     /**
-     * On Son Loaded
+     * On Kid Loaded
      * @param kidEntity
      */
-    void onSonLoaded(final KidEntity kidEntity);
+    void onKidLoaded(final KidEntity kidEntity);
 
 }

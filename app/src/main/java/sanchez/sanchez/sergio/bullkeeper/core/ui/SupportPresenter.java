@@ -5,9 +5,7 @@ import android.support.annotation.NonNull;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import java.util.EnumSet;
 import java.util.Set;
-
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.utils.CallbackWrapper;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
@@ -24,7 +22,11 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     @Inject
     protected IAppUtils appUtils;
 
+    /**
+     * Args
+     */
     protected Bundle args;
+
 
     public SupportPresenter() {
     }
@@ -38,15 +40,12 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         super.onAttachView(view);
         Timber.d("SupportPresenter -> On Attach View");
         args = view.getArgs();
-        if(args != null && !args.isEmpty()) {
+        if (args != null && !args.isEmpty()) {
             onInit(args);
         } else {
             onInit();
         }
     }
-
-
-
 
     /**
      * On Detach View

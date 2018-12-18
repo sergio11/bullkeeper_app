@@ -42,6 +42,9 @@ public final class TimeAllowanceFragmentPresenter extends SupportLCEPresenter<IT
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
 
+        if (isViewAttached() && getView() != null)
+            getView().onShowLoading();
+
         getScreenTimeAllowanceByChildIdInteract.execute(
                 new GetScreenTimeAllowanceObservable(GetScreenTimeAllowanceByChildIdInteract.GetScreenTimeAllowanceApiErrors.class),
                 GetScreenTimeAllowanceByChildIdInteract.Params.create(args.getString(SON_IDENTITY_ARG)));
@@ -78,6 +81,7 @@ public final class TimeAllowanceFragmentPresenter extends SupportLCEPresenter<IT
                 getView().setRemainingTime(response.getRemainingTime());
                 getView().onDataLoaded(response.getTimeAllowancePerDay());
             }
+
 
         }
 

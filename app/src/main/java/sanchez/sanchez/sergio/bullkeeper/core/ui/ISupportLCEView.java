@@ -19,4 +19,9 @@ public interface ISupportLCEView<T> extends ISupportView {
      */
     void onDataLoaded(final List<T> dataLoaded);
 
+    /**
+     * On Show Loading
+     */
+    void onShowLoading();
+
 }

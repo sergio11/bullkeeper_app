@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteAllScheduledBlocksInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockByChildInteract;
@@ -42,6 +43,11 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
     private final SaveScheduledBlockStatusInteract saveScheduledBlockStatusInteract;
 
     /**
+     * Is Loading Data
+     */
+    private boolean isLoadingData = false;
+
+    /**
      * @param getScheduledBlockByChildInteract
      * @param deleteScheduledBlockByIdInteract
      * @param deleteAllScheduledBlocksInteract
@@ -72,6 +78,14 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
     public void loadData(Bundle args) {
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
+
+        if(isLoadingData)
+            return;
+
+        isLoadingData = true;
+
+        if (isViewAttached() && getView() != null)
+            getView().onShowLoading();
 
         getScheduledBlockByChildInteract.execute(new GetScheduledBlockByChildObservable(GetScheduledBlockByChildInteract.GetScheduledBlockByChildApiErrors.class),
                 GetScheduledBlockByChildInteract.Params.create(args.getString(SON_IDENTITY_ARG)));
@@ -142,6 +156,35 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
         }
 
         /**
+         * On Network Error
+         */
+        @Override
+        protected void onNetworkError() {
+            super.onNetworkError();
+            isLoadingData = false;
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            super.onOtherException(ex);
+            isLoadingData = false;
+        }
+
+        /**
+         * On Api Exception
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            super.onApiException(response);
+            isLoadingData = false;
+        }
+
+        /**
          * On Success
          * @param response
          */
@@ -154,6 +197,8 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
                 getView().hideProgressDialog();
                 getView().onDataLoaded(response);
             }
+
+            isLoadingData = false;
 
         }
 
@@ -168,6 +213,8 @@ public final class ScheduledBlocksFragmentPresenter extends SupportLCEPresenter<
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
             }
+
+            isLoadingData = false;
         }
     }
 

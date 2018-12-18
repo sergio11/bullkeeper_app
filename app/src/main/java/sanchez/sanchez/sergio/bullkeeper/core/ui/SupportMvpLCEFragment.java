@@ -270,6 +270,14 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     }
 
     /**
+     * On Show Loading
+     */
+    @Override
+    public void onShowLoading() {
+        onShowLoadingState();
+    }
+
+    /**
      * On Data Loaded
      * @param dataLoaded
      */

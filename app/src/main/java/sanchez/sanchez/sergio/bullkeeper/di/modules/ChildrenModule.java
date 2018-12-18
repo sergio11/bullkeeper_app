@@ -22,7 +22,7 @@ import sanchez.sanchez.sergio.domain.interactor.children.GetFourDimensionsStatis
 import sanchez.sanchez.sergio.domain.interactor.children.GetKidGuardiansInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSentimentAnalysisStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.GetSocialMediaActivityStatisticsInteract;
-import sanchez.sanchez.sergio.domain.interactor.children.GetSonByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.children.GetKidByIdInteract;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
@@ -84,9 +84,9 @@ public class ChildrenModule {
      * @return
      */
     @Provides @PerActivity
-    GetSonByIdInteract provideGetKidByIdInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+    GetKidByIdInteract provideGetKidByIdInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                  final IChildrenRepository childrenRepository){
-        return new GetSonByIdInteract(threadExecutor, postExecutionThread, childrenRepository);
+        return new GetKidByIdInteract(threadExecutor, postExecutionThread, childrenRepository);
     }
 
     /**

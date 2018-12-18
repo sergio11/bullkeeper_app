@@ -5,6 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.alerts.GetWarningAlertsOfSonForSelfParentInteract;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 
@@ -19,6 +20,12 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
      * Get Danger Alerts Of Son For Self Parent
      */
     private final GetWarningAlertsOfSonForSelfParentInteract getWarningAlertsOfSonForSelfParentInteract;
+
+    /**
+     * Is Loading Data
+     */
+    private boolean isLoadingData = false;
+
 
     /**
      *
@@ -44,6 +51,14 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
 
+        if(isLoadingData)
+            return;
+
+        isLoadingData = true;
+
+        if (isViewAttached() && getView() != null)
+            getView().onShowLoading();
+
         final String sonId = args.getString(SON_IDENTITY_ARG);
         getWarningAlertsOfSonForSelfParentInteract.execute(new GetWarningAlertsOfKidForSelfParentObservable(
                 GetWarningAlertsOfSonForSelfParentInteract.GetWarningAlertsOfKidForSelfParentApiErrors.class),
@@ -65,6 +80,35 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
         }
 
         /**
+         * On Network Error
+         */
+        @Override
+        protected void onNetworkError() {
+            super.onNetworkError();
+            isLoadingData = false;
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            super.onOtherException(ex);
+            isLoadingData = false;
+        }
+
+        /**
+         * On Api Exception
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            super.onApiException(response);
+            isLoadingData = false;
+        }
+
+        /**
          * On Success
          * @param alertEntities
          */
@@ -74,6 +118,7 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
                 getView().hideProgressDialog();
                 getView().onDataLoaded(alertEntities);
             }
+            isLoadingData = false;
         }
 
 
@@ -87,6 +132,7 @@ public final class ImportantAlertsFragmentPresenter extends SupportLCEPresenter<
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
             }
+            isLoadingData = false;
         }
     }
 

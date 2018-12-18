@@ -118,7 +118,6 @@ public final class InvitationsListPresenter extends SupportLCEPresenter<IInvitat
                 getView().hideProgressDialog();
                 getView().onDataLoaded(response);
             }
-
         }
 
         /**
