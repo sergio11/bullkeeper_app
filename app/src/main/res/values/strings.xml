@@ -753,6 +753,10 @@
     <string name="app_version_name" formatted="false">Version Name: %s</string>
     <string name="app_current_rule_title">App Rule</string>
 
+    <!-- SMS Detail -->
+    <string name="sms_detail_title">SMS Detail</string>
+    <string name="sms_detail_message_title">Message</string>
+
     <!-- Invitations -->
     <string name="invitation_item_removed">The invitation was deleted</string>
     <string name="invitations_title_default">Invitations</string>

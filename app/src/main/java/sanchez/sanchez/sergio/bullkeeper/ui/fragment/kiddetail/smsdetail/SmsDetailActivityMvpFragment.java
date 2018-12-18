@@ -6,9 +6,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+import butterknife.BindView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
@@ -16,6 +22,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.SmsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.smsdetail.ISmsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.SmsEntity;
+import sanchez.sanchez.sergio.domain.models.SmsReadStateEnum;
+
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
@@ -37,6 +45,36 @@ public class SmsDetailActivityMvpFragment extends SupportMvpFragment<SmsDetailFr
      * Views
      * =============
      */
+
+    /**
+     * Sms Folder Icon
+     */
+    @BindView(R.id.smsFolderIcon)
+    protected ImageView smsFolderIconImageView;
+
+    /**
+     * Address Text
+     */
+    @BindView(R.id.addressText)
+    protected TextView addressTextView;
+
+    /**
+     * Sms Date Text View
+     */
+    @BindView(R.id.smsDate)
+    protected TextView smsDateTextView;
+
+    /**
+     * Sms Read State Text View
+     */
+    @BindView(R.id.smsReadState)
+    protected TextView smsReadStateTextView;
+
+    /**
+     * SMS Message Text View
+     */
+    @BindView(R.id.smsMessage)
+    protected TextView smsMessageTextView;
 
 
     /**
@@ -192,6 +230,43 @@ public class SmsDetailActivityMvpFragment extends SupportMvpFragment<SmsDetailFr
      */
     @Override
     public void onSmsDetailLoaded(SmsEntity smsEntity) {
-        Preconditions.checkNotNull(smsEntity, "Sms Entitity can not be null");
+        Preconditions.checkNotNull(smsEntity, "Sms Entity can not be null");
+
+        // Folder Name
+        switch (smsEntity.getFolderName()) {
+            case SENT:
+                smsFolderIconImageView.setImageResource(R.drawable.sms_sent_icon);
+                break;
+            case INBOX:
+                smsFolderIconImageView.setImageResource(R.drawable.sms_inbox_icon);
+                break;
+        }
+
+        // Set Address
+        addressTextView.setText(smsEntity.getAddress());
+
+
+        // Set Sms Date
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+                getString(R.string.date_time_format),
+                Locale.getDefault());
+
+        smsDateTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.sms_date_time),
+                simpleDateFormat.format(smsEntity.getDate())));
+
+        // Set Read State
+        if(smsEntity.getReadState().equals(SmsReadStateEnum.VIEWED)) {
+            smsReadStateTextView
+                    .setText(getString(R.string.message_read));
+        } else {
+            smsReadStateTextView
+                    .setText(getString(R.string.unread_message));
+        }
+
+        // Set Message
+        smsMessageTextView.setText(smsEntity.getMessage());
+
+
     }
 }
