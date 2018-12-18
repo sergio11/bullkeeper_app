@@ -125,7 +125,7 @@
                     <!-- Total Apps Text View -->
                     <TextView
                         android:id="@+id/totalAppsInstalledTextView"
-                        style="@style/CommonStrongText"
+                        style="@style/CommonStrongText.Big"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"
@@ -135,10 +135,51 @@
                         android:drawablePadding="@dimen/common_padding"
                         android:drawableStart="@drawable/apps_cyan_solid" />
 
+                    <!-- Total Calls Text View -->
+                    <TextView
+                        android:id="@+id/totalCallsTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/calls_cyan_solid_small" />
+
+
+                    <!-- Total SMS Text View -->
+                    <TextView
+                        android:id="@+id/totalSmsTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/sms_icon_cyan_small" />
+
+
+                    <!-- Total Contacts Text View -->
+                    <TextView
+                        android:id="@+id/totalContactsTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/contacts_icon_cyan_small" />
+
                     <!-- Last Time Used -->
                     <TextView
                         android:id="@+id/lastTimeUsed"
-                        style="@style/CommonStrongText"
+                        style="@style/CommonStrongText.Big"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"

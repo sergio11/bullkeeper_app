@@ -4,6 +4,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
+import sanchez.sanchez.sergio.domain.models.ScreenStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 
 /**
@@ -32,6 +33,15 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setOsVersion(originModel.getOsVersion());
         terminalEntity.setSdkVersion(originModel.getSdkVersion());
         terminalEntity.setTotalApps(originModel.getTotalApps());
+        terminalEntity.setTotalCalls(originModel.getTotalCalls());
+        terminalEntity.setTotalSms(originModel.getTotalSms());
+        terminalEntity.setTotalContacts(originModel.getTotalContacts());
+        try {
+            terminalEntity.setScreenStatusEnum(
+                    ScreenStatusEnum.valueOf(originModel.getScreenStatus()));
+        } catch(final Exception ex) {
+            terminalEntity.setScreenStatusEnum(ScreenStatusEnum.STATE_UNKNOWN);
+        }
         terminalEntity.setLastTimeUsed(originModel.getLastTimeUsed());
         return terminalEntity;
     }
@@ -57,6 +67,9 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setOsVersion(originModel.getOsVersion());
         terminalDTO.setSdkVersion(originModel.getSdkVersion());
         terminalDTO.setTotalApps(originModel.getTotalApps());
+        terminalDTO.setTotalCalls(originModel.getTotalCalls());
+        terminalDTO.setTotalContacts(originModel.getTotalContacts());
+        terminalDTO.setScreenStatus(originModel.getScreenStatusEnum().name());
         terminalDTO.setLastTimeUsed(originModel.getLastTimeUsed());
         return terminalDTO;
     }

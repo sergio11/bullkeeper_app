@@ -736,6 +736,12 @@
     <string name="os_version_and_sdk" formatted="false">%s - %s</string>
     <string name="has_registered_applications" formatted="false">Has %d registered applications</string>
     <string name="has_not_registered_applications">Has not registered applications</string>
+    <string name="has_registered_calls" formatted="false">There are %d registered phone calls</string>
+    <string name="has_not_registered_calls">There is no registered phone call</string>
+    <string name="has_registered_sms" formatted="false">There are %d registered SMS</string>
+    <string name="has_not_registered_sms">There is no registered SMS</string>
+    <string name="has_registered_contacts" formatted="false">There are %d registered contacts</string>
+    <string name="has_not_registered_contacts">There is no registered contacts</string>
     <string name="has_terminals_linked" formatted="false">Has %d linked devices</string>
     <string name="not_have_any_linked_devices">Not have any linked devices</string>
 

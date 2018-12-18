@@ -67,6 +67,25 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     protected TextView totalAppsInstalledTextView;
 
     /**
+     * Total Calls Text View
+     */
+    @BindView(R.id.totalCallsTextView)
+    protected TextView totalCallsTextView;
+
+    /**
+     * Total SMS Text View
+     */
+    @BindView(R.id.totalSmsTextView)
+    protected TextView totalSmsTextView;
+
+    /**
+     * Total Contacts Text View
+     */
+    @BindView(R.id.totalContactsTextView)
+    protected TextView totalContactsTextView;
+
+
+    /**
      * Lat Time Used Text View
      */
     @BindView(R.id.lastTimeUsed)
@@ -240,12 +259,43 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 terminalDetailEntity.getOsVersion(), terminalDetailEntity.getSdkVersion()));
 
 
+        // Set Total Apps
+
         final String totalAppsInstalledText = terminalDetailEntity.getTotalApps() > 0 ?
                 String.format(Locale.getDefault(),
                         getString(R.string.has_registered_applications),
                         terminalDetailEntity.getTotalApps()) : getString(R.string.has_not_registered_applications);
 
+
         totalAppsInstalledTextView.setText(totalAppsInstalledText);
+
+        // Set Total Calls
+
+        final String totalCallsText = terminalDetailEntity.getTotalCalls() > 0 ?
+                String.format(Locale.getDefault(),
+                        getString(R.string.has_registered_calls),
+                        terminalDetailEntity.getTotalCalls()) : getString(R.string.has_not_registered_calls);
+
+        totalCallsTextView.setText(totalCallsText);
+
+        // Set Total SMS
+
+        final String totalSmsText = terminalDetailEntity.getTotalSms() > 0 ?
+                String.format(Locale.getDefault(),
+                        getString(R.string.has_registered_sms),
+                        terminalDetailEntity.getTotalSms()) : getString(R.string.has_not_registered_sms);
+
+        totalSmsTextView.setText(totalSmsText);
+
+        // Set Total Contacts
+
+        final String totalContactsText = terminalDetailEntity.getTotalContacts() > 0 ?
+                String.format(Locale.getDefault(),
+                        getString(R.string.has_registered_contacts),
+                        terminalDetailEntity.getTotalContacts()) : getString(R.string.has_not_registered_contacts);
+
+        totalContactsTextView.setText(totalContactsText);
+
 
         // Last Time Used
         lastTimeUsedTextView.setText(terminalDetailEntity.getLastTimeUsed());
