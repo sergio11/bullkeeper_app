@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpSearchLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -39,7 +39,7 @@ import timber.log.Timber;
 /**
  * App Rules List Fragment
  */
-public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentPresenter,
+public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFragmentPresenter,
         IAppRulesFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, AppInstalledEntity>
         implements IAppRulesFragmentView, AppRulesAdapter.OnAppRulesListener, AdapterView.OnItemSelectedListener {
 
@@ -201,6 +201,15 @@ public class AppRulesMvpFragment extends SupportMvpLCEFragment<AppRulesFragmentP
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
+    }
+
+    /**
+     * Get Search Hint Res
+     * @return
+     */
+    @Override
+    protected int getSearchHintRes() {
+        return R.string.search_app_rules;
     }
 
     /**

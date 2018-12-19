@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
@@ -23,7 +23,7 @@ import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 /**
  * App Rules Fragment Presenter
  */
-public final class AppRulesFragmentPresenter extends SupportLCEPresenter<IAppRulesFragmentView> {
+public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<IAppRulesFragmentView> {
 
     /**
      * Args
@@ -122,6 +122,11 @@ public final class AppRulesFragmentPresenter extends SupportLCEPresenter<IAppRul
         updateAppInstalledRulesByChildInteract.execute(new UpdateAppRulesObservable(),
                 UpdateAppInstalledRulesByChildInteract.Params.create(childId, terminalId, appInstalledRuleEntities));
 
+
+    }
+
+    @Override
+    public void loadData(String queryText) {
 
     }
 
