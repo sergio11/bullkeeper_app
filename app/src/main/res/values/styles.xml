@@ -317,6 +317,11 @@
         <item name="android:textColor">@color/commonWhite</item>
     </style>
 
+    <!-- Block Status -->
+    <style name="BlockStatusSwitch">
+        <item name="colorControlActivated">@color/redDanger</item>
+        <item name="colorSwitchThumbNormal">@color/greenSuccess</item>
+    </style>
 
     <style name="CommonTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="fontPath">fonts/VAGRoundedBT.ttf</item>

@@ -126,14 +126,14 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
 
     /**
      * New Instance
-     * @param alertId
+     * @param terminal
      */
-    public static TerminalDetailActivityMvpFragment newInstance(final String alertId, final String sonId) {
+    public static TerminalDetailActivityMvpFragment newInstance(final String terminal, final String kid) {
         final TerminalDetailActivityMvpFragment alertDetailActivityFragment =
                 new TerminalDetailActivityMvpFragment();
         final Bundle args = new Bundle();
-        args.putString(TERMINAL_ID_ARG, alertId);
-        args.putString(CHILD_ID_ARG, sonId);
+        args.putString(TERMINAL_ID_ARG, terminal);
+        args.putString(CHILD_ID_ARG, kid);
         alertDetailActivityFragment.setArguments(args);
         return alertDetailActivityFragment;
     }

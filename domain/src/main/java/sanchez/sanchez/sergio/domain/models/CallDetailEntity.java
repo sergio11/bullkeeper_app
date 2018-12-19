@@ -44,6 +44,11 @@ public final class CallDetailEntity implements Serializable {
     private String terminal;
 
     /**
+     * Is Blocked
+     */
+    private boolean isBlocked;
+
+    /**
      *
      */
     public CallDetailEntity(){}
@@ -57,9 +62,11 @@ public final class CallDetailEntity implements Serializable {
      * @param callType
      * @param kid
      * @param terminal
+     * @param isBlocked
      */
-    public CallDetailEntity(String identity, String phoneNumber, Date callDayTime,
-                            String callDuration, CallTypeEnum callType, String kid, String terminal) {
+    public CallDetailEntity(final String identity, final String phoneNumber, final Date callDayTime,
+                            final String callDuration, final CallTypeEnum callType, final String kid,
+                            final String terminal, boolean isBlocked) {
         this.identity = identity;
         this.phoneNumber = phoneNumber;
         this.callDayTime = callDayTime;
@@ -67,6 +74,7 @@ public final class CallDetailEntity implements Serializable {
         this.callType = callType;
         this.kid = kid;
         this.terminal = terminal;
+        this.isBlocked = isBlocked;
     }
 
     public String getIdentity() {
@@ -125,6 +133,14 @@ public final class CallDetailEntity implements Serializable {
         this.terminal = terminal;
     }
 
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
     @Override
     public String toString() {
         return "CallDetailEntity{" +
@@ -135,6 +151,7 @@ public final class CallDetailEntity implements Serializable {
                 ", callType=" + callType +
                 ", kid='" + kid + '\'' +
                 ", terminal='" + terminal + '\'' +
+                ", isBlocked=" + isBlocked +
                 '}';
     }
 }

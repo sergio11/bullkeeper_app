@@ -220,9 +220,13 @@ public class CallsListMvpFragment extends SupportMvpLCEFragment<CallListFragment
      * @param callDetailEntity
      */
     @Override
-    public void onItemClick(CallDetailEntity callDetailEntity) {
+    public void onItemClick(final CallDetailEntity callDetailEntity) {
         Preconditions.checkNotNull(callDetailEntity, "Call Detail Entity can not be null");
-        // TODO go to call detail
+        Preconditions.checkState(!callDetailEntity.getIdentity().isEmpty(),
+                "Call Detail Id can not be empty");
+        // Navigate To Call Detail
+        activityHandler.navigateToCallDetail(kidIdentity, terminalIdentity,
+                callDetailEntity.getIdentity());
     }
 
 

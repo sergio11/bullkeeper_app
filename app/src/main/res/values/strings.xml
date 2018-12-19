@@ -757,6 +757,12 @@
     <string name="sms_detail_title">SMS Detail</string>
     <string name="sms_detail_message_title">Message</string>
 
+    <!-- Call Detail -->
+    <string name="call_detail_title">Call Detail</string>
+    <string name="call_detail_block_number">Phone number blocked</string>
+    <string name="call_detail_unlock_number">Phone number unlocked</string>
+    <string name="call_detail_block_number_confirm">Do you want to block this phone number? You will stop receiving calls and SMS from this number.</string>
+    <string name="call_detail_unlock_number_confirm">Do you want to unlock this phone number? You can receive calls and SMS from this number</string>
     <!-- Invitations -->
     <string name="invitation_item_removed">The invitation was deleted</string>
     <string name="invitations_title_default">Invitations</string>

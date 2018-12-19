@@ -291,6 +291,11 @@
             android:theme="@style/AppTheme.Common"
             />
 
+        <!-- Call Detail Activity -->
+        <activity android:name=".ui.activity.calldetail.CallDetailMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

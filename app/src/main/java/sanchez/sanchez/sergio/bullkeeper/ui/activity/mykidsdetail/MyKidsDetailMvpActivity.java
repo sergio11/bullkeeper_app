@@ -430,6 +430,24 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Call Detail
+     * @param kid
+     * @param terminal
+     * @param call
+     */
+    @Override
+    public void navigateToCallDetail(final String kid, final String terminal, final String call) {
+        Preconditions.checkNotNull(kid, "kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "kid can not be empty");
+        Preconditions.checkNotNull(terminal, "terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "terminal can not be empty");
+        Preconditions.checkNotNull(call, "call can not be null");
+        Preconditions.checkState(!call.isEmpty(), "call can not be empty");
+
+        navigatorImpl.navigateToCallDetailActivity(this, kid, terminal, call);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue

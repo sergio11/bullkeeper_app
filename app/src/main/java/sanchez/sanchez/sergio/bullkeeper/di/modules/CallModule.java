@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.data.net.services.ICallsService;
 import sanchez.sanchez.sergio.data.repository.CallsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.calls.GetCallDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.calls.GetCallDetailsInteract;
 import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
 import sanchez.sanchez.sergio.domain.repository.ICallsRepository;
@@ -58,6 +59,22 @@ public class CallModule {
             final ICallsRepository callsRepository
     ){
         return new GetCallDetailsInteract(threadExecutor, postExecutionThread, callsRepository);
+    }
+
+    /**
+     * Provide Get Call Detail Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param callsRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public GetCallDetailInteract provideGetCallDetailInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ICallsRepository callsRepository
+    ){
+        return new GetCallDetailInteract(threadExecutor, postExecutionThread, callsRepository);
     }
 
 }

@@ -52,6 +52,12 @@ public final class CallDetailDTO implements Serializable {
     private String terminal;
 
     /**
+     * Is Blocked
+     */
+    @JsonProperty("is_blocked")
+    private boolean isBlocked;
+
+    /**
      *
      */
     public CallDetailDTO(){}
@@ -65,10 +71,11 @@ public final class CallDetailDTO implements Serializable {
      * @param callType
      * @param kid
      * @param terminal
+     * @param isBlocked
      */
     public CallDetailDTO(final String identity, final String phoneNumber, final Date callDayTime,
                          final String callDuration, final String callType, final String kid,
-                         final String terminal) {
+                         final String terminal, final boolean isBlocked) {
         this.identity = identity;
         this.phoneNumber = phoneNumber;
         this.callDayTime = callDayTime;
@@ -76,6 +83,7 @@ public final class CallDetailDTO implements Serializable {
         this.callType = callType;
         this.kid = kid;
         this.terminal = terminal;
+        this.isBlocked = isBlocked;
     }
 
     public String getIdentity() {
@@ -134,6 +142,14 @@ public final class CallDetailDTO implements Serializable {
         this.terminal = terminal;
     }
 
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
     @Override
     public String toString() {
         return "CallDetailDTO{" +
@@ -144,6 +160,7 @@ public final class CallDetailDTO implements Serializable {
                 ", callType='" + callType + '\'' +
                 ", kid='" + kid + '\'' +
                 ", terminal='" + terminal + '\'' +
+                ", isBlocked=" + isBlocked +
                 '}';
     }
 }

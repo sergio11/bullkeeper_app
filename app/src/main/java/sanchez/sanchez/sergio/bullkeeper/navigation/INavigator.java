@@ -439,4 +439,14 @@ public interface INavigator {
      * @param sms
      */
     void navigateToSmsDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String sms);
+
+    /**
+     * Navigate To Call Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param call
+     */
+    void navigateToCallDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String call);
+
 }

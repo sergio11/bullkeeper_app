@@ -32,6 +32,7 @@ public final class CallDetailDataMapper
         callDetailEntity.setKid(originModel.getKid());
         callDetailEntity.setTerminal(originModel.getTerminal());
         callDetailEntity.setPhoneNumber(originModel.getPhoneNumber());
+        callDetailEntity.setBlocked(originModel.isBlocked());
         return callDetailEntity;
     }
 
@@ -51,6 +52,7 @@ public final class CallDetailDataMapper
         callDetailDTO.setKid(originModel.getKid());
         callDetailDTO.setTerminal(originModel.getTerminal());
         callDetailDTO.setPhoneNumber(originModel.getPhoneNumber());
+        callDetailDTO.setBlocked(originModel.isBlocked());
         return callDetailDTO;
     }
 }

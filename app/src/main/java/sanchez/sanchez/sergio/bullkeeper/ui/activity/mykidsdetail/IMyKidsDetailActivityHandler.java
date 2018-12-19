@@ -70,4 +70,12 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToSmsDetail(final String kid, final String terminal, final String sms);
 
+    /**
+     * Navigate To Call Detail
+     * @param kid
+     * @param terminal
+     * @param call
+     */
+    void navigateToCallDetail(final String kid, final String terminal, final String call);
+
 }
