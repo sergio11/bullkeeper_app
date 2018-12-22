@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.LocationEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 
@@ -17,25 +18,25 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 public interface IChildrenRepository {
 
     /**
-     * Get Son By Id
+     * Get Kid By Id
      * @param sonId
      * @return
      */
-    Observable<KidEntity> getSonById(final String sonId);
+    Observable<KidEntity> getKidById(final String sonId);
 
     /**
-     * Add Son To Self Guardian
+     * Add Kid To Self Guardian
      * @param firstName
      * @param lastName
      * @param birthdate
      * @param school
      * @return
      */
-    Observable<KidEntity> addSonToSelfGuardian(final String firstName, final String lastName,
+    Observable<KidEntity> addKidToSelfGuardian(final String firstName, final String lastName,
                                                final String birthdate, final String school);
 
     /**
-     * Save Son Information
+     * Save Kid Information
      * @param identity
      * @param firstName
      * @param lastName
@@ -43,7 +44,7 @@ public interface IChildrenRepository {
      * @param school
      * @return
      */
-    Observable<KidEntity> saveSonInformation(final String identity, final String firstName,
+    Observable<KidEntity> saveKidInformation(final String identity, final String firstName,
                                              final String lastName, final String birthdate, final String school);
 
 
@@ -106,5 +107,12 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<List<KidGuardianEntity>> getGuardians(final String kid);
+
+    /**
+     * Get Kid Location
+     * @param kid
+     * @return
+     */
+    Observable<LocationEntity> getKidLocation(final String kid);
 
 }

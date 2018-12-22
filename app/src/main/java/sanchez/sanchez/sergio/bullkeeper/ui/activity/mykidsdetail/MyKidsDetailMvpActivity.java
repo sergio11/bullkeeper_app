@@ -479,11 +479,10 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     /**
      * Setup Sections Pager Adapter
      */
-    private void setupSectionsPagerAdapter(final int tabSelected){
+    private void setupSectionsPagerAdapter(final int tabSelected, final KidEntity kidEntity){
 
         // Create Sections Pager Adapter
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), kidIdentity,
-                terminalItemsList);
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), kidEntity);
 
         viewpager.setAdapter(sectionsPagerAdapter);
 
@@ -569,7 +568,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     getString(R.string.kids_results_terminals_count), terminalItemsList.size()));
 
             // Setup Sections Pager Adapter
-            setupSectionsPagerAdapter(sectionTabSelected);
+            setupSectionsPagerAdapter(sectionTabSelected, kidEntity);
 
             // Enable All Components
             toggleAllComponents(true);
@@ -594,18 +593,15 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         private final static int FAMILY_LOCATOR_TAB = 9;
         private final static int SECTION_COUNT = 10;
 
-        private final String kidIdentity;
-        private final ArrayList<TerminalItem> terminalItems;
+        private final KidEntity kidEntity;
 
         /**
          * Sections Pager Adapter
          * @param fm
          */
-        public SectionsPagerAdapter(FragmentManager fm, final String kidIdentity,
-                                    final ArrayList<TerminalItem> terminalItems) {
+        public SectionsPagerAdapter(FragmentManager fm, final KidEntity kidEntity) {
             super(fm);
-            this.kidIdentity = kidIdentity;
-            this.terminalItems = terminalItems;
+            this.kidEntity = kidEntity;
         }
 
 
@@ -621,17 +617,18 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                 case SCHEDULED_BLOCKS_TAB:
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
                 case APP_RULES_TAB:
-                    return AppRulesMvpFragment.newInstance(kidIdentity, terminalItems);
+                    return AppRulesMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case SMS_LIST_TAB:
-                    return SmsListMvpFragment.newInstance(kidIdentity, terminalItems);
+                    return SmsListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case CALLS_LIST_TAB:
-                    return CallsListMvpFragment.newInstance(kidIdentity, terminalItems);
+                    return CallsListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case CONTACTS_LIST_TAB:
-                    return ContactListMvpFragment.newInstance(kidIdentity, terminalItems);
+                    return ContactListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case TIME_ALLOWANCE_TAB:
                     return TimeAllowanceMvpFragment.newInstance(kidIdentity);
                 case FAMILY_LOCATOR_TAB:
-                    return FamilyLocatorMvpFragment.newInstance(kidIdentity);
+                    return FamilyLocatorMvpFragment.newInstance(kidEntity.getIdentity(),
+                            kidEntity.getFullName(), kidEntity.getProfileImage());
             }
             return null;
         }

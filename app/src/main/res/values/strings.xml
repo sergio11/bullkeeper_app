@@ -722,7 +722,7 @@
     <string name="family_locator_description">Quickly locate family members and devices</string>
     <string name="family_locator_add_geofences">Add Geofance</string>
     <string name="family_locator_loading_child_position">Loading Child position ...</string>
-
+    <string name="family_locator_no_last_registered_position">There is no last registered position</string>
     <!-- Terminals -->
     <string name="terminals_list_title">Monitored terminals</string>
     <string name="terminals_list_description">List of monitored terminals</string>

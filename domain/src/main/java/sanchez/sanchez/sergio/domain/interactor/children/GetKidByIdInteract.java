@@ -41,7 +41,7 @@ public class GetKidByIdInteract extends UseCase<KidEntity, GetKidByIdInteract.Pa
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.kid.isEmpty(), "Kid can not be empty");
-        return childrenRepository.getSonById(params.kid);
+        return childrenRepository.getKidById(params.kid);
     }
 
     /**

@@ -50,7 +50,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      * @return
      */
     private Observable<KidEntity> saveKidInformation(final Params params) {
-        return childrenRepository.saveSonInformation(params.getKid(), params.getFirstname(), params.getLastName(),
+        return childrenRepository.saveKidInformation(params.getKid(), params.getFirstname(), params.getLastName(),
                 params.getBirthday(), params.getSchool());
     }
 
@@ -60,7 +60,7 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
      * @return
      */
     private Observable<KidEntity> addKidToSelfGuardian(final Params params){
-        return childrenRepository.addSonToSelfGuardian(params.getFirstname(), params.getLastName(),
+        return childrenRepository.addKidToSelfGuardian(params.getFirstname(), params.getLastName(),
                 params.getBirthday(), params.getSchool());
     }
 

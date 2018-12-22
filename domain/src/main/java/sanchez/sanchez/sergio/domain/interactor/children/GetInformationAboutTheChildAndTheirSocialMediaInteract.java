@@ -53,7 +53,7 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         Preconditions.checkNotNull(params, "Params can not be null");
 
         return Observable.zip(
-                childrenRepository.getSonById(params.getKid()),
+                childrenRepository.getKidById(params.getKid()),
                 socialMediaRepository.getAllSocialMediaBySonId(params.getKid())
                         .onErrorReturnItem(new ArrayList<SocialMediaEntity>()),
                 new BiFunction<KidEntity, List<SocialMediaEntity>, Result>() {

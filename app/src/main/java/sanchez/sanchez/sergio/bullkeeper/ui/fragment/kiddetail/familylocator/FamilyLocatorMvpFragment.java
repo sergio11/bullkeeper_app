@@ -14,13 +14,17 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -35,6 +39,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
+import sanchez.sanchez.sergio.domain.models.LocationEntity;
 import timber.log.Timber;
 
 /**
@@ -44,7 +49,12 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
         IFamilyLocatorFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent>
         implements IFamilyLocatorFragmentView, OnMapReadyCallback, SpeedDialView.OnActionSelectedListener {
 
+    /**
+     * Args
+     */
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+    private static final String KID_NAME_ARG = "KID_NAME_ARG";
+    private static final String KID_PHOTO_ARG = "KID_PHOTO_ARG";
 
     private static final int TARGET_ZOOM = 17;
 
@@ -99,6 +109,33 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     protected String kidIdentity;
 
     /**
+     * Kid Name
+     */
+    @State
+    protected String kidName;
+
+    /**
+     * Kid Photo
+     */
+    @State
+    protected String kidPhoto;
+
+    /**
+     * Google Map
+     */
+    private GoogleMap googleMap;
+
+    /**
+     * Current Circle Indicator
+     */
+    private Circle currentCircleIndicator;
+
+    /**
+     * Curretn Marker Indicator
+     */
+    private Marker currentMarkerIndicator;
+
+    /**
      *
      */
     public FamilyLocatorMvpFragment() {
@@ -110,10 +147,15 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
      * @param kidIdentity
      * @return
      */
-    public static FamilyLocatorMvpFragment newInstance(final String kidIdentity) {
+    public static FamilyLocatorMvpFragment newInstance(
+            final String kidIdentity,
+            final String kidName,
+            final String kidPhoto) {
         FamilyLocatorMvpFragment fragment = new FamilyLocatorMvpFragment();
         Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kidIdentity);
+        args.putString(KID_NAME_ARG, kidName);
+        args.putString(KID_PHOTO_ARG, kidPhoto);
         fragment.setArguments(args);
         return fragment;
     }
@@ -129,9 +171,18 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
 
         if(getArguments() == null ||
                 !getArguments().containsKey(KID_IDENTITY_ARG))
-            throw new IllegalStateException("You must provide son identity - Illegal State");
+            throw new IllegalStateException("You must provide kid identity - Illegal State");
 
         kidIdentity = getArguments().getString(KID_IDENTITY_ARG);
+
+        if(getArguments() == null ||
+                !getArguments().containsKey(KID_NAME_ARG))
+            throw new IllegalStateException("You must provide kid name - Illegal State");
+
+        kidName = getArguments().getString(KID_NAME_ARG);
+
+        // Kid Photo
+        kidPhoto = getArguments().getString(KID_PHOTO_ARG);
 
         if(getFragmentManager() != null) {
             SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -178,7 +229,7 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     @Override
     public Bundle getArgs() {
         final Bundle args = new Bundle();
-        args.putString(FamilyLocatorFragmentPresenter.SON_IDENTITY_ARG, kidIdentity);
+        args.putString(FamilyLocatorFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
         return args;
     }
 
@@ -218,8 +269,30 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
         activityHandler.showFamilyLocatorDialog();
     }
 
+    /**
+     * Create Circle
+     * @param locationEntity
+     * @return
+     */
+    private Circle createCircle(final LocationEntity locationEntity) {
+        Preconditions.checkNotNull(googleMap, "Google Map can not be null");
 
-    private void addMarker(final GoogleMap googleMap, final View viewMarker) {
+        final CircleOptions circleOptions = new CircleOptions()
+                .center(new LatLng(locationEntity.getLat(), locationEntity.getLog()))
+                .radius(80)
+                .strokeColor(ContextCompat.getColor(appContext, R.color.darkModerateBlue))
+                .fillColor(ContextCompat.getColor(appContext, R.color.translucentCyanBrilliant));
+
+        return googleMap.addCircle(circleOptions);
+    }
+
+    /**
+     * Create Marker Indicator
+     * @param viewMarker
+     */
+    private Marker createMarkerIndicator(final View viewMarker, final LocationEntity locationEntity, final String title) {
+        Preconditions.checkNotNull(googleMap, "Google Map can not be null");
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         viewMarker.setLayoutParams(new ViewGroup.LayoutParams(52, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -230,45 +303,66 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
         Canvas canvas = new Canvas(bitmap);
         viewMarker.draw(canvas);
 
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(39.074860d, -0.514380)).
-                icon(BitmapDescriptorFactory.fromBitmap(bitmap)))
-                .setTitle("Acha Khao Acha Khilao");
+        final Marker marker =  googleMap.addMarker(new MarkerOptions().position(new LatLng(locationEntity.getLat(), locationEntity.getLog())).
+                icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
 
+        marker.setTitle(title);
+
+        return marker;
     }
 
     /**
-     * Create Child Marker
-     * @param context
-     * @param image
-     * @param name
-     * @return
+     * Show Location
+     * @param locationEntity
      */
-    private void createChildMarker(Context context, final String image, String name, final GoogleMap googleMap) {
+    private void showLocation(final LocationEntity locationEntity) {
+        Preconditions.checkNotNull(googleMap, "Google Map can not be null");
 
-        final LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        // Load Current Position
+        LatLng latLng = new LatLng(locationEntity.getLat(), locationEntity.getLog());
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, TARGET_ZOOM));
+
+        if(currentCircleIndicator != null)
+            currentCircleIndicator.remove();
+
+        // Create Current Circle Indicator
+        currentCircleIndicator = createCircle(locationEntity);
+
+        if(currentMarkerIndicator != null)
+            currentMarkerIndicator.remove();
+
+        final LayoutInflater layoutInflater = (LayoutInflater)activity
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(layoutInflater != null) {
             final View viewMarker = layoutInflater.inflate(R.layout.child_marker_layout, null);
             CircleImageView childImageImageView =  viewMarker.findViewById(R.id.childImage);
-            picasso.load(image)
-                    .placeholder(R.drawable.kid_default_image)
-                    .error(R.drawable.kid_default_image)
-                    .into(childImageImageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            addMarker(googleMap, viewMarker);
-                        }
+            if(appUtils.isValidString(kidPhoto)) {
+                picasso.load(kidPhoto)
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(childImageImageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                currentMarkerIndicator = createMarkerIndicator(viewMarker, locationEntity,
+                                        kidName);
+                            }
 
-                        @Override
-                        public void onError() {
-                            addMarker(googleMap, viewMarker);
-                        }
-
-
-                    });
+                            @Override
+                            public void onError() {
+                                currentMarkerIndicator = createMarkerIndicator(viewMarker,locationEntity,
+                                        kidName);
+                            }
+                        });
+            } else {
+                childImageImageView.setImageResource(R.drawable.kid_default_image);
+                currentMarkerIndicator =  createMarkerIndicator(viewMarker,locationEntity,
+                        kidName);
+            }
 
         }
     }
+
 
     /**
      * On Map Ready
@@ -276,31 +370,16 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        this.googleMap.setIndoorEnabled(false);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(false);
+        this.googleMap.getUiSettings().setCompassEnabled(false);
+        this.googleMap.getUiSettings().setMapToolbarEnabled(false);
+        this.googleMap.getUiSettings().setZoomGesturesEnabled(false);
+        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
 
-        Timber.d("Google Map Ready...");
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        googleMap.setIndoorEnabled(false);
-        googleMap.getUiSettings().setZoomControlsEnabled(false);
-        googleMap.getUiSettings().setCompassEnabled(false);
-        googleMap.getUiSettings().setMapToolbarEnabled(false);
-        googleMap.getUiSettings().setZoomGesturesEnabled(false);
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
-        LatLng latLng = new LatLng(39.074860d, -0.514380);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, TARGET_ZOOM));
-
-        googleMap.addCircle(new CircleOptions()
-                .center(new LatLng(39.074860d, -0.514380))
-                .radius(80)
-                .strokeColor(ContextCompat.getColor(appContext, R.color.darkModerateBlue))
-                .fillColor(ContextCompat.getColor(appContext, R.color.translucentCyanBrilliant)));
-
-
-        createChildMarker(activity, "https://avatars1.githubusercontent.com/u/6996211?s=88&v=4",
-                "Sergio Sánchez", googleMap);
-
-
-        showProgressDialog(R.string.family_locator_loading_child_position);
-
+        getPresenter().getCurrentLocation();
     }
 
     /**
@@ -317,6 +396,26 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
             default:
                 return false;
         }
+    }
+
+    /**
+     * On Current Location Loaded
+     * @param locationEntity
+     */
+    @Override
+    public void onCurrentLocationLoaded(final LocationEntity locationEntity) {
+        Preconditions.checkNotNull(locationEntity, "Location Entity can not be null");
+        // Show Current Location
+        showLocation(locationEntity);
+
+    }
+
+    /**
+     * No Current Location Found
+     */
+    @Override
+    public void noCurrentLocationFound() {
+        showNoticeDialog(R.string.family_locator_no_last_registered_position);
     }
 }
 

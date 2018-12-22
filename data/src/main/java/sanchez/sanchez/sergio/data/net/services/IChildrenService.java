@@ -24,6 +24,7 @@ import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
@@ -174,5 +175,16 @@ public interface IChildrenService {
     @GET("children/{id}/guardians")
     Observable<APIResponse<List<KidGuardianDTO>>> getGuardians(
             @Path("id") final String kid);
+
+
+    /**
+     * Get Kid Location
+     * @param kid
+     * @return
+     */
+    @GET("children/{kid}/location")
+    Observable<APIResponse<LocationDTO>> getKidLocation(
+            @Path("kid") final String kid
+    );
 
 }
