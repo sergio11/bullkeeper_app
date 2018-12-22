@@ -89,11 +89,12 @@
         <!-- Schedule Block Name -->
         <TextView
             android:id="@+id/scheduledBlockName"
-            style="@style/CommonStrongText"
+            style="@style/CommonStrongText.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/separator"
+            android:layout_toStartOf="@id/switchWidget"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:padding="8dp"

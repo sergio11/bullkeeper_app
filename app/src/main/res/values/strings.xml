@@ -682,6 +682,8 @@
     <string name="scheduled_block_status_saved">The state of the scheduled blocks has been saved successfully</string>
     <string name="saving_scheduled_block_info">Saving information from the scheduled block ...</string>
     <string name="deleting_scheduled_block">Deleting scheduled block wait...</string>
+    <string name="scheduled_block_start_input_validation_error">The start date must be before the end date</string>
+    <string name="scheduled_block_end_input_validation_error">The start date must be before the end date</string>
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>
     <string name="app_rules_description">Rules applied to the set of installed applications</string>

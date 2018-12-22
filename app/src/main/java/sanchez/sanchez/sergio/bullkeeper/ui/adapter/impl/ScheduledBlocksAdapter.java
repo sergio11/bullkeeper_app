@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;

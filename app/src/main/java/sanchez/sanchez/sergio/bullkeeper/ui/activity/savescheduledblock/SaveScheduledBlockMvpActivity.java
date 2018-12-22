@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -455,11 +454,17 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlockRecurringWeeklyEnabled = recurringWeeklySwitch.isChecked();
         isEnabled = enableSwitch.isChecked();
 
+
+        if(startAt.isAfter(endAt)) {
+            startAtInputLayout.setError(getString(R.string.scheduled_block_start_input_validation_error));
+            endAtInputLayout.setError(getString(R.string.scheduled_block_end_input_validation_error));
+            return;
+        }
+
         // Save Scheduled Block
         getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
                 scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity,
                 currentImagePath);
-
     }
 
     /**
