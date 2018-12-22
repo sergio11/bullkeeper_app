@@ -763,6 +763,11 @@
     <string name="call_detail_unlock_number">Phone number unlocked</string>
     <string name="call_detail_block_number_confirm">Do you want to block this phone number? You will stop receiving calls and SMS from this number.</string>
     <string name="call_detail_unlock_number_confirm">Do you want to unlock this phone number? You can receive calls and SMS from this number</string>
+    <string name="call_detail_phone_number_blocked">The phone number was successfully blocked</string>
+    <string name="call_detail_phone_number_unlocked">The phone number was successfully unlocked</string>
+    <string name="call_detail_phone_number_blocked_error">There was an error blocking the phone number, please try again</string>
+    <string name="call_detail_phone_number_unlocked_error">There was an error unlocking phone number, please try again</string>
+
     <!-- Invitations -->
     <string name="invitation_item_removed">The invitation was deleted</string>
     <string name="invitations_title_default">Invitations</string>

@@ -4,6 +4,7 @@ import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CallModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.PhoneNumberBlockedModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailPresenter;
@@ -15,7 +16,9 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.calldetail.CallDe
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class, DataMapperModule.class, CallModule.class})
+        modules = { ActivityModule.class, DataMapperModule.class,
+                CallModule.class,
+                PhoneNumberBlockedModule.class})
 public interface CallDetailComponent extends ActivityComponent {
 
     /**

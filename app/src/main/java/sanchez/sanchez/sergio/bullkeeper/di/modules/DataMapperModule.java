@@ -25,6 +25,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.MessageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.PersonEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.PhoneNumberBlockedEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockStatusEntityDataMapper;
@@ -60,6 +61,7 @@ import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MessageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.PersonDTO;
+import sanchez.sanchez.sergio.data.net.models.response.PhoneNumberBlockedDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
@@ -91,6 +93,7 @@ import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.PersonEntity;
+import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
@@ -441,5 +444,14 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<ContactDTO, ContactEntity> provideContactEntityDataMapper(){
         return new ContactEntityDataMapper();
+    }
+
+    /**
+     * Provide Phone Number Blocked Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<PhoneNumberBlockedDTO, PhoneNumberBlockedEntity> providePhoneNumberBlockedEntityDataMapper(){
+        return new PhoneNumberBlockedEntityDataMapper();
     }
 }

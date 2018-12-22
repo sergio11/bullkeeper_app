@@ -94,6 +94,7 @@
                                 android:scaleY="2"
                                 android:textOff=""
                                 android:textOn=""
+                                android:enabled="false"
                                 app:theme="@style/BlockStatusSwitch" />
 
                         </FrameLayout>

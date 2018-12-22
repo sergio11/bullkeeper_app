@@ -54,7 +54,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.Tim
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
                 AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class,
-                SmsModule.class, CallModule.class, ContactsModule.class })
+                SmsModule.class, CallModule.class, ContactsModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**

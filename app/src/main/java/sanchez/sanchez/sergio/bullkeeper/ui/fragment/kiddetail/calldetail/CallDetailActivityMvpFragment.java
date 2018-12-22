@@ -24,6 +24,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.ICallDetailActiv
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
+import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
@@ -119,6 +121,18 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
     @State
     protected String callId;
 
+    /**
+     * Phone Number
+     */
+    @State
+    protected String phoneNumber;
+
+    /**
+     * Phone Number Is Blocked
+     */
+    @State
+    protected boolean phoneNumberIsBlocked;
+
 
     public CallDetailActivityMvpFragment() { }
 
@@ -176,6 +190,7 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
 
         callId = getArgs().getString(CALL_ID_ARG);
 
+        switchBlockStatusWidget.setEnabled(false);
         /**
          * Set On Checked Change Listener
          */
@@ -292,6 +307,9 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
                         callDetailEntity.getPhoneNumber()));
 
 
+        phoneNumber = callDetailEntity.getPhoneNumber();
+
+
         // Call Duration
         final long totalSecs = Long.valueOf(callDetailEntity.getCallDuration());
         final long minutes = (totalSecs % 3600) / 60;
@@ -313,8 +331,61 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
         phoneNumberIsBlockedTextView.setText(callDetailEntity.isBlocked() ? R.string.call_detail_block_number :
                 R.string.call_detail_unlock_number);
 
+        switchBlockStatusWidget.setEnabled(true);
         switchBlockStatusWidget.setChecked(callDetailEntity.isBlocked());
 
+        phoneNumberIsBlocked = callDetailEntity.isBlocked();
+
+    }
+
+    /**
+     * On Phone Number Blocked Error
+     */
+    @Override
+    public void onPhoneNumberBlockedError() {
+        showNoticeDialog(R.string.call_detail_phone_number_blocked_error);
+        switchBlockStatusWidget.setChecked(false, false);
+    }
+
+    /**
+     * On Phone Number Blocked
+     * @param phoneNumberBlockedEntity
+     */
+    @Override
+    public void onPhoneNumberBlockedSuccessfully(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
+        Preconditions.checkNotNull(phoneNumberBlockedEntity, "Phone Number Blocked can not be null");
+
+        phoneNumberIsBlocked = true;
+
+        phoneNumberIsBlockedTextView.setText(phoneNumberIsBlocked ? R.string.call_detail_block_number :
+                R.string.call_detail_unlock_number);
+
+        showNoticeDialog(R.string.call_detail_phone_number_blocked);
+
+    }
+
+    /**
+     * On Phone Number Unlocked
+     */
+    @Override
+    public void onPhoneNumberUnlockedSuccessfully() {
+
+        phoneNumberIsBlocked = false;
+
+        phoneNumberIsBlockedTextView.setText(phoneNumberIsBlocked ? R.string.call_detail_block_number :
+                R.string.call_detail_unlock_number);
+
+        showNoticeDialog(R.string.call_detail_phone_number_unlocked);
+
+    }
+
+    /**
+     * On Phone Number Unlocked Error
+     */
+    @Override
+    public void onPhoneNumberUnlockedError() {
+        showNoticeDialog(R.string.call_detail_phone_number_unlocked_error);
+        switchBlockStatusWidget.setChecked(true, false);
     }
 
     /**
@@ -325,32 +396,40 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if(isChecked) {
+        if(appUtils.isValidString(phoneNumber)) {
 
-            showConfirmationDialog(R.string.call_detail_block_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                @Override
-                public void onAccepted(DialogFragment dialog) {
+            if(isChecked) {
 
-                }
+                showConfirmationDialog(R.string.call_detail_block_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        getPresenter().blockNumber(phoneNumber);
+                    }
 
-                @Override
-                public void onRejected(DialogFragment dialog) {
-                    switchBlockStatusWidget.setChecked(false, false);
-                }
-            });
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+                        switchBlockStatusWidget.setChecked(false, false);
+                    }
+                });
+
+            } else {
+                showConfirmationDialog(R.string.call_detail_unlock_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        getPresenter().unlockNumber(phoneNumber);
+                    }
+
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+                        switchBlockStatusWidget.setChecked(true, false);
+                    }
+                });
+            }
 
         } else {
-            showConfirmationDialog(R.string.call_detail_unlock_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                @Override
-                public void onAccepted(DialogFragment dialog) {
 
-                }
+            switchBlockStatusWidget.setChecked(!isChecked, false);
 
-                @Override
-                public void onRejected(DialogFragment dialog) {
-                    switchBlockStatusWidget.setChecked(true, false);
-                }
-            });
         }
 
     }
