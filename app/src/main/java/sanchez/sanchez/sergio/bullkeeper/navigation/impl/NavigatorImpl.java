@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvp
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
@@ -776,5 +777,26 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkState(!call.isEmpty(), "Call can not be empty");
 
         activity.startActivity(CallDetailMvpActivity.getCallingIntent(context, kid, terminal, call));
+    }
+
+    /**
+     * Navigate To Contact Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param contact
+     */
+    @Override
+    public void navigateToContactDetailActivity(AppCompatActivity activity, String kid, String terminal, String contact) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(contact, "Contact can not be null");
+        Preconditions.checkState(!contact.isEmpty(), "Contact can not be empty");
+
+        activity.startActivity(ContactDetailMvpActivity.getCallingIntent(context,
+                kid, terminal, contact));
     }
 }

@@ -448,6 +448,25 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate to contact detail
+     * @param kid
+     * @param terminal
+     * @param contact
+     */
+    @Override
+    public void navigateToContactDetail(final String kid, final String terminal, final String contact) {
+        Preconditions.checkNotNull(kid, "kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "kid can not be empty");
+        Preconditions.checkNotNull(terminal, "terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "terminal can not be empty");
+        Preconditions.checkNotNull(contact, "call can not be null");
+        Preconditions.checkState(!contact.isEmpty(), "call can not be empty");
+
+        navigatorImpl.navigateToContactDetailActivity(this, kid, terminal, contact);
+
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue

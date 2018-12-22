@@ -1,46 +1,47 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.calldetail;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactdetail;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Base64;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
-import sanchez.sanchez.sergio.bullkeeper.di.components.CallDetailComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.ICallDetailActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.di.components.ContactDetailComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.IContactDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
+import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
-
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
- * Call Detail Activity Fragment
+ * Contact Detail Activity Fragment
  */
-public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetailFragmentPresenter,
-        ICallDetailView, ICallDetailActivityHandler, CallDetailComponent>
-        implements ICallDetailView, CompoundButton.OnCheckedChangeListener {
+public class ContactDetailActivityMvpFragment extends SupportMvpFragment<ContactDetailFragmentPresenter,
+        IContactDetailView, IContactDetailActivityHandler, ContactDetailComponent>
+        implements IContactDetailView, CompoundButton.OnCheckedChangeListener {
 
     /**
      * Args
      */
     public static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
     public static String CHILD_ID_ARG = "KID_ID_ARG";
-    public static String CALL_ID_ARG = "CALL_ID_ARG";
+    public static String CONTACT_ID_ARG = "CONTACT_ID_ARG";
 
     /**
      * Views
@@ -48,28 +49,22 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
 
     /**
-     * Call Detail Type
+     * Contact Photo
      */
-    @BindView(R.id.callDetailType)
-    protected ImageView callDetailTypeImageView;
+    @BindView(R.id.contactPhoto)
+    protected CircleImageView contactPhotoImageView;
+
+    /**
+     * Contact Name Text View
+     */
+    @BindView(R.id.contactNameTextView)
+    protected TextView contactNameTextView;
 
     /**
      * Phone Number Text View
      */
     @BindView(R.id.phoneNumberTextView)
     protected TextView phoneNumberTextView;
-
-    /**
-     * Call Day Time Text View
-     */
-    @BindView(R.id.callDayTimeTextView)
-    protected TextView callDayTimeTextView;
-
-    /**
-     * Call Duration Text View
-     */
-    @BindView(R.id.callDurationTextView)
-    protected TextView callDurationTextView;
 
     /**
      * Phone Number Is Blocked Text View
@@ -82,8 +77,6 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @BindView(R.id.switchBlockStatusWidget)
     protected SupportSwitchCompat switchBlockStatusWidget;
-
-
 
     /**
      * App Context
@@ -116,10 +109,10 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
     protected String childId;
 
     /**
-     * Call ID
+     * Contact ID
      */
     @State
-    protected String callId;
+    protected String contactId;
 
     /**
      * Phone Number
@@ -134,21 +127,21 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
     protected boolean phoneNumberIsBlocked;
 
 
-    public CallDetailActivityMvpFragment() { }
+    public ContactDetailActivityMvpFragment() { }
 
     /**
      * New Instance
      * @param terminal
      */
-    public static CallDetailActivityMvpFragment newInstance(final String terminal, final String kid, final String call) {
-        final CallDetailActivityMvpFragment alertDetailActivityFragment =
-                new CallDetailActivityMvpFragment();
+    public static ContactDetailActivityMvpFragment newInstance(final String terminal, final String kid, final String contact) {
+        final ContactDetailActivityMvpFragment contactDetailActivityFragment =
+                new ContactDetailActivityMvpFragment();
         final Bundle args = new Bundle();
         args.putString(TERMINAL_ID_ARG, terminal);
         args.putString(CHILD_ID_ARG, kid);
-        args.putString(CALL_ID_ARG, call);
-        alertDetailActivityFragment.setArguments(args);
-        return alertDetailActivityFragment;
+        args.putString(CONTACT_ID_ARG, contact);
+        contactDetailActivityFragment.setArguments(args);
+        return contactDetailActivityFragment;
     }
 
     /**
@@ -184,11 +177,11 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
         terminalId = getArgs().getString(TERMINAL_ID_ARG);
 
         // Get Call Id
-        if(!getArgs().containsKey(CALL_ID_ARG) ||
-                !appUtils.isValidString(getArgs().getString(CALL_ID_ARG)))
-            throw new IllegalStateException("You must provide a call id");
+        if(!getArgs().containsKey(CONTACT_ID_ARG) ||
+                !appUtils.isValidString(getArgs().getString(CONTACT_ID_ARG)))
+            throw new IllegalStateException("You must provide a contact id");
 
-        callId = getArgs().getString(CALL_ID_ARG);
+        contactId = getArgs().getString(CONTACT_ID_ARG);
 
         switchBlockStatusWidget.setEnabled(false);
         /**
@@ -204,14 +197,14 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_call_detail;
+        return R.layout.fragment_contact_detail;
     }
 
     /**
      * Initialize Injector
      */
     @Override
-    protected void initializeInjector(CallDetailComponent component) {
+    protected void initializeInjector(ContactDetailComponent component) {
         component.inject(this);
     }
 
@@ -222,8 +215,8 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @NonNull
     @Override
-    public CallDetailFragmentPresenter providePresenter() {
-        return component.callDetailFragmentPresenter();
+    public ContactDetailFragmentPresenter providePresenter() {
+        return component.contactDetailFragmentPresenter();
     }
 
 
@@ -263,78 +256,43 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
     }
 
     /**
-     * On Call Detail Loaded
-     * @param callDetailEntity
+     * On Contact Detail Loaded
+     * @param contactEntity
      */
     @Override
-    public void onCallDetailLoaded(CallDetailEntity callDetailEntity) {
-        Preconditions.checkNotNull(callDetailEntity, "Call Detail can not be empty");
+    public void onContactDetailLoaded(final ContactEntity contactEntity) {
+        Preconditions.checkNotNull(contactEntity, "Contact entity can not be null");
 
-
-        // Set Call Type
-        switch (callDetailEntity.getCallType()) {
-
-            /**
-             * Incoming
-             */
-            case INCOMING:
-                callDetailTypeImageView
-                        .setImageResource(R.drawable.incoming_calls);
-                break;
-            /**
-             * Missed
-             */
-            case MISSED:
-                callDetailTypeImageView
-                        .setImageResource(R.drawable.missed_call_phone_icon);
-                break;
-            /**
-             * Outgoing
-             */
-            case OUTGOING:
-                callDetailTypeImageView
-                        .setImageResource(R.drawable.outgoing_call);
-                break;
-
-            default:
-                callDetailTypeImageView
-                        .setImageResource(R.drawable.unknown_call);
+        // Set Contact Photo
+        if(contactEntity.getPhotoEncodedString() != null &&
+                !contactEntity.getPhotoEncodedString().isEmpty()) {
+            byte[] decodedString = Base64
+                    .decode(contactEntity.getPhotoEncodedString(),
+                            Base64.DEFAULT);
+            final Bitmap decodedByte =
+                    BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            contactPhotoImageView.setImageBitmap(decodedByte);
+        } else {
+            contactPhotoImageView.setImageResource(R.drawable.user_default);
         }
 
+        // Set Contact Name
+        contactNameTextView.setText(contactEntity.getName());
+
         // Set Phone Number
-        phoneNumberTextView.setText(
-                String.format(Locale.getDefault(), getString(R.string.call_phone_number),
-                        callDetailEntity.getPhoneNumber()));
+        phoneNumberTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.contact_phonenumber), contactEntity.getPhoneNumber()));
 
-
-        phoneNumber = callDetailEntity.getPhoneNumber();
-
-
-        // Call Duration
-        final long totalSecs = Long.valueOf(callDetailEntity.getCallDuration());
-        final long minutes = (totalSecs % 3600) / 60;
-        final long seconds = totalSecs % 60;
-        callDurationTextView.setText(
-                String.format(Locale.getDefault(),
-                        getString(R.string.call_duration), minutes, seconds));
-
-        // Set Call Day Time
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                getString(R.string.date_time_format),
-                Locale.getDefault());
-        // Call Day Time
-        callDayTimeTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.call_date_time),
-                simpleDateFormat.format(callDetailEntity.getCallDayTime())));
+        phoneNumber = contactEntity.getPhoneNumber();
 
         // Set Phone Number is blocked
-        phoneNumberIsBlockedTextView.setText(callDetailEntity.isBlocked() ? R.string.phone_number_blocked :
+        phoneNumberIsBlockedTextView.setText(contactEntity.isBlocked() ? R.string.phone_number_blocked :
                 R.string.phone_number_unlocked);
 
         switchBlockStatusWidget.setEnabled(true);
-        switchBlockStatusWidget.setChecked(callDetailEntity.isBlocked());
+        switchBlockStatusWidget.setChecked(contactEntity.isBlocked());
 
-        phoneNumberIsBlocked = callDetailEntity.isBlocked();
+        phoneNumberIsBlocked = contactEntity.isBlocked();
 
     }
 

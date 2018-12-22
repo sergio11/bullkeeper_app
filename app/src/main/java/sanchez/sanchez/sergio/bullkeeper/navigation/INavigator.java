@@ -449,4 +449,13 @@ public interface INavigator {
      */
     void navigateToCallDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String call);
 
+    /**
+     * Navigate To Contact Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param contact
+     */
+    void navigateToContactDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String contact);
+
 }

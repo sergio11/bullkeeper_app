@@ -222,11 +222,16 @@ public class ContactListMvpFragment extends SupportMvpLCEFragment<ContactFragmen
      * @param contactEntity
      */
     @Override
-    public void onItemClick(ContactEntity contactEntity) {
+    public void onItemClick(final ContactEntity contactEntity) {
         Preconditions.checkNotNull(contactEntity, "Contact Entity can not be null");
         Preconditions.checkNotNull(contactEntity.getIdentity(), "Contact Identity can not be null");
         Preconditions.checkState(!contactEntity.getIdentity().isEmpty(), "Contact Identity can not be empty");
 
+        activityHandler.navigateToContactDetail(
+                kidIdentity,
+                terminalIdentity,
+                contactEntity.getIdentity()
+        );
     }
 
 

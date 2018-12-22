@@ -30,13 +30,13 @@ public final class ContactDTO implements Serializable {
      * Local Id
      */
     @JsonProperty("local_id")
-    protected String localId;
+    private String localId;
 
     /**
      * Photo Encoded String
      */
     @JsonProperty("photo_encoded_string")
-    protected String photoEncodedString;
+    private String photoEncodedString;
 
     /**
      * Kid
@@ -50,6 +50,12 @@ public final class ContactDTO implements Serializable {
     @JsonProperty("terminal")
     private String terminal;
 
+    /**
+     * Is Blocked
+     */
+    @JsonProperty("is_blocked")
+    private boolean isBlocked;
+
     public ContactDTO() {}
 
     /**
@@ -60,11 +66,12 @@ public final class ContactDTO implements Serializable {
      * @param localId
      * @param kid
      * @param terminal
+     * @param isBlocked
      */
     public ContactDTO(final String identity, final String name,
                       final String phoneNumber, final String localId,
                       final String photoEncodedString, final String kid,
-                      final String terminal) {
+                      final String terminal, final boolean isBlocked) {
         super();
         this.identity = identity;
         this.name = name;
@@ -73,6 +80,7 @@ public final class ContactDTO implements Serializable {
         this.photoEncodedString = photoEncodedString;
         this.kid = kid;
         this.terminal = terminal;
+        this.isBlocked = isBlocked;
     }
 
 
@@ -133,9 +141,25 @@ public final class ContactDTO implements Serializable {
         this.terminal = terminal;
     }
 
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
     @Override
     public String toString() {
-        return "ContactDTO [identity=" + identity + ", name=" + name + ", phoneNumber=" + phoneNumber + ", localId="
-                + localId + ", kid=" + kid + ", terminal=" + terminal + "]";
+        return "ContactDTO{" +
+                "identity='" + identity + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", localId='" + localId + '\'' +
+                ", photoEncodedString='" + photoEncodedString + '\'' +
+                ", kid='" + kid + '\'' +
+                ", terminal='" + terminal + '\'' +
+                ", isBlocked=" + isBlocked +
+                '}';
     }
 }

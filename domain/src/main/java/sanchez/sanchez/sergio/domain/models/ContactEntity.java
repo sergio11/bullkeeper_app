@@ -25,12 +25,12 @@ public class ContactEntity implements Serializable {
     /**
      * Local Id
      */
-    protected String localId;
+    private String localId;
 
     /**
      * Photo Encoded String
      */
-    protected String photoEncodedString;
+    private String photoEncodedString;
 
     /**
      * Kid
@@ -41,6 +41,11 @@ public class ContactEntity implements Serializable {
      * Terminal
      */
     private String terminal;
+
+    /**
+     * Is Blocked
+     */
+    private boolean isBlocked;
 
 
     public ContactEntity(){}
@@ -54,10 +59,12 @@ public class ContactEntity implements Serializable {
      * @param photoEncodedString
      * @param kid
      * @param terminal
+     * @param isBlocked
      */
     public ContactEntity(final String identity, final String name, final String phoneNumber,
                          final String localId, final String photoEncodedString,
-                         final String kid, final String terminal) {
+                         final String kid, final String terminal,
+                         final boolean isBlocked) {
         this.identity = identity;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -65,6 +72,7 @@ public class ContactEntity implements Serializable {
         this.photoEncodedString = photoEncodedString;
         this.kid = kid;
         this.terminal = terminal;
+        this.isBlocked = isBlocked;
     }
 
     public String getIdentity() {
@@ -123,6 +131,14 @@ public class ContactEntity implements Serializable {
         this.terminal = terminal;
     }
 
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
     @Override
     public String toString() {
         return "ContactEntity{" +
@@ -133,6 +149,7 @@ public class ContactEntity implements Serializable {
                 ", photoEncodedString='" + photoEncodedString + '\'' +
                 ", kid='" + kid + '\'' +
                 ", terminal='" + terminal + '\'' +
+                ", isBlocked=" + isBlocked +
                 '}';
     }
 }

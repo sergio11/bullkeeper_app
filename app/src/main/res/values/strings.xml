@@ -758,16 +758,20 @@
     <string name="sms_detail_title">SMS Detail</string>
     <string name="sms_detail_message_title">Message</string>
 
+    <string name="phone_number_blocked">Phone number blocked</string>
+    <string name="phone_number_unlocked">Phone number unlocked</string>
+    <string name="block_phone_number_confirm">Do you want to block this phone number? You will stop receiving calls and SMS from this number.</string>
+    <string name="unlock_phone_number_confirm">Do you want to unlock this phone number? You can receive calls and SMS from this number</string>
+    <string name="phone_number_blocked_successfully">The phone number was successfully blocked</string>
+    <string name="phone_number_unlocked_successfully">The phone number was successfully unlocked</string>
+    <string name="phone_number_blocked_error">There was an error blocking the phone number, please try again</string>
+    <string name="phone_number_unlocked_error">There was an error unlocking phone number, please try again</string>
     <!-- Call Detail -->
     <string name="call_detail_title">Call Detail</string>
-    <string name="call_detail_block_number">Phone number blocked</string>
-    <string name="call_detail_unlock_number">Phone number unlocked</string>
-    <string name="call_detail_block_number_confirm">Do you want to block this phone number? You will stop receiving calls and SMS from this number.</string>
-    <string name="call_detail_unlock_number_confirm">Do you want to unlock this phone number? You can receive calls and SMS from this number</string>
-    <string name="call_detail_phone_number_blocked">The phone number was successfully blocked</string>
-    <string name="call_detail_phone_number_unlocked">The phone number was successfully unlocked</string>
-    <string name="call_detail_phone_number_blocked_error">There was an error blocking the phone number, please try again</string>
-    <string name="call_detail_phone_number_unlocked_error">There was an error unlocking phone number, please try again</string>
+
+    <!-- Contact Detail -->
+    <string name="contact_detail_title">Contact Detail</string>
+
 
     <!-- Invitations -->
     <string name="invitation_item_removed">The invitation was deleted</string>

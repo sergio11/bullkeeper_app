@@ -296,6 +296,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
             />
+
+        <!-- Contact Detail Activity -->
+        <activity android:name=".ui.activity.contactdetail.ContactDetailMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"
