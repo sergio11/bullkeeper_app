@@ -7,6 +7,10 @@ import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
  */
 public interface IPreferenceRepository extends IAuthTokenAware {
 
+    // Home Show Case Completed
+    String PREF_HOME_SHOWCASE_COMPLETE = "home_showcase_completed";
+    boolean HOME_SHOW_CASE_COMPLETED = false;
+
     // NUMBER OF ALERTS
     String PREF_NUMBER_OF_ALERTS = "number_of_alerts";
     int NUMBER_OF_ALERTS_DEFAULT_VALUE = 20;
@@ -155,6 +159,19 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     // Age of Relations (Relations Preference Screen)
     String PREF_AGE_OF_RELATIONS = "age_of_relations";
     String PREF_AGE_OF_RELATIONS_DEFAULT_VALUE = "30";
+
+
+    /**
+     * is Home Showcase completed
+     * @return
+     */
+    boolean isHomeShowCaseCompleted();
+
+    /**
+     * Set Home showcase completed
+     * @param isCompleted
+     */
+    void setHomeShowcaseCompleted(final boolean isCompleted);
 
     /**
      * Get Filter Alerts Count

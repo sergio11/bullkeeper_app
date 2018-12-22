@@ -144,6 +144,9 @@
     <string name="app_menu_terms_of_service">Terms of Service</string>
     <string name="app_menu_privacy_policy">Privacy Policy</string>
 
+    <!-- Home Show Case -->
+    <string name="user_menu_showcase_description">Here you have the main options of the application, you will see results, generated alerts and the list of supervised children in the system</string>
+    <string name="my_childs_showcase_description">Here you have the children you can tutor, you can access the details of them, in addition to registering a new one in the system</string>
     <!-- My Kids -->
     <string name="my_kids_title">My Kids</string>
     <string name="my_kids_content_description">My Kids</string>

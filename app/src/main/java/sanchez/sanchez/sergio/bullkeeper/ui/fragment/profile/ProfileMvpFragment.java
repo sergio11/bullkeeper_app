@@ -36,6 +36,7 @@ import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 
@@ -66,6 +67,12 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Inject
     protected Activity activity;
+
+    /**
+     * Preference Repository
+     */
+    @Inject
+    protected IPreferenceRepository preferenceRepository;
 
     /**
      * User Menu View
@@ -332,7 +339,8 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         toggleKidsAllComponents(true);
 
-        launchShowCase();
+        if (!preferenceRepository.isHomeShowCaseCompleted())
+            launchShowCase();
 
     }
 
@@ -400,7 +408,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
         // User Menu Show Case
         final FancyShowCaseView userMenuShowCase = new FancyShowCaseView.Builder(activity)
                 .focusOn(userMenuView)
-                .title("Rounded Rectangle Focus")
+                .title(getString(R.string.user_menu_showcase_description))
                 .focusShape(FocusShape.ROUNDED_RECTANGLE)
                 .roundRectRadius(90)
                 .enableAutoTextPosition()
@@ -412,7 +420,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
         // My Children Show Case
         final FancyShowCaseView myChildrenShowCase = new FancyShowCaseView.Builder(activity)
                 .focusOn(myChildList)
-                .title("Rounded Rectangle Focus")
+                .title(getString(R.string.my_childs_showcase_description))
                 .focusShape(FocusShape.ROUNDED_RECTANGLE)
                 .roundRectRadius(90)
                 .enableAutoTextPosition()
@@ -433,6 +441,6 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
     @Override
     public void onComplete() {
-        Timber.d("Show Case Completed");
+        preferenceRepository.setHomeShowcaseCompleted(true);
     }
 }

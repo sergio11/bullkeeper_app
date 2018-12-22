@@ -36,6 +36,26 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
     }
 
     /**
+     * Is Home Show Case Completed
+     * @return
+     */
+    @Override
+    public boolean isHomeShowCaseCompleted() {
+        return mPref.getBoolean(PREF_HOME_SHOWCASE_COMPLETE, HOME_SHOW_CASE_COMPLETED);
+    }
+
+    /**
+     * Set Home Show case completed
+     * @param isCompleted
+     */
+    @Override
+    public void setHomeShowcaseCompleted(boolean isCompleted) {
+        mPref.edit()
+                .putBoolean(PREF_HOME_SHOWCASE_COMPLETE, isCompleted)
+                .apply();
+    }
+
+    /**
      * Get Filter Alerts Count
      * @return
      */
