@@ -44,7 +44,7 @@ public final class CallsAdapter extends SupportRecyclerViewAdapter<CallDetailEnt
             extends SupportItemSwipedViewHolder<CallDetailEntity>{
 
         // Call Detail
-        private ImageView callDetailTypeImageView;
+        private ImageView callDetailTypeImageView, phoneNumberBlockedImageView;
         private TextView phoneNumberTextView, callDurationTextView, callDateTextView;
 
 
@@ -54,6 +54,7 @@ public final class CallsAdapter extends SupportRecyclerViewAdapter<CallDetailEnt
         CallDetailViewHolder(final View itemView) {
             super(itemView);
             callDetailTypeImageView = itemView.findViewById(R.id.callDetailType);
+            phoneNumberBlockedImageView = itemView.findViewById(R.id.phoneNumberBlocked);
             phoneNumberTextView = itemView.findViewById(R.id.phoneNumberText);
             callDurationTextView = itemView.findViewById(R.id.callDuration);
             callDateTextView = itemView.findViewById(R.id.callDate);
@@ -119,6 +120,11 @@ public final class CallsAdapter extends SupportRecyclerViewAdapter<CallDetailEnt
             callDateTextView.setText(String.format(Locale.getDefault(),
                     context.getString(R.string.call_date_time),
                     simpleDateFormat.format(callDetailEntity.getCallDayTime())));
+
+            phoneNumberBlockedImageView.setImageResource(
+                    !callDetailEntity.isBlocked() ? R.drawable.success_icon_solid :
+                            R.drawable.close_circle_solid
+            );
         }
 
     }

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -47,6 +48,7 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
 
         // Call Detail
         private CircleImageView contactPhotoImageView;
+        private ImageView phoneNumberBlockedImageView;
         private TextView contactNameTextView, contactPhoneNumberTextView;
 
 
@@ -56,6 +58,7 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
         ContactDetailViewHolder(final View itemView) {
             super(itemView);
             contactPhotoImageView = itemView.findViewById(R.id.contactPhoto);
+            phoneNumberBlockedImageView = itemView.findViewById(R.id.phoneNumberBlocked);
             contactNameTextView = itemView.findViewById(R.id.contactName);
             contactPhoneNumberTextView = itemView.findViewById(R.id.contactPhoneNumber);
         }
@@ -87,6 +90,10 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
             // Set Phone Number
             contactPhoneNumberTextView.setText(String.format(Locale.getDefault(),
                     context.getString(R.string.contact_phonenumber), contactEntity.getPhoneNumber()));
+
+            phoneNumberBlockedImageView.setImageResource(
+                    !contactEntity.isBlocked() ? R.drawable.success_icon_solid :
+                            R.drawable.close_circle_solid);
         }
 
     }

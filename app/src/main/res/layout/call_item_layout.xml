@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
-        android:layout_alignParentEnd="true"
+        android:layout_toStartOf="@id/phoneNumberBlocked"
         android:layout_below="@id/phoneNumberText"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
-        android:layout_alignParentEnd="true"
+        android:layout_toStartOf="@id/phoneNumberBlocked"
         android:layout_below="@id/callDate"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
@@ -94,6 +94,17 @@
         android:singleLine="true"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
+
+    <!-- Call Detail Type  -->
+    <ImageView
+        android:id="@+id/phoneNumberBlocked"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/common_margin"
+        android:contentDescription="@string/content_not_be_loaded"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        />
 
 
 </RelativeLayout>
