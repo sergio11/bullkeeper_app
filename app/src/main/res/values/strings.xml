@@ -752,7 +752,8 @@
     <string name="app_version_code" formatted="false">Version Code: %s</string>
     <string name="app_version_name" formatted="false">Version Name: %s</string>
     <string name="app_current_rule_title">App Rule</string>
-
+    <string name="app_installed_app_rules_updated_successfully">The application rules were updated successfully</string>
+    <string name="app_installed_app_rules_updated_fail">There was an error updating the application rules, please try again</string>
     <!-- SMS Detail -->
     <string name="sms_detail_title">SMS Detail</string>
     <string name="sms_detail_message_title">Message</string>

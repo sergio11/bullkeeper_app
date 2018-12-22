@@ -33,6 +33,20 @@ public interface IAppRulesRepository {
 
 
     /**
+     * Update App Installed Rules By Child
+     * @param kid
+     * @param terminal
+     * @param app
+     * @param appInstalledRuleEntity
+     * @return
+     */
+    Observable<String> updateSingleAppInstalledRulesByChild(
+            final String kid,
+            final String terminal,
+            final String app,
+            AppInstalledRuleEntity appInstalledRuleEntity);
+
+    /**
      *
      * @param kid
      * @param terminal

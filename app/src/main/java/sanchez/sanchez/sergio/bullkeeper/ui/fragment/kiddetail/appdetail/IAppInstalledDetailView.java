@@ -14,5 +14,16 @@ public interface IAppInstalledDetailView extends ISupportView {
      */
     void onAppInstalledDetailLoaded(final AppInstalledEntity appInstalledEntity);
 
+    /**
+     * On App Rule Update Successfully
+     */
+    void onAppRuleUpdateSuccessfully();
+
+    /**
+     * On Update App Rule Fail
+     */
+    void onUpdateAppRuleFail();
+
+
 
 }

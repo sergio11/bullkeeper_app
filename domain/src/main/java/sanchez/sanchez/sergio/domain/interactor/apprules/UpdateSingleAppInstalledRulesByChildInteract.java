@@ -1,9 +1,6 @@
 package sanchez.sanchez.sergio.domain.interactor.apprules;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -12,9 +9,9 @@ import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
 
 /**
- * Update App Installed Rules By Child Interact
+ * Update Single App Installed Rules By Child Interact
  */
-public final class UpdateAppInstalledRulesByChildInteract extends UseCase<String, UpdateAppInstalledRulesByChildInteract.Params> {
+public final class UpdateSingleAppInstalledRulesByChildInteract extends UseCase<String, UpdateSingleAppInstalledRulesByChildInteract.Params> {
 
     /**
      * App Rules Repository
@@ -28,8 +25,8 @@ public final class UpdateAppInstalledRulesByChildInteract extends UseCase<String
      * @param postExecutionThread
      * @param appRulesRepository
      */
-    public UpdateAppInstalledRulesByChildInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                  final IAppRulesRepository appRulesRepository) {
+    public UpdateSingleAppInstalledRulesByChildInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                        final IAppRulesRepository appRulesRepository) {
         super(threadExecutor, postExecutionThread);
         this.appRulesRepository = appRulesRepository;
     }
@@ -42,9 +39,8 @@ public final class UpdateAppInstalledRulesByChildInteract extends UseCase<String
     protected Observable<String> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
-        return appRulesRepository.updateAppInstalledRulesByChild(
-                params.getChildId(),
-                params.getTerminalId(),
+        return appRulesRepository.updateSingleAppInstalledRulesByChild(
+                params.getChildId(), params.getTerminalId(), params.getAppId(),
                 params.getAppRules());
     }
 
@@ -55,16 +51,24 @@ public final class UpdateAppInstalledRulesByChildInteract extends UseCase<String
 
         private final String childId;
         private final String terminalId;
-        private final List<AppInstalledRuleEntity> appRules;
+        private final String appId;
+        private final AppInstalledRuleEntity appRules;
+
         /**
          * Params
          * @param childId
          * @param terminalId
+         * @param appId
          * @param appRules
          */
-        private Params(String childId, String terminalId, List<AppInstalledRuleEntity> appRules) {
+        private Params(
+                final String childId,
+                final String terminalId,
+                final String appId,
+                final AppInstalledRuleEntity appRules) {
             this.childId = childId;
             this.terminalId = terminalId;
+            this.appId = appId;
             this.appRules = appRules;
         }
 
@@ -76,7 +80,11 @@ public final class UpdateAppInstalledRulesByChildInteract extends UseCase<String
             return terminalId;
         }
 
-        public List<AppInstalledRuleEntity> getAppRules() {
+        public String getAppId() {
+            return appId;
+        }
+
+        public AppInstalledRuleEntity getAppRules() {
             return appRules;
         }
 
@@ -84,17 +92,23 @@ public final class UpdateAppInstalledRulesByChildInteract extends UseCase<String
          * Create
          * @param childId
          * @param terminalId
+         * @param appId
          * @param appRules
          * @return
          */
-        public static Params create(final String childId, final String terminalId,
-                                    final List<AppInstalledRuleEntity> appRules){
+        public static Params create(
+                final String childId,
+                final String terminalId,
+                final String appId,
+                final AppInstalledRuleEntity appRules){
             Preconditions.checkNotNull(childId, "Child id can not be null");
             Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
+            Preconditions.checkNotNull(appId, "App id can not be null");
+            Preconditions.checkState(!appId.isEmpty(), "App id can not be empty");
             Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
             Preconditions.checkState(!terminalId.isEmpty(), "Terminal id can not be empty");
-
-            return new Params(childId, terminalId, appRules);
+            Preconditions.checkNotNull(appRules, "App Rule can not be null");
+            return new Params(childId, terminalId, appId, appRules);
         }
     }
 }

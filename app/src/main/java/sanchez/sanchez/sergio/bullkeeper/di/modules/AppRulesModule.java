@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
+import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateSingleAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
@@ -83,9 +84,25 @@ public class AppRulesModule {
      */
     @Provides
     @PerActivity
-    public GetAppInstalledDetailInteract provideGetAppInstalledDetailInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                              final IAppRulesRepository appRulesRepository) {
+    public GetAppInstalledDetailInteract provideGetAppInstalledDetailInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAppRulesRepository appRulesRepository) {
         return new GetAppInstalledDetailInteract(threadExecutor, postExecutionThread, appRulesRepository);
+    }
+
+    /**
+     * Provide UpdateSingleAppInstalledRulesByChildInteract
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public UpdateSingleAppInstalledRulesByChildInteract provideUpdateSingleAppInstalledRulesByChildInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAppRulesRepository appRulesRepository
+    ){
+        return new UpdateSingleAppInstalledRulesByChildInteract(threadExecutor, postExecutionThread, appRulesRepository);
     }
 
 }

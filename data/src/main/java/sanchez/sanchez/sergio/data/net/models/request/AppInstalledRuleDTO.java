@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.data.net.models.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 /**
@@ -10,11 +12,13 @@ public final class AppInstalledRuleDTO implements Serializable {
     /**
      * Identity
      */
+    @JsonProperty("identity")
     private String identity;
 
     /**
      * App Rule Enum
      */
+    @JsonProperty("type")
     private String appRule;
 
     public AppInstalledRuleDTO(){}

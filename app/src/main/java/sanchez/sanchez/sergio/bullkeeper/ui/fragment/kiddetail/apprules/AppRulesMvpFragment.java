@@ -332,7 +332,7 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
 
         final Map<String, AppRuleEnum> newRules = new HashMap<>();
         for(final AppRuleChange appRuleChange: appRulesChanges) {
-            newRules.put(appRuleChange.getAppIdentity(), appRuleChange.getOldAppRule());
+            newRules.put(appRuleChange.getAppIdentity(), appRuleChange.getNewAppRule());
         }
 
         getPresenter().applyRules(kidIdentity, terminalIdentity, newRules);

@@ -90,6 +90,35 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
     }
 
     /**
+     * Update Single App Installed Rules By Child
+     * @param kid
+     * @param terminal
+     * @param app
+     * @param appInstalledRuleEntity
+     * @return
+     */
+    @Override
+    public Observable<String> updateSingleAppInstalledRulesByChild(
+            final String kid,
+            final String terminal,
+            final String app,
+            final AppInstalledRuleEntity appInstalledRuleEntity) {
+        Preconditions.checkNotNull(kid, "Child id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal  can not be empty");
+        Preconditions.checkNotNull(app, "App can not be null");
+        Preconditions.checkState(!app.isEmpty(), "App can not be empty");
+        Preconditions.checkNotNull(appInstalledRuleEntity, "App Installed can not be null");
+
+        return appRulesService.updateSingleAppInstalledRulesByChild(kid, terminal, app,
+                appInstalledRuleDataMapper.transformInverse(appInstalledRuleEntity))
+        .map(response -> response != null && response.getData() != null ?
+            response.getData(): null);
+
+    }
+
+    /**
      *
      * @param kid
      * @param terminal

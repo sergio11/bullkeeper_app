@@ -41,6 +41,22 @@ public interface IAppRulesService {
 
 
     /**
+     * Update Single App Installed Rules By Child
+     * @param kid
+     * @param terminal
+     * @param id
+     * @param appInstalledRuleDTO
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/apps/{id}/rules")
+    Observable<APIResponse<String>> updateSingleAppInstalledRulesByChild(
+            @Path("kid") final String kid,
+            @Path("terminal") final String terminal,
+            @Path("id") final String id,
+            final @Body AppInstalledRuleDTO appInstalledRuleDTO);
+
+
+    /**
      * Get App Installed Detail
      * @param kid
      * @param terminal
