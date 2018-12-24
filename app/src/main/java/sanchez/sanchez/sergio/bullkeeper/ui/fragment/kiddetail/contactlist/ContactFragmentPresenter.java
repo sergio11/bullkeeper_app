@@ -5,7 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactListInteract;
@@ -14,7 +14,7 @@ import sanchez.sanchez.sergio.domain.models.ContactEntity;
 /**
  * Contact Fragment Presenter
  */
-public final class ContactFragmentPresenter extends SupportLCEPresenter<IContactListFragmentView> {
+public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IContactListFragmentView> {
 
     /**
      * Args
@@ -46,14 +46,28 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
      * Load Data
      */
     @Override
-    public void loadData() { }
+    public void loadData() { loadContacts(null); }
 
     /**
      * Load Data
      * @param args
      */
     @Override
-    public void loadData(Bundle args) {
+    public void loadData(Bundle args) { loadContacts(null); }
+
+    /**
+     * Load Data
+     * @param queryText
+     */
+    @Override
+    public void loadData(String queryText) { loadContacts(queryText); }
+
+    /**
+     * Load Contacts
+     * @param queryText
+     */
+    private void loadContacts(final String queryText) {
+
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(KID_IDENTITY_ARG), "You must provide a son identity value");
         Preconditions.checkState(args.containsKey(TERMINALS_ARG), "You must provide terminals list");
@@ -78,7 +92,7 @@ public final class ContactFragmentPresenter extends SupportLCEPresenter<IContact
             getContactListInteract.execute(new GetContactListObservable(GetContactListInteract.GetContactListApiErrors.class),
                     GetContactListInteract.Params.create(
                             args.getString(KID_IDENTITY_ARG),
-                            terminalItem.getIdentity()));
+                            terminalItem.getIdentity(), queryText));
         }
     }
 

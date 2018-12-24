@@ -5,6 +5,7 @@ import io.reactivex.Observable;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.ContactDTO;
 
@@ -12,6 +13,18 @@ import sanchez.sanchez.sergio.data.net.models.response.ContactDTO;
  * Contacts Service
  */
 public interface IContactsService {
+
+    /**
+     * Get All Contacts From Terminal
+     * @param kid
+     * @return
+     */
+    @GET("children/{kid}/terminal/{terminal}/contacts")
+    Observable<APIResponse<List<ContactDTO>>> getAllContacts(
+            final @Path("kid") String kid,
+            final @Path("terminal") String terminal,
+            final @Query("text") String query);
+
 
     /**
      * Get All Contacts From Terminal

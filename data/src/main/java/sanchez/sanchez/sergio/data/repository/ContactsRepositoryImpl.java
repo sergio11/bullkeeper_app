@@ -54,6 +54,27 @@ public final class ContactsRepositoryImpl implements IContactsRepository {
     }
 
     /**
+     * Get Contacts List
+     * @param kid
+     * @param terminal
+     * @param query
+     * @return
+     */
+    @Override
+    public Observable<List<ContactEntity>> getContactsList(final String kid, final String terminal, final String query) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(query, "Query can not be null");
+
+        return contactsService.getAllContacts(kid, terminal, query)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(contactEntityDataMapper::transform);
+    }
+
+    /**
      * Get Contact Detail
      * @param kid
      * @param terminal

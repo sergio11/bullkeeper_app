@@ -85,7 +85,10 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
             }
 
             // Set Contact Name
-            contactNameTextView.setText(contactEntity.getName());
+            if(hasHighlightText())
+                contactNameTextView.setText(getSpannableString(contactEntity.getName()));
+            else
+                contactNameTextView.setText(contactEntity.getName());
 
             // Set Phone Number
             contactPhoneNumberTextView.setText(String.format(Locale.getDefault(),

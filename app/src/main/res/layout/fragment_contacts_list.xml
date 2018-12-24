@@ -18,6 +18,7 @@
 
         <!-- Start Header -->
         <android.support.v7.widget.CardView
+            android:id="@+id/searchHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/common_margin"
@@ -29,59 +30,89 @@
                 android:id="@+id/contactsListDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="1"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:layout_gravity="start"
-                    android:visibility="visible"
-                    android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Search Header Image -->
+                    <ImageView
+                        android:id="@+id/searchHeaderImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/my_kids_content_description"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/common_margin"
+                        android:layout_marginTop="@dimen/common_margin"
+                        android:layout_alignParentStart="true"
+                        android:layout_above="@id/descriptionTextView"
+                        android:src="@drawable/contacts_tab_cyan"
+                        />
 
                     <!-- Title -->
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/searchHeaderTitle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
+                        style="@style/CommonStrongText.Big"
                         android:textColor="@color/cyanBrilliant"
+                        android:layout_gravity="start"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@id/searchHeaderImage"
+                        android:layout_toStartOf="@id/searchView"
+                        android:layout_marginStart="@dimen/common_margin"
+                        android:layout_marginTop="@dimen/common_margin"
                         android:textStyle="bold"
                         android:text="@string/contact_list_title"/>
 
+
                     <!-- Description -->
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/descriptionTextView"
                         style="@style/CommonStrongText.Medium"
-                        android:textColor="@color/cyanBrilliant"
-                        android:text="@string/contact_list_description"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@id/searchHeaderTitle"
+                        android:layout_toStartOf="@id/terminalsSpinner"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/contact_list_description"
+                        android:textColor="@color/cyanBrilliant" />
 
                     <View
                         android:layout_width="@dimen/common_divider_small"
                         android:layout_height="@dimen/common_divider_height"
                         android:layout_margin="10dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@id/descriptionTextView"
                         android:background="@color/cyanBrilliant"/>
 
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".4"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/common_padding">
+                    <!-- Search View -->
+                    <android.support.v7.widget.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:iconifiedByDefault="false"
+                        app:searchIcon="@drawable/search_cyan_solid_90"
+                        app:searchHintIcon="@drawable/search_cyan_solid_90"
+                        app:closeIcon="@drawable/times_solid_cyan_40"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"/>
 
                     <!-- Terminals Spinner -->
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/terminalsSpinner"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="300dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/common_margin"
+                        android:layout_margin="@dimen/common_margin"
                         android:theme="@style/CommonSpinner"
-                        android:layout_alignParentBottom="true"/>
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/searchView"
+                        />
 
                 </RelativeLayout>
 

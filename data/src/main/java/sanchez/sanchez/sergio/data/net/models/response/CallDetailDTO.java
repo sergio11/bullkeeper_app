@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.data.net.models.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.Date;
 /**
  * Call Detail
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CallDetailDTO implements Serializable {
 
     /**

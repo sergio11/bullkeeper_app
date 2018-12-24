@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpSearchLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -30,7 +30,7 @@ import timber.log.Timber;
 /**
  * Contact List Fragment
  */
-public class ContactListMvpFragment extends SupportMvpLCEFragment<ContactFragmentPresenter,
+public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactFragmentPresenter,
         IContactListFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, ContactEntity>
         implements IContactListFragmentView, AdapterView.OnItemSelectedListener {
 
@@ -165,6 +165,15 @@ public class ContactListMvpFragment extends SupportMvpLCEFragment<ContactFragmen
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
+    }
+
+    /**
+     * Get Search Hint Res
+     * @return
+     */
+    @Override
+    protected int getSearchHintRes() {
+        return R.string.search_contacts_hint;
     }
 
     /**

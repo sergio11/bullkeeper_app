@@ -48,7 +48,11 @@ public final class GetContactListInteract extends
         Preconditions.checkState(!params.getTerminal().isEmpty(),
                 "Terminal can not be null");
 
-        return contactsRepository.getContactsList(params.getKid(), params.getTerminal());
+        return params.getQuery() != null ?
+                contactsRepository.getContactsList(
+                        params.getKid(), params.getTerminal(), params.getQuery()) :
+                contactsRepository.getContactsList(params.getKid(), params.getTerminal());
+
     }
 
 
@@ -67,10 +71,23 @@ public final class GetContactListInteract extends
          */
         private final String terminal;
 
-        private Params(final String kid, final String terminal) {
+        /**
+         * Query
+         */
+        private final String query;
+
+        /**
+         *
+         * @param kid
+         * @param terminal
+         * @param query
+         */
+        private Params(final String kid, final String terminal, final String query) {
             this.kid = kid;
             this.terminal = terminal;
+            this.query = query;
         }
+
 
         public String getKid() {
             return kid;
@@ -80,6 +97,11 @@ public final class GetContactListInteract extends
             return terminal;
         }
 
+        public String getQuery() {
+            return query;
+        }
+
+
         /**
          * Create
          * @param kid
@@ -87,7 +109,18 @@ public final class GetContactListInteract extends
          * @return
          */
         public static Params create(final String kid, final String terminal){
-            return new Params(kid, terminal);
+            return create(kid, terminal, null);
+        }
+
+        /**
+         * Create
+         * @param kid
+         * @param terminal
+         * @param query
+         * @return
+         */
+        public static Params create(final String kid, final String terminal, final String query){
+            return new Params(kid, terminal, query);
         }
 
         @Override
