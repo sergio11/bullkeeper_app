@@ -239,6 +239,15 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             public <E> void accept(ISaveScheduledBlockVisitor visitor, E data) {
                 visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
             }
+        },
+        /**
+         * Scheduled Block Not Valid
+         */
+        SCHEDULED_BLOCK_NOT_VALID(){
+            @Override
+            public <E> void accept(ISaveScheduledBlockVisitor visitor, E data) {
+                visitor.visitScheduledBlockNotValid(this);
+            }
         };
 
         /**
@@ -253,6 +262,11 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
              */
             void visitValidationError(final SaveScheduledBlockApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
 
+            /**
+             * Visit Scheduled Block Not Valid
+             * @param apiErrors
+             */
+            void visitScheduledBlockNotValid(final SaveScheduledBlockApiErrors apiErrors);
         }
     }
 

@@ -35,4 +35,9 @@ public interface ISaveScheduledBlockView extends ISupportView {
      */
     void onScheduledBlockSaved(final ScheduledBlockEntity scheduledBlockEntity);
 
+    /**
+     * On Scheduled Block Not Valid
+     */
+    void onScheduledBlockNotValid();
+
 }

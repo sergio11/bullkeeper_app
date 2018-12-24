@@ -177,6 +177,18 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
                 }
             }
         }
+
+        /**
+         * Visit Scheduled Block Not Valid
+         * @param apiErrors
+         */
+        @Override
+        public void visitScheduledBlockNotValid(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors apiErrors) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onScheduledBlockNotValid();
+            }
+        }
     }
 
     /**

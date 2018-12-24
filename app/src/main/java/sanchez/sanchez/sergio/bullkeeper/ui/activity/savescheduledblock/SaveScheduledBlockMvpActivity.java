@@ -461,6 +461,17 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
             return;
         }
 
+        boolean atLeastOneDayOfWeekConfigured = false;
+        for(int i = 0; i < scheduledBlocksWeeklyFrequency.length; i++)
+            if(scheduledBlocksWeeklyFrequency[i] == 1) {
+                atLeastOneDayOfWeekConfigured = true;
+                break;
+            }
+
+        if(!atLeastOneDayOfWeekConfigured) {
+            scheduledBlockWeeklyFrequencyInput.setError(getString(R.string.scheduled_block_weekly_frequency_not_valid));
+            return;
+        }
         // Save Scheduled Block
         getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
                 scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity,
@@ -570,7 +581,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
                         .noFade()
                         .into(scheduledBlockImageView);
             else
-                scheduledBlockImageView.setImageResource(R.drawable.parent_default);
+                scheduledBlockImageView.setImageResource(R.drawable.scheduled_block_default);
         }
 
         nameInput.setText(scheduledBlockName);
@@ -702,6 +713,14 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
                 closeActivity();
             }
         });
+    }
+
+    /**
+     * On Scheduled Block Not Valid
+     */
+    @Override
+    public void onScheduledBlockNotValid() {
+        showNoticeDialog(R.string.scheduled_block_not_valid);
     }
 
     /**

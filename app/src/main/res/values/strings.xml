@@ -684,6 +684,8 @@
     <string name="deleting_scheduled_block">Deleting scheduled block wait...</string>
     <string name="scheduled_block_start_input_validation_error">The start date must be before the end date</string>
     <string name="scheduled_block_end_input_validation_error">The start date must be before the end date</string>
+    <string name="scheduled_block_not_valid">The configuration block can not be registered, please check the weekly frequency and the duration of the same.</string>
+    <string name="scheduled_block_weekly_frequency_not_valid">You must select at least one day of the week</string>
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>
     <string name="app_rules_description">Rules applied to the set of installed applications</string>
