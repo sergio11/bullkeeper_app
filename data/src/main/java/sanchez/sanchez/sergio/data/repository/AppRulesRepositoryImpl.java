@@ -54,13 +54,13 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
      * @return
      */
     @Override
-    public Observable<List<AppInstalledEntity>> getAppInstalledByChild(final String kid, final String terminal) {
+    public Observable<List<AppInstalledEntity>> getAppInstalledByChild(final String kid, final String terminal, final String query) {
         Preconditions.checkNotNull(kid, "Child id can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
         Preconditions.checkNotNull(terminal, "Terminal Id can not be null");
         Preconditions.checkState(!terminal.isEmpty(), "Terminal Id can not be empty");
 
-        return appRulesService.getAppInstalledByChild(kid, terminal)
+        return appRulesService.getAppInstalledByChild(kid, terminal, query)
                 .map(response -> response != null && response.getData() != null
                         ? response.getData() : null)
                 .map(appInstalledDataMapper::transform);

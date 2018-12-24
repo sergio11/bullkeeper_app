@@ -1,15 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules;
 
+
 import android.os.Bundle;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
@@ -19,6 +16,7 @@ import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRules
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
+import timber.log.Timber;
 
 /**
  * App Rules Fragment Presenter
@@ -28,7 +26,7 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
     /**
      * Args
      */
-    public static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
+    public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
     public static final String TERMINALS_ARG = "TERMINALS_ARG";
     public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
 
@@ -59,19 +57,39 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
     }
 
     /**
-     * Load Data
+     * Load Date
      */
     @Override
-    public void loadData() { }
+    public void loadData() {
+        loadApps("");
+    }
 
     /**
-     * Load Data
+     *
      * @param args
      */
     @Override
     public void loadData(Bundle args) {
+        loadApps("");
+    }
+
+    /**
+     * Load Data
+     * @param queryText
+     */
+    @Override
+    public void loadData(String queryText) {
+        loadApps(queryText);
+    }
+
+
+    /**
+     * Load Apps
+     * @param queryText
+     */
+    private void loadApps(final String queryText) {
         Preconditions.checkNotNull(args, "Args can not be null");
-        Preconditions.checkState(args.containsKey(SON_IDENTITY_ARG), "You must provide a son identity value");
+        Preconditions.checkState(args.containsKey(KID_IDENTITY_ARG), "You must provide a kid identity value");
         Preconditions.checkState(args.containsKey(TERMINALS_ARG), "You must provide terminals list");
         final ArrayList<TerminalItem> terminalItems = (ArrayList<TerminalItem>) args.getSerializable(TERMINALS_ARG);
         Preconditions.checkNotNull(terminalItems, "Terminal list can not be null");
@@ -91,10 +109,9 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
                 getView().onShowLoading();
 
             getAppRulesInteract.execute(new GetAppRulesObservable(GetAppRulesInteract.GetAppRulesApiErrors.class),
-                    GetAppRulesInteract.Params.create(args.getString(SON_IDENTITY_ARG), terminalItem.getIdentity()));
+                    GetAppRulesInteract.Params.create(
+                            args.getString(KID_IDENTITY_ARG), terminalItem.getIdentity(), queryText));
         }
-
-
     }
 
     /**
@@ -125,10 +142,7 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
 
     }
 
-    @Override
-    public void loadData(String queryText) {
 
-    }
 
     /**
      * Get App Rules Observable
@@ -184,6 +198,8 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
         protected void onSuccess(List<AppInstalledEntity> response) {
             Preconditions.checkNotNull(response, "Response can not be null");
             Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
+
+            Timber.d("App Rules On Success");
 
             if (isViewAttached() && getView() != null){
                 getView().hideProgressDialog();

@@ -233,7 +233,7 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
     @Override
     public Bundle getArgs() {
         final Bundle args = new Bundle();
-        args.putString(AppRulesFragmentPresenter.SON_IDENTITY_ARG, kidIdentity);
+        args.putString(AppRulesFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
         args.putSerializable(AppRulesFragmentPresenter.TERMINALS_ARG, terminalItems);
         args.putInt(AppRulesFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
         return args;

@@ -50,7 +50,7 @@
     <!-- App Installed Name -->
     <TextView
         android:id="@+id/appInstalledName"
-        style="@style/CommonStrongText"
+        style="@style/CommonStrongText.Big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"

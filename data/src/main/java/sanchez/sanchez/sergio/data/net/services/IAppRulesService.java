@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
@@ -22,11 +23,14 @@ public interface IAppRulesService {
      * Get App Installed
      * @param kid
      * @param terminal
+     * @param query
      * @return
      */
     @GET("children/{kid}/terminal/{terminal}/apps")
     Observable<APIResponse<List<AppInstalledDTO>>> getAppInstalledByChild(
-            @Path("kid") final String kid, @Path("terminal") final String terminal);
+            @Path("kid") final String kid,
+            @Path("terminal") final String terminal,
+            @Query("text") final String query);
 
     /**
      * Update App Installed Rules By Child

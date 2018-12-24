@@ -46,9 +46,11 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
         Preconditions.checkState(!params.getChildId().isEmpty(), "Child id can not be empty");
         Preconditions.checkNotNull(params.getTerminalId(), "Terminal Id can not be null");
         Preconditions.checkState(!params.getTerminalId().isEmpty(), "Terminal id can not be empty");
+        Preconditions.checkNotNull(params.getQuery(), "Query can not be null");
 
-
-        return appRulesRepository.getAppInstalledByChild(params.getChildId(), params.getTerminalId());
+        return appRulesRepository.getAppInstalledByChild(
+                params.getChildId(), params.getTerminalId(),
+                params.getQuery());
 
     }
 
@@ -57,17 +59,30 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
      */
     public static class Params {
 
+        /**
+         * Child Id
+         */
         private final String childId;
+
+        /**
+         * Terminal Id
+         */
         private final String terminalId;
 
         /**
-         *
+         * Query
+         */
+        private final String query;
+
+        /**
          * @param childId
          * @param terminalId
+         * @param query
          */
-        private Params(final String childId, final String terminalId) {
+        private Params(final String childId, final String terminalId, final String query) {
             this.childId = childId;
             this.terminalId = terminalId;
+            this.query = query;
         }
 
         public String getChildId() {
@@ -78,13 +93,17 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
             return terminalId;
         }
 
-        public static Params create(final String childId, final String terminalId) {
+        public String getQuery() {
+            return query;
+        }
+
+        public static Params create(final String childId, final String terminalId, final String query) {
             Preconditions.checkNotNull(childId, "Child Id can not be null");
             Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
             Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
             Preconditions.checkState(!terminalId.isEmpty(), "Terminal Id can not empty");
-
-            return new Params(childId, terminalId);
+            Preconditions.checkNotNull(query, "Query  can not be null");
+            return new Params(childId, terminalId, query);
         }
     }
 

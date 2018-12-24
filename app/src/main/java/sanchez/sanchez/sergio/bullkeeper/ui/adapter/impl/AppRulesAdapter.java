@@ -125,10 +125,11 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
         public void bind(final AppInstalledEntity appInstalledEntity) {
             super.bind(appInstalledEntity);
 
-
-
             // Set App Name
-            appInstalledName.setText(appInstalledEntity.getAppName());
+            if(hasHighlightText())
+                appInstalledName.setText(getSpannableString(appInstalledEntity.getAppName()));
+            else
+                appInstalledName.setText(appInstalledEntity.getAppName());
 
             if(appInstalledEntity.getIconEncodedString() != null &&
                     !appInstalledEntity.getIconEncodedString().isEmpty()) {
