@@ -8,6 +8,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
+import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
+import sanchez.sanchez.sergio.bullkeeper.core.sounds.impl.SoundManagerImpl;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.PreferencesRepositoryImpl;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
@@ -157,6 +159,17 @@ public class ApplicationModule {
     @Provides @Singleton
     UiUtils provideUiUtils(final Context appContext) {
         return new UiUtils(appContext);
+    }
+
+    /**
+     * Provide Sound Manager
+     * @return
+     */
+    @Provides @Singleton
+    ISoundManager provideSoundManager(
+            final Context context
+    ){
+        return new SoundManagerImpl(context);
     }
 
 }

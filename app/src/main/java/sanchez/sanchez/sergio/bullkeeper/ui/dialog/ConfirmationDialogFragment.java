@@ -7,9 +7,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
 
 /**
@@ -22,10 +27,25 @@ public final class ConfirmationDialogFragment extends SupportDialogFragment {
     private ConfirmationDialogListener confirmationDialogListener;
 
     /**
+     * Dependencies
+     * ==============
+     */
+
+    @Inject
+    protected ISoundManager soundManager;
+
+
+    /**
+     * Views
+     * ==============
+     */
+
+    /**
      * Dialog Title
      */
     @BindView(R.id.dialogTitle)
     protected TextView dialogTitleTextView;
+
 
     public void setConfirmationDialogListener(ConfirmationDialogListener confirmationDialogListener) {
         this.confirmationDialogListener = confirmationDialogListener;
@@ -76,7 +96,7 @@ public final class ConfirmationDialogFragment extends SupportDialogFragment {
         // Set Dialog Title Text View
         dialogTitleTextView.setText(title);
 
-
+        soundManager.playSound(ISoundManager.DIALOG_CONFIRM_SOUND);
     }
 
     /**
@@ -92,7 +112,10 @@ public final class ConfirmationDialogFragment extends SupportDialogFragment {
      *
      */
     @Override
-    protected void initializeInjector() { }
+    protected void initializeInjector() {
+        AndroidApplication.getInstance().getApplicationComponent()
+                .inject(this);
+    }
 
     /**
      * On Accept

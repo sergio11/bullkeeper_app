@@ -424,6 +424,40 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * Show Notice
+     * @param title
+     * @param isSuccess
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(String title, boolean isSuccess, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        dismissAllDialogs(getSupportFragmentManager());
+        navigatorImpl.showNoticeDialog(this, title, isSuccess, noticeDialogListener);
+    }
+
+    /**
+     * Show Norice Dialog
+     * @param stringResId
+     * @param isSuccess
+     */
+    @Override
+    public void showNoticeDialog(@StringRes Integer stringResId, boolean isSuccess) {
+        dismissAllDialogs(getSupportFragmentManager());
+        navigatorImpl.showNoticeDialog(this, getString(stringResId), isSuccess);
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param string
+     * @param isSuccess
+     */
+    @Override
+    public void showNoticeDialog(String string, boolean isSuccess) {
+        dismissAllDialogs(getSupportFragmentManager());
+        navigatorImpl.showNoticeDialog(this, string, isSuccess);
+    }
+
+    /**
      * Show Notice Dialog
      * @param stringResId
      * @param noticeDialogListener

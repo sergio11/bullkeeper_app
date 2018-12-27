@@ -551,7 +551,36 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(title, "Title can not be null");
         Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
-        NoticeDialogFragment.showDialog(activity, title, noticeDialogListener);
+        NoticeDialogFragment.showDialog(activity, title, true, noticeDialogListener);
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     * @param isSuccess
+     */
+    @Override
+    public void showNoticeDialog(AppCompatActivity activity, String title, boolean isSuccess) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        NoticeDialogFragment.showDialog(activity, title, isSuccess);
+
+    }
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     * @param isSuccess
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(AppCompatActivity activity, String title, boolean isSuccess, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(title, "Title can not be null");
+        Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
+        NoticeDialogFragment.showDialog(activity, title, isSuccess, noticeDialogListener);
     }
 
     /**

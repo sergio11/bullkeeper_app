@@ -66,6 +66,29 @@ public interface IBasicActivityHandler {
     void showNoticeDialog(final Integer stringResId, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
     /**
+     * Show Notice Dialog
+     * @param title
+     * @param isSuccess
+     * @param noticeDialogListener
+     */
+    void showNoticeDialog(final String title, final boolean isSuccess, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
+
+    /**
+     * Show Notice Dialog
+     * @param stringResId
+     * @param isSuccess
+     */
+    void showNoticeDialog(@StringRes final Integer stringResId, final boolean isSuccess);
+
+
+    /**
+     * Show Notice Dialog
+     * @param string
+     * @param isSuccess
+     */
+    void showNoticeDialog(final String string, final boolean isSuccess);
+
+    /**
      * Show Progress Dialog
      * @param title
      */

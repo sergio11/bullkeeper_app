@@ -43,6 +43,15 @@ public interface ISupportView extends TiView {
     @CallOnMainThread
     void showNoticeDialog(final String title);
 
+
+    /**
+     * Show Notice Dialog
+     * @param title
+     * @param isSuccess
+     */
+    @CallOnMainThread
+    void showNoticeDialog(final String title, final boolean isSuccess);
+
     /**
      * On Network Error
      */
@@ -61,6 +70,14 @@ public interface ISupportView extends TiView {
      */
     @CallOnMainThread
     void showNoticeDialog(final Integer stringResId);
+
+    /**
+     * Show Notice Dialog
+     * @param stringResId
+     * @param isSuccess
+     */
+    @CallOnMainThread
+    void showNoticeDialog(final Integer stringResId, final boolean isSuccess);
 
 
     /**

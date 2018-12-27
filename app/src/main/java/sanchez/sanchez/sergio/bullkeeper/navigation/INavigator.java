@@ -326,6 +326,24 @@ public interface INavigator {
      */
     void showNoticeDialog(final AppCompatActivity activity, final String title, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     * @param isSuccess
+     */
+    void showNoticeDialog(final AppCompatActivity activity, final String title, final boolean isSuccess);
+
+
+    /**
+     * Show Notice Dialog
+     * @param activity
+     * @param title
+     * @param isSuccess
+     * @param noticeDialogListener
+     */
+    void showNoticeDialog(final AppCompatActivity activity, final String title, final boolean isSuccess,  final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
+
 
     /**
      * Show Legal Content Activity

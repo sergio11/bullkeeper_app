@@ -10,8 +10,12 @@ import javax.inject.Singleton;
 import dagger.Component;
 import okhttp3.Request;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
@@ -87,6 +91,24 @@ public interface ApplicationComponent {
      */
     void inject(final ChildAlertsDetailDialog childAlertsDetailDialog);
 
+    /**
+     * Inject into Confirmation Dialog Fragment
+     * @param confirmationDialogFragment
+     */
+    void inject(final ConfirmationDialogFragment confirmationDialogFragment);
+
+    /**
+     * Inject into Notice Dialog Fragment
+     * @param noticeDialogFragment
+     */
+    void inject(final NoticeDialogFragment noticeDialogFragment);
+
+    /**
+     * Inject into Progress Dialog Fragment
+     * @param progressDialogFragment
+     */
+    void inject(final ProgressDialogFragment progressDialogFragment);
+
 
     //Exposed to sub-graphs.
     Context context();
@@ -105,4 +127,5 @@ public interface ApplicationComponent {
     ScreenManager screenManager();
     UiUtils uiUtils();
     OkSse okSse();
+    ISoundManager soundManager();
 }

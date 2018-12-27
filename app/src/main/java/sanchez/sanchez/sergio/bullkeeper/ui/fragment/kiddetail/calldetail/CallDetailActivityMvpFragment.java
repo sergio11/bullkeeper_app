@@ -241,7 +241,8 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @Override
     public void onNetworkError() {
-        activityHandler.showNoticeDialog(R.string.network_error_ocurred, new NoticeDialogFragment.NoticeDialogListener() {
+        activityHandler.showNoticeDialog(getString(R.string.network_error_ocurred), false,
+                new NoticeDialogFragment.NoticeDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
                 activityHandler.closeActivity();
@@ -254,7 +255,8 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @Override
     public void onOtherException() {
-        activityHandler.showNoticeDialog(R.string.unexpected_error_ocurred, new NoticeDialogFragment.NoticeDialogListener() {
+        activityHandler.showNoticeDialog(getString(R.string.unexpected_error_ocurred),
+                false, new NoticeDialogFragment.NoticeDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
                 activityHandler.closeActivity();
@@ -343,7 +345,7 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @Override
     public void onPhoneNumberBlockedError() {
-        showNoticeDialog(R.string.phone_number_blocked_error);
+        showNoticeDialog(R.string.phone_number_blocked_error, false);
         switchBlockStatusWidget.setChecked(false, false);
     }
 
@@ -384,7 +386,7 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
      */
     @Override
     public void onPhoneNumberUnlockedError() {
-        showNoticeDialog(R.string.phone_number_unlocked_error);
+        showNoticeDialog(R.string.phone_number_unlocked_error, false);
         switchBlockStatusWidget.setChecked(true, false);
     }
 
