@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.Invitation
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.phonenumbersblocked.PhoneNumbersBlockedListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
@@ -798,5 +799,23 @@ public class NavigatorImpl implements INavigator {
 
         activity.startActivity(ContactDetailMvpActivity.getCallingIntent(context,
                 kid, terminal, contact));
+    }
+
+    /**
+     * Navigate To Phone Numbers Blocked List
+     * @param activity
+     * @param kid
+     * @param terminal
+     */
+    @Override
+    public void navigateToPhoneNumbersBlockedList(AppCompatActivity activity, String kid, String terminal) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+
+        activity.startActivity(PhoneNumbersBlockedListMvpActivity.getCallingIntent(context,
+                kid, terminal));
     }
 }

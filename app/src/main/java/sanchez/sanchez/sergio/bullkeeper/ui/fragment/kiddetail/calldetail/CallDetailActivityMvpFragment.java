@@ -332,7 +332,7 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
                 R.string.phone_number_unlocked);
 
         switchBlockStatusWidget.setEnabled(true);
-        switchBlockStatusWidget.setChecked(callDetailEntity.isBlocked());
+        switchBlockStatusWidget.setChecked(callDetailEntity.isBlocked(), false);
 
         phoneNumberIsBlocked = callDetailEntity.isBlocked();
 

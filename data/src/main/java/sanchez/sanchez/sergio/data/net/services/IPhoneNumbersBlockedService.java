@@ -27,7 +27,7 @@ public interface IPhoneNumbersBlockedService {
      * @param terminal
      * @return
      */
-    @DELETE("/children/{kid}/terminal/{terminal}/phonenumbers-blocked")
+    @DELETE("children/{kid}/terminal/{terminal}/phonenumbers-blocked")
     Observable<APIResponse<String>> deletePhoneNumberBlocked(
             @Path("kid") final String kid,
             @Path("terminal") final String terminal
@@ -51,7 +51,7 @@ public interface IPhoneNumbersBlockedService {
      * @param terminal
      * @return
      */
-    @DELETE("/children/{kid}/terminal/{terminal}/phonenumbers-blocked/{id}")
+    @DELETE("children/{kid}/terminal/{terminal}/phonenumbers-blocked/{id}")
     Observable<APIResponse<String>> deletePhoneNumberBlocked(
             @Path("kid") final String kid,
             @Path("terminal") final String terminal,

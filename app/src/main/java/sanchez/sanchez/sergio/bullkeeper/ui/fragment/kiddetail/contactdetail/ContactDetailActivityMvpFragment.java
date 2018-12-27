@@ -290,7 +290,7 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
                 R.string.phone_number_unlocked);
 
         switchBlockStatusWidget.setEnabled(true);
-        switchBlockStatusWidget.setChecked(contactEntity.isBlocked());
+        switchBlockStatusWidget.setChecked(contactEntity.isBlocked(), false);
 
         phoneNumberIsBlocked = contactEntity.isBlocked();
 

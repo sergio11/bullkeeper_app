@@ -44,7 +44,6 @@ import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
-import timber.log.Timber;
 
 /**
  * My Kids Detail Activity
@@ -464,6 +463,21 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         navigatorImpl.navigateToContactDetailActivity(this, kid, terminal, contact);
 
+    }
+
+    /**
+     * Navigate To Phone Numbers Black List
+     * @param kid
+     * @param terminal
+     */
+    @Override
+    public void navigateToPhoneNumbersBlackList(final String kid, final String terminal) {
+        Preconditions.checkNotNull(kid, "kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "kid can not be empty");
+        Preconditions.checkNotNull(terminal, "terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "terminal can not be empty");
+
+        navigatorImpl.navigateToPhoneNumbersBlockedList(this, kid, terminal);
     }
 
     /**

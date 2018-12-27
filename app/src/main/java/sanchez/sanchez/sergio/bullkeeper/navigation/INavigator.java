@@ -458,4 +458,13 @@ public interface INavigator {
      */
     void navigateToContactDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String contact);
 
+    /**
+     * Navigate To Phone Numbers Blocked List
+     * @param activity
+     * @param kid
+     * @param terminal
+     */
+    void navigateToPhoneNumbersBlockedList(final AppCompatActivity activity,
+                                                      final String kid, final String terminal);
+
 }

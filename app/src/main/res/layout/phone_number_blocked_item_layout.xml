@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_very_high"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <!-- Background -->
+    <RelativeLayout
+        android:id="@+id/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_background">
+
+        <!-- Delete Phone Number -->
+        <ImageView
+            android:id="@+id/deletePhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/trash_white"
+            android:contentDescription="@string/content_not_be_loaded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/deletePhoneNumber"
+            android:textAllCaps="true"
+            android:text="@string/delete_list_menu_item"
+            android:textColor="@color/commonWhite"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <!-- Foreground -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/item_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_state">
+
+        <!-- Image -->
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/telephone_icon" />
+
+        <!-- Phone Number  -->
+        <TextView
+            android:id="@+id/phoneNumberTextView"
+            style="@style/CommonStrongText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:singleLine="true"
+            android:padding="0dp"
+            android:text="-"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/common_margin"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/common_margin"
+            android:background="@color/commonWhite"
+            app:layout_constraintBottom_toTopOf="@id/blockedAtTextView"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberTextView"/>
+
+        <!-- Blocked At  -->
+        <TextView
+            android:id="@+id/blockedAtTextView"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/common_margin"
+            android:gravity="start|center_vertical"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/commonWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

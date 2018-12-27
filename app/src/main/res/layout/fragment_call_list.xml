@@ -73,6 +73,15 @@
                     android:gravity="center_horizontal"
                     android:padding="@dimen/common_padding">
 
+                    <!-- Phone Numbers Black List -->
+                    <ImageView
+                        android:id="@+id/phoneNumbersBlackList"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/content_not_be_loaded"
+                        android:src="@drawable/phone_numbers_black_list"/>
+
                     <!-- Terminals Spinner -->
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/terminalsSpinner"
@@ -81,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/common_margin"
                         android:theme="@style/CommonSpinner"
+                        android:layout_below="@id/phoneNumbersBlackList"
                         android:layout_alignParentBottom="true"/>
 
                 </RelativeLayout>

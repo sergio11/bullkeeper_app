@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
@@ -263,5 +264,14 @@ public class CallsListMvpFragment extends SupportMvpLCEFragment<CallListFragment
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
+
+
+    /**
+     * On Phone Numbers Black List Clicked
+     */
+    @OnClick(R.id.phoneNumbersBlackList)
+    protected void onPhoneNumbersBlackListClicked(){
+        activityHandler.navigateToPhoneNumbersBlackList(kidIdentity, terminalIdentity);
+    }
 }
 

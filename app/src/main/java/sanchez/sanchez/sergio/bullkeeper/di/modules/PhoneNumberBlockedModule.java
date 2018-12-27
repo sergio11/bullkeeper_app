@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.data.repository.PhoneNumbersBlockedRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.AddPhoneNumbersBlockedInteract;
+import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.DeleteAllPhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.DeletePhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.GetPhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
@@ -91,4 +92,21 @@ public class PhoneNumberBlockedModule {
     ) {
         return new DeletePhoneNumbersBlockedInteract(threadExecutor, postExecutionThread, phoneNumbersBlockedRepository);
     }
+
+    /**
+     * Provide Delete All Phone Numbers Blocked Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param phoneNumbersBlockedRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public DeleteAllPhoneNumbersBlockedInteract provideDeleteAllPhoneNumbersBlockedInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IPhoneNumbersBlockedRepository phoneNumbersBlockedRepository
+    ) {
+        return new DeleteAllPhoneNumbersBlockedInteract(threadExecutor, postExecutionThread, phoneNumbersBlockedRepository);
+    }
+
 }

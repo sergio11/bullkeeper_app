@@ -86,4 +86,11 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToContactDetail(final String kid, final String terminal, final String contact);
 
+    /**
+     * Navigate To Phone Numbers Black List
+     * @param kid
+     * @param terminal
+     */
+    void navigateToPhoneNumbersBlackList(final String kid, final String terminal);
+
 }
