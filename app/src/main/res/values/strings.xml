@@ -754,7 +754,25 @@
     <string name="has_not_registered_contacts">There is no registered contacts</string>
     <string name="has_terminals_linked" formatted="false">Has %d linked devices</string>
     <string name="not_have_any_linked_devices">Not have any linked devices</string>
-
+    <string name="terminal_features_title">Features</string>
+    <string name="terminal_bed_time_enable">Bed Time mode is enabled</string>
+    <string name="terminal_bed_time_disabled">Bed Time mode is disabled</string>
+    <string name="terminal_lock_screen_enable">Lock Screen is enabled</string>
+    <string name="terminal_lock_screen_disabled">Lock Screen is disabled</string>
+    <string name="terminal_lock_camera_enable">Lock Camera is enabled</string>
+    <string name="terminal_lock_camera_disabled">Lock Camera is disabled</string>
+    <string name="terminal_enable_bed_time_confirm">Do you want to enable Bed Time mode in this terminal?</string>
+    <string name="terminal_bed_time_enable_successfully">Bed Time Mode Successfully enabled</string>
+    <string name="terminal_disable_bed_time_confirm">Do you want to disable the Bed Time mode in this terminal?</string>
+    <string name="terminal_bed_time_disable_successfully">Bed Time Mode Successfully disabled</string>
+    <string name="terminal_enable_lock_screen_confirm">Do you want to block the terminal?</string>
+    <string name="terminal_lock_screen_enable_successfully">Terminal locked successfully</string>
+    <string name="terminal_disable_lock_screen_confirm">Do you want to unlock the terminal?</string>
+    <string name="terminal_lock_screen_disabled_successfully">Terminal unlocked successfully</string>
+    <string name="terminal_enable_lock_camera_confirm">Do you want to block the camera of this terminal?</string>
+    <string name="terminal_lock_camera_enable_successfully">Camera locked successfully</string>
+    <string name="terminal_disable_lock_camera_confirm">Do you want to unlock the camera in this terminal?</string>
+    <string name="terminal_lock_camera_disabled_successfully">Camera unlocked successfully</string>
     <!-- Apps Installed -->
     <string name="app_installed_detail_title">App Installed Detail</string>
     <string name="app_first_install_time" formatted="false">First Install Time: %s</string>

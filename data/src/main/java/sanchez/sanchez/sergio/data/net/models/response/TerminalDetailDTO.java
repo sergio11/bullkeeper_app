@@ -46,6 +46,24 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("screen_status")
     private String screenStatus;
 
+    /**
+     * Bed Time Enabled
+     */
+    @JsonProperty("bed_time_enabled")
+    private boolean bedTimeEnabled;
+
+    /**
+     * Lock Screen Enabled
+     */
+    @JsonProperty("lock_screen_enabled")
+    private boolean lockScreenEnabled;
+
+    /**
+     * Lock Camera Enabled
+     */
+    @JsonProperty("lock_camera_enabled")
+    private boolean lockCameraEnabled;
+
 
     public TerminalDetailDTO(){
         super();
@@ -70,13 +88,18 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param totalContacts
      * @param lastTimeUsed
      * @param screenStatus
+     * @param bedTimeEnabled
+     * @param lockScreenEnabled
+     * @param lockCameraEnabled
      */
     public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode,
                              String osVersion, String sdkVersion, String manufacturer,
                              String marketName, String model, String codeName,
                              String deviceName, String deviceId, long totalApps,
                              long totalSms, long totalCalls, long totalContacts,
-                             String lastTimeUsed, String screenStatus) {
+                             String lastTimeUsed, String screenStatus,
+                             final boolean bedTimeEnabled, final boolean lockScreenEnabled,
+                             final boolean lockCameraEnabled) {
         super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
@@ -84,6 +107,9 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.totalContacts = totalContacts;
         this.lastTimeUsed = lastTimeUsed;
         this.screenStatus = screenStatus;
+        this.bedTimeEnabled = bedTimeEnabled;
+        this.lockScreenEnabled = lockScreenEnabled;
+        this.lockCameraEnabled = lockCameraEnabled;
     }
 
     public long getTotalApps() {
@@ -134,6 +160,30 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.screenStatus = screenStatus;
     }
 
+    public boolean isBedTimeEnabled() {
+        return bedTimeEnabled;
+    }
+
+    public void setBedTimeEnabled(boolean bedTimeEnabled) {
+        this.bedTimeEnabled = bedTimeEnabled;
+    }
+
+    public boolean isLockScreenEnabled() {
+        return lockScreenEnabled;
+    }
+
+    public void setLockScreenEnabled(boolean lockScreenEnabled) {
+        this.lockScreenEnabled = lockScreenEnabled;
+    }
+
+    public boolean isLockCameraEnabled() {
+        return lockCameraEnabled;
+    }
+
+    public void setLockCameraEnabled(boolean lockCameraEnabled) {
+        this.lockCameraEnabled = lockCameraEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailDTO{" +
@@ -143,6 +193,9 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", totalContacts=" + totalContacts +
                 ", lastTimeUsed='" + lastTimeUsed + '\'' +
                 ", screenStatus='" + screenStatus + '\'' +
+                ", bedTimeEnabled=" + bedTimeEnabled +
+                ", lockScreenEnabled=" + lockScreenEnabled +
+                ", lockCameraEnabled=" + lockCameraEnabled +
                 '}';
     }
 }

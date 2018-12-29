@@ -32,8 +32,6 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
      */
     private final IAppUtils appUtils;
 
-
-
     /**
      * Abstract class for a Use Case
      *

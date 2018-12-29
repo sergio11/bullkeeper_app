@@ -43,6 +43,9 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
             terminalEntity.setScreenStatusEnum(ScreenStatusEnum.STATE_UNKNOWN);
         }
         terminalEntity.setLastTimeUsed(originModel.getLastTimeUsed());
+        terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
+        terminalEntity.setLockCameraEnabled(originModel.isLockCameraEnabled());
+        terminalEntity.setLockScreenEnabled(originModel.isLockScreenEnabled());
         return terminalEntity;
     }
 
@@ -71,6 +74,9 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setTotalContacts(originModel.getTotalContacts());
         terminalDTO.setScreenStatus(originModel.getScreenStatusEnum().name());
         terminalDTO.setLastTimeUsed(originModel.getLastTimeUsed());
+        terminalDTO.setLockCameraEnabled(originModel.isLockCameraEnabled());
+        terminalDTO.setLockScreenEnabled(originModel.isLockScreenEnabled());
+        terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
         return terminalDTO;
     }
 }

@@ -35,6 +35,22 @@ public final class TerminalDetailEntity extends TerminalEntity {
      */
     private String lastTimeUsed;
 
+    /**
+     * Bed Time Enabled
+     */
+    private boolean bedTimeEnabled;
+
+    /**
+     * Lock Screen Enabled
+     */
+    private boolean lockScreenEnabled;
+
+    /**
+     * Lock Camera Enabled
+     */
+    private boolean lockCameraEnabled;
+
+
     public TerminalDetailEntity(){}
 
     /**
@@ -55,9 +71,15 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param totalContacts
      * @param screenStatusEnum
      * @param lastTimeUsed
+     * @param bedTimeEnabled
+     * @param lockScreenEnabled
+     * @param lockCameraEnabled
      */
     public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion,
-                                long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed) {
+                                long totalApps, long totalSms, long totalCalls,
+                                long totalContacts, ScreenStatusEnum screenStatusEnum,
+                                String lastTimeUsed, boolean bedTimeEnabled, boolean lockScreenEnabled,
+                                boolean lockCameraEnabled) {
         super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
@@ -65,6 +87,9 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.totalContacts = totalContacts;
         this.screenStatusEnum = screenStatusEnum;
         this.lastTimeUsed = lastTimeUsed;
+        this.bedTimeEnabled = bedTimeEnabled;
+        this.lockScreenEnabled = lockScreenEnabled;
+        this.lockCameraEnabled = lockCameraEnabled;
     }
 
     public long getTotalApps() {
@@ -115,6 +140,30 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.lastTimeUsed = lastTimeUsed;
     }
 
+    public boolean isBedTimeEnabled() {
+        return bedTimeEnabled;
+    }
+
+    public void setBedTimeEnabled(boolean bedTimeEnabled) {
+        this.bedTimeEnabled = bedTimeEnabled;
+    }
+
+    public boolean isLockScreenEnabled() {
+        return lockScreenEnabled;
+    }
+
+    public void setLockScreenEnabled(boolean lockScreenEnabled) {
+        this.lockScreenEnabled = lockScreenEnabled;
+    }
+
+    public boolean isLockCameraEnabled() {
+        return lockCameraEnabled;
+    }
+
+    public void setLockCameraEnabled(boolean lockCameraEnabled) {
+        this.lockCameraEnabled = lockCameraEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailEntity{" +
@@ -124,6 +173,9 @@ public final class TerminalDetailEntity extends TerminalEntity {
                 ", totalContacts=" + totalContacts +
                 ", screenStatusEnum=" + screenStatusEnum +
                 ", lastTimeUsed='" + lastTimeUsed + '\'' +
+                ", bedTimeEnabled=" + bedTimeEnabled +
+                ", lockScreenEnabled=" + lockScreenEnabled +
+                ", lockCameraEnabled=" + lockCameraEnabled +
                 '}';
     }
 }

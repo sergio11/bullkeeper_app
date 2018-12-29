@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
@@ -16,6 +17,7 @@ import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.di.components.TerminalComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.ITerminalDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
@@ -90,6 +92,48 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @BindView(R.id.lastTimeUsed)
     protected TextView lastTimeUsedTextView;
+
+    /**
+     * Bed Time Text View
+     */
+    @BindView(R.id.bedTimeTextView)
+    protected TextView bedTimeTextView;
+
+    /**
+     * Bed Time Status Widget
+     */
+    @BindView(R.id.bedTimeStatusWidget)
+    protected SupportSwitchCompat bedTimeStatusWidget;
+
+    /**
+     * Lock Screen Text View
+     */
+    @BindView(R.id.lockScreenTextView)
+    protected TextView lockScreenTextView;
+
+    /**
+     * Lock Screen Status Widget
+     */
+    @BindView(R.id.lockScreenStatusWidget)
+    protected SupportSwitchCompat lockScreenStatusWidget;
+
+    /**
+     * Lock Camera Text View
+     */
+    @BindView(R.id.lockCameraTextView)
+    protected TextView lockCameraTextView;
+
+    /**
+     * Lock Camera Status Widget
+     */
+    @BindView(R.id.lockCameraStatusWidget)
+    protected SupportSwitchCompat lockCameraStatusWidget;
+
+    /**
+     * Dependencies
+     * ===============
+     */
+
 
     /**
      * App Context
@@ -295,11 +339,134 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                         terminalDetailEntity.getTotalContacts()) : getString(R.string.has_not_registered_contacts);
 
         totalContactsTextView.setText(totalContactsText);
-
-
         // Last Time Used
         lastTimeUsedTextView.setText(terminalDetailEntity.getLastTimeUsed());
 
+        // Bed Time
+        bedTimeTextView.setText(terminalDetailEntity.isBedTimeEnabled() ?
+            getString(R.string.terminal_bed_time_enable) :
+            getString(R.string.terminal_bed_time_disabled));
+
+        bedTimeStatusWidget.setEnabled(true);
+        bedTimeStatusWidget.setChecked(!terminalDetailEntity.isBedTimeEnabled(), false);
+        bedTimeStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+
+                    showConfirmationDialog(R.string.terminal_disable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            showNoticeDialog(R.string.terminal_bed_time_disable_successfully);
+                            bedTimeTextView.setText(getString(R.string.terminal_bed_time_disabled));
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            bedTimeStatusWidget.setChecked(false, false);
+                        }
+                    });
+
+                } else {
+
+                    showConfirmationDialog(R.string.terminal_enable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            showNoticeDialog(R.string.terminal_bed_time_enable_successfully);
+                            bedTimeTextView.setText(getString(R.string.terminal_bed_time_enable));
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            bedTimeStatusWidget.setChecked(true, false);
+                        }
+                    });
+                }
+            }
+        });
+
+        // Lock Screen
+        lockScreenTextView.setText(terminalDetailEntity.isLockScreenEnabled() ?
+                getString(R.string.terminal_lock_screen_enable) :
+                getString(R.string.terminal_lock_screen_disabled));
+
+        lockScreenStatusWidget.setEnabled(true);
+        lockScreenStatusWidget.setChecked(!terminalDetailEntity.isLockScreenEnabled(), false);
+        lockScreenStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+
+                    showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            showNoticeDialog(R.string.terminal_lock_screen_disabled_successfully);
+                            lockScreenTextView.setText(getString(R.string.terminal_lock_screen_disabled));
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            lockScreenStatusWidget.setChecked(false, false);
+                        }
+                    });
+
+                } else {
+                    showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            showNoticeDialog(R.string.terminal_lock_screen_enable_successfully);
+                            lockScreenTextView.setText(getString(R.string.terminal_lock_screen_enable));
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            lockScreenStatusWidget.setChecked(true, false);
+                        }
+                    });
+                }
+            }
+        });
+        // Lock Camera
+        lockCameraTextView.setText(terminalDetailEntity.isLockCameraEnabled() ?
+                getString(R.string.terminal_lock_camera_enable) :
+                getString(R.string.terminal_lock_camera_disabled));
+
+        lockCameraStatusWidget.setEnabled(true);
+        lockCameraStatusWidget.setChecked(!terminalDetailEntity.isLockScreenEnabled(), false);
+        lockCameraStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+
+                    showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            showNoticeDialog(R.string.terminal_lock_camera_disabled_successfully);
+                            lockCameraTextView.setText(getString(R.string.terminal_lock_camera_disabled));
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            lockCameraStatusWidget.setChecked(false, false);
+                        }
+                    });
+
+                } else {
+                    showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            showNoticeDialog(R.string.terminal_lock_camera_enable_successfully);
+                            lockCameraTextView.setText(getString(R.string.terminal_lock_camera_enable));
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            lockCameraStatusWidget.setChecked(true, false);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     /**
