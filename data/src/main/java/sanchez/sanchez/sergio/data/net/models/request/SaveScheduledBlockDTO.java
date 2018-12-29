@@ -57,6 +57,18 @@ public final class SaveScheduledBlockDTO implements Serializable {
     @JsonProperty("kid")
     private String kid;
 
+    /**
+     * Description
+     */
+    @JsonProperty("description")
+    private String description;
+
+    /**
+     * Allow Calls
+     */
+    @JsonProperty("allow_calls")
+    private boolean allowCalls;
+
     public SaveScheduledBlockDTO(){}
 
     /**
@@ -70,7 +82,10 @@ public final class SaveScheduledBlockDTO implements Serializable {
      * @param weeklyFrequency
      * @param kid
      */
-    public SaveScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable, String startAt, String endAt, int[] weeklyFrequency, String kid) {
+    public SaveScheduledBlockDTO(String identity, String name, boolean enable,
+                                 boolean repeatable, String startAt, String endAt,
+                                 int[] weeklyFrequency, String kid, String description,
+                                boolean allowCalls) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -79,6 +94,8 @@ public final class SaveScheduledBlockDTO implements Serializable {
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
         this.kid = kid;
+        this.description = description;
+        this.allowCalls = allowCalls;
     }
 
     public String getIdentity() {
@@ -143,5 +160,21 @@ public final class SaveScheduledBlockDTO implements Serializable {
 
     public void setKid(String kid) {
         this.kid = kid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isAllowCalls() {
+        return allowCalls;
+    }
+
+    public void setAllowCalls(boolean allowCalls) {
+        this.allowCalls = allowCalls;
     }
 }

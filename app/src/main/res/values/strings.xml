@@ -671,8 +671,10 @@
     <string name="scheduled_block_name_hint">Scheduled Block Name</string>
     <string name="scheduled_block_start_at_hint">Start At</string>
     <string name="scheduled_block_end_at_hint">End At</string>
+    <string name="scheduled_block_description_hint">Scheduled Block Description</string>
     <string name="scheduled_block_recurring_weekly_label">Recurring weekly</string>
     <string name="scheduled_block_is_enable_label">Is Enable</string>
+    <string name="scheduled_block_allow_calls_label">Allow Calls</string>
     <string name="delete_scheduled_block_confirm">Do you want to delete this Scheduled Block?</string>
     <string name="scheduled_block_deleted_success">The Scheduled Block was deleted successfully</string>
     <string name="scheduled_block_saved_successfully">The Schedule Block was saved successfully</string>

@@ -55,11 +55,14 @@ public interface IScheduledBlockRepository {
      * @param weeklyFrequency
      * @param recurringWeeklyEnabled
      * @param childId
+     * @param description
+     * @param allowCalls
      * @return
      */
     Observable<ScheduledBlockEntity> saveScheduledBlock(final String identity, final String name, final boolean enable,
                                                         final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
-                                                        final boolean recurringWeeklyEnabled, final String childId);
+                                                        final boolean recurringWeeklyEnabled, final String childId,
+                                                        final String description, final boolean allowCalls);
 
 
     /**

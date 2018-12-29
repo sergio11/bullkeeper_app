@@ -192,6 +192,31 @@
                     </android.support.design.widget.TextInputLayout>
 
 
+                    <!-- Description -->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/descriptionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:textColorHint="@color/cyanBrilliant"
+                        android:theme="@style/CommonTextInputLayoutInverse"
+                        app:errorEnabled="true"
+                        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance.Inverse">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/descriptionInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:lines="8"
+                            android:maxLines="10"
+                            android:minLines="6"
+                            android:hint="@string/scheduled_block_description_hint"
+                            android:scrollbars="vertical" />
+
+                    </android.support.design.widget.TextInputLayout>
+
                     <!-- Scheduled Blocks Weekly Frequency  -->
                     <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditWeeklyFrequency
                         android:id="@+id/scheduledBlockWeeklyFrequencyInput"
@@ -202,6 +227,54 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         />
+
+                    <!-- Allow Calls -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp">
+
+                        <!-- Allow Calls Label -->
+                        <TextView
+                            android:id="@+id/allowCallsLabel"
+                            style="@style/CommonText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"
+                            android:padding="0dp"
+                            android:textAllCaps="true"
+                            android:text="@string/scheduled_block_allow_calls_label"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="start|center_vertical"
+                            />
+
+                        <!-- Allow Calls Switch -->
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/allowCallsSwitch"
+                            android:layout_width="80dp"
+                            android:layout_height="50dp"
+                            android:checked="true"
+                            android:gravity="center"
+                            android:scaleX="1.5"
+                            android:scaleY="1.5"
+                            android:textOff=""
+                            android:textOn=""
+                            android:layout_marginEnd="16dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            app:theme="@style/CommonSwitch" />
+
+
+                    </RelativeLayout>
+
 
                     <!-- Recurring weekly -->
                     <RelativeLayout

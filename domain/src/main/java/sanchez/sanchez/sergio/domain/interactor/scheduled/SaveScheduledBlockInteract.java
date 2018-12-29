@@ -59,7 +59,8 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
     private Observable<ScheduledBlockEntity> saveScheduledBlock(final Params params) {
         return scheduledBlockRepository.saveScheduledBlock(params.getIdentity(), params.getName(), params.isEnable(),
                 params.getStartAt(), params.getEndAt(), params.getWeeklyFrequency(),
-                params.isRecurringWeeklyEnabled(), params.getChildId());
+                params.isRecurringWeeklyEnabled(), params.getChildId(),
+                params.getDescription(), params.isAllowCalls());
     }
 
     /**
@@ -145,6 +146,16 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         private final String image;
 
         /**
+         * Description
+         */
+        private final String description;
+
+        /**
+         * Allow Calls
+         */
+        private final boolean allowCalls;
+
+        /**
          *
          * @param identity
          * @param name
@@ -154,11 +165,14 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
          * @param weeklyFrequency
          * @param recurringWeeklyEnabled
          * @param childId
+         * @param description
+         * @param allowCalls
          */
         private Params(final String identity, final String name, final boolean enable,
                        final LocalTime startAt, final LocalTime endAt,
                        final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
-                       final String childId, final String image) {
+                       final String childId, final String description,
+                       final boolean allowCalls, final String image) {
             this.identity = identity;
             this.name = name;
             this.enable = enable;
@@ -167,6 +181,8 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             this.weeklyFrequency = weeklyFrequency;
             this.recurringWeeklyEnabled = recurringWeeklyEnabled;
             this.childId = childId;
+            this.description = description;
+            this.allowCalls = allowCalls;
             this.image = image;
         }
 
@@ -202,6 +218,14 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             return childId;
         }
 
+        public String getDescription() {
+            return description;
+        }
+
+        public boolean isAllowCalls() {
+            return allowCalls;
+        }
+
         public String getImage() {
             return image;
         }
@@ -216,13 +240,17 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
          * @param weeklyFrequency
          * @param recurringWeeklyEnabled
          * @param childId
+         * @param description
+         * @param allowCalls
          * @return
          */
         public static Params create(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                     final LocalTime endAt, final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
-                                    final String childId, final String image){
+                                    final String childId, final String description, final boolean allowCalls,
+                                    final String image){
            return new Params(identity, name, enable, startAt,
-                   endAt, weeklyFrequency, recurringWeeklyEnabled, childId, image);
+                   endAt, weeklyFrequency, recurringWeeklyEnabled, childId,
+                   description, allowCalls, image);
         }
     }
 

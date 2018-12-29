@@ -79,11 +79,14 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
      * @param endAt
      * @param weeklyFrequency
      * @param recurringWeeklyEnabled
+     * @param description
+     * @param allowCalls
      * @param currentImage
      */
     public void saveScheduledBlock(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                    final LocalTime endAt, final int[] weeklyFrequency,
                                    final boolean recurringWeeklyEnabled, final String childId,
+                                   final String description, final boolean allowCalls,
                                    final String currentImage){
 
 
@@ -92,7 +95,8 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
 
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
                 SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt,
-                            weeklyFrequency, recurringWeeklyEnabled, childId, currentImage));
+                            weeklyFrequency, recurringWeeklyEnabled, childId,
+                        description, allowCalls, currentImage));
 
     }
 

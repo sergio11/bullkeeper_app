@@ -67,6 +67,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     private final static String SCHEDULED_BLOCK_START_AT_FIELD_NAME = "start_at";
     private final static String SCHEDULED_BLOCK_END_AT_FIELD_NAME = "end_at";
     private final static String SCHEDULED_BLOCK_WEEKLY_FREQUENCY_FIELD_NAME = "weekly_frequency";
+    private final static String SCHEDULED_BLOCK_DESCRIPTION_FIELD_NAME = "description";
 
     /**
      * Modes Enum
@@ -104,6 +105,18 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     @NotEmpty(messageResId = R.string.scheduled_block_name_field_error_not_blank)
     @Length(min = 3, max = 30)
     protected AppCompatEditText nameInput;
+
+    /**
+     * Name Input Layout
+     */
+    @BindView(R.id.descriptionLayout)
+    protected TextInputLayout descriptionInputLayout;
+
+    /**
+     * Name Input
+     */
+    @BindView(R.id.descriptionInput)
+    protected AppCompatEditText descriptionInput;
 
 
     /**
@@ -162,6 +175,13 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @BindView(R.id.deleteScheduledBlock)
     protected LinearLayout deleteScheduledBlock;
+
+
+    /**
+     * Allow Calls Switch
+     */
+    @BindView(R.id.allowCallsSwitch)
+    protected SwitchCompat allowCallsSwitch;
 
 
     /**
@@ -252,6 +272,18 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @State
     protected String sonIdentity;
+
+    /**
+     * Description
+     */
+    @State
+    protected String description;
+
+    /**
+     * Allow Calls
+     */
+    @State
+    protected boolean allowCalls;
 
     /**
      * Get Calling Intent
@@ -349,6 +381,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         recurringWeeklySwitch.setEnabled(isEnable);
         enableSwitch.setEnabled(isEnable);
         scheduledBlockWeeklyFrequencyInput.setEnabled(isEnable);
+        descriptionInputLayout.setEnabled(isEnabled);
     }
 
     /**
@@ -452,7 +485,9 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlocksWeeklyFrequency =
                 scheduledBlockWeeklyFrequencyInput.getDaysOfWeekStatus();
         scheduledBlockRecurringWeeklyEnabled = recurringWeeklySwitch.isChecked();
+        description = descriptionInput.getText().toString();
         isEnabled = enableSwitch.isChecked();
+        allowCalls = allowCallsSwitch.isChecked();
 
 
         if(startAt.isAfter(endAt)) {
@@ -475,7 +510,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         // Save Scheduled Block
         getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
                 scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity,
-                currentImagePath);
+                 description, allowCalls, currentImagePath);
     }
 
     /**
@@ -674,6 +709,9 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
                     break;
                 case SCHEDULED_BLOCK_WEEKLY_FREQUENCY_FIELD_NAME:
                     scheduledBlockWeeklyFrequencyInput.setError(error.get("message"));
+                    break;
+                case SCHEDULED_BLOCK_DESCRIPTION_FIELD_NAME:
+                    descriptionInputLayout.setError(error.get("message"));
                     break;
             }
 
