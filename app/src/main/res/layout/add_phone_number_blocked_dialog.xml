@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        style="@style/CommonStrongText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/commonWhite"
+        app:layout_constraintBottom_toTopOf="@id/tfnoInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- tfno input -->
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tfnoInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textColorHint="@color/commonWhite"
+        android:theme="@style/CommonTextInputLayout"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance"
+        app:layout_constraintBottom_toTopOf="@id/accept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialogTitle">
+
+        <sanchez.sanchez.sergio.bullkeeper.core.ui.components.PrefixEditText
+            android:id="@+id/tfnoInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tfno_hint"
+            android:inputType="number"
+            android:lines="1"
+            android:tag="@string/tfno_prefix"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <!-- Cancel Button -->
+    <Button
+        android:id="@+id/cancel"
+        style="@style/CancelActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/common_padding"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/accept"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Accept Button -->
+    <Button
+        android:id="@+id/accept"
+        style="@style/AcceptActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="@dimen/common_padding"
+        android:text="@android:string/ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancel" />
+
+</android.support.constraint.ConstraintLayout>

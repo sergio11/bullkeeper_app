@@ -5,6 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.AddPhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.DeleteAllPhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.DeletePhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.GetPhoneNumbersBlockedInteract;
@@ -39,6 +40,11 @@ public final class PhoneNumbersBlockedListPresenter
     private final DeletePhoneNumbersBlockedInteract deletePhoneNumbersBlockedInteract;
 
     /**
+     * Add Phone Numbers Blocked Interact
+     */
+    private final AddPhoneNumbersBlockedInteract addPhoneNumbersBlockedInteract;
+
+    /**
      *
      * @param getPhoneNumbersBlockedInteract
      * @param deleteAllPhoneNumbersBlockedInteract
@@ -48,10 +54,12 @@ public final class PhoneNumbersBlockedListPresenter
     public PhoneNumbersBlockedListPresenter(
             final GetPhoneNumbersBlockedInteract getPhoneNumbersBlockedInteract,
             final DeleteAllPhoneNumbersBlockedInteract deleteAllPhoneNumbersBlockedInteract,
-            final DeletePhoneNumbersBlockedInteract deletePhoneNumbersBlockedInteract) {
+            final DeletePhoneNumbersBlockedInteract deletePhoneNumbersBlockedInteract,
+            final AddPhoneNumbersBlockedInteract addPhoneNumbersBlockedInteract) {
         this.getPhoneNumbersBlockedInteract = getPhoneNumbersBlockedInteract;
         this.deleteAllPhoneNumbersBlockedInteract = deleteAllPhoneNumbersBlockedInteract;
         this.deletePhoneNumbersBlockedInteract = deletePhoneNumbersBlockedInteract;
+        this.addPhoneNumbersBlockedInteract = addPhoneNumbersBlockedInteract;
     }
 
     /**
@@ -110,6 +118,22 @@ public final class PhoneNumbersBlockedListPresenter
 
         deletePhoneNumbersBlockedInteract.execute(new DeletePhoneNumberBlockedObservable(),
                 DeletePhoneNumbersBlockedInteract.Params.create(kid, terminal, phoneNumber));
+    }
+
+    /**
+     * Add Phone Number To Blocked
+     * @param phoneNumber
+     */
+    public void addPhoneNumberToBlocked(final String phoneNumber) {
+        Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
+        Preconditions.checkState(!phoneNumber.isEmpty(), "Phone number can not be empty");
+
+        final String kid = args.getString(KID_ID_ARG);
+        final String terminal = args.getString(TERMINAL_ID_ARG);
+
+        addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberBlockedObservable(),
+                AddPhoneNumbersBlockedInteract.Params.create(kid, terminal, phoneNumber));
+
     }
 
 
@@ -190,6 +214,24 @@ public final class PhoneNumbersBlockedListPresenter
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onPhoneNumberDeleted();
+            }
+        }
+    }
+
+    /**
+     * Delete Phone Number Blocked
+     */
+    public class AddPhoneNumberBlockedObservable
+            extends BasicCommandCallBackWrapper<PhoneNumberBlockedEntity> {
+
+        /**
+         * On Success
+         */
+        @Override
+        protected void onSuccess(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onPhoneNumberAdded(phoneNumberBlockedEntity);
             }
         }
     }

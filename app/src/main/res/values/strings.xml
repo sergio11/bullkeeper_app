@@ -841,4 +841,5 @@
     <string name="phone_numbers_blocked_title_default">Black List</string>
     <string name="phone_numbers_blocked_delete_all_confirm">Do you want to delete all phone numbers blocked?</string>
     <string name="phone_numbers_blocked_at" formatted="false">Blocked At: %s</string>
+    <string name="phone_numbers_specify_number_lock">Specify the number to lock</string>
 </resources>

@@ -12,6 +12,7 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AddPhoneNumberBlockedDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
@@ -108,6 +109,12 @@ public interface ApplicationComponent {
      * @param progressDialogFragment
      */
     void inject(final ProgressDialogFragment progressDialogFragment);
+
+    /**
+     * Inject into Add Phone Number Blocked Dialog
+     * @param addPhoneNumberBlockedDialogFragment
+     */
+    void inject(final AddPhoneNumberBlockedDialogFragment addPhoneNumberBlockedDialogFragment);
 
 
     //Exposed to sub-graphs.

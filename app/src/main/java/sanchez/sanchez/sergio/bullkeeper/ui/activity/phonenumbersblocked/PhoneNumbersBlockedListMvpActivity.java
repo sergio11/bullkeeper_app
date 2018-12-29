@@ -9,9 +9,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.PhoneNumberComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.PhoneNumbersBlockedAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AddPhoneNumberBlockedDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
@@ -93,7 +96,7 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      * Delete All Phone Numbers
      */
     @BindView(R.id.deleteAllPhoneNumbersPhone)
-    protected ImageButton deleteAllPhoneNumbersPhoneImageButton;
+    protected ImageView deleteAllPhoneNumbersPhoneImageView;
 
     /**
      * Get Calling Intent
@@ -313,7 +316,18 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @OnClick(R.id.addPhoneNumber)
     protected void onAddPhoneNumber(){
+        AddPhoneNumberBlockedDialogFragment.showDialog(this,
+                getString(R.string.phone_numbers_specify_number_lock), new AddPhoneNumberBlockedDialogFragment.OnPhoneNumberSelectedDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog, String phoneNumber) {
+                Preconditions.checkNotNull(dialog, "Dialog can not be null");
+                Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
+                getPresenter().addPhoneNumberToBlocked(phoneNumber);
+            }
 
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
     }
 
     /**
@@ -337,8 +351,8 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     @Override
     public void onDataLoaded(List<PhoneNumberBlockedEntity> dataLoaded) {
         super.onDataLoaded(dataLoaded);
-        deleteAllPhoneNumbersPhoneImageButton.setVisibility(View.VISIBLE);
-        deleteAllPhoneNumbersPhoneImageButton.setEnabled(true);
+        deleteAllPhoneNumbersPhoneImageView.setVisibility(View.VISIBLE);
+        deleteAllPhoneNumbersPhoneImageView.setEnabled(true);
         phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.phone_numbers_blocked_title_count),dataLoaded.size()));
 
@@ -350,8 +364,8 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     @Override
     public void onNoDataFound() {
         super.onNoDataFound();
-        deleteAllPhoneNumbersPhoneImageButton.setVisibility(View.GONE);
-        deleteAllPhoneNumbersPhoneImageButton.setEnabled(false);
+        deleteAllPhoneNumbersPhoneImageView.setVisibility(View.GONE);
+        deleteAllPhoneNumbersPhoneImageView.setEnabled(false);
         phoneNumbersBlockedTitleTextView
                 .setText(getString(R.string.phone_numbers_blocked_title_default));
 
@@ -369,7 +383,24 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
             phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.phone_numbers_blocked_title_count),
                     recyclerView.getAdapter().getItemCount()));
-        else
+        else {
+            deleteAllPhoneNumbersPhoneImageView.setVisibility(View.GONE);
+            deleteAllPhoneNumbersPhoneImageView.setEnabled(false);
             phoneNumbersBlockedTitleTextView.setText(getString(R.string.phone_numbers_blocked_title_default));
+            onShowNotFoundState();
+        }
+    }
+
+    /**
+     * On Phone Number Added
+     * @param phoneNumberBlockedEntity
+     */
+    @Override
+    public void onPhoneNumberAdded(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
+        Preconditions.checkNotNull(phoneNumberBlockedEntity, "Phone number blocked entity");
+        onShowDataFoundedState();
+        recyclerViewAdapter.getData().add(phoneNumberBlockedEntity);
+        recyclerViewAdapter.notifyDataSetChanged();
+        showNoticeDialog(R.string.phone_number_blocked_successfully);
     }
 }

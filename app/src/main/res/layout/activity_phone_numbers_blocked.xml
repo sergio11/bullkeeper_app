@@ -67,6 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:layout_margin="@dimen/common_margin"
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true">
 
@@ -75,18 +77,17 @@
                 android:id="@+id/addPhoneNumber"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_margin="@dimen/common_margin"
                 android:src="@drawable/add_phone_number_blocked"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/content_not_be_loaded" />
 
 
             <!-- Delete Phone Numbers Blocked -->
-            <ImageButton
+            <ImageView
                 android:id="@+id/deleteAllPhoneNumbersPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/common_margin"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/common_margin"
                 android:visibility="gone"
                 android:src="@drawable/trash_white"
                 android:background="@android:color/transparent"

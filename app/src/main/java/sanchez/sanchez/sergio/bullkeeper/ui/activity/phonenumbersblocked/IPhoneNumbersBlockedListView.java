@@ -19,5 +19,11 @@ public interface IPhoneNumbersBlockedListView
      */
     void onPhoneNumberDeleted();
 
+    /**
+     * On Phone Number Added
+     * @param phoneNumberBlockedEntity
+     */
+    void onPhoneNumberAdded(final PhoneNumberBlockedEntity phoneNumberBlockedEntity);
+
 
 }
