@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 /**
@@ -79,11 +78,29 @@ public class TerminalDTO implements Serializable {
     @JsonProperty("device_id")
     protected String deviceId;
 
+    /**
+     * Bed Time Enabled
+     */
+    @JsonProperty("bed_time_enabled")
+    protected boolean bedTimeEnabled;
+
+    /**
+     * Lock Screen Enabled
+     */
+    @JsonProperty("lock_screen_enabled")
+    protected boolean lockScreenEnabled;
+
+    /**
+     * Lock Camera Enabled
+     */
+    @JsonProperty("lock_camera_enabled")
+    protected boolean lockCameraEnabled;
+
 
     public TerminalDTO(){}
 
     /**
-     * Terminal DTO
+     *
      * @param identity
      * @param appVersionName
      * @param appVersionCode
@@ -94,10 +111,12 @@ public class TerminalDTO implements Serializable {
      * @param model
      * @param codeName
      * @param deviceName
+     * @param deviceId
+     * @param bedTimeEnabled
+     * @param lockScreenEnabled
+     * @param lockCameraEnabled
      */
-    public TerminalDTO(String identity, String appVersionName, String appVersionCode, String osVersion,
-                       String sdkVersion, String manufacturer, String marketName, String model,
-                       String codeName, String deviceName, String deviceId) {
+    public TerminalDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean lockScreenEnabled, boolean lockCameraEnabled) {
         this.identity = identity;
         this.appVersionName = appVersionName;
         this.appVersionCode = appVersionCode;
@@ -109,6 +128,9 @@ public class TerminalDTO implements Serializable {
         this.codeName = codeName;
         this.deviceName = deviceName;
         this.deviceId = deviceId;
+        this.bedTimeEnabled = bedTimeEnabled;
+        this.lockScreenEnabled = lockScreenEnabled;
+        this.lockCameraEnabled = lockCameraEnabled;
     }
 
     public String getIdentity() {
@@ -199,6 +221,30 @@ public class TerminalDTO implements Serializable {
         this.deviceId = deviceId;
     }
 
+    public boolean isBedTimeEnabled() {
+        return bedTimeEnabled;
+    }
+
+    public void setBedTimeEnabled(boolean bedTimeEnabled) {
+        this.bedTimeEnabled = bedTimeEnabled;
+    }
+
+    public boolean isLockScreenEnabled() {
+        return lockScreenEnabled;
+    }
+
+    public void setLockScreenEnabled(boolean lockScreenEnabled) {
+        this.lockScreenEnabled = lockScreenEnabled;
+    }
+
+    public boolean isLockCameraEnabled() {
+        return lockCameraEnabled;
+    }
+
+    public void setLockCameraEnabled(boolean lockCameraEnabled) {
+        this.lockCameraEnabled = lockCameraEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDTO{" +
@@ -213,6 +259,9 @@ public class TerminalDTO implements Serializable {
                 ", codeName='" + codeName + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceId='" + deviceId + '\'' +
+                ", bedTimeEnabled=" + bedTimeEnabled +
+                ", lockScreenEnabled=" + lockScreenEnabled +
+                ", lockCameraEnabled=" + lockCameraEnabled +
                 '}';
     }
 }

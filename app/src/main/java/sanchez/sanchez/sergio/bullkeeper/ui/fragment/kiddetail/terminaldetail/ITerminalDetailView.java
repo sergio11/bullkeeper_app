@@ -19,5 +19,35 @@ public interface ITerminalDetailView extends ISupportView {
      */
     void onTerminalSuccessDeleted();
 
+    /**
+     * On Bed Time Status Changed Successfully
+     */
+    void onBedTimeStatusChangedSuccessfully();
+
+    /**
+     * On Bed Time Status Changed Failed
+     */
+    void onBedTimeStatusChangedFailed();
+
+    /**
+     * On Lock Screen Status Changed Successfully
+     */
+    void onLockScreenStatusChangedSuccessfully();
+
+    /**
+     * On Lock Screen Status Changed Failed
+     */
+    void onLockScreenStatusChangedFailed();
+
+    /**
+     * On Lock Camera Status Changed Successfully
+     */
+    void onLockCameraStatusChangedSuccessfully();
+
+    /**
+     * On Lock Screen Status Changed Failed
+     */
+    void onLockCameraStatusChangedFailed();
+
 
 }

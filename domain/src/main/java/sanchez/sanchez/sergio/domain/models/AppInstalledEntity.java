@@ -52,6 +52,11 @@ public class AppInstalledEntity implements Serializable {
      */
     private String iconEncodedString;
 
+    /**
+     * Disabled
+     */
+    private Boolean disabled = false;
+
     public AppInstalledEntity(){}
 
     /**
@@ -64,10 +69,12 @@ public class AppInstalledEntity implements Serializable {
      * @param appName
      * @param appRuleEnum
      * @param iconEncodedString
+     * @param disabled
      */
     public AppInstalledEntity(final String identity, final String packageName, final long firstInstallTime,
                               final long lastUpdateTime, final String versionName, final String versionCode,
-                              final String appName, final AppRuleEnum appRuleEnum, final String iconEncodedString) {
+                              final String appName, final AppRuleEnum appRuleEnum, final String iconEncodedString,
+                              final Boolean disabled) {
         this.identity = identity;
         this.packageName = packageName;
         this.firstInstallTime = firstInstallTime;
@@ -77,6 +84,7 @@ public class AppInstalledEntity implements Serializable {
         this.appName = appName;
         this.appRuleEnum = appRuleEnum;
         this.iconEncodedString = iconEncodedString;
+        this.disabled = disabled;
     }
 
     public String getIdentity() {
@@ -149,6 +157,14 @@ public class AppInstalledEntity implements Serializable {
 
     public void setIconEncodedString(String iconEncodedString) {
         this.iconEncodedString = iconEncodedString;
+    }
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 
     @Override

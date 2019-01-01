@@ -14,6 +14,9 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteTerminalInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetMonitoredTerminalsInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.repository.ITerminalRepository;
@@ -91,6 +94,48 @@ public class TerminalsModule {
     protected DeleteTerminalInteract provideDeleteTerminalInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                    final ITerminalRepository terminalRepository){
         return new DeleteTerminalInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Switch Bed Time Status Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SwitchBedTimeStatusInteract provideSwitchBedTimeStatusInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                          final ITerminalRepository terminalRepository){
+        return new SwitchBedTimeStatusInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Switch Lock Camera Status Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SwitchLockCameraStatusInteract provideSwitchLockCameraStatusInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                final ITerminalRepository terminalRepository){
+        return new SwitchLockCameraStatusInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Switch Lock Screen Status Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SwitchLockScreenStatusInteract provideSwitchLockScreenStatusInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                                final ITerminalRepository terminalRepository){
+        return new SwitchLockScreenStatusInteract(threadExecutor, postExecutionThread, terminalRepository);
     }
 
 }

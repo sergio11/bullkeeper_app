@@ -141,6 +141,34 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
                 .map(appInstalledDataMapper::transform);
     }
 
+    /**
+     * Switch App Status In The Terminal
+     * @param kid
+     * @param terminal
+     * @param app
+     * @param status
+     * @return
+     */
+    @Override
+    public Observable<String> switchAppStatusInTheTerminal(final String kid, final String terminal,
+                                                           final String app, final Boolean status) {
+        Preconditions.checkNotNull(kid, "Child id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal Id can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal Id can not be empty");
+        Preconditions.checkNotNull(app, "App can not be null");
+        Preconditions.checkState(!app.isEmpty(), "App can not be empty");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+        return (status ?
+                    appRulesService.enableAppInTheTerminal(kid, terminal, app) :
+                    appRulesService.disableAppInTheTerminal(kid, terminal, app))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+
+
 }
 
 

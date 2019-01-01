@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -48,6 +49,7 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
          */
         private TextView deviceFullNameTextView, deviceManufacturerTextView,
                 systemVersionTextView, appVersionTextView;
+        private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView;
 
         /**
          * @param itemView
@@ -58,6 +60,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             deviceManufacturerTextView = itemView.findViewById(R.id.deviceManufacturer);
             systemVersionTextView = itemView.findViewById(R.id.systemVersion);
             appVersionTextView = itemView.findViewById(R.id.appVersion);
+            cameraNotAllowedImageView = itemView.findViewById(R.id.cameraNotAllowed);
+            mobileScreenNotAllowedImageView = itemView.findViewById(R.id.mobileScreenNotAllowed);
         }
 
         /**
@@ -84,6 +88,19 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             appVersionTextView.setText(String.format(Locale.getDefault(),
                     context.getString(R.string.terminal_app_version),
                     terminalEntity.getAppVersionName(), terminalEntity.getAppVersionCode()));
+
+
+            if(terminalEntity.isLockCameraEnabled())
+                cameraNotAllowedImageView.setVisibility(View.VISIBLE);
+            else
+                cameraNotAllowedImageView.setVisibility(View.INVISIBLE);
+
+
+            if(terminalEntity.isLockScreenEnabled())
+                mobileScreenNotAllowedImageView.setVisibility(View.VISIBLE);
+            else
+                mobileScreenNotAllowedImageView.setVisibility(View.INVISIBLE);
+
 
 
         }

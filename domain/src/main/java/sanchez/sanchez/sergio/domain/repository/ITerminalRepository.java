@@ -35,4 +35,33 @@ public interface ITerminalRepository {
      */
     Observable<String> deleteTerminal(final String childId, final String terminalId);
 
+
+    /**
+     * Switch Bed Time Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    Observable<String> switchBedTimeStatus(final String kid, final String terminal, final Boolean status);
+
+    /**
+     * Switch Lock Screen Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    Observable<String> switchLockScreenStatus(final String kid, final String terminal, final Boolean status);
+
+
+    /**
+     * Switch Lock Camera Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    Observable<String> switchLockCameraStatus(final String kid, final String terminal, final Boolean status);
+
 }

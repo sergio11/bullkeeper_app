@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.data.net.services.IAppRulesService;
 import sanchez.sanchez.sergio.data.repository.AppRulesRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.apprules.ChangeAppStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
@@ -103,6 +104,24 @@ public class AppRulesModule {
             final IAppRulesRepository appRulesRepository
     ){
         return new UpdateSingleAppInstalledRulesByChildInteract(threadExecutor, postExecutionThread, appRulesRepository);
+    }
+
+
+    /**
+     * Provide Disable App Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param appRulesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public ChangeAppStatusInteract provideDisableAppInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAppRulesRepository appRulesRepository
+    ){
+        return new ChangeAppStatusInteract(threadExecutor, postExecutionThread, appRulesRepository);
     }
 
 }

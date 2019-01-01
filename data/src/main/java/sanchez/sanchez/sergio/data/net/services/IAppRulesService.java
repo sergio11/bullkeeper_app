@@ -72,4 +72,33 @@ public interface IAppRulesService {
             @Path("kid") final String kid, @Path("terminal") final String terminal,
             @Path("app") final String app);
 
+
+    /**
+     * Disable App In The Terminal
+     * @param kid
+     * @param terminal
+     * @param app
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/apps/{app}/disabled")
+    Observable<APIResponse<String>> disableAppInTheTerminal(
+            @Path("kid") final String kid,
+            @Path("terminal") final String terminal,
+            @Path("app") final String app);
+
+
+    /**
+     * Enable App In The Terminal
+     * @param kid
+     * @param terminal
+     * @param app
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/apps/{app}/enable")
+    Observable<APIResponse<String>> enableAppInTheTerminal(
+            @Path("kid") final String kid,
+            @Path("terminal") final String terminal,
+            @Path("app") final String app);
+
+
 }

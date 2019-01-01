@@ -5,17 +5,13 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
-import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
 import sanchez.sanchez.sergio.data.net.services.ITerminalService;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.repository.ITerminalRepository;
-import timber.log.Timber;
 
 /**
  * Terminal Repository Impl
@@ -101,6 +97,72 @@ public final class TerminalRepositoryImpl implements ITerminalRepository {
         Preconditions.checkState(!terminalId.isEmpty(), "Terminal id can not be empty");
 
         return terminalService.deleteTerminal(childId, terminalId)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
+     * Switch Bed Time Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    @Override
+    public Observable<String> switchBedTimeStatus(final String kid, final String terminal, final Boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+        return (status ?
+                terminalService.enableBedTimeInTheTerminal(kid, terminal) :
+                terminalService.disableBedTimeInTheTerminal(kid, terminal))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    @Override
+    public Observable<String> switchLockScreenStatus(final String kid, final String terminal, final Boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+        return (status ?
+                terminalService.lockScreenInTheTerminal(kid, terminal) :
+                terminalService.unLockScreenInTheTerminal(kid, terminal))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    @Override
+    public Observable<String> switchLockCameraStatus(final String kid, final String terminal, final Boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+        return (status ?
+                terminalService.lockCameraInTheTerminal(kid, terminal) :
+                terminalService.unlockCameraInTheTerminal(kid, terminal))
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null);
     }

@@ -63,6 +63,19 @@
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
 
+    <!-- App Disabled Icon -->
+    <ImageView
+        android:id="@+id/appDisabled"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/common_margin"
+        android:src="@drawable/app_disabled"
+        android:layout_toStartOf="@id/appRules"
+        android:layout_toEndOf="@id/separator"
+        android:layout_below="@id/appInstalledName"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        android:contentDescription="@string/content_not_be_loaded" />
 
     <!-- App Rules -->
     <LinearLayout

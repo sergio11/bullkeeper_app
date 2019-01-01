@@ -2,10 +2,8 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
-import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 
 /**
  * App Installed DTO
@@ -67,6 +65,12 @@ public final class AppInstalledDTO implements Serializable {
     @JsonProperty("icon_encoded_string")
     private String iconEncodedString;
 
+    /**
+     * Disabled
+     */
+    @JsonProperty("disabled")
+    private Boolean disabled;
+
     public AppInstalledDTO(){}
 
     /**
@@ -80,10 +84,11 @@ public final class AppInstalledDTO implements Serializable {
      * @param appName
      * @param appRule
      * @param iconEncodedString
+     * @param disabled
      */
     public AppInstalledDTO(String identity, String packageName, long firstInstallTime, long lastUpdateTime,
                            String versionName, String versionCode, String appName,
-                           String appRule, String iconEncodedString) {
+                           String appRule, String iconEncodedString, Boolean disabled) {
         this.identity = identity;
         this.packageName = packageName;
         this.firstInstallTime = firstInstallTime;
@@ -92,6 +97,8 @@ public final class AppInstalledDTO implements Serializable {
         this.versionCode = versionCode;
         this.appName = appName;
         this.appRule = appRule;
+        this.iconEncodedString = iconEncodedString;
+        this.disabled = disabled;
     }
 
     public String getIdentity() {
@@ -164,6 +171,14 @@ public final class AppInstalledDTO implements Serializable {
 
     public void setIconEncodedString(String iconEncodedString) {
         this.iconEncodedString = iconEncodedString;
+    }
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 
     @Override

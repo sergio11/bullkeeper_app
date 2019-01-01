@@ -100,7 +100,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
             extends SupportItemSwipedViewHolder<AppInstalledEntity>{
 
 
-        private ImageView appNotAllowed, appPerScheduled, appAllowed;
+        private ImageView appNotAllowed, appPerScheduled, appAllowed, appDisabledImageView;
         private TextView appInstalledName;
         private CircleImageView appInstalledImage;
 
@@ -113,6 +113,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
             appNotAllowed = itemView.findViewById(R.id.appNotAllowed);
             appAllowed = itemView.findViewById(R.id.appAllowed);
             appPerScheduled = itemView.findViewById(R.id.appPerScheduled);
+            appDisabledImageView = itemView.findViewById(R.id.appDisabled);
             appInstalledName = itemView.findViewById(R.id.appInstalledName);
             appInstalledImage = itemView.findViewById(R.id.appInstalledImage);
         }
@@ -140,94 +141,109 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
                 appInstalledImage.setImageBitmap(decodedByte);
             }
 
-            switch (appInstalledEntity.getAppRuleEnum()) {
 
-                // Never Allowed
-                case NEVER_ALLOWED:
+            if(appInstalledEntity.getDisabled()) {
 
-                    appNotAllowed.setImageResource(R.drawable.app_not_allowed_enabled);
-                    appAllowed.setImageResource(R.drawable.app_allowed_disabled);
-                    appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
+                appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
+                appNotAllowed.setEnabled(false);
+                appAllowed.setImageResource(R.drawable.app_allowed_disabled);
+                appAllowed.setEnabled(false);
+                appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
+                appPerScheduled.setEnabled(false);
+                appDisabledImageView.setVisibility(View.VISIBLE);
 
-                    break;
-                // Always Allowed
-                case ALWAYS_ALLOWED:
+            } else {
 
-                    appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
-                    appAllowed.setImageResource(R.drawable.app_allowed_enabled);
-                    appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
+                switch (appInstalledEntity.getAppRuleEnum()) {
 
-                    break;
-                // Per Scheduler
-                case PER_SCHEDULER:
+                    // Never Allowed
+                    case NEVER_ALLOWED:
 
-                    appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
-                    appAllowed.setImageResource(R.drawable.app_allowed_disabled);
-                    appPerScheduled.setImageResource(R.drawable.app_per_scheduled_enabled);
+                        appNotAllowed.setImageResource(R.drawable.app_not_allowed_enabled);
+                        appAllowed.setImageResource(R.drawable.app_allowed_disabled);
+                        appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
 
-                    break;
+                        break;
+                    // Always Allowed
+                    case ALWAYS_ALLOWED:
+
+                        appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
+                        appAllowed.setImageResource(R.drawable.app_allowed_enabled);
+                        appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
+
+                        break;
+                    // Per Scheduler
+                    case PER_SCHEDULER:
+
+                        appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
+                        appAllowed.setImageResource(R.drawable.app_allowed_disabled);
+                        appPerScheduled.setImageResource(R.drawable.app_per_scheduled_enabled);
+
+                        break;
+                }
+
+
+                // App Not Allowed
+                appNotAllowed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        appNotAllowed.setImageResource(R.drawable.app_not_allowed_enabled);
+                        appAllowed.setImageResource(R.drawable.app_allowed_disabled);
+                        appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
+
+                        final AppRuleEnum oldAppRule = appInstalledEntity.getAppRuleEnum();
+                        final AppRuleEnum newAppRule = AppRuleEnum.NEVER_ALLOWED;
+
+                        appInstalledEntity.setAppRuleEnum(newAppRule);
+
+                        if(listener != null)
+                            listener.onAppRuleChanged(appInstalledEntity.getIdentity(), oldAppRule,
+                                    newAppRule);
+                    }
+                });
+
+                // App Allowed
+                appAllowed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
+                        appAllowed.setImageResource(R.drawable.app_allowed_enabled);
+                        appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
+
+                        final AppRuleEnum oldAppRule = appInstalledEntity.getAppRuleEnum();
+                        final AppRuleEnum newAppRule = AppRuleEnum.ALWAYS_ALLOWED;
+
+                        appInstalledEntity.setAppRuleEnum(newAppRule);
+
+                        if(listener != null)
+                            listener.onAppRuleChanged(appInstalledEntity.getIdentity(), oldAppRule,
+                                    newAppRule);
+
+                    }
+                });
+
+
+                // App Per Scheduled
+                appPerScheduled.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
+                        appAllowed.setImageResource(R.drawable.app_allowed_disabled);
+                        appPerScheduled.setImageResource(R.drawable.app_per_scheduled_enabled);
+
+                        final AppRuleEnum oldAppRule = appInstalledEntity.getAppRuleEnum();
+                        final AppRuleEnum newAppRule = AppRuleEnum.PER_SCHEDULER;
+
+                        appInstalledEntity.setAppRuleEnum(newAppRule);
+
+                        if(listener != null)
+                            listener.onAppRuleChanged(appInstalledEntity.getIdentity(), oldAppRule,
+                                    newAppRule);
+                    }
+                });
+
+                appDisabledImageView.setVisibility(View.INVISIBLE);
             }
-
-
-            // App Not Allowed
-            appNotAllowed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    appNotAllowed.setImageResource(R.drawable.app_not_allowed_enabled);
-                    appAllowed.setImageResource(R.drawable.app_allowed_disabled);
-                    appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
-
-                    final AppRuleEnum oldAppRule = appInstalledEntity.getAppRuleEnum();
-                    final AppRuleEnum newAppRule = AppRuleEnum.NEVER_ALLOWED;
-
-                    appInstalledEntity.setAppRuleEnum(newAppRule);
-
-                    if(listener != null)
-                        listener.onAppRuleChanged(appInstalledEntity.getIdentity(), oldAppRule,
-                            newAppRule);
-                }
-            });
-
-            // App Allowed
-            appAllowed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
-                    appAllowed.setImageResource(R.drawable.app_allowed_enabled);
-                    appPerScheduled.setImageResource(R.drawable.app_per_scheduled_disabled);
-
-                    final AppRuleEnum oldAppRule = appInstalledEntity.getAppRuleEnum();
-                    final AppRuleEnum newAppRule = AppRuleEnum.ALWAYS_ALLOWED;
-
-                    appInstalledEntity.setAppRuleEnum(newAppRule);
-
-                    if(listener != null)
-                        listener.onAppRuleChanged(appInstalledEntity.getIdentity(), oldAppRule,
-                                newAppRule);
-
-                }
-            });
-
-
-            // App Per Scheduled
-            appPerScheduled.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    appNotAllowed.setImageResource(R.drawable.app_not_allowed_disabled);
-                    appAllowed.setImageResource(R.drawable.app_allowed_disabled);
-                    appPerScheduled.setImageResource(R.drawable.app_per_scheduled_enabled);
-
-                    final AppRuleEnum oldAppRule = appInstalledEntity.getAppRuleEnum();
-                    final AppRuleEnum newAppRule = AppRuleEnum.PER_SCHEDULER;
-
-                    appInstalledEntity.setAppRuleEnum(newAppRule);
-
-                    if(listener != null)
-                        listener.onAppRuleChanged(appInstalledEntity.getIdentity(), oldAppRule,
-                                newAppRule);
-                }
-            });
-
         }
 
     }

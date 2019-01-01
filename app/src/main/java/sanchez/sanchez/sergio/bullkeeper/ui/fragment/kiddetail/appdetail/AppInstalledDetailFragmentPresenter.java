@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.domain.interactor.apprules.ChangeAppStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateSingleAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
@@ -28,17 +29,25 @@ public final class AppInstalledDetailFragmentPresenter extends SupportPresenter<
     private final UpdateSingleAppInstalledRulesByChildInteract updateSingleAppInstalledRulesByChildInteract;
 
     /**
+     * Disable App Interact
+     */
+    private final ChangeAppStatusInteract changeAppStatusInteract;
+
+    /**
      *
      * @param getAppInstalledDetailInteract
      * @param updateSingleAppInstalledRulesByChildInteract
+     * @param changeAppStatusInteract
      */
     @Inject
     public AppInstalledDetailFragmentPresenter(
             final GetAppInstalledDetailInteract getAppInstalledDetailInteract,
-            final UpdateSingleAppInstalledRulesByChildInteract updateSingleAppInstalledRulesByChildInteract
+            final UpdateSingleAppInstalledRulesByChildInteract updateSingleAppInstalledRulesByChildInteract,
+            final ChangeAppStatusInteract changeAppStatusInteract
     ){
         this.getAppInstalledDetailInteract = getAppInstalledDetailInteract;
         this.updateSingleAppInstalledRulesByChildInteract = updateSingleAppInstalledRulesByChildInteract;
+        this.changeAppStatusInteract = changeAppStatusInteract;
     }
 
     /**
@@ -79,6 +88,25 @@ public final class AppInstalledDetailFragmentPresenter extends SupportPresenter<
         updateSingleAppInstalledRulesByChildInteract.execute(new UpdateAppRuleObserver(),
                 UpdateSingleAppInstalledRulesByChildInteract.Params.create(kid, terminal, app,
                         new AppInstalledRuleEntity(app, appRuleEnum)));
+    }
+
+    /**
+     * Switch App Status
+     * @param kid
+     * @param terminal
+     * @param app
+     * @param status
+     */
+    public void switchAppStatus(final String kid, final String terminal,
+                                final String app, final boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkNotNull(app, "App can not be null");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+
+        changeAppStatusInteract.execute(new SwitchAppStatusObserver(),
+                ChangeAppStatusInteract.Params.create(kid, terminal, app, status));
     }
 
     /**
@@ -151,6 +179,61 @@ public final class AppInstalledDetailFragmentPresenter extends SupportPresenter<
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onAppRuleUpdateSuccessfully();
+            }
+        }
+    }
+
+
+    /**
+     * Switch App Status Observer
+     */
+    public class SwitchAppStatusObserver extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Network Error
+         */
+        @Override
+        protected void onNetworkError() {
+            if (isViewAttached() && getView() != null){
+                getView().hideProgressDialog();
+                getView().onAppStatusChangedFailed();
+            }
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if (isViewAttached() && getView() != null){
+                getView().hideProgressDialog();
+                getView().onAppStatusChangedFailed();
+            }
+        }
+
+        /**
+         * On Api Excetion
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            if (isViewAttached() && getView() != null){
+                getView().hideProgressDialog();
+                getView().onAppStatusChangedFailed();
+            }
+        }
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(final String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onAppStatusChangedSuccessfully();
             }
         }
     }

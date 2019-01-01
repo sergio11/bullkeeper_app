@@ -8,25 +8,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Base64;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
 import butterknife.BindView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AppInstalledComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.IAppDetailActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
-
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
@@ -34,7 +33,7 @@ import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN
  */
 public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<AppInstalledDetailFragmentPresenter,
         IAppInstalledDetailView, IAppDetailActivityHandler, AppInstalledComponent>
-        implements IAppInstalledDetailView {
+        implements IAppInstalledDetailView, CompoundButton.OnCheckedChangeListener {
 
     /**
      * Args
@@ -108,6 +107,12 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
      */
     @BindView(R.id.appAllowed)
     protected ImageView appAllowedImageView;
+
+    /**
+     * Switch App Status Widget
+     */
+    @BindView(R.id.switchAppDisabledStatusWidget)
+    protected SupportSwitchCompat switchAppStatusWidget;
 
 
     /**
@@ -203,6 +208,12 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
             throw new IllegalStateException("You must provide a app id");
 
         app = getArgs().getString(APP_ID_ARG);
+
+        switchAppStatusWidget.setEnabled(false);
+        /**
+         * Set On Checked Change Listener
+         */
+        switchAppStatusWidget.setOnCheckedChangeListener(this);
     }
 
     /**
@@ -355,8 +366,6 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
 
         appRuleEnum = appInstalledEntity.getAppRuleEnum();
 
-        updateAppRule(appRuleEnum);
-
         appNotAllowedImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -381,6 +390,33 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
             }
         });
 
+        switchAppStatusWidget.setEnabled(true);
+        switchAppStatusWidget.setChecked(appInstalledEntity.getDisabled(),
+                false);
+        switchAppStatusWidget.setOnCheckedChangeListener(this);
+
+
+        switchAppRulesStatus(appInstalledEntity.getDisabled());
+    }
+
+    /**
+     * Switch App Rules Status
+     * @param disabled
+     */
+    private void switchAppRulesStatus(final boolean disabled) {
+        if (disabled) {
+            appNotAllowedImageView.setImageResource(R.drawable.app_not_allowed_disabled);
+            appNotAllowedImageView.setEnabled(false);
+            appAllowedImageView.setImageResource(R.drawable.app_allowed_disabled);
+            appAllowedImageView.setEnabled(false);
+            appPerScheduledImageView.setImageResource(R.drawable.app_per_scheduled_disabled);
+            appPerScheduledImageView.setEnabled(false);
+        } else {
+            appNotAllowedImageView.setEnabled(true);
+            appAllowedImageView.setEnabled(true);
+            appPerScheduledImageView.setEnabled(true);
+            updateAppRule(appRuleEnum);
+        }
     }
 
     /**
@@ -403,4 +439,74 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
         activityHandler.showNoticeDialog(R.string.app_installed_app_rules_updated_fail);
     }
 
+    /**
+     * On App Status Changed Successfully
+     */
+    @Override
+    public void onAppStatusChangedSuccessfully() {
+        showNoticeDialog(R.string.app_installed_status_changed_successfully);
+        switchAppRulesStatus(switchAppStatusWidget.isChecked());
+    }
+
+    /**
+     * On App Status Changed Failed
+     */
+    @Override
+    public void onAppStatusChangedFailed() {
+        switchAppStatusWidget.setChecked(!switchAppStatusWidget.isChecked(),
+                false);
+        showNoticeDialog(R.string.app_installed_status_changed_failed, false);
+    }
+
+    /**
+     * On Checked Changed
+     * @param buttonView
+     * @param isChecked
+     */
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+        if (isChecked) {
+
+            // Disable App
+            showConfirmationDialog(R.string.app_installed_disable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+                /**
+                 *
+                 * @param dialog
+                 */
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().switchAppStatus(kid, terminal, app, false);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                    switchAppStatusWidget.setChecked(false, false);
+
+                }
+            });
+
+        } else {
+
+            // Enable App
+            showConfirmationDialog(R.string.app_installed_enable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+                /**
+                 *
+                 * @param dialog
+                 */
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().switchAppStatus(kid, terminal, app, true);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                    switchAppStatusWidget.setChecked(true, false);
+                }
+            });
+
+        }
+    }
 }

@@ -59,4 +59,16 @@ public interface IAppRulesRepository {
     Observable<AppInstalledEntity> getAppInstalledDetail(final String kid, final String terminal,
                                                          final String app);
 
+    /**
+     * Switch App Status In The Terminal
+     * @param kid
+     * @param terminal
+     * @param app
+     * @return
+     */
+    Observable<String> switchAppStatusInTheTerminal(
+            final String kid, final String terminal,
+            final String app, final Boolean status
+    );
+
 }

@@ -48,20 +48,61 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Title -->
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
-                        android:textColor="@color/cyanBrilliant"
-                        android:textStyle="bold"
-                        android:text="@string/app_installed_detail_title"/>
+                        android:layout_margin="@dimen/common_margin">
 
-                    <View
-                        android:layout_width="@dimen/common_divider_small"
-                        android:layout_height="@dimen/common_divider_height"
-                        android:layout_margin="10dp"
-                        android:background="@color/cyanBrilliant"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@id/switchAppDisabledContainer"
+                            android:layout_centerVertical="true">
+
+                            <!-- Title -->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/CommonStrongText.Big"
+                                android:textColor="@color/cyanBrilliant"
+                                android:textStyle="bold"
+                                android:text="@string/app_installed_detail_title"/>
+
+                            <View
+                                android:layout_width="@dimen/common_divider_small"
+                                android:layout_height="@dimen/common_divider_height"
+                                android:layout_margin="10dp"
+                                android:background="@color/cyanBrilliant"/>
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:id="@+id/switchAppDisabledContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/switchAppDisabledStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+
+                    </RelativeLayout>
 
 
                     <LinearLayout

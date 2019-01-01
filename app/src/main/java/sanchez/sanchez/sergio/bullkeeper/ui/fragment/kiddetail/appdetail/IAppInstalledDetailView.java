@@ -24,6 +24,14 @@ public interface IAppInstalledDetailView extends ISupportView {
      */
     void onUpdateAppRuleFail();
 
+    /**
+     * On App Status Changed Successfully
+     */
+    void onAppStatusChangedSuccessfully();
 
+    /**
+     * On App Status Changed Failed
+     */
+    void onAppStatusChangedFailed();
 
 }

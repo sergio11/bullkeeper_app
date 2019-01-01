@@ -357,8 +357,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     showConfirmationDialog(R.string.terminal_disable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            showNoticeDialog(R.string.terminal_bed_time_disable_successfully);
-                            bedTimeTextView.setText(getString(R.string.terminal_bed_time_disabled));
+                            getPresenter().switchBedTimeStatus(childId, terminalId, false);
                         }
 
                         @Override
@@ -372,8 +371,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     showConfirmationDialog(R.string.terminal_enable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            showNoticeDialog(R.string.terminal_bed_time_enable_successfully);
-                            bedTimeTextView.setText(getString(R.string.terminal_bed_time_enable));
+                            getPresenter().switchBedTimeStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -400,8 +398,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            showNoticeDialog(R.string.terminal_lock_screen_disabled_successfully);
-                            lockScreenTextView.setText(getString(R.string.terminal_lock_screen_disabled));
+                            getPresenter().switchLockScreenStatus(childId, terminalId, false);
                         }
 
                         @Override
@@ -414,8 +411,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            showNoticeDialog(R.string.terminal_lock_screen_enable_successfully);
-                            lockScreenTextView.setText(getString(R.string.terminal_lock_screen_enable));
+                            getPresenter().switchLockScreenStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -441,8 +437,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            showNoticeDialog(R.string.terminal_lock_camera_disabled_successfully);
-                            lockCameraTextView.setText(getString(R.string.terminal_lock_camera_disabled));
+                            getPresenter().switchLockCameraStatus(childId, terminalId, false);
                         }
 
                         @Override
@@ -455,8 +450,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            showNoticeDialog(R.string.terminal_lock_camera_enable_successfully);
-                            lockCameraTextView.setText(getString(R.string.terminal_lock_camera_enable));
+                            getPresenter().switchLockCameraStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -480,6 +474,76 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 activityHandler.closeActivity();
             }
         });
+    }
+
+    /**
+     * On Bed Time Status Changed
+     */
+    @Override
+    public void onBedTimeStatusChangedSuccessfully() {
+
+        if(!bedTimeStatusWidget.isChecked())
+            bedTimeTextView.setText(getString(R.string.terminal_bed_time_disabled));
+        else
+            bedTimeTextView.setText(getString(R.string.terminal_bed_time_enable));
+
+        showNoticeDialog(R.string.terminal_bed_time_changed_successfully);
+    }
+
+    /**
+     * On Bed Time Status Changed Failed
+     */
+    @Override
+    public void onBedTimeStatusChangedFailed() {
+
+        bedTimeStatusWidget.setChecked(
+                !bedTimeStatusWidget.isChecked(), false);
+
+        showNoticeDialog(R.string.terminal_bed_time_changed_failed, false);
+    }
+
+    /**
+     * On Lock Screen Status Changed
+     */
+    @Override
+    public void onLockScreenStatusChangedSuccessfully() {
+
+        if(!lockScreenStatusWidget.isChecked())
+            lockScreenTextView.setText(getString(R.string.terminal_lock_screen_disabled));
+        else
+            lockScreenTextView.setText(getString(R.string.terminal_lock_screen_enable));
+
+        showNoticeDialog(R.string.terminal_lock_screen_changed_successfully);
+    }
+
+    /**
+     * On Lock Screen Status Changed Failed
+     */
+    @Override
+    public void onLockScreenStatusChangedFailed() {
+
+        lockScreenStatusWidget.setChecked(
+                !lockScreenStatusWidget.isChecked(), false);
+
+        showNoticeDialog(R.string.terminal_lock_screen_changed_failed, false);
+    }
+
+    /**
+     * On Lock Camera Status Changed
+     */
+    @Override
+    public void onLockCameraStatusChangedSuccessfully() {
+        showNoticeDialog(R.string.terminal_lock_camera_changed_successfully);
+    }
+
+    /**
+     * On Lock Camera Status Changed Failed
+     */
+    @Override
+    public void onLockCameraStatusChangedFailed() {
+        lockCameraStatusWidget.setChecked(!lockCameraStatusWidget.isChecked(),
+                false);
+        showNoticeDialog(R.string.terminal_lock_camera_changed_failed, false);
     }
 
     /**
