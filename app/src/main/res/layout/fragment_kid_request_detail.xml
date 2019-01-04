@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- Include Toolbar -->
+    <include
+        android:id="@+id/appToolbarInclude"
+        layout="@layout/app_translucent_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
+
+    <!-- Content -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/appToolbarInclude"
+        android:layout_above="@id/deleteTerminal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Terminal Basic Data -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Title -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/terminal_detail_title"/>
+
+                    <View
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/cyanBrilliant"/>
+
+
+                    <!-- Device Name Text View -->
+                    <TextView
+                        android:id="@+id/deviceNameTextView"
+                        style="@style/CommonStrongText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/mobile_cyan_solid" />
+
+                    <!-- App Version Text View -->
+                    <TextView
+                        android:id="@+id/appVersionNameTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+                    <!-- Os and Sdk Version -->
+                    <TextView
+                        android:id="@+id/osAndSdkVersionTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/android_brands_cyan_solid" />
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- Apps Data -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Total Apps Text View -->
+                    <TextView
+                        android:id="@+id/totalAppsInstalledTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/apps_cyan_solid" />
+
+                    <!-- Total Calls Text View -->
+                    <TextView
+                        android:id="@+id/totalCallsTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/calls_cyan_solid_small" />
+
+
+                    <!-- Total SMS Text View -->
+                    <TextView
+                        android:id="@+id/totalSmsTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/sms_icon_cyan_small" />
+
+
+                    <!-- Total Contacts Text View -->
+                    <TextView
+                        android:id="@+id/totalContactsTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/contacts_icon_cyan_small" />
+
+                    <!-- Last Time Used -->
+                    <TextView
+                        android:id="@+id/lastTimeUsed"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/clock_cyan_solid" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!-- Features  -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Title -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/terminal_features_title"/>
+
+                    <View
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/cyanBrilliant"/>
+
+                    <!-- Bed Time -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/bedTimeIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/bed_time_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/bedTimeTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/bedTimeStatusWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/bedTimeIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/bedTimeStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+
+
+                        <!-- Bed Time Text View -->
+                        <TextView
+                            android:id="@+id/bedTimeTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/terminal_bed_time_enable"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/bedTimeStatusWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+                    <!-- Lock Screen -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/lockScreenIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/lock_screen"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/lockScreenTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/lockScreenStatusWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/lockScreenIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/lockScreenStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <!-- Lock Screen Text View -->
+                        <TextView
+                            android:id="@+id/lockScreenTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/terminal_lock_screen_enable"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/lockScreenStatusWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+
+                    <!-- Lock Camera -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/lockCameraIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/lock_camera_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/lockCameraTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/lockCameraStatusWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/lockCameraIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/lockCameraStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+
+                        <!-- Lock Camera Text View -->
+                        <TextView
+                            android:id="@+id/lockCameraTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/terminal_bed_time_enable"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/lockCameraStatusWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!-- Delete Terminal -->
+    <LinearLayout
+        android:id="@+id/deleteTerminal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/close_circle_solid" />
+
+        <TextView
+            style="@style/CommonStrongText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".85"
+            android:background="@color/redDanger"
+            android:padding="@dimen/common_padding"
+            android:text="@string/delete_terminal_btn_text"
+            android:textAlignment="textStart"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
