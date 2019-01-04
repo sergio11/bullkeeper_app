@@ -5,6 +5,7 @@ import javax.inject.Named;
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
+import sanchez.sanchez.sergio.data.mapper.impl.AppStatsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CallDetailDataMapper;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AlertEntityDataMapper;
@@ -49,6 +50,7 @@ import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CallDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
@@ -83,6 +85,7 @@ import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
+import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
 import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
@@ -482,6 +485,15 @@ public class DataMapperModule {
     ){
         return new KidRequestEntityMapper(kidEntityAbstractDataMapper,
                 terminalEntityAbstractDataMapper, locationEntityAbstractDataMapper);
+    }
+
+    /**
+     * Provide App Stats Entity Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppStatsDTO, AppStatsEntity> provideAppStatsEntityMapper() {
+        return new AppStatsEntityDataMapper();
     }
 
 

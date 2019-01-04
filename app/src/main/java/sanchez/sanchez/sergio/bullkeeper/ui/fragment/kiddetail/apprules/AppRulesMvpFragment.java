@@ -384,6 +384,12 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
     }
 
     /**
+     * On Show App Stats Clicked
+     */
+    @OnClick(R.id.showAppStats)
+    public void onShowAppStatsClicked(){}
+
+    /**
      * On App Rules Update Successfully
      */
     @Override

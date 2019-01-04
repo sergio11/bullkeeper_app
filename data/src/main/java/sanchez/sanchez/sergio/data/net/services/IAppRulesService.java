@@ -12,6 +12,7 @@ import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 
 /**
  * App Rules Service
@@ -99,6 +100,20 @@ public interface IAppRulesService {
             @Path("kid") final String kid,
             @Path("terminal") final String terminal,
             @Path("app") final String app);
+
+
+    /**
+     * Get Stats For All Apps Installed in the terminal
+     * @param kid
+     * @param terminal
+     * @param total
+     * @return
+     */
+    @GET("children/{kid}/terminal/{terminal}/apps/stats")
+    Observable<APIResponse<List<AppStatsDTO>>> getStatsForAllAppsInstalled(
+            @Path("kid") final String kid,
+            @Path("terminal") final String terminal,
+            @Query("total") final Integer total);
 
 
 }

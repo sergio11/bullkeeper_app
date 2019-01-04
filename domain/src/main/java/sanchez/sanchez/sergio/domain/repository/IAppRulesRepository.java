@@ -5,6 +5,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
+import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
 
 /**
  * App Rules Repository
@@ -70,5 +71,16 @@ public interface IAppRulesRepository {
             final String kid, final String terminal,
             final String app, final Boolean status
     );
+
+
+    /**
+     * Get Statistics Of The Five Most Used Applications
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    Observable<List<AppStatsEntity>> getStatisticsOfTheFiveMostUsedApplications(
+            final String kid,
+            final String terminal);
 
 }

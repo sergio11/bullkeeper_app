@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.services.IAppRulesService;
 import sanchez.sanchez.sergio.data.repository.AppRulesRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -14,10 +15,12 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.apprules.ChangeAppStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
+import sanchez.sanchez.sergio.domain.interactor.apprules.GetStatisticsOfTheFiveMostUsedApplicationsInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateSingleAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
+import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
 
 /**
@@ -44,8 +47,10 @@ public class AppRulesModule {
     @Provides
     @PerActivity
     public IAppRulesRepository provideAppRulesRepository(final AbstractDataMapper<AppInstalledDTO, AppInstalledEntity> appInstalledEntityAbstractDataMapper,
-                                                         IAppRulesService appRulesService, final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDTOAbstractDataMapper) {
-        return new AppRulesRepositoryImpl(appInstalledEntityAbstractDataMapper, appRulesService, appInstalledRuleDTOAbstractDataMapper);
+                                                         IAppRulesService appRulesService,
+                                                         final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDTOAbstractDataMapper,
+                                                         final AbstractDataMapper<AppStatsDTO, AppStatsEntity> appStatsEntityAbstractDataMapper) {
+        return new AppRulesRepositoryImpl(appInstalledEntityAbstractDataMapper, appRulesService, appInstalledRuleDTOAbstractDataMapper, appStatsEntityAbstractDataMapper);
     }
 
     /**
@@ -122,6 +127,23 @@ public class AppRulesModule {
             final IAppRulesRepository appRulesRepository
     ){
         return new ChangeAppStatusInteract(threadExecutor, postExecutionThread, appRulesRepository);
+    }
+
+    /**
+     * Provide Get Statistics Of The Five Most Used Applications Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param appRulesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetStatisticsOfTheFiveMostUsedApplicationsInteract provideGetStatisticsOfTheFiveMostUsedApplicationsInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAppRulesRepository appRulesRepository
+    ){
+        return new GetStatisticsOfTheFiveMostUsedApplicationsInteract(threadExecutor, postExecutionThread, appRulesRepository);
     }
 
 }

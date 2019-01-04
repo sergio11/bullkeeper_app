@@ -6,9 +6,11 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.services.IAppRulesService;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
+import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
 
 /**
@@ -32,18 +34,27 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
     private final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDataMapper;
 
     /**
+     * App Stats Entity Mapper
+     */
+    private final AbstractDataMapper<AppStatsDTO, AppStatsEntity> appStatsEntityAbstractDataMapper;
+
+    /**
      * App Rules Repository Impl
      *
      * @param appInstalledDataMapper
      * @param appRulesService
      * @param appInstalledRuleDataMapper
+     * @param appStatsEntityAbstractDataMapper
      */
-    public AppRulesRepositoryImpl(final AbstractDataMapper<AppInstalledDTO, AppInstalledEntity> appInstalledDataMapper,
-                                  final IAppRulesService appRulesService,
-                                  final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDataMapper) {
+    public AppRulesRepositoryImpl(
+            final AbstractDataMapper<AppInstalledDTO, AppInstalledEntity> appInstalledDataMapper,
+            final IAppRulesService appRulesService,
+            final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDataMapper,
+            final AbstractDataMapper<AppStatsDTO, AppStatsEntity> appStatsEntityAbstractDataMapper) {
         this.appInstalledDataMapper = appInstalledDataMapper;
         this.appRulesService = appRulesService;
         this.appInstalledRuleDataMapper = appInstalledRuleDataMapper;
+        this.appStatsEntityAbstractDataMapper = appStatsEntityAbstractDataMapper;
     }
 
     /**
@@ -167,6 +178,24 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
                         response.getData(): null);
     }
 
+    /**
+     * Get Statistics Of The Five Most Used Applications
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    @Override
+    public Observable<List<AppStatsEntity>> getStatisticsOfTheFiveMostUsedApplications(final String kid, final String terminal) {
+        Preconditions.checkNotNull(kid, "Child id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal Id can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal Id can not be empty");
+
+        return appRulesService.getStatsForAllAppsInstalled(kid, terminal, 5)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(appStatsEntityAbstractDataMapper::transform);
+    }
 
 
 }
