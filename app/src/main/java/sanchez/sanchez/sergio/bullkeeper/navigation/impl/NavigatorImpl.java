@@ -15,6 +15,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetail
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequest.KidRequestListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequestDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.phonenumbersblocked.PhoneNumbersBlockedListMvpActivity;
@@ -846,5 +848,42 @@ public class NavigatorImpl implements INavigator {
 
         activity.startActivity(PhoneNumbersBlockedListMvpActivity.getCallingIntent(context,
                 kid, terminal));
+    }
+
+    /**
+     * Navigate To Kid Request List
+     * @param activity
+     * @param kid
+     */
+    @Override
+    public void navigateToKidRequestList(final AppCompatActivity activity, final String kid) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        activity.startActivity(KidRequestListMvpActivity
+                .getCallingIntent(context, kid));
+
+    }
+
+    /**
+     * Navigate To Kid Request Detail
+     * @param activity
+     * @param kid
+     * @param identity
+     */
+    @Override
+    public void navigateToKidRequestDetail(
+            final AppCompatActivity activity,
+            final String kid,
+            final String identity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(identity, "identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "identity can not be empty");
+
+        activity.startActivity(KidRequestDetailMvpActivity
+                .getCallingIntent(context, kid, identity));
     }
 }

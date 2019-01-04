@@ -1,53 +1,27 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail;
+package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidrequestdetail;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.KidRequestEntity;
 
 /**
- * Terminal Detail View
+ * Kid Request Detail View
  */
-public interface ITerminalDetailView extends ISupportView {
+public interface IKidRequestDetailView extends ISupportView {
 
     /**
-     * On Terminal Detail Loaded
-     * @param terminalDetailEntity
+     * On Kid Request Loaded
+     * @param kidRequestEntity
      */
-    void onTerminalDetailLoaded(final TerminalDetailEntity terminalDetailEntity);
+    void onKidRequestLoaded(final KidRequestEntity kidRequestEntity);
 
     /**
-     * On Terminal Success Deleted
+     * On Kid Request Deleted
      */
-    void onTerminalSuccessDeleted();
+    void onKidRequestDeleted();
 
     /**
-     * On Bed Time Status Changed Successfully
+     * On Kid Request Not Found
      */
-    void onBedTimeStatusChangedSuccessfully();
-
-    /**
-     * On Bed Time Status Changed Failed
-     */
-    void onBedTimeStatusChangedFailed();
-
-    /**
-     * On Lock Screen Status Changed Successfully
-     */
-    void onLockScreenStatusChangedSuccessfully();
-
-    /**
-     * On Lock Screen Status Changed Failed
-     */
-    void onLockScreenStatusChangedFailed();
-
-    /**
-     * On Lock Camera Status Changed Successfully
-     */
-    void onLockCameraStatusChangedSuccessfully();
-
-    /**
-     * On Lock Screen Status Changed Failed
-     */
-    void onLockCameraStatusChangedFailed();
-
+    void onKidRequestNotFound();
 
 }

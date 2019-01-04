@@ -64,4 +64,13 @@ public interface ITerminalRepository {
      */
     Observable<String> switchLockCameraStatus(final String kid, final String terminal, final Boolean status);
 
+    /**
+     * Switch Settings Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    Observable<String> switchSettingsScreenStatus(final String kid, final String terminal, final Boolean status);
+
 }

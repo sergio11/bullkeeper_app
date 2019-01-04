@@ -21,6 +21,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.ConversationEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.KidGuardianEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.KidRequestEntityMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.LocationEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.MessageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsDataMapper;
@@ -59,6 +60,7 @@ import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.JwtAuthenticationResponseDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MessageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
@@ -91,6 +93,7 @@ import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.KidRequestEntity;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
@@ -466,4 +469,20 @@ public class DataMapperModule {
     public AbstractDataMapper<LocationDTO, LocationEntity> provideLocationEntityDataMapper(){
         return new LocationEntityDataMapper();
     }
+
+    /**
+     * Provide Kid Request Entity Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<KidRequestDTO, KidRequestEntity> provideKidRequestEntityMapper(
+            final AbstractDataMapper<KidDTO, KidEntity> kidEntityAbstractDataMapper,
+            final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper,
+            final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper
+    ){
+        return new KidRequestEntityMapper(kidEntityAbstractDataMapper,
+                terminalEntityAbstractDataMapper, locationEntityAbstractDataMapper);
+    }
+
+
 }

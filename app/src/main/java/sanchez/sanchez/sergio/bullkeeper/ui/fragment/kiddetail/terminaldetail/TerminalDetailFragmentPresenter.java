@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailIntera
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchSettingsScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 
 /**
@@ -47,11 +48,17 @@ public final class TerminalDetailFragmentPresenter
     private final SwitchBedTimeStatusInteract switchBedTimeStatusInteract;
 
     /**
+     * Switch Settings Screen Status Interact
+     */
+    private final SwitchSettingsScreenStatusInteract switchSettingsScreenStatusInteract;
+
+    /**
      * @param getTerminalDetailInteract
      * @param deleteTerminalInteract
      * @param switchLockScreenStatusInteract
      * @param switchLockCameraStatusInteract
      * @param switchBedTimeStatusInteract
+     * @param switchSettingsScreenStatusInteract
      */
     @Inject
     public TerminalDetailFragmentPresenter(
@@ -59,12 +66,14 @@ public final class TerminalDetailFragmentPresenter
             final DeleteTerminalInteract deleteTerminalInteract,
             final SwitchLockScreenStatusInteract switchLockScreenStatusInteract,
             final SwitchLockCameraStatusInteract switchLockCameraStatusInteract,
-            final SwitchBedTimeStatusInteract switchBedTimeStatusInteract){
+            final SwitchBedTimeStatusInteract switchBedTimeStatusInteract,
+            final SwitchSettingsScreenStatusInteract switchSettingsScreenStatusInteract){
         this.getTerminalDetailInteract = getTerminalDetailInteract;
         this.deleteTerminalInteract = deleteTerminalInteract;
         this.switchLockScreenStatusInteract = switchLockScreenStatusInteract;
         this.switchLockCameraStatusInteract = switchLockCameraStatusInteract;
         this.switchBedTimeStatusInteract = switchBedTimeStatusInteract;
+        this.switchSettingsScreenStatusInteract = switchSettingsScreenStatusInteract;
     }
 
     /**
@@ -154,6 +163,23 @@ public final class TerminalDetailFragmentPresenter
 
         switchLockScreenStatusInteract.execute(new SwitchLockScreenStatusObserver(),
                 SwitchLockScreenStatusInteract.Params.create(kid, terminal, status));
+    }
+
+    /**
+     * Switch Settings Screen Status
+     * @param kid
+     * @param terminal
+     * @param status
+     */
+    public void switchSettingsScreenStatus(final String kid, final String terminal, final boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        switchSettingsScreenStatusInteract.execute(new SwitchSettingsStatusObserver(),
+                SwitchSettingsScreenStatusInteract.Params.create(kid, terminal, status));
     }
 
     /**
@@ -365,6 +391,62 @@ public final class TerminalDetailFragmentPresenter
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onLockCameraStatusChangedSuccessfully();
+            }
+        }
+    }
+
+    /**
+     * Switch Settings Status Observer
+     */
+    public class SwitchSettingsStatusObserver extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         *
+         */
+        @Override
+        protected void onNetworkError() {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onSettingsScreenStatusChangedFailed();
+            }
+        }
+
+        /**
+         *
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onSettingsScreenStatusChangedFailed();
+            }
+        }
+
+        /**
+         *
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onSettingsScreenStatusChangedFailed();
+            }
+        }
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
+
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onSettingsScreenStatusChangedSuccessfully();
             }
         }
     }

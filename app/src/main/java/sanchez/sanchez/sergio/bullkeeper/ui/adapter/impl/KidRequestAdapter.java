@@ -4,23 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.domain.models.KidEntity;
-import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+import sanchez.sanchez.sergio.domain.models.KidRequestEntity;
 
 /**
- * Phone Numbers Blocked Adapter
+ * Kid Request Adapter
  */
-public final class PhoneNumbersBlockedAdapter
-        extends SupportRecyclerViewAdapter<PhoneNumberBlockedEntity> {
+public final class KidRequestAdapter
+        extends SupportRecyclerViewAdapter<KidRequestEntity> {
 
 
     /**
@@ -28,8 +22,8 @@ public final class PhoneNumbersBlockedAdapter
      * @param context
      * @param data
      */
-    public PhoneNumbersBlockedAdapter(final Context context,
-                                      final ArrayList<PhoneNumberBlockedEntity> data) {
+    public KidRequestAdapter(final Context context,
+                             final ArrayList<KidRequestEntity> data) {
         super(context, data);
         // enable header
         hasHeader = false;
@@ -43,51 +37,38 @@ public final class PhoneNumbersBlockedAdapter
      */
     @Override
     protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup viewGroup) {
-        View view = inflater.inflate(R.layout.phone_number_blocked_item_layout, viewGroup, false);
-        return new PhoneNumberBlockedViewHolder(context, view);
+        View view = inflater.inflate(R.layout.kid_request_item_layout, viewGroup, false);
+        return new KidRequestViewHolder(context, view);
     }
 
 
     /**
-     * Phone Number Blocked View Holder
+     * Kid Request View Holder
      */
-    public final class PhoneNumberBlockedViewHolder extends
-            SupportItemSwipedViewHolder<PhoneNumberBlockedEntity> {
+    public final class KidRequestViewHolder extends
+            SupportItemSwipedViewHolder<KidRequestEntity> {
 
         private Context context;
         private TextView phoneNumberTextView, blockedAtTextView;
 
         /**
-         * Alerts View Holder
+         * Kid Request View Holder
          * @param context
          * @param itemView
          */
-        public PhoneNumberBlockedViewHolder(final Context context, final View itemView) {
+        public KidRequestViewHolder(final Context context, final View itemView) {
             super(itemView);
             this.context = context;
-            this.phoneNumberTextView = itemView.findViewById(R.id.phoneNumberTextView);
-            this.blockedAtTextView = itemView.findViewById(R.id.blockedAtTextView);
         }
 
         /**
          * On Bind
-         * @param phoneNumberBlockedEntity
+         * @param kidRequestEntity
          */
         @Override
-        public void bind(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
-            super.bind(phoneNumberBlockedEntity);
+        public void bind(KidRequestEntity kidRequestEntity) {
+            super.bind(kidRequestEntity);
 
-
-            // Set Phone Number
-            phoneNumberTextView.setText(phoneNumberBlockedEntity.getPhoneNumber());
-
-            final SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format),
-                    Locale.getDefault());
-
-            //set Blocked at
-            blockedAtTextView.setText(String.format(Locale.getDefault(),
-                    context.getString(R.string.phone_numbers_blocked_at),
-                    sdf.format(phoneNumberBlockedEntity.getBlockedAt())));
 
         }
 

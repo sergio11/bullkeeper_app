@@ -15,7 +15,7 @@ import sanchez.sanchez.sergio.data.net.models.response.KidRequestDTO;
  * DELETE /api/v1/children/{kid}/request DELETE_ALL_REQUEST_FOR_KID
  * POST /api/v1/children/{kid}/request/delete DELETE_REQUEST_FOR_KID
  */
-public interface IRequestService {
+public interface IKidRequestService {
 
 
     /**
@@ -27,12 +27,32 @@ public interface IRequestService {
         getAllRequestForKid(final @Path("kid") String kid);
 
     /**
+     * Get Kid Request Detail
+     * @param kid
+     * @parma id
+     * @return
+     */
+    @GET("children/{kid}/request/{id}")
+    Observable<APIResponse<KidRequestDTO>>
+        getKidRequestDetail(
+            final @Path("kid") String kid,
+            final @Path("id") String id);
+
+    /**
      * Delete All Request For Kid
      * @return
      */
     @DELETE("children/{kid}/request")
     Observable<APIResponse<String>> deleteAllRequestForKid(final @Path("kid") String kid);
 
+    /**
+     * Delete Kid Request
+     * @return
+     */
+    @DELETE("children/{kid}/request/{id}")
+    Observable<APIResponse<String>> deleteKidRequest(
+            final @Path("kid") String kid,
+            final @Path("id") String id);
 
     /**
      * Delete Self Account

@@ -127,6 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp" />
 
+
         <!-- Profile -->
         <include
             android:id="@+id/profileMenuItemLayout"
@@ -135,6 +136,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_marginStart="5dp" />
+
+
 
     </LinearLayout>
 

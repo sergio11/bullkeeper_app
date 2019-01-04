@@ -254,8 +254,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         getPresenter().loadKidData(kidIdentity);
     }
 
-
-
     /**
      * Get Args
      * @return

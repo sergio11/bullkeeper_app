@@ -166,4 +166,26 @@ public final class TerminalRepositoryImpl implements ITerminalRepository {
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null);
     }
+
+    /**
+     * Switch Settings Screen Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    @Override
+    public Observable<String> switchSettingsScreenStatus(final String kid, final String terminal, final Boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+        return (status ?
+                terminalService.enableSettingsScreenInTheTerminal(kid, terminal) :
+                terminalService.disableSettingsScreenInTheTerminal(kid, terminal))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
 }

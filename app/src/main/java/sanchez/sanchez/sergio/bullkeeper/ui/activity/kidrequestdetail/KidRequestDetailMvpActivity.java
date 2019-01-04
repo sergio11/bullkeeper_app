@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail;
+package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,40 +8,44 @@ import com.crashlytics.android.answers.ContentViewEvent;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
-import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerTerminalComponent;
-import sanchez.sanchez.sergio.bullkeeper.di.components.TerminalComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail.TerminalDetailActivityMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerKidRequestComponent;
+import sanchez.sanchez.sergio.bullkeeper.di.components.KidRequestComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidrequestdetail.KidRequestDetailActivityMvpFragment;
 
 /**
- * Terminal Detail
+ * Kid Request Detail Mvp Activity
  */
-public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetailPresenter, ITerminalDetailView>
-        implements HasComponent<TerminalComponent>
-        , ITerminalDetailView, ITerminalDetailActivityHandler {
+public class KidRequestDetailMvpActivity extends SupportMvpActivity<KidRequestDetailPresenter, IKidRequestDetailView>
+        implements HasComponent<KidRequestComponent>
+        , IKidRequestDetailView, IKidRequestDetailActivityHandler {
 
-    private final String CONTENT_FULL_NAME = "TERMINAL_DETAIL";
-    private final String CONTENT_TYPE_NAME = "TERMINALS";
+    /**
+     *
+     */
+    private final String CONTENT_FULL_NAME = "KID_REQUEST_DETAIL";
+    private final String CONTENT_TYPE_NAME = "KID_REQUEST";
 
     /**
      * Args
      */
-    public static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
-    public static String SON_ID_ARG = "KID_ID_ARG";
+    public static String KID_ID_ARG = "KID_ID_ARG";
+    public static String ID_ARG = "ID_ARG";
 
     /**
-     * Terminal Component
+     * Kid Request Component
      */
-    private TerminalComponent terminalComponent;
+    private KidRequestComponent kidRequestComponent;
+
 
     /**
      * Get Calling Intent
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String sonId, final String terminalId) {
-        final Intent intent = new Intent(context, TerminalDetailMvpActivity.class);
-        intent.putExtra(SON_ID_ARG, sonId);
-        intent.putExtra(TERMINAL_ID_ARG, terminalId);
+    public static Intent getCallingIntent(final Context context, final String kid, final String identity) {
+        final Intent intent = new Intent(context, KidRequestDetailMvpActivity.class);
+        intent.putExtra(KID_ID_ARG, kid);
+        intent.putExtra(ID_ARG, identity);
         return intent;
     }
 
@@ -51,11 +55,11 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
      */
     @Override
     protected void initializeInjector() {
-        terminalComponent = DaggerTerminalComponent.builder()
+        kidRequestComponent = DaggerKidRequestComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .build();
-        terminalComponent.inject(this);
+        kidRequestComponent.inject(this);
 
     }
 
@@ -68,23 +72,27 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
         return R.layout.activity_fragment_container;
     }
 
-
+    /**
+     * On View Ready
+     * @param savedInstanceState
+     */
     @Override
     protected void onViewReady(final Bundle savedInstanceState) {
         if(savedInstanceState == null) {
 
+            if (!getIntent().hasExtra(KID_ID_ARG))
+                throw new IllegalArgumentException("It is necessary to specify an kid identifier");
 
-            if(!getIntent().hasExtra(TERMINAL_ID_ARG))
-                throw new IllegalArgumentException("It is necessary to specify an terminal identifier");
+            final String kid = getIntent().getStringExtra(KID_ID_ARG);
 
-            if (!getIntent().hasExtra(SON_ID_ARG))
-                throw new IllegalArgumentException("It is necessary to specify an son identifier");
+            if (!getIntent().hasExtra(ID_ARG))
+                throw new IllegalArgumentException("It is necessary to specify a identifier");
 
-            final String alertId = getIntent().getStringExtra(TERMINAL_ID_ARG);
-            final String sonId = getIntent().getStringExtra(SON_ID_ARG);
+            final String id = getIntent().getStringExtra(ID_ARG);
 
             addFragment(R.id.mainContainer,
-                    TerminalDetailActivityMvpFragment.newInstance(alertId, sonId), false);
+                    KidRequestDetailActivityMvpFragment.newInstance(kid, id),
+                    false);
         }
     }
 
@@ -106,8 +114,8 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
      */
     @NonNull
     @Override
-    public TerminalDetailPresenter providePresenter() {
-        return terminalComponent.terminalDetailPresenter();
+    public KidRequestDetailPresenter providePresenter() {
+        return kidRequestComponent.kidRequestDetailPresenter();
     }
 
     /**
@@ -115,8 +123,8 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
      * @return
      */
     @Override
-    public TerminalComponent getComponent() {
-        return terminalComponent;
+    public KidRequestComponent getComponent() {
+        return kidRequestComponent;
     }
 
     /**

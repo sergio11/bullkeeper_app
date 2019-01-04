@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailIntera
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchSettingsScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.repository.ITerminalRepository;
@@ -133,9 +134,28 @@ public class TerminalsModule {
      */
     @Provides
     @PerActivity
-    public SwitchLockScreenStatusInteract provideSwitchLockScreenStatusInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                                final ITerminalRepository terminalRepository){
+    public SwitchLockScreenStatusInteract provideSwitchLockScreenStatusInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ITerminalRepository terminalRepository){
         return new SwitchLockScreenStatusInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Switch Settings Screen Status Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SwitchSettingsScreenStatusInteract provideSwitchSettingsScreenStatusInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ITerminalRepository terminalRepository
+    ){
+        return new SwitchSettingsScreenStatusInteract(threadExecutor, postExecutionThread, terminalRepository);
     }
 
 }

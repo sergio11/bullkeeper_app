@@ -33,6 +33,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalEntity.setLockCameraEnabled(originModel.isLockCameraEnabled());
         terminalEntity.setLockScreenEnabled(originModel.isLockScreenEnabled());
+        terminalEntity.setSettingsEnabled(originModel.isSettingsEnabled());
         return terminalEntity;
     }
 
@@ -59,6 +60,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setLockCameraEnabled(originModel.isLockCameraEnabled());
         terminalDTO.setLockScreenEnabled(originModel.isLockScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
+        terminalDTO.setSettingsEnabled(originModel.isSettingsEnabled());
         return terminalDTO;
     }
 }

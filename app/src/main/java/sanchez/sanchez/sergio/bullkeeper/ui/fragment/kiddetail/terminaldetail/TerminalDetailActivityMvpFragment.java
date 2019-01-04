@@ -129,6 +129,19 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     @BindView(R.id.lockCameraStatusWidget)
     protected SupportSwitchCompat lockCameraStatusWidget;
 
+
+    /**
+     * Settings Text View
+     */
+    @BindView(R.id.settingsTextView)
+    protected TextView settingsTextView;
+
+    /**
+     * Settings Status Widget
+     */
+    @BindView(R.id.settingsStatusWidget)
+    protected SupportSwitchCompat settingsStatusWidget;
+
     /**
      * Dependencies
      * ===============
@@ -461,6 +474,46 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 }
             }
         });
+
+        // Settings
+        settingsTextView.setText(terminalDetailEntity.isSettingsEnabled() ?
+                getString(R.string.terminal_settings_enable) :
+                getString(R.string.terminal_settings_disabled));
+
+        settingsStatusWidget.setEnabled(true);
+        settingsStatusWidget.setChecked(!terminalDetailEntity.isSettingsEnabled(), false);
+        settingsStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+
+                    showConfirmationDialog(R.string.terminal_disable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            getPresenter().switchSettingsScreenStatus(childId, terminalId, false);
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            settingsStatusWidget.setChecked(false, false);
+                        }
+                    });
+
+                } else {
+                    showConfirmationDialog(R.string.terminal_enable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            getPresenter().switchSettingsScreenStatus(childId, terminalId, true);
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            settingsStatusWidget.setChecked(true, false);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     /**
@@ -544,6 +597,24 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         lockCameraStatusWidget.setChecked(!lockCameraStatusWidget.isChecked(),
                 false);
         showNoticeDialog(R.string.terminal_lock_camera_changed_failed, false);
+    }
+
+    /**
+     * On Settings Screen Status Change Successfully
+     */
+    @Override
+    public void onSettingsScreenStatusChangedSuccessfully() {
+        showNoticeDialog(R.string.terminal_settings_changed_successfully);
+    }
+
+    /**
+     * On Settings Screen Status Changed Failed
+     */
+    @Override
+    public void onSettingsScreenStatusChangedFailed() {
+        settingsStatusWidget.setChecked(!settingsStatusWidget.isChecked(),
+                false);
+        showNoticeDialog(R.string.terminal_settings_changed_failed, false);
     }
 
     /**

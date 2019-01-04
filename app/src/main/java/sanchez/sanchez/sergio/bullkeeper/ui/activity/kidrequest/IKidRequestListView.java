@@ -1,29 +1,23 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequest;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportLCEView;
-import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+import sanchez.sanchez.sergio.domain.models.KidRequestEntity;
 
 /**
- * Phone Numbers Blocked List View
+ * Kid Request List View
  */
-public interface IPhoneNumbersBlockedListView
-        extends ISupportLCEView<PhoneNumberBlockedEntity> {
+public interface IKidRequestListView
+        extends ISupportLCEView<KidRequestEntity> {
+
 
     /**
-     * On All Phone Numbers Deleted
+     * On All Kid Request Deleted
      */
-    void onAllPhoneNumbersDeleted();
+    void onAllKidRequestDeleted();
 
     /**
-     * On Phone Number Deleted
+     * On Kid Request Deleted
      */
-    void onPhoneNumberDeleted();
-
-    /**
-     * On Phone Number Added
-     * @param phoneNumberBlockedEntity
-     */
-    void onPhoneNumberAdded(final PhoneNumberBlockedEntity phoneNumberBlockedEntity);
-
+    void onKidRequestDeleted();
 
 }

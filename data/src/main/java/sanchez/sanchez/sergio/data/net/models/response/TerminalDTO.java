@@ -96,6 +96,12 @@ public class TerminalDTO implements Serializable {
     @JsonProperty("lock_camera_enabled")
     protected boolean lockCameraEnabled;
 
+    /**
+     * Settings Enabled
+     */
+    @JsonProperty("settings_enabled")
+    protected boolean settingsEnabled;
+
 
     public TerminalDTO(){}
 
@@ -115,8 +121,14 @@ public class TerminalDTO implements Serializable {
      * @param bedTimeEnabled
      * @param lockScreenEnabled
      * @param lockCameraEnabled
+     * @param settingsEnabled
      */
-    public TerminalDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean lockScreenEnabled, boolean lockCameraEnabled) {
+    public TerminalDTO(String identity, String appVersionName, String appVersionCode,
+                       String osVersion, String sdkVersion, String manufacturer,
+                       String marketName, String model, String codeName,
+                       String deviceName, String deviceId, boolean bedTimeEnabled,
+                       boolean lockScreenEnabled, boolean lockCameraEnabled,
+                       boolean settingsEnabled) {
         this.identity = identity;
         this.appVersionName = appVersionName;
         this.appVersionCode = appVersionCode;
@@ -131,6 +143,7 @@ public class TerminalDTO implements Serializable {
         this.bedTimeEnabled = bedTimeEnabled;
         this.lockScreenEnabled = lockScreenEnabled;
         this.lockCameraEnabled = lockCameraEnabled;
+        this.settingsEnabled = settingsEnabled;
     }
 
     public String getIdentity() {
@@ -245,6 +258,14 @@ public class TerminalDTO implements Serializable {
         this.lockCameraEnabled = lockCameraEnabled;
     }
 
+    public boolean isSettingsEnabled() {
+        return settingsEnabled;
+    }
+
+    public void setSettingsEnabled(boolean settingsEnabled) {
+        this.settingsEnabled = settingsEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDTO{" +
@@ -262,6 +283,7 @@ public class TerminalDTO implements Serializable {
                 ", bedTimeEnabled=" + bedTimeEnabled +
                 ", lockScreenEnabled=" + lockScreenEnabled +
                 ", lockCameraEnabled=" + lockCameraEnabled +
+                ", settingsEnabled=" + settingsEnabled +
                 '}';
     }
 }

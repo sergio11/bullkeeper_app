@@ -1,73 +1,40 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidrequestdetail;
 
 import android.os.Bundle;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
-import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteTerminalInteract;
-import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailInteract;
-import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
-import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
-import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
-import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.interactor.kidrequest.DeleteKidRequestInteract;
+import sanchez.sanchez.sergio.domain.interactor.kidrequest.GetKidRequestDetailInteract;
+import sanchez.sanchez.sergio.domain.models.KidRequestEntity;
 
 /**
- * Terminal Detail Presenter
+ * Kid Request Detail Fragment Presenter
  */
-public final class TerminalDetailFragmentPresenter
+public final class KidRequestDetailFragmentPresenter
         extends SupportPresenter<IKidRequestDetailView> {
 
-
     /**
-     * Get Terminal Detail Interact
+     * Get Kid Request Detail Interact
      */
-    private final GetTerminalDetailInteract getTerminalDetailInteract;
-
+    private final GetKidRequestDetailInteract getKidRequestDetailInteract;
 
     /**
-     * Delete Terminal Interact
+     * Delete Kid Request Interact
      */
-    private DeleteTerminalInteract deleteTerminalInteract;
+    private final DeleteKidRequestInteract deleteKidRequestInteract;
 
     /**
-     * Switch Lock Screen Status Interact
-     */
-    private final SwitchLockScreenStatusInteract switchLockScreenStatusInteract;
-
-    /**
-     * Switch Lock Camera Status Interact
-     */
-    private final SwitchLockCameraStatusInteract switchLockCameraStatusInteract;
-
-    /**
-     * Switch Bed Time Status Interact
-     */
-    private final SwitchBedTimeStatusInteract switchBedTimeStatusInteract;
-
-    /**
-     * @param getTerminalDetailInteract
-     * @param deleteTerminalInteract
-     * @param switchLockScreenStatusInteract
-     * @param switchLockCameraStatusInteract
-     * @param switchBedTimeStatusInteract
+     * @param getKidRequestDetailInteract
+     * @param deleteKidRequestInteract
      */
     @Inject
-    public TerminalDetailFragmentPresenter(
-            final GetTerminalDetailInteract getTerminalDetailInteract,
-            final DeleteTerminalInteract deleteTerminalInteract,
-            final SwitchLockScreenStatusInteract switchLockScreenStatusInteract,
-            final SwitchLockCameraStatusInteract switchLockCameraStatusInteract,
-            final SwitchBedTimeStatusInteract switchBedTimeStatusInteract){
-        this.getTerminalDetailInteract = getTerminalDetailInteract;
-        this.deleteTerminalInteract = deleteTerminalInteract;
-        this.switchLockScreenStatusInteract = switchLockScreenStatusInteract;
-        this.switchLockCameraStatusInteract = switchLockCameraStatusInteract;
-        this.switchBedTimeStatusInteract = switchBedTimeStatusInteract;
+    public KidRequestDetailFragmentPresenter(
+            final GetKidRequestDetailInteract getKidRequestDetailInteract,
+            final DeleteKidRequestInteract deleteKidRequestInteract){
+        this.getKidRequestDetailInteract = getKidRequestDetailInteract;
+        this.deleteKidRequestInteract = deleteKidRequestInteract;
     }
 
     /**
@@ -79,90 +46,84 @@ public final class TerminalDetailFragmentPresenter
         super.onInit(args);
 
         if(isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.loading_terminal_detail);
+            getView().showProgressDialog(R.string.generic_loading_text);
 
-        final String childId = args.getString(KidRequestDetailActivityMvpFragment.CHILD_ID_ARG);
-        final String terminalId = args.getString(KidRequestDetailActivityMvpFragment.TERMINAL_ID_ARG);
+        final String kid = args.getString(KidRequestDetailActivityMvpFragment.CHILD_ID_ARG);
+        final String id = args.getString(KidRequestDetailActivityMvpFragment.ID_ARG);
 
-        getTerminalDetailInteract.execute(new GetTerminalDetailObserver(),
-                GetTerminalDetailInteract.Params.create(childId, terminalId));
-
-    }
-
-    /**
-     * Delete Terminal
-     * @param childId
-     * @param terminalId
-     */
-    public void deleteTerminal(final String childId, final String terminalId) {
-        Preconditions.checkNotNull(childId, "Child Id can not be null");
-        Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
-
-        if (isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.deleting_terminal_in_progress);
-
-        deleteTerminalInteract.execute(new DeleteTerminalObserver(),
-                DeleteTerminalInteract.Params.create(childId, terminalId));
+        // Get Kid Request
+        getKidRequestDetailInteract.execute(new GetKidRequestDetailObservable(
+                GetKidRequestDetailInteract.GetKidRequestDetailApiErrors.class),
+                GetKidRequestDetailInteract.Params.create(kid, id));
 
     }
 
     /**
-     * Switch Bed Time Status
+     * Delete Kid Request
      * @param kid
-     * @param terminal
-     * @param status
+     * @param id
      */
-    public void switchBedTimeStatus(final String kid, final String terminal, final boolean status) {
+    public void deleteKidRequest(final String kid, final String id) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkNotNull(id, "Id can not be null");
 
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.generic_loading_text);
 
-        switchBedTimeStatusInteract.execute(new SwitchBedTimeStatusObserver(),
-                SwitchBedTimeStatusInteract.Params.create(kid, terminal, status));
-    }
+        // Execute delete
+        deleteKidRequestInteract.execute(new DeleteKidRequestObserver(),
+                DeleteKidRequestInteract.Params.create(kid, id));
 
-    /**
-     * Switch Lock Camera Status
-     * @param kid
-     * @param terminal
-     * @param status
-     */
-    public void switchLockCameraStatus(final String kid, final String terminal, final boolean status) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkNotNull(terminal, "Terminal can not be null");
-
-        if (isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.generic_loading_text);
-
-
-        switchLockCameraStatusInteract.execute(new SwitchLockCameraStatusObserver(),
-                SwitchLockCameraStatusInteract.Params.create(kid, terminal, status));
     }
 
 
     /**
-     * Switch Lock Screen Status
-     * @param kid
-     * @param terminal
-     * @param status
+     * Get Kid Request Detail Observable
      */
-    public void switchLockScreenStatus(final String kid, final String terminal, final boolean status) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+    public class GetKidRequestDetailObservable extends CommandCallBackWrapper<KidRequestEntity,
+            GetKidRequestDetailInteract.GetKidRequestDetailApiErrors.IGetKidRequestDetailApiErrorsVisitor,
+            GetKidRequestDetailInteract.GetKidRequestDetailApiErrors>
+            implements GetKidRequestDetailInteract.GetKidRequestDetailApiErrors.IGetKidRequestDetailApiErrorsVisitor {
 
-        if (isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.generic_loading_text);
+        /**
+         *
+         * @param apiErrors
+         */
+        public GetKidRequestDetailObservable(Class<GetKidRequestDetailInteract.GetKidRequestDetailApiErrors> apiErrors) {
+            super(apiErrors);
+        }
 
-        switchLockScreenStatusInteract.execute(new SwitchLockScreenStatusObserver(),
-                SwitchLockScreenStatusInteract.Params.create(kid, terminal, status));
+        /**
+         * On Success
+         * @param kidRequestEntity
+         */
+        @Override
+        protected void onSuccess(final KidRequestEntity kidRequestEntity) {
+            Preconditions.checkNotNull(kidRequestEntity, "Kid Request Entity can not be null");
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onKidRequestLoaded(kidRequestEntity);
+            }
+        }
+
+        /**
+         * Visit Kid Request Not Found
+         * @param apiErrorsVisitor
+         */
+        @Override
+        public void visitKidRequestNotFound(GetKidRequestDetailInteract.GetKidRequestDetailApiErrors.IGetKidRequestDetailApiErrorsVisitor apiErrorsVisitor) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onKidRequestNotFound();
+            }
+        }
     }
 
+
     /**
-     * Delete Terminal
+     * Delete Kid Request Observer
      */
-    public class DeleteTerminalObserver extends BasicCommandCallBackWrapper<String> {
+    public class DeleteKidRequestObserver extends BasicCommandCallBackWrapper<String> {
 
         /**
          * On Success
@@ -175,199 +136,7 @@ public final class TerminalDetailFragmentPresenter
 
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onTerminalSuccessDeleted();
-            }
-        }
-    }
-
-    /**
-     * Get Terminal Detail Observer
-     */
-    public class GetTerminalDetailObserver extends BasicCommandCallBackWrapper<TerminalDetailEntity> {
-
-        /**
-         * On Success
-         * @param response
-         */
-        @Override
-        protected void onSuccess(TerminalDetailEntity response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
-
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onTerminalDetailLoaded(response);
-            }
-
-        }
-    }
-
-
-    /**
-     * Switch Bed Time Status Observer
-     */
-    public class SwitchBedTimeStatusObserver extends BasicCommandCallBackWrapper<String> {
-
-        /**
-         *
-         */
-        @Override
-        protected void onNetworkError() {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onBedTimeStatusChangedFailed();
-            }
-        }
-
-        /**
-         *
-         * @param ex
-         */
-        @Override
-        protected void onOtherException(Throwable ex) {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onBedTimeStatusChangedFailed();
-            }
-        }
-
-        /**
-         *
-         * @param response
-         */
-        @Override
-        protected void onApiException(APIResponse response) {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onBedTimeStatusChangedFailed();
-            }
-        }
-
-        /**
-         * On Success
-         * @param response
-         */
-        @Override
-        protected void onSuccess(String response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
-            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
-
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onBedTimeStatusChangedSuccessfully();
-            }
-        }
-    }
-
-
-    /**
-     * Switch Lock Screen Status Observer
-     */
-    public class SwitchLockScreenStatusObserver extends BasicCommandCallBackWrapper<String> {
-
-        /**
-         *
-         */
-        @Override
-        protected void onNetworkError() {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockScreenStatusChangedFailed();
-            }
-        }
-
-        /**
-         *
-         * @param ex
-         */
-        @Override
-        protected void onOtherException(Throwable ex) {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockScreenStatusChangedFailed();
-            }
-        }
-
-        /**
-         *
-         * @param response
-         */
-        @Override
-        protected void onApiException(APIResponse response) {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockScreenStatusChangedFailed();
-            }
-        }
-
-        /**
-         * On Success
-         * @param response
-         */
-        @Override
-        protected void onSuccess(String response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
-            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
-
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockScreenStatusChangedSuccessfully();
-            }
-        }
-    }
-
-
-    /**
-     * Switch Lock Camera Status Observer
-     */
-    public class SwitchLockCameraStatusObserver extends BasicCommandCallBackWrapper<String> {
-
-        /**
-         *
-         */
-        @Override
-        protected void onNetworkError() {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockCameraStatusChangedFailed();
-            }
-        }
-
-        /**
-         *
-         * @param ex
-         */
-        @Override
-        protected void onOtherException(Throwable ex) {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockCameraStatusChangedFailed();
-            }
-        }
-
-        /**
-         *
-         * @param response
-         */
-        @Override
-        protected void onApiException(APIResponse response) {
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockCameraStatusChangedFailed();
-            }
-        }
-
-        /**
-         * On Success
-         * @param response
-         */
-        @Override
-        protected void onSuccess(String response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
-            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
-
-            if(isViewAttached() && getView() != null) {
-                getView().hideProgressDialog();
-                getView().onLockCameraStatusChangedSuccessfully();
+                getView().onKidRequestDeleted();
             }
         }
     }

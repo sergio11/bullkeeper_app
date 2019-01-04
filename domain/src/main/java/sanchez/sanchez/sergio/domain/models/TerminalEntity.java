@@ -20,6 +20,7 @@ public class TerminalEntity implements Serializable {
     private boolean bedTimeEnabled;
     private boolean lockScreenEnabled;
     private boolean lockCameraEnabled;
+    private boolean settingsEnabled;
 
     public TerminalEntity(){}
 
@@ -38,8 +39,14 @@ public class TerminalEntity implements Serializable {
      * @param bedTimeEnabled
      * @param lockScreenEnabled
      * @param lockCameraEnabled
+     * @param settingsEnabled
      */
-    public TerminalEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean lockScreenEnabled, boolean lockCameraEnabled) {
+    public TerminalEntity(String identity, String appVersionCode, String appVersionName,
+                          String codeName, String deviceName, String manufacturer,
+                          String marketName, String model, String osVersion,
+                          String sdkVersion, boolean bedTimeEnabled,
+                          boolean lockScreenEnabled, boolean lockCameraEnabled,
+                          boolean settingsEnabled) {
         this.identity = identity;
         this.appVersionCode = appVersionCode;
         this.appVersionName = appVersionName;
@@ -53,6 +60,7 @@ public class TerminalEntity implements Serializable {
         this.bedTimeEnabled = bedTimeEnabled;
         this.lockScreenEnabled = lockScreenEnabled;
         this.lockCameraEnabled = lockCameraEnabled;
+        this.settingsEnabled = settingsEnabled;
     }
 
     public String getIdentity() {
@@ -159,6 +167,14 @@ public class TerminalEntity implements Serializable {
         this.lockCameraEnabled = lockCameraEnabled;
     }
 
+    public boolean isSettingsEnabled() {
+        return settingsEnabled;
+    }
+
+    public void setSettingsEnabled(boolean settingsEnabled) {
+        this.settingsEnabled = settingsEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalEntity{" +
@@ -175,6 +191,7 @@ public class TerminalEntity implements Serializable {
                 ", bedTimeEnabled=" + bedTimeEnabled +
                 ", lockScreenEnabled=" + lockScreenEnabled +
                 ", lockCameraEnabled=" + lockCameraEnabled +
+                ", settingsEnabled=" + settingsEnabled +
                 '}';
     }
 }

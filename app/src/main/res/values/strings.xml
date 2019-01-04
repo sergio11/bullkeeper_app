@@ -761,6 +761,8 @@
     <string name="terminal_lock_screen_disabled">Lock Screen is disabled</string>
     <string name="terminal_lock_camera_enable">Lock Camera is enabled</string>
     <string name="terminal_lock_camera_disabled">Lock Camera is disabled</string>
+    <string name="terminal_settings_enable">Settings is enabled</string>
+    <string name="terminal_settings_disabled">Settings is disabled</string>
 
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">Do you want to enable Bed Time mode in this terminal?</string>
@@ -779,6 +781,12 @@
     <string name="terminal_disable_lock_camera_confirm">Do you want to unlock the camera in this terminal?</string>
     <string name="terminal_lock_camera_changed_successfully">Terminal Camera status changed successfully</string>
     <string name="terminal_lock_camera_changed_failed">There was an error changing the status of Camera</string>
+
+    <!-- Settings -->
+    <string name="terminal_enable_settings_confirm">Do you want to enable the settings screen of this terminal?</string>
+    <string name="terminal_disable_settings_confirm">Do you want to disable the settings screen in this terminal?</string>
+    <string name="terminal_settings_changed_successfully">Terminal Settings status changed successfully</string>
+    <string name="terminal_settings_changed_failed">There was an error changing the status of Settings</string>
 
     <!-- Apps Installed -->
     <string name="app_installed_detail_title">App Installed Detail</string>
@@ -854,4 +862,14 @@
     <string name="phone_numbers_blocked_delete_all_confirm">Do you want to delete all phone numbers blocked?</string>
     <string name="phone_numbers_blocked_at" formatted="false">Blocked At: %s</string>
     <string name="phone_numbers_specify_number_lock">Specify the number to lock</string>
+
+    <!-- Kid Request -->
+    <string name="kid_request_removed">The kid request was removed</string>
+    <string name="delete_kid_request_btn_text">Delete</string>
+    <string name="kid_request_not_found">Request not found</string>
+    <string name="delete_all_kid_request_confirm">Do you want to delete all registered requests?</string>
+    <string name="all_kid_request_eliminated_successfully">All the applications have been successfully eliminated</string>
+    <string name="no_registered_request">There are no registered requests</string>
+    <string name="kid_request_title_default">Registered requests</string>
+    <string name="kid_request_title" formatted="false">Registered requests. (%d)</string>
 </resources>

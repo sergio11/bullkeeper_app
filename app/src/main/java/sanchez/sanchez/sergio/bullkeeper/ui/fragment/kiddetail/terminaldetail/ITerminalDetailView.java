@@ -49,5 +49,15 @@ public interface ITerminalDetailView extends ISupportView {
      */
     void onLockCameraStatusChangedFailed();
 
+    /**
+     * On Settings Screen Status Changed Successfully
+     */
+    void onSettingsScreenStatusChangedSuccessfully();
+
+    /**
+     * On Settings Screen Status Changed Failed
+     */
+    void onSettingsScreenStatusChangedFailed();
+
 
 }

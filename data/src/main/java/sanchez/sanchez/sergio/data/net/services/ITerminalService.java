@@ -117,4 +117,28 @@ public interface ITerminalService {
             final @Path("kid") String kid,
             final @Path("terminal") String terminal);
 
+
+    /**
+     * Enable Settings Screen In The Terminal
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/settings/enable")
+    Observable<APIResponse<String>> enableSettingsScreenInTheTerminal(
+            final @Path("kid") String kid,
+            final @Path("terminal") String terminal);
+
+
+    /**
+     * Disable Settings Screen In The Terminal
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/settings/disable")
+    Observable<APIResponse<String>> disableSettingsScreenInTheTerminal(
+            final @Path("kid") String kid,
+            final @Path("terminal") String terminal);
+
 }

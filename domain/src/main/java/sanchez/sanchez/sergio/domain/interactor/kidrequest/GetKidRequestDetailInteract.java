@@ -1,9 +1,6 @@
 package sanchez.sanchez.sergio.domain.interactor.kidrequest;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -14,10 +11,10 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
- * Get Kid Request Interact
+ * Get Kid Request Detail Interact
  */
-public final class GetKidRequestInteract extends
-        UseCase<List<KidRequestEntity>, GetKidRequestInteract.Params> {
+public final class GetKidRequestDetailInteract extends
+        UseCase<KidRequestEntity, GetKidRequestDetailInteract.Params> {
 
     /**
      * Kid Request Repository
@@ -29,7 +26,7 @@ public final class GetKidRequestInteract extends
      * @param postExecutionThread
      * @param kidRequestRepository
      */
-    public GetKidRequestInteract(
+    public GetKidRequestDetailInteract(
             final IThreadExecutor threadExecutor,
             final IPostExecutionThread postExecutionThread,
             final IKidRequestRepository kidRequestRepository) {
@@ -43,13 +40,12 @@ public final class GetKidRequestInteract extends
      * @return
      */
     @Override
-    protected Observable<List<KidRequestEntity>> buildUseCaseObservable(final Params params) {
+    protected Observable<KidRequestEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
 
-        return kidRequestRepository.getAllRequestForKid(params.getKid());
-
+        return kidRequestRepository.getKidRequestDetail(params.getKid(), params.getIdentity());
     }
 
     /**
@@ -57,27 +53,41 @@ public final class GetKidRequestInteract extends
      */
     public static class Params {
 
+        /**
+         * Kid
+         */
         private final String kid;
 
         /**
-         *
-         * @param kid
+         * Identity
          */
-        private Params(final String kid) {
+        private final String identity;
+
+        /**
+         * @param kid
+         * @param identity
+         */
+        private Params(final String kid, final String identity) {
             this.kid = kid;
+            this.identity = identity;
         }
 
         public String getKid() {
             return kid;
         }
 
+        public String getIdentity() {
+            return identity;
+        }
+
         /**
          * Create
          * @param kid
+         * @param id
          * @return
          */
-        public static Params create(final String kid) {
-            return new Params(kid);
+        public static Params create(final String kid, final String id) {
+            return new Params(kid, id);
         }
     }
 
@@ -85,29 +95,29 @@ public final class GetKidRequestInteract extends
     /**
      * Get Kid Request Api Error
      */
-    public enum GetKidRequestApiErrors
-            implements ISupportVisitable<GetKidRequestApiErrors.IGetKidRequestApiErrorsVisitor> {
+    public enum GetKidRequestDetailApiErrors
+            implements ISupportVisitable<GetKidRequestDetailApiErrors.IGetKidRequestDetailApiErrorsVisitor> {
 
         /**
-         * No Kid Request Found
+         * Kid Request Not Found
          */
-        NO_KID_REQUEST_FOUND(){
+        KID_REQUEST_NOT_FOUND(){
             @Override
-            public <E> void accept(final IGetKidRequestApiErrorsVisitor visitor, E data) {
-                visitor.visitNoKidRequestFound(visitor);
+            public <E> void accept(final IGetKidRequestDetailApiErrorsVisitor visitor, E data) {
+                visitor.visitKidRequestNotFound(visitor);
             }
         };
 
         /**
-         * Get Kid Request Api Errors Visitor
+         * Get Kid Request Detail Api Errors Visitor
          */
-        public interface IGetKidRequestApiErrorsVisitor extends ISupportVisitor {
+        public interface IGetKidRequestDetailApiErrorsVisitor extends ISupportVisitor {
 
             /**
-             * Visit No Kid Request Found
+             * Visit Kid Request Not Found
              * @param apiErrorsVisitor
              */
-            void visitNoKidRequestFound(final IGetKidRequestApiErrorsVisitor apiErrorsVisitor);
+            void visitKidRequestNotFound(final IGetKidRequestDetailApiErrorsVisitor apiErrorsVisitor);
         }
     }
 }

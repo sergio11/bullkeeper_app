@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.activity.phonenumbersblocked;
+package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequest;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,62 +11,60 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
-import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerPhoneNumberComponent;
-import sanchez.sanchez.sergio.bullkeeper.di.components.PhoneNumberComponent;
+import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerKidRequestComponent;
+import sanchez.sanchez.sergio.bullkeeper.di.components.KidRequestComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.PhoneNumbersBlockedAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AddPhoneNumberBlockedDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.KidRequestAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+import sanchez.sanchez.sergio.domain.models.KidRequestEntity;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
- * Phone Numbers Blocked List Activity
+ * Kid Request List Activity
  */
-public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<PhoneNumbersBlockedListPresenter,
-        IPhoneNumbersBlockedListView, PhoneNumberBlockedEntity>
-        implements HasComponent<PhoneNumberComponent>, IPhoneNumbersBlockedListActivityHandler
-        , IPhoneNumbersBlockedListView,
+public class KidRequestListMvpActivity extends SupportMvpLCEActivity<KidRequestListPresenter,
+        IKidRequestListView, KidRequestEntity>
+        implements HasComponent<KidRequestComponent>, IKidRequestListActivityHandler
+        , IKidRequestListView,
         SupportItemTouchHelper.ItemTouchHelperListener {
 
-    private final String CONTENT_FULL_NAME = "PHONE_NUMBERS_BLOCKED_LIST";
-    private final String CONTENT_TYPE_NAME = "PHONE_NUMBERS_BLOCKED";
+    /**
+     *
+     */
+    private final String CONTENT_FULL_NAME = "KID_REQUEST_LIST";
+    private final String CONTENT_TYPE_NAME = "KID_REQUEST";
 
     /**
      * Args
      */
-
     private final static String KID_ID_ARG = "KID_ID_ARG";
-    private final static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
-
 
     /**
-     * Phone Number Component
+     * Kid Request Component
      */
-    private PhoneNumberComponent phoneNumberComponent;
+    private KidRequestComponent kidRequestComponent;
 
     /**
      * State
      * ================
      *
      */
-
 
     /**
      * Kid
@@ -75,40 +73,31 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     protected String kid;
 
     /**
-     * Terminal
-     */
-    @State
-    protected String terminal;
-
-
-    /**
      * Views
      * =============
      */
 
     /**
-     * Phone Numbers Blocked Text View
+     * Delete All Kid Request Image View
      */
-    @BindView(R.id.phoneNumbersBlockedTitle)
-    protected TextView phoneNumbersBlockedTitleTextView;
+    @BindView(R.id.deleteAllKidRequest)
+    protected ImageView deleteAllKidRequestImageView;
 
     /**
-     * Delete All Phone Numbers
+     * Kid Request Title Text View
      */
-    @BindView(R.id.deleteAllPhoneNumbersPhone)
-    protected ImageView deleteAllPhoneNumbersPhoneImageView;
+    @BindView(R.id.kidRequestTitle)
+    protected TextView kidRequestTitleTextView;
 
     /**
      * Get Calling Intent
      * @param context
      * @param kid
-     * @param terminal
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String kid, final String terminal) {
-        final Intent intent = new Intent(context, PhoneNumbersBlockedListMvpActivity.class);
+    public static Intent getCallingIntent(final Context context, final String kid) {
+        final Intent intent = new Intent(context, KidRequestListMvpActivity.class);
         intent.putExtra(KID_ID_ARG, kid);
-        intent.putExtra(TERMINAL_ID_ARG, terminal);
         return intent;
     }
 
@@ -117,11 +106,11 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @Override
     protected void initializeInjector() {
-        this.phoneNumberComponent = DaggerPhoneNumberComponent.builder()
+        this.kidRequestComponent = DaggerKidRequestComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .build();
-        this.phoneNumberComponent.inject(this);
+        this.kidRequestComponent.inject(this);
     }
 
 
@@ -141,8 +130,8 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @NonNull
     @Override
-    public PhoneNumbersBlockedListPresenter providePresenter() {
-        return phoneNumberComponent.phoneNumbersBlockedListPresenter();
+    public KidRequestListPresenter providePresenter() {
+        return kidRequestComponent.kidRequestListPresenter();
     }
 
     /**
@@ -150,8 +139,8 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      * @return
      */
     @Override
-    public PhoneNumberComponent getComponent() {
-        return phoneNumberComponent;
+    public KidRequestComponent getComponent() {
+        return kidRequestComponent;
     }
 
 
@@ -163,8 +152,7 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     public Bundle getArgs() {
         super.getArgs();
         final Bundle args = new Bundle();
-        args.putString(PhoneNumbersBlockedListPresenter.KID_ID_ARG, kid);
-        args.putString(PhoneNumbersBlockedListPresenter.TERMINAL_ID_ARG, terminal);
+        args.putString(KidRequestListPresenter.KID_ID_ARG, kid);
         return args;
     }
 
@@ -175,11 +163,15 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     public void onHeaderClick() {}
 
     /**
-     * On Item Click
+     * on Item Click
      * @param item
      */
     @Override
-    public void onItemClick(PhoneNumberBlockedEntity item) {}
+    public void onItemClick(final KidRequestEntity item) {
+        Preconditions.checkNotNull(item, "Item can not be null");
+        Preconditions.checkNotNull(item.getIdentity(), "Identity can not be null");
+        navigatorImpl.navigateToKidRequestDetail(this, kid, item.getIdentity());
+    }
 
     /**
      * On Footer Click
@@ -195,28 +187,30 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof PhoneNumbersBlockedAdapter.PhoneNumberBlockedViewHolder) {
+        if (viewHolder instanceof KidRequestAdapter.KidRequestViewHolder) {
 
             final Integer deletedIndex = viewHolder.getAdapterPosition();
-            final PhoneNumberBlockedEntity phoneNumberBlocked =
+            final KidRequestEntity kidRequestEntity =
                     recyclerViewAdapter.getItemByAdapterPosition(deletedIndex);
 
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.phone_number_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+            showLongSimpleSnackbar(content, getString(R.string.kid_request_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(phoneNumberBlocked, deletedIndex);
+                    recyclerViewAdapter.restoreItem(kidRequestEntity, deletedIndex);
                 }
             }, new Snackbar.Callback(){
                 @Override
                 public void onDismissed(Snackbar transientBottomBar, int event) {
                     super.onDismissed(transientBottomBar, event);
                     if(event == DISMISS_EVENT_TIMEOUT) {
-                        // Delete Invitation
-                        getPresenter().deletePhoneNumberBlocked(
-                                phoneNumberBlocked.getPhoneNumber());
+                        // Delete Kid Request
+                        getPresenter().deleteKidRequest(
+                                kidRequestEntity.getKid().getIdentity(),
+                                kidRequestEntity.getIdentity()
+                        );
                     }
                 }
             });
@@ -239,7 +233,7 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_phone_numbers_blocked;
+        return R.layout.activity_kid_request_list;
     }
 
     /**
@@ -259,11 +253,6 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
 
             kid = extras.getString(KID_ID_ARG);
 
-            if (!extras.containsKey(TERMINAL_ID_ARG))
-                throw new IllegalArgumentException("You must provide terminal id");
-
-            terminal = extras.getString(TERMINAL_ID_ARG);
-
         } else {
 
             throw new IllegalArgumentException("You must provide args");
@@ -271,7 +260,7 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
 
         // adding item touch helper
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new SupportItemTouchHelper<PhoneNumbersBlockedAdapter.PhoneNumberBlockedViewHolder>(0, ItemTouchHelper.LEFT, this);
+                new SupportItemTouchHelper<KidRequestAdapter.KidRequestViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
@@ -281,8 +270,8 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @NotNull
     @Override
-    protected SupportRecyclerViewAdapter<PhoneNumberBlockedEntity> getAdapter() {
-        return new PhoneNumbersBlockedAdapter(this, new ArrayList<PhoneNumberBlockedEntity>());
+    protected SupportRecyclerViewAdapter<KidRequestEntity> getAdapter() {
+        return new KidRequestAdapter(appContext, new ArrayList<KidRequestEntity>());
     }
 
     /**
@@ -294,68 +283,19 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
         return R.drawable.background_cyan_4;
     }
 
-    /**
-     * On Delete All Phone Numbers Blocked
-     */
-    @OnClick(R.id.deleteAllPhoneNumbersPhone)
-    protected void onDeleteAllPhoneNumbersBlocked(){
-        showConfirmationDialog(R.string.phone_numbers_blocked_delete_all_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAllPhoneNumbersBlocked();
-            }
-
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
-
-    }
-
-    /**
-     * On Add Phone Number
-     */
-    @OnClick(R.id.addPhoneNumber)
-    protected void onAddPhoneNumber(){
-        AddPhoneNumberBlockedDialogFragment.showDialog(this,
-                getString(R.string.phone_numbers_specify_number_lock), new AddPhoneNumberBlockedDialogFragment.OnPhoneNumberSelectedDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog, String phoneNumber) {
-                Preconditions.checkNotNull(dialog, "Dialog can not be null");
-                Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
-                getPresenter().addPhoneNumberToBlocked(phoneNumber);
-            }
-
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
-    }
-
-    /**
-     * On All Invitations Cleared
-     */
-    @Override
-    public void onAllPhoneNumbersDeleted() {
-        showNoticeDialog(R.string.phone_numbers_deleted_successfully, new NoticeDialogFragment.NoticeDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                recyclerViewAdapter.removeAll();
-                closeActivity();
-            }
-        });
-    }
 
     /**
      * On Data Loaded
      * @param dataLoaded
      */
     @Override
-    public void onDataLoaded(List<PhoneNumberBlockedEntity> dataLoaded) {
+    public void onDataLoaded(List<KidRequestEntity> dataLoaded) {
         super.onDataLoaded(dataLoaded);
-        deleteAllPhoneNumbersPhoneImageView.setVisibility(View.VISIBLE);
-        deleteAllPhoneNumbersPhoneImageView.setEnabled(true);
-        phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.phone_numbers_blocked_title_count),dataLoaded.size()));
-
+        deleteAllKidRequestImageView.setVisibility(View.VISIBLE);
+        deleteAllKidRequestImageView.setEnabled(true);
+        kidRequestTitleTextView.setText(
+                String.format(Locale.getDefault(),
+                        getString(R.string.kid_request_title), dataLoaded.size()));
     }
 
     /**
@@ -364,43 +304,66 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     @Override
     public void onNoDataFound() {
         super.onNoDataFound();
-        deleteAllPhoneNumbersPhoneImageView.setVisibility(View.GONE);
-        deleteAllPhoneNumbersPhoneImageView.setEnabled(false);
-        phoneNumbersBlockedTitleTextView
-                .setText(getString(R.string.phone_numbers_blocked_title_default));
+        deleteAllKidRequestImageView.setVisibility(View.GONE);
+        deleteAllKidRequestImageView.setEnabled(false);
+        kidRequestTitleTextView.setText(getString(R.string.kid_request_title_default));
+        showNoticeDialog(R.string.no_registered_request, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
 
     }
 
     /**
-     * On Phone Number Deleted
+     * On All Kid Request Deleted
      */
     @Override
-    public void onPhoneNumberDeleted() {
+    public void onAllKidRequestDeleted() {
+        showNoticeDialog(R.string.all_kid_request_eliminated_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
 
-        final int itemCount = recyclerView.getAdapter().getItemCount();
-
-        if(itemCount > 0)
-            phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.phone_numbers_blocked_title_count),
-                    recyclerView.getAdapter().getItemCount()));
-        else {
-            deleteAllPhoneNumbersPhoneImageView.setVisibility(View.GONE);
-            deleteAllPhoneNumbersPhoneImageView.setEnabled(false);
-            phoneNumbersBlockedTitleTextView.setText(getString(R.string.phone_numbers_blocked_title_default));
-            onShowNotFoundState();
+    /**
+     * On Kid Request Deleted
+     */
+    @Override
+    public void onKidRequestDeleted() {
+        if(recyclerViewAdapter.getData().isEmpty()) {
+            kidRequestTitleTextView.setText(getString(R.string.kid_request_title_default));
+            showNoticeDialog(R.string.all_kid_request_eliminated_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    closeActivity();
+                }
+            });
+        } else {
+            kidRequestTitleTextView.setText(
+                    String.format(Locale.getDefault(),
+                            getString(R.string.kid_request_title), recyclerViewAdapter.getData().size()));
         }
     }
 
     /**
-     * On Phone Number Added
-     * @param phoneNumberBlockedEntity
+     * On Delete All Kid Request Clicked
      */
-    @Override
-    public void onPhoneNumberAdded(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
-        Preconditions.checkNotNull(phoneNumberBlockedEntity, "Phone number blocked entity");
-        onShowDataFoundedState();
-        recyclerViewAdapter.getData().add(phoneNumberBlockedEntity);
-        recyclerViewAdapter.notifyDataSetChanged();
-        showNoticeDialog(R.string.phone_number_blocked_successfully);
+    @OnClick(R.id.deleteAllKidRequest)
+    protected void onDeleteAllKidRequestClicked(){
+        showConfirmationDialog(R.string.delete_all_kid_request_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                getPresenter().deleteAllKidRequestForKid(kid);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {
+
+            }
+        });
     }
 }

@@ -308,6 +308,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
             />
+
+        <!-- Kid Request List -->
+        <activity android:name=".ui.activity.kidrequest.KidRequestListMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
+        <!-- Kid Request Detail -->
+        <activity android:name=".ui.activity.kidrequestdetail.KidRequestDetailMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

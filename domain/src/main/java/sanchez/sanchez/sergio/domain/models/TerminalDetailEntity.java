@@ -54,6 +54,7 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param bedTimeEnabled
      * @param lockScreenEnabled
      * @param lockCameraEnabled
+     * @param settingsEnabled
      * @param totalApps
      * @param totalSms
      * @param totalCalls
@@ -61,8 +62,9 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param screenStatusEnum
      * @param lastTimeUsed
      */
-    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean lockScreenEnabled, boolean lockCameraEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed) {
-        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, lockScreenEnabled, lockCameraEnabled);
+    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean lockScreenEnabled,
+                                boolean lockCameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed) {
+        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, lockScreenEnabled, lockCameraEnabled, settingsEnabled);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;

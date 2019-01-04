@@ -1,10 +1,10 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.activity.phonenumbersblocked;
+package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequest;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 
 /**
- * Phone Numbers List Activity Handler
+ * Kid Request List Activity Handler
  */
-public interface IPhoneNumbersBlockedListActivityHandler extends IBasicActivityHandler {
+public interface IKidRequestListActivityHandler extends IBasicActivityHandler {
 
 }

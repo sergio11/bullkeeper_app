@@ -485,4 +485,21 @@ public interface INavigator {
     void navigateToPhoneNumbersBlockedList(final AppCompatActivity activity,
                                                       final String kid, final String terminal);
 
+
+    /**
+     * Navigate To Kid Request List
+     * @param activity
+     * @param kid
+     */
+    void navigateToKidRequestList(final AppCompatActivity activity, final String kid);
+
+    /**
+     * Navigate To Kid Request Detail
+     * @param activity
+     * @param kid
+     * @param identity
+     */
+    void navigateToKidRequestDetail(final AppCompatActivity activity,
+                                    final String kid, final String identity);
+
 }
