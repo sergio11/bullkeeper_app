@@ -867,7 +867,8 @@
 
     <!-- Kid Request -->
     <string name="kid_request_removed">The kid request was removed</string>
-    <string name="delete_kid_request_btn_text">Delete</string>
+    <string name="delete_kid_request_btn_text">Delete Request</string>
+    <string name="open_conversation_kid_request_btn_text">Open Conversation</string>
     <string name="kid_request_not_found">Request not found</string>
     <string name="delete_all_kid_request_confirm">Do you want to delete all registered requests?</string>
     <string name="all_kid_request_eliminated_successfully">All the applications have been successfully eliminated</string>
@@ -880,4 +881,21 @@
     <string name="kid_request_registered_since" formatted="false">Request received %s</string>
     <string name="kid_request_title"></string>
     <string name="kid_request_title_default" formatted="false"></string>
+    <string name="kid_request_location_address">Location of the request</string>
+
+    <string name="kid_request_detail_title">Kid Request Detail</string>
+    <string name="kid_request_delete_request_confirm">Do you want to delete this request?</string>
+    <string name="kid_request_successfully_deleted">Request successfully deleted</string>
+
+    <string name="kid_request_notification_pickmeup_title" formatted="false">PickMeUp request, %s has requested that you go pick it up.</string>
+    <string name="kid_request_notification_pickmeup_description" >Go to the detail of the request to see more details</string>
+    <string name="kid_request_notification_sos_title" formatted="false">SOS request, %s has problems and needs help.</string>
+    <string name="kid_request_notification_sos_description" >Go to the detail of the request to see more details</string>
+
+
+    <!-- Fetch Address errors -->
+    <string name="service_not_available">Service Not Avaliable</string>
+    <string name="invalid_lat_long_used">Invalid Lat Long Used</string>
+    <string name="no_address_found">No Address Found</string>
+
 </resources>

@@ -3,14 +3,13 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import android.content.Context;
 
 import com.here.oksse.OkSse;
-import com.here.oksse.ServerSentEvent;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 import dagger.Component;
-import okhttp3.Request;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
+import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AddPhoneNumberBlockedDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
@@ -135,4 +134,5 @@ public interface ApplicationComponent {
     UiUtils uiUtils();
     OkSse okSse();
     ISoundManager soundManager();
+    ISseEventHandler sseEventHandler();
 }

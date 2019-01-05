@@ -1,10 +1,13 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -42,13 +45,26 @@ public class KidRequestDetailMvpActivity extends SupportMvpActivity<KidRequestDe
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String kid, final String identity) {
+    public static Intent getCallingIntent(final Activity context, final String kid, final String identity) {
         final Intent intent = new Intent(context, KidRequestDetailMvpActivity.class);
         intent.putExtra(KID_ID_ARG, kid);
         intent.putExtra(ID_ARG, identity);
         return intent;
     }
 
+    /**
+     * Get Calling Intent
+     * @param context
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String kid, final String identity) {
+        final Intent intent = new Intent(context, KidRequestDetailMvpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(KID_ID_ARG, kid);
+        intent.putExtra(ID_ARG, identity);
+        return intent;
+    }
 
     /**
      * Initialize Injector
@@ -136,4 +152,15 @@ public class KidRequestDetailMvpActivity extends SupportMvpActivity<KidRequestDe
         return R.drawable.background_cyan_5;
     }
 
+    /**
+     * Navigate To Conversation Message List
+     * @param kid
+     */
+    @Override
+    public void navigateToConversationMessagesList(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        navigatorImpl.navigateToConversationMessageList(this, kid);
+    }
 }

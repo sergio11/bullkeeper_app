@@ -35,7 +35,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.7"
                     android:layout_gravity="start"
                     android:visibility="visible"
                     android:orientation="vertical">
@@ -68,15 +68,15 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".4"
+                    android:layout_weight=".3"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/common_padding">
 
                     <!-- Delete All Kid Request -->
                     <ImageView
                         android:id="@+id/deleteAllKidRequest"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:layout_marginStart="@dimen/common_margin"
                         android:visibility="gone"
                         android:src="@drawable/trash_solid_cyan"

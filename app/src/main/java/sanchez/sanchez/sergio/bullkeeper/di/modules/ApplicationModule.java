@@ -1,15 +1,16 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import android.content.Context;
-
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.here.oksse.OkSse;
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.impl.SoundManagerImpl;
+import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
+import sanchez.sanchez.sergio.bullkeeper.sse.impl.SseEventHandlerImpl;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.PreferencesRepositoryImpl;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
@@ -38,6 +39,10 @@ public class ApplicationModule {
 
     private final AndroidApplication application;
 
+    /**
+     *
+     * @param application
+     */
     public ApplicationModule(final AndroidApplication application) {
         this.application = application;
     }
@@ -170,6 +175,25 @@ public class ApplicationModule {
             final Context context
     ){
         return new SoundManagerImpl(context);
+    }
+
+    /**
+     * Provide SSE Event Handler
+     * @return
+     */
+    @Provides @Singleton
+    ISseEventHandler provideSseEventHandler(
+            final Context appContext,
+            final ApiEndPointsHelper apiEndPointsHelper,
+            final OkSse okSse,
+            final IPreferenceRepository preferenceRepository,
+            final ObjectMapper objectMapper,
+            final INotificationHelper notificationHelper,
+            final ILocalSystemNotification localSystemNotification
+    ) {
+        return new SseEventHandlerImpl(appContext,apiEndPointsHelper,
+                okSse, preferenceRepository, objectMapper, notificationHelper,
+                localSystemNotification);
     }
 
 }

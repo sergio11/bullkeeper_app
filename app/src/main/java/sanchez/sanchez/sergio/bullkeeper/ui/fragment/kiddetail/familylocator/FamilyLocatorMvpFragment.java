@@ -36,11 +36,13 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.handler.IKidLocationEventVisitor;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.KidLocationUpdatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
-import timber.log.Timber;
 
 /**
  * Family Locator Fragment
@@ -82,6 +84,12 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     protected Activity activity;
 
     /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
+
+    /**
      * Views
      * ================
      */
@@ -121,6 +129,12 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     protected String kidPhoto;
 
     /**
+     * Kid Location Register Key
+     */
+    @State
+    protected int kidLocationRegisterKey;
+
+    /**
      * Google Map
      */
     private GoogleMap googleMap;
@@ -134,6 +148,21 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
      * Curretn Marker Indicator
      */
     private Marker currentMarkerIndicator;
+
+    /**
+     * Kid Location Event Visitor
+     */
+    private IKidLocationEventVisitor kidLocationEventVisitor = new IKidLocationEventVisitor() {
+        @Override
+        public void visit(KidLocationUpdatedEvent kidLocationUpdatedEvent) {
+            Preconditions.checkNotNull(kidLocationUpdatedEvent, "Kid location update can not be null");
+            final LocationEntity locationEntity = new LocationEntity();
+            locationEntity.setLat(kidLocationUpdatedEvent.getLatitude());
+            locationEntity.setLog(kidLocationUpdatedEvent.getLongitude());
+            locationEntity.setAddress(kidLocationUpdatedEvent.getAddress());
+            showLocation(locationEntity);
+        }
+    };
 
     /**
      *
@@ -220,6 +249,27 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
                 mapFragment.onDestroyView();
             }
         }
+    }
+
+    /**
+     * On Start
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        kidLocationRegisterKey = localSystemNotification
+                .registerEventListener(KidLocationUpdatedEvent.class, kidLocationEventVisitor);
+    }
+
+    /**
+     * On Stop
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        localSystemNotification.unregisterEventListener(kidLocationRegisterKey);
     }
 
     /**

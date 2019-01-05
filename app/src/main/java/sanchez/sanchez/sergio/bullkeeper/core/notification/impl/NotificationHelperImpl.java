@@ -132,10 +132,12 @@ public final class NotificationHelperImpl implements INotificationHelper {
                 .setContentText(body)
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .setSound(alertSound);
 
         if(intent != null) {
-            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setContentIntent(pendingIntent);
         }
 
@@ -176,7 +178,7 @@ public final class NotificationHelperImpl implements INotificationHelper {
                 .setSound(alertSound);
 
         if(intent != null) {
-            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setContentIntent(pendingIntent);
         }
 
@@ -217,7 +219,7 @@ public final class NotificationHelperImpl implements INotificationHelper {
                 .setSound(alertSound);
 
         if(intent != null) {
-            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setContentIntent(pendingIntent);
         }
 
