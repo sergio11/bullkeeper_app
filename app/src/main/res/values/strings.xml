@@ -460,6 +460,8 @@
     <string name="dimensions_tab">Dimensions</string>
     <!-- Alerts Tab -->
     <string name="alerts_tab">Alerts</string>
+    <!-- Kid Request Tab -->
+    <string name="kid_request_tab">Request</string>
     <!-- Relations Tab -->
     <string name="scheduled_blocks_tab">Scheduled Blocks</string>
     <!-- Activity Social Media Tab -->
@@ -870,6 +872,12 @@
     <string name="delete_all_kid_request_confirm">Do you want to delete all registered requests?</string>
     <string name="all_kid_request_eliminated_successfully">All the applications have been successfully eliminated</string>
     <string name="no_registered_request">There are no registered requests</string>
-    <string name="kid_request_title_default">Registered requests</string>
-    <string name="kid_request_title" formatted="false">Registered requests. (%d)</string>
+    <string name="kid_request_list_title">Registered requests</string>
+    <string name="kid_request_description">All requests registered in the system</string>
+    <string name="kid_request_sos_event_type_name">SOS</string>
+    <string name="kid_request_pickmeup_event_type_name">PickMe Up</string>
+    <string name="kid_request_unknown_type_name">Unknown</string>
+    <string name="kid_request_registered_since" formatted="false">Request received %s</string>
+    <string name="kid_request_title"></string>
+    <string name="kid_request_title_default" formatted="false"></string>
 </resources>

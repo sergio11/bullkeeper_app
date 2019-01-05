@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidRequestDTO;
@@ -72,6 +71,7 @@ public final class KidRequestEntityMapper extends AbstractDataMapper<KidRequestD
                 .transform(originModel.getTerminal()));
         kidRequestEntity.setLocation(locationEntityAbstractDataMapper
                 .transform(originModel.getLocation()));
+        kidRequestEntity.setSince(originModel.getSince());
         return kidRequestEntity;
     }
 
@@ -95,6 +95,7 @@ public final class KidRequestEntityMapper extends AbstractDataMapper<KidRequestD
                 .transformInverse(originModel.getTerminal()));
         kidRequestDTO.setLocation(locationEntityAbstractDataMapper
                 .transformInverse(originModel.getLocation()));
+        kidRequestDTO.setSince(originModel.getSince());
         return kidRequestDTO;
 
     }

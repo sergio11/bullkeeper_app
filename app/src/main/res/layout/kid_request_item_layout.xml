@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_very_high"
     android:layout_marginBottom="5dp"
@@ -14,9 +13,9 @@
         android:layout_height="match_parent"
         android:background="@drawable/common_list_item_background">
 
-        <!-- Delete Phone Number -->
+        <!-- Delete Kid Request -->
         <ImageView
-            android:id="@+id/deletePhoneNumber"
+            android:id="@+id/deleteKidRequest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/deletePhoneNumber"
+            android:layout_toStartOf="@id/deleteKidRequest"
             android:textAllCaps="true"
             android:text="@string/delete_list_menu_item"
             android:textColor="@color/commonWhite"
@@ -38,72 +37,84 @@
 
     </RelativeLayout>
 
-    <!-- Foreground -->
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/item_foreground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/common_list_item_state">
+        android:layout_height="@dimen/list_item_very_high"
+        android:background="@drawable/common_list_item_state"
+        android:orientation="vertical">
 
-        <!-- Image -->
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/content_not_be_loaded"
-            android:src="@drawable/telephone_icon" />
+        <FrameLayout
+            android:id="@+id/kidRequestImageContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/darkModerateBlue">
 
-        <!-- Phone Number  -->
-        <TextView
-            android:id="@+id/phoneNumberTextView"
-            style="@style/CommonStrongText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:singleLine="true"
-            android:padding="0dp"
-            android:text="-"
-            android:textColor="@color/commonWhite"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/common_margin"
-            app:layout_constraintBottom_toTopOf="@id/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toTopOf="parent"/>
 
+            <!-- Kid Request Type  -->
+            <ImageView
+                android:id="@+id/kidRequestType"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/content_not_be_loaded"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <!-- Separator -->
         <View
-            android:id="@+id/divider"
-            android:layout_width="@dimen/common_divider_small"
-            android:layout_height="@dimen/common_divider_height"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="@dimen/common_margin"
+            android:id="@+id/separator"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
             android:background="@color/commonWhite"
-            app:layout_constraintBottom_toTopOf="@id/blockedAtTextView"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toBottomOf="@id/phoneNumberTextView"/>
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/kidRequestImageContainer"/>
 
-        <!-- Blocked At  -->
+        <!-- Kid Request Type Name -->
         <TextView
-            android:id="@+id/blockedAtTextView"
+            android:id="@+id/kidRequestTypeName"
+            style="@style/CommonStrongText.Big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/separator"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:gravity="start|center_vertical"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/darkModerateBlue"
+            android:textStyle="italic" />
+
+        <!-- Kid Request Since -->
+        <TextView
+            android:id="@+id/kidRequestSince"
             style="@style/CommonStrongText.Medium"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/common_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/separator"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/kidRequestTypeName"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
             android:gravity="start|center_vertical"
             android:padding="0dp"
             android:singleLine="true"
-            android:text="-"
-            android:textColor="@color/commonWhite"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
+            android:textColor="@color/darkModerateBlue"
+            android:textStyle="italic" />
 
-
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
 </FrameLayout>

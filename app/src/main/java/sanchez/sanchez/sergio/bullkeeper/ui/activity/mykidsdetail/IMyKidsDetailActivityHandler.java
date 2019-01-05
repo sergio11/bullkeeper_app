@@ -93,4 +93,11 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToPhoneNumbersBlackList(final String kid, final String terminal);
 
+    /**
+     * Navigate To Kid Request Detail
+     * @param kid
+     * @param identity
+     */
+    void navigateToKidRequestDetail(final String kid, final String identity);
+
 }

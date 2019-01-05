@@ -43,6 +43,11 @@ public final class KidRequestEntity implements Serializable {
      */
     private TerminalEntity terminal;
 
+    /**
+     * Since
+     */
+    private String since;
+
 
     public KidRequestEntity(){}
 
@@ -55,10 +60,11 @@ public final class KidRequestEntity implements Serializable {
      * @param location
      * @param kid
      * @param terminal
+     * @param since
      */
     public KidRequestEntity(final String identity, final RequestTypeEnum type, final Date requestAt,
                             final Date expiredAt, final LocationEntity location, final KidEntity kid,
-                            final TerminalEntity terminal) {
+                            final TerminalEntity terminal, final String since) {
         this.identity = identity;
         this.type = type;
         this.requestAt = requestAt;
@@ -66,6 +72,7 @@ public final class KidRequestEntity implements Serializable {
         this.location = location;
         this.kid = kid;
         this.terminal = terminal;
+        this.since = since;
     }
 
     public String getIdentity() {
@@ -124,6 +131,14 @@ public final class KidRequestEntity implements Serializable {
         this.terminal = terminal;
     }
 
+    public String getSince() {
+        return since;
+    }
+
+    public void setSince(String since) {
+        this.since = since;
+    }
+
     @Override
     public String toString() {
         return "KidRequestEntity{" +
@@ -134,6 +149,7 @@ public final class KidRequestEntity implements Serializable {
                 ", location=" + location +
                 ", kid=" + kid +
                 ", terminal=" + terminal +
+                ", since='" + since + '\'' +
                 '}';
     }
 }

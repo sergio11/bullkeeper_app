@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ContactsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.KidRequestModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScreenTimeAllowanceModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SmsModule;
@@ -32,6 +33,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.Fam
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansFragmentPresenter;
@@ -54,7 +57,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.Tim
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
                 AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class,
-                SmsModule.class, CallModule.class, ContactsModule.class})
+                SmsModule.class, CallModule.class, ContactsModule.class, KidRequestModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**
@@ -142,6 +145,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final ContactListMvpFragment contactListMvpFragment);
 
+    /**
+     * Inject into Kid Request List Mvp Fragment
+     * @param kidRequestListMvpFragment
+     */
+    void inject(final KidRequestListMvpFragment kidRequestListMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -157,4 +166,5 @@ public interface MyKidsComponent extends StatsComponent {
     SmsListFragmentPresenter smsListFragmentPresenter();
     CallListFragmentPresenter callListFragmentPresenter();
     ContactFragmentPresenter  contactFragmentPresenter();
+    KidRequestListFragmentPresenter kidRequestListFragmentPresenter();
 }

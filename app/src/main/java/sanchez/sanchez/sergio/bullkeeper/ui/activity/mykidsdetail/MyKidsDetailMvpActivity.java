@@ -30,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactListMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
@@ -101,6 +102,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] unselectedTabIcons = {
             R.drawable.dimensions_tab_cyan,
             R.drawable.important_alerts_tab_cyan,
+            R.drawable.kid_request_cyan_tab,
             R.drawable.mobile_cyan_tab,
             R.drawable.scheduled_blocks,
             R.drawable.app_rules_tab_cyan,
@@ -117,6 +119,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     private int[] selectedTabIcons = {
             R.drawable.dimensions_tab_dark_cyan,
             R.drawable.important_alerts_tab_dark_cyan,
+            R.drawable.kid_request_dark_tab,
             R.drawable.mobile_dark_tab,
             R.drawable.scheduled_blocks_dark,
             R.drawable.app_rules_tab_dark,
@@ -479,6 +482,21 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Kid Request Detail
+     * @param kid
+     * @param identity
+     */
+    @Override
+    public void navigateToKidRequestDetail(final String kid, final String identity) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+
+        navigatorImpl.navigateToKidRequestDetail(this, kid, identity);
+    }
+
+    /**
      * On Dimensions Selected
      * @param dimensionIdx
      * @param dimensionValue
@@ -595,15 +613,16 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         private final static int DIMENSIONS_TAB = 0;
         private final static int ALERTS_TAB = 1;
-        private final static int TERMINALS_TAB = 2;
-        private final static int SCHEDULED_BLOCKS_TAB = 3;
-        private final static int APP_RULES_TAB = 4;
-        private final static int SMS_LIST_TAB = 5;
-        private final static int CALLS_LIST_TAB = 6;
-        private final static int CONTACTS_LIST_TAB = 7;
-        private final static int TIME_ALLOWANCE_TAB = 8;
-        private final static int FAMILY_LOCATOR_TAB = 9;
-        private final static int SECTION_COUNT = 10;
+        private final static int KID_REQUEST_TAB = 2;
+        private final static int TERMINALS_TAB = 3;
+        private final static int SCHEDULED_BLOCKS_TAB = 4;
+        private final static int APP_RULES_TAB = 5;
+        private final static int SMS_LIST_TAB = 6;
+        private final static int CALLS_LIST_TAB = 7;
+        private final static int CONTACTS_LIST_TAB = 8;
+        private final static int TIME_ALLOWANCE_TAB = 9;
+        private final static int FAMILY_LOCATOR_TAB = 10;
+        private final static int SECTION_COUNT = 11;
 
         private final KidEntity kidEntity;
 
@@ -624,6 +643,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
+                case KID_REQUEST_TAB:
+                    return KidRequestListMvpFragment.newInstance(kidIdentity);
                 case TERMINALS_TAB:
                     return TerminalsMvpFragment.newInstance(kidIdentity);
                 case SCHEDULED_BLOCKS_TAB:
@@ -666,6 +687,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
                     return getString(R.string.alerts_tab);
+                case KID_REQUEST_TAB:
+                    return getString(R.string.kid_request_tab);
                 case TERMINALS_TAB:
                     return getString(R.string.terminals_tab);
                 case SCHEDULED_BLOCKS_TAB:
