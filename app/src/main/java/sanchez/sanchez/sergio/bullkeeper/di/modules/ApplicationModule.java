@@ -2,10 +2,10 @@ package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import android.content.Context;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.here.oksse.OkSse;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.impl.SoundManagerImpl;
@@ -185,14 +185,14 @@ public class ApplicationModule {
     ISseEventHandler provideSseEventHandler(
             final Context appContext,
             final ApiEndPointsHelper apiEndPointsHelper,
-            final OkSse okSse,
+            final OkHttpClient okHttpClient,
             final IPreferenceRepository preferenceRepository,
             final ObjectMapper objectMapper,
             final INotificationHelper notificationHelper,
             final ILocalSystemNotification localSystemNotification
     ) {
         return new SseEventHandlerImpl(appContext,apiEndPointsHelper,
-                okSse, preferenceRepository, objectMapper, notificationHelper,
+                okHttpClient, preferenceRepository, objectMapper, notificationHelper,
                 localSystemNotification);
     }
 

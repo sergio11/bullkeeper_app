@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper;
 
 import android.app.Application;
-import android.content.Intent;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -19,7 +18,6 @@ import cat.ereza.customactivityoncrash.config.CaocConfig;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ApplicationModule;
-import sanchez.sanchez.sergio.bullkeeper.ui.services.NotificationHandlerService;
 import timber.log.Timber;
 
 /**
@@ -53,8 +51,6 @@ public final class AndroidApplication extends Application {
         }
 
         INSTANCE = this;
-
-        startAppServices();
 
     }
 
@@ -104,18 +100,13 @@ public final class AndroidApplication extends Application {
     protected void onDebugConfig(){
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()   // or .detectAll() for all detectable problems
+                .detectAll()
                 .penaltyLog()
-                .penaltyFlashScreen()
                 .build());
 
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects()
-                .detectLeakedClosableObjects()
+                .detectAll()
                 .penaltyLog()
-                .penaltyDeath()
                 .build());
 
         Timber.plant(new Timber.DebugTree());
@@ -134,15 +125,6 @@ public final class AndroidApplication extends Application {
         Timber.plant(new CrashReportingTree());
     }
 
-
-    /**
-     * Start Services
-     */
-    protected void startAppServices() {
-        final Intent notificationHandlerService = new Intent(getApplicationContext(),
-                NotificationHandlerService.class);
-        getApplicationContext().startService(notificationHandlerService);
-    }
 
 
     /** A tree which logs important information for crash reporting. */

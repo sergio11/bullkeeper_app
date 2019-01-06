@@ -12,7 +12,7 @@
     <!-- Title -->
     <!--android:id="@+android:id/title" -->
     <TextView
-
+        android:id="@android:id/title"
         style="@style/CommonStrongText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,9 +29,9 @@
         android:background="@color/cyanBrilliant" />
 
     <!-- Summary -->
-    <!--  android:id="@+android:id/summary" -->
+    <!--   -->
     <TextView
-
+        android:id="@android:id/summary"
         style="@style/CommonStrongText.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

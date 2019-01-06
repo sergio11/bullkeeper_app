@@ -11,19 +11,19 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 public interface ISocialMediaRepository {
 
     /**
-     * Get All Social Media By Son Id
-     * @param sonId
+     * Get All Social Media By Kid Id
+     * @param kid
      * @return
      */
-    Observable<List<SocialMediaEntity>> getAllSocialMediaBySonId(final String sonId);
+    Observable<List<SocialMediaEntity>> getAllSocialMediaBySonId(final String kid);
 
     /**
      * Save All Social Media
-     * @param idSon
+     * @param kid
      * @param socialMedias
      * @return
      */
-    Observable<List<SocialMediaEntity>> saveAllSocialMedia(final String idSon,
+    Observable<List<SocialMediaEntity>> saveAllSocialMedia(final String kid,
                                                            final List<SocialMediaEntity> socialMedias);
 
 }

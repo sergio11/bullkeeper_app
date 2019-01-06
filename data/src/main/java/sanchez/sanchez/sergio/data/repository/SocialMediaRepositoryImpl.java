@@ -35,31 +35,31 @@ public final class SocialMediaRepositoryImpl implements ISocialMediaRepository {
 
     /**
      * Get All Social Media By Son Id
-     * @param sonId
+     * @param kid
      * @return
      */
     @Override
-    public Observable<List<SocialMediaEntity>> getAllSocialMediaBySonId(String sonId) {
-        Preconditions.checkNotNull(sonId, "Son Id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
-        return socialMediaService.getAllSocialMediaBySonId(sonId)
+    public Observable<List<SocialMediaEntity>> getAllSocialMediaBySonId(String kid) {
+        Preconditions.checkNotNull(kid, "Son Id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Son Id can not be empty");
+        return socialMediaService.getAllSocialMediaBySonId(kid)
                 .map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(socialMediaEntityDataMapper::transform);
     }
 
     /**
      * Save All Social Media
-     * @param idSon
+     * @param kid
      * @param socialMedias
      * @return
      */
     @Override
-    public Observable<List<SocialMediaEntity>> saveAllSocialMedia(String idSon, List<SocialMediaEntity> socialMedias) {
-        Preconditions.checkNotNull(idSon, "Son Id can not be null");
-        Preconditions.checkState(!idSon.isEmpty(), "Son Id can not be empty");
+    public Observable<List<SocialMediaEntity>> saveAllSocialMedia(String kid, List<SocialMediaEntity> socialMedias) {
+        Preconditions.checkNotNull(kid, "Son Id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Son Id can not be empty");
         Preconditions.checkNotNull(socialMedias, "Social Media List can not be null");
 
-        return socialMediaService.saveAllSocialMedia(idSon, saveSocialMediaDataMapper.transformInverse(socialMedias))
+        return socialMediaService.saveAllSocialMedia(kid, saveSocialMediaDataMapper.transformInverse(socialMedias))
                 .map(response -> response != null && response.getData() != null ? response.getData() : null)
                 .map(socialMediaEntityDataMapper::transform);
     }

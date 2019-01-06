@@ -15,10 +15,10 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 public interface IMyKidsProfileView extends ISupportView {
 
     /**
-     * Son Entity
+     * Kid Entity
      * @param kidEntity
      */
-    void onSonProfileLoaded(final KidEntity kidEntity);
+    void onKidProfileLoaded(final KidEntity kidEntity);
 
 
     /**

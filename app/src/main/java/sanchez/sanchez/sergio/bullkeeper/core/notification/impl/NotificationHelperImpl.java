@@ -125,6 +125,69 @@ public final class NotificationHelperImpl implements INotificationHelper {
      */
     @Override
     public void showImportantNotification(final String title, final String body, final Intent intent) {
+        showNotification(createImportantNotification(title, body, intent));
+    }
+
+    /**
+     * Show Important Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showImportantNotification(String title, String body) {
+        showImportantNotification(title, body, null);
+    }
+
+    /**
+     * Show Notice Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showNoticeNotification(final String title, final String body, final Intent intent) {
+        showNotification(createNoticeNotification(title, body, intent));
+
+    }
+
+    /**
+     * Show Notice Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showNoticeNotification(String title, String body) {
+        showNoticeNotification(title, body, null);
+    }
+
+    /**
+     * Show Silent Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showSilentNotification(final String title, final String body, final Intent intent) {
+        showNotification(createSilentNotification(title, body, intent));
+    }
+
+    /**
+     * Show Silent Notification
+     * @param title
+     * @param body
+     */
+    @Override
+    public void showSilentNotification(String title, String body) {
+        showSilentNotification(title, body, null);
+    }
+
+    /**
+     * Create Important Notification
+     * @param title
+     * @param body
+     * @param intent
+     * @return
+     */
+    @Override
+    public Notification createImportantNotification(String title, String body, Intent intent) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_stat_bk)
@@ -147,27 +210,27 @@ public final class NotificationHelperImpl implements INotificationHelper {
             notificationBuilder.setChannelId(NotificationChannels.IMPORTANT_CHANNEL.name());
         }
 
-        showNotification(notificationBuilder.build());
+        return notificationBuilder.build();
     }
 
     /**
-     * Show Important Notification
+     * Create Important Notification
      * @param title
      * @param body
      */
     @Override
-    public void showImportantNotification(String title, String body) {
-        showImportantNotification(title, body, null);
+    public Notification createImportantNotification(String title, String body) {
+        return createImportantNotification(title, body, null);
     }
 
     /**
-     * Show Notice Notification
+     * Create Notice Notification
      * @param title
      * @param body
+     * @param intent
      */
     @Override
-    public void showNoticeNotification(final String title, final String body, final Intent intent) {
-
+    public Notification createNoticeNotification(String title, String body, Intent intent) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_stat_bk)
                 .setContentTitle(title)
@@ -187,28 +250,27 @@ public final class NotificationHelperImpl implements INotificationHelper {
             notificationBuilder.setChannelId(NotificationChannels.COMMON_CHANNEL.name());
         }
 
-        showNotification(notificationBuilder.build());
-
+        return notificationBuilder.build();
     }
 
     /**
-     * Show Notice Notification
+     * Create Notice Notification
      * @param title
      * @param body
      */
     @Override
-    public void showNoticeNotification(String title, String body) {
-        showNoticeNotification(title, body, null);
+    public Notification createNoticeNotification(String title, String body) {
+        return createNoticeNotification(title, body, null);
     }
 
     /**
-     * Show Silent Notification
+     * Crate Sile Notification
      * @param title
      * @param body
+     * @param intent
      */
     @Override
-    public void showSilentNotification(final String title, final String body, final Intent intent) {
-
+    public Notification createSilentNotification(String title, String body, Intent intent) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_stat_bk)
                 .setContentTitle(title)
@@ -228,16 +290,16 @@ public final class NotificationHelperImpl implements INotificationHelper {
             notificationBuilder.setChannelId(NotificationChannels.SILENT_CHANNEL.name());
         }
 
-        showNotification(notificationBuilder.build());
+        return notificationBuilder.build();
     }
 
     /**
-     * Show Silent Notification
+     * Create Silent Notification
      * @param title
      * @param body
      */
     @Override
-    public void showSilentNotification(String title, String body) {
-        showSilentNotification(title, body, null);
+    public Notification createSilentNotification(String title, String body) {
+        return createSilentNotification(title, body, null);
     }
 }

@@ -55,6 +55,7 @@
         android:textColor="@color/cyanBrilliant"
         style="@style/CommonStrongText.Medium"
         android:text="-"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/showSchoolDetail"
         app:layout_constraintStart_toEndOf="@+id/separator"

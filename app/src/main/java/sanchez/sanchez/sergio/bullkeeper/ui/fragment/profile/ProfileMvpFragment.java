@@ -351,6 +351,9 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     public void onNoChildrenFounded() {
         addChildBtn.setVisibility(View.GONE);
         infoChildBtn.setVisibility(View.VISIBLE);
+        toggleKidsAllComponents(true);
+        if (!preferenceRepository.isHomeShowCaseCompleted())
+            launchShowCase();
     }
 
     /**
@@ -367,7 +370,11 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @Override
     public void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
-        activityHandler.goToChildDetail(kidEntity.getIdentity(), role);
+        if(role.equals(GuardianRolesEnum.ADMIN) ||
+                role.equals(GuardianRolesEnum.PARENTAL_CONTROL_RULE_EDITOR))
+            activityHandler.goToChildDetail(kidEntity.getIdentity(), role);
+        else
+            activityHandler.gotToKidAlerts(kidEntity.getIdentity());
     }
 
     /**

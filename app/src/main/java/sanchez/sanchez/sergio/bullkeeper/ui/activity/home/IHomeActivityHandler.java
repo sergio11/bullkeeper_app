@@ -40,6 +40,12 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
     void goToChildDetail(final String identity, final GuardianRolesEnum role);
 
     /**
+     * Go to Kid Alerts
+     * @param kid
+     */
+    void gotToKidAlerts(final String kid);
+
+    /**
      * Go To Add Child
      */
     void goToAddChild();

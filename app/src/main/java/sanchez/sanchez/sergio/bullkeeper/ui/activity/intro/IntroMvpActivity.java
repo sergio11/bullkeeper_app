@@ -172,6 +172,16 @@ public class IntroMvpActivity
     }
 
     /**
+     * Go to Home
+     * @param fromSignInSuccess
+     */
+    @Override
+    public void gotToHome(boolean fromSignInSuccess) {
+        navigatorImpl.navigateToHome(fromSignInSuccess);
+        finish();
+    }
+
+    /**
      * Go To Tutorial
      */
     @Override

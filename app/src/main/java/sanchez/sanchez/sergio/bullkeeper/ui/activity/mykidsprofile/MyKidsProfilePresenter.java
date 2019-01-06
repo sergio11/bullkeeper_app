@@ -95,7 +95,7 @@ public final class MyKidsProfilePresenter
         protected void onSuccess(GetInformationAboutTheChildAndTheirSocialMediaInteract.Result response) {
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onSonProfileLoaded(response.getKidEntity());
+                getView().onKidProfileLoaded(response.getKidEntity());
                 getView().onSocialMediaLoaded(response.getSocialMediaEntities());
             }
         }
@@ -125,7 +125,7 @@ public final class MyKidsProfilePresenter
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.child_information_saved);
-                getView().onSonProfileLoaded(result.getKidEntity());
+                getView().onKidProfileLoaded(result.getKidEntity());
                 getView().onSocialMediaLoaded(result.getSocialMediaEntities());
             }
         }

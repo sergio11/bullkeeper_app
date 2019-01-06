@@ -37,6 +37,11 @@ public interface INavigator {
     void navigateToHome();
 
     /**
+     * Navigate To Home
+     */
+    void navigateToHome(boolean fromSignInSuccess);
+
+    /**
      * Show App Menu Dialog
      */
     void showAppMenuDialog(final AppCompatActivity appCompatActivity);

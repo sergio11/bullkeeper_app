@@ -22,8 +22,5 @@ public final class UserSettingsActivityPresenter
     @Override
     protected void onAttachView(@NonNull final IUserSettingsView view) {
         super.onAttachView(view);
-
-        view.showLongMessage("Hello World!!!");
-
     }
 }

@@ -181,7 +181,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpSearchLCEFragment<MyKid
     @Override
     public void onAlertsActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
         Timber.d("On Alerts for -> %s ", kidEntity.getIdentity());
-        activityHandler.navigateToSonAlerts(kidEntity.getIdentity());
+        activityHandler.navigateToKidAlerts(kidEntity.getIdentity());
     }
 
     /**

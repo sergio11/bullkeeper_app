@@ -144,16 +144,30 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
                      */
                     @Override
                     public ObservableSource<Result> apply(final Result result) throws Exception {
-                        return !params.socialMediaEntities.isEmpty() ?
-                                socialMediaRepository.saveAllSocialMedia(result
-                                            .getKidEntity().getIdentity(), params.socialMediaEntities)
-                                        .map(new Function<List<SocialMediaEntity>, Result>() {
-                                            @Override
-                                            public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
-                                                result.setSocialMediaEntities(socialMediaEntities);
-                                                return result;
-                                            }
-                                        }) : Observable.just(result);
+
+                        Observable<Result> resultObservable = Observable.just(result);
+
+                        if (!params.socialMediaEntities.isEmpty()) {
+
+                            final String kidIdentity = result.kidEntity.getIdentity();
+
+                            // Set Kid Identity
+                            for (final SocialMediaEntity socialMediaEntity : params.socialMediaEntities)
+                                socialMediaEntity.setKid(kidIdentity);
+
+                            // Save All Social Medias
+                            resultObservable = socialMediaRepository.saveAllSocialMedia(kidIdentity,
+                                    params.socialMediaEntities).map(new Function<List<SocialMediaEntity>, Result>() {
+                                @Override
+                                public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                                    result.setSocialMediaEntities(socialMediaEntities);
+                                    return result;
+                                }
+                            });
+
+                        }
+
+                        return resultObservable;
                     }
 
                 }).flatMap(new Function<Result, ObservableSource<Result>>() {
@@ -167,14 +181,27 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
                     @Override
                     public ObservableSource<Result> apply(final Result result) throws Exception {
                         Preconditions.checkNotNull(result, "Result can not be null");
-                        return childrenRepository.saveGuardians(params.getKid(),
-                                params.getKidGuardianEntities()).map(new Function<List<KidGuardianEntity>, Result>() {
-                            @Override
-                            public Result apply(List<KidGuardianEntity> kidGuardianEntities) throws Exception {
-                                result.setKidGuardianEntities(kidGuardianEntities);
-                                return result;
-                            }
-                        });
+
+                        Observable<Result> resultObservable = Observable.just(result);
+
+                        if(!params.getKidGuardianEntities().isEmpty()) {
+
+                            // Set Kid
+                            for(final KidGuardianEntity kidGuardianEntity: params.getKidGuardianEntities())
+                                kidGuardianEntity.setKid(result.getKidEntity());
+
+                            resultObservable = childrenRepository.saveGuardians(result.getKidEntity().getIdentity(),
+                                    params.getKidGuardianEntities()).map(new Function<List<KidGuardianEntity>, Result>() {
+                                @Override
+                                public Result apply(List<KidGuardianEntity> kidGuardianEntities) throws Exception {
+                                    result.setKidGuardianEntities(kidGuardianEntities);
+                                    return result;
+                                }
+                            });
+
+                        }
+
+                        return resultObservable;
                     }
 
                 });

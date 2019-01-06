@@ -40,7 +40,6 @@ import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids.IMyKidsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
@@ -390,12 +389,13 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        // Toggle All Components
-        toggleAllComponents(false);
-
         if(getIntent() != null && getIntent().hasExtra(KIDS_IDENTITY_ARG)) {
             // Get Kid identity
             myKidIdentity = getIntent().getStringExtra(KIDS_IDENTITY_ARG);
+
+            // Toggle All Components
+            toggleAllComponents(false);
+
             // Load Son Data
             getPresenter().loadKidData(myKidIdentity);
         }
@@ -413,6 +413,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         birthdayInput.setMinAge(MIN_AGE_ALLOWED);
         birthdayInput.setMaxAge(MAX_AGE_ALLOWED);
 
+        // Init Social Media
+        updateSocialMediaRow(SocialMediaTypeEnum.FACEBOOK, null);
+        updateSocialMediaRow(SocialMediaTypeEnum.INSTAGRAM, null);
+        updateSocialMediaRow(SocialMediaTypeEnum.YOUTUBE, null);
 
         /**
          * Facebook Switch Widget
@@ -456,13 +460,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             }
         });
 
-        if(appUtils.isValidString(myKidIdentity)) {
-            kidGuardiansMvpFragment = KidGuardiansMvpFragment.newInstance(myKidIdentity);
-            kidGuardiansContainerView.setVisibility(View.VISIBLE);
-            addFragment(R.id.kidGuardiansContainer, kidGuardiansMvpFragment, false);
-        } else {
-            kidGuardiansContainerView.setVisibility(View.GONE);
-        }
+        // Update Kid Guardian Container
+        updateKidGuardiansContainer();
+
+
     }
 
     /**
@@ -514,6 +515,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         (SchoolEntity) data.getSerializableExtra(SearchSchoolMvpActivity.SCHOOL_SELECTED_ARG);
                 school = schoolSelected;
                 schoolInput.setText(schoolSelected.getName());
+                showSchoolDetailImageView.setVisibility(View.VISIBLE);
             }
 
             if (resultCode == Activity.RESULT_CANCELED) {}
@@ -544,7 +546,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @Override
     protected void onValidationFailed() {
+
         showNoticeDialog(R.string.forms_is_not_valid);
+        toggleAllComponents(true);
     }
 
 
@@ -566,6 +570,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
             schoolInputLayout.setError(message);
         }
 
+        toggleAllComponents(true);
     }
 
     /**
@@ -585,10 +590,13 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     protected void onResetFields() {
         super.onResetFields();
-        nameInput.getText().clear();
-        surnameInput.getText().clear();
+        if(nameInput.getText() != null)
+            nameInput.getText().clear();
+        if(surnameInput.getText() != null)
+            surnameInput.getText().clear();
         birthdayInput.setDateSelected(new Date());
-        schoolInput.getText().clear();
+        if(schoolInput.getText() != null)
+            schoolInput.getText().clear();
     }
 
     /**
@@ -712,7 +720,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * @param kidEntity
      */
     @Override
-    public void onSonProfileLoaded(final KidEntity kidEntity) {
+    public void onKidProfileLoaded(final KidEntity kidEntity) {
         Preconditions.checkNotNull(kidEntity, "Son Entity can not be null");
 
         Timber.d("Son Profile Image Url -> %s", kidEntity.getProfileImage());
@@ -758,6 +766,9 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         // Enable All Profile Components
         toggleAllProfileComponents(true);
+
+        // Update Kid Guardian Container
+        updateKidGuardiansContainer();
     }
 
     /**
@@ -787,6 +798,19 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         // Toggle Social Media Components
         toggleAllSocialMediaComponents(true);
+    }
+
+    /**
+     * Update Kid Guardians Container
+     */
+    private void updateKidGuardiansContainer(){
+        if(appUtils.isValidString(myKidIdentity)) {
+            kidGuardiansMvpFragment = KidGuardiansMvpFragment.newInstance(myKidIdentity);
+            kidGuardiansContainerView.setVisibility(View.VISIBLE);
+            addFragment(R.id.kidGuardiansContainer, kidGuardiansMvpFragment, false);
+        } else {
+            kidGuardiansContainerView.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -1172,8 +1196,14 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         // Connect to Google
         com.jaychang.sa.google.SimpleAuth.connectGoogle(userScopes, new AuthCallback() {
             @Override
-            public void onSuccess(SocialUser socialUser) {
-                onSocialUserObtained(SocialMediaTypeEnum.YOUTUBE, socialUser);
+            public void onSuccess(final SocialUser socialUser) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onSocialUserObtained(SocialMediaTypeEnum.YOUTUBE, socialUser);
+                    }
+                });
+
             }
 
             @Override
@@ -1231,5 +1261,21 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         navigatorImpl.navigateToSearchGuardianActivity(this, SELECT_GUARDIAN_REQUEST_CODE);
     }
 
+    /**
+     * On Network Exception
+     */
+    @Override
+    public void onNetworkError() {
+        super.onNetworkError();
+        toggleAllComponents(true);
+    }
 
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        super.onOtherException();
+        toggleAllComponents(true);
+    }
 }

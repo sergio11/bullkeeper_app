@@ -25,9 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
-import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.components.IntroComponent;
-import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IIntroActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpFragment;
@@ -75,12 +73,6 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
 
     @Inject
     protected Context appContext;
-
-    /**
-     * Local System Notification
-     */
-    @Inject
-    protected ILocalSystemNotification localSystemNotification;
 
     private CallbackManager callbackManager;
 
@@ -188,7 +180,7 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
      */
     @Override
     protected void onValidationFailed() {
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
     }
 
     /**
@@ -231,9 +223,8 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
      */
     @Override
     public void onLoginSuccess() {
-        Timber.d("Send Signing Event");
-        localSystemNotification.sendNotification(new SigningEvent());
-        activityHandler.gotToHome();
+        // Go to Home
+        activityHandler.gotToHome(true);
     }
 
     /**
@@ -241,7 +232,7 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
      */
     @Override
     public void onLoginFailed() {
-        showNoticeDialog(R.string.login_failed);
+        showNoticeDialog(R.string.login_failed, false);
     }
 
     /**
@@ -249,7 +240,7 @@ implements ISigninView, Validator.ValidationListener, FacebookCallback<LoginResu
      */
     @Override
     public void onBadCredentials() {
-        showNoticeDialog(R.string.bad_credentials_error);
+        showNoticeDialog(R.string.bad_credentials_error, false);
     }
 
     /**

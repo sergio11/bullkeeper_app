@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
@@ -10,10 +11,12 @@ import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerHomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
@@ -37,7 +40,14 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     private final String CONTENT_FULL_NAME = "HOME";
     private final String CONTENT_TYPE_NAME = "APP";
 
+    /**
+     * Args
+     */
+    private final static String FROM_SIGN_IN_SUCCESS = "FROM_SIGN_IN_SUCCESS";
 
+    /**
+     * Home Component
+     */
     private HomeComponent homeComponent;
 
     /**
@@ -47,17 +57,40 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     protected ScreenManager screenManager;
 
     /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
+
+    /**
+     * Preference Repository
+     */
+    @Inject
+    protected IPreferenceRepository preferenceRepository;
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param fromSignInSuccess
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final boolean fromSignInSuccess) {
+        final Intent intent = new Intent(context, HomeMvpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        if (fromSignInSuccess)
+            intent.putExtra(FROM_SIGN_IN_SUCCESS, true);
+        return intent;
+    }
+
+    /**
      * Get Calling Intent
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context) {
-        final Intent intent = new Intent(context, HomeMvpActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        return intent;
+    public static Intent getCallingIntent(final Context context){
+        return getCallingIntent(context, false);
     }
-
 
     /**
      * initialize Injector
@@ -71,6 +104,22 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
         homeComponent.inject(this);
     }
 
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onViewReady(Bundle savedInstanceState) {
+        super.onViewReady(savedInstanceState);
+
+        if(getIntent().hasExtra(FROM_SIGN_IN_SUCCESS)) {
+            Timber.d("From Sign In Success");
+            final String userId = preferenceRepository.getPrefCurrentUserIdentity();
+            localSystemNotification.sendNotification(new SigningEvent(userId));
+        }
+
+    }
 
     /**
      * Get Layout Resource
@@ -143,6 +192,17 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     @Override
     public void goToChildDetail(final String identity, final GuardianRolesEnum role) {
         navigatorImpl.navigateToMyKidsDetail(identity, role);
+    }
+
+    /**
+     * Go to kid alerts
+     * @param kid
+     */
+    @Override
+    public void gotToKidAlerts(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        navigatorImpl.navigateToAlertList(kid);
     }
 
     /**

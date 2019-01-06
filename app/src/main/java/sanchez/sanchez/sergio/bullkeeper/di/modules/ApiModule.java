@@ -20,7 +20,6 @@ import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.here.oksse.OkSse;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -126,16 +125,4 @@ public class ApiModule {
                 .downloader(new OkHttp3Downloader(client))
                 .build();
     }
-
-    /**
-     * Provide Ok Sse
-     * @param okHttpClient
-     * @return
-     */
-    @Singleton
-    @Provides
-    public OkSse provideOkSse(final OkHttpClient okHttpClient){
-        return new OkSse(okHttpClient);
-    }
-
 }

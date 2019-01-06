@@ -1,13 +1,16 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.services;
 
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.here.oksse.OkSse;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
@@ -24,8 +27,8 @@ import sanchez.sanchez.sergio.bullkeeper.events.handler.ILogoutEventVisitor;
 import sanchez.sanchez.sergio.bullkeeper.events.handler.ISigningEventVisitor;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.home.HomeMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.intro.IntroMvpActivity;
-import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.interactor.device.DeleteDeviceInteract;
 import sanchez.sanchez.sergio.domain.interactor.device.SaveDeviceInteract;
 import sanchez.sanchez.sergio.domain.models.DeviceEntity;
@@ -37,6 +40,11 @@ import timber.log.Timber;
  * Notification Handler Service
  */
 public class NotificationHandlerService extends SupportService {
+
+    /**
+     * The identifier for the notification displayed for the foreground service.
+     */
+    private final static int NOTIFICATION_ID = 12345678;
 
     /**
      * Local System Notification
@@ -68,17 +76,6 @@ public class NotificationHandlerService extends SupportService {
     @Inject
     protected IAppUtils appUtils;
 
-    /**
-     * Api End Points Helper
-     */
-    @Inject
-    protected ApiEndPointsHelper apiEndPointsHelper;
-
-    /**
-     * OK SSE Client
-     */
-    @Inject
-    protected OkSse okSse;
 
     /**
      * Preference Repository
@@ -91,6 +88,11 @@ public class NotificationHandlerService extends SupportService {
      */
     @Inject
     protected ISseEventHandler sseEventHandler;
+
+    /**
+     * Local Binder
+     */
+    private IBinder mBinder = new LocalBinder();
 
     /**
      * Silent Notice Event Visitor
@@ -124,8 +126,9 @@ public class NotificationHandlerService extends SupportService {
         @Override
         public void visit(SigningEvent signingEvent) {
             Preconditions.checkNotNull(signingEvent, "Signing Event can not be null");
-            saveDevice();
+            Timber.d("NHS: SignIn Event Handler");
             sseEventHandler.open();
+            saveDevice();
         }
     };
 
@@ -136,17 +139,18 @@ public class NotificationHandlerService extends SupportService {
         @Override
         public void visit(LogoutEvent logoutEvent) {
             Preconditions.checkNotNull(logoutEvent, "Logout Event");
-            sseEventHandler.close();
+            Timber.d("NHS: Logout Event Handler");
             notificationHelper.showNoticeNotification(getString(R.string.logout_notification_title),
                     getString(R.string.logout_notification_description), IntroMvpActivity.getCallingIntent(getApplicationContext(), false));
+            sseEventHandler.close();
         }
     };
 
     /**
-     *
+     * Registration Keys
      */
     private int silentNotificationRegisterKey,
-            notificationRegisterKey, signingNotificationKey, logoutNotificationKey;
+            notificationRegisterKey, signingNotificationKey, logoutNotificationKey = -1;
 
     public NotificationHandlerService() { }
 
@@ -156,12 +160,16 @@ public class NotificationHandlerService extends SupportService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Timber.d("Notification Handler Service created");
+        Timber.d("NHS: Notification Handler Service created");
         silentNotificationRegisterKey = localSystemNotification.registerEventListener(SilentNoticeEvent.class, silentNoticeEventVisitor);
         notificationRegisterKey = localSystemNotification.registerEventListener(NoticeEvent.class, noticeEventVisitor);
         signingNotificationKey = localSystemNotification.registerEventListener(SigningEvent.class, signingEventVisitor);
         logoutNotificationKey = localSystemNotification.registerEventListener(LogoutEvent.class, logoutEventVisitor);
-        sseEventHandler.open();
+        if(!preferenceRepository.getPrefCurrentUserIdentity()
+                .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE) &&
+                !sseEventHandler.isOpened())
+            sseEventHandler.open();
+        startForeground(NOTIFICATION_ID, getNotification());
     }
 
     /**
@@ -173,7 +181,46 @@ public class NotificationHandlerService extends SupportService {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
+        Timber.d("NHS: onStartCommand -> start id: %d", startId);
+        return START_STICKY;
+    }
+
+    /**
+     * Is Notification Service Running
+     * @param context
+     * @return
+     */
+    private static boolean isNotificationServiceRunning(final Context context) {
+        final ActivityManager activityManager =
+                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if(activityManager != null) {
+            for (final ActivityManager.RunningServiceInfo serviceInfo :
+                    activityManager.getRunningServices(Integer.MAX_VALUE)) {
+                if (NotificationHandlerService.class.getName()
+                        .equals(serviceInfo.service.getClassName()))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Start If Needed
+     * @param context
+     */
+    public static void startIfNeeded(final Context context){
+        if(!isNotificationServiceRunning(context))
+            start(context);
+    }
+
+
+    /**
+     * Start
+     * @param context
+     */
+    public static void start(final Context context) {
+        // Start Notification Service
+        context.startService(new Intent(context, NotificationHandlerService.class));
     }
 
     /**
@@ -182,13 +229,23 @@ public class NotificationHandlerService extends SupportService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Timber.d("Notification Handler Service Destroyed");
+        Timber.d("NHS: Notification Handler Service Destroyed");
         localSystemNotification.unregisterEventListener(silentNotificationRegisterKey);
         localSystemNotification.unregisterEventListener(notificationRegisterKey);
         localSystemNotification.unregisterEventListener(signingNotificationKey);
         localSystemNotification.unregisterEventListener(logoutNotificationKey);
-        sseEventHandler.close();
     }
+
+    /**
+     * Get Notification
+     * @return
+     */
+    private Notification getNotification(){
+        return notificationHelper.createImportantNotification(
+                getString(R.string.notification_background_service_title),
+                getString(R.string.notification_background_service_description), HomeMvpActivity.getCallingIntent(this));
+    }
+
 
     /**
      *
@@ -198,8 +255,47 @@ public class NotificationHandlerService extends SupportService {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        Timber.d("NTS: On Bind");
+        stopForeground(true);
+        return mBinder;
     }
+
+    /**
+     *
+     * @param intent
+     * @return
+     */
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Timber.d("NHS: On UnBind");
+        if(!preferenceRepository.getPrefCurrentUserIdentity()
+                .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE))
+            startForeground(NOTIFICATION_ID, getNotification());
+        else
+            sseEventHandler.close();
+        return true;
+    }
+
+    /**
+     *
+     * @param intent
+     */
+    @Override
+    public void onRebind(Intent intent) {
+        Timber.d("NHS: On Rebind");
+        stopForeground(true);
+        super.onRebind(intent);
+    }
+
+    /**
+     * Local Binder
+     */
+    public class LocalBinder extends Binder {
+        NotificationHandlerService getService() {
+            return NotificationHandlerService.this;
+        }
+    }
+
 
     /**
      * Initialize Injector
@@ -219,7 +315,7 @@ public class NotificationHandlerService extends SupportService {
      * Save Device
      */
     protected void saveDevice() {
-        Timber.d("Notification Handler -> Save Device");
+        Timber.d("NHS: Notification Handler -> Save Device");
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -230,6 +326,7 @@ public class NotificationHandlerService extends SupportService {
         });
 
     }
+
 
     /**
      * Save Device Observable

@@ -3,7 +3,7 @@
     <string name="app_name">BullKeeper</string>
 
     <!-- Intro Text -->
-    <string name="intro_text">The first anti-bullying in the history of the internet. Designed to protect young people and pre-teens from attacks on the social networks of other groups of their age.</string>
+    <string name="intro_text">Parental control tool focused on the management of the digital lifestyle of children/adolescents whose objective is to identify potentially violent situations and create an ecosystem that facilitates early detection of various disorders derived from an inadequate or unreliable use of technology. information.</string>
 
     <!-- Sign up btn -->
     <string name="sign_up_btn">Sign up</string>
@@ -377,7 +377,7 @@
     <string name="last_alerts_title" formatted="false">Last Alerts (%d)</string>
     <string name="last_alerts_title_default">Last Alerts</string>
     <string name="home_load_profile_information_progress">Loading profile information ...</string>
-    <string name="home_how_add_child_title">How to add a id?</string>
+    <string name="home_how_add_child_title">How to add a kid?</string>
 
     <string name="kid_detail_dimensions_title">Four Dimensions</string>
     <string name="kid_detail_dimensions_description">Data of the four dimensions analyzed</string>
@@ -892,7 +892,9 @@
     <string name="kid_request_notification_sos_title" formatted="false">SOS request, %s has problems and needs help.</string>
     <string name="kid_request_notification_sos_description" >Go to the detail of the request to see more details</string>
 
-
+    <!-- Notification -->
+    <string name="notification_background_service_title">Bullkeeper will remain in the background</string>
+    <string name="notification_background_service_description">Bullkeeper will remain in the background to notify you of any incident</string>
     <!-- Fetch Address errors -->
     <string name="service_not_available">Service Not Avaliable</string>
     <string name="invalid_lat_long_used">Invalid Lat Long Used</string>

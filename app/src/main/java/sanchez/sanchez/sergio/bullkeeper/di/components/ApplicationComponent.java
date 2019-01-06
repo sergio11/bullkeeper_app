@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import android.content.Context;
 
-import com.here.oksse.OkSse;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
@@ -132,7 +131,6 @@ public interface ApplicationComponent {
     Picasso picasso();
     ScreenManager screenManager();
     UiUtils uiUtils();
-    OkSse okSse();
     ISoundManager soundManager();
     ISseEventHandler sseEventHandler();
 }

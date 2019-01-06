@@ -57,7 +57,8 @@ public class GoogleAuthActivity extends SimpleAuthActivity
 
     String clientId = AppUtils.getMetaDataValue(this, getString(R.string.com_jaychang_sa_googleWebClientId));
 
-    GoogleSignInOptions.Builder gsoBuilder = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    GoogleSignInOptions.Builder gsoBuilder = new GoogleSignInOptions.Builder(
+            GoogleSignInOptions.DEFAULT_SIGN_IN)
       .requestId()
       .requestProfile()
       .requestEmail()
@@ -113,7 +114,7 @@ public class GoogleAuthActivity extends SimpleAuthActivity
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if (requestCode != RC_SIGN_IN || resultCode != RESULT_OK) {
+    if (requestCode != RC_SIGN_IN) {
       handCancel();
       return;
     }

@@ -135,7 +135,7 @@ public interface IChildrenService {
      * @param registerKidDTO
      * @return
      */
-    @POST("parents/self/children/add")
+    @POST("guardians/self/children/add")
     Observable<APIResponse<KidDTO>> addSonToSelfGuardian(final @Body RegisterKidDTO registerKidDTO);
 
     /**

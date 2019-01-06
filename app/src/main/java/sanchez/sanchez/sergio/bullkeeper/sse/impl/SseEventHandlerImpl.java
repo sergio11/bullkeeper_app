@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.here.oksse.OkSse;
 import com.here.oksse.ServerSentEvent;
-import java.io.IOException;
 import java.util.Locale;
 
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -46,9 +46,9 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     private ApiEndPointsHelper apiEndPointsHelper;
 
     /**
-     * Ok SSE
+     * Ok Http Client
      */
-    private OkSse okSse;
+    private OkHttpClient okHttpClient;
 
     /**
      * Preference Repository
@@ -69,17 +69,22 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
      * Local System Notification
      */
     private ILocalSystemNotification localSystemNotification;
+
+    /**
+     * Ok Sse
+     */
+    private final OkSse okSse;
     /**
      * State
      * ==============
      */
 
-    private ServerSentEvent serverSentEvent;
+    private ServerSentEvent serverSentEvent = null;
 
     /**
      * @param context
      * @param apiEndPointsHelper
-     * @param okSse
+     * @param okHttpClient
      * @param preferenceRepository
      * @param objectMapper
      * @param notificationHelper
@@ -87,18 +92,19 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     public SseEventHandlerImpl(
             final Context context,
             final ApiEndPointsHelper apiEndPointsHelper,
-            final OkSse okSse,
+            final OkHttpClient okHttpClient,
             final IPreferenceRepository preferenceRepository,
             final ObjectMapper objectMapper,
             final INotificationHelper notificationHelper,
             final ILocalSystemNotification localSystemNotification) {
         this.context = context;
         this.apiEndPointsHelper = apiEndPointsHelper;
-        this.okSse = okSse;
+        this.okHttpClient = okHttpClient;
         this.preferenceRepository = preferenceRepository;
         this.objectMapper = objectMapper;
         this.notificationHelper = notificationHelper;
         this.localSystemNotification = localSystemNotification;
+        this.okSse = new OkSse(okHttpClient);
     }
 
     /**
@@ -106,10 +112,6 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
      */
     @Override
     public void open() {
-        if (serverSentEvent != null) {
-            serverSentEvent.close();
-            serverSentEvent = null;
-        }
 
         if(!preferenceRepository.getPrefCurrentUserIdentity()
                 .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE)) {
@@ -119,6 +121,15 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                     .build();
             serverSentEvent = okSse.newServerSentEvent(eventSubscriptionRequest, this);
         }
+    }
+
+    /**
+     * Is Opened
+     * @return
+     */
+    @Override
+    public boolean isOpened() {
+        return serverSentEvent != null;
     }
 
     /**

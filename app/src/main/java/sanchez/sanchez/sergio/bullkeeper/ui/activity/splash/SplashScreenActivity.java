@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
+import sanchez.sanchez.sergio.bullkeeper.ui.services.NotificationHandlerService;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -54,6 +55,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             navigator.navigateToIntro();
         }
 
+        NotificationHandlerService.start(getApplicationContext());
+
         localSystemNotification.sendNotification(new SigningEvent(
                 preferenceRepository.getPrefCurrentUserIdentity()));
 
@@ -68,5 +71,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 .getApplicationComponent();
         applicationComponent.inject(this);
     }
+
 
 }

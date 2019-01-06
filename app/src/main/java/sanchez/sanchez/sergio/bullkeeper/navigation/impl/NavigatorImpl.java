@@ -116,6 +116,16 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Home
+     * @param fromSignInSuccess
+     */
+    @Override
+    public void navigateToHome(boolean fromSignInSuccess) {
+        Intent intentToHome = HomeMvpActivity.getCallingIntent(context, fromSignInSuccess);
+        context.startActivity(intentToHome);
+    }
+
+    /**
      * Show App Menu Dialog
      */
     @Override

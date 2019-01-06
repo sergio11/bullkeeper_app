@@ -152,6 +152,13 @@ public final class SupportEditTextDatePicker extends AppCompatEditText
     }
 
     /**
+     * Reset Date Selected
+     */
+    public void resetDateSelected(){
+        dateSelected = null;
+    }
+
+    /**
      * Update Current Date Selected
      */
     private void updateCurrentDateSelected(){

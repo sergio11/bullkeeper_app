@@ -138,11 +138,11 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
 
     /**
      * Navigate To Son Alerts
-     * @param sonIdentity
+     * @param kid
      */
     @Override
-    public void navigateToSonAlerts(String sonIdentity) {
-        navigatorImpl.navigateToAlertList(sonIdentity);
+    public void navigateToKidAlerts(String kid) {
+        navigatorImpl.navigateToAlertList(kid);
     }
 
     /**

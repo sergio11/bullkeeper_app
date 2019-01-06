@@ -27,6 +27,7 @@ import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.nulabinc.zxcvbn.Zxcvbn;
 import java.util.LinkedHashMap;
@@ -157,6 +158,7 @@ public class SignupMvpFragment extends
      * Password Input
      */
     @BindView(R.id.passwordInput)
+    @Password
     protected AppCompatEditText passwordInput;
 
     /**
@@ -331,6 +333,9 @@ public class SignupMvpFragment extends
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        birthdayInput.resetDateSelected();
+        birthdayInput.setMinAge(MIN_AGE_DEFAULT);
+        birthdayInput.setMaxAge(MAX_AGE_DEFAULT);
 
         configureTermsOfServiceAndPrivacyPolicy();
 
@@ -369,8 +374,7 @@ public class SignupMvpFragment extends
             public void afterTextChanged(Editable editable) { }
         });
 
-        birthdayInput.setMinAge(MIN_AGE_DEFAULT);
-        birthdayInput.setMaxAge(MAX_AGE_DEFAULT);
+
 
     }
 
@@ -396,7 +400,7 @@ public class SignupMvpFragment extends
      */
     @Override
     protected void onValidationFailed() {
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
     }
 
     /**
@@ -543,9 +547,28 @@ public class SignupMvpFragment extends
 
         }
 
+        createAccountButton.setEnabled(true);
+
         showNoticeDialog(R.string.forms_is_not_valid);
     }
 
+    /**
+     * On Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        super.onNetworkError();
+        createAccountButton.setEnabled(true);
+    }
+
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        super.onOtherException();
+        createAccountButton.setEnabled(true);
+    }
 
     /**
      * Get App Icon Mode

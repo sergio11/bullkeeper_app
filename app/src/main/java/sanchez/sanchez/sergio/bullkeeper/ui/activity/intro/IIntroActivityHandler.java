@@ -34,6 +34,11 @@ public interface IIntroActivityHandler extends IBasicActivityHandler {
     void gotToHome();
 
     /**
+     * Go to Home
+     */
+    void gotToHome(final boolean fromSignInSuccess);
+
+    /**
      * Go to Tutorial
      */
     void goToTutorial();

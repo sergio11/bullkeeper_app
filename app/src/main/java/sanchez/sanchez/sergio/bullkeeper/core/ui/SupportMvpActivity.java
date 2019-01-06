@@ -2,11 +2,14 @@ package sanchez.sanchez.sergio.bullkeeper.core.ui;
 
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -52,6 +55,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
+import sanchez.sanchez.sergio.bullkeeper.ui.services.NotificationHandlerService;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import timber.log.Timber;
@@ -113,6 +117,31 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @BindView(R.id.appToolbarInclude)
     protected View appbarLayout;
 
+    /**
+     * Service Binder
+     */
+    private IBinder serviceBinder;
+
+    /**
+     * Bound
+     */
+    private boolean mBound;
+
+    /**
+     * Service Connection
+     */
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName className, IBinder binder) {
+           Timber.d("Service Connection Open");
+            serviceBinder = binder;
+            mBound = true;
+        }
+        public void onServiceDisconnected(ComponentName className) {
+            Timber.d("Service Connection Close");
+            serviceBinder = null;
+            mBound = false;
+        }
+    };
 
     /**
      * Notice Event Visitor
@@ -182,6 +211,16 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * On Start
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bindService(new Intent(this, NotificationHandlerService.class),
+                serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    /**
      * On Resume
      */
     @Override
@@ -204,10 +243,17 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         }
     }
 
+    /**
+     * On Stop
+     */
     @Override
     protected void onStop() {
         super.onStop();
         localSystemNotification.unregisterEventListener(noticeEventRegisterKey);
+        if (mBound) {
+            unbindService(serviceConnection);
+            mBound = false;
+        }
     }
 
     /**
@@ -332,7 +378,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void onNetworkError() {
-        showNoticeDialog(R.string.network_error_ocurred);
+        showNoticeDialog(R.string.network_error_ocurred, false);
     }
 
     /**
@@ -340,7 +386,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void onOtherException() {
-        showNoticeDialog(R.string.unexpected_error_ocurred);
+        showNoticeDialog(R.string.unexpected_error_ocurred, false);
     }
 
     /**

@@ -11,6 +11,12 @@ public interface ISseEventHandler {
     void open();
 
     /**
+     * Is Opened
+     * @return
+     */
+    boolean isOpened();
+
+    /**
      * Close
      */
     void close();
