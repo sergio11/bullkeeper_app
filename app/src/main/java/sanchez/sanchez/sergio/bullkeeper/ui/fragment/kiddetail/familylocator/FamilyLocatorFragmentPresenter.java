@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator;
 
-import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 

@@ -97,12 +97,48 @@
             app:cardCornerRadius="4dp"
             app:cardElevation="4dp">
 
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_margin="8dp"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText"
+                    android:textColor="@color/cyanBrilliant"
+                    android:textStyle="bold"
+                    android:text="@string/family_locator_address"/>
+
+                <View
+                    android:layout_width="@dimen/common_divider_small"
+                    android:layout_height="@dimen/common_divider_height"
+                    android:layout_margin="10dp"
+                    android:background="@color/cyanBrilliant"/>
+
+
+                <!-- Location Address -->
+                <TextView
+                    android:id="@+id/currentLocationAddress"
+                    style="@style/CommonStrongText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/common_margin"
+                    android:gravity="start|center_vertical"
+                    android:text="-"
+                    android:textColor="@color/cyanBrilliant"
+                    android:drawablePadding="@dimen/common_padding"
+                    android:drawableStart="@drawable/kid_request_location_marker" />
+
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_margin="8dp"/>
+
+            </LinearLayout>
 
             <!-- Options Menu -->
             <com.leinardi.android.speeddial.SpeedDialView

@@ -2,9 +2,13 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,6 +47,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.events.handler.IKidLocationEventVisitor;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.KidLocationUpdatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.services.FetchAddressIntentService;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
 
 /**
@@ -103,7 +109,11 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     @BindView(R.id.optionsMenu)
     protected SpeedDialView optionsMenuSpeedDialView;
 
-
+    /**
+     * Current Location Address
+     */
+    @BindView(R.id.currentLocationAddress)
+    protected TextView currentLocationAddressTextView;
 
     /**
      * State
@@ -368,6 +378,12 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     private void showLocation(final LocationEntity locationEntity) {
         Preconditions.checkNotNull(googleMap, "Google Map can not be null");
 
+        // Fetch Address
+        final Location location = new Location("");
+        location.setLatitude(locationEntity.getLat());
+        location.setLongitude(locationEntity.getLog());
+        fetchAddressForLocation(location);
+
         // Load Current Position
         LatLng latLng = new LatLng(locationEntity.getLat(), locationEntity.getLog());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, TARGET_ZOOM));
@@ -466,6 +482,51 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     @Override
     public void noCurrentLocationFound() {
         showNoticeDialog(R.string.family_locator_no_last_registered_position);
+    }
+
+    /**
+     * Start Intent Service
+     */
+    protected void fetchAddressForLocation(final Location location) {
+        Intent intent = new Intent(activity, FetchAddressIntentService.class);
+        intent.putExtra(FetchAddressIntentService.RECEIVER, new AddressResultReceiver(new Handler()));
+        intent.putExtra(FetchAddressIntentService.LOCATION_DATA_EXTRA, location);
+        activity.startService(intent);
+    }
+
+    /**
+     * Address Result Receiver
+     */
+    class AddressResultReceiver extends ResultReceiver {
+
+        /**
+         *
+         * @param handler
+         */
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            if (resultData == null) {
+                return;
+            }
+
+            // Display the address string
+            // or an error message sent from the intent service.
+            String mAddressOutput = resultData.getString(FetchAddressIntentService.RESULT_DATA_KEY);
+            if (mAddressOutput == null) {
+                mAddressOutput = "";
+            }
+
+            // Show a toast message if an address was found.
+            if (resultCode == FetchAddressIntentService.SUCCESS_RESULT) {
+                currentLocationAddressTextView.setText(mAddressOutput);
+            }
+
+        }
     }
 }
 
