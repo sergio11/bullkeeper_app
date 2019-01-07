@@ -183,6 +183,7 @@ public final class NewAppInstalledEvent  extends SupportEvent<IAppEventVisitor> 
         bundle.putString(ICON_ENCODED_ARG, iconEncodedString);
         bundle.putBoolean(DISABLED_ARG, disabled);
         bundle.putString(TERMINAL_ARG, terminal);
+        intent.putExtras(bundle);
         return intent;
     }
 

@@ -23,6 +23,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.ITerminalDet
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import timber.log.Timber;
 
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
@@ -361,16 +362,17 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             getString(R.string.terminal_bed_time_disabled));
 
         bedTimeStatusWidget.setEnabled(true);
-        bedTimeStatusWidget.setChecked(!terminalDetailEntity.isBedTimeEnabled(), false);
+        bedTimeStatusWidget.setChecked(terminalDetailEntity.isBedTimeEnabled(), false);
         bedTimeStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if(isChecked) {
 
-                    showConfirmationDialog(R.string.terminal_disable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_enable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchBedTimeStatus(childId, terminalId, false);
+                            getPresenter().switchBedTimeStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -381,10 +383,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
 
                 } else {
 
-                    showConfirmationDialog(R.string.terminal_enable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_disable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchBedTimeStatus(childId, terminalId, true);
+                            getPresenter().switchBedTimeStatus(childId, terminalId, false);
                         }
 
                         @Override
@@ -397,21 +399,21 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         });
 
         // Lock Screen
-        lockScreenTextView.setText(terminalDetailEntity.isLockScreenEnabled() ?
+        lockScreenTextView.setText(terminalDetailEntity.isScreenEnabled() ?
                 getString(R.string.terminal_lock_screen_enable) :
                 getString(R.string.terminal_lock_screen_disabled));
 
         lockScreenStatusWidget.setEnabled(true);
-        lockScreenStatusWidget.setChecked(!terminalDetailEntity.isLockScreenEnabled(), false);
+        lockScreenStatusWidget.setChecked(terminalDetailEntity.isScreenEnabled(), false);
         lockScreenStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
 
-                    showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockScreenStatus(childId, terminalId, false);
+                            getPresenter().switchLockScreenStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -421,10 +423,11 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     });
 
                 } else {
-                    showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+                    showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockScreenStatus(childId, terminalId, true);
+                            getPresenter().switchLockScreenStatus(childId, terminalId, false);
                         }
 
                         @Override
@@ -436,21 +439,21 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             }
         });
         // Lock Camera
-        lockCameraTextView.setText(terminalDetailEntity.isLockCameraEnabled() ?
+        lockCameraTextView.setText(terminalDetailEntity.isCameraEnabled() ?
                 getString(R.string.terminal_lock_camera_enable) :
                 getString(R.string.terminal_lock_camera_disabled));
 
         lockCameraStatusWidget.setEnabled(true);
-        lockCameraStatusWidget.setChecked(!terminalDetailEntity.isLockScreenEnabled(), false);
+        lockCameraStatusWidget.setChecked(terminalDetailEntity.isScreenEnabled(), false);
         lockCameraStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
 
-                    showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockCameraStatus(childId, terminalId, false);
+                            getPresenter().switchLockCameraStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -460,10 +463,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     });
 
                 } else {
-                    showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockCameraStatus(childId, terminalId, true);
+                            getPresenter().switchLockCameraStatus(childId, terminalId, false);
                         }
 
                         @Override
@@ -475,22 +478,24 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             }
         });
 
+        Timber.d("Terminal Detail: terminalDetailEntity.isSettingsEnabled() -> %b",
+                terminalDetailEntity.isSettingsEnabled());
+
         // Settings
         settingsTextView.setText(terminalDetailEntity.isSettingsEnabled() ?
                 getString(R.string.terminal_settings_enable) :
                 getString(R.string.terminal_settings_disabled));
 
         settingsStatusWidget.setEnabled(true);
-        settingsStatusWidget.setChecked(!terminalDetailEntity.isSettingsEnabled(), false);
+        settingsStatusWidget.setChecked(terminalDetailEntity.isSettingsEnabled(), false);
         settingsStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-
-                    showConfirmationDialog(R.string.terminal_disable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_enable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchSettingsScreenStatus(childId, terminalId, false);
+                            getPresenter().switchSettingsScreenStatus(childId, terminalId, true);
                         }
 
                         @Override
@@ -500,10 +505,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                     });
 
                 } else {
-                    showConfirmationDialog(R.string.terminal_enable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    showConfirmationDialog(R.string.terminal_disable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchSettingsScreenStatus(childId, terminalId, true);
+                            getPresenter().switchSettingsScreenStatus(childId, terminalId, false);
                         }
 
                         @Override

@@ -184,6 +184,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
 
 
                 // App Not Allowed
+                appNotAllowed.setEnabled(true);
                 appNotAllowed.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -203,6 +204,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
                 });
 
                 // App Allowed
+                appAllowed.setEnabled(true);
                 appAllowed.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -224,6 +226,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
 
 
                 // App Per Scheduled
+                appPerScheduled.setEnabled(true);
                 appPerScheduled.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

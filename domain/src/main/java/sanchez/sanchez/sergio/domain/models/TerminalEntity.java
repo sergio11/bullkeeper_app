@@ -18,8 +18,8 @@ public class TerminalEntity implements Serializable {
     private String osVersion;
     private String sdkVersion;
     private boolean bedTimeEnabled;
-    private boolean lockScreenEnabled;
-    private boolean lockCameraEnabled;
+    private boolean screenEnabled;
+    private boolean cameraEnabled;
     private boolean settingsEnabled;
 
     public TerminalEntity(){}
@@ -37,15 +37,15 @@ public class TerminalEntity implements Serializable {
      * @param osVersion
      * @param sdkVersion
      * @param bedTimeEnabled
-     * @param lockScreenEnabled
-     * @param lockCameraEnabled
+     * @param screenEnabled
+     * @param cameraEnabled
      * @param settingsEnabled
      */
     public TerminalEntity(String identity, String appVersionCode, String appVersionName,
                           String codeName, String deviceName, String manufacturer,
                           String marketName, String model, String osVersion,
                           String sdkVersion, boolean bedTimeEnabled,
-                          boolean lockScreenEnabled, boolean lockCameraEnabled,
+                          boolean screenEnabled, boolean cameraEnabled,
                           boolean settingsEnabled) {
         this.identity = identity;
         this.appVersionCode = appVersionCode;
@@ -58,8 +58,8 @@ public class TerminalEntity implements Serializable {
         this.osVersion = osVersion;
         this.sdkVersion = sdkVersion;
         this.bedTimeEnabled = bedTimeEnabled;
-        this.lockScreenEnabled = lockScreenEnabled;
-        this.lockCameraEnabled = lockCameraEnabled;
+        this.screenEnabled = screenEnabled;
+        this.cameraEnabled = cameraEnabled;
         this.settingsEnabled = settingsEnabled;
     }
 
@@ -151,20 +151,20 @@ public class TerminalEntity implements Serializable {
         this.bedTimeEnabled = bedTimeEnabled;
     }
 
-    public boolean isLockScreenEnabled() {
-        return lockScreenEnabled;
+    public boolean isScreenEnabled() {
+        return screenEnabled;
     }
 
-    public void setLockScreenEnabled(boolean lockScreenEnabled) {
-        this.lockScreenEnabled = lockScreenEnabled;
+    public void setScreenEnabled(boolean screenEnabled) {
+        this.screenEnabled = screenEnabled;
     }
 
-    public boolean isLockCameraEnabled() {
-        return lockCameraEnabled;
+    public boolean isCameraEnabled() {
+        return cameraEnabled;
     }
 
-    public void setLockCameraEnabled(boolean lockCameraEnabled) {
-        this.lockCameraEnabled = lockCameraEnabled;
+    public void setCameraEnabled(boolean cameraEnabled) {
+        this.cameraEnabled = cameraEnabled;
     }
 
     public boolean isSettingsEnabled() {
@@ -189,8 +189,8 @@ public class TerminalEntity implements Serializable {
                 ", osVersion='" + osVersion + '\'' +
                 ", sdkVersion='" + sdkVersion + '\'' +
                 ", bedTimeEnabled=" + bedTimeEnabled +
-                ", lockScreenEnabled=" + lockScreenEnabled +
-                ", lockCameraEnabled=" + lockCameraEnabled +
+                ", screenEnabled=" + screenEnabled +
+                ", cameraEnabled=" + cameraEnabled +
                 ", settingsEnabled=" + settingsEnabled +
                 '}';
     }

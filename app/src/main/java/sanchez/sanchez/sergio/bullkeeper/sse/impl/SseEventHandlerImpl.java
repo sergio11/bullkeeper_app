@@ -14,10 +14,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
+import sanchez.sanchez.sergio.bullkeeper.core.events.model.impl.NoticeEvent;
 import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.AppUninstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.KidLocationUpdatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.kidRequestCreatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.sse.SseEventTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.AppUninstalledDTO;
@@ -269,6 +271,15 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                     body = context.getString(R.string.kid_request_notification_sos_description);
                     break;
             }
+
+            // Send Notification
+            localSystemNotification.sendNotification(
+                    new kidRequestCreatedEvent(
+                            kidRequestCreatedDTO.getIdentity(),
+                            kidRequestCreatedDTO.getTerminal(),
+                            kidRequestCreatedDTO.getType()
+                    )
+            );
 
             notificationHelper.showImportantNotification(title, body,
                     KidRequestDetailMvpActivity.getCallingIntent(context,

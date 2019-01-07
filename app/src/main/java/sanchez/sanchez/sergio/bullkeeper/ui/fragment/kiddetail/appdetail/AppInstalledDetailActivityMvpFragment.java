@@ -473,7 +473,7 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
         });
 
         switchAppStatusWidget.setEnabled(true);
-        switchAppStatusWidget.setChecked(appInstalledEntity.getDisabled(),
+        switchAppStatusWidget.setChecked(!appInstalledEntity.getDisabled(),
                 false);
         switchAppStatusWidget.setOnCheckedChangeListener(this);
 
@@ -550,27 +550,6 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
 
         if (isChecked) {
 
-            // Disable App
-            showConfirmationDialog(R.string.app_installed_disable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-
-                /**
-                 *
-                 * @param dialog
-                 */
-                @Override
-                public void onAccepted(DialogFragment dialog) {
-                    getPresenter().switchAppStatus(kid, terminal, app, false);
-                }
-
-                @Override
-                public void onRejected(DialogFragment dialog) {
-                    switchAppStatusWidget.setChecked(false, false);
-
-                }
-            });
-
-        } else {
-
             // Enable App
             showConfirmationDialog(R.string.app_installed_enable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
@@ -585,7 +564,30 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
 
                 @Override
                 public void onRejected(DialogFragment dialog) {
+                    switchAppStatusWidget.setChecked(false, false);
+                }
+            });
+
+
+
+        } else {
+
+            // Disable App
+            showConfirmationDialog(R.string.app_installed_disable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+                /**
+                 *
+                 * @param dialog
+                 */
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().switchAppStatus(kid, terminal, app, false);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {
                     switchAppStatusWidget.setChecked(true, false);
+
                 }
             });
 

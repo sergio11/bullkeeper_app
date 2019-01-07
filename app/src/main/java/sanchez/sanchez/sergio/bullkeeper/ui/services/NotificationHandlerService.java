@@ -150,7 +150,7 @@ public class NotificationHandlerService extends SupportService {
      * Registration Keys
      */
     private int silentNotificationRegisterKey,
-            notificationRegisterKey, signingNotificationKey, logoutNotificationKey = -1;
+            notificationRegisterKey, signingNotificationKey, logoutNotificationKey= -1;
 
     public NotificationHandlerService() { }
 

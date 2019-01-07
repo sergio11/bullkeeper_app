@@ -319,8 +319,8 @@
 
     <!-- Block Status -->
     <style name="BlockStatusSwitch">
-        <item name="colorControlActivated">@color/redDanger</item>
-        <item name="colorSwitchThumbNormal">@color/greenSuccess</item>
+        <item name="colorControlActivated">@color/greenSuccess</item>
+        <item name="colorSwitchThumbNormal">@color/redDanger</item>
     </style>
 
     <style name="CommonTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">

@@ -64,8 +64,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param deviceName
      * @param deviceId
      * @param bedTimeEnabled
-     * @param lockScreenEnabled
-     * @param lockCameraEnabled
+     * @param screenEnabled
+     * @param cameraEnabled
      * @param settingsEnabled
      * @param totalApps
      * @param totalSms
@@ -74,9 +74,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param lastTimeUsed
      * @param screenStatus
      */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean lockScreenEnabled,
-                             boolean lockCameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, String lastTimeUsed, String screenStatus) {
-        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled, lockScreenEnabled, lockCameraEnabled, settingsEnabled);
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, String lastTimeUsed, String screenStatus) {
+        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;

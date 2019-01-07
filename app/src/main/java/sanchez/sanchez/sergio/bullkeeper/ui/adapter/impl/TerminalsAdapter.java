@@ -90,13 +90,13 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
                     terminalEntity.getAppVersionName(), terminalEntity.getAppVersionCode()));
 
 
-            if(terminalEntity.isLockCameraEnabled())
+            if(!terminalEntity.isCameraEnabled())
                 cameraNotAllowedImageView.setVisibility(View.VISIBLE);
             else
                 cameraNotAllowedImageView.setVisibility(View.INVISIBLE);
 
 
-            if(terminalEntity.isLockScreenEnabled())
+            if(!terminalEntity.isScreenEnabled())
                 mobileScreenNotAllowedImageView.setVisibility(View.VISIBLE);
             else
                 mobileScreenNotAllowedImageView.setVisibility(View.INVISIBLE);

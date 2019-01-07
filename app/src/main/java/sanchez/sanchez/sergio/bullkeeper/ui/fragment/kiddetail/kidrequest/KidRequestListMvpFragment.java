@@ -22,8 +22,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.handler.IKidRequestEventVisitor;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.kidRequestCreatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -67,6 +70,12 @@ public class KidRequestListMvpFragment extends SupportMvpLCEFragment<KidRequestL
     @Inject
     protected Activity activity;
 
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
+
 
     /**
      * Views
@@ -89,6 +98,27 @@ public class KidRequestListMvpFragment extends SupportMvpLCEFragment<KidRequestL
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Kid Request Event Register Key
+     */
+    @State
+    protected int kidRequestEventRegisterKey;
+
+    /**
+     * kidRequestVisitor
+     */
+    private IKidRequestEventVisitor kidRequestVisitor = new IKidRequestEventVisitor(){
+        /**
+         *
+         * @param kidRequestCreatedEvent
+         */
+        @Override
+        public void visit(final kidRequestCreatedEvent kidRequestCreatedEvent) {
+            loadData();
+            showNoticeDialog(R.string.new_kid_request_created);
+        }
+    };
 
 
     /**
@@ -133,6 +163,27 @@ public class KidRequestListMvpFragment extends SupportMvpLCEFragment<KidRequestL
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
                 new SupportItemTouchHelper<KidRequestAdapter.KidRequestViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+    }
+
+    /**
+     * On Start
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        kidRequestEventRegisterKey = localSystemNotification.registerEventListener(
+                kidRequestCreatedEvent.class, kidRequestVisitor);
+    }
+
+    /**
+     * On Stop
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        localSystemNotification.unregisterEventListener(kidRequestEventRegisterKey);
     }
 
     /**

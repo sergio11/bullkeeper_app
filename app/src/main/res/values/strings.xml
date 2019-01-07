@@ -765,10 +765,10 @@
     <string name="terminal_features_title">Features</string>
     <string name="terminal_bed_time_enable">Bed Time mode is enabled</string>
     <string name="terminal_bed_time_disabled">Bed Time mode is disabled</string>
-    <string name="terminal_lock_screen_enable">Lock Screen is enabled</string>
-    <string name="terminal_lock_screen_disabled">Lock Screen is disabled</string>
-    <string name="terminal_lock_camera_enable">Lock Camera is enabled</string>
-    <string name="terminal_lock_camera_disabled">Lock Camera is disabled</string>
+    <string name="terminal_lock_screen_enable">Screen is enabled</string>
+    <string name="terminal_lock_screen_disabled">Screen is disabled</string>
+    <string name="terminal_lock_camera_enable">Camera is enabled</string>
+    <string name="terminal_lock_camera_disabled">Camera is disabled</string>
     <string name="terminal_settings_enable">Settings is enabled</string>
     <string name="terminal_settings_disabled">Settings is disabled</string>
 
@@ -887,6 +887,7 @@
     <string name="kid_request_registered_since" formatted="false">Request received %s</string>
     <string name="kid_request_title"></string>
     <string name="kid_request_title_default" formatted="false"></string>
+    <string name="new_kid_request_created">New Kid Request received</string>
     <string name="kid_request_location_address">Location of the request</string>
 
     <string name="kid_request_detail_title">Kid Request Detail</string>

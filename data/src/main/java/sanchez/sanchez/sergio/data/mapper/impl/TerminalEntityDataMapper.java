@@ -31,8 +31,8 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setOsVersion(originModel.getOsVersion());
         terminalEntity.setSdkVersion(originModel.getSdkVersion());
         terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
-        terminalEntity.setLockCameraEnabled(originModel.isLockCameraEnabled());
-        terminalEntity.setLockScreenEnabled(originModel.isLockScreenEnabled());
+        terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
+        terminalEntity.setScreenEnabled(originModel.isScreenEnabled());
         terminalEntity.setSettingsEnabled(originModel.isSettingsEnabled());
         return terminalEntity;
     }
@@ -57,8 +57,8 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setModel(originModel.getOsVersion());
         terminalDTO.setOsVersion(originModel.getOsVersion());
         terminalDTO.setSdkVersion(originModel.getSdkVersion());
-        terminalDTO.setLockCameraEnabled(originModel.isLockCameraEnabled());
-        terminalDTO.setLockScreenEnabled(originModel.isLockScreenEnabled());
+        terminalDTO.setCameraEnabled(originModel.isCameraEnabled());
+        terminalDTO.setScreenEnabled(originModel.isScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalDTO.setSettingsEnabled(originModel.isSettingsEnabled());
         return terminalDTO;
