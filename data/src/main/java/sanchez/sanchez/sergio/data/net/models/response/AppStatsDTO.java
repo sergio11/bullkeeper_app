@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.data.net.models.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.util.Date;
 /**
  * App Stats DTO
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class AppStatsDTO implements Serializable {
 
     /**
@@ -47,6 +49,18 @@ public final class AppStatsDTO implements Serializable {
     private String packageName;
 
     /**
+     * Package Name
+     */
+    @JsonProperty("iconEncodedString")
+    private String iconEncodedString;
+
+    /**
+     * App Name
+     */
+    @JsonProperty("appName")
+    private String appName;
+
+    /**
      * Kid
      */
     @JsonProperty("kid")
@@ -60,25 +74,15 @@ public final class AppStatsDTO implements Serializable {
 
     public AppStatsDTO(){}
 
-    /**
-     *
-     * @param identity
-     * @param firstTime
-     * @param lastTime
-     * @param lastTimeUsed
-     * @param totalTimeInForeground
-     * @param packageName
-     * @param kid
-     * @param terminal
-     */
-    public AppStatsDTO(String identity, Date firstTime, Date lastTime, Date lastTimeUsed,
-                       Long totalTimeInForeground, String packageName, String kid, String terminal) {
+    public AppStatsDTO(String identity, Date firstTime, Date lastTime, Date lastTimeUsed, Long totalTimeInForeground, String packageName, String iconEncodedString, String appName, String kid, String terminal) {
         this.identity = identity;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
         this.lastTimeUsed = lastTimeUsed;
         this.totalTimeInForeground = totalTimeInForeground;
         this.packageName = packageName;
+        this.iconEncodedString = iconEncodedString;
+        this.appName = appName;
         this.kid = kid;
         this.terminal = terminal;
     }
@@ -131,6 +135,22 @@ public final class AppStatsDTO implements Serializable {
         this.packageName = packageName;
     }
 
+    public String getIconEncodedString() {
+        return iconEncodedString;
+    }
+
+    public void setIconEncodedString(String iconEncodedString) {
+        this.iconEncodedString = iconEncodedString;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
     public String getKid() {
         return kid;
     }
@@ -151,11 +171,13 @@ public final class AppStatsDTO implements Serializable {
     public String toString() {
         return "AppStatsDTO{" +
                 "identity='" + identity + '\'' +
-                ", firstTime='" + firstTime + '\'' +
-                ", lastTime='" + lastTime + '\'' +
-                ", lastTimeUsed='" + lastTimeUsed + '\'' +
+                ", firstTime=" + firstTime +
+                ", lastTime=" + lastTime +
+                ", lastTimeUsed=" + lastTimeUsed +
                 ", totalTimeInForeground=" + totalTimeInForeground +
                 ", packageName='" + packageName + '\'' +
+                ", iconEncodedString='" + iconEncodedString + '\'' +
+                ", appName='" + appName + '\'' +
                 ", kid='" + kid + '\'' +
                 ", terminal='" + terminal + '\'' +
                 '}';

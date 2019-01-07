@@ -39,6 +39,16 @@ public final class AppStatsEntity implements Serializable {
     private String packageName;
 
     /**
+     * App Name
+     */
+    private String appName;
+
+    /**
+     * Icon Encoded
+     */
+    private String iconEncodedString;
+
+    /**
      * Kid
      */
     private String kid;
@@ -51,24 +61,15 @@ public final class AppStatsEntity implements Serializable {
 
     public AppStatsEntity(){}
 
-    /**
-     *
-     * @param identity
-     * @param firstTime
-     * @param lastTime
-     * @param lastTimeUsed
-     * @param totalTimeInForeground
-     * @param packageName
-     * @param kid
-     * @param terminal
-     */
-    public AppStatsEntity(String identity, Date firstTime, Date lastTime, Date lastTimeUsed, Long totalTimeInForeground, String packageName, String kid, String terminal) {
+    public AppStatsEntity(String identity, Date firstTime, Date lastTime, Date lastTimeUsed, Long totalTimeInForeground, String packageName, String appName, String iconEncodedString, String kid, String terminal) {
         this.identity = identity;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
         this.lastTimeUsed = lastTimeUsed;
         this.totalTimeInForeground = totalTimeInForeground;
         this.packageName = packageName;
+        this.appName = appName;
+        this.iconEncodedString = iconEncodedString;
         this.kid = kid;
         this.terminal = terminal;
     }
@@ -121,6 +122,22 @@ public final class AppStatsEntity implements Serializable {
         this.packageName = packageName;
     }
 
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public String getIconEncodedString() {
+        return iconEncodedString;
+    }
+
+    public void setIconEncodedString(String iconEncodedString) {
+        this.iconEncodedString = iconEncodedString;
+    }
+
     public String getKid() {
         return kid;
     }
@@ -146,6 +163,8 @@ public final class AppStatsEntity implements Serializable {
                 ", lastTimeUsed=" + lastTimeUsed +
                 ", totalTimeInForeground=" + totalTimeInForeground +
                 ", packageName='" + packageName + '\'' +
+                ", appName='" + appName + '\'' +
+                ", iconEncodedString='" + iconEncodedString + '\'' +
                 ", kid='" + kid + '\'' +
                 ", terminal='" + terminal + '\'' +
                 '}';

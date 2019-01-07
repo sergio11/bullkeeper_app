@@ -123,15 +123,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
                 <!-- Chart Title -->
                 <TextView
                     android:id="@+id/chartTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CommonStrongText"
+                    style="@style/CommonStrongText.Big"
                     android:textColor="@color/cyanBrilliant"
+                    android:layout_margin="@dimen/common_margin"
                     android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:text="@string/kid_detail_more_current_information" />
+
+                <ImageView
+                    android:id="@+id/refreshData"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="@dimen/common_margin"
+                    android:src="@drawable/sync_alt_solid"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/content_not_be_loaded"/>
 
                 <!--Chart -->
                 <com.github.mikephil.charting.charts.BarChart

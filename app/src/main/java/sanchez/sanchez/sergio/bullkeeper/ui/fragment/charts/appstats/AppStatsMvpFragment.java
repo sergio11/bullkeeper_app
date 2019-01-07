@@ -1,11 +1,16 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.chart.SupportBarChartMvpFragment;
@@ -255,13 +261,7 @@ public class AppStatsMvpFragment
      * @param h
      */
     @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-        /*final int dimensionIdx = (int)e.getX();
-
-        navigator.showFourDimensionsDialog((AppCompatActivity)getActivity(),
-                dimensionIdx, appStatsLabel[dimensionIdx]);*/
-    }
+    public void onValueSelected(Entry e, Highlight h) {}
 
     /**
      * On Data Avaliable
@@ -269,14 +269,23 @@ public class AppStatsMvpFragment
      */
     @Override
     public void onDataAvaliable(List<AppStatsEntity> chartData) {
+        super.onDataAvaliable(chartData);
         Preconditions.checkNotNull(chartData, "Chart Data can not be null");
 
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < TOTAL_APPS_TO_SHOW; i++) {
             if(chartData.size() > i) {
                 final AppStatsEntity appStatsEntity = chartData.get(i);
-                entries.add(new BarEntry(i, appStatsEntity.getTotalTimeInForeground()));
-                appStatsLabel[i] = appStatsEntity.getPackageName();
+                final BarEntry entry = new BarEntry(i, appStatsEntity.getTotalTimeInForeground()/1000/60);
+                if(appUtils.isValidString(appStatsEntity.getIconEncodedString())) {
+                    byte[] decodedString = Base64.decode(appStatsEntity.getIconEncodedString(), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    entry.setIcon(new BitmapDrawable(getResources(), decodedByte));
+                    appStatsLabel[i] = "";
+                } else {
+                    appStatsLabel[i] = appStatsEntity.getAppName();
+                }
+                entries.add(entry);
             } else {
                 entries.add(new BarEntry(i, 0));
                 appStatsLabel[i] = "0";
@@ -305,5 +314,13 @@ public class AppStatsMvpFragment
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    /**
+     * Refresh Data
+     */
+    @OnClick(R.id.refreshData)
+    protected void onRefreshDataClicked(){
+        getPresenter().loadData(kid, terminal);
     }
 }

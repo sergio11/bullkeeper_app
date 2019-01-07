@@ -910,6 +910,6 @@
     <!-- App Stats -->
     <string name="kid_detail_app_stats_title">Most used applications</string>
     <string name="kid_detail_app_stats_description">The most used applications in this terminal</string>
-    <string name="kid_detail_more_current_information">More current information</string>
+    <string name="kid_detail_more_current_information">More current information (in minutes)</string>
 
 </resources>

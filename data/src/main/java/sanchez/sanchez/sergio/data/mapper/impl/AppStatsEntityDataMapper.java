@@ -30,6 +30,8 @@ public final class AppStatsEntityDataMapper
         appStatsEntity.setPackageName(originModel.getPackageName());
         appStatsEntity.setTerminal(originModel.getTerminal());
         appStatsEntity.setTotalTimeInForeground(originModel.getTotalTimeInForeground());
+        appStatsEntity.setAppName(originModel.getAppName());
+        appStatsEntity.setIconEncodedString(originModel.getIconEncodedString());
         return appStatsEntity;
     }
 
@@ -51,6 +53,8 @@ public final class AppStatsEntityDataMapper
         appStatsDTO.setPackageName(originModel.getPackageName());
         appStatsDTO.setTerminal(originModel.getTerminal());
         appStatsDTO.setTotalTimeInForeground(originModel.getTotalTimeInForeground());
+        appStatsDTO.setAppName(originModel.getAppName());
+        appStatsDTO.setIconEncodedString(originModel.getIconEncodedString());
         return appStatsDTO;
     }
 }

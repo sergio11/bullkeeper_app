@@ -527,7 +527,8 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     @Override
     public void onAppStatusChangedSuccessfully() {
         showNoticeDialog(R.string.app_installed_status_changed_successfully);
-        switchAppRulesStatus(switchAppStatusWidget.isChecked());
+        final boolean isDisabled = !switchAppStatusWidget.isChecked();
+        switchAppRulesStatus(isDisabled);
     }
 
     /**
