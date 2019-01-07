@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.fragment.charts.appstats.AppStatsMvpFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/app_stats_icon"
+                        android:layout_margin="@dimen/common_margin"
+                        android:contentDescription="@string/content_not_be_loaded"/>
+
+                    <!-- Title -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/kid_detail_app_stats_title"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:gravity="start|center_vertical"
+                        android:orientation="vertical">
+
+                        <!-- Description -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/CommonStrongText.Medium"
+                            android:textColor="@color/cyanBrilliant"
+                            android:text="@string/kid_detail_app_stats_description"/>
+
+                        <View
+                            android:layout_width="@dimen/common_divider_small"
+                            android:layout_height="@dimen/common_divider_height"
+                            android:layout_margin="10dp"
+                            android:background="@color/cyanBrilliant"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".4"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/common_padding">
+
+                        <!-- Terminals Spinner -->
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/terminalsSpinner"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/common_margin"
+                            android:theme="@style/CommonSpinner"
+                            android:layout_alignParentBottom="true"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="10dp">
+
+            <!-- Chart Data Container -->
+            <RelativeLayout
+                android:id="@+id/chartDataContainer"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Chart Title -->
+                <TextView
+                    android:id="@+id/chartTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText"
+                    android:textColor="@color/cyanBrilliant"
+                    android:textStyle="bold"
+                    android:text="@string/kid_detail_more_current_information" />
+
+                <!--Chart -->
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_margin="@dimen/common_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/chartTitle"/>
+
+            </RelativeLayout>
+
+            <!-- No Results Found -->
+            <include
+                layout="@layout/support_chart_no_results_found"
+                android:id="@+id/noResultsFound"/>
+
+            <!-- Loading Results -->
+            <include layout="@layout/support_chart_loading_results"
+                android:id="@+id/loadingResults" />
+
+            <!-- Error Results -->
+            <include layout="@layout/support_chart_error_results"
+                android:id="@+id/errorResultsView" />
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

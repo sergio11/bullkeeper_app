@@ -460,6 +460,8 @@
     <string name="dimensions_tab">Dimensions</string>
     <!-- Alerts Tab -->
     <string name="alerts_tab">Alerts</string>
+    <!-- App Stats -->
+    <string name="app_stats_tab">App Stats</string>
     <!-- Kid Request Tab -->
     <string name="kid_request_tab">Request</string>
     <!-- Relations Tab -->
@@ -900,5 +902,10 @@
     <string name="service_not_available">Service Not Avaliable</string>
     <string name="invalid_lat_long_used">Invalid Lat Long Used</string>
     <string name="no_address_found">No Address Found</string>
+
+    <!-- App Stats -->
+    <string name="kid_detail_app_stats_title">Most used applications</string>
+    <string name="kid_detail_app_stats_description">The most used applications in this terminal</string>
+    <string name="kid_detail_more_current_information">More current information</string>
 
 </resources>

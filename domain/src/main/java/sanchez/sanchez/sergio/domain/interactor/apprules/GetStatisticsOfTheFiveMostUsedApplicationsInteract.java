@@ -1,15 +1,15 @@
 package sanchez.sanchez.sergio.domain.interactor.apprules;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 
 /**
@@ -97,6 +97,36 @@ public final class GetStatisticsOfTheFiveMostUsedApplicationsInteract
             Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
 
             return new Params(kid, terminal);
+        }
+    }
+
+    /**
+     * Get Statistics Of The Five Most Used Applications Api Error
+     */
+    public enum GetStatisticsOfTheFiveMostUsedApplicationsApiErrors
+            implements ISupportVisitable<GetStatisticsOfTheFiveMostUsedApplicationsApiErrors
+                        .IGetStatisticsOfTheFiveMostUsedApplicationsApiErrorsApiErrorsVisitor> {
+
+        /**
+         * No App Stats Found
+         */
+        NO_APP_STATS_FOUND(){
+            @Override
+            public <E> void accept(final IGetStatisticsOfTheFiveMostUsedApplicationsApiErrorsApiErrorsVisitor visitor, E data) {
+                visitor.visitNoAppStatsFound(visitor);
+            }
+        };
+
+        /**
+         * Get Statistics Of The Five Most Used Applications Api Errors Visitor
+         */
+        public interface IGetStatisticsOfTheFiveMostUsedApplicationsApiErrorsApiErrorsVisitor extends ISupportVisitor {
+
+            /**
+             * Visit No App Stats Found
+             * @param apiErrorsVisitor
+             */
+            void visitNoAppStatsFound(final IGetStatisticsOfTheFiveMostUsedApplicationsApiErrorsApiErrorsVisitor apiErrorsVisitor);
         }
     }
 }

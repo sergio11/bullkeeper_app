@@ -80,7 +80,6 @@ public interface StatsComponent extends ActivityComponent {
      */
     void inject(final RelationsMvpFragment relationsMvpFragment);
 
-
     /**
      * kids Results Activity Presenter
      * @return

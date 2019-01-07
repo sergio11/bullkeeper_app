@@ -27,12 +27,12 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerMyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
@@ -51,7 +51,7 @@ import sanchez.sanchez.sergio.domain.models.TerminalEntity;
  */
 public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPresenter, IMyKidsDetailView>
         implements HasComponent<MyKidsComponent>, IMyKidsDetailActivityHandler
-        , IMyKidsDetailView, FourDimensionsMvpFragment.OnFourDimensionsListener {
+        , IMyKidsDetailView {
 
     /**
      * Args
@@ -100,12 +100,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * Unselected tab icons
      */
     private int[] unselectedTabIcons = {
-            R.drawable.dimensions_tab_cyan,
             R.drawable.important_alerts_tab_cyan,
             R.drawable.kid_request_cyan_tab,
             R.drawable.mobile_cyan_tab,
             R.drawable.scheduled_blocks,
             R.drawable.app_rules_tab_cyan,
+            R.drawable.dimensions_tab_cyan,
             R.drawable.sms_tab_cyan,
             R.drawable.calls_tab_cyan,
             R.drawable.contacts_tab_cyan,
@@ -117,12 +117,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * Selected Tab icons
      */
     private int[] selectedTabIcons = {
-            R.drawable.dimensions_tab_dark_cyan,
             R.drawable.important_alerts_tab_dark_cyan,
             R.drawable.kid_request_dark_tab,
             R.drawable.mobile_dark_tab,
             R.drawable.scheduled_blocks_dark,
             R.drawable.app_rules_tab_dark,
+            R.drawable.dimensions_tab_dark_cyan,
             R.drawable.sms_tab_dark,
             R.drawable.calls_tab_dark_cyan,
             R.drawable.contacts_tab_dark_cyan,
@@ -496,15 +496,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         navigatorImpl.navigateToKidRequestDetail(this, kid, identity);
     }
 
-    /**
-     * On Dimensions Selected
-     * @param dimensionIdx
-     * @param dimensionValue
-     */
-    @Override
-    public void onDimensionsSelected(int dimensionIdx, final String dimensionValue) {
-        showShortMessage("Dimensions " + dimensionIdx + " -> " + dimensionValue);
-    }
 
     /**
      * Setup Sections Pager Adapter
@@ -611,12 +602,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final static int DIMENSIONS_TAB = 0;
-        private final static int ALERTS_TAB = 1;
-        private final static int KID_REQUEST_TAB = 2;
-        private final static int TERMINALS_TAB = 3;
-        private final static int SCHEDULED_BLOCKS_TAB = 4;
-        private final static int APP_RULES_TAB = 5;
+        private final static int ALERTS_TAB = 0;
+        private final static int KID_REQUEST_TAB = 1;
+        private final static int TERMINALS_TAB = 2;
+        private final static int SCHEDULED_BLOCKS_TAB = 3;
+        private final static int APP_RULES_TAB = 4;
+        private final static int APP_STATS_TAB = 5;
         private final static int SMS_LIST_TAB = 6;
         private final static int CALLS_LIST_TAB = 7;
         private final static int CONTACTS_LIST_TAB = 8;
@@ -639,8 +630,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case DIMENSIONS_TAB:
-                    return FourDimensionsMvpFragment.newInstance(kidIdentity);
                 case ALERTS_TAB:
                     return ImportantAlertsMvpFragment.newInstance(kidIdentity);
                 case KID_REQUEST_TAB:
@@ -651,6 +640,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return ScheduledBlocksMvpFragment.newInstance(kidIdentity);
                 case APP_RULES_TAB:
                     return AppRulesMvpFragment.newInstance(kidIdentity, terminalItemsList);
+                case APP_STATS_TAB:
+                    return AppStatsMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case SMS_LIST_TAB:
                     return SmsListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case CALLS_LIST_TAB:
@@ -683,8 +674,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case DIMENSIONS_TAB:
-                    return getString(R.string.dimensions_tab);
                 case ALERTS_TAB:
                     return getString(R.string.alerts_tab);
                 case KID_REQUEST_TAB:
@@ -695,6 +684,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.scheduled_blocks_tab);
                 case APP_RULES_TAB:
                     return getString(R.string.app_rules_title);
+                case APP_STATS_TAB:
+                    return getString(R.string.app_stats_tab);
                 case SMS_LIST_TAB:
                     return getString(R.string.sms_list_title_tab);
                 case CALLS_LIST_TAB:
