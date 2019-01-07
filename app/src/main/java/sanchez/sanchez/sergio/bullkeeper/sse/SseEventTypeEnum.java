@@ -21,7 +21,24 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
         public <E> void accept(ISseEventsVisitor visitor, E data) {
             visitor.visitCurrentLocationUpdateEvent(this, (String) data);
         }
-    };
+    },
+
+    // New App Installed Event
+    NEW_APP_INSTALLED_EVENT(){
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitNewAppInstalledEvent(this, (String) data);
+        }
+    },
+
+    // Uninstall App Event
+    UNINSTALL_APP_EVENT(){
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitUninstallAppEvent(this, (String) data);
+        }
+    }
+    ;
 
     /**
      * Sse Events Visitor
@@ -40,6 +57,20 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
          * @param message
          */
         void visitCurrentLocationUpdateEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit New App Installed Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitNewAppInstalledEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit Uninstall App Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitUninstallAppEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
     }
 
 }

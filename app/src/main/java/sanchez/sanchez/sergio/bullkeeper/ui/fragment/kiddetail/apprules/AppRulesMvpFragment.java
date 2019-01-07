@@ -20,14 +20,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpSearchLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.handler.IAppEventVisitor;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AppUninstalledEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AppRulesAdapter;
@@ -75,6 +80,12 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
      */
     @Inject
     protected Activity activity;
+
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
 
 
     /**
@@ -148,6 +159,95 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
     protected int currentTerminalPos = 0;
 
     /**
+     * New App Installed Event Register Key
+     */
+    @State
+    protected int newAppInstalledEventRegisterKey;
+
+    /**
+     * App Uninstalled Event Register Key
+     */
+    @State
+    protected int appUninstalledEventRegisterKey;
+
+
+    /**
+     * App Event Visitor
+     */
+    private IAppEventVisitor appEventVisitor = new IAppEventVisitor() {
+
+        /**
+         *
+         * @param newAppInstalledEvent
+         */
+        @Override
+        public void visit(final NewAppInstalledEvent newAppInstalledEvent) {
+            Preconditions.checkNotNull(newAppInstalledEvent, "App Installed Event can not be null");
+
+            if(appUtils.isValidString(newAppInstalledEvent.getTerminal()) &&
+                    newAppInstalledEvent.getTerminal().equals(terminalIdentity)) {
+
+                final AppInstalledEntity appInstalledEntity = new AppInstalledEntity();
+                appInstalledEntity.setIdentity(newAppInstalledEvent.getIdentity());
+                appInstalledEntity.setDisabled(newAppInstalledEvent.getDisabled());
+                appInstalledEntity.setIconEncodedString(newAppInstalledEvent.getIconEncodedString());
+                appInstalledEntity.setVersionName(newAppInstalledEvent.getVersionName());
+                appInstalledEntity.setVersionCode(newAppInstalledEvent.getVersionCode());
+                appInstalledEntity.setLastUpdateTime(newAppInstalledEvent.getLastUpdateTime());
+                appInstalledEntity.setFirstInstallTime(newAppInstalledEvent.getFirstInstallTime());
+                appInstalledEntity.setPackageName(newAppInstalledEvent.getPackageName());
+                appInstalledEntity.setAppName(newAppInstalledEvent.getAppName());
+                try {
+                    appInstalledEntity.setAppRuleEnum(AppRuleEnum.valueOf(newAppInstalledEvent.getAppRule()));
+                }catch(final Exception ex) {
+                    appInstalledEntity.setAppRuleEnum(AppRuleEnum.PER_SCHEDULER);
+                }
+
+                recyclerViewAdapter.getData().add(appInstalledEntity);
+                recyclerViewAdapter.notifyDataSetChanged();
+
+                showNoticeDialog(String.format(Locale.getDefault(),
+                        getString(R.string.new_app_installed_event_dialog),
+                        appInstalledEntity.getAppName()));
+            }
+
+        }
+
+        /**
+         *
+         * @param appUninstalledEvent
+         */
+        @Override
+        public void visit(AppUninstalledEvent appUninstalledEvent) {
+            Preconditions.checkNotNull(appUninstalledEvent, "App Uninstalled Event can not be null");
+
+            if(appUtils.isValidString(appUninstalledEvent.getTerminal()) &&
+                    appUninstalledEvent.getTerminal().equals(terminalIdentity)) {
+
+                if (appUtils.isValidString(appUninstalledEvent.getIdentity())) {
+
+                    for (int i = 0; i < recyclerViewAdapter.getData().size(); i++) {
+                        final AppInstalledEntity appInstalledEntity = recyclerViewAdapter.getData().get(i);
+
+                        if (appInstalledEntity.getIdentity().equals(appUninstalledEvent.getIdentity())) {
+                            recyclerViewAdapter.removeItem(i);
+                            recyclerViewAdapter.notifyItemRemoved(i);
+                            showNoticeDialog(String.format(Locale.getDefault(),
+                                    getString(R.string.app_uninstalled_event_dialog),
+                                    appInstalledEntity.getAppName()));
+                            break;
+                        }
+
+                    }
+
+
+                }
+            }
+
+        }
+    };
+
+    /**
      *
      */
     public AppRulesMvpFragment() {
@@ -201,6 +301,30 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
+    }
+
+    /**
+     * On Start
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        newAppInstalledEventRegisterKey = localSystemNotification
+                .registerEventListener(NewAppInstalledEvent.class, appEventVisitor);
+
+        appUninstalledEventRegisterKey = localSystemNotification
+                .registerEventListener(AppUninstalledEvent.class, appEventVisitor);
+    }
+
+    /**
+     * On Stop
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        localSystemNotification.unregisterEventListener(newAppInstalledEventRegisterKey);
+        localSystemNotification.unregisterEventListener(appUninstalledEventRegisterKey);
     }
 
     /**
@@ -408,6 +532,14 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
+
+    /**
+     * On Refresh App Data Clicked
+     */
+    @OnClick(R.id.refreshAppData)
+    protected void onRefreshAppDataClicked() {
+        getPresenter().loadData();
+    }
 
     /**
      * App Rule Change

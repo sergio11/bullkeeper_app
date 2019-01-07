@@ -101,14 +101,25 @@
                     <!-- Search View -->
                     <android.support.v7.widget.SearchView
                         android:id="@+id/searchView"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:iconifiedByDefault="false"
                         app:searchIcon="@drawable/search_cyan_solid_90"
                         app:searchHintIcon="@drawable/search_cyan_solid_90"
                         app:closeIcon="@drawable/times_solid_cyan_40"
-                        android:layout_alignParentEnd="true"
+                        android:layout_toStartOf="@id/refreshAppData"
                         android:layout_alignParentTop="true"/>
+
+                    <!-- Refresh App Data -->
+                    <ImageView
+                        android:id="@+id/refreshAppData"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/sync_alt_solid"
+                        android:layout_margin="@dimen/common_margin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:contentDescription="@string/content_not_be_loaded"/>
 
                     <!-- Terminals Spinner -->
                     <android.support.v7.widget.AppCompatSpinner

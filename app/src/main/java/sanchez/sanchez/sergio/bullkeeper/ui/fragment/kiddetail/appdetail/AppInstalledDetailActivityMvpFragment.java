@@ -15,12 +15,19 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AppInstalledComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.handler.IAppEventVisitor;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AppUninstalledEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.IAppDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
@@ -41,6 +48,20 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     public static String KID_ID_ARG = "KID_ID_ARG";
     public static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
     public static String APP_ID_ARG = "APP_ID_ARG";
+
+
+    /**
+     * Dependencies
+     * =========================
+     */
+
+
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
+
 
 
     /**
@@ -150,6 +171,48 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     @State
     protected AppRuleEnum requestAppRuleEnum;
 
+
+    /**
+     * App Uninstalled Event Register Key
+     */
+    @State
+    protected int appUninstalledEventRegisterKey;
+
+
+    /**
+     * Kid Location Event Visitor
+     */
+    private IAppEventVisitor appEventVisitor = new IAppEventVisitor() {
+
+        /**
+         *
+         * @param newAppInstalledEvent
+         */
+        @Override
+        public void visit(NewAppInstalledEvent newAppInstalledEvent) { }
+
+        /**
+         *
+         * @param appUninstalledEvent
+         */
+        @Override
+        public void visit(AppUninstalledEvent appUninstalledEvent) {
+
+            if(appUtils.isValidString(appUninstalledEvent.getIdentity()) &&
+                    appUninstalledEvent.getIdentity().equals(app)) {
+
+                showNoticeDialog(R.string.app_uninstalled_event_default_dialog, new NoticeDialogFragment.NoticeDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        activityHandler.closeActivity();
+                    }
+                });
+            }
+
+        }
+    };
+
+
     public AppInstalledDetailActivityMvpFragment() { }
 
     /**
@@ -214,6 +277,25 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
          * Set On Checked Change Listener
          */
         switchAppStatusWidget.setOnCheckedChangeListener(this);
+    }
+
+    /**
+     * On Start
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        appUninstalledEventRegisterKey = localSystemNotification
+                .registerEventListener(AppUninstalledEvent.class, appEventVisitor);
+    }
+
+    /**
+     * On Stop
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        localSystemNotification.unregisterEventListener(appUninstalledEventRegisterKey);
     }
 
     /**

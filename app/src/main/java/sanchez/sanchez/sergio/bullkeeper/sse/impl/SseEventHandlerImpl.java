@@ -15,11 +15,15 @@ import okhttp3.Response;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AppUninstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.KidLocationUpdatedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.sse.SseEventTypeEnum;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.AppUninstalledDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.CurrentLocationUpdateDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.KidRequestCreatedDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.NewAppInstalledDTO;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequestDetailMvpActivity;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.RequestTypeEnum;
@@ -44,11 +48,6 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
      * Api End Point Helper
      */
     private ApiEndPointsHelper apiEndPointsHelper;
-
-    /**
-     * Ok Http Client
-     */
-    private OkHttpClient okHttpClient;
 
     /**
      * Preference Repository
@@ -99,7 +98,6 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             final ILocalSystemNotification localSystemNotification) {
         this.context = context;
         this.apiEndPointsHelper = apiEndPointsHelper;
-        this.okHttpClient = okHttpClient;
         this.preferenceRepository = preferenceRepository;
         this.objectMapper = objectMapper;
         this.notificationHelper = notificationHelper;
@@ -311,5 +309,81 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Visit New App Installed Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitNewAppInstalledEvent(final SseEventTypeEnum sseEventTypeEnum,
+                                          final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final NewAppInstalledDTO newAppInstalledDTO =
+                    objectMapper.readValue(message, NewAppInstalledDTO.class);
+
+            // Send Notification
+            localSystemNotification.sendNotification(
+                    new NewAppInstalledEvent(
+                            newAppInstalledDTO.getIdentity(),
+                            newAppInstalledDTO.getPackageName(),
+                            newAppInstalledDTO.getFirstInstallTime(),
+                            newAppInstalledDTO.getLastUpdateTime(),
+                            newAppInstalledDTO.getVersionName(),
+                            newAppInstalledDTO.getVersionCode(),
+                            newAppInstalledDTO.getAppName(),
+                            newAppInstalledDTO.getAppRule(),
+                            newAppInstalledDTO.getIconEncodedString(),
+                            newAppInstalledDTO.getDisabled(),
+                            newAppInstalledDTO.getTerminal()
+                    )
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Visit Uninstall App Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitUninstallAppEvent(final SseEventTypeEnum sseEventTypeEnum,
+                                       final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final AppUninstalledDTO appUninstalledDTO =
+                    objectMapper.readValue(message, AppUninstalledDTO.class);
+
+            // Send Notification
+            localSystemNotification.sendNotification(
+                    new AppUninstalledEvent(
+                            appUninstalledDTO.getIdentity(),
+                            appUninstalledDTO.getPackageName(),
+                            appUninstalledDTO.getFirstInstallTime(),
+                            appUninstalledDTO.getLastUpdateTime(),
+                            appUninstalledDTO.getVersionName(),
+                            appUninstalledDTO.getVersionCode(),
+                            appUninstalledDTO.getAppName(),
+                            appUninstalledDTO.getAppRule(),
+                            appUninstalledDTO.getIconEncodedString(),
+                            appUninstalledDTO.getDisabled(),
+                            appUninstalledDTO.getTerminal()
+                    )
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
