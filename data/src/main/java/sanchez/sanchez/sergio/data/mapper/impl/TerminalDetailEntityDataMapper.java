@@ -47,6 +47,11 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
         terminalEntity.setScreenEnabled(originModel.isScreenEnabled());
         terminalEntity.setSettingsEnabled(originModel.isSettingsEnabled());
+        terminalEntity.setLocationPermissionEnabled(originModel.isLocationPermissionEnabled());
+        terminalEntity.setStoragePermissionEnabled(originModel.isStoragePermissionEnabled());
+        terminalEntity.setCallsHistoryPermissionEnabled(originModel.isCallsHistoryPermissionEnabled());
+        terminalEntity.setContactsListPermissionEnabled(originModel.isContactsListPermissionEnabled());
+        terminalEntity.setTextMessagePermissionEnabled(originModel.isTextMessagePermissionEnabled());
         return terminalEntity;
     }
 
@@ -79,6 +84,11 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setScreenEnabled(originModel.isScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalDTO.setSettingsEnabled(originModel.isSettingsEnabled());
+        terminalDTO.setLocationPermissionEnabled(originModel.isLocationPermissionEnabled());
+        terminalDTO.setStoragePermissionEnabled(originModel.isStoragePermissionEnabled());
+        terminalDTO.setCallsHistoryPermissionEnabled(originModel.isCallsHistoryPermissionEnabled());
+        terminalDTO.setContactsListPermissionEnabled(originModel.isContactsListPermissionEnabled());
+        terminalDTO.setTextMessagePermissionEnabled(originModel.isTextMessagePermissionEnabled());
         return terminalDTO;
     }
 }

@@ -143,6 +143,67 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     @BindView(R.id.settingsStatusWidget)
     protected SupportSwitchCompat settingsStatusWidget;
 
+
+    /**
+     * Location Permission Status Widget
+     */
+    @BindView(R.id.locationPermissionStatusWidget)
+    protected SupportSwitchCompat locationPermissionStatusWidget;
+
+    /**
+     * Location Permission Text View
+     */
+    @BindView(R.id.locationPermissionTextView)
+    protected TextView locationPermissionTextView;
+
+    /**
+     * Call History Permission Status Widget
+     */
+    @BindView(R.id.callHistoryPermissionStatusWidget)
+    protected SupportSwitchCompat callHistoryPermissionStatusWidget;
+
+    /**
+     * Call History Permission Text View
+     */
+    @BindView(R.id.callHistoryPermissionTextView)
+    protected TextView callHistoryPermissionTextView;
+
+    /**
+     * Contacts List Permission Status Widget
+     */
+    @BindView(R.id.contactsListPermissionStatusWidget)
+    protected SupportSwitchCompat contactsListPermissionStatusWidget;
+
+    /**
+     * Contacts List Permission Text View
+     */
+    @BindView(R.id.contactsListPermissionTextView)
+    protected TextView contactsListPermissionTextView;
+
+    /**
+     * Text Message Permission Status Widget
+     */
+    @BindView(R.id.textMessagePermissionStatusWidget)
+    protected SupportSwitchCompat textMessagePermissionStatusWidget;
+
+    /**
+     * Text Message Permission Text View
+     */
+    @BindView(R.id.textMessagePermissionTextView)
+    protected TextView textMessagePermissionTextView;
+
+    /**
+     * Storage Permission Status Widget
+     */
+    @BindView(R.id.storagePermissionStatusWidget)
+    protected SupportSwitchCompat storagePermissionStatusWidget;
+
+    /**
+     * Storage Permission Text View
+     */
+    @BindView(R.id.storagePermissionTextView)
+    protected TextView storagePermissionTextView;
+
     /**
      * Dependencies
      * ===============
@@ -519,6 +580,51 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 }
             }
         });
+
+
+        // Location Permission
+        locationPermissionStatusWidget.setChecked(terminalDetailEntity.isLocationPermissionEnabled() , false);
+
+        locationPermissionTextView.setText(
+                terminalDetailEntity.isLocationPermissionEnabled() ?
+                        getString(R.string.terminal_permission_location_enabled) :
+                        getString(R.string.terminal_permission_location_disabled)
+        );
+
+        // Call History
+        callHistoryPermissionStatusWidget.setChecked(terminalDetailEntity.isCallsHistoryPermissionEnabled() , false);
+
+        callHistoryPermissionTextView.setText(
+                terminalDetailEntity.isCallsHistoryPermissionEnabled() ?
+                        getString(R.string.terminal_permission_call_history_enabled) :
+                        getString(R.string.terminal_permission_call_history_disabled)
+
+        );
+        // Contacts List
+        contactsListPermissionStatusWidget.setChecked(terminalDetailEntity.isContactsListPermissionEnabled() , false);
+
+        contactsListPermissionTextView.setText(
+                terminalDetailEntity.isContactsListPermissionEnabled() ?
+                        getString(R.string.terminal_permission_contacts_list_enabled) :
+                        getString(R.string.terminal_permission_contacts_list_disabled)
+        );
+        // Text Message Permission
+        textMessagePermissionStatusWidget.setChecked(terminalDetailEntity.isTextMessagePermissionEnabled() , false);
+
+        textMessagePermissionTextView.setText(
+                terminalDetailEntity.isTextMessagePermissionEnabled() ?
+                        getString(R.string.terminal_permission_text_message_enabled) :
+                        getString(R.string.terminal_permission_text_message_disabled)
+        );
+        // Storage Permission
+        storagePermissionStatusWidget.setChecked(terminalDetailEntity.isStoragePermissionEnabled(), false);
+
+        storagePermissionTextView.setText(
+                terminalDetailEntity.isStoragePermissionEnabled() ?
+                        getString(R.string.terminal_permission_storage_enabled) :
+                        getString(R.string.terminal_permission_storage_disabled)
+        );
+
     }
 
     /**

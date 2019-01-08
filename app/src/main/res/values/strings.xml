@@ -771,6 +771,18 @@
     <string name="terminal_lock_camera_disabled">Camera is disabled</string>
     <string name="terminal_settings_enable">Settings is enabled</string>
     <string name="terminal_settings_disabled">Settings is disabled</string>
+    <string name="terminal_permissions_title">Permissions</string>
+
+    <string name="terminal_permission_location_enabled">Location Permission is enabled</string>
+    <string name="terminal_permission_location_disabled">Location Permission is disabled</string>
+    <string name="terminal_permission_call_history_enabled">Call history permission is enabled</string>
+    <string name="terminal_permission_call_history_disabled">Call history permission is disabled</string>
+    <string name="terminal_permission_contacts_list_enabled">Contacts List permission is enabled</string>
+    <string name="terminal_permission_contacts_list_disabled">Contacts list permission is disabled</string>
+    <string name="terminal_permission_text_message_enabled">Text Message permission is enabled</string>
+    <string name="terminal_permission_text_message_disabled">Text Message permission is disabled</string>
+    <string name="terminal_permission_storage_enabled">Storage permission is enabled</string>
+    <string name="terminal_permission_storage_disabled">Storage permission is disabled</string>
 
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">Do you want to enable Bed Time mode in this terminal?</string>

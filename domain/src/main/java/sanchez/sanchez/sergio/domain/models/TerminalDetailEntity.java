@@ -35,34 +35,36 @@ public final class TerminalDetailEntity extends TerminalEntity {
      */
     private String lastTimeUsed;
 
+    /**
+     * Location Permission Enabled
+     */
+    private boolean locationPermissionEnabled;
+
+    /**
+     * Call History Permission Enabled
+     */
+    private boolean callsHistoryPermissionEnabled;
+
+    /**
+     * Contacts List Permission Enabled
+     */
+    private boolean contactsListPermissionEnabled;
+
+    /**
+     * Text Message Permission Enabled
+     */
+    private boolean textMessagePermissionEnabled;
+
+    /**
+     * Storage Permission Enabled
+     */
+    private boolean storagePermissionEnabled;
+
 
 
     public TerminalDetailEntity(){}
 
-    /**
-     *
-     * @param identity
-     * @param appVersionCode
-     * @param appVersionName
-     * @param codeName
-     * @param deviceName
-     * @param manufacturer
-     * @param marketName
-     * @param model
-     * @param osVersion
-     * @param sdkVersion
-     * @param bedTimeEnabled
-     * @param screenEnabled
-     * @param cameraEnabled
-     * @param settingsEnabled
-     * @param totalApps
-     * @param totalSms
-     * @param totalCalls
-     * @param totalContacts
-     * @param screenStatusEnum
-     * @param lastTimeUsed
-     */
-    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed) {
+    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled) {
         super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
@@ -70,6 +72,11 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.totalContacts = totalContacts;
         this.screenStatusEnum = screenStatusEnum;
         this.lastTimeUsed = lastTimeUsed;
+        this.locationPermissionEnabled = locationPermissionEnabled;
+        this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
+        this.contactsListPermissionEnabled = contactsListPermissionEnabled;
+        this.textMessagePermissionEnabled = textMessagePermissionEnabled;
+        this.storagePermissionEnabled = storagePermissionEnabled;
     }
 
     public long getTotalApps() {
@@ -120,6 +127,46 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.lastTimeUsed = lastTimeUsed;
     }
 
+    public boolean isLocationPermissionEnabled() {
+        return locationPermissionEnabled;
+    }
+
+    public void setLocationPermissionEnabled(boolean locationPermissionEnabled) {
+        this.locationPermissionEnabled = locationPermissionEnabled;
+    }
+
+    public boolean isCallsHistoryPermissionEnabled() {
+        return callsHistoryPermissionEnabled;
+    }
+
+    public void setCallsHistoryPermissionEnabled(boolean callsHistoryPermissionEnabled) {
+        this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
+    }
+
+    public boolean isContactsListPermissionEnabled() {
+        return contactsListPermissionEnabled;
+    }
+
+    public void setContactsListPermissionEnabled(boolean contactsListPermissionEnabled) {
+        this.contactsListPermissionEnabled = contactsListPermissionEnabled;
+    }
+
+    public boolean isTextMessagePermissionEnabled() {
+        return textMessagePermissionEnabled;
+    }
+
+    public void setTextMessagePermissionEnabled(boolean textMessagePermissionEnabled) {
+        this.textMessagePermissionEnabled = textMessagePermissionEnabled;
+    }
+
+    public boolean isStoragePermissionEnabled() {
+        return storagePermissionEnabled;
+    }
+
+    public void setStoragePermissionEnabled(boolean storagePermissionEnabled) {
+        this.storagePermissionEnabled = storagePermissionEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailEntity{" +
@@ -129,6 +176,11 @@ public final class TerminalDetailEntity extends TerminalEntity {
                 ", totalContacts=" + totalContacts +
                 ", screenStatusEnum=" + screenStatusEnum +
                 ", lastTimeUsed='" + lastTimeUsed + '\'' +
+                ", locationPermissionEnabled=" + locationPermissionEnabled +
+                ", callsHistoryPermissionEnabled=" + callsHistoryPermissionEnabled +
+                ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +
+                ", textMessagePermissionEnabled=" + textMessagePermissionEnabled +
+                ", storagePermissionEnabled=" + storagePermissionEnabled +
                 '}';
     }
 }

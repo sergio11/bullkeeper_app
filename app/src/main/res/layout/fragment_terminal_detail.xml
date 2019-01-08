@@ -460,6 +460,322 @@
 
             </android.support.v7.widget.CardView>
 
+
+            <!-- Permissions  -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Title -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"
+                        android:text="@string/terminal_permissions_title"/>
+
+                    <View
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/cyanBrilliant"/>
+
+                    <!-- Location Permission -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/locationPermissionIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/location_permission_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/locationPermissionTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/locationPermissionWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/locationPermissionIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/locationPermissionStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/locationPermissionTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/locationPermissionWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+
+                    <!-- Calls History Permission -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/callHistoryPermissionIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/call_history_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/callHistoryPermissionTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/callHistoryPermissionWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/callHistoryPermissionIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/callHistoryPermissionStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/callHistoryPermissionTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/callHistoryPermissionWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+
+                    <!-- Contacts List Permission -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/contactsListPermissionIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/contact_permission_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/contactsListPermissionTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/contactsListPermissionWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/contactsListPermissionIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/contactsListPermissionStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/contactsListPermissionTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/contactsListPermissionWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+
+                    <!-- Text Message Permission -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/textMessagePermissionIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/text_message_permission_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/textMessagePermissionTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/textMessagePermissionWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/textMessagePermissionIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/textMessagePermissionStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/textMessagePermissionTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/textMessagePermissionWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+                    <!-- Storage Permission -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/storagePermissionIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/storage_permission_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/storagePermissionTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/storagePermissionWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/storagePermissionIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/storagePermissionStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/storagePermissionTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/storagePermissionWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
 

@@ -46,6 +46,37 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("screen_status")
     private String screenStatus;
 
+    /**
+     * Location Permission Enabled
+     */
+    @JsonProperty("location_permission_enabled")
+    private boolean locationPermissionEnabled;
+
+    /**
+     * Call History Permission Enabled
+     */
+    @JsonProperty("call_history_permission_enabled")
+    private boolean callsHistoryPermissionEnabled;
+
+    /**
+     * Contacts List Permission Enabled
+     */
+    @JsonProperty("contacts_list_permission_enabled")
+    private boolean contactsListPermissionEnabled;
+
+    /**
+     * Text Message Permission Enabled
+     */
+    @JsonProperty("text_message_permission_enabled")
+    private boolean textMessagePermissionEnabled;
+
+    /**
+     * Storage Permission Enabled
+     */
+    @JsonProperty("storage_permission_enabled")
+    private boolean storagePermissionEnabled;
+
+
     public TerminalDetailDTO(){
         super();
     }
@@ -73,8 +104,13 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param totalContacts
      * @param lastTimeUsed
      * @param screenStatus
+     * @param locationPermissionEnabled
+     * @param callsHistoryPermissionEnabled
+     * @param contactsListPermissionEnabled
+     * @param textMessagePermissionEnabled
+     * @param storagePermissionEnabled
      */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, String lastTimeUsed, String screenStatus) {
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, String lastTimeUsed, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled) {
         super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
@@ -82,6 +118,11 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.totalContacts = totalContacts;
         this.lastTimeUsed = lastTimeUsed;
         this.screenStatus = screenStatus;
+        this.locationPermissionEnabled = locationPermissionEnabled;
+        this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
+        this.contactsListPermissionEnabled = contactsListPermissionEnabled;
+        this.textMessagePermissionEnabled = textMessagePermissionEnabled;
+        this.storagePermissionEnabled = storagePermissionEnabled;
     }
 
     public long getTotalApps() {
@@ -132,6 +173,46 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.screenStatus = screenStatus;
     }
 
+    public boolean isLocationPermissionEnabled() {
+        return locationPermissionEnabled;
+    }
+
+    public void setLocationPermissionEnabled(boolean locationPermissionEnabled) {
+        this.locationPermissionEnabled = locationPermissionEnabled;
+    }
+
+    public boolean isCallsHistoryPermissionEnabled() {
+        return callsHistoryPermissionEnabled;
+    }
+
+    public void setCallsHistoryPermissionEnabled(boolean callsHistoryPermissionEnabled) {
+        this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
+    }
+
+    public boolean isContactsListPermissionEnabled() {
+        return contactsListPermissionEnabled;
+    }
+
+    public void setContactsListPermissionEnabled(boolean contactsListPermissionEnabled) {
+        this.contactsListPermissionEnabled = contactsListPermissionEnabled;
+    }
+
+    public boolean isTextMessagePermissionEnabled() {
+        return textMessagePermissionEnabled;
+    }
+
+    public void setTextMessagePermissionEnabled(boolean textMessagePermissionEnabled) {
+        this.textMessagePermissionEnabled = textMessagePermissionEnabled;
+    }
+
+    public boolean isStoragePermissionEnabled() {
+        return storagePermissionEnabled;
+    }
+
+    public void setStoragePermissionEnabled(boolean storagePermissionEnabled) {
+        this.storagePermissionEnabled = storagePermissionEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailDTO{" +
@@ -141,6 +222,11 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", totalContacts=" + totalContacts +
                 ", lastTimeUsed='" + lastTimeUsed + '\'' +
                 ", screenStatus='" + screenStatus + '\'' +
+                ", locationPermissionEnabled=" + locationPermissionEnabled +
+                ", callsHistoryPermissionEnabled=" + callsHistoryPermissionEnabled +
+                ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +
+                ", textMessagePermissionEnabled=" + textMessagePermissionEnabled +
+                ", storagePermissionEnabled=" + storagePermissionEnabled +
                 '}';
     }
 }
