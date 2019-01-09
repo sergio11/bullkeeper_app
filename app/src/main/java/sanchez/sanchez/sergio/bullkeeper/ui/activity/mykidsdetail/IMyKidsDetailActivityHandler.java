@@ -100,4 +100,16 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToKidRequestDetail(final String kid, final String identity);
 
+    /**
+     * Navigate To Geofences
+     * @param kid
+     */
+    void navigateToGeofences(final String kid);
+
+    /**
+     * Navigate To Save Geofence
+     * @param kid
+     */
+    void navigateToSaveGeofence(final String kid);
+
 }

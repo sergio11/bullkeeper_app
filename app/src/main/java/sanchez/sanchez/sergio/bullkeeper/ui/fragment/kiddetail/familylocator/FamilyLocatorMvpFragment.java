@@ -233,13 +233,24 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
         optionsMenuSpeedDialView.setOnActionSelectedListener(this);
 
         optionsMenuSpeedDialView.addActionItem(
-                new SpeedDialActionItem.Builder(R.id.config_geofences, R.drawable.geofances_icon)
+                new SpeedDialActionItem.Builder(R.id.show_geofences, R.drawable.geofances_icon)
+                        .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.cyanBrilliant, appContext.getTheme()))
+                        .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.commonWhite, appContext.getTheme()))
+                        .setLabel(getString(R.string.family_locator_show_geofences))
+                        .setLabelColor(ResourcesCompat.getColor(getResources(), R.color.cyanBrilliant, appContext.getTheme()))
+                        .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.commonWhite, appContext.getTheme()))
+                        .setLabelClickable(true)
+                        .create()
+        );
+
+        optionsMenuSpeedDialView.addActionItem(
+                new SpeedDialActionItem.Builder(R.id.add_geofences, R.drawable.add_school)
                         .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.cyanBrilliant, appContext.getTheme()))
                         .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.commonWhite, appContext.getTheme()))
                         .setLabel(getString(R.string.family_locator_add_geofences))
                         .setLabelColor(ResourcesCompat.getColor(getResources(), R.color.cyanBrilliant, appContext.getTheme()))
                         .setLabelBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.commonWhite, appContext.getTheme()))
-                        .setLabelClickable(false)
+                        .setLabelClickable(true)
                         .create()
         );
 
@@ -456,8 +467,11 @@ public class FamilyLocatorMvpFragment extends SupportMvpFragment<FamilyLocatorFr
     @Override
     public boolean onActionSelected(SpeedDialActionItem actionItem) {
         switch (actionItem.getId()) {
-            case R.id.config_geofences:
-                showLongMessage("Config Geofences Clicked");
+            case R.id.show_geofences:
+                activityHandler.navigateToGeofences(kidIdentity);
+                return false;
+            case R.id.add_geofences:
+                activityHandler.navigateToSaveGeofence(kidIdentity);
                 return false;
             default:
                 return false;

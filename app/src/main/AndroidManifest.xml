@@ -323,7 +323,13 @@
             />
 
         <!-- Geofences List Mvp Activity -->
-        <activity android:name=".ui.activity.geofences.GeofencesListMvpActivity"
+        <activity android:name=".ui.activity.geofences.list.GeofencesListMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
+        <!-- Save Geofence Mvp Activity -->
+        <activity android:name=".ui.activity.geofences.save.SaveGeofenceMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
             />

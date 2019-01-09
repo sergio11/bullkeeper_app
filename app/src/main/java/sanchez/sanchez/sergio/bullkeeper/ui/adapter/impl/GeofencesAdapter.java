@@ -1,0 +1,68 @@
+package sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import java.util.ArrayList;
+import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
+
+/**
+ * Geofences Adapter
+ */
+public final class GeofencesAdapter extends SupportRecyclerViewAdapter<GeofenceEntity> {
+
+    /**
+     * @param context
+     * @param data
+     */
+    public GeofencesAdapter(final Context context, final ArrayList<GeofenceEntity> data) {
+        super(context, data);
+    }
+
+    /**
+     * On Create Item View Holder
+     * @param viewGroup
+     * @return
+     */
+    @Override
+    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup viewGroup) {
+        View view = inflater.inflate(R.layout.geofence_item_layout, viewGroup, false);
+        return new GeofenceViewHolder(view);
+    }
+
+    /**
+     * Geofence View Holder
+     */
+    public class GeofenceViewHolder
+            extends SupportItemSwipedViewHolder<GeofenceEntity>{
+
+
+        /**
+         * Geofence Name
+         */
+        private TextView geofenceNameTextView;
+
+        /**
+         * @param itemView
+         */
+        GeofenceViewHolder(final View itemView) {
+            super(itemView);
+            geofenceNameTextView = itemView.findViewById(R.id.geofenceName);
+        }
+
+        /**
+         * On Bind
+         * @param geofenceEntity
+         */
+        @Override
+        public void bind(final GeofenceEntity geofenceEntity) {
+            super.bind(geofenceEntity);
+            geofenceNameTextView.setText(geofenceEntity.getName());
+        }
+
+    }
+}

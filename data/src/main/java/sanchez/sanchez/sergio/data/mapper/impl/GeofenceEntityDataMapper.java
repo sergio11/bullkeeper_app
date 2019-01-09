@@ -26,6 +26,7 @@ public final class GeofenceEntityDataMapper extends AbstractDataMapper<GeofenceD
         geofenceEntity.setLat(originModel.getLat());
         geofenceEntity.setLog(originModel.getLog());
         geofenceEntity.setName(originModel.getName());
+        geofenceEntity.setAddress(originModel.getAddress());
         geofenceEntity.setRadius(originModel.getRadius());
         geofenceEntity.setType(originModel.getType());
         return geofenceEntity;
@@ -46,6 +47,7 @@ public final class GeofenceEntityDataMapper extends AbstractDataMapper<GeofenceD
         geofenceDTO.setLat(originModel.getLat());
         geofenceDTO.setLog(originModel.getLog());
         geofenceDTO.setName(originModel.getName());
+        geofenceDTO.setAddress(originModel.getAddress());
         geofenceDTO.setRadius(originModel.getRadius());
         geofenceDTO.setType(originModel.getType());
         return geofenceDTO;

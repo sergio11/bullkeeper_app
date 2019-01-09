@@ -13,6 +13,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailMvpAct
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofenceMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitations.InvitationsListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequest.KidRequestListMvpActivity;
@@ -895,5 +897,50 @@ public class NavigatorImpl implements INavigator {
 
         activity.startActivity(KidRequestDetailMvpActivity
                 .getCallingIntent(context, kid, identity));
+    }
+
+    /**
+     * Navi
+     * @param kid
+     */
+    @Override
+    public void navigateToGeofencesList(final AppCompatActivity activity, final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        activity.startActivity(GeofencesListMvpActivity.getCallingIntent(activity,
+                kid));
+    }
+
+    /**
+     * Navigate To Save Geofence
+     * @param kid
+     * @param id
+     */
+    @Override
+    public void navigateToSaveGeofence(final AppCompatActivity activity, final String kid, final String id) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+
+        activity.startActivity(SaveGeofenceMvpActivity.getCallingIntent(
+                activity, kid, id
+        ));
+
+    }
+
+    /**
+     * Navigate To Save Geofence
+     * @param kid
+     */
+    @Override
+    public void navigateToSaveGeofence(final AppCompatActivity activity, final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        activity.startActivity(SaveGeofenceMvpActivity.getCallingIntent(
+                activity, kid
+        ));
     }
 }

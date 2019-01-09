@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences;
+package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,23 +9,28 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerGeofenceComponent;
-import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerKidRequestComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.GeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.KidRequestAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.GeofencesAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
@@ -55,6 +60,13 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     private GeofenceComponent geofenceComponent;
 
     /**
+     *
+     * Dependencies
+     * ===============
+     *
+     */
+
+    /**
      * State
      * ================
      *
@@ -70,6 +82,18 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      * Views
      * =============
      */
+
+    /**
+     * Geofence Title Text View
+     */
+    @BindView(R.id.geofenceTitle)
+    protected TextView geofenceTitleTextView;
+
+    /**
+     * Delete All Geofences
+     */
+    @BindView(R.id.deleteAllGeofences)
+    protected ImageView deleteAllGeofencesImageView;
 
 
     /**
@@ -145,8 +169,20 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @Override
     public void onHeaderClick() {}
 
+    /**
+     * On Item Clicked
+     * @param geofenceEntity
+     */
     @Override
-    public void onItemClick(GeofenceEntity item) {
+    public void onItemClick(final GeofenceEntity geofenceEntity) {
+        Preconditions.checkNotNull(geofenceEntity, "Geofence Entity can not be null");
+        Preconditions.checkNotNull(geofenceEntity.getIdentity(), "Geofence Identity can not be null");
+        Preconditions.checkState(!geofenceEntity.getIdentity().isEmpty(), "Geofence Identity can not be empty");
+        Preconditions.checkNotNull(geofenceEntity.getKid(), "Geofence Kid can not be null");
+        Preconditions.checkState(!geofenceEntity.getKid().isEmpty(), "Geofence Kid can not be empty");
+
+        navigatorImpl.navigateToSaveGeofence(this, geofenceEntity.getKid(),
+                geofenceEntity.getIdentity());
 
     }
 
@@ -165,8 +201,31 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof KidRequestAdapter.KidRequestViewHolder) {
 
+        if (viewHolder instanceof GeofencesAdapter.GeofenceViewHolder) {
+
+            final Integer deletedIndex = viewHolder.getAdapterPosition();
+            final GeofenceEntity geofenceEntity =
+                    recyclerViewAdapter.getItemByAdapterPosition(deletedIndex);
+
+            // Delete item from adapter
+            recyclerViewAdapter.removeItem(deletedIndex);
+
+            showLongSimpleSnackbar(content, getString(R.string.invitation_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recyclerViewAdapter.restoreItem(geofenceEntity, deletedIndex);
+                }
+            }, new Snackbar.Callback(){
+                @Override
+                public void onDismissed(Snackbar transientBottomBar, int event) {
+                    super.onDismissed(transientBottomBar, event);
+                    if(event == DISMISS_EVENT_TIMEOUT) {
+                        // Delete Invitation
+                        getPresenter().deleteById(kid, geofenceEntity.getIdentity());
+                    }
+                }
+            });
 
         }
     }
@@ -186,7 +245,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_kid_request_list;
+        return R.layout.activity_geofence_list;
     }
 
     /**
@@ -196,24 +255,18 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
-
         if (getIntent().getExtras() != null) {
-
             final Bundle extras = getIntent().getExtras();
-
             if (!extras.containsKey(KID_ID_ARG))
                 throw new IllegalArgumentException("You must provide kid id");
-
             kid = extras.getString(KID_ID_ARG);
-
         } else {
-
             throw new IllegalArgumentException("You must provide args");
         }
 
         // adding item touch helper
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new SupportItemTouchHelper<KidRequestAdapter.KidRequestViewHolder>(0, ItemTouchHelper.LEFT, this);
+                new SupportItemTouchHelper<GeofencesAdapter.GeofenceViewHolder>(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
@@ -224,7 +277,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<GeofenceEntity> getAdapter() {
-        return null;
+        return new GeofencesAdapter(this, new ArrayList<GeofenceEntity>());
     }
 
     /**
@@ -234,6 +287,85 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @Override
     protected int getBackgroundResource() {
         return R.drawable.background_cyan_4;
+    }
+
+    /**
+     * On All Geofences Deleted
+     */
+    @Override
+    public void onAllGeofencesDeleted() {
+        showNoticeDialog(R.string.geofences_cleared_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                recyclerViewAdapter.removeAll();
+                closeActivity();
+            }
+        });
+    }
+
+    /**
+     * On Geofence Deleted
+     */
+    @Override
+    public void onGeofenceDeleted() {
+        final int itemCount = recyclerView.getAdapter().getItemCount();
+
+        if(itemCount > 0)
+            geofenceTitleTextView.setText(String.format(Locale.getDefault(),
+                    getString(R.string.geofences_title_count), recyclerView.getAdapter().getItemCount()));
+        else
+            geofenceTitleTextView.setText(getString(R.string.geofences_title_default));
+    }
+
+    /**
+     * On Data Loaded
+     * @param dataLoaded
+     */
+    @Override
+    public void onDataLoaded(List<GeofenceEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+        deleteAllGeofencesImageView.setVisibility(View.VISIBLE);
+        deleteAllGeofencesImageView.setEnabled(true);
+        geofenceTitleTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.geofences_title_count),dataLoaded.size()));
+
+    }
+
+    /**
+     * On No Data Found
+     */
+    @Override
+    public void onNoDataFound() {
+        super.onNoDataFound();
+        deleteAllGeofencesImageView.setVisibility(View.GONE);
+        deleteAllGeofencesImageView.setEnabled(false);
+        geofenceTitleTextView
+                .setText(getString(R.string.geofences_title_default));
+
+    }
+
+    /**
+     * On Delete All Geofences Clicked
+     */
+    @OnClick(R.id.deleteAllGeofences)
+    protected void onDeleteAllGeofencesClicked(){
+        showConfirmationDialog(R.string.geofences_confirm_delete_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                getPresenter().deleteAllByKid(kid);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
+    }
+
+    /**
+     * On Add Geofences
+     */
+    @OnClick(R.id.addGeofences)
+    protected void onAddGeofences(){
+        navigatorImpl.navigateToSaveGeofence(this, kid);
     }
 
 }

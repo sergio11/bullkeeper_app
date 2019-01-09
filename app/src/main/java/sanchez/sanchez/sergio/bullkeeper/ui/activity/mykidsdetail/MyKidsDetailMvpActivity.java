@@ -496,6 +496,29 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         navigatorImpl.navigateToKidRequestDetail(this, kid, identity);
     }
 
+    /**
+     * Navigate To Geofences
+     * @param kid
+     */
+    @Override
+    public void navigateToGeofences(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        navigatorImpl.navigateToGeofencesList(this, kid);
+    }
+
+    /**
+     * Navigate To Save Geofences
+     * @param kid
+     */
+    @Override
+    public void navigateToSaveGeofence(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        navigatorImpl.navigateToSaveGeofence(this, kid);
+    }
 
     /**
      * Setup Sections Pager Adapter

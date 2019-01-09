@@ -215,11 +215,13 @@ public final class SearchSchoolLocationDialog extends SupportDialogFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        if(mapFragment != null)
+            mapFragment.getMapAsync(this);
 
         // create Geo Data Client
-        mGeoDataClient = Places.getGeoDataClient(getActivity(), null);
+        mGeoDataClient = Places.getGeoDataClient(getActivity());
 
         // Build Autocomplete filter (only Address)
         autocompleteFilter = new AutocompleteFilter.Builder()

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_foreground"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_very_high"
+    android:background="@drawable/common_list_item_state"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/geofenceImageContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/darkModerateBlue">
+
+
+        <!-- Geofence Icon  -->
+        <ImageView
+            android:id="@+id/geofenceIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/geofence_icon_white"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+    <!-- Separator -->
+    <View
+        android:id="@+id/separator"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:background="@color/commonWhite"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/geofenceImageContainer"/>
+
+    <!-- Geofence Name -->
+    <TextView
+        android:id="@+id/geofenceName"
+        style="@style/CommonStrongText.Big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/separator"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:gravity="start|center_vertical"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:textColor="@color/darkModerateBlue"
+        android:textStyle="italic" />
+
+
+</RelativeLayout>
+

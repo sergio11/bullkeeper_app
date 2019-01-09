@@ -734,7 +734,8 @@
     <!-- Family Locator -->
     <string name="family_locator_title">Family Locator</string>
     <string name="family_locator_description">Quickly locate family members and devices</string>
-    <string name="family_locator_add_geofences">Add Geofance</string>
+    <string name="family_locator_show_geofences">Show Geofence</string>
+    <string name="family_locator_add_geofences">Add Geofence</string>
     <string name="family_locator_loading_child_position">Loading Child position ...</string>
     <string name="family_locator_no_last_registered_position">There is no last registered position</string>
     <string name="family_locator_address">Current Address</string>
@@ -924,4 +925,14 @@
     <string name="kid_detail_app_stats_description">The most used applications in this terminal</string>
     <string name="kid_detail_more_current_information">More current information (in minutes)</string>
 
+    <!-- Geofences -->
+    <string name="geofences_title_default">Geofences</string>
+    <string name="geofences_title_count" formatted="true">Geofences (%d)</string>
+    <string name="geofences_confirm_delete_all">Do you want to delete all geofences?</string>
+    <string name="geofences_cleared_successfully">All geofences deleted successfully</string>
+    <string name="geofences_add_title">Add Geofence</string>
+    <string name="geofences_delete_button">Delete Geofence</string>
+    <string name="geofences_origin_address">Geofence Origin</string>
+    <string name="geofence_deleted_successfully">Geofence Deleted Successfully</string>
+    <string name="geofence_confirm_delete">Do you want to delete the selected Geofence?</string>
 </resources>

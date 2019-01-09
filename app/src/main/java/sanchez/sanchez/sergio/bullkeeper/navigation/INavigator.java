@@ -507,4 +507,24 @@ public interface INavigator {
     void navigateToKidRequestDetail(final AppCompatActivity activity,
                                     final String kid, final String identity);
 
+    /**
+     * Navigate To Geofences List
+     * @param activity
+     * @param kid
+     */
+    void navigateToGeofencesList(final AppCompatActivity activity, final String kid);
+
+    /**
+     * Navigate To Save Geofence
+     * @param kid
+     * @param id
+     */
+    void navigateToSaveGeofence(final AppCompatActivity activity, final String kid, final String id);
+
+    /**
+     * Navigate To Save Geofence
+     * @param kid
+     */
+    void navigateToSaveGeofence(final AppCompatActivity activity, final String kid);
+
 }

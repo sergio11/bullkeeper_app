@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences;
+package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 

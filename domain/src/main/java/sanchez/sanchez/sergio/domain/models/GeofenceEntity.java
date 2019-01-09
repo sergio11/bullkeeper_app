@@ -18,6 +18,11 @@ public final class GeofenceEntity implements Serializable {
     private String name;
 
     /**
+     * Address
+     */
+    private String address;
+
+    /**
      * Latitude
      */
     private double lat;
@@ -51,13 +56,16 @@ public final class GeofenceEntity implements Serializable {
      *
      * @param identity
      * @param name
+     * @param address
      * @param lat
      * @param log
      * @param radius
      * @param type
      * @param kid
      */
-    public GeofenceEntity(String identity, String name, double lat, double log, float radius, String type, String kid) {
+    public GeofenceEntity(final String identity, final String name, final String address,
+                          final double lat, final double log,
+                          final float radius, final String type, final String kid) {
         this.identity = identity;
         this.name = name;
         this.lat = lat;
@@ -81,6 +89,14 @@ public final class GeofenceEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public double getLat() {
@@ -128,6 +144,7 @@ public final class GeofenceEntity implements Serializable {
         return "GeofenceEntity{" +
                 "identity='" + identity + '\'' +
                 ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
                 ", lat=" + lat +
                 ", log=" + log +
                 ", radius=" + radius +
