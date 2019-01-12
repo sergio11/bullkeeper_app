@@ -701,6 +701,7 @@
     <string name="app_rule_always_allowed">The application can always be used</string>
     <string name="app_rule_never_allowed">The application can not be used</string>
     <string name="app_rule_per_scheduled">The use of the application will adjust to the daily habit configured</string>
+    <string name="app_rule_fun_time">The application can be used if the fun time mode is enabled and has time</string>
     <string name="app_rules_applied_successfully">The application rules were applied successfully</string>
     <string name="search_app_rules">enter the name of the application ...</string>
     <string name="new_app_installed_event_dialog" formatted="false">The %s application has been installed</string>

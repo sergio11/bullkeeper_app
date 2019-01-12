@@ -124,6 +124,12 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     protected ImageView appPerScheduledImageView;
 
     /**
+     * App Fun Time Image View
+     */
+    @BindView(R.id.appFunTime)
+    protected ImageView appFunTimeImageView;
+
+    /**
      * App Allowed Image View
      */
     @BindView(R.id.appAllowed)
@@ -375,6 +381,7 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
                 appNotAllowedImageView.setImageResource(R.drawable.app_not_allowed_enabled);
                 appAllowedImageView.setImageResource(R.drawable.app_allowed_disabled);
                 appPerScheduledImageView.setImageResource(R.drawable.app_per_scheduled_disabled);
+                appFunTimeImageView.setImageResource(R.drawable.app_fun_time_disabled);
 
                 break;
             // Always Allowed
@@ -383,6 +390,7 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
                 appNotAllowedImageView.setImageResource(R.drawable.app_not_allowed_disabled);
                 appAllowedImageView.setImageResource(R.drawable.app_allowed_enabled);
                 appPerScheduledImageView.setImageResource(R.drawable.app_per_scheduled_disabled);
+                appFunTimeImageView.setImageResource(R.drawable.app_fun_time_disabled);
 
                 break;
             // Per Scheduler
@@ -391,7 +399,16 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
                 appNotAllowedImageView.setImageResource(R.drawable.app_not_allowed_disabled);
                 appAllowedImageView.setImageResource(R.drawable.app_allowed_disabled);
                 appPerScheduledImageView.setImageResource(R.drawable.app_per_scheduled_enabled);
+                appFunTimeImageView.setImageResource(R.drawable.app_fun_time_disabled);
+                break;
 
+                // Fun Time
+            case FUN_TIME:
+
+                appNotAllowedImageView.setImageResource(R.drawable.app_not_allowed_disabled);
+                appAllowedImageView.setImageResource(R.drawable.app_allowed_disabled);
+                appPerScheduledImageView.setImageResource(R.drawable.app_per_scheduled_disabled);
+                appFunTimeImageView.setImageResource(R.drawable.app_fun_time_enabled);
                 break;
         }
     }
@@ -448,6 +465,7 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
 
         appRuleEnum = appInstalledEntity.getAppRuleEnum();
 
+        // App Not Allowed Handler
         appNotAllowedImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -456,6 +474,7 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
             }
         });
 
+        // App Allowed Handler
         appAllowedImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -464,10 +483,19 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
             }
         });
 
+        // App Per Scheduled Handler
         appPerScheduledImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requestAppRuleEnum = AppRuleEnum.PER_SCHEDULER;
+                getPresenter().updateAppRule(requestAppRuleEnum);
+            }
+        });
+
+        appFunTimeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestAppRuleEnum = AppRuleEnum.FUN_TIME;
                 getPresenter().updateAppRule(requestAppRuleEnum);
             }
         });
@@ -493,10 +521,13 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
             appAllowedImageView.setEnabled(false);
             appPerScheduledImageView.setImageResource(R.drawable.app_per_scheduled_disabled);
             appPerScheduledImageView.setEnabled(false);
+            appFunTimeImageView.setImageResource(R.drawable.app_fun_time_disabled);
+            appFunTimeImageView.setEnabled(false);
         } else {
             appNotAllowedImageView.setEnabled(true);
             appAllowedImageView.setEnabled(true);
             appPerScheduledImageView.setEnabled(true);
+            appFunTimeImageView.setEnabled(true);
             updateAppRule(appRuleEnum);
         }
     }

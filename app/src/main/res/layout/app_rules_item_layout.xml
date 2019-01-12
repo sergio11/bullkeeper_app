@@ -92,8 +92,8 @@
         <!-- App Not Allowed -->
         <ImageView
             android:id="@+id/appNotAllowed"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="4dp"
             android:src="@drawable/app_not_allowed_disabled"
             android:contentDescription="@string/content_not_be_loaded" />
@@ -101,17 +101,26 @@
         <!-- App Per Scheduled -->
         <ImageView
             android:id="@+id/appPerScheduled"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="4dp"
             android:src="@drawable/app_per_scheduled_disabled"
+            android:contentDescription="@string/content_not_be_loaded"/>
+
+        <!-- App Fun Time -->
+        <ImageView
+            android:id="@+id/appFunTime"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/app_fun_time_disabled"
             android:contentDescription="@string/content_not_be_loaded"/>
 
         <!-- App Allowed -->
         <ImageView
             android:id="@+id/appAllowed"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="4dp"
             android:src="@drawable/app_allowed_disabled"
             android:contentDescription="@string/content_not_be_loaded"/>
