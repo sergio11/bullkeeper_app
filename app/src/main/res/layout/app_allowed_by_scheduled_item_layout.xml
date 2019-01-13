@@ -14,9 +14,9 @@
         android:layout_height="match_parent"
         android:background="@drawable/common_list_item_background">
 
-        <!-- Delete Kid Guardian -->
+        <!-- Delete App -->
         <ImageView
-            android:id="@+id/deleteKidGuardian"
+            android:id="@+id/deleteApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -61,7 +61,7 @@
 
             <!-- App Installed Image  -->
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/guardianImageView"
+                android:id="@+id/appImageView"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="8dp"
@@ -69,7 +69,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/content_not_be_loaded"
-                android:src="@drawable/parent_default"
+                android:src="@drawable/app_icons"
                 android:layout_gravity="center"
                 app:civ_border_color="@color/commonWhite"
                 app:civ_border_width="@dimen/common_image_stroke_width"/>
@@ -85,63 +85,57 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/imageContainer"/>
 
-        <!-- Guardian Name -->
+        <!-- App Name -->
         <TextView
-            android:id="@+id/guardianName"
+            android:id="@+id/appName"
             style="@style/CommonStrongText.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/separator"
-            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@id/deviceNameTextView"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
             android:gravity="start|center_vertical"
             android:padding="8dp"
             android:singleLine="true"
+            android:text="-"
             android:textColor="@color/darkModerateBlue"
             android:textStyle="italic" />
 
-        <!-- Roles -->
-        <LinearLayout
-            android:id="@+id/guardianRole"
+        <!-- Device Name Text View -->
+        <TextView
+            android:id="@+id/deviceNameTextView"
+            style="@style/CommonStrongText.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:gravity="start|center_vertical"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:text="-"
+            android:textColor="@color/cyanBrilliant"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/mobile_cyan_solid" />
 
-            <!-- Admin Role -->
-            <ImageView
-                android:id="@+id/adminRole"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
-                android:src="@drawable/crown_solid_cyan"
-                android:contentDescription="@string/content_not_be_loaded" />
 
-            <!-- Edit Rules Role -->
-            <ImageView
-                android:id="@+id/editRulesRole"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
-                android:src="@drawable/child_cyan"
-                android:contentDescription="@string/content_not_be_loaded"/>
-
-            <!-- Viewer Role -->
-            <ImageView
-                android:id="@+id/viewerRole"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="4dp"
-                android:src="@drawable/eye_solid_cyan"
-                android:contentDescription="@string/content_not_be_loaded"/>
-
-        </LinearLayout>
-
+        <!-- Invalid Configuration -->
+        <TextView
+            android:id="@+id/invalidConfiguration"
+            style="@style/CommonStrongText.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:gravity="start|center_vertical"
+            android:layout_below="@id/appName"
+            android:layout_toStartOf="@id/deviceNameTextView"
+            android:layout_toEndOf="@id/separator"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:text="@string/scheduled_block_app_allowed_invalid"
+            android:textColor="@color/redDanger" />
 
     </RelativeLayout>
 

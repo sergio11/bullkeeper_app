@@ -699,6 +699,8 @@
     <string name="scheduled_block_apps_allowed_configured_title">Apps Allowed</string>
     <string name="scheduled_block_apps_allowed_configured_description">Configure a list of specific applications that will be allowed during this planning block</string>
     <string name="scheduled_block_no_apps_allowed">No allowed apps have been configured, please click to configure</string>
+    <string name="scheduled_block_only_apps_with_valid_rule">The application does not have a valid rule configured or is disabled. You can only add applications that are configured to adapt to the daily habit.</string>
+    <string name="scheduled_block_app_allowed_invalid">Invalid configuration</string>
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>
     <string name="app_rules_description">Rules applied to the set of installed applications</string>
@@ -950,4 +952,5 @@
     <string name="app_search_title_default">Apps Installed</string>
     <string name="no_app_installed_found">No App Installed Found for this terminal</string>
     <string name="search_apps_by_name_hint">Enter the name of the application</string>
+
 </resources>

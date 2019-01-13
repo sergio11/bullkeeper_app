@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAllAppInstalledByKidInteract;
-import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
 
 /**
  * App Search List Presenter
@@ -77,7 +77,7 @@ public final class AppSearchListPresenter extends SupportSearchLCEPresenter<IApp
         /**
          * Get All App Installed Observable
          */
-    public class GetAllAppInstalledObservable extends CommandCallBackWrapper<List<AppInstalledEntity>,
+    public class GetAllAppInstalledObservable extends CommandCallBackWrapper<List<AppInstalledByTerminalEntity>,
             GetAllAppInstalledByKidInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor,
                 GetAllAppInstalledByKidInteract.GetAppRulesApiErrors>
             implements GetAllAppInstalledByKidInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor {
@@ -92,7 +92,7 @@ public final class AppSearchListPresenter extends SupportSearchLCEPresenter<IApp
              * @param response
              */
             @Override
-            protected void onSuccess(List<AppInstalledEntity> response) {
+            protected void onSuccess(List<AppInstalledByTerminalEntity> response) {
                 Preconditions.checkNotNull(response, "Response can not be null");
                 Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
 

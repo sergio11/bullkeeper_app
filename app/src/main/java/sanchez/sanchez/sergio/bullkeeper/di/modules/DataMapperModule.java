@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.impl.AppAllowedByScheduledEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledByTerminalDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AppStatsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CallDetailDataMapper;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
@@ -52,6 +53,7 @@ import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsPageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppAllowedByScheduledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppInstalledByTerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CallDetailDTO;
@@ -88,6 +90,7 @@ import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
@@ -524,5 +527,17 @@ public class DataMapperModule {
             final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper
     ){
         return new AppAllowedByScheduledEntityDataMapper(appInstalledEntityAbstractDataMapper, terminalEntityAbstractDataMapper);
+    }
+
+    /**
+     *
+     * @param terminalEntityAbstractDataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppInstalledByTerminalDTO, AppInstalledByTerminalEntity> provideAppInstalledByTerminalDataMapper(
+            final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper
+    ){
+        return new AppInstalledByTerminalDataMapper(terminalEntityAbstractDataMapper);
     }
 }

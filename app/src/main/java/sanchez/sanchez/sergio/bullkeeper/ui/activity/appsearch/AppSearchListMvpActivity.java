@@ -19,15 +19,16 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.AppInstalledComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerAppInstalledComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AppInstalledAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AppInstalledByTerminalAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
-import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
  * App Search List Activity
  */
-public class AppSearchListMvpActivity extends SupportMvpSearchLCEActivity<AppSearchListPresenter, IAppSearchListView, AppInstalledEntity>
+public class AppSearchListMvpActivity extends SupportMvpSearchLCEActivity<AppSearchListPresenter, IAppSearchListView, AppInstalledByTerminalEntity>
         implements HasComponent<AppInstalledComponent>, IAppSearchListActivityHandler, IAppSearchListView {
 
     /**
@@ -177,10 +178,10 @@ public class AppSearchListMvpActivity extends SupportMvpSearchLCEActivity<AppSea
      * @param appInstalledEntity
      */
     @Override
-    public void onItemClick(final AppInstalledEntity appInstalledEntity) {
-        /*final Intent schoolSavedIntent = new Intent();
-        schoolSavedIntent.putExtra(APP_SELECTED_ARG, schoolEntity);
-        onResultOk(schoolSavedIntent);*/
+    public void onItemClick(final AppInstalledByTerminalEntity appInstalledEntity) {
+        final Intent appSelectedIntentResult = new Intent();
+        appSelectedIntentResult.putExtra(APP_SELECTED_ARG, appInstalledEntity);
+        onResultOk(appSelectedIntentResult);
     }
 
     /**
@@ -215,11 +216,11 @@ public class AppSearchListMvpActivity extends SupportMvpSearchLCEActivity<AppSea
      */
     @NotNull
     @Override
-    protected SupportRecyclerViewAdapter<AppInstalledEntity> getAdapter() {
-        final AppInstalledAdapter appInstalledAdapter =
-                new AppInstalledAdapter(this, new ArrayList<AppInstalledEntity>());
-        appInstalledAdapter.setOnSupportRecyclerViewListener(this);
-        return appInstalledAdapter;
+    protected SupportRecyclerViewAdapter<AppInstalledByTerminalEntity> getAdapter() {
+        final AppInstalledByTerminalAdapter appInstalledByTerminalAdapter =
+                new AppInstalledByTerminalAdapter(this, new ArrayList<AppInstalledByTerminalEntity>());
+        appInstalledByTerminalAdapter.setOnSupportRecyclerViewListener(this);
+        return appInstalledByTerminalAdapter;
     }
 
     /**

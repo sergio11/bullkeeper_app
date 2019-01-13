@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.savescheduledblock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,11 +38,13 @@ import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerScheduledBlockComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ScheduledBlockComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appallowedbyscheduled.AppAllowedByScheduledMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import timber.log.Timber;
 
@@ -509,7 +512,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         isEnabled = enableSwitch.isChecked();
         allowCalls = allowCallsSwitch.isChecked();
         final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities =
-                new ArrayList<>();
+                appAllowedByScheduledMvpFragment.getAppAllowedByScheduledEntities();
 
         if(startAt.isAfter(endAt)) {
             startAtInputLayout.setError(getString(R.string.scheduled_block_start_input_validation_error));
@@ -619,6 +622,12 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
                 scheduledBlockImageView.setImageURI(Uri.parse(currentImagePath));
             }
 
+        } else if(SEARCH_APP_REQUEST_CODE == requestCode && resultCode == Activity.RESULT_OK){
+            final AppInstalledByTerminalEntity appSelected = (AppInstalledByTerminalEntity)
+                    data.getSerializableExtra(AppSearchListMvpActivity.APP_SELECTED_ARG);
+
+            if(appAllowedByScheduledMvpFragment != null)
+                appAllowedByScheduledMvpFragment.addAppSelected(appSelected);
         }
     }
 
@@ -802,5 +811,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         Preconditions.checkNotNull(kid, "Kid can not be null");
         navigatorImpl.navigateToAppSearchListMvpActivity(this, kid, SEARCH_APP_REQUEST_CODE);
     }
+
+
+
 
 }

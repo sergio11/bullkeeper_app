@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
@@ -16,7 +16,7 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Get All App Installed By Kid Interact
  */
-public final class GetAllAppInstalledByKidInteract extends UseCase<List<AppInstalledEntity>, GetAllAppInstalledByKidInteract.Params> {
+public final class GetAllAppInstalledByKidInteract extends UseCase<List<AppInstalledByTerminalEntity>, GetAllAppInstalledByKidInteract.Params> {
 
     /**
      * App Rules Repository
@@ -42,7 +42,7 @@ public final class GetAllAppInstalledByKidInteract extends UseCase<List<AppInsta
      * @return
      */
     @Override
-    protected Observable<List<AppInstalledEntity>> buildUseCaseObservable(final Params params) {
+    protected Observable<List<AppInstalledByTerminalEntity>> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Child id can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Child id can not be empty");

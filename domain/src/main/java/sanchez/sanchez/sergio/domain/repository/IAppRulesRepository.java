@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.domain.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
@@ -31,7 +32,7 @@ public interface IAppRulesRepository {
      * @param query
      * @return
      */
-    Observable<List<AppInstalledEntity>> getAllAppInstalledByChild(
+    Observable<List<AppInstalledByTerminalEntity>> getAllAppInstalledByChild(
             final String kid,
             final String query);
 

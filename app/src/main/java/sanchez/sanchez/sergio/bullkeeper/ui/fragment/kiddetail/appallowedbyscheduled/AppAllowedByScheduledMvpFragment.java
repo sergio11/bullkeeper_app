@@ -23,6 +23,9 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.AppAllowedByScheduledAdapter;
 import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 import timber.log.Timber;
 
 /**
@@ -193,27 +196,54 @@ public class AppAllowedByScheduledMvpFragment extends SupportMvpLCEFragment<AppA
     }
 
     /**
-     * On App Selected
-     * @param appAllowedByScheduledEntityToAdd
+     * Add App Selected
+     * @param appInstalledByTerminalEntity
      */
-    public void onAppSelected(final AppAllowedByScheduledEntity appAllowedByScheduledEntityToAdd) {
+    public void addAppSelected(final AppInstalledByTerminalEntity appInstalledByTerminalEntity) {
         boolean alreadyAdded = false;
 
         final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities = recyclerViewAdapter.getData();
 
         for(final AppAllowedByScheduledEntity appAllowedByScheduled: appAllowedByScheduledEntities) {
             if (appAllowedByScheduled.getApp().getIdentity()
-                    .equals(appAllowedByScheduledEntityToAdd.getApp().getIdentity())) {
+                    .equals(appInstalledByTerminalEntity.getIdentity())) {
                 alreadyAdded = true;
                 break;
             }
         }
 
         if (!alreadyAdded) {
-            appAllowedByScheduledEntities.add(appAllowedByScheduledEntityToAdd);
-            recyclerViewAdapter.notifyDataSetChanged();
+
+            if(!appInstalledByTerminalEntity.getDisabled() && appInstalledByTerminalEntity
+                    .getAppRuleEnum().equals(AppRuleEnum.PER_SCHEDULER)) {
+
+                final AppAllowedByScheduledEntity appAllowedByScheduledEntity = new AppAllowedByScheduledEntity();
+                appAllowedByScheduledEntity.setTerminal(appInstalledByTerminalEntity.getTerminal());
+                appAllowedByScheduledEntity.setApp(new AppInstalledEntity(
+                        appInstalledByTerminalEntity.getIdentity(),
+                        appInstalledByTerminalEntity.getPackageName(),
+                        appInstalledByTerminalEntity.getFirstInstallTime(),
+                        appInstalledByTerminalEntity.getLastUpdateTime(),
+                        appInstalledByTerminalEntity.getVersionName(),
+                        appInstalledByTerminalEntity.getVersionCode(),
+                        appInstalledByTerminalEntity.getAppName(),
+                        appInstalledByTerminalEntity.getAppRuleEnum(),
+                        appInstalledByTerminalEntity.getIconEncodedString(),
+                        appInstalledByTerminalEntity.getDisabled()
+                ));
+                appAllowedByScheduledEntities.add(appAllowedByScheduledEntity);
+                onDataLoaded(appAllowedByScheduledEntities);
+
+            } else {
+
+
+                showNoticeDialog(R.string.scheduled_block_only_apps_with_valid_rule, false);
+
+            }
+
+
         } else {
-            showNoticeDialog(R.string.search_guardian_already_selected);
+            showNoticeDialog(R.string.scheduled_block_app_already_selected, false);
         }
 
     }
@@ -244,6 +274,8 @@ public class AppAllowedByScheduledMvpFragment extends SupportMvpLCEFragment<AppA
             }, new Snackbar.Callback(){
                 @Override
                 public void onDismissed(Snackbar transientBottomBar, int event) {
+                    if(recyclerViewAdapter.getData().isEmpty())
+                        onNoDataFound();
                     super.onDismissed(transientBottomBar, event);
                 }
             });
