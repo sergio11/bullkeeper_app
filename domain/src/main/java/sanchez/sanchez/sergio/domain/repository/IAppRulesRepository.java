@@ -26,6 +26,17 @@ public interface IAppRulesRepository {
             final String query);
 
     /**
+     * Get All APP Installed By Child
+     * @param kid
+     * @param query
+     * @return
+     */
+    Observable<List<AppInstalledEntity>> getAllAppInstalledByChild(
+            final String kid,
+            final String query);
+
+
+    /**
      * Update App Installed Rules By Child
      * @param kid
      * @param terminal

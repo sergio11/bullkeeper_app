@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.data.net.models.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Save Scheduled Block DTO
@@ -69,6 +70,15 @@ public final class SaveScheduledBlockDTO implements Serializable {
     @JsonProperty("allow_calls")
     private boolean allowCalls;
 
+    /**
+     * App Allowed List
+     */
+    @JsonProperty("apps_allowed")
+    private List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList;
+
+    /**
+     *
+     */
     public SaveScheduledBlockDTO(){}
 
     /**
@@ -81,11 +91,12 @@ public final class SaveScheduledBlockDTO implements Serializable {
      * @param endAt
      * @param weeklyFrequency
      * @param kid
+     * @param saveAppAllowedByScheduledDTOList
      */
     public SaveScheduledBlockDTO(String identity, String name, boolean enable,
                                  boolean repeatable, String startAt, String endAt,
                                  int[] weeklyFrequency, String kid, String description,
-                                boolean allowCalls) {
+                                boolean allowCalls, List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -96,6 +107,7 @@ public final class SaveScheduledBlockDTO implements Serializable {
         this.kid = kid;
         this.description = description;
         this.allowCalls = allowCalls;
+        this.saveAppAllowedByScheduledDTOList = saveAppAllowedByScheduledDTOList;
     }
 
     public String getIdentity() {
@@ -177,4 +189,57 @@ public final class SaveScheduledBlockDTO implements Serializable {
     public void setAllowCalls(boolean allowCalls) {
         this.allowCalls = allowCalls;
     }
+
+    public List<SaveAppAllowedByScheduledDTO> getSaveAppAllowedByScheduledDTOList() {
+        return saveAppAllowedByScheduledDTOList;
+    }
+
+    public void setSaveAppAllowedByScheduledDTOList(List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList) {
+        this.saveAppAllowedByScheduledDTOList = saveAppAllowedByScheduledDTOList;
+    }
+
+    /**
+     * Save App Allowed By Scheduled
+     */
+    public static class SaveAppAllowedByScheduledDTO implements Serializable {
+
+        /**
+         * App
+         */
+        private final String app;
+
+        /**
+         * Terminal
+         */
+        private final String terminal;
+
+        /**
+         *
+         * @param app
+         * @param terminal
+         */
+        public SaveAppAllowedByScheduledDTO(final String app, final String terminal) {
+            this.app = app;
+            this.terminal = terminal;
+        }
+
+        public String getApp() {
+            return app;
+        }
+
+        public String getTerminal() {
+            return terminal;
+        }
+
+
+        @Override
+        public String toString() {
+            return "SaveAppAllowedByScheduled{" +
+                    "app='" + app + '\'' +
+                    ", terminal='" + terminal + '\'' +
+                    '}';
+        }
+    }
+
+
 }

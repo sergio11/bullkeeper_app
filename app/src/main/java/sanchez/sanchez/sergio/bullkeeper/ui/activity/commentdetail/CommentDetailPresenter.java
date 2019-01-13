@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.comments.GetCommentByIdInteract;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
@@ -56,6 +58,10 @@ public final class CommentDetailPresenter extends SupportPresenter<ICommentDetai
         Preconditions.checkNotNull(commentIdentity, "Comment Identity can not be null");
         Preconditions.checkState(!commentIdentity.isEmpty(), "Comment Identity can not be empty");
 
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
         getCommentByIdInteract.execute(new GetCommentDetailObservable(GetCommentByIdInteract.GetCommentByIdApiErrors.class),
                 GetCommentByIdInteract.Params.create(commentIdentity));
 
@@ -81,8 +87,10 @@ public final class CommentDetailPresenter extends SupportPresenter<ICommentDetai
         protected void onSuccess(CommentEntity response) {
             Preconditions.checkNotNull(response, "Response can not be null");
 
-            if (isViewAttached() && getView() != null)
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onCommentLoaded(response);
+            }
 
         }
 
@@ -93,8 +101,10 @@ public final class CommentDetailPresenter extends SupportPresenter<ICommentDetai
         @Override
         public void visitCommentNotFound(GetCommentByIdInteract.GetCommentByIdApiErrors apiErrors) {
 
-            if (isViewAttached() && getView() != null)
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
                 getView().onCommentNotFound();
+            }
         }
     }
 }

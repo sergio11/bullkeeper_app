@@ -6,6 +6,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
@@ -17,6 +18,7 @@ import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDT
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.services.IScheduledBlockService;
+import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
@@ -136,25 +138,36 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
     public Observable<ScheduledBlockEntity> saveScheduledBlock(final String identity, final String name, final boolean enable,
                                                                final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                                                final boolean recurringWeeklyEnabled, final String childId,
-                                                               final String description, final boolean allowCalls) {
+                                                               final String description, final boolean allowCalls, final List<AppAllowedByScheduledEntity> appsAllowedList) {
         Preconditions.checkNotNull(startAt, "Start At can not be null");
         Preconditions.checkNotNull(endAt, "End at can not be null");
         Preconditions.checkNotNull(weeklyFrequency, "Weekly Frequency can not be null");
         Preconditions.checkState(weeklyFrequency.length == 7, "Weekly Frequency should have 7 elements");
         Preconditions.checkNotNull(childId, "Child Id can not be null");
         Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
+        Preconditions.checkNotNull(appsAllowedList, "Apps Allowed can not be null");
 
         final DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss.SSS");
 
         final String startAtTimeString = startAt.toString(fmt);
         final String endAtTimeString = endAt.toString(fmt);
 
+        final List<SaveScheduledBlockDTO.SaveAppAllowedByScheduledDTO> appAllowedByScheduledDTOS = new ArrayList<>();
+        for(final AppAllowedByScheduledEntity appAllowedByScheduledEntity: appsAllowedList) {
+            final SaveScheduledBlockDTO.SaveAppAllowedByScheduledDTO saveAppAllowedByScheduledDTO =
+                    new SaveScheduledBlockDTO.SaveAppAllowedByScheduledDTO(
+                            appAllowedByScheduledEntity.getApp().getIdentity(),
+                            appAllowedByScheduledEntity.getTerminal().getIdentity()
+                    );
+            appAllowedByScheduledDTOS.add(saveAppAllowedByScheduledDTO);
+        }
+
         /**
          * Save Scheduled Block
          */
         return scheduledBlockService.saveScheduledBlock(childId, new SaveScheduledBlockDTO(identity == null ?  "" : identity , name, enable, recurringWeeklyEnabled,
                 startAtTimeString, endAtTimeString, weeklyFrequency, childId,
-                description, allowCalls))
+                description, allowCalls, appAllowedByScheduledDTOS))
                     .map(response -> response != null && response.getData() != null ? response.getData(): null)
                     .map(scheduledBlockDataMapper::transform);
 

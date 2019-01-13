@@ -175,22 +175,6 @@ public interface INavigator {
      */
     void navigateToCommentsSettings();
 
-    /**
-     * Navigate To Relations
-     * @param kidIdentity
-     */
-    void navigateToRelations(final String kidIdentity);
-
-    /**
-     * Navigate To Relation Detail
-     * @param socialMediaFriendEntity
-     */
-    void navigateToRelationDetail(final SocialMediaFriendEntity socialMediaFriendEntity);
-
-    /**
-     * Navigate To Relations Settings
-     */
-    void navigateToRelationSettings();
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
@@ -526,5 +510,12 @@ public interface INavigator {
      * @param kid
      */
     void navigateToSaveGeofence(final AppCompatActivity activity, final String kid);
+
+    /**
+     * Navigate To App Search List Mvp Activity
+     * @param activity
+     * @param kid
+     */
+    void navigateToAppSearchListMvpActivity(final AppCompatActivity activity, final String kid, final int requestCode);
 
 }

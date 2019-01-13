@@ -13,6 +13,7 @@ import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -260,9 +261,11 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
 
         authorNameTextView.setText(commentEntity.getAuthorName());
 
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
         // Comment Create At
         commentCreateAtTitleTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.comment_detail_create_at), commentEntity.getCreatedTime()));
+                getString(R.string.comment_detail_create_at),
+                simpleDateFormat.format(commentEntity.getCreatedTime())));
 
 
         switch (commentEntity.getSocialMedia()) {
@@ -281,7 +284,7 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
         }
 
         // Likes Count
-        likesCountTextView.setText(commentEntity.getLikes());
+        likesCountTextView.setText(String.valueOf(commentEntity.getLikes()));
         // Comments Since
         commentSinceTextView.setText(commentEntity.getExtractedAtSince());
         // Comment Message

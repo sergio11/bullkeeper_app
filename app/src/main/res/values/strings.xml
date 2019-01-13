@@ -77,6 +77,7 @@
     <string name="make_a_search_to_see_results">Make a search to see results</string>
 
     <string name="generic_loading_text">Please wait ....</string>
+    <string name="search_result_generic_hint">Enter text to see result</string>
 
     <!-- UI Components -->
     <string name="support_edit_weekly_frequency_label">Weekly Frequency</string>
@@ -311,6 +312,7 @@
     <string name="kid_guardians_configured_title">Kid Guardian Configured</string>
     <string name="kid_guardians_configured_description">Configure the different roles of the child\'s supervisors</string>
     <string name="kid_guardians_supervised_eliminated">Supervisor Eliminated</string>
+    <string name="kid_guardians_app_allowed_eliminated">Kid Guardian Eliminated</string>
     <string name="kid_guardians_self_user_can_not_be_eliminated">You can not eliminate yourself as a supervisor</string>
     <!-- Comments -->
     <string name="comments_by_child_title" formatted="true">Comments (%d)</string>
@@ -692,6 +694,11 @@
     <string name="scheduled_block_end_input_validation_error">The start date must be before the end date</string>
     <string name="scheduled_block_not_valid">The configuration block can not be registered, please check the weekly frequency and the duration of the same.</string>
     <string name="scheduled_block_weekly_frequency_not_valid">You must select at least one day of the week</string>
+    <string name="scheduled_block_app_already_selected">The selected application is already allowed</string>
+    <string name="scheduled_block_app_allowed_eliminated">App Allowed Eliminated</string>
+    <string name="scheduled_block_apps_allowed_configured_title">Apps Allowed</string>
+    <string name="scheduled_block_apps_allowed_configured_description">Configure a list of specific applications that will be allowed during this planning block</string>
+    <string name="scheduled_block_no_apps_allowed">No allowed apps have been configured, please click to configure</string>
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>
     <string name="app_rules_description">Rules applied to the set of installed applications</string>
@@ -824,6 +831,8 @@
     <string name="app_installed_enable_confirm">Do you want to enable the application ?. Its use will be regulated again by the "App Rules" configured</string>
     <string name="app_installed_status_changed_successfully">The status of the application was changed successfully</string>
     <string name="app_installed_status_changed_failed">An error occurred when changing the status of the application, please try again later.</string>
+    
+
     <!-- SMS Detail -->
     <string name="sms_detail_title">SMS Detail</string>
     <string name="sms_detail_message_title">Message</string>
@@ -936,4 +945,9 @@
     <string name="geofences_origin_address">Geofence Origin</string>
     <string name="geofence_deleted_successfully">Geofence Deleted Successfully</string>
     <string name="geofence_confirm_delete">Do you want to delete the selected Geofence?</string>
+    
+    <!-- App Search List -->
+    <string name="app_search_title_default">Apps Installed</string>
+    <string name="no_app_installed_found">No App Installed Found for this terminal</string>
+    <string name="search_apps_by_name_hint">Enter the name of the application</string>
 </resources>

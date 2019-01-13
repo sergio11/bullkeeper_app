@@ -7,6 +7,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail.AppInstalledDetailActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail.AppInstalledDetailFragmentPresenter;
 
@@ -30,7 +32,19 @@ public interface AppInstalledComponent extends ActivityComponent {
      */
     void inject(final AppInstalledDetailActivityMvpFragment appInstalledDetailActivityMvpFragment);
 
+    /**
+     * Inject into App Search List Mvp Activity
+     * @param appSearchListMvpActivity
+     */
+    void inject(final AppSearchListMvpActivity appSearchListMvpActivity);
+
+
+    /**
+     * Presenter
+     * @return
+     */
     AppDetailPresenter appDetailPresenter();
     AppInstalledDetailFragmentPresenter appInstalledDetailFragmentPresenter();
+    AppSearchListPresenter appSearchListPresenter();
 
 }

@@ -2,6 +2,8 @@ package sanchez.sanchez.sergio.domain.interactor.scheduled;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import org.joda.time.LocalTime;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import io.reactivex.Observable;
@@ -10,6 +12,7 @@ import io.reactivex.functions.Function;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
+import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.repository.IScheduledBlockRepository;
@@ -58,7 +61,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         return scheduledBlockRepository.saveScheduledBlock(params.getIdentity(), params.getName(), params.isEnable(),
                 params.getStartAt(), params.getEndAt(), params.getWeeklyFrequency(),
                 params.isRecurringWeeklyEnabled(), params.getChildId(),
-                params.getDescription(), params.isAllowCalls());
+                params.getDescription(), params.isAllowCalls(), params.appAllowedByScheduledEntities);
     }
 
     /**
@@ -154,6 +157,11 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         private final boolean allowCalls;
 
         /**
+         * App Allowed By Scheduled Entities
+         */
+        private final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities;
+
+        /**
          *
          * @param identity
          * @param name
@@ -170,7 +178,8 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
                        final LocalTime startAt, final LocalTime endAt,
                        final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
                        final String childId, final String description,
-                       final boolean allowCalls, final String image) {
+                       final boolean allowCalls, final String image,
+                       final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities) {
             this.identity = identity;
             this.name = name;
             this.enable = enable;
@@ -182,6 +191,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             this.description = description;
             this.allowCalls = allowCalls;
             this.image = image;
+            this.appAllowedByScheduledEntities = appAllowedByScheduledEntities;
         }
 
         public String getIdentity() {
@@ -228,6 +238,10 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             return image;
         }
 
+        public List<AppAllowedByScheduledEntity> getAppAllowedByScheduledEntities() {
+            return appAllowedByScheduledEntities;
+        }
+
         /**
          * Create
          * @param identity
@@ -240,15 +254,16 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
          * @param childId
          * @param description
          * @param allowCalls
+         * @param appAllowedByScheduledEntities
          * @return
          */
         public static Params create(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                     final LocalTime endAt, final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
                                     final String childId, final String description, final boolean allowCalls,
-                                    final String image){
+                                    final String image, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities){
            return new Params(identity, name, enable, startAt,
                    endAt, weeklyFrequency, recurringWeeklyEnabled, childId,
-                   description, allowCalls, image);
+                   description, allowCalls, image, appAllowedByScheduledEntities);
         }
     }
 

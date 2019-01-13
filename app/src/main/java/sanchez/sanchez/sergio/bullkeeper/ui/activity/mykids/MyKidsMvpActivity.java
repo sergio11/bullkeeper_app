@@ -145,14 +145,6 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
         navigatorImpl.navigateToAlertList(kid);
     }
 
-    /**
-     * Navigate To Kid Realtions
-     * @param identity
-     */
-    @Override
-    public void navigateToRelations(String identity) {
-        navigatorImpl.navigateToRelations(identity);
-    }
 
     /**
      * Navigate To Invitations

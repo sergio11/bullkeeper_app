@@ -11,7 +11,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
-import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
+import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
@@ -33,7 +33,7 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
     /**
      * Get App Rules Interact
      */
-    private final GetAppRulesInteract getAppRulesInteract;
+    private final GetAppInstalledInteract getAppInstalledInteract;
 
     /**
      * Update App Installed Rules By Child Interact
@@ -46,13 +46,13 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
     private boolean isLoadingData = false;
 
     /**
-     * @param getAppRulesInteract
+     * @param getAppInstalledInteract
      * @param updateAppInstalledRulesByChildInteract
      */
     @Inject
-    public AppRulesFragmentPresenter(final GetAppRulesInteract getAppRulesInteract,
+    public AppRulesFragmentPresenter(final GetAppInstalledInteract getAppInstalledInteract,
                                      final UpdateAppInstalledRulesByChildInteract updateAppInstalledRulesByChildInteract){
-        this.getAppRulesInteract = getAppRulesInteract;
+        this.getAppInstalledInteract = getAppInstalledInteract;
         this.updateAppInstalledRulesByChildInteract = updateAppInstalledRulesByChildInteract;
     }
 
@@ -108,8 +108,8 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
             if (isViewAttached() && getView() != null)
                 getView().onShowLoading();
 
-            getAppRulesInteract.execute(new GetAppRulesObservable(GetAppRulesInteract.GetAppRulesApiErrors.class),
-                    GetAppRulesInteract.Params.create(
+            getAppInstalledInteract.execute(new GetAppRulesObservable(GetAppInstalledInteract.GetAppRulesApiErrors.class),
+                    GetAppInstalledInteract.Params.create(
                             args.getString(KID_IDENTITY_ARG), terminalItem.getIdentity(), queryText));
         }
     }
@@ -148,16 +148,16 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
      * Get App Rules Observable
      */
     public class GetAppRulesObservable extends CommandCallBackWrapper<List<AppInstalledEntity>,
-            GetAppRulesInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor,
-            GetAppRulesInteract.GetAppRulesApiErrors>
-            implements GetAppRulesInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor {
+            GetAppInstalledInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor,
+            GetAppInstalledInteract.GetAppRulesApiErrors>
+            implements GetAppInstalledInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor {
 
 
         /**
          *
          * @param apiErrors
          */
-        public GetAppRulesObservable(Class<GetAppRulesInteract.GetAppRulesApiErrors> apiErrors) {
+        public GetAppRulesObservable(Class<GetAppInstalledInteract.GetAppRulesApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -214,7 +214,7 @@ public final class AppRulesFragmentPresenter extends SupportSearchLCEPresenter<I
          * @param apiErrorsVisitor
          */
         @Override
-        public void visitNoAppRulesFound(GetAppRulesInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor apiErrorsVisitor) {
+        public void visitNoAppRulesFound(GetAppInstalledInteract.GetAppRulesApiErrors.IGetAppRulesApiErrorsVisitor apiErrorsVisitor) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();

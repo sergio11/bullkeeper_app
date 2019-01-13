@@ -12,9 +12,9 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
- * Get App Rules Interact
+ * Get App Installed Interact
  */
-public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>, GetAppRulesInteract.Params> {
+public final class GetAppInstalledInteract extends UseCase<List<AppInstalledEntity>, GetAppInstalledInteract.Params> {
 
     /**
      * App Rules Repository
@@ -27,9 +27,9 @@ public final class GetAppRulesInteract extends UseCase<List<AppInstalledEntity>,
      * @param postExecutionThread
      * @param appRulesRepository
      */
-    public GetAppRulesInteract(final IThreadExecutor threadExecutor,
-                               final IPostExecutionThread postExecutionThread,
-                               final IAppRulesRepository appRulesRepository) {
+    public GetAppInstalledInteract(final IThreadExecutor threadExecutor,
+                                   final IPostExecutionThread postExecutionThread,
+                                   final IAppRulesRepository appRulesRepository) {
         super(threadExecutor, postExecutionThread);
         this.appRulesRepository = appRulesRepository;
     }

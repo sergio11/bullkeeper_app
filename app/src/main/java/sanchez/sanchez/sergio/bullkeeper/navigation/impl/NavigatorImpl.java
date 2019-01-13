@@ -9,6 +9,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetailMvpActivity;
@@ -22,9 +23,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequest
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidresultssettings.KidResultsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.phonenumbersblocked.PhoneNumbersBlockedListMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationdetail.RelationDetailMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.relations.RelationsMvpActivity;
-import sanchez.sanchez.sergio.bullkeeper.ui.activity.relationssettings.RelationsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.savescheduledblock.SaveScheduledBlockMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.AddSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
@@ -347,34 +345,6 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToCommentsSettings() {
         context.startActivity(CommentsSettingsMvpActivity.getCallingIntent(context));
-    }
-
-    /**
-     * Navigate To Relations
-     */
-    @Override
-    public void navigateToRelations(final String kidIdentity) {
-        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
-        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
-        context.startActivity(RelationsMvpActivity.getCallingIntent(context, kidIdentity));
-    }
-
-    /**
-     * Navigate To Relation Detail
-     * @param socialMediaFriendEntity
-     */
-    @Override
-    public void navigateToRelationDetail(SocialMediaFriendEntity socialMediaFriendEntity) {
-        Preconditions.checkNotNull(socialMediaFriendEntity, "Social Media Friend Entity");
-        context.startActivity(RelationDetailMvpActivity.getCallingIntent(context, socialMediaFriendEntity));
-    }
-
-    /**
-     * Navigate To Relations Settings
-     */
-    @Override
-    public void navigateToRelationSettings() {
-        context.startActivity(RelationsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
@@ -942,5 +912,20 @@ public class NavigatorImpl implements INavigator {
         activity.startActivity(SaveGeofenceMvpActivity.getCallingIntent(
                 activity, kid
         ));
+    }
+
+    /**
+     * Navigate To App Search List Mvp Activity
+     * @param activity
+     * @param kid
+     */
+    @Override
+    public void navigateToAppSearchListMvpActivity(AppCompatActivity activity, String kid, final int requestCode) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        activity.startActivityForResult(AppSearchListMvpActivity.getCallingIntent(activity,
+                kid), requestCode);
     }
 }

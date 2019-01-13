@@ -27,7 +27,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsM
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
@@ -103,8 +102,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             R.drawable.activity_social_media_solid,
             R.drawable.activity_social_media_solid,
             R.drawable.alerts_kids_solid,
-            R.drawable.social_likes_results,
-            R.drawable.most_active_friends_solid
+            R.drawable.social_likes_results
     };
 
     /**
@@ -116,8 +114,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             R.drawable.activity_social_media_solid_dark,
             R.drawable.activity_social_media_solid_dark,
             R.drawable.alerts_kids_solid_dark,
-            R.drawable.social_likes_results_dark,
-            R.drawable.most_active_friends_solid_dark
+            R.drawable.social_likes_results_dark
     };
 
 
@@ -309,9 +306,8 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
         private final static int SENTIMENT_ANALYSIS_TAB = 3;
         private final static int ALERTS_TAB = 4;
         private final static int LIKES_TAB = 5;
-        private final static int RELATIONS_TAB = 6;
 
-        private final static int SECTION_COUNT = 7;
+        private final static int SECTION_COUNT = 6;
 
         /**
          * Sections Pager Adapter
@@ -335,8 +331,6 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
                     return SystemAlertsMvpFragment.newInstance(kidIdentity);
                 case LIKES_TAB:
                     return LikesChartMvpFragment.newInstance(kidIdentity);
-                case RELATIONS_TAB:
-                    return RelationsMvpFragment.newInstance(kidIdentity);
             }
             return null;
         }
@@ -370,8 +364,6 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
                     return getString(R.string.alerts_tab);
                 case LIKES_TAB:
                     return getString(R.string.likes_social_media_tab);
-                case RELATIONS_TAB:
-                    return getString(R.string.relations_tab);
             }
             return null;
         }

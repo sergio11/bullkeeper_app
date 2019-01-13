@@ -2,22 +2,65 @@ package sanchez.sanchez.sergio.domain.models;
 
 import java.io.Serializable;
 import org.joda.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Scheduled Block Entity
  */
 public final class ScheduledBlockEntity implements Serializable {
 
+    /**
+     * Identity
+     */
     private String identity;
+
+    /**
+     * Name
+     */
     private String name;
+
+    /**
+     * Enable
+     */
     private boolean enable;
+
+    /**
+     * Repeatable
+     */
     private boolean repeatable;
+
+    /**
+     * Start At
+     */
     private LocalTime startAt;
+
+    /**
+     * End At
+     */
     private LocalTime endAt;
+
+    /**
+     * Weekly Frequency
+     */
     private int[] weeklyFrequency;
+
+    /**
+     * Image
+     */
     private String image;
+
+    /**
+     * Child Id
+     */
     private String childId;
+
+    /**
+     * Apps Allowed
+     */
+
+    private List<AppAllowedByScheduledEntity> appsAllowed = new ArrayList<>();
 
     public ScheduledBlockEntity(){}
 
@@ -32,10 +75,11 @@ public final class ScheduledBlockEntity implements Serializable {
      * @param weeklyFrequency
      * @param  image
      * @param childId
+     * @param appsAllowed
      */
     public ScheduledBlockEntity(final String identity, final String name, final boolean enable, final boolean repeatable,
                                 final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
-                                final String image, final String childId) {
+                                final String image, final String childId, final List<AppAllowedByScheduledEntity> appsAllowed) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -45,6 +89,7 @@ public final class ScheduledBlockEntity implements Serializable {
         this.weeklyFrequency = weeklyFrequency;
         this.image = image;
         this.childId = childId;
+        this.appsAllowed = appsAllowed;
     }
 
     public String getIdentity() {
@@ -117,6 +162,14 @@ public final class ScheduledBlockEntity implements Serializable {
 
     public void setChildId(String childId) {
         this.childId = childId;
+    }
+
+    public List<AppAllowedByScheduledEntity> getAppsAllowed() {
+        return appsAllowed;
+    }
+
+    public void setAppsAllowed(List<AppAllowedByScheduledEntity> appsAllowed) {
+        this.appsAllowed = appsAllowed;
     }
 
     @Override

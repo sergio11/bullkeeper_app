@@ -17,6 +17,8 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.squareup.picasso.Picasso;
 import org.joda.time.LocalTime;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -38,6 +40,8 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.ScheduledBlockComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appallowedbyscheduled.AppAllowedByScheduledMvpFragment;
+import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import timber.log.Timber;
 
@@ -46,7 +50,7 @@ import timber.log.Timber;
  */
 public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivity<SaveScheduledBlockPresenter,
         ISaveScheduledBlockView> implements HasComponent<ScheduledBlockComponent>, ISaveScheduledBlockView,
-        PhotoViewerDialog.IPhotoViewerListener {
+        PhotoViewerDialog.IPhotoViewerListener, ISaveScheduledBlockActivityHandler {
 
     /**
      * Content and Content Type Name
@@ -58,7 +62,12 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      * Args
      */
     private static final String SCHEDULED_BLOCK_IDENTITY_ARG = "SCHEDULED_BLOCK_IDENTITY";
-    private static final String SON_IDENTITY_ARG = "KID_IDENTITY_ARG";
+    private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    /**
+     * Request Code
+     */
+    private static final int SEARCH_APP_REQUEST_CODE = 1234;
 
     /**
      * Fields
@@ -268,10 +277,10 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     protected boolean isEnabled;
 
     /**
-     * Son Identity
+     * Kid
      */
     @State
-    protected String sonIdentity;
+    protected String kid;
 
     /**
      * Description
@@ -286,19 +295,24 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     protected boolean allowCalls;
 
     /**
+     * App Allowed By Scheduled
+     */
+    protected AppAllowedByScheduledMvpFragment appAllowedByScheduledMvpFragment;
+
+    /**
      * Get Calling Intent
      * @param context
      * @return
      */
     public static Intent getCallingIntent(final Context context, final String identity,
-                                          final String sonId) {
+                                          final String kid) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        Preconditions.checkNotNull(sonId, "Son id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Identity can not be empty");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
         final Intent intent = new Intent(context, SaveScheduledBlockMvpActivity.class);
         intent.putExtra(SCHEDULED_BLOCK_IDENTITY_ARG, identity);
-        intent.putExtra(SON_IDENTITY_ARG, sonId);
+        intent.putExtra(KID_IDENTITY_ARG, kid);
         return intent;
     }
 
@@ -306,14 +320,14 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     /**
      * Get Calling Intent
      * @param context
-     * @param sonId
+     * @param kid
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String sonId) {
-        Preconditions.checkNotNull(sonId, "Son id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Identity can not be empty");
+    public static Intent getCallingIntent(final Context context, final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
         final Intent intent =  new Intent(context, SaveScheduledBlockMvpActivity.class);
-        intent.putExtra(SON_IDENTITY_ARG, sonId);
+        intent.putExtra(KID_IDENTITY_ARG, kid);
         return intent;
     }
 
@@ -392,12 +406,19 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         super.onNewViewInstance();
 
 
-        if(!getIntent().hasExtra(SON_IDENTITY_ARG) ||
-                !appUtils.isValidString(getIntent().getStringExtra(SON_IDENTITY_ARG)))
-            throw new IllegalArgumentException("Son Identity can not be null");
+        if(!getIntent().hasExtra(KID_IDENTITY_ARG) ||
+                !appUtils.isValidString(getIntent().getStringExtra(KID_IDENTITY_ARG)))
+            throw new IllegalArgumentException("Kid can not be null");
 
-        // Get Son Identity
-        sonIdentity = getIntent().getStringExtra(SON_IDENTITY_ARG);
+
+
+        appAllowedByScheduledMvpFragment = AppAllowedByScheduledMvpFragment.newInstance();
+        // Add Fragment
+        addFragment(R.id.appsAllowedByScheduledContainer, appAllowedByScheduledMvpFragment,
+                false, "");
+
+        // Get Kid Identity
+        kid = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
         if(getIntent().hasExtra(SCHEDULED_BLOCK_IDENTITY_ARG) &&
                 appUtils.isValidString(getIntent().getStringExtra(SCHEDULED_BLOCK_IDENTITY_ARG))) {
@@ -407,9 +428,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
             // Toggle All Components
             toggleAllComponents(false);
 
-            getPresenter().loadScheduledBlock(sonIdentity, scheduledBlockIdentity);
+            getPresenter().loadScheduledBlock(kid, scheduledBlockIdentity);
         }
-
 
     }
 
@@ -422,8 +442,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         final Bundle args = new Bundle();
         if(scheduledBlockIdentity != null && !scheduledBlockIdentity.isEmpty())
             args.putString(SCHEDULED_BLOCK_IDENTITY_ARG, scheduledBlockIdentity);
-        if(sonIdentity != null && !sonIdentity.isEmpty())
-           args.putString(SON_IDENTITY_ARG, sonIdentity);
+        if(kid != null && !kid.isEmpty())
+           args.putString(KID_IDENTITY_ARG, kid);
         return args;
     }
 
@@ -488,7 +508,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         description = descriptionInput.getText().toString();
         isEnabled = enableSwitch.isChecked();
         allowCalls = allowCallsSwitch.isChecked();
-
+        final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities =
+                new ArrayList<>();
 
         if(startAt.isAfter(endAt)) {
             startAtInputLayout.setError(getString(R.string.scheduled_block_start_input_validation_error));
@@ -509,8 +530,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         }
         // Save Scheduled Block
         getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
-                scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, sonIdentity,
-                 description, allowCalls, currentImagePath);
+                scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, kid,
+                 description, allowCalls, currentImagePath, appAllowedByScheduledEntities);
     }
 
     /**
@@ -550,7 +571,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         showConfirmationDialog(R.string.delete_scheduled_block_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
             @Override
             public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteScheduledById(sonIdentity, scheduledBlockIdentity);
+                getPresenter().deleteScheduledById(kid, scheduledBlockIdentity);
             }
 
             @Override
@@ -650,6 +671,9 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         toggleAllComponents(true);
         // Enable Delete Scheduled Block
         deleteScheduledBlock.setVisibility(View.VISIBLE);
+        // Set App Allowed By Scheduled
+        appAllowedByScheduledMvpFragment.setAppAllowedByScheduledEntities(scheduledBlockEntity.getAppsAllowed());
+
     }
 
     /**
@@ -768,6 +792,15 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     @Override
     protected int getBackgroundResource() {
         return R.drawable.background_cyan_6;
+    }
+
+    /**
+     * Navigate To App Search
+     */
+    @Override
+    public void navigateToAppSearch() {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        navigatorImpl.navigateToAppSearchListMvpActivity(this, kid, SEARCH_APP_REQUEST_CODE);
     }
 
 }

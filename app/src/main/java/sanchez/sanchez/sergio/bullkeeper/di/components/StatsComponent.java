@@ -18,8 +18,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimen
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes.LikesChartMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.relations.RelationsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisMvpFragment;
 
@@ -74,11 +72,6 @@ public interface StatsComponent extends ActivityComponent {
      */
     void inject(final CommentsExtractedBySocialMediaFragment commentsExtractedBySocialMediaMvpFragment);
 
-    /**
-     * Inject into Relations Mvp Fragment
-     * @param relationsMvpFragment
-     */
-    void inject(final RelationsMvpFragment relationsMvpFragment);
 
     /**
      * kids Results Activity Presenter
@@ -91,6 +84,5 @@ public interface StatsComponent extends ActivityComponent {
     SystemAlertsFragmentPresenter systemAlertsFragmentPresenter();
     LikesChartFragmentPresenter likesChartFragmentPresenter();
     CommentsExtractedBySocialMediaFragmentPresenter commentsExtractedFragmentPresenter();
-    RelationsFragmentPresenter relationsFragmentPresenter();
 
 }

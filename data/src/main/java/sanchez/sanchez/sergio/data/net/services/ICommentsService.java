@@ -90,7 +90,7 @@ public interface ICommentsService {
     Observable<APIResponse<List<CommentDTO>>> getComments(
             @Query("children") final String[] ids,
             @Query("author") final String author,
-            @Query("social_medias") final String[] socialMedias,
+            @Query("social_media") final String[] socialMedias,
             @Query("days_ago") final int daysAgo,
             @Query("violence") final String violence,
             @Query("drugs") final String drugs,
@@ -112,7 +112,7 @@ public interface ICommentsService {
     @GET("comments/comments")
     Observable<APIResponse<List<CommentDTO>>> getComments(
             @Query("children") final String[] ids,
-            @Query("social_medias") final String[] socialMedias,
+            @Query("social_media") final String[] socialMedias,
             @Query("days_ago") final int daysAgo,
             @Query("violence") final String violence,
             @Query("drugs") final String drugs,
@@ -130,7 +130,7 @@ public interface ICommentsService {
     @GET("comments/comments")
     Observable<APIResponse<List<CommentDTO>>> getComments(
             @Query("children") final String[] ids,
-            @Query("social_medias") final String[] socialMedias,
+            @Query("social_media") final String[] socialMedias,
             @Query("days_ago") final int daysAgo
     );
 

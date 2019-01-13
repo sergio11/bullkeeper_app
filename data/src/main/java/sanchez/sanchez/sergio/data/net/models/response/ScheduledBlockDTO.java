@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.LocalTime;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Scheduled Block DTO
@@ -67,6 +69,12 @@ public final class ScheduledBlockDTO implements Serializable {
     @JsonProperty("kid")
     private String kid;
 
+    /**
+     * Apps Allowed
+     */
+    @JsonProperty("apps_allowed")
+    private List<AppAllowedByScheduledDTO> appsAllowed = new ArrayList<>();
+
     public ScheduledBlockDTO(){}
 
     /**
@@ -80,10 +88,11 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param weeklyFrequency
      * @param image
      * @param kid
+     * @param appsAllowed
      */
     public ScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable,
                              LocalTime startAt, LocalTime endAt, int[] weeklyFrequency, String image,
-                             String kid) {
+                             String kid, List<AppAllowedByScheduledDTO> appsAllowed) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -93,6 +102,7 @@ public final class ScheduledBlockDTO implements Serializable {
         this.weeklyFrequency = weeklyFrequency;
         this.image = image;
         this.kid = kid;
+        this.appsAllowed = appsAllowed;
     }
 
     public String getIdentity() {
@@ -167,6 +177,14 @@ public final class ScheduledBlockDTO implements Serializable {
         this.kid = kid;
     }
 
+    public List<AppAllowedByScheduledDTO> getAppsAllowed() {
+        return appsAllowed;
+    }
+
+    public void setAppsAllowed(List<AppAllowedByScheduledDTO> appsAllowed) {
+        this.appsAllowed = appsAllowed;
+    }
+
     @Override
     public String toString() {
         return "ScheduledBlockDTO{" +
@@ -179,4 +197,6 @@ public final class ScheduledBlockDTO implements Serializable {
                 ", weeklyFrequency=" + Arrays.toString(weeklyFrequency) +
                 '}';
     }
+
+
 }

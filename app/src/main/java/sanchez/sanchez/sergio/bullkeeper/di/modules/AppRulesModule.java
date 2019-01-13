@@ -13,8 +13,9 @@ import sanchez.sanchez.sergio.data.repository.AppRulesRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.apprules.ChangeAppStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.apprules.GetAllAppInstalledByKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledDetailInteract;
-import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppRulesInteract;
+import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetStatisticsOfTheFiveMostUsedApplicationsInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateSingleAppInstalledRulesByChildInteract;
@@ -62,9 +63,9 @@ public class AppRulesModule {
      */
     @Provides
     @PerActivity
-    public GetAppRulesInteract provideGetAppRulesInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                          final IAppRulesRepository appRulesRepository){
-        return new GetAppRulesInteract(threadExecutor, postExecutionThread, appRulesRepository);
+    public GetAppInstalledInteract provideGetAppRulesInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                              final IAppRulesRepository appRulesRepository){
+        return new GetAppInstalledInteract(threadExecutor, postExecutionThread, appRulesRepository);
     }
 
     /**
@@ -144,6 +145,23 @@ public class AppRulesModule {
             final IAppRulesRepository appRulesRepository
     ){
         return new GetStatisticsOfTheFiveMostUsedApplicationsInteract(threadExecutor, postExecutionThread, appRulesRepository);
+    }
+
+    /**
+     * Provide Get App Installed By Kid Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param appRulesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetAllAppInstalledByKidInteract provideGetAppInstalledByKidInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAppRulesRepository appRulesRepository
+    ){
+        return new GetAllAppInstalledByKidInteract(threadExecutor, postExecutionThread, appRulesRepository);
     }
 
 }

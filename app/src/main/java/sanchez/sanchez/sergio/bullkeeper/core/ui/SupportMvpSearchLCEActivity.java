@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.core.ui;
 
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
 import android.view.View;
@@ -74,7 +75,7 @@ public abstract class SupportMvpSearchLCEActivity<T extends SupportSearchLCEPres
 
         // Set Hint and Text Color
         EditText txtSearch = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        txtSearch.setHint(R.string.search_school_query_hint);
+        txtSearch.setHint(getQueryHint());
         txtSearch.setHintTextColor(ContextCompat.getColor(appContext, R.color.cyanBrilliant));
         txtSearch.setTextColor(getResources().getColor(R.color.cyanBrilliant));
 
@@ -110,6 +111,16 @@ public abstract class SupportMvpSearchLCEActivity<T extends SupportSearchLCEPres
 
         onShowInitSearch();
     }
+
+    /**
+     * Get Query hint
+     * @return
+     */
+    @StringRes
+    protected int getQueryHint(){
+        return R.string.search_result_generic_hint;
+    }
+
 
     @Override
     public void onDataLoaded(List<F> dataLoaded) {

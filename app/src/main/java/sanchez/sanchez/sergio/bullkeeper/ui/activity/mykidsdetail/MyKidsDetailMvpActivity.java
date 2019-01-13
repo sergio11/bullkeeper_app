@@ -599,7 +599,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         // Check Terminals linked
         if(terminalItemsList.isEmpty()) {
             showNoticeDialog(String.format(Locale.getDefault(), getString(R.string.kids_results_no_terminals_linked),
-                    kidEntity.getFirstName()), new NoticeDialogFragment.NoticeDialogListener() {
+                    kidEntity.getFirstName()), false, new NoticeDialogFragment.NoticeDialogListener() {
                 @Override
                 public void onAccepted(DialogFragment dialog) {
                     closeActivity();

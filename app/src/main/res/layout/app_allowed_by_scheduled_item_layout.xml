@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?android:listPreferredItemHeightLarge"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <!-- Background -->
+    <RelativeLayout
+        android:id="@+id/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_background">
+
+        <!-- Delete Kid Guardian -->
+        <ImageView
+            android:id="@+id/deleteKidGuardian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/trash_white"
+            android:contentDescription="@string/content_not_be_loaded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/deleteKidGuardian"
+            android:textAllCaps="true"
+            android:text="@string/delete_list_menu_item"
+            android:textColor="@color/commonWhite"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <!-- Foreground -->
+    <RelativeLayout
+        android:id="@+id/item_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_state"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/imageContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/darkModerateBlue">
+
+
+            <!-- App Installed Image  -->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/guardianImageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/content_not_be_loaded"
+                android:src="@drawable/parent_default"
+                android:layout_gravity="center"
+                app:civ_border_color="@color/commonWhite"
+                app:civ_border_width="@dimen/common_image_stroke_width"/>
+
+        </FrameLayout>
+
+        <!-- Separator -->
+        <View
+            android:id="@+id/separator"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/commonWhite"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/imageContainer"/>
+
+        <!-- Guardian Name -->
+        <TextView
+            android:id="@+id/guardianName"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/separator"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:gravity="start|center_vertical"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/darkModerateBlue"
+            android:textStyle="italic" />
+
+        <!-- Roles -->
+        <LinearLayout
+            android:id="@+id/guardianRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Admin Role -->
+            <ImageView
+                android:id="@+id/adminRole"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/crown_solid_cyan"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- Edit Rules Role -->
+            <ImageView
+                android:id="@+id/editRulesRole"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/child_cyan"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+            <!-- Viewer Role -->
+            <ImageView
+                android:id="@+id/viewerRole"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/eye_solid_cyan"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</FrameLayout>
+
+
+

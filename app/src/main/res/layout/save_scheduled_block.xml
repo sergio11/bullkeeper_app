@@ -130,7 +130,6 @@
 
             </android.support.v7.widget.CardView>
 
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -375,9 +374,14 @@
 
             </android.support.v7.widget.CardView>
 
+            <!-- Apps Allowed By Scheduled Container -->
+            <FrameLayout
+                android:id="@+id/appsAllowedByScheduledContainer"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="@dimen/common_margin" />
+
         </LinearLayout>
-
-
 
     </ScrollView>
 

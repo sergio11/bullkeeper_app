@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.LastAlertsAdapter;
-
 /**
  * Last Alerts Item Touch Helper
  */

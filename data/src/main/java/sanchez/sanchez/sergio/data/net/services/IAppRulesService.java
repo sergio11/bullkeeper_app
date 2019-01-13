@@ -34,6 +34,18 @@ public interface IAppRulesService {
             @Query("text") final String query);
 
     /**
+     * Get All App Installed
+     * @param kid
+     * @param query
+     * @return
+     */
+    @GET("children/{kid}/terminal/apps")
+    Observable<APIResponse<List<AppInstalledDTO>>> getAllAppInstalledByChild(
+            @Path("kid") final String kid,
+            @Query("text") final String query);
+
+
+    /**
      * Update App Installed Rules By Child
      * @param kid
      * @param terminal
@@ -114,6 +126,8 @@ public interface IAppRulesService {
             @Path("kid") final String kid,
             @Path("terminal") final String terminal,
             @Query("total") final Integer total);
+
+
 
 
 }

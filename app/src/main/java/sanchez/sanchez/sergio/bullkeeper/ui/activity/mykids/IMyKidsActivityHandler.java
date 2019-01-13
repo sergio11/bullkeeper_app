@@ -44,12 +44,6 @@ public interface IMyKidsActivityHandler extends IBasicActivityHandler {
     void navigateToKidAlerts(final String sonIdentity);
 
     /**
-     * Navigate to Relations
-     * @param identity
-     */
-    void navigateToRelations(final String identity);
-
-    /**
      * Navigate To Invitations
      */
     void navigateToInvitations();

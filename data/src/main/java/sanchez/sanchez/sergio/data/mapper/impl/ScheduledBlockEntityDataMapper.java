@@ -1,8 +1,10 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.AppAllowedByScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
+import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -11,18 +13,33 @@ import sanchez.sanchez.sergio.domain.utils.IAppUtils;
  */
 public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> {
 
+    /**
+     * App Utils
+     */
     private final IAppUtils appUtils;
+
+    /**
+     * Api End Points Helper
+     */
     private final ApiEndPointsHelper apiEndPointsHelper;
+
+    /**
+     * App Allowed Data Mapper
+     */
+    private final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper;
 
     /**
      *
      * @param apiEndPointsHelper
      * @param appUtils
+     * @param appAllowedByScheduledMapper
      */
     public ScheduledBlockEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper,
-                                          final IAppUtils appUtils) {
+                                          final IAppUtils appUtils,
+                                          final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper) {
         this.apiEndPointsHelper = apiEndPointsHelper;
         this.appUtils = appUtils;
+        this.appAllowedByScheduledMapper = appAllowedByScheduledMapper;
     }
 
     /**
@@ -44,6 +61,8 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
                 apiEndPointsHelper.getScheduledBlockImageUrl(originModel.getKid(),
                         originModel.getIdentity(), originModel.getImage()) : null);
         scheduledBlockEntity.setChildId(originModel.getKid());
+        scheduledBlockEntity.setAppsAllowed(appAllowedByScheduledMapper
+                .transform(originModel.getAppsAllowed()));
         return scheduledBlockEntity;
 
     }
@@ -64,6 +83,8 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockDTO.setStartAt(originModel.getStartAt());
         scheduledBlockDTO.setEndAt(originModel.getEndAt());
         scheduledBlockDTO.setKid(originModel.getChildId());
+        scheduledBlockDTO.setAppsAllowed(appAllowedByScheduledMapper
+                .transformInverse(originModel.getAppsAllowed()));
         return scheduledBlockDTO;
     }
 }

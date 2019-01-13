@@ -119,8 +119,8 @@
                 <!-- Likes Image -->
                 <ImageView
                     android:id="@+id/likesImage"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@id/likesCount"
                     android:src="@drawable/thumbs_up_solid_cyan"

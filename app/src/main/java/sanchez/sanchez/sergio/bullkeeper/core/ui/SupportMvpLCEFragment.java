@@ -2,7 +2,9 @@ package sanchez.sanchez.sergio.bullkeeper.core.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -173,10 +175,15 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     protected void onShowNotFoundState(){
         errorOccurredLayout.hide();
-        notDataFoundLayout.show(getString(R.string.no_data_found));
+        notDataFoundLayout.show(getString(getNotFoundText()));
         content.setVisibility(View.GONE);
         content.setEnabled(false);
         loadingView.setVisibility(View.GONE);
+    }
+
+    @StringRes
+    protected int getNotFoundText(){
+        return R.string.no_data_found;
     }
 
     /**

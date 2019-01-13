@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.DeleteScheduledBlockByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.GetScheduledBlockDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.scheduled.SaveScheduledBlockInteract;
+import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 
 /**
@@ -87,7 +88,7 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
                                    final LocalTime endAt, final int[] weeklyFrequency,
                                    final boolean recurringWeeklyEnabled, final String childId,
                                    final String description, final boolean allowCalls,
-                                   final String currentImage){
+                                   final String currentImage, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities){
 
 
         if (isViewAttached() && getView() != null)
@@ -96,7 +97,7 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
                 SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt,
                             weeklyFrequency, recurringWeeklyEnabled, childId,
-                        description, allowCalls, currentImage));
+                        description, allowCalls, currentImage, appAllowedByScheduledEntities));
 
     }
 

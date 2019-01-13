@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.domain.repository;
 import org.joda.time.LocalTime;
 import java.util.List;
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockStatusEntity;
@@ -62,7 +63,7 @@ public interface IScheduledBlockRepository {
     Observable<ScheduledBlockEntity> saveScheduledBlock(final String identity, final String name, final boolean enable,
                                                         final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                                         final boolean recurringWeeklyEnabled, final String childId,
-                                                        final String description, final boolean allowCalls);
+                                                        final String description, final boolean allowCalls, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities);
 
 
     /**

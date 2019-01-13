@@ -334,6 +334,12 @@
             android:theme="@style/AppTheme.Common"
             />
 
+        <!-- App Search List Mvp Activity -->
+        <activity android:name=".ui.activity.appsearch.AppSearchListMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"
