@@ -736,11 +736,15 @@
     <string name="contact_list_description">List of contacts registered in the supervised terminal</string>
     <string name="contact_phonenumber">Tfno: %s</string>
     <string name="search_contacts_hint">Find contacts from your name</string>
-    <!-- Screen Time Allowance -->
-    <string name="time_allowance_title">Time Allowance</string>
-    <string name="screen_time_allowance_title">Screen Time Allowance</string>
-    <string name="screen_time_allowance_description">Set the maximum number of hours reserved for leisure and fun</string>
 
+    <!-- Fun Time  -->
+    <string name="fun_time_title">Fun Time</string>
+    <string name="fun_time_description">Set the fun time for all configured terminals</string>
+    <string name="confirm_enable_fun_time_mode">Do you want to enable Fun Time mode?</string>
+    <string name="fun_time_mode_enabled">Fun time mode enabled</string>
+    <string name="confirm_disable_fun_time_mode">Do you want to disable Fun Time mode?</string>
+    <string name="fun_time_mode_disabled">Fun time mode disabled</string>
+    <string name="fun_time_days_scheduled_confirm_title">Do you want to confirm the changes applied to the configured days?</string>
     <!-- Family Locator -->
     <string name="family_locator_title">Family Locator</string>
     <string name="family_locator_description">Quickly locate family members and devices</string>

@@ -31,6 +31,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsMvp
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactListMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.funtime.FunTimeMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
@@ -39,7 +40,6 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.scheduledblock.ScheduledBlocksMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.TerminalsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.TimeAllowanceMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
@@ -672,7 +672,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                 case CONTACTS_LIST_TAB:
                     return ContactListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case TIME_ALLOWANCE_TAB:
-                    return TimeAllowanceMvpFragment.newInstance(kidIdentity);
+                    return FunTimeMvpFragment.newInstance(kidIdentity);
                 case FAMILY_LOCATOR_TAB:
                     return FamilyLocatorMvpFragment.newInstance(kidEntity.getIdentity(),
                             kidEntity.getFullName(), kidEntity.getProfileImage());
@@ -716,7 +716,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                 case CONTACTS_LIST_TAB:
                     return getString(R.string.contact_list_title_tab);
                 case TIME_ALLOWANCE_TAB:
-                    return getString(R.string.time_allowance_title);
+                    return getString(R.string.fun_time_title);
                 case FAMILY_LOCATOR_TAB:
                     return getString(R.string.family_locator_title);
             }

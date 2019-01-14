@@ -9,10 +9,10 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ContactsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.FunTimeModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.KidRequestModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ScheduledBlockModule;
-import sanchez.sanchez.sergio.bullkeeper.di.modules.ScreenTimeAllowanceModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SmsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.SocialMediaModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.TerminalsModule;
@@ -37,6 +37,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.Fam
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.funtime.FunTimeFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.funtime.FunTimeMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListFragmentPresenter;
@@ -49,8 +51,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.scheduledblock.Sc
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.scheduledblock.ScheduledBlocksMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.TerminalsFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.TerminalsMvpFragment;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.TimeAllowanceFragmentPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.TimeAllowanceMvpFragment;
 
 /**
  * My Kids Component
@@ -60,7 +60,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.timeallowance.Tim
         modules = { ActivityModule.class, DataMapperModule.class,
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
-                AppRulesModule.class, ScreenTimeAllowanceModule.class, TerminalsModule.class,
+                AppRulesModule.class, FunTimeModule.class, TerminalsModule.class,
                 SmsModule.class, CallModule.class, ContactsModule.class, KidRequestModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
@@ -109,9 +109,9 @@ public interface MyKidsComponent extends StatsComponent {
 
     /**
      * Inject into Time Allowance Mvp Fragment
-     * @param timeAllowanceMvpFragment
+     * @param funTimeMvpFragment
      */
-    void inject(final TimeAllowanceMvpFragment timeAllowanceMvpFragment);
+    void inject(final FunTimeMvpFragment funTimeMvpFragment);
 
     /**
      * Inject into Family Locator Fragment
@@ -175,7 +175,7 @@ public interface MyKidsComponent extends StatsComponent {
     ImportantAlertsFragmentPresenter importantAlertsFragmentPresenter();
     ScheduledBlocksFragmentPresenter scheduledBlocksFragmentPresenter();
     AppRulesFragmentPresenter appRulesFragmentPresenter();
-    TimeAllowanceFragmentPresenter timeAllowanceFragmentPresenter();
+    FunTimeFragmentPresenter funTimeFragmentPresenter();
     FamilyLocatorFragmentPresenter familyLocatorFragmentPresenter();
     TerminalsFragmentPresenter terminalsFragmentPresenter();
     KidGuardiansFragmentPresenter kidGuardiansFragmentPresenter();

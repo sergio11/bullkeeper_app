@@ -11,7 +11,7 @@
     android:overScrollMode="never"
     android:orientation="vertical"
     android:background="@android:color/transparent"
-    tools:context=".ui.fragment.kiddetail.timeallowance.TimeAllowanceMvpFragment">
+    tools:context=".ui.fragment.kiddetail.funtime.FunTimeMvpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,16 +28,17 @@
             android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:id="@+id/screenTimeAllowanceDescription"
+                android:id="@+id/funTimeDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
+                    android:layout_weight="0.6"
                     android:layout_gravity="start"
                     android:visibility="visible"
                     android:orientation="vertical">
@@ -49,7 +50,7 @@
                         style="@style/CommonStrongText"
                         android:textColor="@color/cyanBrilliant"
                         android:textStyle="bold"
-                        android:text="@string/screen_time_allowance_title"/>
+                        android:text="@string/fun_time_title"/>
 
                     <!-- Description -->
                     <TextView
@@ -57,7 +58,7 @@
                         android:layout_height="wrap_content"
                         style="@style/CommonStrongText.Medium"
                         android:textColor="@color/cyanBrilliant"
-                        android:text="@string/screen_time_allowance_description"/>
+                        android:text="@string/fun_time_description"/>
 
                     <View
                         android:layout_width="@dimen/common_divider_small"
@@ -67,11 +68,35 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.4"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="end|center_vertical">
+
+                    <!-- Switch Compat -->
+                    <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                        android:id="@+id/funTimeEnableSwitch"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:textOff=""
+                        android:textOn=""
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="8dp"
+                        app:theme="@style/BlockStatusSwitch" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
 
             <LinearLayout
-                android:id="@+id/appRulesActions"
+                android:id="@+id/funTimeActions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -86,7 +111,7 @@
                     style="@style/CommonStrongText.Big"
                     android:textColor="@color/cyanBrilliant"
                     android:textStyle="bold"
-                    android:text="@string/app_rules_confirm_title"/>
+                    android:text="@string/fun_time_days_scheduled_confirm_title"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,4 +218,3 @@
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
-

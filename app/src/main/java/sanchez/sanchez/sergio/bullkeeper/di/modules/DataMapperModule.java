@@ -21,7 +21,9 @@ import sanchez.sanchez.sergio.data.mapper.impl.CommentEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ContactEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ConversationEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.DayScheduledEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.FunTimeEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GeofenceEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ImageEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.KidGuardianEntityDataMapper;
@@ -62,7 +64,9 @@ import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ContactDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
+import sanchez.sanchez.sergio.data.net.models.response.DayScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.FunTimeScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GeofenceDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
@@ -101,7 +105,9 @@ import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
+import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
@@ -539,5 +545,26 @@ public class DataMapperModule {
             final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper
     ){
         return new AppInstalledByTerminalDataMapper(terminalEntityAbstractDataMapper);
+    }
+
+    /**
+     * Provide Day Scheduled Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<DayScheduledDTO, DayScheduledEntity> provideDayScheduledDataMapper(){
+        return new DayScheduledEntityDataMapper();
+    }
+
+    /**
+     * Provide Fun Time Entity Data Mapper
+     * @param dtoDayScheduledEntityAbstractDataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<FunTimeScheduledDTO, FunTimeScheduledEntity> provideFunTimeEntityDataMapper(
+            final AbstractDataMapper<DayScheduledDTO, DayScheduledEntity> dtoDayScheduledEntityAbstractDataMapper
+    ){
+        return new FunTimeEntityDataMapper(dtoDayScheduledEntityAbstractDataMapper);
     }
 }
