@@ -172,12 +172,14 @@ dependencies {
     // Fancy Show Case
     implementation presentationDependencies.fancyShowCaseView
 
-
     // ChatKit for Android
     implementation presentationDependencies.chatkit
 
     // An extension library for OkHttp to create a Server-Sent Event (SSE) client.
     implementation presentationDependencies.oksse
+
+    // Stepper Touch
+    implementation presentationDependencies.stepperTouch
 
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker

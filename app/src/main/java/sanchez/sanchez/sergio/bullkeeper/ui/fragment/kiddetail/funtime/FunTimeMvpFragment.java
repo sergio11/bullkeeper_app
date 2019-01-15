@@ -7,18 +7,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEFragment;
@@ -28,19 +31,27 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailA
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.FunTimeDayScheduledAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
+import timber.log.Timber;
 
 /**
  * Fun Time Fragment
  */
 public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPresenter,
         IFunTimeFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, DayScheduledEntity>
-        implements IFunTimeFragmentView, FunTimeDayScheduledAdapter.onFunTimeDayScheduledChangedListener {
+        implements IFunTimeFragmentView, FunTimeDayScheduledAdapter.onFunTimeDayScheduledChangedListener,
+        AdapterView.OnItemSelectedListener {
 
     /**
      * Kid Arg
      */
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
+
+    /**
+     * Terminals Arg
+     */
+    private static final String TERMINALS_ARG = "TERMINALS_ARG";
 
     /**
      * Dependencies
@@ -83,6 +94,31 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     @State
     protected ArrayList<DayScheduledEntity> dayScheduledEntities;
 
+    /**
+     * Current Terminal Pos
+     */
+    @State
+    protected int currentTerminalPos = 0;
+
+    /**
+     * Terminals List
+     */
+    @State
+    protected ArrayList<TerminalItem> terminalItems = new ArrayList<>();
+
+    /**
+     * Terminal Identity
+     *
+     */
+    @State
+    protected String terminalIdentity;
+
+    /**
+     * Day Scheduled Entities Modified
+     */
+    @State
+    protected ArrayList<Object> dayScheduledEntitiesModified = new ArrayList<>();
+
 
     /**
      *
@@ -109,6 +145,12 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     @BindView(R.id.funTimeActions)
     protected ViewGroup funTimeActionsViewGroup;
 
+    /**
+     * Terminals Spinner
+     */
+    @BindView(R.id.terminalsSpinner)
+    protected AppCompatSpinner terminalsSpinner;
+
 
     /**
      *
@@ -119,13 +161,14 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
 
     /**
      * New Instance
-     * @param kidIdentity
+     * @param kid
      * @return
      */
-    public static FunTimeMvpFragment newInstance(final String kidIdentity) {
+    public static FunTimeMvpFragment newInstance(final String kid, final ArrayList<TerminalItem> terminalItems) {
         FunTimeMvpFragment fragment = new FunTimeMvpFragment();
         Bundle args = new Bundle();
-        args.putString(KID_IDENTITY_ARG, kidIdentity);
+        args.putString(KID_IDENTITY_ARG, kid);
+        args.putSerializable(TERMINALS_ARG, terminalItems);
         fragment.setArguments(args);
         return fragment;
     }
@@ -144,6 +187,22 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
             throw new IllegalStateException("You must provide son identity - Illegal State");
 
         kid = getArguments().getString(KID_IDENTITY_ARG);
+
+        if (getArguments() == null ||
+                !getArguments().containsKey(TERMINALS_ARG))
+            throw new IllegalStateException("You must provide terminals list");
+
+        terminalItems = (ArrayList<TerminalItem>) getArguments().getSerializable(TERMINALS_ARG);
+
+        if(terminalItems == null || terminalItems.isEmpty())
+            throw new IllegalStateException("Terminals list can not be empty");
+
+
+        ArrayAdapter<TerminalItem> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item,
+                terminalItems);
+        terminalsSpinner.setAdapter(adapter);
+        terminalsSpinner.setSelection(currentTerminalPos);
+        terminalsSpinner.setOnItemSelectedListener(this);
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
@@ -226,6 +285,8 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     public Bundle getArgs() {
         final Bundle args = new Bundle();
         args.putString(FunTimeFragmentPresenter.KID_IDENTITY_ARG, kid);
+        args.putSerializable(FunTimeFragmentPresenter.TERMINALS_ARG, terminalItems);
+        args.putInt(FunTimeFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
         return args;
     }
 
@@ -288,14 +349,260 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     }
 
     /**
-     * On Day Scheduled Changed
-     * @param dayScheduledEntity
+     * On Item Selected
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
      */
     @Override
-    public void onDayScheduledChanged(final DayScheduledEntity dayScheduledEntity) {
-        Preconditions.checkNotNull(dayScheduledEntity, "Day Scheduled Entity can not be null");
-        funTimeDescriptionViewGroup.setVisibility(View.GONE);
-        funTimeActionsViewGroup.setVisibility(View.VISIBLE);
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Timber.d("New Position Selected -> %d", position);
+        currentTerminalPos = position;
+        terminalIdentity = terminalItems.get(currentTerminalPos).getIdentity();
+        loadData();
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
+
+
+    /**
+     * On Discard Changes CLicked
+     */
+    @OnClick(R.id.discardChanges)
+    protected void onDiscardChangesClicked(){
+        recyclerViewAdapter.setData(dayScheduledEntities);
+        dayScheduledEntitiesModified.clear();
+        updateHeaderStatus();
+    }
+
+    /**
+     * On Saved Changes Clicked
+     */
+    @OnClick(R.id.saveChanges)
+    protected void onSaveChangesClicked(){
+
+        dayScheduledEntitiesModified.clear();
+        updateHeaderStatus();
+
+    }
+    /**
+     * Update Header Status
+     */
+    private void updateHeaderStatus() {
+        if(dayScheduledEntitiesModified.isEmpty()) {
+            funTimeActionsViewGroup.setVisibility(View.GONE);
+            funTimeDescriptionViewGroup.setVisibility(View.VISIBLE);
+        } else {
+            funTimeActionsViewGroup.setVisibility(View.VISIBLE);
+            funTimeDescriptionViewGroup.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * On Day Scheduled Status Changed
+     * @param day
+     * @param newEnabledValue
+     * @param oldEnabledValue
+     */
+    @Override
+    public void onDayScheduledStatusChanged(final String day, final boolean newEnabledValue,
+                                            final boolean oldEnabledValue) {
+
+        if(!dayScheduledEntitiesModified.isEmpty()) {
+            final Iterator ite = dayScheduledEntitiesModified.iterator();
+            boolean isFound = false;
+            while(ite.hasNext()) {
+                final Object change = ite.next();
+                if(change instanceof DayScheduledStatusChanged) {
+                    final DayScheduledStatusChanged dayScheduledChanged =
+                            (DayScheduledStatusChanged) change;
+                    if(dayScheduledChanged.getDay().equals(day)) {
+                        isFound = true;
+                        ite.remove();
+                        break;
+                    }
+                }
+            }
+            if(!isFound) {
+                final DayScheduledStatusChanged dayScheduledStatusChanged = new DayScheduledStatusChanged();
+                dayScheduledStatusChanged.setDay(day);
+                dayScheduledStatusChanged.setNewEnabledValue(newEnabledValue);
+                dayScheduledStatusChanged.setOldEnabledValue(oldEnabledValue);
+                dayScheduledEntitiesModified.add(dayScheduledStatusChanged);
+            }
+        } else {
+            final DayScheduledStatusChanged dayScheduledStatusChanged = new DayScheduledStatusChanged();
+            dayScheduledStatusChanged.setDay(day);
+            dayScheduledStatusChanged.setNewEnabledValue(newEnabledValue);
+            dayScheduledStatusChanged.setOldEnabledValue(oldEnabledValue);
+            dayScheduledEntitiesModified.add(dayScheduledStatusChanged);
+        }
+
+        updateHeaderStatus();
+
+    }
+
+    /**
+     * On Day Scheduled Total Hours Changed
+     * @param day
+     * @param newTotalHoursValue
+     * @param oldTotalHoursValue
+     */
+    @Override
+    public void onDayScheduledTotalHoursChanged(final String day,
+                                                final int newTotalHoursValue,
+                                                final int oldTotalHoursValue) {
+
+        if(!dayScheduledEntitiesModified.isEmpty()) {
+            final Iterator ite = dayScheduledEntitiesModified.iterator();
+            boolean isFound = false;
+            while(ite.hasNext()) {
+                final Object change = ite.next();
+                if(change instanceof DayScheduledTotalHoursChanged) {
+                    final DayScheduledTotalHoursChanged dayScheduledChanged =
+                            (DayScheduledTotalHoursChanged) change;
+                    if(dayScheduledChanged.getDay().equals(day)) {
+                        isFound = true;
+                        if(dayScheduledChanged.getOldTotalHoursValue() == newTotalHoursValue
+                                || dayScheduledChanged.getNewTotalHoursValue() == oldTotalHoursValue)
+                            ite.remove();
+                        break;
+                    }
+                }
+            }
+
+            if(!isFound) {
+                final DayScheduledTotalHoursChanged dayScheduledTotalHoursChanged = new DayScheduledTotalHoursChanged();
+                dayScheduledTotalHoursChanged.setDay(day);
+                dayScheduledTotalHoursChanged.setNewTotalHoursValue(newTotalHoursValue);
+                dayScheduledTotalHoursChanged.setOldTotalHoursValue(oldTotalHoursValue);
+                dayScheduledEntitiesModified.add(dayScheduledTotalHoursChanged);
+            }
+        } else {
+            final DayScheduledTotalHoursChanged dayScheduledTotalHoursChanged = new DayScheduledTotalHoursChanged();
+            dayScheduledTotalHoursChanged.setDay(day);
+            dayScheduledTotalHoursChanged.setNewTotalHoursValue(newTotalHoursValue);
+            dayScheduledTotalHoursChanged.setOldTotalHoursValue(oldTotalHoursValue);
+            dayScheduledEntitiesModified.add(dayScheduledTotalHoursChanged);
+        }
+
+        updateHeaderStatus();
+    }
+
+
+    /**
+     * Day Scheduled Total Hours
+     */
+    public static class DayScheduledTotalHoursChanged {
+
+        /**
+         * Day
+         */
+        private String day;
+
+        /**
+         * New Total Hours Value
+         */
+        private int newTotalHoursValue;
+
+        /**
+         * Old Total Hours Value
+         */
+        private int oldTotalHoursValue;
+
+        public DayScheduledTotalHoursChanged(){}
+
+        public DayScheduledTotalHoursChanged(String day, int newTotalHoursValue, int oldTotalHoursValue) {
+            this.day = day;
+            this.newTotalHoursValue = newTotalHoursValue;
+            this.oldTotalHoursValue = oldTotalHoursValue;
+        }
+
+        public String getDay() {
+            return day;
+        }
+
+        public void setDay(String day) {
+            this.day = day;
+        }
+
+        public int getNewTotalHoursValue() {
+            return newTotalHoursValue;
+        }
+
+        public void setNewTotalHoursValue(int newTotalHoursValue) {
+            this.newTotalHoursValue = newTotalHoursValue;
+        }
+
+        public int getOldTotalHoursValue() {
+            return oldTotalHoursValue;
+        }
+
+        public void setOldTotalHoursValue(int oldTotalHoursValue) {
+            this.oldTotalHoursValue = oldTotalHoursValue;
+        }
+    }
+
+    /**
+     * Day Scheduled Status Changed
+     */
+    public static class DayScheduledStatusChanged {
+
+        /**
+         * Day
+         */
+        private String day;
+
+        /**
+         * New Enabled Value
+         */
+        private boolean newEnabledValue;
+
+        /**
+         * Old Enabled Value
+         */
+        private boolean oldEnabledValue;
+
+        public DayScheduledStatusChanged(){}
+
+        /**
+         *
+         * @param day
+         * @param newEnabledValue
+         * @param oldEnabledValue
+         */
+        public DayScheduledStatusChanged(String day, boolean newEnabledValue, boolean oldEnabledValue) {
+            this.day = day;
+            this.newEnabledValue = newEnabledValue;
+            this.oldEnabledValue = oldEnabledValue;
+        }
+
+        public String getDay() {
+            return day;
+        }
+
+        public void setDay(String day) {
+            this.day = day;
+        }
+
+        public boolean isNewEnabledValue() {
+            return newEnabledValue;
+        }
+
+        public void setNewEnabledValue(boolean newEnabledValue) {
+            this.newEnabledValue = newEnabledValue;
+        }
+
+        public boolean isOldEnabledValue() {
+            return oldEnabledValue;
+        }
+
+        public void setOldEnabledValue(boolean oldEnabledValue) {
+            this.oldEnabledValue = oldEnabledValue;
+        }
     }
 }
 

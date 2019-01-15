@@ -280,7 +280,8 @@ public class AppStatsMvpFragment
                 if(appUtils.isValidString(appStatsEntity.getIconEncodedString())) {
                     byte[] decodedString = Base64.decode(appStatsEntity.getIconEncodedString(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    entry.setIcon(new BitmapDrawable(getResources(), decodedByte));
+                    entry.setIcon(new BitmapDrawable(getResources(),
+                            scaleDown(decodedByte, 70, true)));
                     appStatsLabel[i] = "";
                 } else {
                     appStatsLabel[i] = appStatsEntity.getAppName();
@@ -322,5 +323,23 @@ public class AppStatsMvpFragment
     @OnClick(R.id.refreshData)
     protected void onRefreshDataClicked(){
         getPresenter().loadData(kid, terminal);
+    }
+
+
+    /**
+     * Scale Down
+     * @param realImage
+     * @param maxImageSize
+     * @param filter
+     * @return
+     */
+    private Bitmap scaleDown(final Bitmap realImage, final float maxImageSize, final boolean filter) {
+        float ratio = Math.min(
+                (float) maxImageSize / realImage.getWidth(),
+                (float) maxImageSize / realImage.getHeight());
+        int width = Math.round((float) ratio * realImage.getWidth());
+        int height = Math.round((float) ratio * realImage.getHeight());
+        return Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
     }
 }

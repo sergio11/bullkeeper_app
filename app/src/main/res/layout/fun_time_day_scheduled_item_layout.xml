@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/dayEnabledSwitch"
         android:layout_margin="@dimen/common_margin"
         android:gravity="start|center_vertical"
         android:padding="@dimen/common_padding"
@@ -29,14 +29,64 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
+        android:scaleX="1.7"
+        android:scaleY="1.7"
         android:textOff=""
         android:textOn=""
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:layout_alignParentEnd="true"
         app:theme="@style/BlockStatusSwitch" />
+
+    <!-- Stepper Touch -->
+    <nl.dionsegijn.steppertouch.StepperTouch
+        android:id="@+id/totalHoursStepperTouch"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/dayOfWeekName"
+        app:stepperBackgroundColor="@color/darkModerateBlue"
+        app:stepperTextColor="@color/darkModerateBlue"
+        android:visibility="gone"
+        android:layout_alignParentStart="true"/>
+
+
+    <!-- Total Hours Configured -->
+    <TextView
+        android:id="@+id/totalHoursConfigured"
+        style="@style/CommonStrongText.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/totalHoursStepperTouch"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/common_margin"
+        android:gravity="center"
+        android:padding="@dimen/common_padding"
+        android:singleLine="true"
+        android:visibility="gone"
+        android:textColor="@color/darkModerateBlue"
+        android:textStyle="italic" />
+
+
+    <!-- Day Scheduled Disabled -->
+    <TextView
+        android:id="@+id/dayScheduledDisabled"
+        style="@style/CommonStrongText.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/common_margin"
+        android:gravity="center"
+        android:padding="@dimen/common_padding"
+        android:singleLine="true"
+        android:text="@string/family_locator_no_fun_time_enabled_for_this_day"
+        android:textColor="@color/darkModerateBlue"
+        android:textStyle="italic" />
 
 </RelativeLayout>
 

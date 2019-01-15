@@ -121,4 +121,19 @@ public final class DayScheduledEntity implements Serializable {
                 ", editable=" + editable +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DayScheduledEntity that = (DayScheduledEntity) o;
+
+        return getDay().equals(that.getDay());
+    }
+
+    @Override
+    public int hashCode() {
+        return getDay().hashCode();
+    }
 }

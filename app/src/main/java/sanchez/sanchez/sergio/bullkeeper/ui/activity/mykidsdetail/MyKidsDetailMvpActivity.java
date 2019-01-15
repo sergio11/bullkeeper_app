@@ -672,7 +672,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                 case CONTACTS_LIST_TAB:
                     return ContactListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case TIME_ALLOWANCE_TAB:
-                    return FunTimeMvpFragment.newInstance(kidIdentity);
+                    return FunTimeMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case FAMILY_LOCATOR_TAB:
                     return FamilyLocatorMvpFragment.newInstance(kidEntity.getIdentity(),
                             kidEntity.getFullName(), kidEntity.getProfileImage());

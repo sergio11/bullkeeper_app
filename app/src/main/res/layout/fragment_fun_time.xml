@@ -78,16 +78,28 @@
                     <!-- Switch Compat -->
                     <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
                         android:id="@+id/funTimeEnableSwitch"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:scaleX="1.5"
-                        android:scaleY="1.5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:scaleX="1.7"
+                        android:scaleY="1.7"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginTop="@dimen/common_margin"
                         android:textOff=""
                         android:textOn=""
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="8dp"
                         app:theme="@style/BlockStatusSwitch" />
+
+                    <!-- Terminals Spinner -->
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/terminalsSpinner"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:layout_marginTop="@dimen/common_margin"
+                        android:theme="@style/CommonSpinner"
+                        android:layout_marginEnd="16dp"
+                        />
 
                 </LinearLayout>
 

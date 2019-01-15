@@ -753,6 +753,10 @@
     <string name="family_locator_loading_child_position">Loading Child position ...</string>
     <string name="family_locator_no_last_registered_position">There is no last registered position</string>
     <string name="family_locator_address">Current Address</string>
+    <string name="family_locator_total_hours_configured" formatted="false">You have set %d hours of fun</string>
+    <string name="family_locator_no_fun_time_enabled_for_this_day">No fun time enabled for this day</string>
+    <string name="family_locator_no_fun_time_enabled">Fun Time is not enabled</string>
+
     <!-- Terminals -->
     <string name="terminals_list_title">Monitored terminals</string>
     <string name="terminals_list_description">List of monitored terminals</string>
