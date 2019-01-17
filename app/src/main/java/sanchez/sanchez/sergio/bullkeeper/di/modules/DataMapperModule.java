@@ -34,6 +34,8 @@ import sanchez.sanchez.sergio.data.mapper.impl.MostActiveFriendsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GuardianEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.PersonEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.PhoneNumberBlockedEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SaveDayScheduledEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SaveFunTimeScheduledDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SaveSocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ScheduledBlockStatusEntityDataMapper;
@@ -49,6 +51,8 @@ import sanchez.sanchez.sergio.data.mapper.impl.SupervisedChildrenEntityDataMappe
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalDetailEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveDayScheduledDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveFunTimeScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveScheduledBlockStatusDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveSocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertDTO;
@@ -566,5 +570,27 @@ public class DataMapperModule {
             final AbstractDataMapper<DayScheduledDTO, DayScheduledEntity> dtoDayScheduledEntityAbstractDataMapper
     ){
         return new FunTimeEntityDataMapper(dtoDayScheduledEntityAbstractDataMapper);
+    }
+
+
+    /**
+     * Provide Day Scheduled Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<DayScheduledEntity, SaveDayScheduledDTO> provideSaveDayScheduledDataMapper(){
+        return new SaveDayScheduledEntityDataMapper();
+    }
+
+    /**
+     * Provide Fun Time Scheduled Data Mapper
+     * @param dayScheduledDTOAbstractDataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<FunTimeScheduledEntity, SaveFunTimeScheduledDTO> provideFunTimeScheduledDataMapper(
+            final AbstractDataMapper<DayScheduledEntity, SaveDayScheduledDTO> dayScheduledDTOAbstractDataMapper
+    ){
+        return new SaveFunTimeScheduledDataMapper(dayScheduledDTOAbstractDataMapper);
     }
 }

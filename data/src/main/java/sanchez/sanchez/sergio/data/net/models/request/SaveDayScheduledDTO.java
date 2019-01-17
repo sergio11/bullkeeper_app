@@ -27,6 +27,8 @@ public final class SaveDayScheduledDTO implements Serializable {
     @JsonProperty("total_hours")
     private Integer totalHours;
 
+    public SaveDayScheduledDTO(){}
+
     /**
      *
      * @param day

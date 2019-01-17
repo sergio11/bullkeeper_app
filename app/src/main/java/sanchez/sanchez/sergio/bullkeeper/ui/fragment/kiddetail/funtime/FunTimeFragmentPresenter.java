@@ -5,10 +5,12 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.inject.Inject;
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
-import sanchez.sanchez.sergio.domain.interactor.funtime.GetFunTimeByChildIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.funtime.GetFunTimeInteract;
+import sanchez.sanchez.sergio.domain.interactor.funtime.SaveFunTimeInteract;
 import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
 
 /**
@@ -34,7 +36,12 @@ public final class FunTimeFragmentPresenter
     /**
      * Get Fun Time By Child Interact
      */
-    private final GetFunTimeByChildIdInteract getFunTimeByChildIdInteract;
+    private final GetFunTimeInteract getFunTimeInteract;
+
+    /**
+     * Save Fun Time Interact
+     */
+    private final SaveFunTimeInteract saveFunTimeInteract;
 
     /**
      * Is Loading Data
@@ -42,11 +49,15 @@ public final class FunTimeFragmentPresenter
     private boolean isLoadingData = false;
 
     /**
-     * @param getFunTimeByChildIdInteract
+     * @param getFunTimeInteract
+     * @param saveFunTimeInteract
      */
     @Inject
-    public FunTimeFragmentPresenter(final GetFunTimeByChildIdInteract getFunTimeByChildIdInteract){
-        this.getFunTimeByChildIdInteract = getFunTimeByChildIdInteract;
+    public FunTimeFragmentPresenter(
+            final GetFunTimeInteract getFunTimeInteract,
+            final SaveFunTimeInteract saveFunTimeInteract){
+        this.getFunTimeInteract = getFunTimeInteract;
+        this.saveFunTimeInteract = saveFunTimeInteract;
     }
 
     /**
@@ -81,11 +92,32 @@ public final class FunTimeFragmentPresenter
             if (isViewAttached() && getView() != null)
                 getView().onShowLoading();
 
-            getFunTimeByChildIdInteract.execute(
-                    new GetFunTimeObservable(GetFunTimeByChildIdInteract.GetFunTimeApiErrors.class),
-                    GetFunTimeByChildIdInteract.Params.create(args.getString(KID_IDENTITY_ARG)));
+            getFunTimeInteract.execute(
+                    new GetFunTimeObservable(GetFunTimeInteract.GetFunTimeApiErrors.class),
+                    GetFunTimeInteract.Params.create(
+                            args.getString(KID_IDENTITY_ARG), terminalItem.getIdentity()));
 
         }
+
+    }
+
+    /**
+     * Save Fun Time
+     * @param kid
+     * @param terminal
+     * @param funTimeScheduledToSave
+     */
+    public void saveFunTime(final String kid, final String terminal,
+                            final FunTimeScheduledEntity funTimeScheduledToSave) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkNotNull(funTimeScheduledToSave, "Fun Time Scheduled To Save");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        saveFunTimeInteract.execute(new SaveFunTimeObservable(),
+                SaveFunTimeInteract.Params.create(kid, terminal, funTimeScheduledToSave));
 
     }
 
@@ -93,15 +125,15 @@ public final class FunTimeFragmentPresenter
      * Get Fun Time Allowance
      */
     public class GetFunTimeObservable extends CommandCallBackWrapper<FunTimeScheduledEntity,
-            GetFunTimeByChildIdInteract.GetFunTimeApiErrors.IGetFunTimeApiErrorsVisitor,
-            GetFunTimeByChildIdInteract.GetFunTimeApiErrors>
-            implements GetFunTimeByChildIdInteract.GetFunTimeApiErrors.IGetFunTimeApiErrorsVisitor {
+            GetFunTimeInteract.GetFunTimeApiErrors.IGetFunTimeApiErrorsVisitor,
+            GetFunTimeInteract.GetFunTimeApiErrors>
+            implements GetFunTimeInteract.GetFunTimeApiErrors.IGetFunTimeApiErrorsVisitor {
 
         /**
          * Get Fun Time Observable
          * @param apiErrors
          */
-        public GetFunTimeObservable(final Class<GetFunTimeByChildIdInteract.GetFunTimeApiErrors> apiErrors) {
+        public GetFunTimeObservable(final Class<GetFunTimeInteract.GetFunTimeApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -164,12 +196,31 @@ public final class FunTimeFragmentPresenter
          * @param apiErrorsVisitor
          */
         @Override
-        public void visitNoFunTimeFound(GetFunTimeByChildIdInteract.GetFunTimeApiErrors.IGetFunTimeApiErrorsVisitor apiErrorsVisitor) {
+        public void visitNoFunTimeFound(GetFunTimeInteract.GetFunTimeApiErrors.IGetFunTimeApiErrorsVisitor apiErrorsVisitor) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onNoDataFound();
             }
             isLoadingData = false;
+        }
+    }
+
+    /**
+     * Save Fun Time Observable
+     */
+    public class SaveFunTimeObservable extends BasicCommandCallBackWrapper<FunTimeScheduledEntity> {
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(final FunTimeScheduledEntity response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().showNoticeDialog(R.string.fun_time_saved_successfully);
+            }
         }
     }
 

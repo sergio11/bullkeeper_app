@@ -23,8 +23,6 @@ public final class DayScheduledEntityDataMapper
         final DayScheduledEntity dayScheduledEntity = new DayScheduledEntity();
         dayScheduledEntity.setDay(originModel.getDay());
         dayScheduledEntity.setEnabled(originModel.getEnabled());
-        dayScheduledEntity.setPaused(originModel.getPaused());
-        dayScheduledEntity.setPausedAt(originModel.getPausedAt());
         dayScheduledEntity.setTotalHours(originModel.getTotalHours());
         return dayScheduledEntity;
     }
@@ -40,8 +38,6 @@ public final class DayScheduledEntityDataMapper
         final DayScheduledDTO dayScheduledDTO = new DayScheduledDTO();
         dayScheduledDTO.setDay(originModel.getDay());
         dayScheduledDTO.setEnabled(originModel.getEnabled());
-        dayScheduledDTO.setPaused(originModel.getPaused());
-        dayScheduledDTO.setPausedAt(originModel.getPausedAt());
         dayScheduledDTO.setTotalHours(originModel.getTotalHours());
         return dayScheduledDTO;
     }

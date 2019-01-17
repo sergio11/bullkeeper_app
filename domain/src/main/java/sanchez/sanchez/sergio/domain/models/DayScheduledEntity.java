@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.domain.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Day Scheduled Entity
@@ -24,16 +23,6 @@ public final class DayScheduledEntity implements Serializable {
     private Integer totalHours = 0;
 
     /**
-     * Paused
-     */
-    private Boolean paused = false;
-
-    /**
-     * Paused At
-     */
-    private Date pausedAt;
-
-    /**
      * Editable
      */
     private boolean editable = false;
@@ -48,17 +37,13 @@ public final class DayScheduledEntity implements Serializable {
      * @param day
      * @param enabled
      * @param totalHours
-     * @param paused
-     * @param pausedAt
      * @param editable
      */
     public DayScheduledEntity(final String day, final Boolean enabled, final Integer totalHours,
-                              final Boolean paused, final Date pausedAt, boolean editable) {
+                              boolean editable) {
         this.day = day;
         this.enabled = enabled;
         this.totalHours = totalHours;
-        this.paused = paused;
-        this.pausedAt = pausedAt;
         this.editable = editable;
     }
 
@@ -86,22 +71,6 @@ public final class DayScheduledEntity implements Serializable {
         this.totalHours = totalHours;
     }
 
-    public Boolean getPaused() {
-        return paused;
-    }
-
-    public void setPaused(Boolean paused) {
-        this.paused = paused;
-    }
-
-    public Date getPausedAt() {
-        return pausedAt;
-    }
-
-    public void setPausedAt(Date pausedAt) {
-        this.pausedAt = pausedAt;
-    }
-
     public boolean isEditable() {
         return editable;
     }
@@ -116,8 +85,6 @@ public final class DayScheduledEntity implements Serializable {
                 "day='" + day + '\'' +
                 ", enabled=" + enabled +
                 ", totalHours=" + totalHours +
-                ", paused=" + paused +
-                ", pausedAt=" + pausedAt +
                 ", editable=" + editable +
                 '}';
     }

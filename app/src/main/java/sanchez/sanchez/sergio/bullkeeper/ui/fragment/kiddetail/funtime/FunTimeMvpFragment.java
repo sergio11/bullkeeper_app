@@ -33,6 +33,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.FunTimeDayScheduledAdap
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
+import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
 import timber.log.Timber;
 
 /**
@@ -87,6 +88,12 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
      */
     @State
     protected String kid;
+
+    /**
+     * Is Fun Time Enabled
+     */
+    @State
+    protected boolean isFunTimeEnabled;
 
     /**
      * Day Scheduled Entities
@@ -345,6 +352,7 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
      */
     @Override
     public void setFunTimeStatus(boolean isEnabled) {
+        isFunTimeEnabled = isEnabled;
         funTimeEnableSwitch.setChecked(isEnabled, false);
     }
 
@@ -373,7 +381,36 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
      */
     @OnClick(R.id.discardChanges)
     protected void onDiscardChangesClicked(){
-        recyclerViewAdapter.setData(dayScheduledEntities);
+        for(final Object change: dayScheduledEntitiesModified) {
+            if(change instanceof DayScheduledStatusChanged) {
+                final DayScheduledStatusChanged dayScheduledStatusChanged =
+                        (DayScheduledStatusChanged)change;
+
+                for(final DayScheduledEntity dayScheduledEntity: dayScheduledEntities) {
+                    if(dayScheduledEntity.getDay()
+                            .equals(dayScheduledStatusChanged.getDay())) {
+                        dayScheduledEntity
+                                .setEnabled(dayScheduledStatusChanged.oldEnabledValue);
+                        break;
+                    }
+                }
+
+            } else if(change instanceof  DayScheduledTotalHoursChanged) {
+                final DayScheduledTotalHoursChanged dayScheduledTotalHoursChanged =
+                        (DayScheduledTotalHoursChanged)change;
+
+                for(final DayScheduledEntity dayScheduledEntity: dayScheduledEntities) {
+                    if(dayScheduledEntity.getDay()
+                            .equals(dayScheduledTotalHoursChanged.getDay())) {
+                        dayScheduledEntity
+                                .setTotalHours(dayScheduledTotalHoursChanged.oldTotalHoursValue);
+                        break;
+                    }
+                }
+
+            }
+        }
+        recyclerViewAdapter.notifyDataSetChanged();
         dayScheduledEntitiesModified.clear();
         updateHeaderStatus();
     }
@@ -383,9 +420,21 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChangesClicked(){
-
+        final FunTimeScheduledEntity funTimeScheduledEntity =
+                new FunTimeScheduledEntity();
+        funTimeScheduledEntity.setEnabled(isFunTimeEnabled);
+        funTimeScheduledEntity.setMonday(dayScheduledEntities.get(0));
+        funTimeScheduledEntity.setTuesday(dayScheduledEntities.get(1));
+        funTimeScheduledEntity.setWednesday(dayScheduledEntities.get(2));
+        funTimeScheduledEntity.setThursday(dayScheduledEntities.get(3));
+        funTimeScheduledEntity.setFriday(dayScheduledEntities.get(4));
+        funTimeScheduledEntity.setSaturday(dayScheduledEntities.get(5));
+        funTimeScheduledEntity.setSunday(dayScheduledEntities.get(6));
         dayScheduledEntitiesModified.clear();
         updateHeaderStatus();
+
+        // Save Fun Time
+        getPresenter().saveFunTime(kid, terminalIdentity, funTimeScheduledEntity);
 
     }
     /**

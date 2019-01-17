@@ -153,8 +153,8 @@ public final class FunTimeDayScheduledAdapter
                 totalHoursStepperTouch.setVisibility(View.GONE);
                 totalHoursConfiguredTextView.setVisibility(View.GONE);
                 dayScheduledDisabledTextView.setVisibility(View.VISIBLE);
-                totalHoursStepperTouch.stepper.setValue(0);
                 totalHoursStepperTouch.stepper.removeStepCallback(dayScheduledStepCallback);
+                totalHoursStepperTouch.stepper.setValue(0);
             }
         }
 
@@ -243,11 +243,11 @@ public final class FunTimeDayScheduledAdapter
                         value
                 ));
 
-                /*if(listener != null)
+                if(listener != null)
                     listener.onDayScheduledTotalHoursChanged(
                             dayScheduledEntity.getDay(),
                             value, dayScheduledEntity.getTotalHours()
-                    );*/
+                    );
 
                 dayScheduledEntity.setTotalHours(value);
             }
