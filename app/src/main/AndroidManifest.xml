@@ -16,6 +16,7 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
+
     <application
         android:networkSecurityConfig="@xml/network_security_config"
         android:name=".AndroidApplication"
@@ -25,6 +26,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <!--
+            Specify requirement for Apache HTTP Legacy library
+            If your app is targeting API level 28 (Android 9.0) or above, you must include the following declaration within the <application> element of AndroidManifest.xml
+        -->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -224,27 +232,11 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Preferences" />
 
-        <!-- Relations Mvp Activity -->
-        <activity android:name=".ui.activity.relations.RelationsMvpActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Common"/>
-
         <!-- Invitations List Mvp Activity -->
         <activity android:name=".ui.activity.invitations.InvitationsListMvpActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Common" />
-
-        <!-- Relation Detail Mvp Activity -->
-        <activity android:name=".ui.activity.relationdetail.RelationDetailMvpActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Common" />
-
-        <activity android:name=".ui.activity.relationssettings.RelationsSettingsMvpActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Preferences" />
-
 
         <!-- Add Scheduled Block -->
         <activity android:name=".ui.activity.savescheduledblock.SaveScheduledBlockMvpActivity"
@@ -355,7 +347,6 @@
             android:name=".ui.services.NotificationHandlerService"
             android:enabled="true"
             android:exported="false" />
-
 
         <service
             android:name=".ui.services.FetchAddressIntentService"
