@@ -10,7 +10,6 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'com.frogermcs.androiddevmetrics'
 
 repositories {
     google()

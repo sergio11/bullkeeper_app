@@ -11,10 +11,9 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
         classpath 'io.fabric.tools:gradle:1.+'
-        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
-        classpath 'com.google.gms:google-services:4.0.1'
+        classpath 'com.google.gms:google-services:4.2.0'
     }
 }
 
@@ -22,8 +21,8 @@ allprojects {
 
     ext {
         androidApplicationId = 'sanchez.sanchez.sergio.bullkeeper'
-        androidVersionCode = 161
-        androidVersionName = "0.6.4"
+        androidVersionCode = 162
+        androidVersionName = "0.6.5"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.fernandocejas.android10.sample.presentation.test'
     }
