@@ -83,6 +83,12 @@ public abstract class SupportChartMvpFragment<P extends TiPresenter<V>, V extend
 
 
     /**
+     * Chart Data
+     */
+    protected I chartData;
+
+
+    /**
      * Show Chart Data Container
      */
     protected void showChartDataContainer(){
@@ -184,6 +190,7 @@ public abstract class SupportChartMvpFragment<P extends TiPresenter<V>, V extend
      */
     @Override
     public void onDataAvaliable(I chartData) {
+        this.chartData = chartData;
         showChartDataContainer();
     }
 

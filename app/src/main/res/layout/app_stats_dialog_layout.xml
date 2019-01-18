@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/commonWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/common_margin"
+            android:gravity="center">
+
+            <!-- App Stats Icon -->
+            <ImageView
+                android:id="@+id/appStatsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_not_be_loaded" />
+
+            <!-- App Sat -->
+            <TextView
+                android:id="@+id/appStatsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CommonStrongText"
+                android:textStyle="bold"
+                android:textColor="@color/cyanBrilliant"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:background="@color/cyanBrilliant"/>
+
+
+        <!-- Total Time In Foreground -->
+        <TextView
+            android:id="@+id/totalTimeInForegroundDetail"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Big"/>
+
+        <!-- First Time Text View -->
+        <TextView
+            android:id="@+id/firstTimeTextView"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Big"/>
+
+        <!-- Last Time Text View -->
+        <TextView
+            android:id="@+id/lastTimeTextView"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Big"/>
+
+        <!-- Last Time Text View -->
+        <TextView
+            android:id="@+id/lastTimeUsedTextView"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            style="@style/CommonStrongText.Big"/>
+
+
+        <!-- Show App Detail -->
+        <Button
+            android:id="@+id/showAppDetail"
+            style="@style/DimensionActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/commonWhite"
+            android:background="@color/darkModerateBlue"
+            android:padding="@dimen/common_padding"
+            android:text="@string/show_app_detail" />
+
+        <!-- Close Dialog -->
+        <Button
+            android:id="@+id/closeDialog"
+            style="@style/DimensionActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/commonWhite"
+            android:background="@color/cyanBrilliant"
+            android:padding="@dimen/common_padding"
+            android:text="@string/close_dialog" />
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

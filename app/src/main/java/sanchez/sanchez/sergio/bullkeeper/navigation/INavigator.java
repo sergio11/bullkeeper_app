@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.Date;
+
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -517,5 +519,22 @@ public interface INavigator {
      * @param kid
      */
     void navigateToAppSearchListMvpActivity(final Activity activity, final String kid, final int requestCode);
+
+    /**
+     *
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param appIconEncoded
+     * @param appName
+     * @param packageName
+     * @param totalTimeInForeground
+     * @param firstTime
+     * @param lastTime
+     * @param lastTimeUsed
+     */
+    void showAppStatsDialog(final AppCompatActivity activity, final String kid, final String terminal, final String appIconEncoded, final String appName,
+                            final String packageName, final Long totalTimeInForeground, final Date firstTime,
+                            final Date lastTime, final Date lastTimeUsed);
 
 }

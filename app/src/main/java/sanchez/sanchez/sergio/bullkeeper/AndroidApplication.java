@@ -7,7 +7,6 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.facebook.stetho.Stetho;
-import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
@@ -112,8 +111,6 @@ public final class AndroidApplication extends Application {
         Timber.plant(new Timber.DebugTree());
 
         Stetho.initializeWithDefaults(this);
-
-        AndroidDevMetrics.initWith(this);
 
     }
 

@@ -4,17 +4,16 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -23,9 +22,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
@@ -65,7 +62,7 @@ public class AppStatsMvpFragment
      */
 
     @Inject
-    protected Activity activity;
+    protected AppCompatActivity activity;
 
     /**
      * Views
@@ -261,7 +258,16 @@ public class AppStatsMvpFragment
      * @param h
      */
     @Override
-    public void onValueSelected(Entry e, Highlight h) {}
+    public void onValueSelected(Entry e, Highlight h) {
+        final int appStatsIdx = (int)e.getX();
+        if(appStatsIdx >= 0 && appStatsIdx < chartData.size()) {
+            final AppStatsEntity appStatsEntity = chartData.get(appStatsIdx);
+            navigator.showAppStatsDialog(activity, kid, terminal,
+                    appStatsEntity.getIconEncodedString(), appStatsEntity.getAppName(),
+                    appStatsEntity.getPackageName(), appStatsEntity.getTotalTimeInForeground(),
+                    appStatsEntity.getFirstTime(), appStatsEntity.getLastTime(), appStatsEntity.getLastTimeUsed());
+        }
+    }
 
     /**
      * On Data Avaliable
@@ -335,10 +341,10 @@ public class AppStatsMvpFragment
      */
     private Bitmap scaleDown(final Bitmap realImage, final float maxImageSize, final boolean filter) {
         float ratio = Math.min(
-                (float) maxImageSize / realImage.getWidth(),
-                (float) maxImageSize / realImage.getHeight());
-        int width = Math.round((float) ratio * realImage.getWidth());
-        int height = Math.round((float) ratio * realImage.getHeight());
+                maxImageSize / realImage.getWidth(),
+                maxImageSize / realImage.getHeight());
+        int width = Math.round(ratio * realImage.getWidth());
+        int height = Math.round(ratio * realImage.getHeight());
         return Bitmap.createScaledBitmap(realImage, width,
                 height, filter);
     }

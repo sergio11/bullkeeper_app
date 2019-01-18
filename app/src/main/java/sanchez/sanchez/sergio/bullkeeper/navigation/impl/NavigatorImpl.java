@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
+
+import java.util.Date;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
@@ -33,6 +36,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.smsdetail.SmsDetailMvpActiv
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesInfoDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.activity.ActivityBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
@@ -928,5 +932,46 @@ public class NavigatorImpl implements INavigator {
 
         activity.startActivityForResult(AppSearchListMvpActivity.getCallingIntent(activity,
                 kid), requestCode);
+    }
+
+    /**
+     * Show App Stats Dialog
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param appIdentity
+     * @param appIconEncoded
+     * @param appName
+     * @param packageName
+     * @param totalTimeInForeground
+     * @param firstTime
+     * @param lastTime
+     * @param lastTimeUsed
+     */
+    @Override
+    public void showAppStatsDialog(AppCompatActivity activity, final String kid,
+                                   final String terminal,
+                                   final String appIconEncoded, final String appName,
+                                   final String packageName, final Long totalTimeInForeground,
+                                   final Date firstTime, final Date lastTime, final Date lastTimeUsed) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(appIconEncoded, "App Icon Encoded can not be null");
+        Preconditions.checkNotNull(appName, "App Name can not be null");
+        Preconditions.checkState(!appName.isEmpty(), "App Name can not be empty");
+        Preconditions.checkNotNull(packageName, "Package Name can not be null");
+        Preconditions.checkState(!packageName.isEmpty(), "Package Name can not be empty");
+        Preconditions.checkNotNull(totalTimeInForeground, "Total Time in Foreground can not be null");
+        Preconditions.checkNotNull(firstTime, "First Time can not be null");
+        Preconditions.checkNotNull(lastTime, "Last Time can not be null");
+        Preconditions.checkNotNull(lastTimeUsed, "Last Time Used can not be null");
+
+        AppStatsDialog.show(activity, kid, terminal, appIconEncoded, appName,
+                packageName, totalTimeInForeground, firstTime, lastTime,
+                lastTimeUsed);
+
     }
 }

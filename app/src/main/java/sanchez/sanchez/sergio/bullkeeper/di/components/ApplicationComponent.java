@@ -16,6 +16,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.RemoteNotificationService;
@@ -113,6 +114,12 @@ public interface ApplicationComponent {
      * @param addPhoneNumberBlockedDialogFragment
      */
     void inject(final AddPhoneNumberBlockedDialogFragment addPhoneNumberBlockedDialogFragment);
+
+    /**
+     * Inject into App Stats Dialog
+     * @param appStatsDialog
+     */
+    void inject(final AppStatsDialog appStatsDialog);
 
 
     //Exposed to sub-graphs.

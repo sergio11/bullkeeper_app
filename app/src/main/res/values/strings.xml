@@ -945,7 +945,11 @@
     <string name="kid_detail_app_stats_title">Most used applications</string>
     <string name="kid_detail_app_stats_description">The most used applications in this terminal</string>
     <string name="kid_detail_more_current_information">More current information (in minutes)</string>
-
+    <string name="show_app_detail">App Detail</string>
+    <string name="app_stats_detail_total_time_in_foreground">Total Time in foreground: %s seconds</string>
+    <string name="app_stats_detail_first_time">First Time: %s</string>
+    <string name="app_stats_detail_last_time">Last Time: %s</string>
+    <string name="app_stats_detail_last_time_used">Last Time Used: %s</string>
     <!-- Geofences -->
     <string name="geofences_title_default">Geofences</string>
     <string name="geofences_title_count" formatted="true">Geofences (%d)</string>
