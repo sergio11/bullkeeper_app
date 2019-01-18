@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,6 +72,14 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * My Kids Component
      */
     private MyKidsComponent myKidsComponent;
+
+
+    /**
+     * Activity
+     */
+
+    @Inject
+    protected Activity activity;
 
     /**
      * State
@@ -311,7 +320,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @OnClick(R.id.editProfileBtn)
     protected void onEditProfileBtn(){
-        navigatorImpl.navigateToMyKidsProfile(kidIdentity);
+        navigatorImpl.navigateToMyKidsProfile(activity, kidIdentity);
     }
 
     /**
@@ -319,7 +328,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @Override
     public void navigateToAlerts() {
-        navigatorImpl.navigateToAlertList();
+        navigatorImpl.navigateToAlertList(activity);
     }
 
     /**
@@ -329,7 +338,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @Override
     public void navigateToAlertDetail(final String alertId, final String sonId) {
-        navigatorImpl.navigateToAlertDetail(alertId, sonId);
+        navigatorImpl.navigateToAlertDetail(activity, alertId, sonId);
     }
 
     /**
@@ -338,7 +347,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @Override
     public void navigateToWarningAlerts(String sonId) {
-        navigatorImpl.navigateToAlertList(AlertLevelEnum.WARNING, sonId);
+        navigatorImpl.navigateToAlertList(activity, AlertLevelEnum.WARNING, sonId);
     }
 
     /**
@@ -351,7 +360,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(childId, identity);
+        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(activity, childId, identity);
     }
 
     /**
@@ -359,7 +368,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @Override
     public void navigateToSaveScheduledBlock() {
-        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(kidIdentity);
+        navigatorImpl.navigateToSaveScheduledBlockMvpActivity(activity, kidIdentity);
     }
 
     /**
@@ -390,7 +399,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
         Preconditions.checkState(!terminalId.isEmpty(), "Terminal id can not be empty");
 
-        navigatorImpl.showTerminalDetail(childId, terminalId);
+        navigatorImpl.showTerminalDetail(activity, childId, terminalId);
     }
 
     /**

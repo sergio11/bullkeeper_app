@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.intro;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.support.annotation.NonNull;
 
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
+
+import javax.inject.Inject;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerIntroComponent;
@@ -31,6 +35,12 @@ public class IntroMvpActivity
 
     private final String CONTENT_FULL_NAME = "INTRO";
     private final String CONTENT_TYPE_NAME = "APP";
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
 
     private IntroComponent introComponent;
@@ -81,7 +91,7 @@ public class IntroMvpActivity
             addFragment(R.id.fragmentContainer, IntroMvpFragment.newInstance(), false);
 
         if(appUtils.isValidString(preferencesRepositoryImpl.getAuthToken())){
-            navigatorImpl.navigateToHome();
+            navigatorImpl.navigateToHome(activity);
             finish();
         }
 
@@ -167,7 +177,7 @@ public class IntroMvpActivity
      */
     @Override
     public void gotToHome() {
-        navigatorImpl.navigateToHome();
+        navigatorImpl.navigateToHome(activity);
         finish();
     }
 
@@ -177,7 +187,7 @@ public class IntroMvpActivity
      */
     @Override
     public void gotToHome(boolean fromSignInSuccess) {
-        navigatorImpl.navigateToHome(fromSignInSuccess);
+        navigatorImpl.navigateToHome(activity, fromSignInSuccess);
         finish();
     }
 
@@ -186,7 +196,7 @@ public class IntroMvpActivity
      */
     @Override
     public void goToTutorial() {
-        navigatorImpl.navigateToAppTutorial();
+        navigatorImpl.navigateToAppTutorial(activity);
     }
 
     /**
@@ -204,7 +214,7 @@ public class IntroMvpActivity
      */
     @Override
     public void showLegalContent(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
-        navigatorImpl.showLegalContentActivity(legalTypeEnum);
+        navigatorImpl.showLegalContentActivity(activity, legalTypeEnum);
     }
 
     /**

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -136,17 +137,17 @@ public final class MenuDialogFragment extends SupportDialogFragment
 
             case PROFILE_ITEM_POSITION:
                 // Navigate to User Profile Screen
-                navigator.navigateToUserProfile();
+                navigator.navigateToUserProfile(getActivity());
                 break;
 
             case SETTINGS_ITEM_POSITION:
                 // Navigate to User Settings
-                navigator.navigateToUserSettings();
+                navigator.navigateToUserSettings(getActivity());
                 break;
 
             case HOW_ITS_WORK_POSITION:
                 //Show App Tutorial
-                navigator.navigateToAppTutorial();
+                navigator.navigateToAppTutorial(getActivity());
                 break;
 
             case CLOSE_SESSION_POSITION:
@@ -154,15 +155,15 @@ public final class MenuDialogFragment extends SupportDialogFragment
                 localSystemNotification.sendNotification(new LogoutEvent(preferencesRepositoryImpl.getPrefCurrentUserIdentity()));
                 preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
                 preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
-                navigator.navigateToIntro(true);
+                navigator.navigateToIntro(getActivity(), true);
                 break;
 
             case TERMS_OF_SERVICE_POSITION:
-                navigator.showLegalContentActivity(LegalContentActivity.LegalTypeEnum.TERMS_OF_SERVICE);
+                navigator.showLegalContentActivity(getActivity(), LegalContentActivity.LegalTypeEnum.TERMS_OF_SERVICE);
                 break;
 
             case PRIVACY_POLICY_POSITION:
-                navigator.showLegalContentActivity(LegalContentActivity.LegalTypeEnum.PRIVACY_POLICY);
+                navigator.showLegalContentActivity(getActivity(), LegalContentActivity.LegalTypeEnum.PRIVACY_POLICY);
                 break;
 
         }

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.likes;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,9 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -47,6 +51,12 @@ public class LikesChartMvpFragment
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
     /**
      * Social Media Labels
@@ -232,7 +242,7 @@ public class LikesChartMvpFragment
      */
     @OnClick(R.id.showAllCommentsExtracted)
     protected void onShowAllCommentsExtracted(){
-        navigator.navigateToComments(kidIdentity);
+        navigator.navigateToComments(activity, kidIdentity);
     }
 
     /**

@@ -246,7 +246,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
     @OnClick(R.id.settings)
     protected void onSettingsClicked(){
         // Navigate To Kid Results Settings
-        navigatorImpl.navigateToKidResultsSettings();
+        navigatorImpl.navigateToKidResultsSettings(this);
     }
 
     /**

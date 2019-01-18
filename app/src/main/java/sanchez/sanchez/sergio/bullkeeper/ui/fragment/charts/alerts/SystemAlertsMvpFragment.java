@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,9 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -42,6 +46,12 @@ public class SystemAlertsMvpFragment
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
 
     public SystemAlertsMvpFragment() {
@@ -227,6 +237,6 @@ public class SystemAlertsMvpFragment
      */
     @OnClick(R.id.showAllAlerts)
     protected void onShowAllAlerts(){
-        navigator.navigateToAlertList(kidIdentity);
+        navigator.navigateToAlertList(activity, kidIdentity);
     }
 }

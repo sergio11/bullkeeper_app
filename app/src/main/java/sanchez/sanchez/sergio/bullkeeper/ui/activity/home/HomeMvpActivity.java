@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,6 +68,12 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Inject
     protected IPreferenceRepository preferenceRepository;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
     /**
      * Get Calling Intent
@@ -156,7 +163,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void goToMyKids() {
-        navigatorImpl.navigateToMyKids();
+        navigatorImpl.navigateToMyKids(activity);
     }
 
     /**
@@ -166,7 +173,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void goToAlertDetail(final String alertId, final String sonId) {
-        navigatorImpl.navigateToAlertDetail(alertId, sonId);
+        navigatorImpl.navigateToAlertDetail(activity, alertId, sonId);
     }
 
     /**
@@ -174,7 +181,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void goToAlerts() {
-        navigatorImpl.navigateToAlertList();
+        navigatorImpl.navigateToAlertList(activity);
     }
 
     /**
@@ -182,7 +189,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void goToUserProfile() {
-        navigatorImpl.navigateToUserProfile();
+        navigatorImpl.navigateToUserProfile(activity);
     }
 
     /**
@@ -191,7 +198,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void goToChildDetail(final String identity, final GuardianRolesEnum role) {
-        navigatorImpl.navigateToMyKidsDetail(identity, role);
+        navigatorImpl.navigateToMyKidsDetail(activity, identity, role);
     }
 
     /**
@@ -202,7 +209,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     public void gotToKidAlerts(final String kid) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-        navigatorImpl.navigateToAlertList(kid);
+        navigatorImpl.navigateToAlertList(activity, kid);
     }
 
     /**
@@ -210,7 +217,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void goToAddChild() {
-        navigatorImpl.navigateToAddKids();
+        navigatorImpl.navigateToAddKids(activity);
     }
 
     /**
@@ -228,7 +235,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Override
     public void showLegalContent(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
-        navigatorImpl.showLegalContentActivity(legalTypeEnum);
+        navigatorImpl.showLegalContentActivity(activity, legalTypeEnum);
     }
 
     /**
@@ -296,7 +303,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
                 localSystemNotification.sendNotification(new LogoutEvent(preferencesRepositoryImpl.getPrefCurrentUserIdentity()));
                 preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
                 preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
-                navigatorImpl.navigateToIntro(true);
+                navigatorImpl.navigateToIntro(activity, true);
             }
 
             @Override

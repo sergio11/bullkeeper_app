@@ -111,6 +111,13 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     protected IAppUtils appUtils;
 
     /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
+
+
+    /**
      * Optional App Bar Layout
      */
     @Nullable
@@ -752,7 +759,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void navigateToHome() {
-        navigatorImpl.navigateToHome();
+        navigatorImpl.navigateToHome(activity);
     }
 
 
@@ -863,7 +870,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     public void closeSession() {
         preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
         preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
-        navigatorImpl.navigateToIntro(true);
+        navigatorImpl.navigateToIntro(activity, true);
     }
 
     /**

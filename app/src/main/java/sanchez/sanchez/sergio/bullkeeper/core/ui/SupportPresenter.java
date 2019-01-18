@@ -159,7 +159,7 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
          */
         @Override
         protected void onOtherException(Throwable ex) {
-            Timber.e("On Other Error -> %s", ex.getMessage());
+            Timber.e(" -> %s", ex.getMessage());
             notifyUnexpectedException();
         }
 

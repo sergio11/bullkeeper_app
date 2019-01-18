@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 import android.app.Activity;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
+
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
@@ -11,7 +12,6 @@ import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
-import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -23,124 +23,124 @@ public interface INavigator {
     /**
      * Navigate To Intro
      */
-    void navigateToIntro(final boolean closeSession);
+    void navigateToIntro(final Activity activity, final boolean closeSession);
 
     /**
      * Navigate To Intro
      */
-    void navigateToIntro();
+    void navigateToIntro(final Activity activity);
 
 
     /**
      * Navigate To Home
      */
-    void navigateToHome();
+    void navigateToHome(final Activity activity);
 
     /**
      * Navigate To Home
      */
-    void navigateToHome(boolean fromSignInSuccess);
+    void navigateToHome(final Activity activity, boolean fromSignInSuccess);
 
     /**
      * Show App Menu Dialog
      */
-    void showAppMenuDialog(final AppCompatActivity appCompatActivity);
+    void showAppMenuDialog(final AppCompatActivity activity);
 
     /**
      * Navigate to My Kids
      */
-    void navigateToMyKids();
+    void navigateToMyKids(final Activity activity);
 
     /**
      * Navigate To Alert Detail
      */
-    void navigateToAlertDetail(final String alertId, final String sonId);
+    void navigateToAlertDetail(final Activity activity, final String alertId, final String sonId);
 
     /**
      * Navigate to Alert List
      */
-    void navigateToAlertList();
+    void navigateToAlertList(final Activity activity);
 
     /**
      * Navigate To Alert List
      * @param alertLevelEnum
      */
-    void navigateToAlertList(final AlertLevelEnum alertLevelEnum);
+    void navigateToAlertList(final Activity activity, final AlertLevelEnum alertLevelEnum);
 
     /**
      * Navigate to Alert List
      * @param sonIdentity
      */
-    void navigateToAlertList(final String sonIdentity);
+    void navigateToAlertList(final Activity activity, final String sonIdentity);
 
     /**
      * Navigate to Alert List
      * @param alertLevelEnum
      * @param sonIdentity
      */
-    void navigateToAlertList(final AlertLevelEnum alertLevelEnum, final String sonIdentity);
+    void navigateToAlertList(final Activity activity, final AlertLevelEnum alertLevelEnum, final String sonIdentity);
 
 
     /**
      * Navigate To App Tutorial
      */
-    void navigateToAppTutorial();
+    void navigateToAppTutorial(final Activity activity);
 
     /**
      * Navigate to User Settings
      */
-    void navigateToUserSettings();
+    void navigateToUserSettings(final Activity activity);
 
     /**
      * Navigate to alerts Settings
      */
-    void navigateToAlertsSettings();
+    void navigateToAlertsSettings(final Activity activity);
 
     /**
      * Navigate To Alerts Settings With Alert Level Filter Enabled
      */
-    void navigateToAlertsSettingsWithAlertLevelFilterEnabled();
+    void navigateToAlertsSettingsWithAlertLevelFilterEnabled(final Activity activity);
 
     /**
      * Show App Help App Dialog
      */
-    void showAppHelpDialog(final AppCompatActivity appCompatActivity, final String title, final String cueVideo);
+    void showAppHelpDialog(final AppCompatActivity activity, final String title, final String cueVideo);
 
     /**
      * Navigate to User Profile
      */
-    void navigateToUserProfile();
+    void navigateToUserProfile(final Activity activity);
 
     /**
      * Navigate To My Kids Profile
      */
-    void navigateToMyKidsProfile(final String identity);
+    void navigateToMyKidsProfile(final Activity activity, final String identity);
 
     /**
      * Navigate To Add Kids
      */
-    void navigateToAddKids();
+    void navigateToAddKids(final Activity activity);
 
 
     /**
      * Navigate To Comments
      * @param identity
      */
-    void navigateToComments(final String identity);
+    void navigateToComments(final Activity activity, final String identity);
 
     /**
      * Navigate To Comments
      * @param identity
      * @param socialMediaEnum
      */
-    void navigateToComments(final String identity, final SocialMediaEnum socialMediaEnum);
+    void navigateToComments(final Activity activity, final String identity, final SocialMediaEnum socialMediaEnum);
 
     /**
      * Navigate To Comments
      * @param identity
      * @param dimensionCategoryEnum
      */
-    void navigateToComments(final String identity, final DimensionCategoryEnum dimensionCategoryEnum);
+    void navigateToComments(final Activity activity, final String identity, final DimensionCategoryEnum dimensionCategoryEnum);
 
 
     /**
@@ -149,157 +149,157 @@ public interface INavigator {
      * @param dimensionCategoryEnum
      * @param socialMediaEnum
      */
-    void navigateToComments(final String identity, final DimensionCategoryEnum dimensionCategoryEnum,
+    void navigateToComments(final Activity activity, final String identity, final DimensionCategoryEnum dimensionCategoryEnum,
                             final SocialMediaEnum socialMediaEnum);
 
     /**
      * Navigate To Comment Detail
      * @param identity
      */
-    void navigateToCommentDetail(final String identity);
+    void navigateToCommentDetail(final Activity activity, final String identity);
 
     /**
      * Navigate To My Kids Detail
      * @param identity
      * @param role
      */
-    void navigateToMyKidsDetail(final String identity, final GuardianRolesEnum role);
+    void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum role);
 
     /**
      * Navigate To Kid Results Settings
      */
-    void navigateToKidResultsSettings();
+    void navigateToKidResultsSettings(final Activity activity);
 
     /**
      * Navigate To Comments Settings
      */
-    void navigateToCommentsSettings();
+    void navigateToCommentsSettings(final Activity activity);
 
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
      * @param identity
      */
-    void navigateToSaveScheduledBlockMvpActivity(final String childId, final String identity);
+    void navigateToSaveScheduledBlockMvpActivity(final Activity activity, final String childId, final String identity);
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
      */
-    void navigateToSaveScheduledBlockMvpActivity(final String childId);
+    void navigateToSaveScheduledBlockMvpActivity(final Activity activity, final String childId);
 
     /**
      * Show Four Dimensions Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param dimensionIdx
      * @param dimensionValue
      */
-    void showFourDimensionsDialog(final AppCompatActivity appCompatActivity,
+    void showFourDimensionsDialog(final AppCompatActivity activity,
                                   int dimensionIdx, final String dimensionValue);
 
     /**
      * Show Comments Extracted Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaIdx
      * @param socialMediaValue
      * @param kidIdentity
      */
-    void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity,
+    void showCommentsExtractedDialog(final AppCompatActivity activity,
                                      int socialMediaIdx, final String socialMediaValue,
                                      final String kidIdentity);
 
     /**
      * Show Comments Extracted Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaEnum
      * @param socialMediaValue
      */
-    void showSocialActivityDialog(final AppCompatActivity appCompatActivity,
+    void showSocialActivityDialog(final AppCompatActivity activity,
                                   final SocialMediaEnum socialMediaEnum,
                                   final String socialMediaValue);
 
     /**
      * Show Sentiment Analysis Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param sentimentLevelEnum
      * @param sentimentValue
      */
-    void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
+    void showSentimentAnalysisDialog(final AppCompatActivity activity,
                                      final SentimentLevelEnum sentimentLevelEnum,
                                      final String sentimentValue);
 
     /**
      * Show Alert Level Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param alertLevelEnum
      * @param alertLevelValue
      */
-    void showAlertLevelDialog(final AppCompatActivity appCompatActivity,
+    void showAlertLevelDialog(final AppCompatActivity activity,
                                      final AlertLevelEnum alertLevelEnum,
                                      final String alertLevelValue, final String kidIdentity);
 
     /**
      * Show Likes By Social Media Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMedia
      * @param totalLikesValue
      */
-    void showLikesBySocialMediaDialog(final AppCompatActivity appCompatActivity,
+    void showLikesBySocialMediaDialog(final AppCompatActivity activity,
                                       final int socialMedia, final String totalLikesValue);
 
     /**
      * Show Photo Viewer Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param photoUrl
      */
-    void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+    void showPhotoViewerDialog(final AppCompatActivity activity,
                                final String photoUrl);
 
     /**
      * Show Photo Viewer Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param photoRes
      */
-    void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+    void showPhotoViewerDialog(final AppCompatActivity activity,
                           final @DrawableRes int photoRes);
 
     /**
      * Show App Rules Info Dialog
-     * @param appCompatActivity
+     * @param activity
      */
-    void showAppRulesInfoDialog(final AppCompatActivity appCompatActivity);
+    void showAppRulesInfoDialog(final AppCompatActivity activity);
 
     /**
      * Show Family Locator Info Dialog
-     * @param appCompatActivity
+     * @param activity
      */
-    void showFamilyLocatorInfoDialog(final AppCompatActivity appCompatActivity);
+    void showFamilyLocatorInfoDialog(final AppCompatActivity activity);
 
     /**
      * Show Social Media Status Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaTypeEnum
      * @param socialMediaStatusEnum
      */
-    void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity,
+    void showSocialMediaStatusDialog(final AppCompatActivity activity,
                                      final SocialMediaTypeEnum socialMediaTypeEnum,
                                      final SocialMediaStatusEnum socialMediaStatusEnum);
 
     /**
      * Show Social Media Status Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaTypeEnum
      * @param socialMediaStatusEnum
      * @param userSocialFullName
      * @param userSocialProfilePicture
      */
-    void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity, final SocialMediaTypeEnum socialMediaTypeEnum,
+    void showSocialMediaStatusDialog(final AppCompatActivity activity, final SocialMediaTypeEnum socialMediaTypeEnum,
                                      final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture);
 
     /**
      * Navigate To Kids Results Activity
      * @param identity
      */
-    void navigateToKidsResultsActivity(final String identity);
+    void navigateToKidsResultsActivity(final Activity activity, final String identity);
 
     /**
      * Show Notice Dialog
@@ -337,20 +337,20 @@ public interface INavigator {
     /**
      * Show Legal Content Activity
      */
-    void showLegalContentActivity();
+    void showLegalContentActivity(final Activity activity);
 
     /**
      * Show Legal Content Activity
      * @param legalTypeEnum
      */
-    void showLegalContentActivity(final LegalContentActivity.LegalTypeEnum legalTypeEnum);
+    void showLegalContentActivity(final Activity activity, final LegalContentActivity.LegalTypeEnum legalTypeEnum);
 
     /**
      * Show Search School Activity
      * @param activity
      * @param requestCode
      */
-    void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode);
+    void showSearchSchoolActivity(final Activity activity, final int requestCode);
 
     /**
      * Show School Detail
@@ -364,7 +364,7 @@ public interface INavigator {
      * @param activity
      * @param requestCode
      */
-    void showAddSchool(final AppCompatActivity activity, final int requestCode);
+    void showAddSchool(final Activity activity, final int requestCode);
 
     /**
      * Show Search School Location
@@ -385,16 +385,16 @@ public interface INavigator {
      * @param childId
      * @param terminalId
      */
-    void showTerminalDetail(final String childId, final String terminalId);
+    void showTerminalDetail(final Activity activity, final String childId, final String terminalId);
 
     /**
      * Show Child Alerts Detail Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param alertLevelEnum
      * @param alertLevelValue
      * @param kidIdentityValue
      */
-    void showChildAlertsDetailDialog(final AppCompatActivity appCompatActivity, final AlertLevelEnum alertLevelEnum,
+    void showChildAlertsDetailDialog(final AppCompatActivity activity, final AlertLevelEnum alertLevelEnum,
                                      final String alertLevelValue, final String kidIdentityValue);
 
     /**
@@ -427,7 +427,7 @@ public interface INavigator {
      * @param activity
      * @param requestCode
      */
-    void navigateToSearchGuardianActivity(final AppCompatActivity activity, final int requestCode);
+    void navigateToSearchGuardianActivity(final Activity activity, final int requestCode);
 
     /**
      * Navigate To App Detail Activity
@@ -436,7 +436,7 @@ public interface INavigator {
      * @param terminal
      * @param app
      */
-    void navigateToAppDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String app);
+    void navigateToAppDetailActivity(final Activity activity, final String kid, final String terminal, final String app);
 
     /**
      * Navigate To SMS Detail Activity
@@ -445,7 +445,7 @@ public interface INavigator {
      * @param terminal
      * @param sms
      */
-    void navigateToSmsDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String sms);
+    void navigateToSmsDetailActivity(final Activity activity, final String kid, final String terminal, final String sms);
 
     /**
      * Navigate To Call Detail Activity
@@ -454,7 +454,7 @@ public interface INavigator {
      * @param terminal
      * @param call
      */
-    void navigateToCallDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String call);
+    void navigateToCallDetailActivity(final Activity activity, final String kid, final String terminal, final String call);
 
     /**
      * Navigate To Contact Detail Activity
@@ -463,7 +463,7 @@ public interface INavigator {
      * @param terminal
      * @param contact
      */
-    void navigateToContactDetailActivity(final AppCompatActivity activity, final String kid, final String terminal, final String contact);
+    void navigateToContactDetailActivity(final Activity activity, final String kid, final String terminal, final String contact);
 
     /**
      * Navigate To Phone Numbers Blocked List
@@ -471,7 +471,7 @@ public interface INavigator {
      * @param kid
      * @param terminal
      */
-    void navigateToPhoneNumbersBlockedList(final AppCompatActivity activity,
+    void navigateToPhoneNumbersBlockedList(final Activity activity,
                                                       final String kid, final String terminal);
 
 
@@ -480,7 +480,7 @@ public interface INavigator {
      * @param activity
      * @param kid
      */
-    void navigateToKidRequestList(final AppCompatActivity activity, final String kid);
+    void navigateToKidRequestList(final Activity activity, final String kid);
 
     /**
      * Navigate To Kid Request Detail
@@ -488,7 +488,7 @@ public interface INavigator {
      * @param kid
      * @param identity
      */
-    void navigateToKidRequestDetail(final AppCompatActivity activity,
+    void navigateToKidRequestDetail(final Activity activity,
                                     final String kid, final String identity);
 
     /**
@@ -496,26 +496,26 @@ public interface INavigator {
      * @param activity
      * @param kid
      */
-    void navigateToGeofencesList(final AppCompatActivity activity, final String kid);
+    void navigateToGeofencesList(final Activity activity, final String kid);
 
     /**
      * Navigate To Save Geofence
      * @param kid
      * @param id
      */
-    void navigateToSaveGeofence(final AppCompatActivity activity, final String kid, final String id);
+    void navigateToSaveGeofence(final Activity activity, final String kid, final String id);
 
     /**
      * Navigate To Save Geofence
      * @param kid
      */
-    void navigateToSaveGeofence(final AppCompatActivity activity, final String kid);
+    void navigateToSaveGeofence(final Activity activity, final String kid);
 
     /**
      * Navigate To App Search List Mvp Activity
      * @param activity
      * @param kid
      */
-    void navigateToAppSearchListMvpActivity(final AppCompatActivity activity, final String kid, final int requestCode);
+    void navigateToAppSearchListMvpActivity(final Activity activity, final String kid, final int requestCode);
 
 }

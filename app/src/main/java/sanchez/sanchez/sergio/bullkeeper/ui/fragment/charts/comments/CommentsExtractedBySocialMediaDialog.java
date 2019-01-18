@@ -238,6 +238,6 @@ public final class CommentsExtractedBySocialMediaDialog extends SupportDialogFra
                 socialMediaEnum = SocialMediaEnum.FACEBOOK;
         }
         // Show Comments By Kid Identity and Social Media
-        navigator.navigateToComments(kidIdentityValue, socialMediaEnum);
+        navigator.navigateToComments(getActivity(), kidIdentityValue, socialMediaEnum);
     }
 }

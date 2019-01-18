@@ -1,11 +1,14 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
+
+import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -26,6 +29,12 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
 
     private final String CONTENT_FULL_NAME = "MY_KIDS";
     private final String CONTENT_TYPE_NAME = "KIDS";
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
     /**
      * Get Calling Intent
@@ -93,7 +102,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      */
     @Override
     public void navigateToMyKidsProfile(String identity) {
-        navigatorImpl.navigateToMyKidsProfile(identity);
+        navigatorImpl.navigateToMyKidsProfile(activity, identity);
     }
 
     /**
@@ -102,7 +111,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      */
     @Override
     public void navigateToComments(String identity) {
-        navigatorImpl.navigateToComments(identity);
+        navigatorImpl.navigateToComments(activity, identity);
     }
 
     /**
@@ -115,7 +124,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkNotNull(guardianRolesEnum, "Guardian Roles can not be null");
         Preconditions.checkState(!guardianRolesEnum.equals(GuardianRolesEnum.DATA_VIEWER), "Role is not allowed");
-        navigatorImpl.navigateToMyKidsDetail(identity, guardianRolesEnum);
+        navigatorImpl.navigateToMyKidsDetail(activity, identity, guardianRolesEnum);
     }
 
 
@@ -125,7 +134,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      */
     @Override
     public void navigateToKidsResults(String identity) {
-        navigatorImpl.navigateToKidsResultsActivity(identity);
+        navigatorImpl.navigateToKidsResultsActivity(activity, identity);
     }
 
     /**
@@ -133,7 +142,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      */
     @Override
     public void navigateToAddChild() {
-        navigatorImpl.navigateToAddKids();
+        navigatorImpl.navigateToAddKids(activity);
     }
 
     /**
@@ -142,7 +151,7 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
      */
     @Override
     public void navigateToKidAlerts(String kid) {
-        navigatorImpl.navigateToAlertList(kid);
+        navigatorImpl.navigateToAlertList(activity, kid);
     }
 
 

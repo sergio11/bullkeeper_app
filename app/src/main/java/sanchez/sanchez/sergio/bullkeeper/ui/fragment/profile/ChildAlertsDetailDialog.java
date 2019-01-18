@@ -104,6 +104,7 @@ public final class ChildAlertsDetailDialog extends SupportDialogFragment {
     @Inject
     protected INavigator navigator;
 
+
     /**
      * Show Dialog
      * @param appCompatActivity
@@ -279,6 +280,6 @@ public final class ChildAlertsDetailDialog extends SupportDialogFragment {
      */
     @OnClick(R.id.showAlerts)
     protected void onShowAlerts(){
-        navigator.navigateToAlertList(alertLevelEnum, kidIdentityValue);
+        navigator.navigateToAlertList(getActivity(), alertLevelEnum, kidIdentityValue);
     }
 }

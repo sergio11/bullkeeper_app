@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,8 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,6 +42,12 @@ public class CommentsExtractedBySocialMediaFragment
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
     public enum SocialMediaEnum { INSTAGRAM, FACEBOOK, YOUTUBE }
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
     /**
      * Kid Identity
@@ -239,7 +248,7 @@ public class CommentsExtractedBySocialMediaFragment
      */
     @OnClick(R.id.showAllCommentsExtracted)
     protected void onShowAllCommentsExtractedClicked(){
-        navigator.navigateToComments(kidIdentity);
+        navigator.navigateToComments(activity, kidIdentity);
     }
 
     /**

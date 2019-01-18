@@ -93,26 +93,26 @@ public class NavigatorImpl implements INavigator {
      * @param closeSession
      */
     @Override
-    public void navigateToIntro(boolean closeSession) {
+    public void navigateToIntro(final Activity activity, boolean closeSession) {
         Intent intentToLaunch = IntroMvpActivity.getCallingIntent(context, closeSession);
-        context.startActivity(intentToLaunch);
+        activity.startActivity(intentToLaunch);
     }
 
     /**
      * Navigate To Intro
      */
     @Override
-    public void navigateToIntro() {
-        navigateToIntro(false);
+    public void navigateToIntro(final Activity activity) {
+        navigateToIntro(activity, false);
     }
 
     /**
      * Navigate To Home
      */
     @Override
-    public void navigateToHome() {
+    public void navigateToHome(final Activity activity) {
         Intent intentToHome = HomeMvpActivity.getCallingIntent(context);
-        context.startActivity(intentToHome);
+        activity.startActivity(intentToHome);
     }
 
     /**
@@ -120,44 +120,44 @@ public class NavigatorImpl implements INavigator {
      * @param fromSignInSuccess
      */
     @Override
-    public void navigateToHome(boolean fromSignInSuccess) {
+    public void navigateToHome(final Activity activity, boolean fromSignInSuccess) {
         Intent intentToHome = HomeMvpActivity.getCallingIntent(context, fromSignInSuccess);
-        context.startActivity(intentToHome);
+        activity.startActivity(intentToHome);
     }
 
     /**
      * Show App Menu Dialog
      */
     @Override
-    public void showAppMenuDialog(final AppCompatActivity appCompatActivity) {
-        MenuDialogFragment.show(appCompatActivity);
+    public void showAppMenuDialog(final AppCompatActivity activity) {
+        MenuDialogFragment.show(activity);
     }
 
     /**
      * Navigate to My Kids
      */
     @Override
-    public void navigateToMyKids() {
+    public void navigateToMyKids(final Activity activity) {
         Intent intentToMyKids = MyKidsMvpActivity.getCallingIntent(context);
-        context.startActivity(intentToMyKids);
+        activity.startActivity(intentToMyKids);
     }
 
     /**
      * Navigate to Alert Detail
      */
     @Override
-    public void navigateToAlertDetail(final String alertId, final String sonId) {
+    public void navigateToAlertDetail(final Activity activity, final String alertId, final String sonId) {
         final Intent intentToAlertDetail = AlertDetailMvpActivity.getCallingIntent(context, alertId, sonId);
-        context.startActivity(intentToAlertDetail);
+        activity.startActivity(intentToAlertDetail);
     }
 
     /**
      * Navigate To Alert List
      */
     @Override
-    public void navigateToAlertList() {
+    public void navigateToAlertList(final Activity activity) {
         final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context);
-        context.startActivity(intentToAlertList);
+        activity.startActivity(intentToAlertList);
     }
 
     /**
@@ -165,9 +165,9 @@ public class NavigatorImpl implements INavigator {
      * @param alertLevelEnum
      */
     @Override
-    public void navigateToAlertList(AlertLevelEnum alertLevelEnum) {
+    public void navigateToAlertList(final Activity activity, AlertLevelEnum alertLevelEnum) {
         final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, alertLevelEnum);
-        context.startActivity(intentToAlertList);
+        activity.startActivity(intentToAlertList);
     }
 
     /**
@@ -175,9 +175,9 @@ public class NavigatorImpl implements INavigator {
      * @param sonIdentity
      */
     @Override
-    public void navigateToAlertList(String sonIdentity) {
+    public void navigateToAlertList(final Activity activity, String sonIdentity) {
         final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, sonIdentity);
-        context.startActivity(intentToAlertList);
+        activity.startActivity(intentToAlertList);
     }
 
     /**
@@ -186,9 +186,9 @@ public class NavigatorImpl implements INavigator {
      * @param sonIdentity
      */
     @Override
-    public void navigateToAlertList(AlertLevelEnum alertLevelEnum, String sonIdentity) {
+    public void navigateToAlertList(final Activity activity, AlertLevelEnum alertLevelEnum, String sonIdentity) {
         final Intent intentToAlertList = AlertListMvpActivity.getCallingIntent(context, alertLevelEnum, sonIdentity);
-        context.startActivity(intentToAlertList);
+        activity.startActivity(intentToAlertList);
     }
 
 
@@ -196,43 +196,43 @@ public class NavigatorImpl implements INavigator {
      * Navigate To App Tutorial
      */
     @Override
-    public void navigateToAppTutorial() {
-        context.startActivity(AppTutorialActivity.getCallingIntent(context));
+    public void navigateToAppTutorial(final Activity activity) {
+        activity.startActivity(AppTutorialActivity.getCallingIntent(context));
     }
 
     /**
      * Navigate to User Settings
      */
     @Override
-    public void navigateToUserSettings() {
-        context.startActivity(UserSettingsMvpActivity.getCallingIntent(context));
+    public void navigateToUserSettings(final Activity activity) {
+        activity.startActivity(UserSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
      * Navigate to Alerts Settings
      */
     @Override
-    public void navigateToAlertsSettings() {
-        context.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context));
+    public void navigateToAlertsSettings(final Activity activity) {
+        activity.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
      * Navigate To Alerts Settings With Alert Level Filter Enabled
      */
     @Override
-    public void navigateToAlertsSettingsWithAlertLevelFilterEnabled() {
-        context.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context, true));
+    public void navigateToAlertsSettingsWithAlertLevelFilterEnabled(final Activity activity) {
+        activity.startActivity(AlertsSettingsMvpActivity.getCallingIntent(context, true));
     }
 
     /**
      * Show App Help Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param title
      * @param cueVideo
      */
     @Override
-    public void showAppHelpDialog(AppCompatActivity appCompatActivity, String title, String cueVideo) {
-        AppHelpDialog.show(appCompatActivity, title, cueVideo);
+    public void showAppHelpDialog(AppCompatActivity activity, String title, String cueVideo) {
+        AppHelpDialog.show(activity, title, cueVideo);
     }
 
 
@@ -240,24 +240,24 @@ public class NavigatorImpl implements INavigator {
      * Navigate to User Profile
      */
     @Override
-    public void navigateToUserProfile() {
-        context.startActivity(UserProfileMvpActivity.getCallingIntent(context));
+    public void navigateToUserProfile(final Activity activity) {
+        activity.startActivity(UserProfileMvpActivity.getCallingIntent(context));
     }
 
     /**
      * Navigate To My Kids Profile
      */
     @Override
-    public void navigateToMyKidsProfile(final String identity) {
-        context.startActivity(MyKidsProfileMvpActivity.getCallingIntent(context, identity));
+    public void navigateToMyKidsProfile(final Activity activity, final String identity) {
+        activity.startActivity(MyKidsProfileMvpActivity.getCallingIntent(context, identity));
     }
 
     /**
      * Navigate To Add Kids
      */
     @Override
-    public void navigateToAddKids() {
-        context.startActivity(MyKidsProfileMvpActivity.getCallingIntent(context));
+    public void navigateToAddKids(final Activity activity) {
+        activity.startActivity(MyKidsProfileMvpActivity.getCallingIntent(context));
     }
 
     /**
@@ -265,8 +265,8 @@ public class NavigatorImpl implements INavigator {
      * @param identity
      */
     @Override
-    public void navigateToComments(final String identity) {
-        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity));
+    public void navigateToComments(final Activity activity, final String identity) {
+        activity.startActivity(CommentsMvpActivity.getCallingIntent(context, identity));
     }
 
     /**
@@ -275,12 +275,12 @@ public class NavigatorImpl implements INavigator {
      * @param socialMediaEnum
      */
     @Override
-    public void navigateToComments(String identity, SocialMediaEnum socialMediaEnum) {
+    public void navigateToComments(final Activity activity, final String identity, final SocialMediaEnum socialMediaEnum) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
         Preconditions.checkNotNull(socialMediaEnum, "Social Media Enum can not be null");
 
-        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, socialMediaEnum));
+        activity.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, socialMediaEnum));
     }
 
     /**
@@ -289,12 +289,12 @@ public class NavigatorImpl implements INavigator {
      * @param dimensionCategoryEnum
      */
     @Override
-    public void navigateToComments(String identity, DimensionCategoryEnum dimensionCategoryEnum) {
+    public void navigateToComments(final Activity activity, final String identity, final DimensionCategoryEnum dimensionCategoryEnum) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
         Preconditions.checkNotNull(dimensionCategoryEnum, "Dimension Category can not be null");
 
-        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum));
+        activity.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum));
     }
 
     /**
@@ -304,13 +304,14 @@ public class NavigatorImpl implements INavigator {
      * @param socialMediaEnum
      */
     @Override
-    public void navigateToComments(String identity, DimensionCategoryEnum dimensionCategoryEnum, SocialMediaEnum socialMediaEnum) {
+    public void navigateToComments(final Activity activity, final String identity, final DimensionCategoryEnum dimensionCategoryEnum,
+                                   final SocialMediaEnum socialMediaEnum) {
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
         Preconditions.checkNotNull(dimensionCategoryEnum, "Dimension Category can not be null");
         Preconditions.checkNotNull(socialMediaEnum, "Dimension Category can not be null");
 
-        context.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum, socialMediaEnum));
+        activity.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, dimensionCategoryEnum, socialMediaEnum));
     }
 
     /**
@@ -318,8 +319,8 @@ public class NavigatorImpl implements INavigator {
      * @param identity
      */
     @Override
-    public void navigateToCommentDetail(String identity) {
-        context.startActivity(CommentDetailMvpActivity.getCallingIntent(context, identity));
+    public void navigateToCommentDetail(final Activity activity, final String identity) {
+        activity.startActivity(CommentDetailMvpActivity.getCallingIntent(context, identity));
     }
 
     /**
@@ -327,24 +328,24 @@ public class NavigatorImpl implements INavigator {
      * @param identity
      */
     @Override
-    public void navigateToMyKidsDetail(final String identity, final GuardianRolesEnum  role) {
-        context.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role));
+    public void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum  role) {
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role));
     }
 
     /**
      * Navigate To Kid Results Settings
      */
     @Override
-    public void navigateToKidResultsSettings() {
-        context.startActivity(KidResultsSettingsMvpActivity.getCallingIntent(context));
+    public void navigateToKidResultsSettings(final Activity activity) {
+        activity.startActivity(KidResultsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
      * Navigate To Comments Settings
      */
     @Override
-    public void navigateToCommentsSettings() {
-        context.startActivity(CommentsSettingsMvpActivity.getCallingIntent(context));
+    public void navigateToCommentsSettings(final Activity activity) {
+        activity.startActivity(CommentsSettingsMvpActivity.getCallingIntent(context));
     }
 
     /**
@@ -353,155 +354,155 @@ public class NavigatorImpl implements INavigator {
      * @param identity
      */
     @Override
-    public void navigateToSaveScheduledBlockMvpActivity(final String childId, final String identity) {
+    public void navigateToSaveScheduledBlockMvpActivity(final Activity activity, final String childId, final String identity) {
         Preconditions.checkNotNull(childId, "Child Id can not be null");
         Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, identity, childId));
+        activity.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, identity, childId));
     }
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
      */
     @Override
-    public void navigateToSaveScheduledBlockMvpActivity(final String childId) {
+    public void navigateToSaveScheduledBlockMvpActivity(final Activity activity, final String childId) {
         Preconditions.checkNotNull(childId, "Child Id can not be null");
         Preconditions.checkState(!childId.isEmpty(), "Child Id can not be empty");
-        context.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, childId));
+        activity.startActivity(SaveScheduledBlockMvpActivity.getCallingIntent(context, childId));
     }
 
     /**
      * Show Four Dimensions Dialog
-     * @param appCompatActivity
+     * @param activity
      */
     @Override
-    public void showFourDimensionsDialog(AppCompatActivity appCompatActivity, int dimensionIdx, final String dimensionValue) {
-        FourDimensionsDialog.show(appCompatActivity, dimensionIdx, dimensionValue);
+    public void showFourDimensionsDialog(AppCompatActivity activity, int dimensionIdx, final String dimensionValue) {
+        FourDimensionsDialog.show(activity, dimensionIdx, dimensionValue);
     }
 
     /**
      * Show Comments Extracted Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaIdx
      * @param socialMediaValue
      */
     @Override
-    public void showCommentsExtractedDialog(final AppCompatActivity appCompatActivity, final int socialMediaIdx,
+    public void showCommentsExtractedDialog(final AppCompatActivity activity, final int socialMediaIdx,
                                             final String socialMediaValue, final String kidIdentityValue) {
-        CommentsExtractedBySocialMediaDialog.show(appCompatActivity, socialMediaIdx, socialMediaValue, kidIdentityValue);
+        CommentsExtractedBySocialMediaDialog.show(activity, socialMediaIdx, socialMediaValue, kidIdentityValue);
     }
 
     /**
      * Show Social Activity Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaEnum
      * @param socialMediaValue
      */
     @Override
-    public void showSocialActivityDialog(AppCompatActivity appCompatActivity, final SocialMediaEnum socialMediaEnum, final String socialMediaValue) {
-        ActivityBySocialMediaDialog.show(appCompatActivity, socialMediaEnum, socialMediaValue);
+    public void showSocialActivityDialog(AppCompatActivity activity, final SocialMediaEnum socialMediaEnum, final String socialMediaValue) {
+        ActivityBySocialMediaDialog.show(activity, socialMediaEnum, socialMediaValue);
     }
 
     /**
      * Show Sentiment Analysis Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param sentimentLevelEnum
      * @param sentimentValue
      */
     @Override
-    public void showSentimentAnalysisDialog(final AppCompatActivity appCompatActivity,
+    public void showSentimentAnalysisDialog(final AppCompatActivity activity,
                                             final SentimentLevelEnum sentimentLevelEnum, final String sentimentValue) {
-        SentimentAnalysisDialog.show(appCompatActivity, sentimentLevelEnum, sentimentValue);
+        SentimentAnalysisDialog.show(activity, sentimentLevelEnum, sentimentValue);
     }
 
     /**
      * Show Alert Level Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param alertLevelEnum
      * @param alertLevelValue
      * @param kidIdentity
      */
     @Override
-    public void showAlertLevelDialog(final AppCompatActivity appCompatActivity,
+    public void showAlertLevelDialog(final AppCompatActivity activity,
                                      final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
                                      final String kidIdentity) {
-        SystemAlertsDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentity);
+        SystemAlertsDialog.show(activity, alertLevelEnum, alertLevelValue, kidIdentity);
     }
 
     /**
      * Show Likes By Social Media Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMedia
      * @param totalLikesValue
      */
     @Override
-    public void showLikesBySocialMediaDialog(final AppCompatActivity appCompatActivity, final int socialMedia,
+    public void showLikesBySocialMediaDialog(final AppCompatActivity activity, final int socialMedia,
                                              final String totalLikesValue) {
-        LikesBySocialMediaDialog.show(appCompatActivity, socialMedia, totalLikesValue);
+        LikesBySocialMediaDialog.show(activity, socialMedia, totalLikesValue);
     }
 
     /**
      * Show Photo Viewer Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param photoUrl
      */
     @Override
-    public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+    public void showPhotoViewerDialog(final AppCompatActivity activity,
                                       final String photoUrl) {
-        PhotoViewerDialog.show(appCompatActivity, photoUrl);
+        PhotoViewerDialog.show(activity, photoUrl);
     }
 
     /**
      * Show Photo Viewer Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param photoRes
      */
     @Override
-    public void showPhotoViewerDialog(final AppCompatActivity appCompatActivity,
+    public void showPhotoViewerDialog(final AppCompatActivity activity,
                                       final @DrawableRes int photoRes) {
-        PhotoViewerDialog.show(appCompatActivity, photoRes);
+        PhotoViewerDialog.show(activity, photoRes);
     }
 
     /**
      * Show App Rules Info Dialog
-     * @param appCompatActivity
+     * @param activity
      */
     @Override
-    public void showAppRulesInfoDialog(AppCompatActivity appCompatActivity) {
-        AppRulesInfoDialog.show(appCompatActivity);
+    public void showAppRulesInfoDialog(final AppCompatActivity activity) {
+        AppRulesInfoDialog.show(activity);
     }
 
     /**
      * Show Family Locator Info Dialog
-     * @param appCompatActivity
+     * @param activity
      */
     @Override
-    public void showFamilyLocatorInfoDialog(AppCompatActivity appCompatActivity) {
-        FamilyLocatorInfoDialog.show(appCompatActivity);
+    public void showFamilyLocatorInfoDialog(final AppCompatActivity activity) {
+        FamilyLocatorInfoDialog.show(activity);
     }
 
     /**
      * Show Social Media Status Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaTypeEnum
      * @param socialMediaStatusEnum
      */
     @Override
-    public void showSocialMediaStatusDialog(AppCompatActivity appCompatActivity, SocialMediaTypeEnum socialMediaTypeEnum, SocialMediaStatusEnum socialMediaStatusEnum) {
-        SocialMediaStatusDialog.show(appCompatActivity, socialMediaTypeEnum, socialMediaStatusEnum);
+    public void showSocialMediaStatusDialog(final AppCompatActivity activity, SocialMediaTypeEnum socialMediaTypeEnum, SocialMediaStatusEnum socialMediaStatusEnum) {
+        SocialMediaStatusDialog.show(activity, socialMediaTypeEnum, socialMediaStatusEnum);
     }
 
     /**
      * Show Social Media Status Dialog
-     * @param appCompatActivity
+     * @param activity
      * @param socialMediaTypeEnum
      * @param socialMediaStatusEnum
      */
     @Override
-    public void showSocialMediaStatusDialog(final AppCompatActivity appCompatActivity, final SocialMediaTypeEnum socialMediaTypeEnum,
+    public void showSocialMediaStatusDialog(final AppCompatActivity activity, final SocialMediaTypeEnum socialMediaTypeEnum,
                                             final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture) {
-        SocialMediaStatusDialog.show(appCompatActivity, socialMediaTypeEnum, socialMediaStatusEnum, userSocialProfilePicture , userSocialFullName);
+        SocialMediaStatusDialog.show(activity, socialMediaTypeEnum, socialMediaStatusEnum, userSocialProfilePicture , userSocialFullName);
     }
 
     /**
@@ -509,8 +510,8 @@ public class NavigatorImpl implements INavigator {
      * @param identity
      */
     @Override
-    public void navigateToKidsResultsActivity(String identity) {
-        context.startActivity(KidsResultsActivity.getCallingIntent(context, identity));
+    public void navigateToKidsResultsActivity(final Activity activity, String identity) {
+        activity.startActivity(KidsResultsActivity.getCallingIntent(context, identity));
     }
 
     /**
@@ -531,7 +532,7 @@ public class NavigatorImpl implements INavigator {
      * @param noticeDialogListener
      */
     @Override
-    public void showNoticeDialog(AppCompatActivity activity, String title, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+    public void showNoticeDialog(final AppCompatActivity activity, String title, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(title, "Title can not be null");
         Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
@@ -545,7 +546,7 @@ public class NavigatorImpl implements INavigator {
      * @param isSuccess
      */
     @Override
-    public void showNoticeDialog(AppCompatActivity activity, String title, boolean isSuccess) {
+    public void showNoticeDialog(final AppCompatActivity activity, String title, boolean isSuccess) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(title, "Title can not be null");
         NoticeDialogFragment.showDialog(activity, title, isSuccess);
@@ -560,7 +561,7 @@ public class NavigatorImpl implements INavigator {
      * @param noticeDialogListener
      */
     @Override
-    public void showNoticeDialog(AppCompatActivity activity, String title, boolean isSuccess, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+    public void showNoticeDialog(final AppCompatActivity activity, String title, boolean isSuccess, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(title, "Title can not be null");
         Preconditions.checkNotNull(noticeDialogListener, "Notice Dialog Listener can not be null");
@@ -571,8 +572,8 @@ public class NavigatorImpl implements INavigator {
      * Show Legal Content Activity
      */
     @Override
-    public void showLegalContentActivity() {
-        context.startActivity(LegalContentActivity.getCallingIntent(context));
+    public void showLegalContentActivity(final Activity activity) {
+        activity.startActivity(LegalContentActivity.getCallingIntent(context));
     }
 
     /**
@@ -580,16 +581,16 @@ public class NavigatorImpl implements INavigator {
      * @param legalTypeEnum
      */
     @Override
-    public void showLegalContentActivity(LegalContentActivity.LegalTypeEnum legalTypeEnum) {
+    public void showLegalContentActivity(final Activity activity, final LegalContentActivity.LegalTypeEnum legalTypeEnum) {
         Preconditions.checkNotNull(legalTypeEnum, "Legal Type Enum can not be null");
-        context.startActivity(LegalContentActivity.getCallingIntent(context, legalTypeEnum));
+        activity.startActivity(LegalContentActivity.getCallingIntent(context, legalTypeEnum));
     }
 
     /**
      * Show Search School Activity
      */
     @Override
-    public void showSearchSchoolActivity(final AppCompatActivity activity, final int requestCode) {
+    public void showSearchSchoolActivity(final Activity activity, final int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivityForResult(SearchSchoolMvpActivity.getCallingIntent(context), requestCode);
     }
@@ -599,7 +600,7 @@ public class NavigatorImpl implements INavigator {
      * @param activity
      */
     @Override
-    public void showSchoolDetail(AppCompatActivity activity, final SchoolEntity schoolEntity) {
+    public void showSchoolDetail(final AppCompatActivity activity, final SchoolEntity schoolEntity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(schoolEntity, "School can not be null");
         SchoolDialogFragment.show(activity,  schoolEntity);
@@ -611,7 +612,7 @@ public class NavigatorImpl implements INavigator {
      * @param requestCode
      */
     @Override
-    public void showAddSchool(AppCompatActivity activity, int requestCode) {
+    public void showAddSchool(Activity activity, int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivityForResult(AddSchoolMvpActivity.getCallingIntent(context),
                 requestCode);
@@ -622,7 +623,7 @@ public class NavigatorImpl implements INavigator {
      * @param activity
      */
     @Override
-    public void showSearchSchoolLocation(AppCompatActivity activity, boolean showCurrentLocation) {
+    public void showSearchSchoolLocation(final AppCompatActivity activity, boolean showCurrentLocation) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         SearchSchoolLocationDialog.show(activity, showCurrentLocation);
     }
@@ -634,7 +635,7 @@ public class NavigatorImpl implements INavigator {
      * @param longitude
      */
     @Override
-    public void showSearchSchoolLocation(AppCompatActivity activity, final double latitude, final double longitude) {
+    public void showSearchSchoolLocation(final AppCompatActivity activity, final double latitude, final double longitude) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         SearchSchoolLocationDialog.show(activity, latitude, longitude);
     }
@@ -645,13 +646,13 @@ public class NavigatorImpl implements INavigator {
      * @param terminalId
      */
     @Override
-    public void showTerminalDetail(String childId, String terminalId) {
+    public void showTerminalDetail(final Activity activity, String childId, String terminalId) {
         Preconditions.checkNotNull(childId, "Child id can not be null");
         Preconditions.checkState(!childId.isEmpty(), "Child id can not be empty");
         Preconditions.checkNotNull(terminalId, "Terminal Id can not be null");
         Preconditions.checkState(!terminalId.isEmpty(), "Terminal id can not be empty");
 
-        context.startActivity(TerminalDetailMvpActivity.getCallingIntent(context, childId, terminalId));
+        activity.startActivity(TerminalDetailMvpActivity.getCallingIntent(context, childId, terminalId));
 
     }
 
@@ -662,13 +663,13 @@ public class NavigatorImpl implements INavigator {
      * @param kidIdentityValue
      */
     @Override
-    public void showChildAlertsDetailDialog(final AppCompatActivity appCompatActivity, final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
+    public void showChildAlertsDetailDialog(final AppCompatActivity activity, final AlertLevelEnum alertLevelEnum, final String alertLevelValue,
                                             final String kidIdentityValue) {
         Preconditions.checkNotNull(alertLevelEnum, "Alert Level can not be null");
         Preconditions.checkNotNull(alertLevelValue, "Alert Level value can not be null");
         Preconditions.checkNotNull(kidIdentityValue, "Kid Identity value can not be null");
 
-        ChildAlertsDetailDialog.show(appCompatActivity, alertLevelEnum, alertLevelValue, kidIdentityValue);
+        ChildAlertsDetailDialog.show(activity, alertLevelEnum, alertLevelValue, kidIdentityValue);
     }
 
     /**
@@ -723,7 +724,7 @@ public class NavigatorImpl implements INavigator {
      * @param requestCode
      */
     @Override
-    public void navigateToSearchGuardianActivity(AppCompatActivity activity, int requestCode) {
+    public void navigateToSearchGuardianActivity(Activity activity, int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivityForResult(SearchGuardiansMvpActivity.getCallingIntent(activity), requestCode);
     }
@@ -736,7 +737,7 @@ public class NavigatorImpl implements INavigator {
      * @param app
      */
     @Override
-    public void navigateToAppDetailActivity(final AppCompatActivity activity, final String kid,
+    public void navigateToAppDetailActivity(final Activity activity, final String kid,
                                             final String terminal, final String app) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(kid, "Kid can not be null");
@@ -757,7 +758,7 @@ public class NavigatorImpl implements INavigator {
      * @param sms
      */
     @Override
-    public void navigateToSmsDetailActivity(final AppCompatActivity activity,
+    public void navigateToSmsDetailActivity(final Activity activity,
                                             final String kid,
                                             final String terminal,
                                             final String sms) {
@@ -780,7 +781,7 @@ public class NavigatorImpl implements INavigator {
      * @param call
      */
     @Override
-    public void navigateToCallDetailActivity(final AppCompatActivity activity, final String kid, final String terminal,
+    public void navigateToCallDetailActivity(final Activity activity, final String kid, final String terminal,
                                              final String call) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(kid, "Kid can not be null");
@@ -801,7 +802,7 @@ public class NavigatorImpl implements INavigator {
      * @param contact
      */
     @Override
-    public void navigateToContactDetailActivity(AppCompatActivity activity, String kid, String terminal, String contact) {
+    public void navigateToContactDetailActivity(Activity activity, String kid, String terminal, String contact) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
@@ -821,7 +822,7 @@ public class NavigatorImpl implements INavigator {
      * @param terminal
      */
     @Override
-    public void navigateToPhoneNumbersBlockedList(AppCompatActivity activity, String kid, String terminal) {
+    public void navigateToPhoneNumbersBlockedList(Activity activity, String kid, String terminal) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
@@ -838,7 +839,7 @@ public class NavigatorImpl implements INavigator {
      * @param kid
      */
     @Override
-    public void navigateToKidRequestList(final AppCompatActivity activity, final String kid) {
+    public void navigateToKidRequestList(final Activity activity, final String kid) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
@@ -856,7 +857,7 @@ public class NavigatorImpl implements INavigator {
      */
     @Override
     public void navigateToKidRequestDetail(
-            final AppCompatActivity activity,
+            final Activity activity,
             final String kid,
             final String identity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
@@ -874,7 +875,7 @@ public class NavigatorImpl implements INavigator {
      * @param kid
      */
     @Override
-    public void navigateToGeofencesList(final AppCompatActivity activity, final String kid) {
+    public void navigateToGeofencesList(final Activity activity, final String kid) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
 
@@ -888,7 +889,7 @@ public class NavigatorImpl implements INavigator {
      * @param id
      */
     @Override
-    public void navigateToSaveGeofence(final AppCompatActivity activity, final String kid, final String id) {
+    public void navigateToSaveGeofence(final Activity activity, final String kid, final String id) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(id, "Id can not be null");
@@ -905,7 +906,7 @@ public class NavigatorImpl implements INavigator {
      * @param kid
      */
     @Override
-    public void navigateToSaveGeofence(final AppCompatActivity activity, final String kid) {
+    public void navigateToSaveGeofence(final Activity activity, final String kid) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
 
@@ -920,7 +921,7 @@ public class NavigatorImpl implements INavigator {
      * @param kid
      */
     @Override
-    public void navigateToAppSearchListMvpActivity(AppCompatActivity activity, String kid, final int requestCode) {
+    public void navigateToAppSearchListMvpActivity(Activity activity, String kid, final int requestCode) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,9 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -40,6 +44,12 @@ public class SentimentAnalysisMvpFragment
      * Sentiment Types Enum
      */
     public enum SentimentTypesEnum { POSITIVE, NEGATIVE, NEUTRAL}
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
     /**
      * Kid Identity
@@ -235,6 +245,6 @@ public class SentimentAnalysisMvpFragment
      */
     @OnClick(R.id.showAllCommentsExtracted)
     protected void onShowAllCommentsExtractedClicked(){
-        navigator.navigateToComments(kidIdentity);
+        navigator.navigateToComments(activity, kidIdentity);
     }
 }

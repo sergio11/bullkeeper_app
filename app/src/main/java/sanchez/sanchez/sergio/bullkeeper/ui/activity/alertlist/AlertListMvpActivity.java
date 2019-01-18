@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,6 +90,12 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
 
     /**
@@ -308,10 +315,10 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     public void onFilterAlerts() {
         if(alertsListMode.equals(AlertsListModeEnum.ALERTS_BY_PREFERENCES)) {
             // Show Filter Alerts Dialog with Alert Category Filter Enable
-            navigatorImpl.navigateToAlertsSettingsWithAlertLevelFilterEnabled();
+            navigatorImpl.navigateToAlertsSettingsWithAlertLevelFilterEnabled(activity);
         } else {
             // Show Filter Alerts Dialog
-            navigatorImpl.navigateToAlertsSettings();
+            navigatorImpl.navigateToAlertsSettings(activity);
         }
     }
 
@@ -359,7 +366,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     @Override
     public void goToAlertDetail(final String alertId, final String sonId) {
-        navigatorImpl.navigateToAlertDetail(alertId, sonId);
+        navigatorImpl.navigateToAlertDetail(activity, alertId, sonId);
     }
 
     /**

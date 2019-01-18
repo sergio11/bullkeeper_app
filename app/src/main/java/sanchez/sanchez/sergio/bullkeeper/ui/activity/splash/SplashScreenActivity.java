@@ -37,6 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Inject
     protected IAppUtils appUtils;
 
+
     /**
      * Local System Notification
      */
@@ -50,9 +51,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if(appUtils.isValidString(preferenceRepository.getAuthToken())) {
-            navigator.navigateToHome();
+            navigator.navigateToHome(this);
         } else {
-            navigator.navigateToIntro();
+            navigator.navigateToIntro(this);
         }
 
         NotificationHandlerService.start(getApplicationContext());

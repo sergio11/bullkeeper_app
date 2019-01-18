@@ -279,6 +279,6 @@ public final class SystemAlertsDialog extends SupportDialogFragment {
      */
     @OnClick(R.id.showAlerts)
     protected void onShowAlerts(){
-        navigator.navigateToAlertList(alertLevelEnum, kidIdentityValue);
+        navigator.navigateToAlertList(getActivity(), alertLevelEnum, kidIdentityValue);
     }
 }

@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.comments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -69,6 +70,12 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
 
     /**
@@ -293,7 +300,7 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
     @Override
     public void onItemClick(CommentEntity commentEntity) {
         // Navigate to comment detail
-        navigatorImpl.navigateToCommentDetail(commentEntity.getIdentity());
+        navigatorImpl.navigateToCommentDetail(activity, commentEntity.getIdentity());
     }
 
     /**
@@ -332,7 +339,7 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
      */
     @OnClick(R.id.commentsFilter)
     protected void onFilterCommentsClicked(){
-        navigatorImpl.navigateToCommentsSettings();
+        navigatorImpl.navigateToCommentsSettings(activity);
     }
 
     /**
