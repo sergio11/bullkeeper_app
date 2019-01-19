@@ -243,7 +243,7 @@ public final class FunTimeDayScheduledAdapter
                         value
                 ));
 
-                if(listener != null)
+                if(listener != null && value != dayScheduledEntity.getTotalHours())
                     listener.onDayScheduledTotalHoursChanged(
                             dayScheduledEntity.getDay(),
                             value, dayScheduledEntity.getTotalHours()

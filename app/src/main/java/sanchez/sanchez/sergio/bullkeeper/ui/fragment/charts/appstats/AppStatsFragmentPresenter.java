@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats;
 
-import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,12 +13,6 @@ import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
  */
 public final class AppStatsFragmentPresenter extends SupportPresenter<IAppStatsFragmentView> {
 
-    /**
-     * Args
-     */
-    public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
-    public static final String TERMINALS_ARG = "TERMINALS_ARG";
-    public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
 
     /**
      * Get Statistics Of The Five Most Used Applications

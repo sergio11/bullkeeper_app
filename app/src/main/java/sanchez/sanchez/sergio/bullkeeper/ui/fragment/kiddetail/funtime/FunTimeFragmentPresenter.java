@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.funtime;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-import java.util.ArrayList;
 import java.util.Arrays;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -23,15 +22,11 @@ public final class FunTimeFragmentPresenter
      * Kid Identity
      */
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
-    /**
-     * Terminal Arg
-     */
-    public static final String TERMINALS_ARG = "TERMINALS_ARG";
 
     /**
-     * Current Terminal Pos Arg
+     * Current Terminal
      */
-    public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
+    public static final String CURRENT_TERMINAL_ARG = "CURRENT_TERMINAL_ARG";
 
     /**
      * Get Fun Time By Child Interact
@@ -74,18 +69,14 @@ public final class FunTimeFragmentPresenter
     public void loadData(Bundle args) {
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(KID_IDENTITY_ARG), "You must provide a kid identity value");
-        Preconditions.checkState(args.containsKey(TERMINALS_ARG), "You must provide terminals list");
-        final ArrayList<TerminalItem> terminalItems = (ArrayList<TerminalItem>) args.getSerializable(TERMINALS_ARG);
-        Preconditions.checkNotNull(terminalItems, "Terminal list can not be null");
-        Preconditions.checkState(!terminalItems.isEmpty(), "Terminal list can not be empty");
-        Preconditions.checkState(args.containsKey(CURRENT_TERMINAL_POS_ARG), "You must provide a terminal pos");
+        Preconditions.checkState(args.containsKey(CURRENT_TERMINAL_ARG), "You must provide Current Terminal");
 
         if (isLoadingData)
             return;
 
         isLoadingData = true;
 
-        final TerminalItem terminalItem = terminalItems.get(args.getInt(CURRENT_TERMINAL_POS_ARG));
+        final TerminalItem terminalItem = (TerminalItem) args.getSerializable(CURRENT_TERMINAL_ARG);
 
         if(terminalItem != null) {
 
@@ -174,7 +165,6 @@ public final class FunTimeFragmentPresenter
             Preconditions.checkNotNull(funTimeScheduledEntity, "Response can not be null");
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
                 getView().onDataLoaded(
                         Arrays.asList(
                                 funTimeScheduledEntity.getMonday(),
@@ -186,6 +176,7 @@ public final class FunTimeFragmentPresenter
                                 funTimeScheduledEntity.getSunday()
                         )
                 );
+                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
             }
 
             isLoadingData = false;
@@ -212,14 +203,26 @@ public final class FunTimeFragmentPresenter
 
         /**
          * On Success
-         * @param response
+         * @param funTimeScheduledEntity
          */
         @Override
-        protected void onSuccess(final FunTimeScheduledEntity response) {
-            Preconditions.checkNotNull(response, "Response can not be null");
+        protected void onSuccess(final FunTimeScheduledEntity funTimeScheduledEntity) {
+            Preconditions.checkNotNull(funTimeScheduledEntity, "Response can not be null");
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.fun_time_saved_successfully);
+                getView().onDataLoaded(
+                        Arrays.asList(
+                                funTimeScheduledEntity.getMonday(),
+                                funTimeScheduledEntity.getThursday(),
+                                funTimeScheduledEntity.getWednesday(),
+                                funTimeScheduledEntity.getTuesday(),
+                                funTimeScheduledEntity.getFriday(),
+                                funTimeScheduledEntity.getSaturday(),
+                                funTimeScheduledEntity.getSunday()
+                        )
+                );
+                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
             }
         }
     }

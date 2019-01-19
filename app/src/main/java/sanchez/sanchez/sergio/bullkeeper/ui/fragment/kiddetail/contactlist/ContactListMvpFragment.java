@@ -112,6 +112,12 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
     protected int currentTerminalPos = 0;
 
     /**
+     * Current Terminal
+     */
+    @State
+    protected TerminalItem currentTerminalItem;
+
+    /**
      *
      */
     public ContactListMvpFragment() {
@@ -163,6 +169,8 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
         terminalsSpinner.setSelection(currentTerminalPos);
         terminalsSpinner.setOnItemSelectedListener(this);
 
+        currentTerminalItem = terminalItems.get(currentTerminalPos);
+
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
     }
@@ -197,8 +205,7 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
     public Bundle getArgs() {
         final Bundle args = new Bundle();
         args.putString(ContactFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
-        args.putSerializable(ContactFragmentPresenter.TERMINALS_ARG, terminalItems);
-        args.putInt(ContactFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
+        args.putSerializable(ContactFragmentPresenter.CURRENT_TERMINAL_ARG, currentTerminalItem);
         return args;
     }
 
@@ -271,7 +278,8 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Timber.d("New Position Selected -> %d", position);
         currentTerminalPos = position;
-        terminalIdentity = terminalItems.get(currentTerminalPos).getIdentity();
+        currentTerminalItem = terminalItems.get(currentTerminalPos);
+        terminalIdentity = currentTerminalItem.getIdentity();
         loadData();
     }
 

@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -133,20 +132,6 @@ public class AppStatsMvpFragment
         return fragment;
     }
 
-    /**
-     * Get Args
-     * @return
-     */
-    @Override
-    public Bundle getArgs() {
-        final Bundle args = new Bundle();
-        if(getArguments() != null) {
-            args.putString(AppStatsFragmentPresenter.KID_IDENTITY_ARG, kid);
-            args.putSerializable(AppStatsFragmentPresenter.TERMINALS_ARG, terminalItems);
-            args.putInt(AppStatsFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
-        }
-        return args;
-    }
     /**
      * On View Created
      * @param view

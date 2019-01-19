@@ -1,6 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.mykids;
 
-import android.os.Bundle;
+
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
@@ -25,32 +25,12 @@ public final class MyKidsFragmentPresenter extends SupportSearchLCEPresenter<IMy
     }
 
     /**
-     * Load Data
-     */
-    @Override
-    public void loadData() {
-
-        // Execute Get Self Children
-        getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), null);
-    }
-
-    /**
-     * Load Data
-     * @param args
-     */
-    @Override
-    public void loadData(Bundle args) {
-        loadData();
-    }
-
-    /**
      * Load Date
      * @param queryText
      */
     @Override
     public void loadData(final String queryText) {
         Preconditions.checkNotNull(queryText, "Query Text can not be null");
-        Preconditions.checkState(!queryText.isEmpty(), "Query Text can not be empty");
 
         getSelfChildrenInteract.execute(new GetChildrenObserver(GetSelfChildrenInteract.GetChildrenApiErrors.class), GetSelfChildrenInteract.Params.create(queryText));
 

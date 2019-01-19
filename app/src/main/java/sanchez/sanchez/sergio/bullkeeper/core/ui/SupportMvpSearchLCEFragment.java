@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
 
@@ -63,7 +61,8 @@ public abstract class SupportMvpSearchLCEFragment<P extends SupportSearchLCEPres
     /**
      * Current Query Text
      */
-    private String currentQueryText = "";
+    @State
+    protected String currentQueryText = "";
 
     /**
      * Require Init Search
@@ -230,14 +229,18 @@ public abstract class SupportMvpSearchLCEFragment<P extends SupportSearchLCEPres
 
         if(currentQueryText != null && !currentQueryText.isEmpty()) {
             onShowLoadingState();
-            getPresenter().loadData(currentQueryText);
+            final Bundle args = getArgs();
+                        if(args != null)
+                getPresenter().loadData(args, currentQueryText);
+            else
+                getPresenter().loadData(currentQueryText);
         } else {
 
             if(requireInitSearch)
                 onShowInitSearch();
             else {
-                onShowLoadingState();
-                getPresenter().loadData();
+                getPresenter().resetQuery();
+                super.loadData();
             }
         }
     }

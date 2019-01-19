@@ -159,6 +159,12 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
     protected int currentTerminalPos = 0;
 
     /**
+     * Current Terminal
+     */
+    @State
+    protected TerminalItem currentTerminal;
+
+    /**
      * New App Installed Event Register Key
      */
     @State
@@ -293,11 +299,13 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
             throw new IllegalStateException("Terminals list can not be empty");
 
 
-        ArrayAdapter<TerminalItem> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,
+        ArrayAdapter<TerminalItem> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item,
                 terminalItems);
         terminalsSpinner.setAdapter(adapter);
         terminalsSpinner.setSelection(currentTerminalPos);
         terminalsSpinner.setOnItemSelectedListener(this);
+
+        currentTerminal = terminalItems.get(currentTerminalPos);
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
@@ -358,8 +366,7 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
     public Bundle getArgs() {
         final Bundle args = new Bundle();
         args.putString(AppRulesFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
-        args.putSerializable(AppRulesFragmentPresenter.TERMINALS_ARG, terminalItems);
-        args.putInt(AppRulesFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
+        args.putSerializable(AppRulesFragmentPresenter.CURRENT_TERMINAL_ARG, currentTerminal);
         return args;
     }
 
@@ -526,7 +533,8 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Timber.d("New Position Selected -> %d", position);
         currentTerminalPos = position;
-        terminalIdentity = terminalItems.get(currentTerminalPos).getIdentity();
+        currentTerminal = terminalItems.get(currentTerminalPos);
+        terminalIdentity = currentTerminal.getIdentity();
         loadData();
     }
 
@@ -538,7 +546,7 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
      */
     @OnClick(R.id.refreshAppData)
     protected void onRefreshAppDataClicked() {
-        getPresenter().loadData();
+        loadData();
     }
 
     /**

@@ -80,8 +80,7 @@ public class MyKidsActivityMvpFragment extends SupportMvpSearchLCEFragment<MyKid
      * @return
      */
     public static MyKidsActivityMvpFragment newInstance() {
-        MyKidsActivityMvpFragment fragment = new MyKidsActivityMvpFragment();
-        return fragment;
+        return  new MyKidsActivityMvpFragment();
     }
 
     /**

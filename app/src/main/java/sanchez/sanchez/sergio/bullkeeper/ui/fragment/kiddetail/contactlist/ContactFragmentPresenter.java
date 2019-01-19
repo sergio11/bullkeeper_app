@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
@@ -20,8 +19,7 @@ public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IC
      * Args
      */
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
-    public static final String TERMINALS_ARG = "TERMINALS_ARG";
-    public static final String CURRENT_TERMINAL_POS_ARG = "CURRENT_TERMINAL_POS_ARG";
+    public static final String CURRENT_TERMINAL_ARG = "CURRENT_TERMINAL_ARG";
 
     /**
      * Get Contact List Interact
@@ -43,46 +41,24 @@ public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IC
     }
 
     /**
-     * Load Data
-     */
-    @Override
-    public void loadData() { loadContacts(null); }
-
-    /**
-     * Load Data
+     * Load Date
      * @param args
-     */
-    @Override
-    public void loadData(Bundle args) { loadContacts(null); }
-
-    /**
-     * Load Data
      * @param queryText
      */
     @Override
-    public void loadData(String queryText) { loadContacts(queryText); }
-
-    /**
-     * Load Contacts
-     * @param queryText
-     */
-    private void loadContacts(final String queryText) {
+    public void loadData(Bundle args, String queryText) {
+        super.loadData(args, queryText);
 
         Preconditions.checkNotNull(args, "Args can not be null");
         Preconditions.checkState(args.containsKey(KID_IDENTITY_ARG), "You must provide a son identity value");
-        Preconditions.checkState(args.containsKey(TERMINALS_ARG), "You must provide terminals list");
-        final ArrayList<TerminalItem> terminalItems = (ArrayList<TerminalItem>) args.getSerializable(TERMINALS_ARG);
-        Preconditions.checkNotNull(terminalItems, "Terminal list can not be null");
-        Preconditions.checkState(!terminalItems.isEmpty(), "Terminal list can not be empty");
-        Preconditions.checkState(args.containsKey(CURRENT_TERMINAL_POS_ARG), "You must provide a terminal pos");
+        Preconditions.checkState(args.containsKey(CURRENT_TERMINAL_ARG), "You must provide Current Terminal");
 
         if (isLoadingData)
             return;
 
         isLoadingData = true;
 
-        final TerminalItem terminalItem =
-                terminalItems.get(args.getInt(CURRENT_TERMINAL_POS_ARG));
+        final TerminalItem terminalItem = (TerminalItem) args.getSerializable(CURRENT_TERMINAL_ARG);
 
         if(terminalItem != null) {
 

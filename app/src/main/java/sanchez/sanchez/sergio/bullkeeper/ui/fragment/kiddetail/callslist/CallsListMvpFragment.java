@@ -107,6 +107,12 @@ public class CallsListMvpFragment extends SupportMvpLCEFragment<CallListFragment
     protected ArrayList<TerminalItem> terminalItems = new ArrayList<>();
 
     /**
+     * Current Terminal
+     */
+    @State
+    protected TerminalItem currentTerminal;
+
+    /**
      * Current Terminal Pos
      */
     @State
@@ -163,6 +169,8 @@ public class CallsListMvpFragment extends SupportMvpLCEFragment<CallListFragment
         terminalsSpinner.setSelection(currentTerminalPos);
         terminalsSpinner.setOnItemSelectedListener(this);
 
+        currentTerminal = terminalItems.get(currentTerminalPos);
+
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
     }
@@ -187,8 +195,7 @@ public class CallsListMvpFragment extends SupportMvpLCEFragment<CallListFragment
     public Bundle getArgs() {
         final Bundle args = new Bundle();
         args.putString(CallListFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
-        args.putSerializable(CallListFragmentPresenter.TERMINALS_ARG, terminalItems);
-        args.putInt(CallListFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
+        args.putSerializable(CallListFragmentPresenter.CURRENT_TERMINAL_ARG, currentTerminal);
         return args;
     }
 
@@ -258,7 +265,8 @@ public class CallsListMvpFragment extends SupportMvpLCEFragment<CallListFragment
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Timber.d("New Position Selected -> %d", position);
         currentTerminalPos = position;
-        terminalIdentity = terminalItems.get(currentTerminalPos).getIdentity();
+        currentTerminal = terminalItems.get(currentTerminalPos);
+        terminalIdentity = currentTerminal.getIdentity();
         loadData();
     }
 

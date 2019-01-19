@@ -114,6 +114,12 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     protected ArrayList<TerminalItem> terminalItems = new ArrayList<>();
 
     /**
+     * Terminal
+     */
+    @State
+    protected TerminalItem currentTerminalItem;
+
+    /**
      * Terminal Identity
      *
      */
@@ -211,6 +217,8 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
         terminalsSpinner.setSelection(currentTerminalPos);
         terminalsSpinner.setOnItemSelectedListener(this);
 
+        currentTerminalItem = terminalItems.get(currentTerminalPos);
+
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
 
@@ -224,10 +232,9 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
                     showConfirmationDialog(R.string.confirm_enable_fun_time_mode, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
+                            isFunTimeEnabled = true;
                             // Save Fun Time
-                            showNoticeDialog(R.string.fun_time_mode_enabled);
-                            ((FunTimeDayScheduledAdapter)recyclerViewAdapter)
-                                    .switchEditableStatusForAllDaysOfWeek(true);
+                            saveFunTime();
                         }
 
                         @Override
@@ -241,10 +248,9 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
                     showConfirmationDialog(R.string.confirm_disable_fun_time_mode, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
+                            isFunTimeEnabled = false;
                             // Save Fun Time
-                            showNoticeDialog(R.string.fun_time_mode_disabled);
-                            ((FunTimeDayScheduledAdapter) recyclerViewAdapter)
-                                    .switchEditableStatusForAllDaysOfWeek(false);
+                            saveFunTime();
                         }
 
                         @Override
@@ -292,8 +298,7 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     public Bundle getArgs() {
         final Bundle args = new Bundle();
         args.putString(FunTimeFragmentPresenter.KID_IDENTITY_ARG, kid);
-        args.putSerializable(FunTimeFragmentPresenter.TERMINALS_ARG, terminalItems);
-        args.putInt(FunTimeFragmentPresenter.CURRENT_TERMINAL_POS_ARG, currentTerminalPos);
+        args.putSerializable(FunTimeFragmentPresenter.CURRENT_TERMINAL_ARG, currentTerminalItem);
         return args;
     }
 
@@ -354,6 +359,8 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     public void setFunTimeStatus(boolean isEnabled) {
         isFunTimeEnabled = isEnabled;
         funTimeEnableSwitch.setChecked(isEnabled, false);
+        ((FunTimeDayScheduledAdapter) recyclerViewAdapter)
+                .switchEditableStatusForAllDaysOfWeek(isFunTimeEnabled);
     }
 
     /**
@@ -367,7 +374,12 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Timber.d("New Position Selected -> %d", position);
         currentTerminalPos = position;
-        terminalIdentity = terminalItems.get(currentTerminalPos).getIdentity();
+        currentTerminalItem = terminalItems.get(currentTerminalPos);
+        terminalIdentity = currentTerminalItem.getIdentity();
+        // Reset Current Changes
+        dayScheduledEntitiesModified.clear();
+        updateHeaderStatus();
+        // Load Data for new terminal selected
         loadData();
     }
 
@@ -416,10 +428,9 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     }
 
     /**
-     * On Saved Changes Clicked
+     * Save Fun Time
      */
-    @OnClick(R.id.saveChanges)
-    protected void onSaveChangesClicked(){
+    private void saveFunTime(){
         final FunTimeScheduledEntity funTimeScheduledEntity =
                 new FunTimeScheduledEntity();
         funTimeScheduledEntity.setEnabled(isFunTimeEnabled);
@@ -432,11 +443,19 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
         funTimeScheduledEntity.setSunday(dayScheduledEntities.get(6));
         dayScheduledEntitiesModified.clear();
         updateHeaderStatus();
-
         // Save Fun Time
         getPresenter().saveFunTime(kid, terminalIdentity, funTimeScheduledEntity);
-
     }
+
+
+    /**
+     * On Saved Changes Clicked
+     */
+    @OnClick(R.id.saveChanges)
+    protected void onSaveChangesClicked(){
+        saveFunTime();
+    }
+
     /**
      * Update Header Status
      */
