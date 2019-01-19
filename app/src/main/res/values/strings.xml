@@ -803,6 +803,10 @@
     <string name="terminal_permission_text_message_disabled">Text Message permission is disabled</string>
     <string name="terminal_permission_storage_enabled">Storage permission is enabled</string>
     <string name="terminal_permission_storage_disabled">Storage permission is disabled</string>
+    <string name="terminal_usage_stats_allowed">Usage Stats is allowed</string>
+    <string name="terminal_usage_stats_not_allowed">Usage Stats not allowed</string>
+    <string name="terminal_admin_access_allowed">Admin access is allowed</string>
+    <string name="terminal_admin_access_not_allowed">Admin access is not allowed</string>
 
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">Do you want to enable Bed Time mode in this terminal?</string>

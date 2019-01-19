@@ -204,6 +204,31 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     @BindView(R.id.storagePermissionTextView)
     protected TextView storagePermissionTextView;
 
+
+    /**
+     * Usage Stats Status Widget
+     */
+    @BindView(R.id.usageStatsStatusWidget)
+    protected SupportSwitchCompat usageStatsStatusWidget;
+
+    /**
+     * Usage Stats Text View
+     */
+    @BindView(R.id.usageStatsTextView)
+    protected TextView usageStatsTextView;
+
+    /**
+     * Admin Access Status Widget
+     */
+    @BindView(R.id.adminAccessStatusWidget)
+    protected SupportSwitchCompat adminAccessStatusWidget;
+
+    /**
+     * Admin Access Text View
+     */
+    @BindView(R.id.adminAccessTextView)
+    protected TextView adminAccessTextView;
+
     /**
      * Dependencies
      * ===============
@@ -623,6 +648,25 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 terminalDetailEntity.isStoragePermissionEnabled() ?
                         getString(R.string.terminal_permission_storage_enabled) :
                         getString(R.string.terminal_permission_storage_disabled)
+        );
+
+        // Usage Stats
+        usageStatsStatusWidget.setChecked(terminalDetailEntity.isUsageStatsAllowed(), false);
+
+        usageStatsTextView.setText(
+                terminalDetailEntity.isUsageStatsAllowed() ?
+                        getString(R.string.terminal_usage_stats_allowed) :
+                        getString(R.string.terminal_usage_stats_not_allowed)
+        );
+
+
+        // Admin Access
+        adminAccessStatusWidget.setChecked(terminalDetailEntity.isAdminAccessAllowed(), false);
+
+        adminAccessTextView.setText(
+                terminalDetailEntity.isAdminAccessAllowed() ?
+                        getString(R.string.terminal_admin_access_allowed) :
+                        getString(R.string.terminal_admin_access_not_allowed)
         );
 
     }

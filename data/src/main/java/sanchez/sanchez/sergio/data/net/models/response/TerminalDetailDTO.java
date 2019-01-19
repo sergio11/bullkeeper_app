@@ -76,6 +76,18 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("storage_permission_enabled")
     private boolean storagePermissionEnabled;
 
+    /**
+     * Usage Stats Allowed
+     */
+    @JsonProperty("usage_stats_allowed")
+    private boolean usageStatsAllowed;
+
+    /**
+     * Admin Access Allowed
+     */
+    @JsonProperty("admin_access_allowed")
+    private boolean adminAccessAllowed;
+
 
     public TerminalDetailDTO(){
         super();
@@ -109,9 +121,23 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param contactsListPermissionEnabled
      * @param textMessagePermissionEnabled
      * @param storagePermissionEnabled
+     * @param usageStatsAllowed
+     * @param adminAccessAllowed
      */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, String lastTimeUsed, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled) {
-        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled);
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model,
+                             String codeName, String deviceName, String deviceId,
+                             boolean bedTimeEnabled, boolean screenEnabled,
+                             boolean cameraEnabled, boolean settingsEnabled,
+                             long totalApps, long totalSms, long totalCalls,
+                             long totalContacts, String lastTimeUsed,
+                             String screenStatus, boolean locationPermissionEnabled,
+                             boolean callsHistoryPermissionEnabled,
+                             boolean contactsListPermissionEnabled,
+                             boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
+                             boolean usageStatsAllowed, boolean adminAccessAllowed) {
+        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion,
+                manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled,
+                screenEnabled, cameraEnabled, settingsEnabled);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
@@ -123,6 +149,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.contactsListPermissionEnabled = contactsListPermissionEnabled;
         this.textMessagePermissionEnabled = textMessagePermissionEnabled;
         this.storagePermissionEnabled = storagePermissionEnabled;
+        this.usageStatsAllowed = usageStatsAllowed;
+        this.adminAccessAllowed = adminAccessAllowed;
     }
 
     public long getTotalApps() {
@@ -213,6 +241,22 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.storagePermissionEnabled = storagePermissionEnabled;
     }
 
+    public boolean isUsageStatsAllowed() {
+        return usageStatsAllowed;
+    }
+
+    public void setUsageStatsAllowed(boolean usageStatsAllowed) {
+        this.usageStatsAllowed = usageStatsAllowed;
+    }
+
+    public boolean isAdminAccessAllowed() {
+        return adminAccessAllowed;
+    }
+
+    public void setAdminAccessAllowed(boolean adminAccessAllowed) {
+        this.adminAccessAllowed = adminAccessAllowed;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailDTO{" +
@@ -227,6 +271,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +
                 ", textMessagePermissionEnabled=" + textMessagePermissionEnabled +
                 ", storagePermissionEnabled=" + storagePermissionEnabled +
+                ", usageStatsAllowed=" + usageStatsAllowed +
+                ", adminAccessAllowed=" + adminAccessAllowed +
                 '}';
     }
 }

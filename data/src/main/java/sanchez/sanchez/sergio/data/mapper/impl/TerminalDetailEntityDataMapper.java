@@ -52,6 +52,8 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setCallsHistoryPermissionEnabled(originModel.isCallsHistoryPermissionEnabled());
         terminalEntity.setContactsListPermissionEnabled(originModel.isContactsListPermissionEnabled());
         terminalEntity.setTextMessagePermissionEnabled(originModel.isTextMessagePermissionEnabled());
+        terminalEntity.setUsageStatsAllowed(originModel.isUsageStatsAllowed());
+        terminalEntity.setAdminAccessAllowed(originModel.isAdminAccessAllowed());
         return terminalEntity;
     }
 
@@ -89,6 +91,8 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setCallsHistoryPermissionEnabled(originModel.isCallsHistoryPermissionEnabled());
         terminalDTO.setContactsListPermissionEnabled(originModel.isContactsListPermissionEnabled());
         terminalDTO.setTextMessagePermissionEnabled(originModel.isTextMessagePermissionEnabled());
+        terminalDTO.setUsageStatsAllowed(originModel.isUsageStatsAllowed());
+        terminalDTO.setAdminAccessAllowed(originModel.isAdminAccessAllowed());
         return terminalDTO;
     }
 }

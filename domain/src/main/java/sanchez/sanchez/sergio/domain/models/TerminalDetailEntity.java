@@ -60,10 +60,49 @@ public final class TerminalDetailEntity extends TerminalEntity {
      */
     private boolean storagePermissionEnabled;
 
+    /**
+     * Usage Stats Allowed
+     */
+    private boolean usageStatsAllowed;
 
+    /**
+     * Admin Access Allowed
+     */
+    private boolean adminAccessAllowed;
 
+    /**
+     *
+     */
     public TerminalDetailEntity(){}
 
+    /**
+     *
+     * @param identity
+     * @param appVersionCode
+     * @param appVersionName
+     * @param codeName
+     * @param deviceName
+     * @param manufacturer
+     * @param marketName
+     * @param model
+     * @param osVersion
+     * @param sdkVersion
+     * @param bedTimeEnabled
+     * @param screenEnabled
+     * @param cameraEnabled
+     * @param settingsEnabled
+     * @param totalApps
+     * @param totalSms
+     * @param totalCalls
+     * @param totalContacts
+     * @param screenStatusEnum
+     * @param lastTimeUsed
+     * @param locationPermissionEnabled
+     * @param callsHistoryPermissionEnabled
+     * @param contactsListPermissionEnabled
+     * @param textMessagePermissionEnabled
+     * @param storagePermissionEnabled
+     */
     public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled) {
         super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled);
         this.totalApps = totalApps;
@@ -165,6 +204,22 @@ public final class TerminalDetailEntity extends TerminalEntity {
 
     public void setStoragePermissionEnabled(boolean storagePermissionEnabled) {
         this.storagePermissionEnabled = storagePermissionEnabled;
+    }
+
+    public boolean isUsageStatsAllowed() {
+        return usageStatsAllowed;
+    }
+
+    public void setUsageStatsAllowed(boolean usageStatsAllowed) {
+        this.usageStatsAllowed = usageStatsAllowed;
+    }
+
+    public boolean isAdminAccessAllowed() {
+        return adminAccessAllowed;
+    }
+
+    public void setAdminAccessAllowed(boolean adminAccessAllowed) {
+        this.adminAccessAllowed = adminAccessAllowed;
     }
 
     @Override

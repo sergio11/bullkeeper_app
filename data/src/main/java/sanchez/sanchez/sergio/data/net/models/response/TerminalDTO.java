@@ -87,13 +87,13 @@ public class TerminalDTO implements Serializable {
     /**
      * Screen Enabled
      */
-    @JsonProperty("lock_screen_enabled")
+    @JsonProperty("screen_enabled")
     protected boolean screenEnabled;
 
     /**
      * Camera Enabled
      */
-    @JsonProperty("lock_camera_enabled")
+    @JsonProperty("camera_enabled")
     protected boolean cameraEnabled;
 
     /**

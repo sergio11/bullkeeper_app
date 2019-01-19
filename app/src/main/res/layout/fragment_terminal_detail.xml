@@ -772,6 +772,119 @@
 
                     </RelativeLayout>
 
+
+                    <!-- Usage Stats -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/usageStatsIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/robot_solid_cyan"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/usageStatsTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/usageStatsWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/usageStatsIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/usageStatsStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/usageStatsTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/usageStatsWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
+                    <!--Admin Access -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/adminAccessIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/admin_access_icon_cyan"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/adminAccessTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/adminAccessWidgetContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/adminAccessIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/adminAccessStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/adminAccessTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/adminAccessWidgetContainer"/>
+
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
