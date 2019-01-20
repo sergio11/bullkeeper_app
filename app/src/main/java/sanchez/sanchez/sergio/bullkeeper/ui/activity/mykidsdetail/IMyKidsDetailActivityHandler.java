@@ -112,4 +112,11 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToSaveGeofence(final String kid);
 
+    /**
+     * Navigate To Day Scheduled Detail
+     * @param kid
+     * @param terminal
+     */
+    void navigateToDayScheduledDetail(final String kid, final String terminal);
+
 }

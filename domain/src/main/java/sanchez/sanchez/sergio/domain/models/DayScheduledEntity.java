@@ -26,7 +26,6 @@ public final class DayScheduledEntity implements Serializable {
      * Editable
      */
     private boolean editable = false;
-
     /**
      *
      */

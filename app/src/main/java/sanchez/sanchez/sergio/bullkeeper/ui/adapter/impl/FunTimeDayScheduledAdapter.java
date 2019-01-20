@@ -28,6 +28,11 @@ public final class FunTimeDayScheduledAdapter
     private final int MIN_FUN_TIME_VALUE = 0;
 
     /**
+     * Max Fun Time Value
+     */
+    private final int MAX_FUN_TIME_VALUE = 8;
+
+    /**
      * Listener
      */
     private onFunTimeDayScheduledChangedListener listener;
@@ -101,7 +106,7 @@ public final class FunTimeDayScheduledAdapter
      * Fun Time Day Scheduled View Holder
      */
     public class FunTimeDayScheduledViewHolder
-            extends SupportItemSwipedViewHolder<DayScheduledEntity>{
+            extends SupportItemSwipedViewHolder<DayScheduledEntity> {
 
         /**
          * Day Of Week Name
@@ -122,11 +127,10 @@ public final class FunTimeDayScheduledAdapter
         /**
          * Day Scheduled Step Callback
          */
-        private DayScheduledStepCallback dayScheduledStepCallback;
+        private DayScheduledStepCallback dayScheduledStepCallback = new DayScheduledStepCallback();
 
 
         /**
-         *
          * @param itemView
          */
         FunTimeDayScheduledViewHolder(View itemView) {
@@ -140,14 +144,16 @@ public final class FunTimeDayScheduledAdapter
 
         /**
          * Switch Total Hours
-         * @param status
+         *
+         * @param dayScheduledEntity
          */
-        private void switchTotalHours(final boolean status) {
-            if(status) {
+        private void switchTotalHours(final DayScheduledEntity dayScheduledEntity) {
+            if (dayScheduledEntity.getEnabled() && dayScheduledEntity.isEditable()) {
                 totalHoursStepperTouch.setVisibility(View.VISIBLE);
                 totalHoursConfiguredTextView.setVisibility(View.VISIBLE);
                 dayScheduledDisabledTextView.setVisibility(View.GONE);
                 totalHoursStepperTouch.enableSideTap(true);
+                totalHoursStepperTouch.stepper.setValue(dayScheduledEntity.getTotalHours());
                 totalHoursStepperTouch.stepper.addStepCallback(dayScheduledStepCallback);
             } else {
                 totalHoursStepperTouch.setVisibility(View.GONE);
@@ -160,23 +166,25 @@ public final class FunTimeDayScheduledAdapter
 
         /**
          * On Bind
+         *
          * @param dayScheduledEntity
          */
         @Override
         public void bind(final DayScheduledEntity dayScheduledEntity) {
             super.bind(dayScheduledEntity);
 
-            dayScheduledStepCallback = new DayScheduledStepCallback(dayScheduledEntity);
+            Timber.d("FunTimeAdapter: Set Total Hours -> %d for Day -> %s",
+                    dayScheduledEntity.getTotalHours(), dayScheduledEntity.getDay());
 
+            dayScheduledStepCallback.setDayScheduledEntity(dayScheduledEntity);
             // Set Day Name
             dayOfWeekNameTextView.setText(dayScheduledEntity.getDay());
             // Day Scheduled Status
             dayEnabledSwitch.setChecked(dayScheduledEntity.getEnabled(), false);
             dayEnabledSwitch.setEnabled(dayScheduledEntity.isEditable());
 
-            if(dayScheduledEntity.isEditable()) {
+            if (dayScheduledEntity.isEditable()) {
 
-                totalHoursStepperTouch.stepper.setValue(dayScheduledEntity.getTotalHours());
                 totalHoursConfiguredTextView.setText(String.format(
                         Locale.getDefault(),
                         context.getString(R.string.family_locator_total_hours_configured),
@@ -187,20 +195,24 @@ public final class FunTimeDayScheduledAdapter
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         dayScheduledEntity.setEnabled(isChecked);
-                        switchTotalHours(isChecked);
-                        if (listener != null)
+                        switchTotalHours(dayScheduledEntity);
+                        if (listener != null) {
                             listener.onDayScheduledStatusChanged(
                                     dayScheduledEntity.getDay(),
                                     isChecked, !isChecked);
+                            listener.onDayScheduledTotalHoursChanged(
+                                    dayScheduledEntity.getDay(),
+                                    0, dayScheduledEntity.getTotalHours()
+                            );
+                        }
+                        dayScheduledEntity.setTotalHours(0);
                     }
                 });
 
-                switchTotalHours(dayScheduledEntity.getEnabled());
-
-            } else {
-
-                switchTotalHours(false);
             }
+
+            switchTotalHours(dayScheduledEntity);
+
 
         }
 
@@ -213,45 +225,46 @@ public final class FunTimeDayScheduledAdapter
             /**
              *
              */
-            private final DayScheduledEntity dayScheduledEntity;
+            private DayScheduledEntity dayScheduledEntity;
 
-            /**
-             *
-             * @param dayScheduledEntity
-             */
-            public DayScheduledStepCallback(final DayScheduledEntity dayScheduledEntity) {
+            public void setDayScheduledEntity(DayScheduledEntity dayScheduledEntity) {
                 this.dayScheduledEntity = dayScheduledEntity;
             }
 
             @Override
             public void onStep(int value, boolean positive) {
+
+
                 Timber.d("Value -> $d", value);
 
-                if (value < MIN_FUN_TIME_VALUE) {
-                    value = MIN_FUN_TIME_VALUE;
-                    totalHoursStepperTouch.stepper.setValue(value);
+                if (dayScheduledEntity != null) {
+
+                    if (value < MIN_FUN_TIME_VALUE || value > MAX_FUN_TIME_VALUE) {
+                        value = value < MIN_FUN_TIME_VALUE ? MIN_FUN_TIME_VALUE : MAX_FUN_TIME_VALUE;
+                        totalHoursStepperTouch.stepper.setValue(value);
+                    } else {
+
+                        totalHoursConfiguredTextView.setText(String.format(
+                                Locale.getDefault(),
+                                context.getString(R.string.family_locator_total_hours_configured),
+                                value
+                        ));
+
+
+                        if (value != dayScheduledEntity.getTotalHours()) {
+
+                            if (listener != null)
+                                listener.onDayScheduledTotalHoursChanged(
+                                        dayScheduledEntity.getDay(),
+                                        value, dayScheduledEntity.getTotalHours()
+                                );
+                        }
+
+                        dayScheduledEntity.setTotalHours(value);
+
+                    }
                 }
-
-                if (value > 8) {
-                    value = 8;
-                    totalHoursStepperTouch.stepper.setValue(value);
-                }
-
-                totalHoursConfiguredTextView.setText(String.format(
-                        Locale.getDefault(),
-                        context.getString(R.string.family_locator_total_hours_configured),
-                        value
-                ));
-
-                if(listener != null && value != dayScheduledEntity.getTotalHours())
-                    listener.onDayScheduledTotalHoursChanged(
-                            dayScheduledEntity.getDay(),
-                            value, dayScheduledEntity.getTotalHours()
-                    );
-
-                dayScheduledEntity.setTotalHours(value);
             }
         }
-
     }
 }

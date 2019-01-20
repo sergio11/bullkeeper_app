@@ -165,18 +165,19 @@ public final class FunTimeFragmentPresenter
             Preconditions.checkNotNull(funTimeScheduledEntity, "Response can not be null");
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
+                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
                 getView().onDataLoaded(
                         Arrays.asList(
                                 funTimeScheduledEntity.getMonday(),
-                                funTimeScheduledEntity.getThursday(),
-                                funTimeScheduledEntity.getWednesday(),
                                 funTimeScheduledEntity.getTuesday(),
+                                funTimeScheduledEntity.getWednesday(),
+                                funTimeScheduledEntity.getThursday(),
                                 funTimeScheduledEntity.getFriday(),
                                 funTimeScheduledEntity.getSaturday(),
                                 funTimeScheduledEntity.getSunday()
                         )
                 );
-                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
+
             }
 
             isLoadingData = false;
@@ -211,18 +212,19 @@ public final class FunTimeFragmentPresenter
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.fun_time_saved_successfully);
+                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
                 getView().onDataLoaded(
                         Arrays.asList(
                                 funTimeScheduledEntity.getMonday(),
-                                funTimeScheduledEntity.getThursday(),
-                                funTimeScheduledEntity.getWednesday(),
                                 funTimeScheduledEntity.getTuesday(),
+                                funTimeScheduledEntity.getWednesday(),
+                                funTimeScheduledEntity.getThursday(),
                                 funTimeScheduledEntity.getFriday(),
                                 funTimeScheduledEntity.getSaturday(),
                                 funTimeScheduledEntity.getSunday()
                         )
                 );
-                getView().setFunTimeStatus(funTimeScheduledEntity.getEnabled());
+
             }
         }
     }

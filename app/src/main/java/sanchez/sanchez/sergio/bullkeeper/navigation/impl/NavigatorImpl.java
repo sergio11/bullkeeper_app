@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailMvpAct
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.dayscheduleddetail.DayScheduledMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofenceMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
@@ -935,11 +936,29 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Day Scheduled Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     */
+    @Override
+    public void navigateToDayScheduledDetailActivity(final Activity activity, final String kid,
+                                                     final String terminal) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+
+        activity.startActivity(DayScheduledMvpActivity.getCallingIntent(activity,
+                kid, terminal));
+    }
+
+    /**
      * Show App Stats Dialog
      * @param activity
      * @param kid
      * @param terminal
-     * @param appIdentity
      * @param appIconEncoded
      * @param appName
      * @param packageName

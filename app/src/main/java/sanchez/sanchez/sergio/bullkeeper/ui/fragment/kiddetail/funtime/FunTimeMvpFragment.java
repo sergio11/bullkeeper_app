@@ -164,7 +164,6 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     @BindView(R.id.terminalsSpinner)
     protected AppCompatSpinner terminalsSpinner;
 
-
     /**
      *
      */
@@ -283,8 +282,7 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<DayScheduledEntity> getAdapter() {
-        final FunTimeDayScheduledAdapter funTimeDayScheduledAdapter =
-                new FunTimeDayScheduledAdapter(activity, new ArrayList<DayScheduledEntity>());
+        final FunTimeDayScheduledAdapter funTimeDayScheduledAdapter = new FunTimeDayScheduledAdapter(activity, new ArrayList<DayScheduledEntity>());
         funTimeDayScheduledAdapter.setOnSupportRecyclerViewListener(this);
         funTimeDayScheduledAdapter.setListener(this);
         return funTimeDayScheduledAdapter;
@@ -333,6 +331,7 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     @Override
     public void onItemClick(final DayScheduledEntity item) {
         Preconditions.checkNotNull(item, "Item can not be null");
+        activityHandler.navigateToDayScheduledDetail(kid, terminalIdentity);
     }
 
     /**
@@ -359,8 +358,6 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     public void setFunTimeStatus(boolean isEnabled) {
         isFunTimeEnabled = isEnabled;
         funTimeEnableSwitch.setChecked(isEnabled, false);
-        ((FunTimeDayScheduledAdapter) recyclerViewAdapter)
-                .switchEditableStatusForAllDaysOfWeek(isFunTimeEnabled);
     }
 
     /**
@@ -377,8 +374,7 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
         currentTerminalItem = terminalItems.get(currentTerminalPos);
         terminalIdentity = currentTerminalItem.getIdentity();
         // Reset Current Changes
-        dayScheduledEntitiesModified.clear();
-        updateHeaderStatus();
+        resetModifications();
         // Load Data for new terminal selected
         loadData();
     }
@@ -422,15 +418,19 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
 
             }
         }
+
+        // Reset Modifications
+        resetModifications();
+
         recyclerViewAdapter.notifyDataSetChanged();
-        dayScheduledEntitiesModified.clear();
-        updateHeaderStatus();
+
     }
 
     /**
      * Save Fun Time
      */
     private void saveFunTime(){
+
         final FunTimeScheduledEntity funTimeScheduledEntity =
                 new FunTimeScheduledEntity();
         funTimeScheduledEntity.setEnabled(isFunTimeEnabled);
@@ -441,10 +441,13 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
         funTimeScheduledEntity.setFriday(dayScheduledEntities.get(4));
         funTimeScheduledEntity.setSaturday(dayScheduledEntities.get(5));
         funTimeScheduledEntity.setSunday(dayScheduledEntities.get(6));
-        dayScheduledEntitiesModified.clear();
-        updateHeaderStatus();
+
+        // Reset Changes
+        resetModifications();
         // Save Fun Time
         getPresenter().saveFunTime(kid, terminalIdentity, funTimeScheduledEntity);
+
+
     }
 
 
@@ -467,6 +470,14 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
             funTimeActionsViewGroup.setVisibility(View.VISIBLE);
             funTimeDescriptionViewGroup.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Reset Modifications
+     */
+    private void resetModifications(){
+        dayScheduledEntitiesModified = new ArrayList<>();
+        updateHeaderStatus();
     }
 
     /**
@@ -524,40 +535,45 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
                                                 final int newTotalHoursValue,
                                                 final int oldTotalHoursValue) {
 
-        if(!dayScheduledEntitiesModified.isEmpty()) {
-            final Iterator ite = dayScheduledEntitiesModified.iterator();
-            boolean isFound = false;
-            while(ite.hasNext()) {
-                final Object change = ite.next();
-                if(change instanceof DayScheduledTotalHoursChanged) {
-                    final DayScheduledTotalHoursChanged dayScheduledChanged =
-                            (DayScheduledTotalHoursChanged) change;
-                    if(dayScheduledChanged.getDay().equals(day)) {
-                        isFound = true;
-                        if(dayScheduledChanged.getOldTotalHoursValue() == newTotalHoursValue
-                                || dayScheduledChanged.getNewTotalHoursValue() == oldTotalHoursValue)
-                            ite.remove();
-                        break;
+        if(newTotalHoursValue != oldTotalHoursValue) {
+
+            if(!dayScheduledEntitiesModified.isEmpty()) {
+                final Iterator ite = dayScheduledEntitiesModified.iterator();
+                boolean isFound = false;
+                while(ite.hasNext()) {
+                    final Object change = ite.next();
+                    if(change instanceof DayScheduledTotalHoursChanged) {
+                        final DayScheduledTotalHoursChanged dayScheduledChanged =
+                                (DayScheduledTotalHoursChanged) change;
+                        if(dayScheduledChanged.getDay().equals(day)) {
+                            isFound = true;
+                            if(dayScheduledChanged.getOldTotalHoursValue() == newTotalHoursValue
+                                    && dayScheduledChanged.getNewTotalHoursValue() == oldTotalHoursValue)
+                                ite.remove();
+                            break;
+                        }
                     }
                 }
-            }
 
-            if(!isFound) {
+                if(!isFound) {
+                    final DayScheduledTotalHoursChanged dayScheduledTotalHoursChanged = new DayScheduledTotalHoursChanged();
+                    dayScheduledTotalHoursChanged.setDay(day);
+                    dayScheduledTotalHoursChanged.setNewTotalHoursValue(newTotalHoursValue);
+                    dayScheduledTotalHoursChanged.setOldTotalHoursValue(oldTotalHoursValue);
+                    dayScheduledEntitiesModified.add(dayScheduledTotalHoursChanged);
+                }
+            } else {
                 final DayScheduledTotalHoursChanged dayScheduledTotalHoursChanged = new DayScheduledTotalHoursChanged();
                 dayScheduledTotalHoursChanged.setDay(day);
                 dayScheduledTotalHoursChanged.setNewTotalHoursValue(newTotalHoursValue);
                 dayScheduledTotalHoursChanged.setOldTotalHoursValue(oldTotalHoursValue);
                 dayScheduledEntitiesModified.add(dayScheduledTotalHoursChanged);
             }
-        } else {
-            final DayScheduledTotalHoursChanged dayScheduledTotalHoursChanged = new DayScheduledTotalHoursChanged();
-            dayScheduledTotalHoursChanged.setDay(day);
-            dayScheduledTotalHoursChanged.setNewTotalHoursValue(newTotalHoursValue);
-            dayScheduledTotalHoursChanged.setOldTotalHoursValue(oldTotalHoursValue);
-            dayScheduledEntitiesModified.add(dayScheduledTotalHoursChanged);
+
+            updateHeaderStatus();
         }
 
-        updateHeaderStatus();
+
     }
 
 

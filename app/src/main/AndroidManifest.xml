@@ -334,6 +334,12 @@
             android:theme="@style/AppTheme.Common"
             />
 
+        <!-- Day Scheduled Mvp Activity -->
+        <activity android:name=".ui.activity.dayscheduleddetail.DayScheduledMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

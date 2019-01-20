@@ -520,6 +520,17 @@ public interface INavigator {
      */
     void navigateToAppSearchListMvpActivity(final Activity activity, final String kid, final int requestCode);
 
+
+    /**
+     * Navigate To Day Scheduled Detail Activity
+     * @param activity
+     * @param kid
+     * @param terminal
+     */
+    void navigateToDayScheduledDetailActivity(final Activity activity, final String kid,
+                                              final String terminal);
+
+
     /**
      *
      * @param activity

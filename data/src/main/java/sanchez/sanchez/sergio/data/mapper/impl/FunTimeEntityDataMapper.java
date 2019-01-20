@@ -38,20 +38,49 @@ public final class FunTimeEntityDataMapper
         Preconditions.checkNotNull(originModel, "Origin Model can not be null");
         final FunTimeScheduledEntity funTimeScheduledEntity = new FunTimeScheduledEntity();
         funTimeScheduledEntity.setEnabled(originModel.getEnabled());
-        funTimeScheduledEntity.setMonday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getMonday()));
-        funTimeScheduledEntity.setTuesday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getTuesday()));
-        funTimeScheduledEntity.setWednesday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getWednesday()));
-        funTimeScheduledEntity.setThursday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getThursday()));
-        funTimeScheduledEntity.setFriday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getFriday()));
-        funTimeScheduledEntity.setSaturday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getSaturday()));
-        funTimeScheduledEntity.setSunday(dayScheduledEntityAbstractDataMapper
-                .transform(originModel.getSunday()));
+
+        // Monday
+        final DayScheduledEntity mondayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getMonday());
+        mondayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setMonday(mondayDay);
+
+        // Tuesday
+        final DayScheduledEntity tuesdayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getTuesday());
+        tuesdayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setTuesday(tuesdayDay);
+
+        // Wednesday
+        final DayScheduledEntity wednesdayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getWednesday());
+        wednesdayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setWednesday(wednesdayDay);
+
+        // Thursday
+        final DayScheduledEntity thursdayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getThursday());
+        thursdayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setThursday(thursdayDay);
+
+        // Friday
+        final DayScheduledEntity fridayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getFriday());
+        fridayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setFriday(fridayDay);
+
+        // Saturday
+        final DayScheduledEntity saturdayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getSaturday());
+        saturdayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setSaturday(saturdayDay);
+
+        // Sunday
+        final DayScheduledEntity sundayDay = dayScheduledEntityAbstractDataMapper
+                .transform(originModel.getSunday());
+        sundayDay.setEditable(originModel.getEnabled());
+        funTimeScheduledEntity.setSunday(sundayDay);
+
         return funTimeScheduledEntity;
     }
 

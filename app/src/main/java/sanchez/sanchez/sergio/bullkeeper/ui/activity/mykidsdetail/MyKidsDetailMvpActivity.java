@@ -530,6 +530,21 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Navigate To Day Scheduled Detail
+     * @param kid
+     * @param terminal
+     */
+    @Override
+    public void navigateToDayScheduledDetail(final String kid, final String terminal) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+
+        navigatorImpl.navigateToDayScheduledDetailActivity(this, kid, terminal);
+    }
+
+    /**
      * Setup Sections Pager Adapter
      */
     private void setupSectionsPagerAdapter(final int tabSelected, final KidEntity kidEntity){
