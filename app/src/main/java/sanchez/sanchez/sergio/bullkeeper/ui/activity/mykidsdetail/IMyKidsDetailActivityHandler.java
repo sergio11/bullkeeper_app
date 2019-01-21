@@ -116,7 +116,9 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      * Navigate To Day Scheduled Detail
      * @param kid
      * @param terminal
+     * @param day
      */
-    void navigateToDayScheduledDetail(final String kid, final String terminal);
+    void navigateToDayScheduledDetail(final String kid, final String terminal,
+                                      final String day, final boolean isFunTimeEnabled);
 
 }

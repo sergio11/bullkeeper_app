@@ -746,6 +746,12 @@
     <string name="fun_time_mode_disabled">Fun time mode disabled</string>
     <string name="fun_time_days_scheduled_confirm_title">Do you want to confirm the changes applied to the configured days?</string>
     <string name="fun_time_saved_successfully">Fun Time Saved Successfully</string>
+    <string name="fun_time_day_scheduled_detail">Fun Time Day Scheduled Detail</string>
+    <string name="fun_time_total_hours_configured" formatted="false">You have set %d hours of fun</string>
+    <string name="fun_time_no_fun_time_enabled_for_this_day">No fun time enabled for this day</string>
+    <string name="fun_time_no_fun_time_enabled">Fun Time is not enabled</string>
+    <string name="fun_time_day_scheduled_detail_description">Indicates the number of hours of fun allowed for applications configured with the "Fun Time" rule</string>
+
     <!-- Family Locator -->
     <string name="family_locator_title">Family Locator</string>
     <string name="family_locator_description">Quickly locate family members and devices</string>
@@ -754,9 +760,7 @@
     <string name="family_locator_loading_child_position">Loading Child position ...</string>
     <string name="family_locator_no_last_registered_position">There is no last registered position</string>
     <string name="family_locator_address">Current Address</string>
-    <string name="family_locator_total_hours_configured" formatted="false">You have set %d hours of fun</string>
-    <string name="family_locator_no_fun_time_enabled_for_this_day">No fun time enabled for this day</string>
-    <string name="family_locator_no_fun_time_enabled">Fun Time is not enabled</string>
+
 
     <!-- Terminals -->
     <string name="terminals_list_title">Monitored terminals</string>

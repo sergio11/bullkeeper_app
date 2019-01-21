@@ -35,6 +35,7 @@ public final class AppStatsDialog extends SupportDialogFragment {
      */
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
     private static final String TERMINAL_IDENTITY_ARG = "TERMINAL_IDENTITY_ARG";
+    private static final String APP_IDENTITY = "APP_IDENTITY";
     private static final String APP_ICON_ENCODED_ARG = "APP_ICON_ENCODED_ARG";
     private static final String APP_NAME_ARG = "APP_NAME_ARG";
     private static final String PACKAGE_NAME_ARG = "PACKAGE_NAME_ARG";
@@ -52,6 +53,11 @@ public final class AppStatsDialog extends SupportDialogFragment {
      * Terminal
      */
     private String terminal;
+
+    /**
+     * App
+     */
+    private String app;
 
     /**
      * App Icon Encoded
@@ -151,14 +157,17 @@ public final class AppStatsDialog extends SupportDialogFragment {
      * @param firstTime
      * @param lastTime
      * @param lastTimeUsed
+     * @param app
      */
     public static void show(final AppCompatActivity appCompatActivity,
-                            final String kid, final String terminal, final String appIconEncoded, final String appName,
-                            final String packageName, final Long totalTimeInForeground, final Date firstTime,
-                            final Date lastTime, final Date lastTimeUsed) {
+                            final String kid, final String terminal, final String app,
+                            final String appIconEncoded,
+                            final String appName, final String packageName, final Long totalTimeInForeground,
+                            final Date firstTime, final Date lastTime, final Date lastTimeUsed) {
         final AppStatsDialog appStatsDialogFragment = new AppStatsDialog();
         final Bundle args = new Bundle();
         args.putString(KID_IDENTITY_ARG, kid);
+        args.putString(APP_IDENTITY, app);
         args.putString(TERMINAL_IDENTITY_ARG, terminal);
         args.putString(APP_ICON_ENCODED_ARG, appIconEncoded);
         args.putString(APP_NAME_ARG, appName);
@@ -216,6 +225,11 @@ public final class AppStatsDialog extends SupportDialogFragment {
             throw new IllegalArgumentException("You must provide Kid Identity");
 
         kid = args.getString(KID_IDENTITY_ARG);
+
+        if(!args.containsKey(APP_IDENTITY))
+            throw new IllegalArgumentException("You must provide App Identity");
+
+        app = args.getString(APP_IDENTITY);
 
         if(!args.containsKey(TERMINAL_IDENTITY_ARG))
             throw new IllegalArgumentException("You must provide Terminal Identity");
@@ -301,6 +315,6 @@ public final class AppStatsDialog extends SupportDialogFragment {
      */
     @OnClick(R.id.showAppDetail)
     protected void onShowAppDetailClicked(){
-        navigator.navigateToAppDetailActivity(getActivity(), kid, terminal, packageName);
+        navigator.navigateToAppDetailActivity(getActivity(), kid, terminal, app);
     }
 }

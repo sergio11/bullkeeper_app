@@ -176,7 +176,7 @@ public final class FunTimeDayScheduledAdapter
             Timber.d("FunTimeAdapter: Set Total Hours -> %d for Day -> %s",
                     dayScheduledEntity.getTotalHours(), dayScheduledEntity.getDay());
 
-            dayScheduledStepCallback.setDayScheduledEntity(dayScheduledEntity);
+
             // Set Day Name
             dayOfWeekNameTextView.setText(dayScheduledEntity.getDay());
             // Day Scheduled Status
@@ -185,9 +185,11 @@ public final class FunTimeDayScheduledAdapter
 
             if (dayScheduledEntity.isEditable()) {
 
+                dayScheduledStepCallback.setDayScheduledEntity(dayScheduledEntity);
+
                 totalHoursConfiguredTextView.setText(String.format(
                         Locale.getDefault(),
-                        context.getString(R.string.family_locator_total_hours_configured),
+                        context.getString(R.string.fun_time_total_hours_configured),
                         dayScheduledEntity.getTotalHours()
                 ));
 
@@ -209,6 +211,8 @@ public final class FunTimeDayScheduledAdapter
                     }
                 });
 
+            } else {
+                dayScheduledStepCallback.setDayScheduledEntity(null);
             }
 
             switchTotalHours(dayScheduledEntity);
@@ -246,7 +250,7 @@ public final class FunTimeDayScheduledAdapter
 
                         totalHoursConfiguredTextView.setText(String.format(
                                 Locale.getDefault(),
-                                context.getString(R.string.family_locator_total_hours_configured),
+                                context.getString(R.string.fun_time_total_hours_configured),
                                 value
                         ));
 

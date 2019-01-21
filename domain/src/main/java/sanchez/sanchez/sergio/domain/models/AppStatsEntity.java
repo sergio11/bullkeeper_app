@@ -49,6 +49,11 @@ public final class AppStatsEntity implements Serializable {
     private String iconEncodedString;
 
     /**
+     * App
+     */
+    private String app;
+
+    /**
      * Kid
      */
     private String kid;
@@ -61,7 +66,9 @@ public final class AppStatsEntity implements Serializable {
 
     public AppStatsEntity(){}
 
-    public AppStatsEntity(String identity, Date firstTime, Date lastTime, Date lastTimeUsed, Long totalTimeInForeground, String packageName, String appName, String iconEncodedString, String kid, String terminal) {
+    public AppStatsEntity(String identity, Date firstTime, Date lastTime, Date lastTimeUsed,
+                          Long totalTimeInForeground, String packageName, String appName,
+                          String iconEncodedString, String app, String kid, String terminal) {
         this.identity = identity;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
@@ -70,6 +77,7 @@ public final class AppStatsEntity implements Serializable {
         this.packageName = packageName;
         this.appName = appName;
         this.iconEncodedString = iconEncodedString;
+        this.app = app;
         this.kid = kid;
         this.terminal = terminal;
     }
@@ -136,6 +144,14 @@ public final class AppStatsEntity implements Serializable {
 
     public void setIconEncodedString(String iconEncodedString) {
         this.iconEncodedString = iconEncodedString;
+    }
+
+    public String getApp() {
+        return app;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
     }
 
     public String getKid() {

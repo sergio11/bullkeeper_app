@@ -32,6 +32,7 @@ public final class AppStatsEntityDataMapper
         appStatsEntity.setTotalTimeInForeground(originModel.getTotalTimeInForeground());
         appStatsEntity.setAppName(originModel.getAppName());
         appStatsEntity.setIconEncodedString(originModel.getIconEncodedString());
+        appStatsEntity.setApp(originModel.getApp());
         return appStatsEntity;
     }
 
@@ -55,6 +56,7 @@ public final class AppStatsEntityDataMapper
         appStatsDTO.setTotalTimeInForeground(originModel.getTotalTimeInForeground());
         appStatsDTO.setAppName(originModel.getAppName());
         appStatsDTO.setIconEncodedString(originModel.getIconEncodedString());
+        appStatsDTO.setApp(originModel.getApp());
         return appStatsDTO;
     }
 }

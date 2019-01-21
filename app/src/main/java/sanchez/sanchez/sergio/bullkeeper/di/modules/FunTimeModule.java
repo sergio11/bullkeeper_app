@@ -6,13 +6,17 @@ import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveFunTimeScheduledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.DayScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.FunTimeScheduledDTO;
 import sanchez.sanchez.sergio.data.net.services.IFunTimeService;
 import sanchez.sanchez.sergio.data.repository.FunTimeRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.funtime.GetFunTimeDayScheduledInteract;
 import sanchez.sanchez.sergio.domain.interactor.funtime.GetFunTimeInteract;
+import sanchez.sanchez.sergio.domain.interactor.funtime.SaveFunTimeDayScheduledInteract;
 import sanchez.sanchez.sergio.domain.interactor.funtime.SaveFunTimeInteract;
+import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
 import sanchez.sanchez.sergio.domain.repository.IFunTimeRepository;
 
@@ -43,9 +47,10 @@ public class FunTimeModule {
     public IFunTimeRepository provideFunTimeRepository(
             final IFunTimeService screenTimeAllowanceService,
             final AbstractDataMapper<FunTimeScheduledDTO, FunTimeScheduledEntity> saveFunTimeScheduledEntityAbstractDataMapper,
-            final AbstractDataMapper<FunTimeScheduledEntity, SaveFunTimeScheduledDTO> saveFunTimeScheduledDTOAbstractDataMapper) {
+            final AbstractDataMapper<FunTimeScheduledEntity, SaveFunTimeScheduledDTO> saveFunTimeScheduledDTOAbstractDataMapper,
+            final AbstractDataMapper<DayScheduledDTO, DayScheduledEntity> dayScheduledEntityAbstractDataMapper) {
         return new FunTimeRepositoryImpl(screenTimeAllowanceService, saveFunTimeScheduledEntityAbstractDataMapper,
-                saveFunTimeScheduledDTOAbstractDataMapper);
+                saveFunTimeScheduledDTOAbstractDataMapper, dayScheduledEntityAbstractDataMapper);
     }
 
     /**
@@ -77,4 +82,39 @@ public class FunTimeModule {
     ){
         return new SaveFunTimeInteract(threadExecutor, postExecutionThread, funTimeRepository);
     }
+
+    /**
+     * Provide Get Fun Time Day Scheduled
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param funTimeRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetFunTimeDayScheduledInteract provideGetFunTimeDayScheduledInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final IFunTimeRepository funTimeRepository
+    ){
+        return new GetFunTimeDayScheduledInteract(threadExecutor, postExecutionThread, funTimeRepository);
+
+    }
+
+    /**
+     * Provide Save Fun Time Day Scheduled Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param funTimeRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SaveFunTimeDayScheduledInteract provideSaveFunTimeDayScheduledInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final IFunTimeRepository funTimeRepository
+    ) {
+        return new SaveFunTimeDayScheduledInteract(threadExecutor, postExecutionThread,
+                funTimeRepository);
+    }
+
 }

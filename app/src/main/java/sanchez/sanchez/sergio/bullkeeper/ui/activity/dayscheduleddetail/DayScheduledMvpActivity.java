@@ -27,6 +27,8 @@ public class DayScheduledMvpActivity extends SupportMvpActivity<DayScheduledPres
      */
     public static String TERMINAL_ID_ARG = "TERMINAL_ID_ARG";
     public static String KID_ID_ARG = "KID_ID_ARG";
+    public static String DAY_SCHEDULED_ARG = "DAY_SCHEDULED_ARG";
+    public static String FUN_TIME_ENABLED_ARG = "FUN_TIME_ENABLED_ARG";
 
     /**
      * Fun Time Component
@@ -36,12 +38,18 @@ public class DayScheduledMvpActivity extends SupportMvpActivity<DayScheduledPres
     /**
      * Get Calling Intent
      * @param context
+     * @param kid
+     * @param terminalId
+     * @param day
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String kid, final String terminalId) {
+    public static Intent getCallingIntent(final Context context, final String kid
+            , final String terminalId, final String day, final boolean isFunTimeEnabled) {
         final Intent intent = new Intent(context, DayScheduledMvpActivity.class);
         intent.putExtra(KID_ID_ARG, kid);
         intent.putExtra(TERMINAL_ID_ARG, terminalId);
+        intent.putExtra(DAY_SCHEDULED_ARG, day);
+        intent.putExtra(FUN_TIME_ENABLED_ARG, isFunTimeEnabled);
         return intent;
     }
 
@@ -78,13 +86,23 @@ public class DayScheduledMvpActivity extends SupportMvpActivity<DayScheduledPres
                 throw new IllegalArgumentException("It is necessary to specify an terminal identifier");
 
             if (!getIntent().hasExtra(KID_ID_ARG))
-                throw new IllegalArgumentException("It is necessary to specify an son identifier");
+                throw new IllegalArgumentException("It is necessary to specify an kid identifier");
+
+            if (!getIntent().hasExtra(DAY_SCHEDULED_ARG))
+                throw new IllegalArgumentException("It is necessary to specify an day scheduled identifier");
+
+            if (!getIntent().hasExtra(FUN_TIME_ENABLED_ARG))
+                throw new IllegalArgumentException("It is necessary to specify a fun time status");
 
             final String terminal = getIntent().getStringExtra(TERMINAL_ID_ARG);
             final String kid = getIntent().getStringExtra(KID_ID_ARG);
+            final String day = getIntent().getStringExtra(DAY_SCHEDULED_ARG);
+            final boolean isFunTimeEnabled = getIntent()
+                    .getBooleanExtra(FUN_TIME_ENABLED_ARG, false);
 
             addFragment(R.id.mainContainer,
-                    DayScheduledDetailActivityMvpFragment.newInstance(terminal, kid), false);
+                    DayScheduledDetailActivityMvpFragment
+                            .newInstance(terminal, kid, day, isFunTimeEnabled), false);
         }
     }
 

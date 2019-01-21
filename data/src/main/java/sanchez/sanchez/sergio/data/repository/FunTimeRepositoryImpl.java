@@ -4,9 +4,12 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.request.SaveDayScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveFunTimeScheduledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.DayScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.FunTimeScheduledDTO;
 import sanchez.sanchez.sergio.data.net.services.IFunTimeService;
+import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
 import sanchez.sanchez.sergio.domain.repository.IFunTimeRepository;
 
@@ -32,9 +35,16 @@ public final class FunTimeRepositoryImpl implements IFunTimeRepository {
             saveFunTimeScheduledDTOAbstractDataMapper;
 
     /**
+     * Day Scheduled Entity Mapper
+     */
+    private final AbstractDataMapper<DayScheduledDTO, DayScheduledEntity>
+            dayScheduledEntityAbstractDataMapper;
+
+    /**
      * @param funTimeService
      * @param funTimeScheduledEntityAbstractDataMapper
      * @param saveFunTimeScheduledDTOAbstractDataMapper
+     * @param dayScheduledEntityAbstractDataMapper
      */
     @Inject
     public FunTimeRepositoryImpl(
@@ -42,10 +52,13 @@ public final class FunTimeRepositoryImpl implements IFunTimeRepository {
             final AbstractDataMapper<FunTimeScheduledDTO, FunTimeScheduledEntity>
                     funTimeScheduledEntityAbstractDataMapper,
             final AbstractDataMapper<FunTimeScheduledEntity, SaveFunTimeScheduledDTO>
-                    saveFunTimeScheduledDTOAbstractDataMapper) {
+                    saveFunTimeScheduledDTOAbstractDataMapper,
+            final AbstractDataMapper<DayScheduledDTO, DayScheduledEntity>
+                    dayScheduledEntityAbstractDataMapper) {
         this.funTimeService = funTimeService;
         this.funTimeScheduledEntityAbstractDataMapper = funTimeScheduledEntityAbstractDataMapper;
         this.saveFunTimeScheduledDTOAbstractDataMapper = saveFunTimeScheduledDTOAbstractDataMapper;
+        this.dayScheduledEntityAbstractDataMapper = dayScheduledEntityAbstractDataMapper;
     }
 
     /**
@@ -63,6 +76,57 @@ public final class FunTimeRepositoryImpl implements IFunTimeRepository {
                 .map(response -> response != null && response.getData() != null ?
                     response.getData(): null)
                 .map(funTimeScheduledEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Save Fun Time Day Scheduled
+     * @param kid
+     * @param terminal
+     * @param day
+     * @param enabled
+     * @param totalHours
+     * @return
+     */
+    @Override
+    public Observable<DayScheduledEntity> saveFunTimeDayScheduled(final String kid, final String terminal,
+                                                                  final String day, final boolean enabled,
+                                                                  final int totalHours) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(day, "Day can not be null");
+        Preconditions.checkState(!day.isEmpty(), "Day can not be empty");
+
+        return funTimeService.saveDayScheduled(kid, terminal,
+                day, new SaveDayScheduledDTO(day, enabled, totalHours))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(dayScheduledEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param day
+     * @return
+     */
+    @Override
+    public Observable<DayScheduledEntity> getFunTimeDayScheduled(final String kid,
+                                                                 final String terminal,
+                                                                 final String day) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(day, "Day can not be null");
+        Preconditions.checkState(!day.isEmpty(), "Day can not be empty");
+
+        return funTimeService.getDayScheduled(kid, terminal, day)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(dayScheduledEntityAbstractDataMapper::transform);
     }
 
     /**

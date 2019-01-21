@@ -84,7 +84,7 @@
         android:gravity="center"
         android:padding="@dimen/common_padding"
         android:singleLine="true"
-        android:text="@string/family_locator_no_fun_time_enabled_for_this_day"
+        android:text="@string/fun_time_no_fun_time_enabled_for_this_day"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
 

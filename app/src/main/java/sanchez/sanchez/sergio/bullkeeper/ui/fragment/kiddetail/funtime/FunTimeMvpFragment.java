@@ -129,7 +129,6 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     /**
      * Day Scheduled Entities Modified
      */
-    @State
     protected ArrayList<Object> dayScheduledEntitiesModified = new ArrayList<>();
 
 
@@ -331,7 +330,8 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
     @Override
     public void onItemClick(final DayScheduledEntity item) {
         Preconditions.checkNotNull(item, "Item can not be null");
-        activityHandler.navigateToDayScheduledDetail(kid, terminalIdentity);
+        activityHandler.navigateToDayScheduledDetail(kid, terminalIdentity, item.getDay(),
+                isFunTimeEnabled);
     }
 
     /**

@@ -526,9 +526,10 @@ public interface INavigator {
      * @param activity
      * @param kid
      * @param terminal
+     * @param day
      */
     void navigateToDayScheduledDetailActivity(final Activity activity, final String kid,
-                                              final String terminal);
+                                              final String terminal, final String day, final boolean isFunTimeEnabled);
 
 
     /**
@@ -544,7 +545,8 @@ public interface INavigator {
      * @param lastTime
      * @param lastTimeUsed
      */
-    void showAppStatsDialog(final AppCompatActivity activity, final String kid, final String terminal, final String appIconEncoded, final String appName,
+    void showAppStatsDialog(final AppCompatActivity activity, final String kid, final String terminal,
+                            final String app, final String appIconEncoded, final String appName,
                             final String packageName, final Long totalTimeInForeground, final Date firstTime,
                             final Date lastTime, final Date lastTimeUsed);
 

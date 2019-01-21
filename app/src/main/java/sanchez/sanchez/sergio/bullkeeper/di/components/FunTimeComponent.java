@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.FunTimeModule;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.dayscheduleddetail.DayScheduledMvpActivity;
@@ -15,7 +16,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.dayscheduleddetai
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
-        modules = {ActivityModule.class, FunTimeModule.class})
+        modules = {ActivityModule.class, DataMapperModule.class, FunTimeModule.class})
 public interface FunTimeComponent extends ActivityComponent {
 
     /**

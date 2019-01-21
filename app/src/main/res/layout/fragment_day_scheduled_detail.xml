@@ -37,7 +37,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="4dp"
                 android:layout_marginTop="10dp">
@@ -54,7 +54,7 @@
                         style="@style/CommonStrongText"
                         android:textColor="@color/cyanBrilliant"
                         android:textStyle="bold"
-                        android:text="@string/terminal_detail_title"/>
+                        android:text="@string/fun_time_day_scheduled_detail"/>
 
                     <View
                         android:layout_width="@dimen/common_divider_small"
@@ -62,8 +62,121 @@
                         android:layout_margin="10dp"
                         android:background="@color/cyanBrilliant"/>
 
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- Day Of Week Name -->
+                        <TextView
+                            android:id="@+id/dayOfWeekName"
+                            style="@style/CommonStrongText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_toStartOf="@id/dayEnabledSwitch"
+                            android:layout_margin="@dimen/common_margin"
+                            android:gravity="start|center_vertical"
+                            android:padding="@dimen/common_padding"
+                            android:singleLine="true"
+                            android:textColor="@color/darkModerateBlue"
+                            android:textStyle="italic" />
+
+                        <!-- Switch Compat -->
+                        <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                            android:id="@+id/dayEnabledSwitch"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:gravity="center"
+                            android:scaleX="1.7"
+                            android:scaleY="1.7"
+                            android:textOff=""
+                            android:textOn=""
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_alignParentEnd="true"
+                            app:theme="@style/BlockStatusSwitch" />
+
+                        <!-- Stepper Touch -->
+                        <nl.dionsegijn.steppertouch.StepperTouch
+                            android:id="@+id/totalHoursStepperTouch"
+                            android:layout_width="120dp"
+                            android:layout_height="70dp"
+                            android:layout_marginBottom="@dimen/common_margin"
+                            android:layout_marginTop="@dimen/common_margin"
+                            android:layout_marginStart="16dp"
+                            android:layout_below="@id/dayOfWeekName"
+                            app:stepperBackgroundColor="@color/darkModerateBlue"
+                            app:stepperTextColor="@color/darkModerateBlue"
+                            android:visibility="gone"
+                            android:layout_alignParentStart="true"/>
+
+
+                        <!-- Total Hours Configured -->
+                        <TextView
+                            android:id="@+id/totalHoursConfigured"
+                            style="@style/CommonStrongText.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_below="@id/dayOfWeekName"
+                            android:layout_alignParentBottom="true"
+                            android:layout_toEndOf="@id/totalHoursStepperTouch"
+                            android:layout_marginBottom="@dimen/common_margin"
+                            android:layout_marginEnd="@dimen/common_margin"
+                            android:gravity="center"
+                            android:padding="@dimen/common_padding"
+                            android:singleLine="true"
+                            android:visibility="gone"
+                            android:textColor="@color/darkModerateBlue"
+                            android:textStyle="italic" />
+
+
+                        <!-- Day Scheduled Disabled -->
+                        <TextView
+                            android:id="@+id/dayScheduledDisabled"
+                            style="@style/CommonStrongText.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/dayOfWeekName"
+                            android:layout_margin="@dimen/common_margin"
+                            android:gravity="center"
+                            android:padding="@dimen/common_padding"
+                            android:singleLine="true"
+                            android:text="@string/fun_time_no_fun_time_enabled_for_this_day"
+                            android:textColor="@color/darkModerateBlue"
+                            android:textStyle="italic" />
+
+                    </RelativeLayout>
+
+
+
                 </LinearLayout>
 
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/CommonStrongText.Big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:layout_marginEnd="@dimen/common_margin"
+                    android:gravity="center"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/fun_time_day_scheduled_detail_description"
+                    android:layout_gravity="center"
+                    android:textColor="@color/darkModerateBlue"/>
 
             </android.support.v7.widget.CardView>
 

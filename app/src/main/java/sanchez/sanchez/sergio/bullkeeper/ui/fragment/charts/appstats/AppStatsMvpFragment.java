@@ -247,7 +247,7 @@ public class AppStatsMvpFragment
         final int appStatsIdx = (int)e.getX();
         if(appStatsIdx >= 0 && appStatsIdx < chartData.size()) {
             final AppStatsEntity appStatsEntity = chartData.get(appStatsIdx);
-            navigator.showAppStatsDialog(activity, kid, terminal,
+            navigator.showAppStatsDialog(activity, kid, terminal, appStatsEntity.getApp(),
                     appStatsEntity.getIconEncodedString(), appStatsEntity.getAppName(),
                     appStatsEntity.getPackageName(), appStatsEntity.getTotalTimeInForeground(),
                     appStatsEntity.getFirstTime(), appStatsEntity.getLastTime(), appStatsEntity.getLastTimeUsed());

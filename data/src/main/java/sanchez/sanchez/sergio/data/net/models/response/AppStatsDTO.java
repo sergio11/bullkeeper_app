@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -51,14 +50,20 @@ public final class AppStatsDTO implements Serializable {
     /**
      * Package Name
      */
-    @JsonProperty("iconEncodedString")
+    @JsonProperty("icon_encoded_string")
     private String iconEncodedString;
 
     /**
      * App Name
      */
-    @JsonProperty("appName")
+    @JsonProperty("app_name")
     private String appName;
+
+    /**
+     * App
+     */
+    @JsonProperty("app")
+    private String app;
 
     /**
      * Kid
@@ -74,7 +79,23 @@ public final class AppStatsDTO implements Serializable {
 
     public AppStatsDTO(){}
 
-    public AppStatsDTO(String identity, Date firstTime, Date lastTime, Date lastTimeUsed, Long totalTimeInForeground, String packageName, String iconEncodedString, String appName, String kid, String terminal) {
+    /**
+     *
+     * @param identity
+     * @param firstTime
+     * @param lastTime
+     * @param lastTimeUsed
+     * @param totalTimeInForeground
+     * @param packageName
+     * @param iconEncodedString
+     * @param appName
+     * @param app
+     * @param kid
+     * @param terminal
+     */
+    public AppStatsDTO(String identity, Date firstTime, Date lastTime, Date lastTimeUsed, Long totalTimeInForeground,
+                       String packageName, String iconEncodedString, String appName,
+                       String app, String kid, String terminal) {
         this.identity = identity;
         this.firstTime = firstTime;
         this.lastTime = lastTime;
@@ -83,6 +104,7 @@ public final class AppStatsDTO implements Serializable {
         this.packageName = packageName;
         this.iconEncodedString = iconEncodedString;
         this.appName = appName;
+        this.app = app;
         this.kid = kid;
         this.terminal = terminal;
     }
@@ -141,6 +163,14 @@ public final class AppStatsDTO implements Serializable {
 
     public void setIconEncodedString(String iconEncodedString) {
         this.iconEncodedString = iconEncodedString;
+    }
+
+    public String getApp() {
+        return app;
+    }
+
+    public void setApp(String app) {
+        this.app = app;
     }
 
     public String getAppName() {
