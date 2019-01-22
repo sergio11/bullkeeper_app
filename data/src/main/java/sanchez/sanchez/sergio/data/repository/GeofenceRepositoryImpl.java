@@ -1,9 +1,7 @@
 package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveGeofenceDTO;
@@ -88,6 +86,25 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
         return geofenceService.deleteGeofence(kid, id)
                 .map(stringAPIResponse -> stringAPIResponse != null &&
                         stringAPIResponse.getData() != null ? stringAPIResponse.getData(): null);
+    }
+
+    /**
+     * Get Gofence By Id
+     * @param kid
+     * @param id
+     * @return
+     */
+    @Override
+    public Observable<GeofenceEntity> getGeofenceById(final String kid, final String id) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+
+        return geofenceService.getGeofenceById(kid, id)
+                .map(response -> response != null &&
+                        response.getData() != null ? response.getData(): null)
+                .map(geofenceEntityAbstractDataMapper::transform);
     }
 
     /**

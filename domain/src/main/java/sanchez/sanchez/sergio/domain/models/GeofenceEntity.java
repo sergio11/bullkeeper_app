@@ -40,7 +40,7 @@ public final class GeofenceEntity implements Serializable {
     /**
      * Type
      */
-    private String type;
+    private GeofenceTransitionTypeEnum type;
 
     /**
      * Type
@@ -65,7 +65,7 @@ public final class GeofenceEntity implements Serializable {
      */
     public GeofenceEntity(final String identity, final String name, final String address,
                           final double lat, final double log,
-                          final float radius, final String type, final String kid) {
+                          final float radius, final GeofenceTransitionTypeEnum type, final String kid) {
         this.identity = identity;
         this.name = name;
         this.lat = lat;
@@ -123,11 +123,11 @@ public final class GeofenceEntity implements Serializable {
         this.radius = radius;
     }
 
-    public String getType() {
+    public GeofenceTransitionTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(GeofenceTransitionTypeEnum type) {
         this.type = type;
     }
 

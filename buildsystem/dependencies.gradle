@@ -68,6 +68,7 @@ ext {
     chatkitVersion = '0.3.3'
     oksseVersion = '0.9.0'
     stepperTouchVersion = '0.6'
+    fluidSliderVersion = '0.3.0'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -132,7 +133,8 @@ ext {
             fancyShowCaseView:  "com.github.faruktoptas:FancyShowCaseView:${fancyShowCaseViewVersion}",
             chatkit:            "com.github.stfalcon:chatkit:${chatkitVersion}",
             oksse:              "com.github.heremaps:oksse:${oksseVersion}",
-            stepperTouch:       "com.github.DanielMartinus:Stepper-Touch:${stepperTouchVersion}"
+            stepperTouch:       "com.github.DanielMartinus:Stepper-Touch:${stepperTouchVersion}",
+            fluidSlider:        "com.ramotion.fluidslider:fluid-slider:${fluidSliderVersion}"
     ]
 
     presentationTestDependencies = [

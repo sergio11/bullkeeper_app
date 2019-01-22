@@ -33,6 +33,14 @@ public interface IGeofencesRepository {
     Observable<String> deleteGeofenceById(final String kid, final String id);
 
     /**
+     * Get Geofence By Id
+     * @param kid
+     * @param id
+     * @return
+     */
+    Observable<GeofenceEntity> getGeofenceById(final String kid, final String id);
+
+    /**
      * Save Geofence
      * @param identity
      * @param name

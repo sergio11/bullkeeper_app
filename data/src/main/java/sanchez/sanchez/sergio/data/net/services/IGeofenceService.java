@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.data.net.services;
 
 import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -26,6 +25,19 @@ public interface IGeofenceService {
     Observable<APIResponse<List<GeofenceDTO>>> getGeofencesByKid(
             @Path("kid") final String kid
     );
+
+    /**
+     * Get Geofences By Id
+     * @param kid
+     * @param id
+     * @return
+     */
+    @GET("children/{kid}/geofences/{id}")
+    Observable<APIResponse<GeofenceDTO>> getGeofenceById(
+            @Path("kid") final String kid,
+            @Path("id") final String id
+    );
+
 
     /**
      * Delete All Geofences By Kid

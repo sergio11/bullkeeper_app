@@ -180,6 +180,9 @@ dependencies {
     // Stepper Touch
     implementation presentationDependencies.stepperTouch
 
+    // Fluid Slider
+    implementation presentationDependencies.fluidSlider
+
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
     androidTestImplementation presentationTestDependencies.dexmakerMockito

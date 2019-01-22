@@ -34,6 +34,12 @@ public final class SaveGeofenceDTO implements Serializable {
     private double log;
 
     /**
+     * Address
+     */
+    @JsonProperty("address")
+    private String address;
+
+    /**
      * Radius
      */
     @JsonProperty("radius")
@@ -59,15 +65,19 @@ public final class SaveGeofenceDTO implements Serializable {
      * @param name
      * @param lat
      * @param log
+     * @param address
      * @param radius
      * @param type
      * @param kid
      */
-    public SaveGeofenceDTO(String identity, String name, double lat, double log, float radius, String type, String kid) {
+    public SaveGeofenceDTO(String identity, String name, double lat, double log,
+                           final String address, final float radius, final String type,
+                           final String kid) {
         this.identity = identity;
         this.name = name;
         this.lat = lat;
         this.log = log;
+        this.address = address;
         this.radius = radius;
         this.type = type;
         this.kid = kid;
@@ -103,6 +113,14 @@ public final class SaveGeofenceDTO implements Serializable {
 
     public void setLog(double log) {
         this.log = log;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public float getRadius() {
