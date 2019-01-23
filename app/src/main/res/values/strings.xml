@@ -968,7 +968,9 @@
     <string name="geofences_origin_address">Geofence Origin</string>
     <string name="geofence_deleted_successfully">Geofence Deleted Successfully</string>
     <string name="geofence_confirm_delete">Do you want to delete the selected Geofence?</string>
-    
+
+    <string name="current_location">Current Position</string>
+    <string name="radius_meters_value" formatted="true">%d meters</string>
     <!-- App Search List -->
     <string name="app_search_title_default">Apps Installed</string>
     <string name="no_app_installed_found">No App Installed Found for this terminal</string>

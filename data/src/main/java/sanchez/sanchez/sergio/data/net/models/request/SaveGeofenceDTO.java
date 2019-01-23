@@ -70,7 +70,7 @@ public final class SaveGeofenceDTO implements Serializable {
      * @param type
      * @param kid
      */
-    public SaveGeofenceDTO(String identity, String name, double lat, double log,
+    public SaveGeofenceDTO(final String identity, final String name, double lat, double log,
                            final String address, final float radius, final String type,
                            final String kid) {
         this.identity = identity;

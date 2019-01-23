@@ -39,7 +39,7 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
         return geofencesRepository.saveGeofences(
                 params.getIdentity(), params.getName(),
                 params.getLat(), params.getLog(), params.getRadius(),
-                params.getType(), params.getKid()
+                params.getAddress(), params.getType(), params.getKid()
         );
     }
 
@@ -50,6 +50,7 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
         private final double lat;
         private final double log;
         private final float radius;
+        private final String address;
         private final String type;
         private final String kid;
 
@@ -61,17 +62,19 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
          * @param lat
          * @param log
          * @param radius
+         * @param address
          * @param type
          * @param kid
          */
         private Params(final String identity, final String name, final double lat,
-                       final double log, final float radius, final String type,
-                       final String kid) {
+                       final double log, final float radius, final String address,
+                       final String type, final String kid) {
             this.identity = identity;
             this.name = name;
             this.lat = lat;
             this.log = log;
             this.radius = radius;
+            this.address = address;
             this.type = type;
             this.kid = kid;
         }
@@ -96,6 +99,10 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
             return radius;
         }
 
+        public String getAddress() {
+            return address;
+        }
+
         public String getType() {
             return type;
         }
@@ -117,10 +124,10 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
          */
         public static Params create(
                 final String identity, final String name, final double lat,
-                final double log, final float radius, final String type,
-                final String kid
+                final double log, final float radius, final String address,
+                final String type, final String kid
         ){
-            return new Params(identity, name, lat, log, radius, type, kid);
+            return new Params(identity, name, lat, log, radius, address, type, kid);
         }
 
         @Override

@@ -5,6 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.GeofenceDTO;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
+import sanchez.sanchez.sergio.domain.models.GeofenceTransitionTypeEnum;
 
 /**
  * Geofence Entity Data Mapper
@@ -28,7 +29,11 @@ public final class GeofenceEntityDataMapper extends AbstractDataMapper<GeofenceD
         geofenceEntity.setName(originModel.getName());
         geofenceEntity.setAddress(originModel.getAddress());
         geofenceEntity.setRadius(originModel.getRadius());
-        geofenceEntity.setType(originModel.getType());
+        try {
+            geofenceEntity.setType(GeofenceTransitionTypeEnum.valueOf(originModel.getType()));
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
         return geofenceEntity;
     }
 
@@ -49,7 +54,7 @@ public final class GeofenceEntityDataMapper extends AbstractDataMapper<GeofenceD
         geofenceDTO.setName(originModel.getName());
         geofenceDTO.setAddress(originModel.getAddress());
         geofenceDTO.setRadius(originModel.getRadius());
-        geofenceDTO.setType(originModel.getType());
+        geofenceDTO.setType(originModel.getType().name());
         return geofenceDTO;
     }
 }

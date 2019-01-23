@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -12,35 +13,41 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.ramotion.fluidslider.FluidSlider;
-
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpValidationMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportTouchableMapFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerGeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.GeofenceComponent;
@@ -67,7 +74,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     /**
      * Default Values
      */
-    private static final int TARGET_ZOOM = 17;
+    private static final int TARGET_ZOOM = 19;
     private static final int MIN_RADIUS_VALUE = 20;
     private static final int MAX_RADIUS_VALUE = 2000;
 
@@ -184,6 +191,12 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     protected AppCompatEditText nameInput;
 
     /**
+     * Nested Scroll View
+     */
+    @BindView(R.id.content)
+    protected NestedScrollView nestedScrollView;
+
+    /**
      * Google Map
      */
     private GoogleMap googleMap;
@@ -192,6 +205,11 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      * Current Circle Indicator
      */
     private Circle currentCircleIndicator;
+
+    /**
+     * Current Marker Position
+     */
+    private Marker currentMarkerPosition;
 
     /**
      * Spain LatLng Bounds
@@ -305,8 +323,24 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             }
         }
 
-        geofenceRadiusSlider.setStartText(String.valueOf(MIN_RADIUS_VALUE));
-        geofenceRadiusSlider.setEndText(String.valueOf(MAX_RADIUS_VALUE));
+
+        geofenceRadiusSlider.setStartText(String.format(Locale.getDefault(),
+                getString(R.string.radius_meters_value), MIN_RADIUS_VALUE));
+        geofenceRadiusSlider.setEndText(String.format(Locale.getDefault(),
+                getString(R.string.radius_meters_value), MAX_RADIUS_VALUE));
+        geofenceRadiusSlider.setPositionListener(new Function1<Float, Unit>() {
+            @Override
+            public Unit invoke(Float pos ) {
+                Timber.d("Radius Selected -> %f", radius);
+                final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
+                final int valueSelected = (int)(MIN_RADIUS_VALUE + total * pos);
+                geofenceRadiusSlider.setBubbleText(String.valueOf(valueSelected));
+                currentCircleIndicator.setRadius(valueSelected);
+                return null;
+            }
+        });
+
+
     }
 
     /**
@@ -399,6 +433,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     @Override
     public void onSinglePermissionGranted(String permission) {
         super.onSinglePermissionGranted(permission);
+        if(permission.equals(Manifest.permission.ACCESS_FINE_LOCATION))
+            showCurrentLocation();
     }
 
     /**
@@ -408,6 +444,13 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     @Override
     public void onSinglePermissionRejected(String permission) {
         super.onSinglePermissionRejected(permission);
+        if(permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            final Location location = new Location("");
+            location.setLatitude(spainLatLngBounds.getCenter().latitude);
+            location.setLongitude(spainLatLngBounds.getCenter().longitude);
+            moveMapTo(location, getString(R.string.current_location));
+            fetchAddressForLocation(location);
+        }
     }
 
 
@@ -466,6 +509,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         // Set Radius
         geofenceRadiusSlider.setPosition((float) radius);
 
+
         // Load Map is needed
         if(googleMap == null)
             loadMapAsync();
@@ -485,8 +529,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         this.googleMap.setIndoorEnabled(false);
         this.googleMap.getUiSettings().setZoomControlsEnabled(true);
-        this.googleMap.getUiSettings().setCompassEnabled(false);
-        this.googleMap.getUiSettings().setMapToolbarEnabled(false);
+        this.googleMap.getUiSettings().setCompassEnabled(true);
+        this.googleMap.getUiSettings().setMapToolbarEnabled(true);
         this.googleMap.getUiSettings().setZoomGesturesEnabled(true);
         this.googleMap.getUiSettings().setScrollGesturesEnabled(true);
         this.googleMap.setOnMapClickListener(this);
@@ -497,10 +541,10 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             final Location location = new Location("");
             location.setLatitude(latitude);
             location.setLongitude(longitude);
-            moveMapTo(location, name);
 
-            // Create Geofence Area
-            createGeofenceArea(new LatLng(latitude, longitude), radius);
+            showGeofenceForLocation(location, appUtils.isValidString(name) ?
+                    name: getString(R.string.current_location));
+
 
         } else {
 
@@ -508,13 +552,10 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
                 permissionManager.checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION,
                         getString(R.string.location_permission_reason));
             } else {
-
-
+                showCurrentLocation();
             }
         }
-
     }
-
 
     /**
      * On Delete Geofence
@@ -545,10 +586,10 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         final Location location = new Location("");
         location.setLatitude(latLng.latitude);
         location.setLongitude(latLng.longitude);
-        fetchAddressForLocation(location);
 
-        // Create Geofence Area
-        createGeofenceArea(latLng, MIN_RADIUS_VALUE);
+        // Show Geofence For Location
+        showGeofenceForLocation(location, appUtils.isValidString(nameInput.getText().toString()) ?
+                nameInput.getText().toString(): getString(R.string.current_location));
 
     }
 
@@ -631,8 +672,14 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     private void loadMapAsync(){
         if(getFragmentManager() != null) {
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            SupportTouchableMapFragment mapFragment = (SupportTouchableMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
             if(mapFragment != null) {
+                mapFragment.setListener(new SupportTouchableMapFragment.OnTouchListener() {
+                    @Override
+                    public void onTouch() {
+                        nestedScrollView.requestDisallowInterceptTouchEvent(true);
+                    }
+                });
                 mapFragment.getMapAsync(this);
             }
         }
@@ -647,16 +694,56 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         Preconditions.checkNotNull(location, "Location can not be null");
         Preconditions.checkNotNull(title, "Title can not be null");
         Preconditions.checkState(!title.isEmpty(), "Title can not be empty");
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        googleMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .draggable(false)
-                .title(title));
+        final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        if(currentMarkerPosition != null)
+            currentMarkerPosition.remove();
+
+        currentMarkerPosition = googleMap.addMarker(
+                new MarkerOptions()
+                        .position(latLng)
+                        .draggable(false)
+                        .title(title));
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(TARGET_ZOOM));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
+    }
+
+
+    /**
+     * Show Current Location
+     */
+    @SuppressLint("MissingPermission")
+    private void showCurrentLocation(){
+        Preconditions.checkNotNull(googleMap, "Google Map can not be null");
+
+        final FusedLocationProviderClient locationProviderClient =
+                LocationServices.getFusedLocationProviderClient(this);
+
+        // Get Last Location from Fused Provider
+        locationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                showGeofenceForLocation(location, getString(R.string.current_location));
+            }
+        });
+    }
+
+    /**
+     * Show Geofence For Location
+     * @param location
+     * @param name
+     */
+    private void showGeofenceForLocation(final Location location, final String name){
+        // Move Map To Current Location
+        moveMapTo(location, name);
+        // Fetch address for location
+        fetchAddressForLocation(location);
+        // Create Geofence Area
+        createGeofenceArea(new LatLng(location.getLatitude(), location.getLongitude()),
+                MIN_RADIUS_VALUE);
     }
 
     /**

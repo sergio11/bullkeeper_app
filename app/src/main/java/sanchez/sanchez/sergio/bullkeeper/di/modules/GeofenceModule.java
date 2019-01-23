@@ -13,6 +13,7 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteAllGeofencesBykidInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetAllGeofencesByKidInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.GetGeofenceByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.SaveGeofenceInteract;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.repository.IGeofencesRepository;
@@ -115,6 +116,23 @@ public class GeofenceModule {
             final IGeofencesRepository geofencesRepository
     ){
         return new SaveGeofenceInteract(threadExecutor, postExecutionThread, geofencesRepository);
+    }
+
+    /**
+     * Provide Get Geofence By Id
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param geofencesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetGeofenceByIdInteract provideGetGeofenceByIdInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IGeofencesRepository geofencesRepository
+    ) {
+        return new GetGeofenceByIdInteract(threadExecutor, postExecutionThread, geofencesRepository);
     }
 
 }

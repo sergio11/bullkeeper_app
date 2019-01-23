@@ -106,7 +106,7 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
 
         saveGeofenceInteract.execute(new SaveGeofenceObservable(),
                 SaveGeofenceInteract.Params.create(identity, name, lat, log,
-                        radius, type.name(), kid));
+                        radius, address, type.name(), kid));
     }
 
     /**

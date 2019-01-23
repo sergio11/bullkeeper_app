@@ -153,22 +153,26 @@
                         android:drawablePadding="@dimen/common_padding"
                         android:drawableStart="@drawable/kid_request_location_marker" />
 
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_margin="8dp"/>
-
                     <com.ramotion.fluidslider.FluidSlider
                         android:id="@+id/geofenceRadiusSlider"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"
                         android:elevation="2dp"
+                        app:background="@color/cyanBrilliant"
                         app:size="small"
+                        app:bar_color="@color/cyanBrilliant"
+                        app:bubble_color="@color/darkModerateBlue"
+                        app:bubble_text_color="@color/commonWhite"
                         app:duration="@android:integer/config_mediumAnimTime"
                         tools:targetApi="lollipop" />
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportTouchableMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="8dp"/>
 
                 </LinearLayout>
 

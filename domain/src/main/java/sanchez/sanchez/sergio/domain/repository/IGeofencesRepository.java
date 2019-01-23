@@ -53,7 +53,7 @@ public interface IGeofencesRepository {
      */
     Observable<GeofenceEntity> saveGeofences(
             final String identity, final String name, final double lat,
-            final double log, final float radius, final String type,
+            final double log, final float radius, final String address, final String type,
             final String kid
     );
 
