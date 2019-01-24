@@ -123,4 +123,12 @@
     </string-array>
 
 
+    <!-- Geofences Transition Types -->
+    <string-array name="geofences_transition_types">
+        <item>@string/geofence_transition_enter_value</item>
+        <item>@string/geofence_transition_exit_value</item>
+        <item>@string/geofence_transition_dwell_value</item>
+    </string-array>
+
+
 </resources>

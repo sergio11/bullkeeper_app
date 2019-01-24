@@ -30,6 +30,8 @@ public final class FamilyLocatorInfoDialog extends SupportDialogFragment {
         familyLocatorDialogFragment.show(appCompatActivity.getSupportFragmentManager(), TAG);
     }
 
+
+
     /**
      * Get Layout Resource
      * @return

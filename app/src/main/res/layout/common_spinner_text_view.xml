@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/CommonStrongText.Big"
+    android:textColor="@color/white"
+    android:background="@color/cyanBrilliant"
+    android:drawableStart="@drawable/common_spinner_icon"
+    android:drawablePadding="@dimen/common_padding"
+    android:padding="@dimen/common_padding"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textAlignment="center"/>

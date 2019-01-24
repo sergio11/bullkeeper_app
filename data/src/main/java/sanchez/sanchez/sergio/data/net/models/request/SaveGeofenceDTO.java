@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.data.net.models.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 /**
@@ -52,6 +51,12 @@ public final class SaveGeofenceDTO implements Serializable {
     private String type;
 
     /**
+     * Is Enabled
+     */
+    @JsonProperty("is_enabled")
+    private boolean isEnabled;
+
+    /**
      * Kid
      */
     @JsonProperty("kid")
@@ -68,11 +73,12 @@ public final class SaveGeofenceDTO implements Serializable {
      * @param address
      * @param radius
      * @param type
+     * @param isEnabled
      * @param kid
      */
     public SaveGeofenceDTO(final String identity, final String name, double lat, double log,
                            final String address, final float radius, final String type,
-                           final String kid) {
+                           final boolean isEnabled, final String kid) {
         this.identity = identity;
         this.name = name;
         this.lat = lat;
@@ -80,6 +86,7 @@ public final class SaveGeofenceDTO implements Serializable {
         this.address = address;
         this.radius = radius;
         this.type = type;
+        this.isEnabled = isEnabled;
         this.kid = kid;
     }
 
@@ -139,6 +146,14 @@ public final class SaveGeofenceDTO implements Serializable {
         this.type = type;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     public String getKid() {
         return kid;
     }
@@ -154,8 +169,10 @@ public final class SaveGeofenceDTO implements Serializable {
                 ", name='" + name + '\'' +
                 ", lat=" + lat +
                 ", log=" + log +
+                ", address='" + address + '\'' +
                 ", radius=" + radius +
                 ", type='" + type + '\'' +
+                ", isEnabled=" + isEnabled +
                 ", kid='" + kid + '\'' +
                 '}';
     }

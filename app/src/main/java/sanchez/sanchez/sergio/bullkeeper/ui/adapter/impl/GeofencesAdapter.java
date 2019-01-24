@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 
@@ -44,7 +45,8 @@ public final class GeofencesAdapter extends SupportRecyclerViewAdapter<GeofenceE
         /**
          * Geofence Name
          */
-        private TextView geofenceNameTextView;
+        private TextView geofenceNameTextView, geofenceAddressTextView;
+        private SupportSwitchCompat switchWidget;
 
         /**
          * @param itemView
@@ -52,6 +54,8 @@ public final class GeofencesAdapter extends SupportRecyclerViewAdapter<GeofenceE
         GeofenceViewHolder(final View itemView) {
             super(itemView);
             geofenceNameTextView = itemView.findViewById(R.id.geofenceName);
+            geofenceAddressTextView = itemView.findViewById(R.id.geofenceAddress);
+            switchWidget = itemView.findViewById(R.id.switchWidget);
         }
 
         /**
@@ -61,7 +65,13 @@ public final class GeofencesAdapter extends SupportRecyclerViewAdapter<GeofenceE
         @Override
         public void bind(final GeofenceEntity geofenceEntity) {
             super.bind(geofenceEntity);
+
+            // Geofence Name
             geofenceNameTextView.setText(geofenceEntity.getName());
+            // Geofence Address
+            geofenceAddressTextView.setText(geofenceEntity.getAddress());
+            // Geofence Status
+            switchWidget.setChecked(geofenceEntity.isEnabled());
         }
 
     }

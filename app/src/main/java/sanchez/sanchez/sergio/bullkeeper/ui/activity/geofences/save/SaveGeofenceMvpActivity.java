@@ -15,7 +15,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -62,9 +66,8 @@ import timber.log.Timber;
  * Save Geofence Mvp Activity
  */
 public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<SaveGeofencePresenter, ISaveGeofenceView>
-        implements HasComponent<GeofenceComponent>,
-        ISaveGeofenceView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
-        GoogleApiClient.ConnectionCallbacks{
+        implements HasComponent<GeofenceComponent>, ISaveGeofenceView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
+        GoogleApiClient.ConnectionCallbacks, AdapterView.OnItemSelectedListener {
 
     private final String CONTENT_FULL_NAME = "SAVE_GEOFENCE";
     private final String CONTENT_TYPE_NAME = "GEOFENCES";
@@ -145,6 +148,18 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     protected GeofenceTransitionTypeEnum type;
 
     /**
+     * Geofence Transition Type Selected
+     */
+    @State
+    protected int geofenceTransitionTypeSelected = 0;
+
+    /**
+     * Is Enabled
+     */
+    @State
+    protected Boolean isEnabled;
+
+    /**
      *
      * Views
      * ==================
@@ -195,6 +210,18 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     @BindView(R.id.content)
     protected NestedScrollView nestedScrollView;
+
+    /**
+     * Geofences Transition Type
+     */
+    @BindView(R.id.geofencesTransitionType)
+    protected AppCompatSpinner geofencesTransitionTypeSpinner;
+
+    /**
+     * Is Enable Switch
+     */
+    @BindView(R.id.enableSwitch)
+    protected SwitchCompat enableSwitch;
 
     /**
      * Google Map
@@ -299,7 +326,6 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         return R.layout.activity_save_geofence;
     }
 
-
     /**
      * On View Ready
      * @param savedInstanceState
@@ -307,8 +333,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
-        if(savedInstanceState == null) {
 
+        if(savedInstanceState == null) {
             if (!getIntent().hasExtra(KID_ID_ARG))
                 throw new IllegalArgumentException("It is necessary to specify an kid identifier");
             kid = getIntent().getStringExtra(KID_ID_ARG);
@@ -323,7 +349,6 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             }
         }
 
-
         geofenceRadiusSlider.setStartText(String.format(Locale.getDefault(),
                 getString(R.string.radius_meters_value), MIN_RADIUS_VALUE));
         geofenceRadiusSlider.setEndText(String.format(Locale.getDefault(),
@@ -335,10 +360,19 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
                 final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
                 final int valueSelected = (int)(MIN_RADIUS_VALUE + total * pos);
                 geofenceRadiusSlider.setBubbleText(String.valueOf(valueSelected));
-                currentCircleIndicator.setRadius(valueSelected);
+                if(currentCircleIndicator != null)
+                    currentCircleIndicator.setRadius(valueSelected);
                 return null;
             }
         });
+
+
+        // Init Geofence Transition Types Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.common_spinner_text_view,
+                getResources().getStringArray(R.array.geofences_transition_types));
+        geofencesTransitionTypeSpinner.setAdapter(adapter);
+        geofencesTransitionTypeSpinner.setSelection(geofenceTransitionTypeSelected);
+        geofencesTransitionTypeSpinner.setOnItemSelectedListener(this);
 
 
     }
@@ -367,7 +401,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     @Override
     protected void onValidationFailed() {
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
     }
 
     /**
@@ -391,11 +425,21 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         super.onValidationSucceeded();
 
         final String name = nameInput.getText().toString();
+        final String address = originLocationAddressTextView.getText().toString();
+        final double latitude = currentMarkerPosition.getPosition().latitude;
+        final double longitude = currentMarkerPosition.getPosition().longitude;
+        final double radius = currentCircleIndicator.getRadius();
+        final GeofenceTransitionTypeEnum geofenceTransitionTypeEnum =
+                GeofenceTransitionTypeEnum.values()[geofenceTransitionTypeSelected];
+        final boolean isEnabled = enableSwitch.isChecked();
 
         // Disable All Components
         toggleAllComponents(false);
 
-        //getPresenter().
+        // Save Geofence
+        getPresenter().saveGeofence(name, geofenceTransitionTypeEnum, address, latitude,
+                longitude, (float) radius, geofenceTransitionTypeEnum, isEnabled, kid, appUtils.isValidString(identity) ?
+                        identity : "");
 
     }
 
@@ -415,6 +459,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     @Override
     protected void onResetErrors() {
         nameInputLayout.setError("");
+
     }
 
     /**
@@ -448,8 +493,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             final Location location = new Location("");
             location.setLatitude(spainLatLngBounds.getCenter().latitude);
             location.setLongitude(spainLatLngBounds.getCenter().longitude);
-            moveMapTo(location, getString(R.string.current_location));
-            fetchAddressForLocation(location);
+            createGeofenceArea(new LatLng(location.getLatitude(),
+                    location.getLongitude()), MIN_RADIUS_VALUE);
         }
     }
 
@@ -467,7 +512,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
                     break;
             }
         }
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
         toggleAllComponents(true);
     }
 
@@ -501,14 +546,19 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         this.name = geofenceEntity.getName();
         this.radius = geofenceEntity.getRadius();
         this.type = geofenceEntity.getType();
+        this.isEnabled = geofenceEntity.isEnabled();
 
+        // Set Name
         nameInput.setText(name);
+
         originLocationAddressTextView.setText(address);
         // Set Visibility
         deleteGeofenceView.setVisibility(View.VISIBLE);
+
         // Set Radius
         geofenceRadiusSlider.setPosition((float) radius);
-
+        // Enable Switch
+        enableSwitch.setChecked(isEnabled);
 
         // Load Map is needed
         if(googleMap == null)
@@ -544,7 +594,6 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
 
             showGeofenceForLocation(location, appUtils.isValidString(name) ?
                     name: getString(R.string.current_location));
-
 
         } else {
 
@@ -626,9 +675,38 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     @OnClick(R.id.deleteGeofence)
     protected void onDeleteGeofenceClicked(){
-        getPresenter().deleteGeofenceById(kid, identity);
+        showConfirmationDialog(R.string.geofence_confirm_delete, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            /**
+             * On Accepted
+             * @param dialog
+             */
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                getPresenter().deleteGeofenceById(kid, identity);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
     }
 
+    /**
+     * On Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        super.onNetworkError();
+        toggleAllComponents(true);
+    }
+
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        super.onOtherException();
+        toggleAllComponents(true);
+    }
 
     /**
      *
@@ -665,6 +743,9 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         nameInputLayout.setEnabled(isEnable);
         nameInput.setEnabled(isEnable);
         geofenceRadiusSlider.setEnabled(isEnable);
+        geofenceRadiusSlider.setActivated(isEnable);
+        geofencesTransitionTypeSpinner.setEnabled(isEnable);
+        enableSwitch.setEnabled(isEnable);
     }
 
     /**
@@ -695,7 +776,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         Preconditions.checkNotNull(title, "Title can not be null");
         Preconditions.checkState(!title.isEmpty(), "Title can not be empty");
 
-        final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        final LatLng latLng = new LatLng(location.getLatitude(),
+                location.getLongitude());
 
         if(currentMarkerPosition != null)
             currentMarkerPosition.remove();
@@ -726,7 +808,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         locationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                showGeofenceForLocation(location, getString(R.string.current_location));
+                if(location != null)
+                    showGeofenceForLocation(location, getString(R.string.current_location));
             }
         });
     }
@@ -744,6 +827,27 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         // Create Geofence Area
         createGeofenceArea(new LatLng(location.getLatitude(), location.getLongitude()),
                 MIN_RADIUS_VALUE);
+    }
+
+    /**
+     * On Item Selected
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        geofenceTransitionTypeSelected = position;
+    }
+
+    /**
+     * On Nothing Selected
+     * @param parent
+     */
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        geofenceTransitionTypeSelected = 0;
     }
 
     /**

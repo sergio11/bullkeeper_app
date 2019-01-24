@@ -48,13 +48,14 @@ public interface IGeofencesRepository {
      * @param log
      * @param radius
      * @param type
+     * @param isEnabled
      * @param kid
      * @return
      */
     Observable<GeofenceEntity> saveGeofences(
             final String identity, final String name, final double lat,
             final double log, final float radius, final String address, final String type,
-            final String kid
+            final boolean isEnabled, final String kid
     );
 
 }

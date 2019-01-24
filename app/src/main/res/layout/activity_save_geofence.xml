@@ -92,26 +92,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Title -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
-                        android:textColor="@color/cyanBrilliant"
-                        android:textStyle="bold"
-                        android:text="@string/kid_request_location_address"/>
-
-                    <View
-                        android:layout_width="@dimen/common_divider_small"
-                        android:layout_height="@dimen/common_divider_height"
-                        android:layout_margin="10dp"
-                        android:background="@color/cyanBrilliant"/>
-
                     <!-- name input -->
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/nameInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:textColorHint="@color/cyanBrilliant"
@@ -130,28 +116,80 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-                    <!-- Terminals Spinner -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        style="@style/CommonStrongText.Big"
+                        android:textColor="@color/cyanBrilliant"
+                        android:text="@string/geofence_transition_type_description"
+                        android:padding="@dimen/common_padding"/>
+
+                    <!-- Geofences Transition Type -->
                     <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/terminalsSpinner"
+                        android:id="@+id/geofencesTransitionType"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"
-                        android:background="@color/commonWhite"
+                        android:background="@color/cyanBrilliant"
                         android:theme="@style/CommonSpinner"
                         />
 
                     <TextView
-                        android:id="@+id/originLocationAddress"
-                        style="@style/CommonStrongText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"
-                        android:gravity="start|center_vertical"
-                        android:text="-"
+                        style="@style/CommonStrongText.Big"
                         android:textColor="@color/cyanBrilliant"
-                        android:drawablePadding="@dimen/common_padding"
-                        android:drawableStart="@drawable/kid_request_location_marker" />
+                        android:text="@string/geofence_is_enable_description"
+                        android:padding="@dimen/common_padding"/>
+
+                    <!-- Enable -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/enableLabel"
+                            style="@style/CommonText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"
+                            android:padding="0dp"
+                            android:textAllCaps="true"
+                            android:text="@string/geofence_is_enable_label"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="start|center_vertical"
+                            />
+
+                        <!-- Enable Switch -->
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/enableSwitch"
+                            android:layout_width="80dp"
+                            android:layout_height="50dp"
+                            android:checked="true"
+                            android:gravity="center"
+                            android:scaleX="1.5"
+                            android:scaleY="1.5"
+                            android:textOff=""
+                            android:textOn=""
+                            android:layout_marginEnd="16dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="true"
+                            app:theme="@style/CommonSwitch" />
+
+                    </RelativeLayout>
+
 
                     <com.ramotion.fluidslider.FluidSlider
                         android:id="@+id/geofenceRadiusSlider"
@@ -173,6 +211,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
                         android:layout_margin="8dp"/>
+
+                    <TextView
+                        android:id="@+id/originLocationAddress"
+                        style="@style/CommonStrongText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/kid_request_location_marker" />
 
                 </LinearLayout>
 

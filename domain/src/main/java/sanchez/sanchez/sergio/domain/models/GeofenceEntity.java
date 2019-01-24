@@ -43,6 +43,11 @@ public final class GeofenceEntity implements Serializable {
     private GeofenceTransitionTypeEnum type;
 
     /**
+     * Is Enabled
+     */
+    private boolean isEnabled;
+
+    /**
      * Type
      */
     private String kid;
@@ -61,17 +66,20 @@ public final class GeofenceEntity implements Serializable {
      * @param log
      * @param radius
      * @param type
+     * @param isEnabled
      * @param kid
      */
     public GeofenceEntity(final String identity, final String name, final String address,
                           final double lat, final double log,
-                          final float radius, final GeofenceTransitionTypeEnum type, final String kid) {
+                          final float radius, final GeofenceTransitionTypeEnum type,
+                          final boolean isEnabled, final String kid) {
         this.identity = identity;
         this.name = name;
         this.lat = lat;
         this.log = log;
         this.radius = radius;
         this.type = type;
+        this.isEnabled = isEnabled;
         this.kid = kid;
     }
 
@@ -131,6 +139,14 @@ public final class GeofenceEntity implements Serializable {
         this.type = type;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     public String getKid() {
         return kid;
     }
@@ -148,7 +164,8 @@ public final class GeofenceEntity implements Serializable {
                 ", lat=" + lat +
                 ", log=" + log +
                 ", radius=" + radius +
-                ", type='" + type + '\'' +
+                ", type=" + type +
+                ", isEnabled=" + isEnabled +
                 ", kid='" + kid + '\'' +
                 '}';
     }

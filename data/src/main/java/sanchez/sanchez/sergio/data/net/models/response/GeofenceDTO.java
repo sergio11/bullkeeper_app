@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 /**
@@ -54,6 +53,12 @@ public final class GeofenceDTO implements Serializable {
     private String type;
 
     /**
+     * Is Enabled
+     */
+    @JsonProperty("is_enabled")
+    private boolean isEnabled;
+
+    /**
      * Kid
      */
     @JsonProperty("kid")
@@ -70,17 +75,19 @@ public final class GeofenceDTO implements Serializable {
      * @param log
      * @param radius
      * @param type
+     * @param isEnabled
      * @param kid
      */
     public GeofenceDTO(final String identity, final String name, final String address,
                        final double lat, final double log, final float radius,
-                       final String type, final String kid) {
+                       final String type, final boolean isEnabled, final String kid) {
         this.identity = identity;
         this.name = name;
         this.lat = lat;
         this.log = log;
         this.radius = radius;
         this.type = type;
+        this.isEnabled = isEnabled;
         this.kid = kid;
     }
 
@@ -140,6 +147,14 @@ public final class GeofenceDTO implements Serializable {
         this.type = type;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     public String getKid() {
         return kid;
     }
@@ -158,6 +173,7 @@ public final class GeofenceDTO implements Serializable {
                 ", log=" + log +
                 ", radius=" + radius +
                 ", type='" + type + '\'' +
+                ", isEnabled=" + isEnabled +
                 ", kid='" + kid + '\'' +
                 '}';
     }

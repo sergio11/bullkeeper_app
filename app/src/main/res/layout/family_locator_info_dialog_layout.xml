@@ -38,14 +38,22 @@
 
         </LinearLayout>
 
-
         <View
             android:id="@+id/separator"
             android:layout_width="@dimen/common_divider_small"
             android:layout_height="@dimen/common_divider_height"
             android:background="@color/darkModerateBlue"/>
 
-
+        <!-- Content Detail Text -->
+        <TextView
+            android:id="@+id/contentDetailText"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="@string/family_locator_content_text"
+            style="@style/CommonStrongText.Big"/>
 
         <!-- Close Dialog -->
         <Button

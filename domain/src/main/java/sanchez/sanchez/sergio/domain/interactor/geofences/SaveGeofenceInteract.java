@@ -39,10 +39,14 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
         return geofencesRepository.saveGeofences(
                 params.getIdentity(), params.getName(),
                 params.getLat(), params.getLog(), params.getRadius(),
-                params.getAddress(), params.getType(), params.getKid()
+                params.getAddress(), params.getType(),
+                params.isEnabled(), params.getKid()
         );
     }
 
+    /**
+     * Params
+     */
     public static class Params {
 
         private final String identity;
@@ -52,6 +56,7 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
         private final float radius;
         private final String address;
         private final String type;
+        private final boolean isEnabled;
         private final String kid;
 
 
@@ -64,11 +69,12 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
          * @param radius
          * @param address
          * @param type
+         * @param isEnabled
          * @param kid
          */
         private Params(final String identity, final String name, final double lat,
                        final double log, final float radius, final String address,
-                       final String type, final String kid) {
+                       final String type, final boolean isEnabled, final String kid) {
             this.identity = identity;
             this.name = name;
             this.lat = lat;
@@ -76,6 +82,7 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
             this.radius = radius;
             this.address = address;
             this.type = type;
+            this.isEnabled = isEnabled;
             this.kid = kid;
         }
 
@@ -107,6 +114,10 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
             return type;
         }
 
+        public boolean isEnabled() {
+            return isEnabled;
+        }
+
         public String getKid() {
             return kid;
         }
@@ -119,15 +130,16 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
          * @param log
          * @param radius
          * @param type
+         * @param isEnabled
          * @param kid
          * @return
          */
         public static Params create(
                 final String identity, final String name, final double lat,
                 final double log, final float radius, final String address,
-                final String type, final String kid
+                final String type, final boolean isEnabled, final String kid
         ){
-            return new Params(identity, name, lat, log, radius, address, type, kid);
+            return new Params(identity, name, lat, log, radius, address, type, isEnabled, kid);
         }
 
         @Override

@@ -121,9 +121,9 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
     @Override
     public Observable<GeofenceEntity> saveGeofences(final String identity, final String name,
                                                     final double lat, final double log, final float radius,
-                                                    final String address, final String type, final String kid) {
-        Preconditions.checkNotNull(identity, "Identity can not be null");
-        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+                                                    final String address, final String type,
+                                                    final boolean isEnabled, final String kid) {
+        Preconditions.checkNotNull(identity, "identity can not be null");
         Preconditions.checkNotNull(name, "Name can not be null");
         Preconditions.checkState(!name.isEmpty(), "Name can not be empty");
         Preconditions.checkNotNull(address, "Address can not be null");
@@ -135,7 +135,7 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
 
         // Save Geofence
         return geofenceService.saveGeofence(kid, new SaveGeofenceDTO(identity,
-                name, lat, log, address, radius, type, kid))
+                name, lat, log, address, radius, type, isEnabled, kid))
                 .map(response -> response != null && response.getData() != null ?
                     response.getData(): null)
                 .map(geofenceEntityAbstractDataMapper::transform);

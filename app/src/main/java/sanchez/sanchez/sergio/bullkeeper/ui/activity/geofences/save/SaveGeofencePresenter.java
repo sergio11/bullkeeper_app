@@ -57,6 +57,9 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
         Preconditions.checkNotNull(id, "Id can not be null");
         Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
 
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
         deleteGeofenceByIdInteract.execute(new DeleteGeofenceByIdObservable(),
                 DeleteGeofenceByIdInteract.Params.create(kid, id));
     }
@@ -90,12 +93,13 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
      * @param log
      * @param radius
      * @param type
+     * @param isEnabled
      * @param kid
      * @param identity
      */
     public void saveGeofence(final String name, final GeofenceTransitionTypeEnum transitionTypeEnum,
                              final String address, final double lat, double log, float radius,
-                             GeofenceTransitionTypeEnum type, final  String kid, final String identity) {
+                             GeofenceTransitionTypeEnum type, final boolean isEnabled, final  String kid, final String identity) {
         Preconditions.checkNotNull(name, "Name can not be null");
         Preconditions.checkState(!name.isEmpty(), "Name can not be empty");
         Preconditions.checkNotNull(transitionTypeEnum, "Transition Type Enum");
@@ -104,9 +108,12 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
 
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
         saveGeofenceInteract.execute(new SaveGeofenceObservable(),
                 SaveGeofenceInteract.Params.create(identity, name, lat, log,
-                        radius, address, type.name(), kid));
+                        radius, address, type.name(), isEnabled, kid));
     }
 
     /**
@@ -164,6 +171,7 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
             Preconditions.checkNotNull(geofenceEntity, "Geofence Entity can not be null");
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
+                getView().showNoticeDialog(R.string.geofence_saved_successfully);
                 getView().onGeofenceLoaded(geofenceEntity);
             }
 
