@@ -83,12 +83,15 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
      * @param description
      * @param allowCalls
      * @param currentImage
+     * @param geofence
      */
     public void saveScheduledBlock(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                    final LocalTime endAt, final int[] weeklyFrequency,
                                    final boolean recurringWeeklyEnabled, final String childId,
                                    final String description, final boolean allowCalls,
-                                   final String currentImage, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities){
+                                   final String currentImage,
+                                   final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities,
+                                   final String geofence){
 
 
         if (isViewAttached() && getView() != null)
@@ -97,7 +100,7 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
         saveScheduledBlockInteract.execute(new SaveScheduledBlockObservable(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors.class),
                 SaveScheduledBlockInteract.Params.create(identity, name, enable, startAt, endAt,
                             weeklyFrequency, recurringWeeklyEnabled, childId,
-                        description, allowCalls, currentImage, appAllowedByScheduledEntities));
+                        description, allowCalls, currentImage, appAllowedByScheduledEntities, geofence));
 
     }
 

@@ -77,6 +77,12 @@ public final class SaveScheduledBlockDTO implements Serializable {
     private List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList;
 
     /**
+     * Geofence
+     */
+    @JsonProperty("geofence")
+    private String geofence;
+
+    /**
      *
      */
     public SaveScheduledBlockDTO(){}
@@ -92,11 +98,13 @@ public final class SaveScheduledBlockDTO implements Serializable {
      * @param weeklyFrequency
      * @param kid
      * @param saveAppAllowedByScheduledDTOList
+     * @param geofence
      */
     public SaveScheduledBlockDTO(String identity, String name, boolean enable,
                                  boolean repeatable, String startAt, String endAt,
                                  int[] weeklyFrequency, String kid, String description,
-                                boolean allowCalls, List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList) {
+                                boolean allowCalls, List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList,
+                                 final String geofence) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -108,6 +116,7 @@ public final class SaveScheduledBlockDTO implements Serializable {
         this.description = description;
         this.allowCalls = allowCalls;
         this.saveAppAllowedByScheduledDTOList = saveAppAllowedByScheduledDTOList;
+        this.geofence = geofence;
     }
 
     public String getIdentity() {
@@ -196,6 +205,14 @@ public final class SaveScheduledBlockDTO implements Serializable {
 
     public void setSaveAppAllowedByScheduledDTOList(List<SaveAppAllowedByScheduledDTO> saveAppAllowedByScheduledDTOList) {
         this.saveAppAllowedByScheduledDTOList = saveAppAllowedByScheduledDTOList;
+    }
+
+    public String getGeofence() {
+        return geofence;
+    }
+
+    public void setGeofence(String geofence) {
+        this.geofence = geofence;
     }
 
     /**

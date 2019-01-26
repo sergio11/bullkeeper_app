@@ -58,12 +58,15 @@ public interface IScheduledBlockRepository {
      * @param childId
      * @param description
      * @param allowCalls
+     * @param geofence
      * @return
      */
     Observable<ScheduledBlockEntity> saveScheduledBlock(final String identity, final String name, final boolean enable,
                                                         final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                                         final boolean recurringWeeklyEnabled, final String childId,
-                                                        final String description, final boolean allowCalls, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities);
+                                                        final String description, final boolean allowCalls,
+                                                        final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities,
+                                                        final String geofence);
 
 
     /**

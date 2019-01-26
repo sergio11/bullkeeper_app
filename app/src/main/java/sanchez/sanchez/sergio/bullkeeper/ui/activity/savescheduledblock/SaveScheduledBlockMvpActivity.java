@@ -8,18 +8,31 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.squareup.picasso.Picasso;
 import org.joda.time.LocalTime;
-
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -39,12 +52,14 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerScheduledBlockComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ScheduledBlockComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appallowedbyscheduled.AppAllowedByScheduledMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import timber.log.Timber;
 
@@ -53,7 +68,7 @@ import timber.log.Timber;
  */
 public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivity<SaveScheduledBlockPresenter,
         ISaveScheduledBlockView> implements HasComponent<ScheduledBlockComponent>, ISaveScheduledBlockView,
-        PhotoViewerDialog.IPhotoViewerListener, ISaveScheduledBlockActivityHandler {
+        PhotoViewerDialog.IPhotoViewerListener, ISaveScheduledBlockActivityHandler, OnMapReadyCallback {
 
     /**
      * Content and Content Type Name
@@ -71,6 +86,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      * Request Code
      */
     private static final int SEARCH_APP_REQUEST_CODE = 1234;
+    private static final int SELECT_GEOFENCE_REQUEST_CODE = 1235;
 
     /**
      * Fields
@@ -80,6 +96,13 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     private final static String SCHEDULED_BLOCK_END_AT_FIELD_NAME = "end_at";
     private final static String SCHEDULED_BLOCK_WEEKLY_FREQUENCY_FIELD_NAME = "weekly_frequency";
     private final static String SCHEDULED_BLOCK_DESCRIPTION_FIELD_NAME = "description";
+    private final static String SCHEDULED_BLOCK_GEOFENCE_FIELD_NAME = "geofence";
+
+    /**
+     * Constants
+     */
+    private static final int TARGET_ZOOM = 19;
+
 
     /**
      * Modes Enum
@@ -197,6 +220,31 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
 
 
     /**
+     * No Geofence Configured
+     */
+    @BindView(R.id.noGeofenceConfigured)
+    protected ViewGroup noGeofenceConfiguredViewGroup;
+
+    /**
+     * Geofence Configured
+     */
+    @BindView(R.id.geofenceConfigured)
+    protected ViewGroup geofenceConfiguredViewGroup;
+
+    /**
+     * Geofence Address
+     */
+    @BindView(R.id.geofenceAddress)
+    protected TextView geofenceAddressTextView;
+
+    /**
+     * Remove Geofence Selected Image View
+     */
+    @BindView(R.id.removeGeofenceConfigured)
+    protected ImageView removeGeofenceSelectedImageView;
+
+
+    /**
      * Dependencies
      * =====================
      */
@@ -298,9 +346,30 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
     protected boolean allowCalls;
 
     /**
+     * Geofence Configured
+     */
+    @State
+    protected GeofenceEntity geofenceEntity;
+
+    /**
      * App Allowed By Scheduled
      */
     protected AppAllowedByScheduledMvpFragment appAllowedByScheduledMvpFragment;
+
+    /**
+     * Google Map
+     */
+    private GoogleMap googleMap;
+
+    /**
+     * Current Circle Indicator
+     */
+    private Circle currentCircleIndicator;
+
+    /**
+     * Curretn Marker Indicator
+     */
+    private Marker currentMarkerIndicator;
 
     /**
      * Get Calling Intent
@@ -399,6 +468,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         enableSwitch.setEnabled(isEnable);
         scheduledBlockWeeklyFrequencyInput.setEnabled(isEnable);
         descriptionInputLayout.setEnabled(isEnabled);
+        noGeofenceConfiguredViewGroup.setEnabled(isEnabled);
     }
 
     /**
@@ -412,8 +482,6 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         if(!getIntent().hasExtra(KID_IDENTITY_ARG) ||
                 !appUtils.isValidString(getIntent().getStringExtra(KID_IDENTITY_ARG)))
             throw new IllegalArgumentException("Kid can not be null");
-
-
 
         appAllowedByScheduledMvpFragment = AppAllowedByScheduledMvpFragment.newInstance();
         // Add Fragment
@@ -434,6 +502,16 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
             getPresenter().loadScheduledBlock(kid, scheduledBlockIdentity);
         }
 
+    }
+
+    /**
+     * On Destroy
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Destroy Map
+        destroyMap();
     }
 
     /**
@@ -531,10 +609,16 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
             scheduledBlockWeeklyFrequencyInput.setError(getString(R.string.scheduled_block_weekly_frequency_not_valid));
             return;
         }
+
+        // Geofence Configured
+        final String geofence = geofenceEntity != null ?
+                geofenceEntity.getIdentity(): "";
+
+
         // Save Scheduled Block
         getPresenter().saveScheduledBlock(scheduledBlockIdentity, scheduledBlockName, isEnabled, startAt, endAt,
                 scheduledBlocksWeeklyFrequency, scheduledBlockRecurringWeeklyEnabled, kid,
-                 description, allowCalls, currentImagePath, appAllowedByScheduledEntities);
+                 description, allowCalls, currentImagePath, appAllowedByScheduledEntities, geofence);
     }
 
     /**
@@ -628,6 +712,13 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
 
             if(appAllowedByScheduledMvpFragment != null)
                 appAllowedByScheduledMvpFragment.addAppSelected(appSelected);
+
+        } else if(SELECT_GEOFENCE_REQUEST_CODE == requestCode && resultCode == Activity.RESULT_OK) {
+
+            geofenceEntity = (GeofenceEntity)
+                    data.getSerializableExtra(GeofencesListMvpActivity.GEOFENCE_SELECTED_ARG);
+
+            drawGeofenceConfiguredState();
         }
     }
 
@@ -655,6 +746,28 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlockWeeklyFrequencyInput.setDaysOfWeekStatus(scheduledBlocksWeeklyFrequency);
         recurringWeeklySwitch.setChecked(scheduledBlockRecurringWeeklyEnabled);
         enableSwitch.setChecked(isEnabled);
+
+        drawGeofenceConfiguredState();
+    }
+
+    /**
+     * Draw Geofence Configured State
+     */
+    private void drawGeofenceConfiguredState(){
+        if(geofenceEntity != null) {
+            noGeofenceConfiguredViewGroup.setVisibility(View.GONE);
+            geofenceConfiguredViewGroup.setVisibility(View.VISIBLE);
+            geofenceAddressTextView.setText(geofenceEntity.getAddress());
+            loadMapAsync();
+        } else {
+            noGeofenceConfiguredViewGroup.setVisibility(View.VISIBLE);
+            geofenceConfiguredViewGroup.setVisibility(View.GONE);
+            geofenceAddressTextView.setText("");
+            if(currentCircleIndicator != null)
+                currentCircleIndicator.remove();
+            if (currentMarkerIndicator != null)
+                currentMarkerIndicator.remove();
+        }
     }
 
     /**
@@ -674,6 +787,8 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         profileMode = ScheduledBlockMode.EDIT_SCHEDULED_BLOCK_MODE;
         startAt = scheduledBlockEntity.getStartAt();
         endAt = scheduledBlockEntity.getEndAt();
+        geofenceEntity = scheduledBlockEntity.getGeofence();
+
         // Draw State
         drawCurrentState();
         // Enable All Components
@@ -746,6 +861,10 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
                 case SCHEDULED_BLOCK_DESCRIPTION_FIELD_NAME:
                     descriptionInputLayout.setError(error.get("message"));
                     break;
+                case SCHEDULED_BLOCK_GEOFENCE_FIELD_NAME:
+                    geofenceEntity = null;
+                    drawGeofenceConfiguredState();
+                    break;
             }
 
         }
@@ -812,7 +931,109 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         navigatorImpl.navigateToAppSearchListMvpActivity(this, kid, SEARCH_APP_REQUEST_CODE);
     }
 
+    /**
+     * On No Geofence Configured Clicked
+     */
+    @OnClick(R.id.noGeofenceConfigured)
+    protected void onNoGeofenceConfiguredClicked(){
+        navigatorImpl.navigateToSelectGeofence(this, kid,
+                SELECT_GEOFENCE_REQUEST_CODE);
+    }
+
+    /**
+     * On Remove Geofence Selected Clicked
+     */
+    @OnClick(R.id.removeGeofenceConfigured)
+    protected void onRemoveGeofenceConfiguredClicked(){
+        geofenceEntity = null;
+        drawGeofenceConfiguredState();
+    }
+
+    /**
+     * On Map Ready
+     * @param googleMap
+     */
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        this.googleMap.setIndoorEnabled(false);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(false);
+        this.googleMap.getUiSettings().setCompassEnabled(false);
+        this.googleMap.getUiSettings().setMapToolbarEnabled(false);
+        this.googleMap.getUiSettings().setZoomGesturesEnabled(false);
+        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
+
+        if (geofenceEntity != null) {
+
+            // Show Geofence in map
+            createGeofenceArea(new LatLng(geofenceEntity.getLat(),
+                    geofenceEntity.getLog()), geofenceEntity.getRadius());
+
+        }
+
+    }
+
+    /**
+     * Load Map Async
+     */
+    private void loadMapAsync(){
+        if(getFragmentManager() != null) {
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            if(mapFragment != null) {
+                mapFragment.getMapAsync(this);
+            }
+        }
+    }
+
+    /**
+     * Destroy Map
+     */
+    private void destroyMap(){
+        FragmentManager fm = getSupportFragmentManager();
+        if(fm != null) {
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            if (mapFragment != null) {
+                fm.beginTransaction().remove(mapFragment).commit();
+                mapFragment.onDestroyView();
+            }
+        }
+    }
+
+    /**
+     * Create Geofence Area
+     * @param latLng
+     * @param radius
+     */
+    private void createGeofenceArea(final LatLng latLng, final double radius){
 
 
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(TARGET_ZOOM));
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+
+        if(currentMarkerIndicator != null)
+            currentMarkerIndicator.remove();
+
+        currentMarkerIndicator = googleMap.addMarker(
+                new MarkerOptions()
+                        .position(latLng)
+                        .draggable(false));
+
+
+        if(currentCircleIndicator != null)
+            currentCircleIndicator.remove();
+
+        final CircleOptions circleOptions = new CircleOptions()
+                .center(latLng)
+                .radius(radius)
+                .strokeColor(ContextCompat.getColor(this, R.color.darkModerateBlue))
+                .fillColor(ContextCompat.getColor(this, R.color.translucentCyanBrilliant));
+
+        // Create Current Circle Indicator
+        currentCircleIndicator = googleMap.addCircle(circleOptions);
+
+    }
 
 }

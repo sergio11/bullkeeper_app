@@ -75,6 +75,12 @@ public final class ScheduledBlockDTO implements Serializable {
     @JsonProperty("apps_allowed")
     private List<AppAllowedByScheduledDTO> appsAllowed = new ArrayList<>();
 
+    /**
+     * Geofence
+     */
+    @JsonProperty("geofence")
+    private GeofenceDTO geofence;
+
     public ScheduledBlockDTO(){}
 
     /**
@@ -89,10 +95,11 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param image
      * @param kid
      * @param appsAllowed
+     * @param geofence
      */
     public ScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable,
                              LocalTime startAt, LocalTime endAt, int[] weeklyFrequency, String image,
-                             String kid, List<AppAllowedByScheduledDTO> appsAllowed) {
+                             String kid, List<AppAllowedByScheduledDTO> appsAllowed, final GeofenceDTO geofence) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -103,6 +110,7 @@ public final class ScheduledBlockDTO implements Serializable {
         this.image = image;
         this.kid = kid;
         this.appsAllowed = appsAllowed;
+        this.geofence = geofence;
     }
 
     public String getIdentity() {
@@ -185,6 +193,14 @@ public final class ScheduledBlockDTO implements Serializable {
         this.appsAllowed = appsAllowed;
     }
 
+    public GeofenceDTO getGeofence() {
+        return geofence;
+    }
+
+    public void setGeofence(GeofenceDTO geofence) {
+        this.geofence = geofence;
+    }
+
     @Override
     public String toString() {
         return "ScheduledBlockDTO{" +
@@ -195,8 +211,10 @@ public final class ScheduledBlockDTO implements Serializable {
                 ", startAt=" + startAt +
                 ", endAt=" + endAt +
                 ", weeklyFrequency=" + Arrays.toString(weeklyFrequency) +
+                ", image='" + image + '\'' +
+                ", kid='" + kid + '\'' +
+                ", appsAllowed=" + appsAllowed +
+                ", geofence=" + geofence +
                 '}';
     }
-
-
 }

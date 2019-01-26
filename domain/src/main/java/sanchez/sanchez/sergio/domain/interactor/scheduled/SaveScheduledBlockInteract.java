@@ -61,7 +61,8 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         return scheduledBlockRepository.saveScheduledBlock(params.getIdentity(), params.getName(), params.isEnable(),
                 params.getStartAt(), params.getEndAt(), params.getWeeklyFrequency(),
                 params.isRecurringWeeklyEnabled(), params.getChildId(),
-                params.getDescription(), params.isAllowCalls(), params.appAllowedByScheduledEntities);
+                params.getDescription(), params.isAllowCalls(),
+                params.appAllowedByScheduledEntities, appUtils.isValidString(params.geofence) ? params.geofence: "");
     }
 
     /**
@@ -162,6 +163,11 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
         private final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities;
 
         /**
+         * Geofence
+         */
+        private String geofence;
+
+        /**
          *
          * @param identity
          * @param name
@@ -173,13 +179,15 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
          * @param childId
          * @param description
          * @param allowCalls
+         * @param geofence
          */
         private Params(final String identity, final String name, final boolean enable,
                        final LocalTime startAt, final LocalTime endAt,
                        final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
                        final String childId, final String description,
                        final boolean allowCalls, final String image,
-                       final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities) {
+                       final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities,
+                       final String geofence) {
             this.identity = identity;
             this.name = name;
             this.enable = enable;
@@ -192,6 +200,7 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             this.allowCalls = allowCalls;
             this.image = image;
             this.appAllowedByScheduledEntities = appAllowedByScheduledEntities;
+            this.geofence = geofence;
         }
 
         public String getIdentity() {
@@ -242,6 +251,14 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
             return appAllowedByScheduledEntities;
         }
 
+        public String getGeofence() {
+            return geofence;
+        }
+
+        public void setGeofence(String geofence) {
+            this.geofence = geofence;
+        }
+
         /**
          * Create
          * @param identity
@@ -255,15 +272,17 @@ public class SaveScheduledBlockInteract extends UseCase<ScheduledBlockEntity, Sa
          * @param description
          * @param allowCalls
          * @param appAllowedByScheduledEntities
+         * @param geofence
          * @return
          */
         public static Params create(final String identity, final String name, final boolean enable, final LocalTime startAt,
                                     final LocalTime endAt, final int[] weeklyFrequency, final boolean recurringWeeklyEnabled,
                                     final String childId, final String description, final boolean allowCalls,
-                                    final String image, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities){
+                                    final String image, final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities,
+                                    final String geofence){
            return new Params(identity, name, enable, startAt,
                    endAt, weeklyFrequency, recurringWeeklyEnabled, childId,
-                   description, allowCalls, image, appAllowedByScheduledEntities);
+                   description, allowCalls, image, appAllowedByScheduledEntities, geofence);
         }
     }
 

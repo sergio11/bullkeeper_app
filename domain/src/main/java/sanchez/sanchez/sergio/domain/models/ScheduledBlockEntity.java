@@ -62,6 +62,11 @@ public final class ScheduledBlockEntity implements Serializable {
 
     private List<AppAllowedByScheduledEntity> appsAllowed = new ArrayList<>();
 
+    /**
+     * Geofence
+     */
+    private GeofenceEntity geofence;
+
     public ScheduledBlockEntity(){}
 
     /**
@@ -76,10 +81,12 @@ public final class ScheduledBlockEntity implements Serializable {
      * @param  image
      * @param childId
      * @param appsAllowed
+     * @param geofence
      */
     public ScheduledBlockEntity(final String identity, final String name, final boolean enable, final boolean repeatable,
                                 final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
-                                final String image, final String childId, final List<AppAllowedByScheduledEntity> appsAllowed) {
+                                final String image, final String childId, final List<AppAllowedByScheduledEntity> appsAllowed,
+                                final GeofenceEntity geofence) {
         this.identity = identity;
         this.name = name;
         this.enable = enable;
@@ -90,6 +97,7 @@ public final class ScheduledBlockEntity implements Serializable {
         this.image = image;
         this.childId = childId;
         this.appsAllowed = appsAllowed;
+        this.geofence = geofence;
     }
 
     public String getIdentity() {
@@ -170,6 +178,14 @@ public final class ScheduledBlockEntity implements Serializable {
 
     public void setAppsAllowed(List<AppAllowedByScheduledEntity> appsAllowed) {
         this.appsAllowed = appsAllowed;
+    }
+
+    public GeofenceEntity getGeofence() {
+        return geofence;
+    }
+
+    public void setGeofence(GeofenceEntity geofence) {
+        this.geofence = geofence;
     }
 
     @Override

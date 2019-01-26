@@ -138,7 +138,9 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
     public Observable<ScheduledBlockEntity> saveScheduledBlock(final String identity, final String name, final boolean enable,
                                                                final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                                                final boolean recurringWeeklyEnabled, final String childId,
-                                                               final String description, final boolean allowCalls, final List<AppAllowedByScheduledEntity> appsAllowedList) {
+                                                               final String description, final boolean allowCalls,
+                                                               final List<AppAllowedByScheduledEntity> appsAllowedList,
+                                                               final String geofence) {
         Preconditions.checkNotNull(startAt, "Start At can not be null");
         Preconditions.checkNotNull(endAt, "End at can not be null");
         Preconditions.checkNotNull(weeklyFrequency, "Weekly Frequency can not be null");
@@ -167,7 +169,7 @@ public final class ScheduledBlockRepositoryImpl implements IScheduledBlockReposi
          */
         return scheduledBlockService.saveScheduledBlock(childId, new SaveScheduledBlockDTO(identity == null ?  "" : identity , name, enable, recurringWeeklyEnabled,
                 startAtTimeString, endAtTimeString, weeklyFrequency, childId,
-                description, allowCalls, appAllowedByScheduledDTOS))
+                description, allowCalls, appAllowedByScheduledDTOS, geofence))
                     .map(response -> response != null && response.getData() != null ? response.getData(): null)
                     .map(scheduledBlockDataMapper::transform);
 

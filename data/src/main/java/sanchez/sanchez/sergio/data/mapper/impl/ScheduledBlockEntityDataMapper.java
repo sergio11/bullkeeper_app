@@ -2,9 +2,11 @@ package sanchez.sanchez.sergio.data.mapper.impl;
 
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AppAllowedByScheduledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.GeofenceDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ScheduledBlockDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
+import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.models.ScheduledBlockEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -28,18 +30,26 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
      */
     private final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper;
 
+
     /**
-     *
+     * Geofence Data Mapper
+     */
+    private final AbstractDataMapper<GeofenceDTO, GeofenceEntity> geofenceEntityAbstractDataMapper;
+
+    /**
      * @param apiEndPointsHelper
      * @param appUtils
      * @param appAllowedByScheduledMapper
+     * @param geofenceEntityAbstractDataMapper
      */
     public ScheduledBlockEntityDataMapper(final ApiEndPointsHelper apiEndPointsHelper,
                                           final IAppUtils appUtils,
-                                          final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper) {
+                                          final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper,
+                                          final AbstractDataMapper<GeofenceDTO, GeofenceEntity> geofenceEntityAbstractDataMapper) {
         this.apiEndPointsHelper = apiEndPointsHelper;
         this.appUtils = appUtils;
         this.appAllowedByScheduledMapper = appAllowedByScheduledMapper;
+        this.geofenceEntityAbstractDataMapper = geofenceEntityAbstractDataMapper;
     }
 
     /**
@@ -63,6 +73,11 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockEntity.setChildId(originModel.getKid());
         scheduledBlockEntity.setAppsAllowed(appAllowedByScheduledMapper
                 .transform(originModel.getAppsAllowed()));
+
+        if(originModel.getGeofence() != null)
+            scheduledBlockEntity.setGeofence(
+                    geofenceEntityAbstractDataMapper.transform(originModel.getGeofence()));
+
         return scheduledBlockEntity;
 
     }
@@ -85,6 +100,9 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockDTO.setKid(originModel.getChildId());
         scheduledBlockDTO.setAppsAllowed(appAllowedByScheduledMapper
                 .transformInverse(originModel.getAppsAllowed()));
+        if(originModel.getGeofence() != null)
+            scheduledBlockDTO.setGeofence(geofenceEntityAbstractDataMapper
+                    .transformInverse(originModel.getGeofence()));
         return scheduledBlockDTO;
     }
 }

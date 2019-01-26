@@ -701,6 +701,8 @@
     <string name="scheduled_block_no_apps_allowed">No allowed apps have been configured, please click to configure</string>
     <string name="scheduled_block_only_apps_with_valid_rule">The application does not have a valid rule configured or is disabled. You can only add applications that are configured to adapt to the daily habit.</string>
     <string name="scheduled_block_app_allowed_invalid">Invalid configuration</string>
+    <string name="scheduled_block_no_geofence_configured">There is no geofence configured</string>
+    <string name="scheduled_block_geofence_configured_selected">Geofence Selected</string>
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>
     <string name="app_rules_description">Rules applied to the set of installed applications</string>
@@ -972,7 +974,7 @@
     <string name="geofence_confirm_delete">Do you want to delete the configured Geofence?</string>
     <string name="current_location">Current Position</string>
     <string name="radius_meters_value" formatted="true">%d meters</string>
-
+    <string name="geofence_item_removed">The Geofence was deleted</string>
     <string name="geofence_transition_enter_value">Transition Enter</string>
     <string name="geofence_transition_exit_value">Transition Exit</string>
     <string name="geofence_transition_dwell_value">Transition Dwell</string>

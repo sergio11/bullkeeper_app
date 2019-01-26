@@ -316,9 +316,10 @@ public class DataMapperModule {
     public AbstractDataMapper<ScheduledBlockDTO, ScheduledBlockEntity> provideScheduledBlockEntityDataMapper(
             final ApiEndPointsHelper apiEndPointsHelper,
             final IAppUtils appUtils,
-            final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper
+            final AbstractDataMapper<AppAllowedByScheduledDTO, AppAllowedByScheduledEntity> appAllowedByScheduledMapper,
+            final AbstractDataMapper<GeofenceDTO, GeofenceEntity> geofenceEntityAbstractDataMapper
     ){
-        return new ScheduledBlockEntityDataMapper(apiEndPointsHelper, appUtils, appAllowedByScheduledMapper);
+        return new ScheduledBlockEntityDataMapper(apiEndPointsHelper, appUtils, appAllowedByScheduledMapper, geofenceEntityAbstractDataMapper);
     }
 
     /**

@@ -501,6 +501,13 @@ public interface INavigator {
     void navigateToGeofencesList(final Activity activity, final String kid);
 
     /**
+     * Navigate To Select Geofence
+     * @param activity
+     * @param kid
+     */
+    void navigateToSelectGeofence(final Activity activity, final String kid, final int requestCode);
+
+    /**
      * Navigate To Save Geofence
      * @param kid
      * @param id

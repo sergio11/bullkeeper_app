@@ -217,6 +217,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
 
     }
 
+
     /**
      * On Start
      */

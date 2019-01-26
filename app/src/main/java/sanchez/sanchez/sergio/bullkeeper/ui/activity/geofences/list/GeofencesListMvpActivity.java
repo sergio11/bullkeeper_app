@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpLCEActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerGeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.GeofenceComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.savescheduledblock.SaveScheduledBlockMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.GeofencesAdapter;
@@ -53,6 +54,11 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      * Args
      */
     private final static String KID_ID_ARG = "KID_ID_ARG";
+
+    /**
+     * Result Args
+     */
+    public final static String GEOFENCE_SELECTED_ARG = "GEOFENCE_SELECTED_ARG";
 
     /**
      * Geofence Component
@@ -95,6 +101,12 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @BindView(R.id.deleteAllGeofences)
     protected ImageView deleteAllGeofencesImageView;
 
+    /**
+     * Add Geofences
+     */
+    @BindView(R.id.addGeofences)
+    protected ImageView addGeofencesImageView;
+
 
     /**
      * Get Calling Intent
@@ -104,6 +116,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     public static Intent getCallingIntent(final Context context, final String kid) {
         final Intent intent = new Intent(context, GeofencesListMvpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(KID_ID_ARG, kid);
         return intent;
     }
@@ -181,9 +194,18 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
         Preconditions.checkNotNull(geofenceEntity.getKid(), "Geofence Kid can not be null");
         Preconditions.checkState(!geofenceEntity.getKid().isEmpty(), "Geofence Kid can not be empty");
 
-        navigatorImpl.navigateToSaveGeofence(this, geofenceEntity.getKid(),
-                geofenceEntity.getIdentity());
+        if(shouldReturnResult()){
 
+            final Intent geofenceSelectedIntentResult = new Intent();
+            geofenceSelectedIntentResult.putExtra(GEOFENCE_SELECTED_ARG, geofenceEntity);
+            setResult(Activity.RESULT_OK, geofenceSelectedIntentResult);
+            finish();
+
+        } else {
+
+            navigatorImpl.navigateToSaveGeofence(this, geofenceEntity.getKid(),
+                    geofenceEntity.getIdentity());
+        }
     }
 
 
@@ -211,7 +233,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.invitation_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+            showLongSimpleSnackbar(content, getString(R.string.geofence_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     recyclerViewAdapter.restoreItem(geofenceEntity, deletedIndex);
@@ -255,8 +277,27 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
-        if (getIntent().getExtras() != null) {
-            final Bundle extras = getIntent().getExtras();
+        prepareView(getIntent());
+    }
+
+    /**
+     * On New Intent
+     * @param intent
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        prepareView(getIntent());
+    }
+
+    /**
+     * Prepare View
+     * @param intent
+     */
+    protected void prepareView(final Intent intent) {
+
+        if (intent.getExtras() != null) {
+            final Bundle extras = intent.getExtras();
             if (!extras.containsKey(KID_ID_ARG))
                 throw new IllegalArgumentException("You must provide kid id");
             kid = extras.getString(KID_ID_ARG);
@@ -264,11 +305,31 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
             throw new IllegalArgumentException("You must provide args");
         }
 
-        // adding item touch helper
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-                new SupportItemTouchHelper<GeofencesAdapter.GeofenceViewHolder>(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        if(!shouldReturnResult()) {
+
+            deleteAllGeofencesImageView.setVisibility(View.VISIBLE);
+            deleteAllGeofencesImageView.setEnabled(true);
+
+            addGeofencesImageView.setVisibility(View.VISIBLE);
+            addGeofencesImageView.setEnabled(true);
+
+            // adding item touch helper
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                    new SupportItemTouchHelper<GeofencesAdapter.GeofenceViewHolder>(0, ItemTouchHelper.LEFT, this);
+            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+        } else {
+
+            deleteAllGeofencesImageView.setVisibility(View.GONE);
+            deleteAllGeofencesImageView.setEnabled(false);
+
+            addGeofencesImageView.setVisibility(View.GONE);
+            addGeofencesImageView.setEnabled(false);
+
+        }
+
     }
+
 
     /**
      * Get Adapter
@@ -314,7 +375,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
             geofenceTitleTextView.setText(String.format(Locale.getDefault(),
                     getString(R.string.geofences_title_count), recyclerView.getAdapter().getItemCount()));
         else
-            geofenceTitleTextView.setText(getString(R.string.geofences_title_default));
+            onNoDataFound();
     }
 
     /**
@@ -324,8 +385,12 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @Override
     public void onDataLoaded(List<GeofenceEntity> dataLoaded) {
         super.onDataLoaded(dataLoaded);
-        deleteAllGeofencesImageView.setVisibility(View.VISIBLE);
-        deleteAllGeofencesImageView.setEnabled(true);
+
+        if(!shouldReturnResult()) {
+            deleteAllGeofencesImageView.setVisibility(View.VISIBLE);
+            deleteAllGeofencesImageView.setEnabled(true);
+        }
+
         geofenceTitleTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.geofences_title_count),dataLoaded.size()));
 
@@ -367,5 +432,31 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     protected void onAddGeofences(){
         navigatorImpl.navigateToSaveGeofence(this, kid);
     }
+
+    /**
+     * On Back Pressed
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if(shouldReturnResult()) {
+            setResult(Activity.RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    /**
+     * Should Return Result
+     * @return
+     */
+    private boolean shouldReturnResult(){
+        return getCallingActivity() != null && getCallingActivity().getClassName()
+                .equals(SaveScheduledBlockMvpActivity.class.getName());
+    }
+
+
+
+
 
 }
