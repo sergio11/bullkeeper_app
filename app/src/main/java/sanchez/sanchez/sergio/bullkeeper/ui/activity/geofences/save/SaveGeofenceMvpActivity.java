@@ -547,7 +547,10 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         this.name = geofenceEntity.getName();
         this.radius = geofenceEntity.getRadius();
         this.type = geofenceEntity.getType();
+        this.geofenceTransitionTypeSelected = geofenceEntity.getType().ordinal();
         this.isEnabled = geofenceEntity.isEnabled();
+
+
 
         // Set Name
         nameInput.setText(name);
@@ -564,6 +567,9 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
 
         // Enable Switch
         enableSwitch.setChecked(isEnabled);
+
+        // Set Geofence Transition Type
+        geofencesTransitionTypeSpinner.setSelection(geofenceTransitionTypeSelected);
 
         // Load Map is needed
         if(googleMap == null)

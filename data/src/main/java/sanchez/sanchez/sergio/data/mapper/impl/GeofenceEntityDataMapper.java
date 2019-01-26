@@ -29,6 +29,7 @@ public final class GeofenceEntityDataMapper extends AbstractDataMapper<GeofenceD
         geofenceEntity.setName(originModel.getName());
         geofenceEntity.setAddress(originModel.getAddress());
         geofenceEntity.setRadius(originModel.getRadius());
+        geofenceEntity.setEnabled(originModel.isEnabled());
         try {
             geofenceEntity.setType(GeofenceTransitionTypeEnum.valueOf(originModel.getType()));
         } catch (final Exception ex) {
@@ -55,6 +56,7 @@ public final class GeofenceEntityDataMapper extends AbstractDataMapper<GeofenceD
         geofenceDTO.setAddress(originModel.getAddress());
         geofenceDTO.setRadius(originModel.getRadius());
         geofenceDTO.setType(originModel.getType().name());
+        geofenceDTO.setEnabled(originModel.isEnabled());
         return geofenceDTO;
     }
 }
