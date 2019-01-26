@@ -958,7 +958,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         this.googleMap = googleMap;
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         this.googleMap.setIndoorEnabled(false);
-        this.googleMap.getUiSettings().setZoomControlsEnabled(false);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
         this.googleMap.getUiSettings().setCompassEnabled(false);
         this.googleMap.getUiSettings().setMapToolbarEnabled(false);
         this.googleMap.getUiSettings().setZoomGesturesEnabled(false);

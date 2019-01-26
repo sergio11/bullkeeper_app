@@ -79,7 +79,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     private static final int TARGET_ZOOM = 19;
     private static final int MIN_RADIUS_VALUE = 20;
-    private static final int MAX_RADIUS_VALUE = 2000;
+    private static final int MAX_RADIUS_VALUE = 200;
 
 
     /**
@@ -139,7 +139,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      * Radius
      */
     @State
-    protected double radius;
+    protected double radius = MIN_RADIUS_VALUE;
 
     /**
      * Type
@@ -367,6 +367,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         });
 
 
+
         // Init Geofence Transition Types Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.common_spinner_text_view,
                 getResources().getStringArray(R.array.geofences_transition_types));
@@ -493,8 +494,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             final Location location = new Location("");
             location.setLatitude(spainLatLngBounds.getCenter().latitude);
             location.setLongitude(spainLatLngBounds.getCenter().longitude);
-            createGeofenceArea(new LatLng(location.getLatitude(),
-                    location.getLongitude()), MIN_RADIUS_VALUE);
+            showGeofenceForLocation(location, appUtils.isValidString(name) ?
+                    name: getString(R.string.current_location), radius);
         }
     }
 
@@ -555,8 +556,12 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         // Set Visibility
         deleteGeofenceView.setVisibility(View.VISIBLE);
 
-        // Set Radius
-        geofenceRadiusSlider.setPosition((float) radius);
+        final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
+        // (r - min) / t = pos
+        float pos = (float)(radius - MIN_RADIUS_VALUE) / total;
+
+        geofenceRadiusSlider.setPosition(pos);
+
         // Enable Switch
         enableSwitch.setChecked(isEnabled);
 
@@ -593,7 +598,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             location.setLongitude(longitude);
 
             showGeofenceForLocation(location, appUtils.isValidString(name) ?
-                    name: getString(R.string.current_location));
+                    name: getString(R.string.current_location), radius);
 
         } else {
 
@@ -638,7 +643,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
 
         // Show Geofence For Location
         showGeofenceForLocation(location, appUtils.isValidString(nameInput.getText().toString()) ?
-                nameInput.getText().toString(): getString(R.string.current_location));
+                nameInput.getText().toString(): getString(R.string.current_location), radius);
 
     }
 
@@ -809,7 +814,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             @Override
             public void onSuccess(Location location) {
                 if(location != null)
-                    showGeofenceForLocation(location, getString(R.string.current_location));
+                    showGeofenceForLocation(location, getString(R.string.current_location), radius);
             }
         });
     }
@@ -819,14 +824,14 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      * @param location
      * @param name
      */
-    private void showGeofenceForLocation(final Location location, final String name){
+    private void showGeofenceForLocation(final Location location, final String name, final double radius){
         // Move Map To Current Location
         moveMapTo(location, name);
         // Fetch address for location
         fetchAddressForLocation(location);
         // Create Geofence Area
         createGeofenceArea(new LatLng(location.getLatitude(), location.getLongitude()),
-                MIN_RADIUS_VALUE);
+                radius);
     }
 
     /**

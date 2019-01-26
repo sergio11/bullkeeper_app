@@ -90,7 +90,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/common_padding">
 
                     <!-- name input -->
                     <android.support.design.widget.TextInputLayout
@@ -98,8 +99,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
                         android:textColorHint="@color/cyanBrilliant"
                         android:theme="@style/CommonTextInputLayoutInverse"
                         app:errorEnabled="true"
