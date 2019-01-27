@@ -20,6 +20,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -57,6 +58,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerGeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.GeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.geofencealerts.GeofenceAlertsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.FetchAddressIntentService;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceTransitionTypeEnum;
@@ -198,11 +200,17 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     protected FluidSlider geofenceRadiusSlider;
 
     /**
+     * Geofence Alerts Container
+     */
+    @BindView(R.id.geofenceAlertsContainer)
+    protected FrameLayout geofenceAlertsContainer;
+
+    /**
      * Name Input
      */
     @BindView(R.id.nameInput)
-    @NotEmpty(messageResId = R.string.name_not_empty_error)
-    @Length(min = 3, max = 15)
+    @NotEmpty(messageResId = R.string.geofence_invalid_name)
+    @Length(min = 3, max = 30)
     protected AppCompatEditText nameInput;
 
     /**
@@ -244,6 +252,11 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     private final LatLngBounds spainLatLngBounds = new LatLngBounds(
             new LatLng(-9.39288367353, 35.946850084),
             new LatLng(3.03948408368, 43.7483377142));
+
+    /**
+     * Geofence Alerts List Fragment
+     */
+    private GeofenceAlertsListMvpFragment geofenceAlertsListMvpFragment;
 
 
     /**
@@ -366,7 +379,10 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             }
         });
 
-
+        final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
+        // (r - min) / t = pos
+        float pos = (float)(radius - MIN_RADIUS_VALUE) / total;
+        geofenceRadiusSlider.setPosition(pos);
 
         // Init Geofence Transition Types Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.common_spinner_text_view,
@@ -374,6 +390,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         geofencesTransitionTypeSpinner.setAdapter(adapter);
         geofencesTransitionTypeSpinner.setSelection(geofenceTransitionTypeSelected);
         geofencesTransitionTypeSpinner.setOnItemSelectedListener(this);
+
+
 
 
     }
@@ -574,6 +592,16 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         // Load Map is needed
         if(googleMap == null)
             loadMapAsync();
+
+
+        if(geofenceAlertsListMvpFragment == null) {
+            geofenceAlertsContainer.setVisibility(View.VISIBLE);
+            geofenceAlertsListMvpFragment = GeofenceAlertsListMvpFragment.newInstance(kid, identity);
+            // Add Geofences Alerts Fragment
+            addFragment(R.id.geofenceAlertsContainer,
+                    geofenceAlertsListMvpFragment, false,
+                    GeofenceAlertsListMvpFragment.TAG);
+        }
 
         toggleAllComponents(true);
 

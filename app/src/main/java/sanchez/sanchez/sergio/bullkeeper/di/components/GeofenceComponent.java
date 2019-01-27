@@ -9,6 +9,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesLis
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofenceMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofencePresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.geofencealerts.GeofenceAlertsListFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.geofencealerts.GeofenceAlertsListMvpFragment;
 
 /**
  * Geofence Component
@@ -32,6 +34,12 @@ public interface GeofenceComponent extends ActivityComponent {
     void inject(final SaveGeofenceMvpActivity saveGeofenceMvpActivity);
 
     /**
+     * Inject into Geofence Alerts List Mvp Fragment
+     * @param geofenceAlertsListMvpFragment
+     */
+    void inject(final GeofenceAlertsListMvpFragment geofenceAlertsListMvpFragment);
+
+    /**
      * Geofences List Presenter
      * @return
      */
@@ -42,4 +50,10 @@ public interface GeofenceComponent extends ActivityComponent {
      * @return
      */
     SaveGeofencePresenter saveGeofencePresenter();
+
+    /**
+     * Geofence Alerts List Fragment Presenter
+     * @return
+     */
+    GeofenceAlertsListFragmentPresenter geofenceAlertsListFragmentPresenter();
 }

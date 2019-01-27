@@ -982,6 +982,11 @@
     <string name="geofence_is_enable_label">Is Enable</string>
     <string name="geofence_is_enable_description">Enables or disables Geofence configured</string>
     <string name="geofence_transition_type_description">Select the type of transition that will generate the alert for the configured area</string>
+    <string name="geofence_alert_title">Registered alerts</string>
+    <string name="geofence_alert_description">All registered alerts for the Geofence</string>
+    <string name="geofence_alerts_delete_confirm">Do you want to delete all registered alerts?</string>
+    <string name="geofence_alerts_deleted_successfully">Registered alerts were successfully deleted</string>
+    <string name="geofence_invalid_name">You should specify the name of the geofence</string>
 
     <!-- App Search List -->
     <string name="app_search_title_default">Apps Installed</string>

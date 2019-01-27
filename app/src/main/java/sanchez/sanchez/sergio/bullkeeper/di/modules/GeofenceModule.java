@@ -5,16 +5,20 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.GeofenceAlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GeofenceDTO;
 import sanchez.sanchez.sergio.data.net.services.IGeofenceService;
 import sanchez.sanchez.sergio.data.repository.GeofenceRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteAllGeofencesBykidInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetAllGeofencesByKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetGeofenceByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.GetGeofencesAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.SaveGeofenceInteract;
+import sanchez.sanchez.sergio.domain.models.GeofenceAlertEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.repository.IGeofencesRepository;
 
@@ -38,6 +42,7 @@ public class GeofenceModule {
     /**
      * Provide Geofence Repository
      * @param geofenceEntityAbstractDataMapper
+     * @param geofenceAlertEntityAbstractDataMapper
      * @param geofenceService
      * @return
      */
@@ -45,9 +50,10 @@ public class GeofenceModule {
     @PerActivity
     public IGeofencesRepository provideGeofenceRepository(
             final AbstractDataMapper<GeofenceDTO, GeofenceEntity> geofenceEntityAbstractDataMapper,
+            final AbstractDataMapper<GeofenceAlertDTO, GeofenceAlertEntity> geofenceAlertEntityAbstractDataMapper,
             final IGeofenceService geofenceService) {
         return new GeofenceRepositoryImpl(geofenceEntityAbstractDataMapper,
-                geofenceService);
+                geofenceAlertEntityAbstractDataMapper, geofenceService);
     }
 
     /**
@@ -133,6 +139,42 @@ public class GeofenceModule {
             final IGeofencesRepository geofencesRepository
     ) {
         return new GetGeofenceByIdInteract(threadExecutor, postExecutionThread, geofencesRepository);
+    }
+
+    /**
+     * Provide Get Geofences Alerts Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param geofencesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public GetGeofencesAlertsInteract provideGetGeofencesAlertsInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IGeofencesRepository geofencesRepository
+    ){
+
+        return new GetGeofencesAlertsInteract(threadExecutor, postExecutionThread, geofencesRepository);
+    }
+
+    /**
+     * Provide Delete Geofence Alerts Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param geofencesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public DeleteGeofenceAlertsInteract provideDeleteGeofenceAlertsInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IGeofencesRepository geofencesRepository
+    ) {
+
+        return new DeleteGeofenceAlertsInteract(threadExecutor, postExecutionThread, geofencesRepository);
     }
 
 }

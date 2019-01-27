@@ -5,8 +5,10 @@ import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.SaveGeofenceDTO;
+import sanchez.sanchez.sergio.data.net.models.response.GeofenceAlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GeofenceDTO;
 import sanchez.sanchez.sergio.data.net.services.IGeofenceService;
+import sanchez.sanchez.sergio.domain.models.GeofenceAlertEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.repository.IGeofencesRepository;
 
@@ -21,6 +23,11 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
     private final AbstractDataMapper<GeofenceDTO, GeofenceEntity> geofenceEntityAbstractDataMapper;
 
     /**
+     * Geofence Alert Data Mapper
+     */
+    private final AbstractDataMapper<GeofenceAlertDTO, GeofenceAlertEntity> geofenceAlertEntityAbstractDataMapper;
+
+    /**
      * Geofence Service
      */
     private final IGeofenceService geofenceService;
@@ -32,8 +39,10 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
      */
     public GeofenceRepositoryImpl(
             final AbstractDataMapper<GeofenceDTO, GeofenceEntity> geofenceEntityAbstractDataMapper,
+            final AbstractDataMapper<GeofenceAlertDTO, GeofenceAlertEntity> geofenceAlertEntityAbstractDataMapper,
             final IGeofenceService geofenceService) {
         this.geofenceEntityAbstractDataMapper = geofenceEntityAbstractDataMapper;
+        this.geofenceAlertEntityAbstractDataMapper = geofenceAlertEntityAbstractDataMapper;
         this.geofenceService = geofenceService;
     }
 
@@ -66,7 +75,6 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
         return geofenceService.deleteAllGeofencesByKidId(kid)
                 .map(stringAPIResponse -> stringAPIResponse != null &&
                     stringAPIResponse.getData() != null ? stringAPIResponse.getData(): null);
-
 
     }
 
@@ -105,6 +113,43 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
                 .map(response -> response != null &&
                         response.getData() != null ? response.getData(): null)
                 .map(geofenceEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Get Geofence Alerts
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    @Override
+    public Observable<List<GeofenceAlertEntity>> getGeofenceAlerts(final String kid, final String geofence) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+        Preconditions.checkState(!geofence.isEmpty(), "Geofence can not be empty");
+
+        return geofenceService.getGeofenceAlerts(kid, geofence)
+                .map(response -> response != null &&
+                        response.getData() != null ? response.getData(): null)
+                .map(geofenceAlertEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Delete Geofence Alerts
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    @Override
+    public Observable<String> deleteGeofenceAlerts(final String kid, final String geofence) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+        Preconditions.checkState(!geofence.isEmpty(), "Geofence can not be empty");
+
+        return geofenceService.deleteGeofenceAlerts(kid, geofence)
+                .map(stringAPIResponse -> stringAPIResponse != null &&
+                        stringAPIResponse.getData() != null ? stringAPIResponse.getData(): null);
     }
 
     /**

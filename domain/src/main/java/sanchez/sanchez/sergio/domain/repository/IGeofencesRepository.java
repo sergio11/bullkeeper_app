@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.domain.repository;
 
 import java.util.List;
 import io.reactivex.Observable;
+import sanchez.sanchez.sergio.domain.models.GeofenceAlertEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 
 /**
@@ -39,6 +40,24 @@ public interface IGeofencesRepository {
      * @return
      */
     Observable<GeofenceEntity> getGeofenceById(final String kid, final String id);
+
+
+    /**
+     * Get Geofence Alerts
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    Observable<List<GeofenceAlertEntity>> getGeofenceAlerts(final String kid, final String geofence);
+
+
+    /**
+     * Delete Geofence Alerts
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    Observable<String> deleteGeofenceAlerts(final String kid, final String geofence);
 
     /**
      * Save Geofence

@@ -9,6 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import sanchez.sanchez.sergio.data.net.models.request.SaveGeofenceDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.data.net.models.response.GeofenceAlertDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GeofenceDTO;
 
 /**
@@ -38,6 +39,30 @@ public interface IGeofenceService {
             @Path("id") final String id
     );
 
+
+    /**
+     * Get alerts from a Geofence
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    @GET("children/{kid}/geofences/{geofence}/alerts")
+    Observable<APIResponse<List<GeofenceAlertDTO>>> getGeofenceAlerts(
+            @Path("kid") final String kid,
+            @Path("geofence") final String geofence
+    );
+
+    /**
+     * Delete Geofence Alerts
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    @DELETE("children/{kid}/geofences/{geofence}/alerts/delete")
+    Observable<APIResponse<String>> deleteGeofenceAlerts(
+            @Path("kid") final String kid,
+            @Path("geofence") final String geofence
+    );
 
     /**
      * Delete All Geofences By Kid
