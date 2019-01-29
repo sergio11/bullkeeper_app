@@ -69,6 +69,16 @@ public final class AddPhoneNumbersBlockedInteract extends
         private final String terminal;
 
         /**
+         * Prefix
+         */
+        private final String prefix;
+
+        /**
+         * Number
+         */
+        private final String number;
+
+        /**
          * Phone Number
          */
         private final String phoneNumber;
@@ -77,11 +87,15 @@ public final class AddPhoneNumbersBlockedInteract extends
          *
          * @param kid
          * @param terminal
+         * @param prefix
+         * @param number
          * @param phoneNumber
          */
-        private Params(final String kid, final String terminal, final String phoneNumber) {
+        private Params(final String kid, final String terminal, final String prefix, final String number, final String phoneNumber) {
             this.kid = kid;
             this.terminal = terminal;
+            this.prefix = prefix;
+            this.number = number;
             this.phoneNumber = phoneNumber;
         }
 
@@ -93,6 +107,14 @@ public final class AddPhoneNumbersBlockedInteract extends
             return terminal;
         }
 
+        public String getPrefix() {
+            return prefix;
+        }
+
+        public String getNumber() {
+            return number;
+        }
+
         public String getPhoneNumber() {
             return phoneNumber;
         }
@@ -101,23 +123,23 @@ public final class AddPhoneNumbersBlockedInteract extends
          * Create
          * @param kid
          * @param terminal
+         * @param prefix
+         * @param number
          * @param phoneNumber
          * @return
          */
-        public static Params create(final String kid, final String terminal,
+        public static Params create(final String kid, final String terminal, final String prefix, final String number,
                                     final String phoneNumber) {
-            return new Params(kid, terminal, phoneNumber);
+            return new Params(kid, terminal, prefix, number, phoneNumber);
         }
 
-        /**
-         * To String
-         * @return
-         */
         @Override
         public String toString() {
             return "Params{" +
                     "kid='" + kid + '\'' +
                     ", terminal='" + terminal + '\'' +
+                    ", prefix='" + prefix + '\'' +
+                    ", number='" + number + '\'' +
                     ", phoneNumber='" + phoneNumber + '\'' +
                     '}';
         }

@@ -19,6 +19,16 @@ public final class PhoneNumberBlockedEntity implements Serializable {
     private Date blockedAt;
 
     /**
+     * Prefix
+     */
+    private String prefix;
+
+    /**
+     * Number
+     */
+    private String number;
+
+    /**
      * Phone Number
      */
     private String phoneNumber;
@@ -42,14 +52,19 @@ public final class PhoneNumberBlockedEntity implements Serializable {
      *
      * @param identity
      * @param blockedAt
+     * @param prefix
+     * @param number
      * @param phoneNumber
      * @param terminal
      * @param kid
      */
-    public PhoneNumberBlockedEntity(final String identity, final Date blockedAt, final String phoneNumber,
-                                    final String terminal, final String kid) {
+    public PhoneNumberBlockedEntity(final String identity, final Date blockedAt, final String prefix,
+                                    final String number, final String phoneNumber, final String terminal,
+                                    final String kid) {
         this.identity = identity;
         this.blockedAt = blockedAt;
+        this.prefix = prefix;
+        this.number = number;
         this.phoneNumber = phoneNumber;
         this.terminal = terminal;
         this.kid = kid;
@@ -69,6 +84,22 @@ public final class PhoneNumberBlockedEntity implements Serializable {
 
     public void setBlockedAt(Date blockedAt) {
         this.blockedAt = blockedAt;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getPhoneNumber() {
@@ -100,6 +131,8 @@ public final class PhoneNumberBlockedEntity implements Serializable {
         return "PhoneNumberBlockedEntity{" +
                 "identity='" + identity + '\'' +
                 ", blockedAt=" + blockedAt +
+                ", prefix='" + prefix + '\'' +
+                ", number='" + number + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", terminal='" + terminal + '\'' +
                 ", kid='" + kid + '\'' +

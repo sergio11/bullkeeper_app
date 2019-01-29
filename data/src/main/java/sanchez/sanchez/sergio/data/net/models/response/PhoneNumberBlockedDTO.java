@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,9 +25,21 @@ public final class PhoneNumberBlockedDTO implements Serializable {
     private Date blockedAt;
 
     /**
+     * Prefix
+     */
+    @JsonProperty("prefix")
+    private String prefix;
+
+    /**
+     * Number
+     */
+    @JsonProperty("number")
+    private String number;
+
+    /**
      * Phone Number
      */
-    @JsonProperty("phone_number")
+    @JsonProperty("phonenumber")
     private String phoneNumber;
 
     /**
@@ -49,14 +60,19 @@ public final class PhoneNumberBlockedDTO implements Serializable {
      *
      * @param identity
      * @param blockedAt
+     * @param prefix
+     * @param number
      * @param phoneNumber
      * @param terminal
      * @param kid
      */
-    public PhoneNumberBlockedDTO(final String identity, final Date blockedAt,
-                                 final String phoneNumber, final String terminal, final String kid) {
+    public PhoneNumberBlockedDTO(final String identity, final Date blockedAt, final String prefix,
+                                 final String number, final String phoneNumber, final String terminal,
+                                 final String kid) {
         this.identity = identity;
         this.blockedAt = blockedAt;
+        this.prefix = prefix;
+        this.number = number;
         this.phoneNumber = phoneNumber;
         this.terminal = terminal;
         this.kid = kid;
@@ -76,6 +92,22 @@ public final class PhoneNumberBlockedDTO implements Serializable {
 
     public void setBlockedAt(Date blockedAt) {
         this.blockedAt = blockedAt;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getPhoneNumber() {
@@ -106,7 +138,9 @@ public final class PhoneNumberBlockedDTO implements Serializable {
     public String toString() {
         return "PhoneNumberBlockedDTO{" +
                 "identity='" + identity + '\'' +
-                ", blockedAt='" + blockedAt + '\'' +
+                ", blockedAt=" + blockedAt +
+                ", prefix='" + prefix + '\'' +
+                ", number='" + number + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", terminal='" + terminal + '\'' +
                 ", kid='" + kid + '\'' +

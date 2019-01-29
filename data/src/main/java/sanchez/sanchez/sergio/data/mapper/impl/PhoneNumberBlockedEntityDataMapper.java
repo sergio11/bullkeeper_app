@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.PhoneNumberBlockedDTO;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
@@ -24,6 +23,8 @@ public final class PhoneNumberBlockedEntityDataMapper extends
         phoneNumberBlockedEntity.setIdentity(originModel.getIdentity());
         phoneNumberBlockedEntity.setKid(originModel.getKid());
         phoneNumberBlockedEntity.setTerminal(originModel.getTerminal());
+        phoneNumberBlockedEntity.setPrefix(originModel.getPrefix());
+        phoneNumberBlockedEntity.setNumber(originModel.getNumber());
         phoneNumberBlockedEntity.setPhoneNumber(originModel.getPhoneNumber());
         phoneNumberBlockedEntity.setBlockedAt(originModel.getBlockedAt());
         return phoneNumberBlockedEntity;
@@ -41,6 +42,8 @@ public final class PhoneNumberBlockedEntityDataMapper extends
         phoneNumberBlockedDTO.setIdentity(originModel.getIdentity());
         phoneNumberBlockedDTO.setKid(originModel.getKid());
         phoneNumberBlockedDTO.setTerminal(originModel.getTerminal());
+        phoneNumberBlockedDTO.setPrefix(originModel.getPrefix());
+        phoneNumberBlockedDTO.setNumber(originModel.getNumber());
         phoneNumberBlockedDTO.setPhoneNumber(originModel.getPhoneNumber());
         phoneNumberBlockedDTO.setBlockedAt(originModel.getBlockedAt());
         return phoneNumberBlockedDTO;

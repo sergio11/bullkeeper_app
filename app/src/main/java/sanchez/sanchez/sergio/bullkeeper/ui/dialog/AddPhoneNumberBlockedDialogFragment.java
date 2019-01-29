@@ -142,8 +142,11 @@ public final class AddPhoneNumberBlockedDialogFragment extends SupportDialogFrag
     @OnClick(R.id.accept)
     protected void onAccept(){
         if(phoneNumberSelectedDialogListener != null) {
-            final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
-            phoneNumberSelectedDialogListener.onAccepted(this, tfno);
+
+            final String prefix = getString(R.string.tfno_prefix);
+            final String number = tfnoInput.getText().toString();
+            final String phoneNumber = prefix.concat(number);
+            phoneNumberSelectedDialogListener.onAccepted(this, prefix, number, phoneNumber);
         }
         dismiss();
 
@@ -167,9 +170,11 @@ public final class AddPhoneNumberBlockedDialogFragment extends SupportDialogFrag
         /**
          * On Accepted
          * @param dialog
+         * @param prefix
+         * @param number
          * @param phoneNumber
          */
-        void onAccepted(final DialogFragment dialog, final String phoneNumber);
+        void onAccepted(final DialogFragment dialog, final String prefix, final String number, final String phoneNumber);
 
 
         /**

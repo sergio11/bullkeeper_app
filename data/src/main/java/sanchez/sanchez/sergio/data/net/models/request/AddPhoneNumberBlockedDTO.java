@@ -9,11 +9,24 @@ import java.io.Serializable;
  */
 public final class AddPhoneNumberBlockedDTO implements Serializable {
 
+
     /**
-     * Phone Number
+     * Prefix
      */
-    @JsonProperty("phone_number")
-    private String phoneNumber;
+    @JsonProperty("prefix")
+    private String prefix;
+
+    /**
+     * Number
+     */
+    @JsonProperty("number")
+    private String number;
+
+    /**
+     * Phone NUmber
+     */
+    @JsonProperty("phonenumber")
+    private String phonenumber;
 
     /**
      * Terminal
@@ -36,17 +49,33 @@ public final class AddPhoneNumberBlockedDTO implements Serializable {
      * @param kid
      */
     public AddPhoneNumberBlockedDTO(String phoneNumber, String terminal, String kid) {
-        this.phoneNumber = phoneNumber;
+        this.phonenumber = phoneNumber;
         this.terminal = terminal;
         this.kid = kid;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getTerminal() {
@@ -68,7 +97,9 @@ public final class AddPhoneNumberBlockedDTO implements Serializable {
     @Override
     public String toString() {
         return "AddPhoneNumberBlockedDTO{" +
-                "phoneNumber='" + phoneNumber + '\'' +
+                "prefix='" + prefix + '\'' +
+                ", number='" + number + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
                 ", terminal='" + terminal + '\'' +
                 ", kid='" + kid + '\'' +
                 '}';

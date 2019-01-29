@@ -122,9 +122,15 @@ public final class PhoneNumbersBlockedListPresenter
 
     /**
      * Add Phone Number To Blocked
+     * @param prefix
+     * @param number
      * @param phoneNumber
      */
-    public void addPhoneNumberToBlocked(final String phoneNumber) {
+    public void addPhoneNumberToBlocked(final String prefix, final String number, final String phoneNumber) {
+        Preconditions.checkNotNull(prefix, "Prefix can not be null");
+        Preconditions.checkState(!prefix.isEmpty(), "Prefix can not be empty");
+        Preconditions.checkNotNull(number, "Number can not be null");
+        Preconditions.checkState(!number.isEmpty(), "Number can not be empty");
         Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
         Preconditions.checkState(!phoneNumber.isEmpty(), "Phone number can not be empty");
 
@@ -132,7 +138,7 @@ public final class PhoneNumbersBlockedListPresenter
         final String terminal = args.getString(TERMINAL_ID_ARG);
 
         addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberBlockedObservable(),
-                AddPhoneNumbersBlockedInteract.Params.create(kid, terminal, phoneNumber));
+                AddPhoneNumbersBlockedInteract.Params.create(kid, terminal, prefix, number, phoneNumber));
 
     }
 

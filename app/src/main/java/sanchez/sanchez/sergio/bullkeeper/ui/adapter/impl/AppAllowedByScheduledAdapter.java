@@ -91,6 +91,8 @@ public final class AppAllowedByScheduledAdapter extends SupportRecyclerViewAdapt
                     !appAllowedByScheduledEntity.getApp()
                             .getAppRuleEnum().equals(AppRuleEnum.PER_SCHEDULER))
                 invalidConfigurationTextView.setVisibility(View.VISIBLE);
+            else
+                invalidConfigurationTextView.setVisibility(View.GONE);
 
         }
 

@@ -318,16 +318,27 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
     protected void onAddPhoneNumber(){
         AddPhoneNumberBlockedDialogFragment.showDialog(this,
                 getString(R.string.phone_numbers_specify_number_lock), new AddPhoneNumberBlockedDialogFragment.OnPhoneNumberSelectedDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog, String phoneNumber) {
-                Preconditions.checkNotNull(dialog, "Dialog can not be null");
-                Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
-                getPresenter().addPhoneNumberToBlocked(phoneNumber);
-            }
+                    /**
+                     * On Accepted
+                     * @param dialog
+                     * @param prefix
+                     * @param number
+                     * @param phoneNumber
+                     */
+                    @Override
+                    public void onAccepted(DialogFragment dialog, final String prefix, final String number, final String phoneNumber) {
+                        Preconditions.checkNotNull(dialog, "Dialog can not be null");
+                        Preconditions.checkNotNull(prefix, "Prefix can not be null");
+                        Preconditions.checkNotNull(number, "Number can not be null");
+                        Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
+                        getPresenter().addPhoneNumberToBlocked(prefix, number, phoneNumber);
+                    }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+
+                    }
+                });
     }
 
     /**
