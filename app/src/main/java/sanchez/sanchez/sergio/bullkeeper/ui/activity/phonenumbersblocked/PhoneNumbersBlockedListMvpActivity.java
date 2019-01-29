@@ -413,5 +413,16 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
         recyclerViewAdapter.getData().add(phoneNumberBlockedEntity);
         recyclerViewAdapter.notifyDataSetChanged();
         showNoticeDialog(R.string.phone_number_blocked_successfully);
+
+        final int itemCount = recyclerView.getAdapter().getItemCount();
+
+        if(itemCount > 0) {
+            phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
+                    getString(R.string.phone_numbers_blocked_title_count),
+                    recyclerView.getAdapter().getItemCount()));
+            deleteAllPhoneNumbersPhoneImageView.setVisibility(View.VISIBLE);
+            deleteAllPhoneNumbersPhoneImageView.setEnabled(true);
+        }
+
     }
 }

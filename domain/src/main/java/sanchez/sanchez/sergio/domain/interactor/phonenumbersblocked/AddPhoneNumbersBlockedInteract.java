@@ -35,7 +35,6 @@ public final class AddPhoneNumbersBlockedInteract extends
     }
 
     /**
-     *
      * @param params
      * @return
      */
@@ -46,11 +45,13 @@ public final class AddPhoneNumbersBlockedInteract extends
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(params.getTerminal(), "Terminal can not be null");
         Preconditions.checkState(!params.getTerminal().isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(params.getNumber(), "Number can not be null");
+        Preconditions.checkState(!params.getNumber().isEmpty(), "Number can not be empty");
         Preconditions.checkNotNull(params.getPhoneNumber(), "Phone Number can not be null");
         Preconditions.checkState(!params.getPhoneNumber().isEmpty(), "Phone Number can not be empty");
 
         return phoneNumbersBlockedRepository.addPhoneNumberBlocked(params.getKid(), params.getTerminal(),
-                params.getPhoneNumber());
+                params.getPrefix(), params.getNumber(), params.getPhoneNumber());
     }
 
     /**
@@ -99,6 +100,16 @@ public final class AddPhoneNumbersBlockedInteract extends
             this.phoneNumber = phoneNumber;
         }
 
+        /**
+         *
+         * @param kid
+         * @param terminal
+         * @param number
+         */
+        private Params(final String kid, final String terminal, final String number) {
+            this(kid, terminal, "", number, number);
+        }
+
         public String getKid() {
             return kid;
         }
@@ -131,6 +142,18 @@ public final class AddPhoneNumbersBlockedInteract extends
         public static Params create(final String kid, final String terminal, final String prefix, final String number,
                                     final String phoneNumber) {
             return new Params(kid, terminal, prefix, number, phoneNumber);
+        }
+
+
+        /**
+         * Create
+         * @param kid
+         * @param terminal
+         * @param number
+         * @return
+         */
+        public static Params create(final String kid, final String terminal, final String number) {
+            return new Params(kid, terminal, number);
         }
 
         @Override

@@ -105,16 +105,21 @@ public final class PhoneNumbersBlockedRepositoryImpl implements IPhoneNumbersBlo
      * @return
      */
     @Override
-    public Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(final String kid, final String terminal, final String phoneNumber) {
+    public Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(
+            final String kid, final String terminal,
+            final String prefix, final String number,
+            final String phoneNumber) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(terminal, "Terminal can not be null");
         Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(number, "number can not be null");
+        Preconditions.checkState(!number.isEmpty(), "number can not be empty");
         Preconditions.checkNotNull(phoneNumber, "phoneNumber can not be null");
         Preconditions.checkState(!phoneNumber.isEmpty(), "phoneNumber can not be empty");
 
         return phoneNumbersBlockedService.addPhoneNumberBlocked(kid, terminal,
-                new AddPhoneNumberBlockedDTO(phoneNumber, terminal, kid))
+                new AddPhoneNumberBlockedDTO(prefix, number, phoneNumber, terminal, kid))
                     .map(response -> response != null && response.getData() != null ?
                         response.getData(): null)
                 .map(phoneNumberBlockedEntityAbstractDataMapper::transform);

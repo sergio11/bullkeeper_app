@@ -26,6 +26,7 @@ public final class ContactEntityDataMapper extends AbstractDataMapper<ContactDTO
         contactEntity.setPhoneNumber(originModel.getPhoneNumber());
         contactEntity.setPhotoEncodedString(originModel.getPhotoEncodedString());
         contactEntity.setTerminal(originModel.getTerminal());
+        contactEntity.setBlocked(originModel.isBlocked());
         return contactEntity;
     }
 
@@ -45,6 +46,7 @@ public final class ContactEntityDataMapper extends AbstractDataMapper<ContactDTO
         contactDTO.setPhoneNumber(originModel.getPhoneNumber());
         contactDTO.setTerminal(originModel.getTerminal());
         contactDTO.setPhotoEncodedString(originModel.getPhotoEncodedString());
+        contactDTO.setBlocked(originModel.isBlocked());
         return contactDTO;
     }
 }

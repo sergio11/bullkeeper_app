@@ -37,9 +37,13 @@ public interface IPhoneNumbersBlockedRepository {
      * Add Phone Number Blocked
      * @param kid
      * @param terminal
+     * @param prefix
+     * @param number
      * @param phoneNumber
      * @return
      */
-    Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(final String kid, final String terminal, final String phoneNumber);
+    Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(final String kid, final String terminal,
+                                                               final String prefix, final String number,
+                                                               final String phoneNumber);
 
 }

@@ -43,12 +43,17 @@ public final class AddPhoneNumberBlockedDTO implements Serializable {
     public AddPhoneNumberBlockedDTO(){}
 
     /**
-     *
+     * @param prefix
+     * @param number
      * @param phoneNumber
      * @param terminal
      * @param kid
      */
-    public AddPhoneNumberBlockedDTO(String phoneNumber, String terminal, String kid) {
+    public AddPhoneNumberBlockedDTO(final String prefix, final String number,
+                                    final String phoneNumber, final String terminal,
+                                    final String kid) {
+        this.prefix = prefix;
+        this.number = number;
         this.phonenumber = phoneNumber;
         this.terminal = terminal;
         this.kid = kid;

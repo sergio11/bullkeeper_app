@@ -2,6 +2,10 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.calldetail;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
@@ -78,8 +82,21 @@ public final class CallDetailFragmentPresenter extends SupportPresenter<ICallDet
         final String childId = args.getString(CallDetailActivityMvpFragment.CHILD_ID_ARG);
         final String terminalId = args.getString(CallDetailActivityMvpFragment.TERMINAL_ID_ARG);
 
-        addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberObserver(),
-                AddPhoneNumbersBlockedInteract.Params.create(childId, terminalId, phoneNumber));
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        try {
+            Phonenumber.PhoneNumber phoneNumberProto = phoneUtil.parse(phoneNumber, "ES");
+            final String prefix = "+".concat(String.valueOf(phoneNumberProto.getCountryCode()));
+            final String nationalNumber = String.valueOf(phoneNumberProto.getNationalNumber());
+            final String number = prefix.concat(nationalNumber);
+
+            addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberObserver(),
+                    AddPhoneNumbersBlockedInteract.Params.create(childId, terminalId, prefix,
+                            nationalNumber, number));
+
+        } catch (NumberParseException e) {
+            addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberObserver(),
+                    AddPhoneNumbersBlockedInteract.Params.create(childId, terminalId, phoneNumber));
+        }
 
     }
 

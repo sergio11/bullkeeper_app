@@ -66,9 +66,7 @@ public final class PhoneNumberBlockedDTO implements Serializable {
      * @param terminal
      * @param kid
      */
-    public PhoneNumberBlockedDTO(final String identity, final Date blockedAt, final String prefix,
-                                 final String number, final String phoneNumber, final String terminal,
-                                 final String kid) {
+    public PhoneNumberBlockedDTO(String identity, Date blockedAt, String prefix, String number, String phoneNumber, String terminal, String kid) {
         this.identity = identity;
         this.blockedAt = blockedAt;
         this.prefix = prefix;

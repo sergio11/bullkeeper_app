@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
-import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
@@ -47,7 +46,7 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
             extends SupportItemSwipedViewHolder<ContactEntity>{
 
         // Call Detail
-        private CircleImageView contactPhotoImageView;
+        private ImageView contactPhotoImageView;
         private ImageView phoneNumberBlockedImageView;
         private TextView contactNameTextView, contactPhoneNumberTextView;
 
@@ -81,7 +80,7 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
                         BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 contactPhotoImageView.setImageBitmap(decodedByte);
             } else {
-                contactPhotoImageView.setImageResource(R.drawable.user_default);
+                contactPhotoImageView.setImageResource(R.drawable.user_contact_default);
             }
 
             // Set Contact Name

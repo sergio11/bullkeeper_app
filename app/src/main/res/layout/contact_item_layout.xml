@@ -21,7 +21,7 @@
 
 
         <!-- Contact Photo  -->
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/contactPhoto"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -30,9 +30,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/content_not_be_loaded"
-            android:layout_gravity="center"
-            app:civ_border_color="@color/commonWhite"
-            app:civ_border_width="@dimen/common_image_stroke_width"/>
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 
