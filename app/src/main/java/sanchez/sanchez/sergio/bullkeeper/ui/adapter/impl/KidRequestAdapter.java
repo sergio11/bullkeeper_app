@@ -51,7 +51,8 @@ public final class KidRequestAdapter
             SupportItemSwipedViewHolder<KidRequestEntity> {
 
         private ImageView kidRequestTypeImageView;
-        private TextView kidRequestTypeNameTextView, kidRequestSinceTextView;
+        private TextView kidRequestTypeNameTextView, kidRequestSinceTextView,
+                kidRequestAddressTextView;
 
         /**
          * Kid Request View Holder
@@ -63,6 +64,7 @@ public final class KidRequestAdapter
             kidRequestTypeImageView = itemView.findViewById(R.id.kidRequestType);
             kidRequestTypeNameTextView = itemView.findViewById(R.id.kidRequestTypeName);
             kidRequestSinceTextView = itemView.findViewById(R.id.kidRequestSince);
+            kidRequestAddressTextView = itemView.findViewById(R.id.kidRequestAddress);
         }
 
         /**
@@ -94,6 +96,14 @@ public final class KidRequestAdapter
                     String.format(Locale.getDefault(),
                             context.getString(R.string.kid_request_registered_since),
                                 kidRequestEntity.getSince()));
+
+            if(kidRequestEntity.getLocation().getAddress() != null &&
+                    !kidRequestEntity.getLocation().getAddress().isEmpty())
+                kidRequestAddressTextView
+                        .setText(kidRequestEntity.getLocation().getAddress());
+            else
+                kidRequestAddressTextView.setText(context
+                        .getString(R.string.kid_request_address_not_available));
         }
 
     }

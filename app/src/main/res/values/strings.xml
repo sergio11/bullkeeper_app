@@ -392,8 +392,8 @@
 
     <string name="kid_detail_relations_most_active_friends">Most active friends</string>
 
-    <!-- Comments Extracted -->
-    <string name="scheduled_blocks_title">Scheduled Blocks</string>
+    <!-- Scheduled Blocks -->
+    <string name="scheduled_blocks_title">Daily Habits</string>
     <string name="scheduled_blocks_description">Habit daily configured</string>
     <string name="scheduled_blocks_weekly_frequency">SMTWTFS</string>
     <!-- Activity In Social Media Chart -->
@@ -467,7 +467,7 @@
     <!-- Kid Request Tab -->
     <string name="kid_request_tab">Request</string>
     <!-- Relations Tab -->
-    <string name="scheduled_blocks_tab">Scheduled Blocks</string>
+    <string name="scheduled_blocks_tab">Daily Habits</string>
     <!-- Activity Social Media Tab -->
     <string name="activity_social_media_tab">Activity</string>
     <!-- Sentiment Tab -->
@@ -569,7 +569,7 @@
     <!-- Kid Results -->
     <string name="kid_results_no_results_found">No results found, try again later.</string>
     <string name="kid_results_error_ocurred">There was an error loading the results, please try again later.</string>
-    <string name="kid_results_loading_results">Loading results, wait please ...</string>
+    <string name="kid_results_loading_results">Loading results, wait please …</string>
     <string name="see_all_comments_extracted">See all comments extracted</string>
     <string name="kid_results_see_all_alerts">See all alerts</string>
     <string name="see_comments_extracted">See comments extracted</string>
@@ -593,6 +593,7 @@
     <string name="kid_results_youtube_likes_count" formatted="false">%s of the "likes" received has been on Youtube</string>
     <string name="kids_results_no_terminals_linked" formatted="false">%s does not have any associated mobile terminal, it is necessary to install BullKeeper Kids in the mobile terminals of children to make use of this section</string>
     <string name="kids_results_terminals_count" formatted="false">(has %d linked terminals)</string>
+    <string name="kid_request_address_not_available">Address not available</string>
     <!-- Comments Settings -->
 
     <!-- Age Of Comments -->
@@ -668,28 +669,28 @@
     <string name="age_of_relations_preference_summary">Antiquity of the relations that are shown</string>
 
     <!-- Save Scheduled Block -->
-    <string name="scheduled_block_title">Scheduled Block</string>
+    <string name="scheduled_block_title">Daily Habit</string>
     <string name="delete_scheduled_block">Delete</string>
-    <string name="loading_scheduled_block_information">Loading Scheduled Block Information ...</string>
+    <string name="loading_scheduled_block_information">Loading Daily Habit Information …</string>
     <string name="change_scheduled_block_picture" formatted="false">Change image of %s</string>
-    <string name="change_scheduled_block_picture_default">Add image for Scheduled Block</string>
+    <string name="change_scheduled_block_picture_default">Add image for Daily Habit</string>
     <string name="scheduled_block_name_field_error_not_blank">You must specify a name</string>
-    <string name="scheduled_block_name_hint">Scheduled Block Name</string>
+    <string name="scheduled_block_name_hint">Name</string>
     <string name="scheduled_block_start_at_hint">Start At</string>
     <string name="scheduled_block_end_at_hint">End At</string>
-    <string name="scheduled_block_description_hint">Scheduled Block Description</string>
+    <string name="scheduled_block_description_hint">Description</string>
     <string name="scheduled_block_recurring_weekly_label">Recurring weekly</string>
     <string name="scheduled_block_is_enable_label">Is Enable</string>
     <string name="scheduled_block_allow_calls_label">Allow Calls</string>
-    <string name="delete_scheduled_block_confirm">Do you want to delete this Scheduled Block?</string>
-    <string name="scheduled_block_deleted_success">The Scheduled Block was deleted successfully</string>
-    <string name="scheduled_block_saved_successfully">The Schedule Block was saved successfully</string>
-    <string name="delete_all_scheduled_blocks">Do you want to delete all the Scheduled Blocks?</string>
-    <string name="all_scheduled_blocks_deleted_successfully">All scheduled blocks were successfully eliminated</string>
-    <string name="scheduled_block_confirm_title">Do you want to apply the changes to the scheduled blocks?</string>
-    <string name="scheduled_block_status_saved">The state of the scheduled blocks has been saved successfully</string>
-    <string name="saving_scheduled_block_info">Saving information from the scheduled block ...</string>
-    <string name="deleting_scheduled_block">Deleting scheduled block wait...</string>
+    <string name="delete_scheduled_block_confirm">Do you want to delete this Daily Habit?</string>
+    <string name="scheduled_block_deleted_success">The Daily Habit was deleted successfully</string>
+    <string name="scheduled_block_saved_successfully">The Daily Habit was saved successfully</string>
+    <string name="delete_all_scheduled_blocks">Do you want to delete all the Daily Habits?</string>
+    <string name="all_scheduled_blocks_deleted_successfully">All Daily Habits were successfully eliminated</string>
+    <string name="scheduled_block_confirm_title">Do you want to apply the changes to the Daily Habits?</string>
+    <string name="scheduled_block_status_saved">The state of the Daily Habits has been saved successfully</string>
+    <string name="saving_scheduled_block_info">Saving information from the Daily Habit …</string>
+    <string name="deleting_scheduled_block">Deleting Daily Habit wait …</string>
     <string name="scheduled_block_start_input_validation_error">The start date must be before the end date</string>
     <string name="scheduled_block_end_input_validation_error">The start date must be before the end date</string>
     <string name="scheduled_block_not_valid">The configuration block can not be registered, please check the weekly frequency and the duration of the same.</string>
@@ -714,7 +715,7 @@
     <string name="app_rule_per_scheduled">The use of the application will adjust to the daily habit configured</string>
     <string name="app_rule_fun_time">The application can be used if the fun time mode is enabled and has time</string>
     <string name="app_rules_applied_successfully">The application rules were applied successfully</string>
-    <string name="search_app_rules">enter the name of the application ...</string>
+    <string name="search_app_rules">enter the name of the application …</string>
     <string name="new_app_installed_event_dialog" formatted="false">The %s application has been installed</string>
     <string name="app_uninstalled_event_dialog" formatted="false">The %s application has been uninstalled</string>
     <string name="app_uninstalled_event_default_dialog">The application has been uninstalled</string>
@@ -906,7 +907,7 @@
     <string name="search_guardians_message">Make a search by the name, last name or email of user</string>
     <string name="search_guardians_loading_message">Searching Guardians ...</string>
     <string name="search_guardian_already_selected">The selected supervisor is already in the list</string>
-
+    <string name="search_guardian_age" formatted="false">%s years</string>
     <!-- Phone Numbers Blocked -->
     <string name="phone_number_item_removed">The Phone Number was removed</string>
     <string name="phone_numbers_deleted_successfully">All blocked numbers have been successfully deleted</string>
@@ -957,7 +958,7 @@
     <string name="kid_detail_app_stats_description">The most used applications in this terminal</string>
     <string name="kid_detail_more_current_information">More current information (in minutes)</string>
     <string name="show_app_detail">App Detail</string>
-    <string name="app_stats_detail_total_time_in_foreground">Total Time in foreground: %s seconds</string>
+    <string name="app_stats_detail_total_time_in_foreground">Total Time in foreground: %s minutes</string>
     <string name="app_stats_detail_first_time">First Time: %s</string>
     <string name="app_stats_detail_last_time">Last Time: %s</string>
     <string name="app_stats_detail_last_time_used">Last Time Used: %s</string>

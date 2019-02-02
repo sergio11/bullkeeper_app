@@ -214,7 +214,7 @@ public class InvitationDetailMvpActivity extends SupportMvpActivity<InvitationDe
         final KidEntity kidEntity = supervisedChildrenEntity.getKid();
 
         if(kidEntity.getProfileImage() != null &&
-                !appUtils.isValidString(kidEntity.getProfileImage()))
+                appUtils.isValidString(kidEntity.getProfileImage()))
             picasso.load(kidEntity.getProfileImage())
                 .error(R.drawable.kid_default_image)
                 .placeholder(R.drawable.kid_default_image)

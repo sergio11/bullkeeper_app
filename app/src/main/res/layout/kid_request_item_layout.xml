@@ -115,6 +115,23 @@
             android:textColor="@color/darkModerateBlue"
             android:textStyle="italic" />
 
+        <!-- Kid Request Address -->
+        <TextView
+            android:id="@+id/kidRequestAddress"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/separator"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/kidRequestSince"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:gravity="start|center_vertical"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:textColor="@color/darkModerateBlue"
+            android:textStyle="italic" />
+
     </RelativeLayout>
 
 </FrameLayout>

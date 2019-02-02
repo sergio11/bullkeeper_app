@@ -310,8 +310,6 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
             deleteAllGeofencesImageView.setVisibility(View.VISIBLE);
             deleteAllGeofencesImageView.setEnabled(true);
 
-            addGeofencesImageView.setVisibility(View.VISIBLE);
-            addGeofencesImageView.setEnabled(true);
 
             // adding item touch helper
             ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
@@ -322,9 +320,6 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
 
             deleteAllGeofencesImageView.setVisibility(View.GONE);
             deleteAllGeofencesImageView.setEnabled(false);
-
-            addGeofencesImageView.setVisibility(View.GONE);
-            addGeofencesImageView.setEnabled(false);
 
         }
 

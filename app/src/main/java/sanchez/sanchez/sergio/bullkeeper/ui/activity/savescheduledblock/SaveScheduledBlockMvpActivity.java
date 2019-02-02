@@ -746,6 +746,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlockWeeklyFrequencyInput.setDaysOfWeekStatus(scheduledBlocksWeeklyFrequency);
         recurringWeeklySwitch.setChecked(scheduledBlockRecurringWeeklyEnabled);
         enableSwitch.setChecked(isEnabled);
+        descriptionInput.setText(description);
 
         drawGeofenceConfiguredState();
     }
@@ -788,6 +789,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         startAt = scheduledBlockEntity.getStartAt();
         endAt = scheduledBlockEntity.getEndAt();
         geofenceEntity = scheduledBlockEntity.getGeofence();
+        description = scheduledBlockEntity.getDescription();
 
         // Draw State
         drawCurrentState();

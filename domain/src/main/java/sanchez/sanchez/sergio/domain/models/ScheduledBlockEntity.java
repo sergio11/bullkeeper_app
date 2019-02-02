@@ -22,6 +22,11 @@ public final class ScheduledBlockEntity implements Serializable {
     private String name;
 
     /**
+     * Description
+     */
+    private String description;
+
+    /**
      * Enable
      */
     private boolean enable;
@@ -73,6 +78,7 @@ public final class ScheduledBlockEntity implements Serializable {
      * Scheduled Block Entity
      * @param identity
      * @param name
+     * @param description
      * @param enable
      * @param repeatable
      * @param startAt
@@ -83,12 +89,14 @@ public final class ScheduledBlockEntity implements Serializable {
      * @param appsAllowed
      * @param geofence
      */
-    public ScheduledBlockEntity(final String identity, final String name, final boolean enable, final boolean repeatable,
+    public ScheduledBlockEntity(final String identity, final String name,
+                                final String description, final boolean enable, final boolean repeatable,
                                 final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                 final String image, final String childId, final List<AppAllowedByScheduledEntity> appsAllowed,
                                 final GeofenceEntity geofence) {
         this.identity = identity;
         this.name = name;
+        this.description = description;
         this.enable = enable;
         this.repeatable = repeatable;
         this.startAt = startAt;
@@ -114,6 +122,14 @@ public final class ScheduledBlockEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isEnable() {
@@ -193,12 +209,16 @@ public final class ScheduledBlockEntity implements Serializable {
         return "ScheduledBlockEntity{" +
                 "identity='" + identity + '\'' +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", enable=" + enable +
                 ", repeatable=" + repeatable +
                 ", startAt=" + startAt +
                 ", endAt=" + endAt +
                 ", weeklyFrequency=" + Arrays.toString(weeklyFrequency) +
                 ", image='" + image + '\'' +
+                ", childId='" + childId + '\'' +
+                ", appsAllowed=" + appsAllowed +
+                ", geofence=" + geofence +
                 '}';
     }
 }

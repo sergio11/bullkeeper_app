@@ -96,7 +96,10 @@ public final class ProfileFragmentPresenter extends SupportPresenter<IProfileVie
         @Override
         protected void onSuccess(ChildrenOfSelfGuardianEntity children) {
             if (isViewAttached() && getView() != null) {
-                getView().onChildrenLoaded(children);
+                if(children.getConfirmed() > 0)
+                    getView().onChildrenLoaded(children);
+                else
+                    getView().onNoChildrenFounded();
             }
         }
 

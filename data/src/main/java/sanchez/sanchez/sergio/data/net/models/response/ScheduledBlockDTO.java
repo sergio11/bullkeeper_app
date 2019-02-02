@@ -27,6 +27,12 @@ public final class ScheduledBlockDTO implements Serializable {
     private String name;
 
     /**
+     * Description
+     */
+    @JsonProperty("description")
+    private String description;
+
+    /**
      * Enable
      */
     @JsonProperty("enable")
@@ -87,6 +93,7 @@ public final class ScheduledBlockDTO implements Serializable {
      *
      * @param identity
      * @param name
+     * @param description
      * @param enable
      * @param repeatable
      * @param startAt
@@ -97,11 +104,13 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param appsAllowed
      * @param geofence
      */
-    public ScheduledBlockDTO(String identity, String name, boolean enable, boolean repeatable,
-                             LocalTime startAt, LocalTime endAt, int[] weeklyFrequency, String image,
+    public ScheduledBlockDTO(String identity, String name, final String description,
+                             boolean enable, boolean repeatable, LocalTime startAt,
+                             LocalTime endAt, int[] weeklyFrequency, String image,
                              String kid, List<AppAllowedByScheduledDTO> appsAllowed, final GeofenceDTO geofence) {
         this.identity = identity;
         this.name = name;
+        this.description = description;
         this.enable = enable;
         this.repeatable = repeatable;
         this.startAt = startAt;
@@ -127,6 +136,14 @@ public final class ScheduledBlockDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isEnable() {
@@ -206,6 +223,7 @@ public final class ScheduledBlockDTO implements Serializable {
         return "ScheduledBlockDTO{" +
                 "identity='" + identity + '\'' +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", enable=" + enable +
                 ", repeatable=" + repeatable +
                 ", startAt=" + startAt +

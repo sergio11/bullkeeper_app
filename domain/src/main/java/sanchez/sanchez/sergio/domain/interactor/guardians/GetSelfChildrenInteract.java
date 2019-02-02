@@ -20,19 +20,19 @@ public final class GetSelfChildrenInteract extends UseCase<ChildrenOfSelfGuardia
     /**
      * Parent Repository
      */
-    private final IGuardianRepository parentRepository;
+    private final IGuardianRepository guardianRepository;
 
     /**
      * Get Self Children Interact
      * @param threadExecutor
      * @param postExecutionThread
-     * @param parentRepository
+     * @param guardianRepository
      */
     @Inject
     public GetSelfChildrenInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                   final IGuardianRepository parentRepository) {
+                                   final IGuardianRepository guardianRepository) {
         super(threadExecutor, postExecutionThread);
-        this.parentRepository = parentRepository;
+        this.guardianRepository = guardianRepository;
     }
 
     /**
@@ -43,8 +43,8 @@ public final class GetSelfChildrenInteract extends UseCase<ChildrenOfSelfGuardia
     protected Observable<ChildrenOfSelfGuardianEntity> buildUseCaseObservable(Params params) {
         return params != null && params.getQueryText() != null &&
                 !params.getQueryText().isEmpty() ?
-                    parentRepository.getSelfChildren(params.getQueryText()) :
-                    parentRepository.getSelfChildren();
+                    guardianRepository.getSelfChildren(params.getQueryText()) :
+                    guardianRepository.getSelfChildren();
     }
 
 

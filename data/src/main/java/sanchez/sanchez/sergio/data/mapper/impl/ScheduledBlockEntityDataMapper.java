@@ -65,6 +65,7 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockEntity.setStartAt(originModel.getStartAt());
         scheduledBlockEntity.setEndAt(originModel.getEndAt());
         scheduledBlockEntity.setName(originModel.getName());
+        scheduledBlockEntity.setDescription(originModel.getDescription());
         scheduledBlockEntity.setRepeatable(originModel.isRepeatable());
         scheduledBlockEntity.setWeeklyFrequency(originModel.getWeeklyFrequency());
         scheduledBlockEntity.setImage(appUtils.isValidString(originModel.getImage()) ?
@@ -93,6 +94,7 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockDTO.setIdentity(originModel.getIdentity());
         scheduledBlockDTO.setEnable(originModel.isEnable());
         scheduledBlockDTO.setName(originModel.getName());
+        scheduledBlockDTO.setDescription(originModel.getDescription());
         scheduledBlockDTO.setRepeatable(originModel.isRepeatable());
         scheduledBlockDTO.setWeeklyFrequency(originModel.getWeeklyFrequency());
         scheduledBlockDTO.setStartAt(originModel.getStartAt());

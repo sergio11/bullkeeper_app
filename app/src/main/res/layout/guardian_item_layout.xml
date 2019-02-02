@@ -47,15 +47,15 @@
         android:singleLine="true"
         android:text="-"
         android:textColor="@color/darkModerateBlue"
-        app:layout_constraintBottom_toTopOf="@id/guardianEmail"
+        app:layout_constraintBottom_toTopOf="@id/guardianAge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/separator"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- Guardian Email -->
+    <!-- Guardian Age -->
     <TextView
-        android:id="@+id/guardianEmail"
+        android:id="@+id/guardianAge"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textColor="@color/cyanBrilliant"

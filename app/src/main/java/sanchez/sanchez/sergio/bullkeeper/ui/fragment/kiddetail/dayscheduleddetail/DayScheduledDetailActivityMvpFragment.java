@@ -299,6 +299,15 @@ public class DayScheduledDetailActivityMvpFragment extends SupportMvpFragment<Da
         dayEnabledSwitch.setChecked(dayScheduledEntity.getEnabled(), false);
         dayEnabledSwitch.setEnabled(dayScheduledEntity.isEditable());
 
+        dayEnabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dayScheduledEntity.setEnabled(isChecked);
+                dayScheduledEntity.setTotalHours(0);
+                switchTotalHours(dayScheduledEntity);
+            }
+        });
+
         if (dayScheduledEntity.getEnabled() && dayScheduledEntity.isEditable()) {
 
             totalHoursConfiguredTextView.setText(String.format(
@@ -306,15 +315,6 @@ public class DayScheduledDetailActivityMvpFragment extends SupportMvpFragment<Da
                     getString(R.string.fun_time_total_hours_configured),
                     dayScheduledEntity.getTotalHours()
             ));
-
-            dayEnabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    dayScheduledEntity.setEnabled(isChecked);
-                    dayScheduledEntity.setTotalHours(0);
-                    switchTotalHours(dayScheduledEntity);
-                }
-            });
 
         }
 

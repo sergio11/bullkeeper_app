@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -54,7 +55,7 @@ public final class GuardiansAdapter extends SupportRecyclerViewAdapter<GuardianE
             SupportItemSwipedViewHolder<GuardianEntity> {
 
         private Context context;
-        private TextView guardianName, guardianEmail;
+        private TextView guardianName, guardianAge;
         private ImageView guardianImage;
 
         /**
@@ -66,7 +67,7 @@ public final class GuardiansAdapter extends SupportRecyclerViewAdapter<GuardianE
             super(itemView);
             this.context = context;
             this.guardianName = itemView.findViewById(R.id.guardianName);
-            this.guardianEmail = itemView.findViewById(R.id.guardianEmail);
+            this.guardianAge = itemView.findViewById(R.id.guardianAge);
             this.guardianImage = itemView.findViewById(R.id.guardianImage);
         }
 
@@ -94,11 +95,11 @@ public final class GuardiansAdapter extends SupportRecyclerViewAdapter<GuardianE
                 guardianName.setText(guardianEntity.getFullName());
 
 
-            if(hasHighlightText())
-                guardianEmail.setText(getSpannableString(guardianEntity.getEmail()));
-            else
-                guardianName.setText(guardianEntity.getEmail());
-
+            guardianAge.setText(
+                    String.format(Locale.getDefault(),
+                            context.getString(R.string.search_guardian_age),
+                            String.valueOf(guardianEntity.getAge()))
+            );
         }
 
     }
