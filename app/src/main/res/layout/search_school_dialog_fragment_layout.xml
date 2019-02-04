@@ -82,7 +82,16 @@
 
     </LinearLayout>
 
-
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeAutocompleteContainer"/>
 
     <!-- Places Suggestions Container -->
     <android.support.v7.widget.CardView
@@ -95,7 +104,7 @@
         android:layout_marginTop="2dp"
         android:focusable="true"
         android:visibility="gone"
-        app:cardBackgroundColor="@color/cyanBrilliant"
+        app:cardBackgroundColor="@color/translucentCyanBrilliant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeAutocompleteContainer"
@@ -113,15 +122,6 @@
 
     </android.support.v7.widget.CardView>
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/placeAutocomplete"/>
+
 
 </android.support.constraint.ConstraintLayout>

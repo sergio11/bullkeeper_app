@@ -347,7 +347,7 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
 
         }
 
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
     }
 
     /**
