@@ -154,7 +154,6 @@
         android:background="@android:color/transparent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
     <!-- Edit Profile Button -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/editProfileBtn"
@@ -164,6 +163,7 @@
         app:backgroundTint="@color/darkModerateBlue"
         app:layout_anchorGravity="end|bottom"
         android:src="@drawable/user_edit_white"
+        android:visibility="gone"
         android:layout_marginEnd="5dp"
         android:clickable="true"
         android:focusable="true" />

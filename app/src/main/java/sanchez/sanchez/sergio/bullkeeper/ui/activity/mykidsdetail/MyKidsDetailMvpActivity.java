@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -183,6 +185,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     protected TextView terminalsTextView;
 
     /**
+     * Edit Profile Button
+     */
+    @BindView(R.id.editProfileBtn)
+    protected FloatingActionButton editProfileBtn;
+
+    /**
      * Picasso
      */
     @Inject
@@ -257,6 +265,10 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         if (role.equals(GuardianRolesEnum.DATA_VIEWER))
             throw new IllegalArgumentException("This role is not allowed");
+
+        // Enable Profile Button for Admin Users
+        if(role.equals(GuardianRolesEnum.ADMIN))
+            editProfileBtn.setVisibility(View.VISIBLE);
 
         // Get Kid Identity
         kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);

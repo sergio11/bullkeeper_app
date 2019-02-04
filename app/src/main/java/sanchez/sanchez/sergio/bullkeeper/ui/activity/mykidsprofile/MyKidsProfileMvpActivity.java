@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.jaychang.sa.AuthCallback;
@@ -26,7 +25,6 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
