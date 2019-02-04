@@ -56,6 +56,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportTouchableMapF
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerGeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.GeofenceComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.geofencealerts.GeofenceAlertsListMvpFragment;
@@ -70,6 +71,11 @@ import timber.log.Timber;
 public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<SaveGeofencePresenter, ISaveGeofenceView>
         implements HasComponent<GeofenceComponent>, ISaveGeofenceView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
         GoogleApiClient.ConnectionCallbacks, AdapterView.OnItemSelectedListener {
+
+    /**
+     * Geofence Added Arg
+     */
+    public static final String GEOFENCE_ADDED_ARG = "GEOFENCE_ADDED_ARG";
 
     private final String CONTENT_FULL_NAME = "SAVE_GEOFENCE";
     private final String CONTENT_TYPE_NAME = "GEOFENCES";
@@ -556,55 +562,64 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     public void onGeofenceLoaded(final GeofenceEntity geofenceEntity) {
         Preconditions.checkNotNull(geofenceEntity, "Geofence Entity");
 
-        // Geofence State
-        this.identity = geofenceEntity.getIdentity();
-        this.kid = geofenceEntity.getKid();
-        this.address = geofenceEntity.getAddress();
-        this.latitude = geofenceEntity.getLat();
-        this.longitude = geofenceEntity.getLog();
-        this.name = geofenceEntity.getName();
-        this.radius = geofenceEntity.getRadius();
-        this.type = geofenceEntity.getType();
-        this.geofenceTransitionTypeSelected = geofenceEntity.getType().ordinal();
-        this.isEnabled = geofenceEntity.isEnabled();
+        if(!shouldReturnResult()) {
+
+            // Geofence State
+            this.identity = geofenceEntity.getIdentity();
+            this.kid = geofenceEntity.getKid();
+            this.address = geofenceEntity.getAddress();
+            this.latitude = geofenceEntity.getLat();
+            this.longitude = geofenceEntity.getLog();
+            this.name = geofenceEntity.getName();
+            this.radius = geofenceEntity.getRadius();
+            this.type = geofenceEntity.getType();
+            this.geofenceTransitionTypeSelected = geofenceEntity.getType().ordinal();
+            this.isEnabled = geofenceEntity.isEnabled();
 
 
 
-        // Set Name
-        nameInput.setText(name);
+            // Set Name
+            nameInput.setText(name);
 
-        originLocationAddressTextView.setText(address);
-        // Set Visibility
-        deleteGeofenceView.setVisibility(View.VISIBLE);
+            originLocationAddressTextView.setText(address);
+            // Set Visibility
+            deleteGeofenceView.setVisibility(View.VISIBLE);
 
-        final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
-        // (r - min) / t = pos
-        float pos = (float)(radius - MIN_RADIUS_VALUE) / total;
+            final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
+            // (r - min) / t = pos
+            float pos = (float)(radius - MIN_RADIUS_VALUE) / total;
 
-        geofenceRadiusSlider.setPosition(pos);
+            geofenceRadiusSlider.setPosition(pos);
 
-        // Enable Switch
-        enableSwitch.setChecked(isEnabled);
+            // Enable Switch
+            enableSwitch.setChecked(isEnabled);
 
-        // Set Geofence Transition Type
-        geofencesTransitionTypeSpinner.setSelection(geofenceTransitionTypeSelected);
+            // Set Geofence Transition Type
+            geofencesTransitionTypeSpinner.setSelection(geofenceTransitionTypeSelected);
 
-        // Load Map is needed
-        if(googleMap == null)
-            loadMapAsync();
+            // Load Map is needed
+            if(googleMap == null)
+                loadMapAsync();
 
 
-        if(geofenceAlertsListMvpFragment == null) {
-            geofenceAlertsContainer.setVisibility(View.VISIBLE);
-            geofenceAlertsListMvpFragment = GeofenceAlertsListMvpFragment.newInstance(kid, identity);
-            // Add Geofences Alerts Fragment
-            addFragment(R.id.geofenceAlertsContainer,
-                    geofenceAlertsListMvpFragment, false,
-                    GeofenceAlertsListMvpFragment.TAG);
+            if(geofenceAlertsListMvpFragment == null) {
+                geofenceAlertsContainer.setVisibility(View.VISIBLE);
+                geofenceAlertsListMvpFragment = GeofenceAlertsListMvpFragment.newInstance(kid, identity);
+                // Add Geofences Alerts Fragment
+                addFragment(R.id.geofenceAlertsContainer,
+                        geofenceAlertsListMvpFragment, false,
+                        GeofenceAlertsListMvpFragment.TAG);
+            }
+
+            toggleAllComponents(true);
+
+        } else {
+
+            final Intent geofenceSavedIntent = new Intent();
+            geofenceSavedIntent.putExtra(GEOFENCE_ADDED_ARG, geofenceEntity);
+            onResultOk(geofenceSavedIntent);
+            finish();
         }
-
-        toggleAllComponents(true);
-
 
     }
 
@@ -887,6 +902,16 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         geofenceTransitionTypeSelected = 0;
+    }
+
+
+    /**
+     * Should Return Result
+     * @return
+     */
+    private boolean shouldReturnResult(){
+        return getCallingActivity() != null && getCallingActivity().getClassName()
+                .equals(GeofencesListMvpActivity.class.getName());
     }
 
     /**

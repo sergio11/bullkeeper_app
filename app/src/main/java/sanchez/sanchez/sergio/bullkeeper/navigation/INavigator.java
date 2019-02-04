@@ -521,6 +521,13 @@ public interface INavigator {
     void navigateToSaveGeofence(final Activity activity, final String kid);
 
     /**
+     * Navigate To Save Geofence
+     * @param kid
+     */
+    void navigateToSaveGeofence(final Activity activity, final String kid,
+                                final int requestCode);
+
+    /**
      * Navigate To App Search List Mvp Activity
      * @param activity
      * @param kid

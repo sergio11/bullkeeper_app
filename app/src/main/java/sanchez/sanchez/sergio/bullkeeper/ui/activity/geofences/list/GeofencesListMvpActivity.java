@@ -34,6 +34,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
+import static sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofenceMvpActivity.GEOFENCE_ADDED_ARG;
 
 /**
  * Geofences List Activity
@@ -49,6 +50,11 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     private final String CONTENT_FULL_NAME = "GEOFENCES_LIST";
     private final String CONTENT_TYPE_NAME = "GEOFENCES";
+
+    /**
+     * Add Geofence Request Code
+     */
+    private final static int ADD_GEOFENCE_REQUEST_CODE = 237;
 
     /**
      * Args
@@ -198,7 +204,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
 
             final Intent geofenceSelectedIntentResult = new Intent();
             geofenceSelectedIntentResult.putExtra(GEOFENCE_SELECTED_ARG, geofenceEntity);
-            setResult(Activity.RESULT_OK, geofenceSelectedIntentResult);
+            onResultOk(geofenceSelectedIntentResult);
             finish();
 
         } else {
@@ -425,7 +431,40 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     @OnClick(R.id.addGeofences)
     protected void onAddGeofences(){
-        navigatorImpl.navigateToSaveGeofence(this, kid);
+        if(!shouldReturnResult())
+            navigatorImpl.navigateToSaveGeofence(this, kid);
+        else
+            navigatorImpl.navigateToSaveGeofence(this, kid, ADD_GEOFENCE_REQUEST_CODE);
+    }
+
+
+    /**
+     * On Activity Result
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == ADD_GEOFENCE_REQUEST_CODE) {
+
+            if(Activity.RESULT_OK == resultCode) {
+
+                final Bundle args = data.getExtras();
+
+                if(args != null && args.containsKey(GEOFENCE_ADDED_ARG)) {
+                    final Intent geofenceSelectedIntentResult = new Intent();
+                    geofenceSelectedIntentResult.putExtra(GEOFENCE_SELECTED_ARG, args.getSerializable(GEOFENCE_ADDED_ARG));
+                    onResultOk(geofenceSelectedIntentResult);
+                    finish();
+                }
+
+            }
+
+        }
+
     }
 
     /**
@@ -436,7 +475,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
         super.onBackPressed();
 
         if(shouldReturnResult()) {
-            setResult(Activity.RESULT_CANCELED);
+            onResultCanceled();
             finish();
         }
     }
@@ -449,9 +488,5 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
         return getCallingActivity() != null && getCallingActivity().getClassName()
                 .equals(SaveScheduledBlockMvpActivity.class.getName());
     }
-
-
-
-
 
 }

@@ -233,15 +233,6 @@ public class AppSearchListMvpActivity extends SupportMvpSearchLCEActivity<AppSea
     }
 
     /**
-     * On No Data Found
-     */
-    @Override
-    public void onNoDataFound() {
-        super.onNoDataFound();
-        showNoticeDialog(R.string.no_app_installed_found);
-    }
-
-    /**
      * Get Query Hint
      * @return
      */

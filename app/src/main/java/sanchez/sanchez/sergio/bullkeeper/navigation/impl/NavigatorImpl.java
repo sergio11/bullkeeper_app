@@ -935,6 +935,22 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Save Geofence
+     * @param activity
+     * @param kid
+     * @param requestCode
+     */
+    @Override
+    public void navigateToSaveGeofence(final Activity activity, final String kid,
+                                       final int requestCode) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        activity.startActivityForResult(SaveGeofenceMvpActivity.getCallingIntent(activity, kid),
+                requestCode);
+    }
+
+    /**
      * Navigate To App Search List Mvp Activity
      * @param activity
      * @param kid
