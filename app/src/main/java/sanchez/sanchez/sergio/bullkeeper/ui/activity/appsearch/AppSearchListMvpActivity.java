@@ -238,12 +238,7 @@ public class AppSearchListMvpActivity extends SupportMvpSearchLCEActivity<AppSea
     @Override
     public void onNoDataFound() {
         super.onNoDataFound();
-        showNoticeDialog(R.string.no_app_installed_found, new NoticeDialogFragment.NoticeDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                closeActivity();
-            }
-        });
+        showNoticeDialog(R.string.no_app_installed_found);
     }
 
     /**
