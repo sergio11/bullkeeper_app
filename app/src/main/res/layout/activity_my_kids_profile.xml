@@ -248,120 +248,188 @@
                         android:background="@color/cyanBrilliant"/>
 
 
-                    <TableLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/common_padding"
-                        android:stretchColumns="1">
+                        android:orientation="vertical">
 
                         <!-- Instagram Social Media -->
-                        <TableRow
+                        <RelativeLayout
                             android:id="@+id/instagramRow"
                             android:layout_width="match_parent"
-                            android:orientation="vertical"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
                             android:layout_marginBottom="@dimen/common_margin"
                             android:gravity="center">
 
+                            <!-- Instagram Icon -->
                             <ImageView
                                 android:id="@+id/instagramIcon"
                                 android:layout_width="55dp"
                                 android:layout_height="55dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
                                 android:contentDescription="@string/content_not_be_loaded" />
 
+                            <!-- Instagram Status -->
                             <TextView
                                 android:id="@+id/instagramStatus"
                                 style="@style/CommonStrongText.Medium"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/social_media_is_not_enabled"
                                 android:textColor="@color/commonWhite"
+                                android:layout_toEndOf="@id/instagramIcon"
+                                android:layout_toStartOf="@id/disableInstagramSocialMedia"
+                                android:layout_centerVertical="true"
                                 android:textStyle="bold" />
 
+                            <!-- Disable Instagram Social Media -->
+                            <ImageView
+                                android:id="@+id/disableInstagramSocialMedia"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/trash_solid_cyan"
+                                android:layout_marginEnd="@dimen/common_margin"
+                                android:visibility="gone"
+                                android:layout_toStartOf="@id/instagramSwitchWidget"
+                                android:layout_centerVertical="true"
+                                android:contentDescription="@string/content_not_be_loaded"
+                                />
 
+                            <!-- Instagram Switch Widget -->
                             <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
                                 android:id="@+id/instagramSwitchWidget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/common_margin"
+                                android:layout_marginStart="@dimen/common_margin"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
                                 android:scaleX="1.5"
                                 android:scaleY="1.5"
                                 app:theme="@style/CommonSwitch"/>
 
-                        </TableRow>
+                        </RelativeLayout>
 
                         <!-- Facebook Social Media -->
-                        <TableRow
+                        <RelativeLayout
                             android:id="@+id/facebookRow"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginBottom="@dimen/common_margin"
-                            android:gravity="center">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/common_margin">
 
-                            <!-- Facebook -->
+                            <!-- Facebook Icon -->
                             <ImageView
                                 android:id="@+id/facebookIcon"
                                 android:layout_width="55dp"
                                 android:layout_height="55dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
                                 android:contentDescription="@string/content_not_be_loaded"/>
 
+                            <!-- Facebook Status -->
                             <TextView
                                 android:id="@+id/facebookStatus"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/CommonStrongText.Medium"
                                 android:text="@string/social_media_is_not_enabled"
                                 android:textColor="@color/commonWhite"
+                                android:layout_toEndOf="@id/facebookIcon"
+                                android:layout_toStartOf="@id/disableFacebookSocialMedia"
+                                android:layout_centerVertical="true"
                                 android:textStyle="bold"/>
 
+                            <!-- Disable Facebook Social Media -->
+                            <ImageView
+                                android:id="@+id/disableFacebookSocialMedia"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginEnd="@dimen/common_margin"
+                                android:visibility="gone"
+                                android:src="@drawable/trash_solid_cyan"
+                                android:layout_toStartOf="@id/facebookSwitchWidget"
+                                android:layout_centerVertical="true"
+                                android:contentDescription="@string/content_not_be_loaded"
+                                />
+
+                            <!-- Facebook Switch Widget -->
                             <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
                                 android:id="@+id/facebookSwitchWidget"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/common_margin"
+                                android:layout_marginStart="@dimen/common_margin"
                                 android:scaleX="1.5"
                                 android:scaleY="1.5"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
                                 app:theme="@style/CommonSwitch"/>
 
-                        </TableRow>
+                        </RelativeLayout>
 
                         <!-- Google Social Media -->
-                        <TableRow
+                        <RelativeLayout
                             android:id="@+id/googleRow"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginBottom="@dimen/common_margin"
-                            android:gravity="center">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/common_margin">
 
-                            <!-- Google -->
+                            <!-- Google Icon -->
                             <ImageView
                                 android:id="@+id/googleIcon"
                                 android:layout_width="55dp"
                                 android:layout_height="55dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
                                 android:contentDescription="@string/content_not_be_loaded"/>
 
+                            <!-- Google Status -->
                             <TextView
                                 android:id="@+id/googleStatus"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/social_media_is_not_enabled"
                                 style="@style/CommonStrongText.Medium"
                                 android:textColor="@color/commonWhite"
+                                android:layout_toEndOf="@id/googleIcon"
+                                android:layout_toStartOf="@id/disableGoogleSocialMedia"
+                                android:layout_centerVertical="true"
                                 android:textStyle="bold"/>
 
+                            <!-- Disable Google Social Media -->
+                            <ImageView
+                                android:id="@+id/disableGoogleSocialMedia"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/trash_solid_cyan"
+                                android:layout_marginEnd="@dimen/common_margin"
+                                android:visibility="gone"
+                                android:contentDescription="@string/content_not_be_loaded"
+                                android:layout_toStartOf="@id/googleSwitchWidget"
+                                android:layout_centerVertical="true"
+                                />
+
+                            <!-- Google Switch Widget -->
                             <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
                                 android:id="@+id/googleSwitchWidget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/common_margin"
+                                android:layout_marginStart="@dimen/common_margin"
                                 android:scaleX="1.5"
                                 android:scaleY="1.5"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
                                 app:theme="@style/CommonSwitch" />
 
-                        </TableRow>
+                        </RelativeLayout>
 
-                    </TableLayout>
+                    </LinearLayout>
 
 
                 </LinearLayout>

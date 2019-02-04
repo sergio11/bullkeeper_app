@@ -169,6 +169,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected TextView instagramStatusTextView;
 
     /**
+     * Disable Instagram Social Media Image View
+     */
+    @BindView(R.id.disableInstagramSocialMedia)
+    protected ImageView disableInstagramSocialMediaImageView;
+
+    /**
      * Instagram Switch Widget
      */
     @BindView(R.id.instagramSwitchWidget)
@@ -193,6 +199,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected SupportSwitchCompat facebookSwitchWidget;
 
     /**
+     * Disable Facebook Social Media Image View
+     */
+    @BindView(R.id.disableFacebookSocialMedia)
+    protected ImageView disableFacebookSocialMediaImageView;
+
+    /**
      * Google Icon
      */
     @BindView(R.id.googleIcon)
@@ -211,6 +223,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     protected SupportSwitchCompat googleSwitchWidget;
 
     /**
+     * Disable Google Social Media Image View
+     */
+    @BindView(R.id.disableGoogleSocialMedia)
+    protected ImageView disableGoogleSocialMediaImageView;
+
+    /**
      * Show School Detail Image View
      */
     @BindView(R.id.showSchoolDetail)
@@ -221,6 +239,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @BindView(R.id.kidGuardiansContainer)
     protected View kidGuardiansContainerView;
+
 
     /**
      * Kid Guardian Mvp Fragment
@@ -714,6 +733,30 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
+     * On Disable Instagram Social Media
+     */
+    @OnClick(R.id.disableInstagramSocialMedia)
+    protected void onDisableInstagramSocialMedia(){
+        disableSocialMedia(SocialMediaTypeEnum.INSTAGRAM);
+    }
+
+    /**
+     * On Disable Facebook Social Media
+     */
+    @OnClick(R.id.disableFacebookSocialMedia)
+    protected void onDisableFacebookSocialMedia(){
+        disableSocialMedia(SocialMediaTypeEnum.FACEBOOK);
+    }
+
+    /**
+     * On Disable Google Social Media
+     */
+    @OnClick(R.id.disableGoogleSocialMedia)
+    protected void onDisableGoogleSocialMedia(){
+        disableSocialMedia(SocialMediaTypeEnum.YOUTUBE);
+    }
+
+    /**
      * On Son Profile Loaded
      * @param kidEntity
      */
@@ -822,7 +865,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
         @StringRes int socialMediaStringRes;
         @DrawableRes int socialIconRes;
         boolean isChecked;
-
+        boolean canDisable;
 
         switch (socialMediaTypeEnum) {
 
@@ -836,6 +879,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         socialMediaStringRes = R.string.social_media_is_not_valid;
                         socialIconRes = R.drawable.google_plus_danger;
                         isChecked = false;
+                        canDisable = true;
 
                     } else {
 
@@ -843,7 +887,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         socialMediaStringRes = R.string.social_media_is_enabled;
                         socialIconRes = R.drawable.google_plus_success;
                         isChecked = true;
-
+                        canDisable = false;
                     }
 
 
@@ -853,14 +897,14 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                     socialMediaStringRes = R.string.social_media_is_not_enabled;
                     socialIconRes = R.drawable.google_plus_yellow;
                     isChecked = false;
-
+                    canDisable = false;
                 }
 
                 googleStatusTextView.setText(getString(socialMediaStringRes));
                 googleStatusTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), colorRes));
                 googleIconImageView.setImageResource(socialIconRes);
                 googleSwitchWidget.setChecked(isChecked, false);
-
+                disableGoogleSocialMediaImageView.setVisibility(canDisable ? View.VISIBLE: View.GONE);
                 break;
 
             case INSTAGRAM:
@@ -873,6 +917,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         socialMediaStringRes = R.string.social_media_is_not_valid;
                         socialIconRes = R.drawable.instagram_danger;
                         isChecked = false;
+                        canDisable = true;
 
                     } else {
 
@@ -880,6 +925,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         socialMediaStringRes = R.string.social_media_is_enabled;
                         socialIconRes = R.drawable.instagram_success;
                         isChecked = true;
+                        canDisable = false;
                     }
 
 
@@ -889,12 +935,15 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                     socialMediaStringRes = R.string.social_media_is_not_enabled;
                     socialIconRes = R.drawable.instagram_warning;
                     isChecked = false;
+                    canDisable = false;
                 }
 
                 instagramStatusTextView.setText(socialMediaStringRes);
                 instagramStatusTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), colorRes));
                 instagramImageView.setImageResource(socialIconRes);
                 instagramSwitchWidget.setChecked(isChecked, false);
+                disableInstagramSocialMediaImageView.setVisibility(
+                        canDisable ? View.VISIBLE: View.GONE);
 
                 break;
 
@@ -908,6 +957,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         socialMediaStringRes = R.string.social_media_is_not_valid;
                         socialIconRes = R.drawable.facebook_danger;
                         isChecked = false;
+                        canDisable = true;
 
                     } else {
 
@@ -915,6 +965,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                         socialMediaStringRes = R.string.social_media_is_enabled;
                         socialIconRes = R.drawable.facebook_success;
                         isChecked = true;
+                        canDisable = false;
                     }
 
 
@@ -924,13 +975,15 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                     socialMediaStringRes = R.string.social_media_is_not_enabled;
                     socialIconRes = R.drawable.facebook_warning;
                     isChecked = false;
+                    canDisable = false;
                 }
 
                 facebookStatusTextView.setText(socialMediaStringRes);
                 facebookStatusTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), colorRes));
                 facebookIconImageView.setImageResource(socialIconRes);
                 facebookSwitchWidget.setChecked(isChecked, false);
-
+                disableFacebookSocialMediaImageView.setVisibility(
+                        canDisable ? View.VISIBLE: View.GONE);
                 break;
 
         }

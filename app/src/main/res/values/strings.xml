@@ -498,7 +498,7 @@
     <string name="social_media_is_not_enabled">The social media is not enabled</string>
     <string name="social_media_is_not_valid">The access to social media token is not valid</string>
     <string name="social_media_is_enabled">The social media is enabled</string>
-
+    <string name="disable_social_media_confirm">Do you want to disable this social media?</string>
 
     <!-- Youtube API strings -->
     <string name="player_error">Error initializing YouTube player: %s</string>
@@ -535,16 +535,16 @@
 
     <!-- School -->
     <string name="search_school_title">Search School</string>
-    <string name="search_school_query_hint">Search School ...</string>
-    <string name="search_school_location_query_hint">Search School Location ...</string>
+    <string name="search_school_query_hint">Search School …</string>
+    <string name="search_school_location_query_hint">Search School Location …</string>
     <string name="search_school_message">Make a search by the name of the school</string>
-    <string name="search_school_loading_message">Searching schools ...</string>
+    <string name="search_school_loading_message">Searching schools …</string>
     <string name="search_school_location" formatted="false">%s - %s</string>
     <string name="no_registered_school">Currently there is no registered school, you help us to register the school information?</string>
     <string name="add_new_school">Add new school</string>
     <string name="add_school">Add School</string>
     <string name="school_saved_successfully">The school information was saved successfully. Thank you!!!</string>
-    <string name="saving_school_information">Saving school\'s information, please wait...</string>
+    <string name="saving_school_information">Saving school\'s information, please wait …</string>
     <string name="school_name_hint">Name</string>
     <string name="school_residence_empty_error">You must indicate the location of the school</string>
     <string name="select_school_location">Select school location</string>
@@ -760,7 +760,7 @@
     <string name="family_locator_description">Quickly locate family members and devices</string>
     <string name="family_locator_show_geofences">Show Geofence</string>
     <string name="family_locator_add_geofences">Add Geofence</string>
-    <string name="family_locator_loading_child_position">Loading Child position ...</string>
+    <string name="family_locator_loading_child_position">Loading Child position …</string>
     <string name="family_locator_no_last_registered_position">There is no last registered position</string>
     <string name="family_locator_address">Current Address</string>
     <string name="family_locator_content_text">The family locator will allow you to visualize the current position of your child. You can also configure supervised areas (Geofences) to receive alerts when the child enters or leaves the area</string>

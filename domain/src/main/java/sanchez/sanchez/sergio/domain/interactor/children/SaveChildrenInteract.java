@@ -145,29 +145,22 @@ public final class SaveChildrenInteract extends UseCase<SaveChildrenInteract.Res
                     @Override
                     public ObservableSource<Result> apply(final Result result) throws Exception {
 
-                        Observable<Result> resultObservable = Observable.just(result);
+                        final String kidIdentity = result.kidEntity.getIdentity();
 
-                        if (!params.socialMediaEntities.isEmpty()) {
+                        // Set Kid Identity
+                        for (final SocialMediaEntity socialMediaEntity : params.socialMediaEntities)
+                            socialMediaEntity.setKid(kidIdentity);
 
-                            final String kidIdentity = result.kidEntity.getIdentity();
+                        // Save All Social Medias
+                        return socialMediaRepository.saveAllSocialMedia(kidIdentity,
+                                params.socialMediaEntities).map(new Function<List<SocialMediaEntity>, Result>() {
+                            @Override
+                            public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                                result.setSocialMediaEntities(socialMediaEntities);
+                                return result;
+                            }
+                        });
 
-                            // Set Kid Identity
-                            for (final SocialMediaEntity socialMediaEntity : params.socialMediaEntities)
-                                socialMediaEntity.setKid(kidIdentity);
-
-                            // Save All Social Medias
-                            resultObservable = socialMediaRepository.saveAllSocialMedia(kidIdentity,
-                                    params.socialMediaEntities).map(new Function<List<SocialMediaEntity>, Result>() {
-                                @Override
-                                public Result apply(List<SocialMediaEntity> socialMediaEntities) throws Exception {
-                                    result.setSocialMediaEntities(socialMediaEntities);
-                                    return result;
-                                }
-                            });
-
-                        }
-
-                        return resultObservable;
                     }
 
                 }).flatMap(new Function<Result, ObservableSource<Result>>() {
