@@ -1,11 +1,16 @@
 package sanchez.sanchez.sergio.domain.interactor.geofences;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.repository.IGeofencesRepository;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
+import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
 /**
  * Save Geofence
@@ -153,6 +158,38 @@ public final class SaveGeofenceInteract extends UseCase<GeofenceEntity, SaveGeof
                     ", type='" + type + '\'' +
                     ", kid='" + kid + '\'' +
                     '}';
+        }
+    }
+
+    /**
+     * Save Geofence Api Errors
+     */
+    public enum SaveGeofenceApiErrors
+            implements ISupportVisitable<SaveGeofenceApiErrors.ISaveGeofenceApiErrorVisitor> {
+
+        /**
+         * Validation Errors
+         */
+        VALIDATION_ERROR(){
+            @Override
+            public <E> void accept(ISaveGeofenceApiErrorVisitor visitor, E data) {
+                visitor.visitValidationError(this, (LinkedHashMap<String, List<LinkedHashMap<String, String>>>) data);
+            }
+        };
+
+        /**
+         * Save Geofence API Error Visitor
+         */
+        public interface ISaveGeofenceApiErrorVisitor extends ISupportVisitor {
+
+            /**
+             * Visit Validation Error
+             * @param apiErrors
+             * @param errors
+             */
+            void visitValidationError(final SaveGeofenceApiErrors apiErrors, final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors);
+
+
         }
     }
 }

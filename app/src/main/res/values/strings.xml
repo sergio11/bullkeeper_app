@@ -764,7 +764,7 @@
     <string name="family_locator_no_last_registered_position">There is no last registered position</string>
     <string name="family_locator_address">Current Address</string>
     <string name="family_locator_content_text">The family locator will allow you to visualize the current position of your child. You can also configure supervised areas (Geofences) to receive alerts when the child enters or leaves the area</string>
-
+    <string name="search_locations_query_hint">Search Locations by street name</string>
 
     <!-- Terminals -->
     <string name="terminals_list_title">Monitored terminals</string>

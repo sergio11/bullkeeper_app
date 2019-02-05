@@ -1,6 +1,10 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save;
 
 import com.fernandocejas.arrow.checks.Preconditions;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
@@ -111,7 +115,7 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.generic_loading_text);
 
-        saveGeofenceInteract.execute(new SaveGeofenceObservable(),
+        saveGeofenceInteract.execute(new SaveGeofenceObservable(SaveGeofenceInteract.SaveGeofenceApiErrors.class),
                 SaveGeofenceInteract.Params.create(identity, name, lat, log,
                         radius, address, type.name(), isEnabled, kid));
     }
@@ -160,7 +164,13 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
     /**
      * Save Geofence Observable
      */
-    public class SaveGeofenceObservable extends BasicCommandCallBackWrapper<GeofenceEntity> {
+    public class SaveGeofenceObservable extends CommandCallBackWrapper<GeofenceEntity, SaveGeofenceInteract.SaveGeofenceApiErrors.ISaveGeofenceApiErrorVisitor,
+            SaveGeofenceInteract.SaveGeofenceApiErrors> implements SaveGeofenceInteract.SaveGeofenceApiErrors.ISaveGeofenceApiErrorVisitor {
+
+
+        public SaveGeofenceObservable(Class<SaveGeofenceInteract.SaveGeofenceApiErrors> apiErrors) {
+            super(apiErrors);
+        }
 
         /**
          * On Success
@@ -174,9 +184,28 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
                 getView().showNoticeDialog(R.string.geofence_saved_successfully);
                 getView().onGeofenceLoaded(geofenceEntity);
             }
+        }
 
+        /**
+         * Visit Validation Error
+         * @param apiErrors
+         * @param errors
+         */
+        @Override
+        public void visitValidationError(final SaveGeofenceInteract.SaveGeofenceApiErrors apiErrors,
+                                         final LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
+                    getView().onValidationErrors(errors.get("field_errors"));
+                } else {
+                    getView().showNoticeDialog(R.string.forms_is_not_valid);
+                }
+            }
         }
     }
+
+
 
 
 }

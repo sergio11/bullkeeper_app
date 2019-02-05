@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,10 +17,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SwitchCompat;
+import android.text.style.CharacterStyle;
+import android.text.style.StyleSpan;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -27,6 +37,13 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.AutocompletePredictionBufferResponse;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBufferResponse;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,10 +53,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.ramotion.fluidslider.FluidSlider;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -57,12 +78,16 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerGeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.GeofenceComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.ItemOffsetDecoration;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.PlaceSuggestionsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.geofencealerts.GeofenceAlertsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.FetchAddressIntentService;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceTransitionTypeEnum;
+import sanchez.sanchez.sergio.domain.models.SuggestedPlaceEntity;
 import timber.log.Timber;
 
 /**
@@ -70,7 +95,7 @@ import timber.log.Timber;
  */
 public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<SaveGeofencePresenter, ISaveGeofenceView>
         implements HasComponent<GeofenceComponent>, ISaveGeofenceView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
-        GoogleApiClient.ConnectionCallbacks, AdapterView.OnItemSelectedListener {
+        GoogleApiClient.ConnectionCallbacks, AdapterView.OnItemSelectedListener, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SuggestedPlaceEntity>, SearchView.OnQueryTextListener, OnSuccessListener<AutocompletePredictionBufferResponse>, OnFailureListener {
 
     /**
      * Geofence Added Arg
@@ -237,6 +262,36 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
     @BindView(R.id.enableSwitch)
     protected SwitchCompat enableSwitch;
 
+
+    /**
+     * Place Autocomplete Search View
+     */
+    @BindView(R.id.placeAutocomplete)
+    protected SearchView placeAutocompleteSearchView;
+
+    /**
+     * Places Suggestions Container View
+     */
+    @BindView(R.id.placesSuggestionsContainer)
+    protected View placesSuggestionsContainerView;
+
+    /**
+     * Recycler View
+     */
+    @BindView(R.id.recyclerView)
+    protected RecyclerView recyclerView;
+
+    /**
+     * Place Autocomplete Title Text View
+     */
+    @BindView(R.id.placeAutocompleteTitle)
+    protected TextView placeAutocompleteTitleTextView;
+
+    /**
+     * Recycler View Adapter
+     */
+    protected SupportRecyclerViewAdapter<SuggestedPlaceEntity> recyclerViewAdapter;
+
     /**
      * Google Map
      */
@@ -251,6 +306,17 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      * Current Marker Position
      */
     private Marker currentMarkerPosition;
+
+    /**
+     * Autocomplete Filter
+     */
+    private AutocompleteFilter autocompleteFilter;
+
+    /**
+     * Geo Data Client
+     */
+    private GeoDataClient mGeoDataClient;
+
 
     /**
      * Spain LatLng Bounds
@@ -398,6 +464,52 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
         geofencesTransitionTypeSpinner.setOnItemSelectedListener(this);
 
 
+        // create Geo Data Client
+        mGeoDataClient = Places.getGeoDataClient(this);
+
+        // Build Autocomplete filter (only Address)
+        autocompleteFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                .build();
+
+        // Configure Recycler view for Suggested places
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAdapter = new PlaceSuggestionsAdapter(this, new ArrayList<SuggestedPlaceEntity>());
+        recyclerView.setAdapter(recyclerViewAdapter);
+        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+        recyclerView.addItemDecoration(itemOffsetDecoration);
+        recyclerViewAdapter.setOnSupportRecyclerViewListener(this);
+
+        // Customize Search View
+        placeAutocompleteSearchView.setSubmitButtonEnabled(false);
+        // Set Hint and Text Color
+        final EditText txtSearch = placeAutocompleteSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        txtSearch.setHint(R.string.search_locations_query_hint);
+        txtSearch.setHintTextColor(ContextCompat.getColor(this, R.color.cyanBrilliant));
+        txtSearch.setTextColor(getResources().getColor(R.color.cyanBrilliant));
+        placeAutocompleteSearchView.setOnQueryTextListener(this);
+
+        // On Search Click Listener
+        placeAutocompleteSearchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeAutocompleteTitleTextView.setVisibility(View.GONE);
+                placeAutocompleteSearchView.setBackgroundResource(R.drawable.searchbar_background);
+                placeAutocompleteSearchView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            }
+        });
+
+        // On Close Listener
+        placeAutocompleteSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                clearPlaceSuggestions();
+                placeAutocompleteTitleTextView.setVisibility(View.VISIBLE);
+                placeAutocompleteSearchView.setBackgroundResource(android.R.color.transparent);
+                placeAutocompleteSearchView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                return false;
+            }
+        });
 
 
     }
@@ -575,8 +687,6 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
             this.type = geofenceEntity.getType();
             this.geofenceTransitionTypeSelected = geofenceEntity.getType().ordinal();
             this.isEnabled = geofenceEntity.isEnabled();
-
-
 
             // Set Name
             nameInput.setText(name);
@@ -906,12 +1016,122 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
 
 
     /**
+     * Clear Place Suggestion
+     */
+    private void clearPlaceSuggestions(){
+        recyclerViewAdapter.setData(new ArrayList<SuggestedPlaceEntity>());
+        recyclerViewAdapter.notifyDataSetChanged();
+        placesSuggestionsContainerView.setVisibility(View.GONE);
+    }
+
+    /**
      * Should Return Result
      * @return
      */
     private boolean shouldReturnResult(){
         return getCallingActivity() != null && getCallingActivity().getClassName()
                 .equals(GeofencesListMvpActivity.class.getName());
+    }
+
+    @Override
+    public void onHeaderClick() {}
+
+    @Override
+    public void onFooterClick() {}
+
+    /**
+     * On Item Click
+     * @param suggestedPlaceEntity
+     */
+    @Override
+    public void onItemClick(SuggestedPlaceEntity suggestedPlaceEntity) {
+        Preconditions.checkNotNull(suggestedPlaceEntity, "Suggested Place can not be null");
+
+        placesSuggestionsContainerView.setVisibility(View.GONE);
+
+
+        mGeoDataClient.getPlaceById(suggestedPlaceEntity.getPlaceId())
+                .addOnSuccessListener(new OnSuccessListener<PlaceBufferResponse>() {
+                    @Override
+                    public void onSuccess(PlaceBufferResponse places) {
+                        final Place placeSelected = places.get(0);
+                        LatLng queriedLocation = placeSelected.getLatLng();
+                        final Location placeLocation = new Location("");
+                        placeLocation.setLatitude(queriedLocation.latitude);
+                        placeLocation.setLongitude(queriedLocation.longitude);
+                        // Show Geofence for location selected
+                        showGeofenceForLocation(placeLocation, appUtils.isValidString(name) ?
+                                name: getString(R.string.current_location), currentCircleIndicator.getRadius());
+                        places.release();
+                    }
+                });
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    /**
+     * On Query Text Change
+     * @param newText
+     * @return
+     */
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        Preconditions.checkNotNull(newText, "New Text can not be null");
+
+        if(!newText.isEmpty()) {
+
+            Task<AutocompletePredictionBufferResponse> results =
+                    mGeoDataClient.getAutocompletePredictions(newText, spainLatLngBounds,
+                            autocompleteFilter);
+            results.addOnSuccessListener(this);
+            results.addOnFailureListener(this);
+
+            recyclerViewAdapter.setHighlightText(newText);
+
+        } else {
+            clearPlaceSuggestions();
+        }
+        return true;
+    }
+
+    /**
+     * On Success
+     * @param autocompletePredictions
+     */
+    @Override
+    public void onSuccess(AutocompletePredictionBufferResponse autocompletePredictions) {
+        Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
+        final List<SuggestedPlaceEntity> resultList = new ArrayList<>(autocompletePredictions.getCount());
+        final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
+        while (iterator.hasNext()) {
+            AutocompletePrediction prediction = iterator.next();
+            resultList.add(new SuggestedPlaceEntity(prediction.getPlaceId(), prediction.getPrimaryText(STYLE_BOLD).toString(),
+                    prediction.getSecondaryText(STYLE_BOLD).toString()));
+        }
+        autocompletePredictions.release();
+
+        // Notify Results to Recycler View Adapter
+        recyclerViewAdapter.setData(resultList);
+        recyclerViewAdapter.notifyDataSetChanged();
+        placesSuggestionsContainerView.setVisibility(View.VISIBLE);
+        final Context context = recyclerView.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.scheduleLayoutAnimation();
+    }
+
+    /**
+     * On Failure
+     * @param e
+     */
+    @Override
+    public void onFailure(@NonNull Exception e) {
+        Timber.e(e);
     }
 
     /**
