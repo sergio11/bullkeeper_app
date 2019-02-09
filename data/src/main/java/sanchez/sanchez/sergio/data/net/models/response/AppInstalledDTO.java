@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
+import sanchez.sanchez.sergio.domain.models.AppModelCategoryEnum;
+
 
 /**
  * App Installed DTO
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class AppInstalledDTO implements Serializable {
+public class AppInstalledDTO implements Serializable {
 
     /**
      * Identity
@@ -22,6 +24,18 @@ public final class AppInstalledDTO implements Serializable {
      */
     @JsonProperty("package_name")
     private String packageName;
+
+    /**
+     * Category
+     */
+    @JsonProperty("category")
+    private String category;
+
+    /**
+     * Category Key
+     */
+    @JsonProperty("cat_key")
+    private String categoryKey;
 
     /**
      * First Install Time
@@ -77,6 +91,8 @@ public final class AppInstalledDTO implements Serializable {
      *
      * @param identity
      * @param packageName
+     * @param category
+     * @param categoryKey
      * @param firstInstallTime
      * @param lastUpdateTime
      * @param versionName
@@ -86,11 +102,14 @@ public final class AppInstalledDTO implements Serializable {
      * @param iconEncodedString
      * @param disabled
      */
-    public AppInstalledDTO(String identity, String packageName, long firstInstallTime, long lastUpdateTime,
+    public AppInstalledDTO(String identity, String packageName, String category,
+                           String categoryKey, long firstInstallTime, long lastUpdateTime,
                            String versionName, String versionCode, String appName,
                            String appRule, String iconEncodedString, Boolean disabled) {
         this.identity = identity;
         this.packageName = packageName;
+        this.category = category;
+        this.categoryKey = categoryKey;
         this.firstInstallTime = firstInstallTime;
         this.lastUpdateTime = lastUpdateTime;
         this.versionName = versionName;
@@ -115,6 +134,22 @@ public final class AppInstalledDTO implements Serializable {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategoryKey() {
+        return categoryKey;
+    }
+
+    public void setCategoryKey(String categoryKey) {
+        this.categoryKey = categoryKey;
     }
 
     public long getFirstInstallTime() {

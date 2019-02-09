@@ -70,6 +70,7 @@ ext {
     stepperTouchVersion = '0.6'
     fluidSliderVersion = '0.3.0'
     libphonenumberVersion = '8.2.0'
+    carouselviewVersion = '0.1.5'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -136,7 +137,8 @@ ext {
             oksse:              "com.github.heremaps:oksse:${oksseVersion}",
             stepperTouch:       "com.github.DanielMartinus:Stepper-Touch:${stepperTouchVersion}",
             fluidSlider:        "com.ramotion.fluidslider:fluid-slider:${fluidSliderVersion}",
-            libphonenumber:     "com.googlecode.libphonenumber:libphonenumber:${libphonenumberVersion}"
+            libphonenumber:     "com.googlecode.libphonenumber:libphonenumber:${libphonenumberVersion}",
+            carouselview:       "com.synnapps:carouselview:${carouselviewVersion}"
     ]
 
     presentationTestDependencies = [

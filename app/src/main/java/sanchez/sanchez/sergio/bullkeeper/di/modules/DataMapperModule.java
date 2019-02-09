@@ -7,6 +7,9 @@ import dagger.Provides;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.impl.AppAllowedByScheduledEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledByTerminalDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AppInstalledDetailDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AppModelCategoryDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.AppModelDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.AppStatsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.CallDetailDataMapper;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
@@ -62,6 +65,9 @@ import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppAllowedByScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledByTerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDetailDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppModelCategoryDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppModelDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.CallDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
@@ -101,8 +107,11 @@ import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.AppAllowedByScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
+import sanchez.sanchez.sergio.domain.models.AppModelCategoryEntity;
+import sanchez.sanchez.sergio.domain.models.AppModelEntity;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
 import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.CallDetailEntity;
@@ -605,6 +614,37 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<GeofenceAlertDTO, GeofenceAlertEntity> provideGeofenceAlertEntityDataMapper(){
         return new GeofenceAlertDataMapper();
+    }
+
+    /**
+     * Provide App Model Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppModelDTO, AppModelEntity> provideAppModelDataMapper(
+            final AbstractDataMapper<AppModelCategoryDTO, AppModelCategoryEntity> appModelCategoryEntityAbstractDataMapper
+    ){
+        return new AppModelDataMapper(appModelCategoryEntityAbstractDataMapper);
+    }
+
+    /**
+     * Provide App Installed Detail DTO
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppInstalledDetailDTO, AppInstalledDetailEntity> provideAppInstalledDetailDataMapper(
+            final AbstractDataMapper<AppModelDTO, AppModelEntity> appModelEntityAbstractDataMapper
+    ){
+        return new AppInstalledDetailDataMapper(appModelEntityAbstractDataMapper);
+    }
+
+    /**
+     * Provide App Model Category Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<AppModelCategoryDTO, AppModelCategoryEntity> provideAppModelCategoryDataMapper(){
+        return new AppModelCategoryDataMapper();
     }
 
 }

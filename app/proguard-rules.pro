@@ -52,3 +52,5 @@
      public <init>(android.view.View, java.lang.Object);
      public <init>(android.view.View);
  }
+
+-keep class com.synnapps.carouselview.** { *; }

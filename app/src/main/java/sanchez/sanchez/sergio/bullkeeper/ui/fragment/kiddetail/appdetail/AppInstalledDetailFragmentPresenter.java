@@ -9,6 +9,7 @@ import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.apprules.ChangeAppStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.GetAppInstalledDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateSingleAppInstalledRulesByChildInteract;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
@@ -112,14 +113,14 @@ public final class AppInstalledDetailFragmentPresenter extends SupportPresenter<
     /**
      * Get App Installed Detail Observer
      */
-    public class GetAppInstalledDetailObserver extends BasicCommandCallBackWrapper<AppInstalledEntity> {
+    public class GetAppInstalledDetailObserver extends BasicCommandCallBackWrapper<AppInstalledDetailEntity> {
 
         /**
          * On Success
          * @param appInstalled
          */
         @Override
-        protected void onSuccess(AppInstalledEntity appInstalled) {
+        protected void onSuccess(AppInstalledDetailEntity appInstalled) {
             Preconditions.checkNotNull(appInstalled, "Response can not be null");
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();

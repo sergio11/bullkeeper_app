@@ -13,6 +13,7 @@ import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledByTerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 
 /**
@@ -82,7 +83,7 @@ public interface IAppRulesService {
      * @return
      */
     @GET("children/{kid}/terminal/{terminal}/apps/{app}")
-    Observable<APIResponse<AppInstalledDTO>> getAppInstalledDetail(
+    Observable<APIResponse<AppInstalledDetailDTO>> getAppInstalledDetail(
             @Path("kid") final String kid, @Path("terminal") final String terminal,
             @Path("app") final String app);
 

@@ -5,14 +5,14 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.repository.IAppRulesRepository;
 
 /**
  * Get App Installed Detail Interact
  */
 public final class GetAppInstalledDetailInteract
-        extends UseCase<AppInstalledEntity, GetAppInstalledDetailInteract.Params> {
+        extends UseCase<AppInstalledDetailEntity, GetAppInstalledDetailInteract.Params> {
 
     /**
      * App Rules Repository
@@ -37,7 +37,7 @@ public final class GetAppInstalledDetailInteract
      * @return
      */
     @Override
-    protected Observable<AppInstalledEntity> buildUseCaseObservable(Params params) {
+    protected Observable<AppInstalledDetailEntity> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");

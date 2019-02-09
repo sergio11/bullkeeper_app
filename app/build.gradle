@@ -86,7 +86,7 @@ android {
         debug {
             signingConfig signingConfigs.debug
             multiDexEnabled true
-            buildConfigField "String", "BASE_URL", '"http://192.168.0.17:8080/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"http://192.168.1.50:8080/api/v1/"'
         }
 
         release {
@@ -183,7 +183,11 @@ dependencies {
     // Fluid Slider
     implementation presentationDependencies.fluidSlider
 
+    // Lib Phone Number
     implementation presentationDependencies.libphonenumber
+
+    // Carousel View
+    implementation presentationDependencies.carouselview
 
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker

@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledByTerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.services.IAppRulesService;
@@ -22,6 +23,7 @@ import sanchez.sanchez.sergio.domain.interactor.apprules.GetStatisticsOfTheFiveM
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.interactor.apprules.UpdateSingleAppInstalledRulesByChildInteract;
 import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
@@ -55,8 +57,10 @@ public class AppRulesModule {
                                                          IAppRulesService appRulesService,
                                                          final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDTOAbstractDataMapper,
                                                          final AbstractDataMapper<AppStatsDTO, AppStatsEntity> appStatsEntityAbstractDataMapper,
-                                                         final AbstractDataMapper<AppInstalledByTerminalDTO, AppInstalledByTerminalEntity> terminalEntityAbstractDataMapper) {
-        return new AppRulesRepositoryImpl(appInstalledEntityAbstractDataMapper, appRulesService, appInstalledRuleDTOAbstractDataMapper, appStatsEntityAbstractDataMapper, terminalEntityAbstractDataMapper);
+                                                         final AbstractDataMapper<AppInstalledByTerminalDTO, AppInstalledByTerminalEntity> terminalEntityAbstractDataMapper,
+                                                         final AbstractDataMapper<AppInstalledDetailDTO, AppInstalledDetailEntity> appInstalledDetailEntityAbstractDataMapper) {
+        return new AppRulesRepositoryImpl(appInstalledEntityAbstractDataMapper, appRulesService, appInstalledRuleDTOAbstractDataMapper,
+                appStatsEntityAbstractDataMapper, terminalEntityAbstractDataMapper, appInstalledDetailEntityAbstractDataMapper);
     }
 
     /**

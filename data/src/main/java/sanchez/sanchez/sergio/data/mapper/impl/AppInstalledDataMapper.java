@@ -1,10 +1,10 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppModelCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 
 /**
@@ -32,6 +32,17 @@ public final class AppInstalledDataMapper extends AbstractDataMapper<AppInstalle
         appInstalledEntity.setAppRuleEnum(AppRuleEnum.valueOf(originModel.getAppRule()));
         appInstalledEntity.setIconEncodedString(originModel.getIconEncodedString());
         appInstalledEntity.setDisabled(originModel.getDisabled());
+        appInstalledEntity.setCategory(originModel.getCategory());
+
+        try {
+            appInstalledEntity.setCategoryKey(AppModelCategoryEnum
+                    .valueOf(originModel.getCategoryKey()));
+
+        } catch(final Exception ex) {
+            appInstalledEntity.setCategoryKey(
+                    AppModelCategoryEnum.UNKNOWN
+            );
+        }
         return appInstalledEntity;
     }
 
@@ -55,6 +66,8 @@ public final class AppInstalledDataMapper extends AbstractDataMapper<AppInstalle
         appInstalledDTO.setAppRule(originModel.getAppRuleEnum().name());
         appInstalledDTO.setIconEncodedString(originModel.getIconEncodedString());
         appInstalledDTO.setDisabled(originModel.getDisabled());
+        appInstalledDTO.setCategory(originModel.getCategory());
+        appInstalledDTO.setCategoryKey(originModel.getCategoryKey().name());
         return appInstalledDTO;
     }
 }

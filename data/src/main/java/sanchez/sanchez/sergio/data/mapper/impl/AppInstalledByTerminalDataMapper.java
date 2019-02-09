@@ -1,11 +1,11 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledByTerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.AppModelCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 
@@ -49,6 +49,17 @@ public final class AppInstalledByTerminalDataMapper
         appInstalledByTerminalEntity.setAppRuleEnum(AppRuleEnum.valueOf(originModel.getAppRule()));
         appInstalledByTerminalEntity.setTerminal(
                 terminalEntityAbstractDataMapper.transform(originModel.getTerminal()));
+        appInstalledByTerminalEntity.setCategory(originModel.getCategory());
+
+        try {
+            appInstalledByTerminalEntity.setCategoryKey(AppModelCategoryEnum
+                    .valueOf(originModel.getCategoryKey()));
+
+        } catch(final Exception ex) {
+            appInstalledByTerminalEntity.setCategoryKey(
+                    AppModelCategoryEnum.UNKNOWN
+            );
+        }
         return appInstalledByTerminalEntity;
     }
 
@@ -73,6 +84,8 @@ public final class AppInstalledByTerminalDataMapper
         appInstalledByTerminalDTO.setVersionName(originModel.getVersionName());
         appInstalledByTerminalDTO.setTerminal(
                 terminalEntityAbstractDataMapper.transformInverse(originModel.getTerminal()));
+        appInstalledByTerminalDTO.setCategory(originModel.getCategory());
+        appInstalledByTerminalDTO.setCategoryKey(originModel.getCategoryKey().name());
         return appInstalledByTerminalDTO;
     }
 }

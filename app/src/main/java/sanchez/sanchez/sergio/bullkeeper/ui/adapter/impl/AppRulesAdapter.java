@@ -103,7 +103,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
 
 
         private ImageView appNotAllowed, appPerScheduled, appFunTime, appAllowed, appDisabledImageView;
-        private TextView appInstalledName;
+        private TextView appInstalledName, appInstalledCategory;
         private CircleImageView appInstalledImage;
 
         /**
@@ -118,6 +118,7 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
             appPerScheduled = itemView.findViewById(R.id.appPerScheduled);
             appDisabledImageView = itemView.findViewById(R.id.appDisabled);
             appInstalledName = itemView.findViewById(R.id.appInstalledName);
+            appInstalledCategory = itemView.findViewById(R.id.appInstalledCategory);
             appInstalledImage = itemView.findViewById(R.id.appInstalledImage);
         }
 
@@ -163,6 +164,16 @@ public final class AppRulesAdapter extends SupportRecyclerViewAdapter<AppInstall
                 final Bitmap decodedByte =
                         BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 appInstalledImage.setImageBitmap(decodedByte);
+            }
+
+
+            if(appInstalledEntity.getCategory() != null &&
+                !appInstalledEntity.getCategory().isEmpty()) {
+                appInstalledCategory.setVisibility(View.VISIBLE);
+                appInstalledCategory.setText(appInstalledEntity.getCategory());
+            } else {
+                appInstalledCategory.setVisibility(View.GONE);
+                appInstalledCategory.setText("");
             }
 
 

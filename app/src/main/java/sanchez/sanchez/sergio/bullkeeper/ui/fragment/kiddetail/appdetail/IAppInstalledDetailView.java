@@ -1,8 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
-
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 /**
  * App Installed Detail View
  */
@@ -12,7 +11,7 @@ public interface IAppInstalledDetailView extends ISupportView {
      * On App Installed Detail Loaded
      * @param appInstalledEntity
      */
-    void onAppInstalledDetailLoaded(final AppInstalledEntity appInstalledEntity);
+    void onAppInstalledDetailLoaded(final AppInstalledDetailEntity appInstalledEntity);
 
     /**
      * On App Rule Update Successfully

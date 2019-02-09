@@ -298,6 +298,115 @@
 
             </android.support.v7.widget.CardView>
 
+
+            <!-- App More Info -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/appMoreInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CommonStrongText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/app_installed_more_info_icon"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/app_info_solid_cyan" />
+
+                    <View
+                        android:layout_width="@dimen/common_divider_small"
+                        android:layout_height="@dimen/common_divider_height"
+                        android:layout_margin="10dp"
+                        android:background="@color/cyanBrilliant"/>
+
+                    <!-- App Model Title  -->
+                    <TextView
+                        android:id="@+id/appModelTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="bold"/>
+
+                    <!-- App Model Category  -->
+                    <TextView
+                        android:id="@+id/appModelCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CommonStrongText.Big"
+                        android:textColor="@color/darkModerateBlue"
+                        android:textStyle="bold"/>
+
+                    <!-- App Model Downloads -->
+                    <TextView
+                        android:id="@+id/appModelDownloads"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/app_installed_more_info_icon"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/app_downloads_icon_cyan" />
+
+                    <!-- App Model Short Description -->
+                    <TextView
+                        android:id="@+id/appModelShortDescription"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="start|center_vertical"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/cyanBrilliant"
+                        android:textStyle="italic" />
+
+
+                    <!-- App Screen Shots -->
+                    <com.synnapps.carouselview.CarouselView
+                        android:id="@+id/appScreenShots"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        app:fillColor="@color/cyanBrilliant"
+                        app:pageColor="#00000000"
+                        app:radius="6dp"
+                        app:slideInterval="3000"
+                        app:strokeColor="@color/white"
+                        app:strokeWidth="1dp"
+                        android:visibility="gone"/>
+
+                    <!-- App Model Description -->
+                    <TextView
+                        android:id="@+id/appModelDescription"
+                        style="@style/CommonStrongText.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="start|center_vertical"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/cyanBrilliant"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
         </LinearLayout>
 
 

@@ -8,10 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -31,7 +36,9 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.IAppDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
+import sanchez.sanchez.sergio.domain.models.AppModelEntity;
 import sanchez.sanchez.sergio.domain.models.AppRuleEnum;
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
@@ -62,6 +69,11 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     @Inject
     protected ILocalSystemNotification localSystemNotification;
 
+    /**
+     * Picasso
+     */
+    @Inject
+    protected Picasso picasso;
 
 
     /**
@@ -140,6 +152,48 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
      */
     @BindView(R.id.switchAppDisabledStatusWidget)
     protected SupportSwitchCompat switchAppStatusWidget;
+
+    /**
+     * App More Info
+     */
+    @BindView(R.id.appMoreInfo)
+    protected ViewGroup appMoreInfoContainer;
+
+    /**
+     * App Screen Shots
+     */
+    @BindView(R.id.appScreenShots)
+    protected CarouselView appScreenShots;
+
+    /**
+     * App Model Title Text View
+     */
+    @BindView(R.id.appModelTitle)
+    protected TextView appModelTitleTextView;
+
+    /**
+     * App Model Description
+     */
+    @BindView(R.id.appModelDescription)
+    protected TextView appModelDescriptionTextView;
+
+    /**
+     * App Model Short Description
+     */
+    @BindView(R.id.appModelShortDescription)
+    protected TextView appModelShortDescriptionTextView;
+
+    /**
+     * App Model Category
+     */
+    @BindView(R.id.appModelCategory)
+    protected TextView appModelCategoryTextView;
+
+    /**
+     * App Model Downloads
+     */
+    @BindView(R.id.appModelDownloads)
+    protected TextView appModelDownloadsTextView;
 
 
     /**
@@ -418,7 +472,7 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
      * @param appInstalledEntity
      */
     @Override
-    public void onAppInstalledDetailLoaded(final AppInstalledEntity appInstalledEntity) {
+    public void onAppInstalledDetailLoaded(final AppInstalledDetailEntity appInstalledEntity) {
         Preconditions.checkNotNull(appInstalledEntity, "App Installed Entity");
 
         // Set Image
@@ -504,9 +558,49 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
         switchAppStatusWidget.setChecked(!appInstalledEntity.getDisabled(),
                 false);
         switchAppStatusWidget.setOnCheckedChangeListener(this);
-
-
         switchAppRulesStatus(appInstalledEntity.getDisabled());
+
+        if(appInstalledEntity.getModel() != null) {
+            appMoreInfoContainer.setVisibility(View.VISIBLE);
+
+            final AppModelEntity appModelEntity = appInstalledEntity.getModel();
+
+            // App Model Title
+            appModelTitleTextView.setText(
+                    String.format("%s - %s", appModelEntity.getTitle(),
+                            appModelEntity.getDeveloper()));
+
+            // App Model Description
+            appModelDescriptionTextView.setText(appModelEntity.getDescription());
+
+            // App Model Short Description
+            appModelShortDescriptionTextView.setText(appModelEntity.getShortDesc());
+
+            // App Model Category
+            appModelCategoryTextView.setText(appModelEntity.getCategory().getName());
+
+            // App Downloads
+            appModelDownloadsTextView.setText(appModelEntity.getDownloads());
+
+            // App Model Screen Shots
+            if(appModelEntity.getScreenShots() != null &&
+                !appModelEntity.getScreenShots().isEmpty()) {
+
+                appScreenShots.setVisibility(View.VISIBLE);
+                appScreenShots.setImageListener(new ImageListener() {
+                    @Override
+                    public void setImageForPosition(int position, ImageView imageView) {
+                        picasso.load(appModelEntity.getScreenShots().get(position))
+                                .into(imageView);
+                    }
+                });
+                appScreenShots.setPageCount(appModelEntity.getScreenShots().size());
+
+            }
+
+
+
+        }
     }
 
     /**

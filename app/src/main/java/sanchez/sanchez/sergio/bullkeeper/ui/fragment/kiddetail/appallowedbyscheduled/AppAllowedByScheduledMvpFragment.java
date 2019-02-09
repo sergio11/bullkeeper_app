@@ -222,6 +222,8 @@ public class AppAllowedByScheduledMvpFragment extends SupportMvpLCEFragment<AppA
                 appAllowedByScheduledEntity.setApp(new AppInstalledEntity(
                         appInstalledByTerminalEntity.getIdentity(),
                         appInstalledByTerminalEntity.getPackageName(),
+                        appInstalledByTerminalEntity.getCategory(),
+                        appInstalledByTerminalEntity.getCategoryKey(),
                         appInstalledByTerminalEntity.getFirstInstallTime(),
                         appInstalledByTerminalEntity.getLastUpdateTime(),
                         appInstalledByTerminalEntity.getVersionName(),

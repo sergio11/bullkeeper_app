@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
@@ -69,8 +70,8 @@ public interface IAppRulesRepository {
      * @param app
      * @return
      */
-    Observable<AppInstalledEntity> getAppInstalledDetail(final String kid, final String terminal,
-                                                         final String app);
+    Observable<AppInstalledDetailEntity> getAppInstalledDetail(final String kid, final String terminal,
+                                                                      final String app);
 
     /**
      * Switch App Status In The Terminal

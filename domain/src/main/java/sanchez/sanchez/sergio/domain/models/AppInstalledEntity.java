@@ -18,6 +18,16 @@ public class AppInstalledEntity implements Serializable {
     private String packageName;
 
     /**
+     * Category
+     */
+    private String category;
+
+    /**
+     * Category Keys
+     */
+    private AppModelCategoryEnum categoryKey;
+
+    /**
      * First Install Time
      */
     private long firstInstallTime;
@@ -62,6 +72,8 @@ public class AppInstalledEntity implements Serializable {
     /**
      * @param identity
      * @param packageName
+     * @param category
+     * @param categoryKey
      * @param firstInstallTime
      * @param lastUpdateTime
      * @param versionName
@@ -71,12 +83,16 @@ public class AppInstalledEntity implements Serializable {
      * @param iconEncodedString
      * @param disabled
      */
-    public AppInstalledEntity(final String identity, final String packageName, final long firstInstallTime,
+    public AppInstalledEntity(final String identity, final String packageName,
+                              final String category, final AppModelCategoryEnum categoryKey,
+                              final long firstInstallTime,
                               final long lastUpdateTime, final String versionName, final String versionCode,
                               final String appName, final AppRuleEnum appRuleEnum, final String iconEncodedString,
                               final Boolean disabled) {
         this.identity = identity;
         this.packageName = packageName;
+        this.category = category;
+        this.categoryKey = categoryKey;
         this.firstInstallTime = firstInstallTime;
         this.lastUpdateTime = lastUpdateTime;
         this.versionName = versionName;
@@ -101,6 +117,22 @@ public class AppInstalledEntity implements Serializable {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public AppModelCategoryEnum getCategoryKey() {
+        return categoryKey;
+    }
+
+    public void setCategoryKey(AppModelCategoryEnum categoryKey) {
+        this.categoryKey = categoryKey;
     }
 
     public long getFirstInstallTime() {
@@ -172,6 +204,8 @@ public class AppInstalledEntity implements Serializable {
         return "AppInstalledEntity{" +
                 "identity='" + identity + '\'' +
                 ", packageName='" + packageName + '\'' +
+                ", category='" + category + '\'' +
+                ", categoryKey=" + categoryKey +
                 ", firstInstallTime=" + firstInstallTime +
                 ", lastUpdateTime=" + lastUpdateTime +
                 ", versionName='" + versionName + '\'' +
@@ -179,6 +213,7 @@ public class AppInstalledEntity implements Serializable {
                 ", appName='" + appName + '\'' +
                 ", appRuleEnum=" + appRuleEnum +
                 ", iconEncodedString='" + iconEncodedString + '\'' +
+                ", disabled=" + disabled +
                 '}';
     }
 }

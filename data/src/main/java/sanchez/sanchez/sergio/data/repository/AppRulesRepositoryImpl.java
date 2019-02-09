@@ -7,9 +7,11 @@ import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledByTerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.AppInstalledDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AppStatsDTO;
 import sanchez.sanchez.sergio.data.net.services.IAppRulesService;
 import sanchez.sanchez.sergio.domain.models.AppInstalledByTerminalEntity;
+import sanchez.sanchez.sergio.domain.models.AppInstalledDetailEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledEntity;
 import sanchez.sanchez.sergio.domain.models.AppInstalledRuleEntity;
 import sanchez.sanchez.sergio.domain.models.AppStatsEntity;
@@ -45,6 +47,10 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
      */
     private final AbstractDataMapper<AppInstalledByTerminalDTO, AppInstalledByTerminalEntity> appInstalledByTerminalMapper;
 
+    /**
+     * App Installed Detail
+     */
+    private final AbstractDataMapper<AppInstalledDetailDTO, AppInstalledDetailEntity> appInstalledDetailEntityAbstractDataMapper;
 
     /**
      * App Rules Repository Impl
@@ -54,18 +60,21 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
      * @param appInstalledRuleDataMapper
      * @param appStatsEntityAbstractDataMapper
      * @param appInstalledByTerminalMapper
+     * @param appInstalledDetailEntityAbstractDataMapper
      */
     public AppRulesRepositoryImpl(
             final AbstractDataMapper<AppInstalledDTO, AppInstalledEntity> appInstalledDataMapper,
             final IAppRulesService appRulesService,
             final AbstractDataMapper<AppInstalledRuleDTO, AppInstalledRuleEntity> appInstalledRuleDataMapper,
             final AbstractDataMapper<AppStatsDTO, AppStatsEntity> appStatsEntityAbstractDataMapper,
-            final AbstractDataMapper<AppInstalledByTerminalDTO, AppInstalledByTerminalEntity> appInstalledByTerminalMapper) {
+            final AbstractDataMapper<AppInstalledByTerminalDTO, AppInstalledByTerminalEntity> appInstalledByTerminalMapper,
+            final AbstractDataMapper<AppInstalledDetailDTO, AppInstalledDetailEntity> appInstalledDetailEntityAbstractDataMapper) {
         this.appInstalledDataMapper = appInstalledDataMapper;
         this.appRulesService = appRulesService;
         this.appInstalledRuleDataMapper = appInstalledRuleDataMapper;
         this.appStatsEntityAbstractDataMapper = appStatsEntityAbstractDataMapper;
         this.appInstalledByTerminalMapper = appInstalledByTerminalMapper;
+        this.appInstalledDetailEntityAbstractDataMapper = appInstalledDetailEntityAbstractDataMapper;
     }
 
     /**
@@ -165,8 +174,8 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
      * @return
      */
     @Override
-    public Observable<AppInstalledEntity> getAppInstalledDetail(final String kid, final String terminal,
-                                                                final String app) {
+    public Observable<AppInstalledDetailEntity> getAppInstalledDetail(final String kid, final String terminal,
+                                                                      final String app) {
         Preconditions.checkNotNull(kid, "Child id can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Child id can not be empty");
         Preconditions.checkNotNull(terminal, "Terminal Id can not be null");
@@ -177,7 +186,7 @@ public final class AppRulesRepositoryImpl implements IAppRulesRepository {
         return appRulesService.getAppInstalledDetail(kid, terminal, app)
                 .map(response -> response != null && response.getData() != null ?
                     response.getData(): null)
-                .map(appInstalledDataMapper::transform);
+                .map(appInstalledDetailEntityAbstractDataMapper::transform);
     }
 
     /**
