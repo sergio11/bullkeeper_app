@@ -379,7 +379,7 @@
     <string name="last_alerts_title" formatted="false">Last Alerts (%d)</string>
     <string name="last_alerts_title_default">Last Alerts</string>
     <string name="home_load_profile_information_progress">Loading profile information ...</string>
-    <string name="home_how_add_child_title">How to add a kid?</string>
+    <string name="home_how_add_child_title">How to add a conversation?</string>
 
     <string name="kid_detail_dimensions_title">Four Dimensions</string>
     <string name="kid_detail_dimensions_description">Data of the four dimensions analyzed</string>
@@ -897,6 +897,7 @@
     <string name="conversation_message_title">Messages</string>
     <string name="clear_messages_confirm">Do you want to delete all messages from this conversation?</string>
     <string name="all_messages_deleted">All messages were deleted</string>
+    <string name="messages_selected_deleted">The selected messages were deleted</string>
     <string name="message_add_error">The message could not be sent, please try again</string>
     <string name="sending_message_wait">sending wait ...</string>
     <string name="delete_selected_messages_confirm">Do you want to delete the selected messages?</string>
@@ -918,7 +919,7 @@
     <string name="phone_numbers_specify_number_lock">Specify the number to lock</string>
 
     <!-- Kid Request -->
-    <string name="kid_request_removed">The kid request was removed</string>
+    <string name="kid_request_removed">The conversation request was removed</string>
     <string name="delete_kid_request_btn_text">Delete Request</string>
     <string name="open_conversation_kid_request_btn_text">Open Conversation</string>
     <string name="kid_request_not_found">Request not found</string>

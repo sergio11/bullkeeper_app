@@ -417,14 +417,14 @@ public class DataMapperModule {
 
     /**
      * Provide Conversation Data Mapper
-     * @param kidGuardianEntityAbstractDataMapper
+     * @param personEntityAbstractDataMapper
      * @return
      */
     @Provides @PerActivity
     public AbstractDataMapper<ConversationDTO, ConversationEntity> provideConversationDataMapper(
-            final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper
+            final AbstractDataMapper<PersonDTO, PersonEntity> personEntityAbstractDataMapper
     ) {
-        return new ConversationEntityDataMapper(kidGuardianEntityAbstractDataMapper);
+        return new ConversationEntityDataMapper(personEntityAbstractDataMapper);
     }
 
 

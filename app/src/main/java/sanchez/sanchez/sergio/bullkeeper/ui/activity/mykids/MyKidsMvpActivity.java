@@ -170,7 +170,8 @@ public class MyKidsMvpActivity extends SupportMvpActivity<MyKidsActivityPresente
     public void navigateToConversationMessagesList(final String kid) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-        navigatorImpl.navigateToConversationMessageList(this, kid);
+        final String currentUserId = preferencesRepositoryImpl.getPrefCurrentUserIdentity();
+        navigatorImpl.navigateToConversationMessageList(this, currentUserId, kid);
     }
 
     /**

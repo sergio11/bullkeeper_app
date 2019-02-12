@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,11 +31,16 @@ public class ConversationDTO implements Serializable {
 
 
     /**
-     * Kid Guardian
+     * Member One
      */
-    @JsonProperty("kid_guardian")
-    private KidGuardianDTO kidGuardian;
+    @JsonProperty("member_one")
+    private PersonDTO memberOne;
 
+    /**
+     * Member One
+     */
+    @JsonProperty("member_two")
+    private PersonDTO memberTwo;
 
     /**
      * Messages Count
@@ -54,16 +58,18 @@ public class ConversationDTO implements Serializable {
      * @param identity
      * @param createAt
      * @param updateAt
-     * @param kidGuardian
+     * @param memberOne
+     * @param memberTwo
      * @param messagesCount
      */
     public ConversationDTO(final String identity, final Date createAt,
-                           final Date updateAt, final KidGuardianDTO kidGuardian,
-                           final long messagesCount) {
+                           final Date updateAt, final PersonDTO memberOne,
+                           final PersonDTO memberTwo, long messagesCount) {
         this.identity = identity;
         this.createAt = createAt;
         this.updateAt = updateAt;
-        this.kidGuardian = kidGuardian;
+        this.memberOne = memberOne;
+        this.memberTwo = memberTwo;
         this.messagesCount = messagesCount;
     }
 
@@ -91,12 +97,20 @@ public class ConversationDTO implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public KidGuardianDTO getKidGuardian() {
-        return kidGuardian;
+    public PersonDTO getMemberOne() {
+        return memberOne;
     }
 
-    public void setKidGuardian(KidGuardianDTO kidGuardian) {
-        this.kidGuardian = kidGuardian;
+    public void setMemberOne(PersonDTO memberOne) {
+        this.memberOne = memberOne;
+    }
+
+    public PersonDTO getMemberTwo() {
+        return memberTwo;
+    }
+
+    public void setMemberTwo(PersonDTO memberTwo) {
+        this.memberTwo = memberTwo;
     }
 
     public long getMessagesCount() {
@@ -113,7 +127,8 @@ public class ConversationDTO implements Serializable {
                 "identity='" + identity + '\'' +
                 ", createAt=" + createAt +
                 ", updateAt=" + updateAt +
-                ", kidGuardian=" + kidGuardian +
+                ", memberOne=" + memberOne +
+                ", memberTwo=" + memberTwo +
                 ", messagesCount=" + messagesCount +
                 '}';
     }

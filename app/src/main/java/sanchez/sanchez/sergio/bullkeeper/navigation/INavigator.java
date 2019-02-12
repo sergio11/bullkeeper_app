@@ -420,9 +420,11 @@ public interface INavigator {
     /**
      * Navigate To Conversation Message List
      * @param activity
-     * @param conversationId
+     * @param memberOne
+     * @param memberTwo
      */
-    void navigateToConversationMessageList(final Activity activity, final String conversationId);
+    void navigateToConversationMessageList(final Activity activity,
+                                           final String memberOne, final String memberTwo);
 
     /**
      * Navigate to Search Guardian Activity

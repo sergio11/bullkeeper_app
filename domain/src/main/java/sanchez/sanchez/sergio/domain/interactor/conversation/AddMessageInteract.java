@@ -44,7 +44,7 @@ public final class AddMessageInteract
     @Override
     protected Observable<MessageEntity> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        return conversationRepository.addMessage(params.getKid(),
+        return conversationRepository.addMessage(params.getConversation(),
                 params.getFrom(), params.getTo(), params.getText());
     }
 
@@ -53,53 +53,84 @@ public final class AddMessageInteract
      */
     public static class Params {
 
-        private final String kid;
+        /**
+         * Conversation
+         */
+        private final String conversation;
+
+        /**
+         * From
+         */
         private final String from;
+
+        /**
+         * To
+         */
         private final String to;
+
+        /**
+         * Text
+         */
         private final String text;
 
         /**
          *
-         * @param kid
+         * @param conversation
          * @param from
          * @param to
          * @param text
          */
-        private Params(final String kid, final String from,
+        private Params(final String conversation, final String from,
                        final String to, final String text) {
-            this.kid = kid;
+            this.conversation = conversation;
             this.from = from;
             this.to = to;
             this.text = text;
         }
 
-        public String getKid() {
-            return kid;
+        /**
+         * Get Conversation
+         * @return
+         */
+        public String getConversation() {
+            return conversation;
         }
 
+        /**
+         * Get From
+         * @return
+         */
         public String getFrom() {
             return from;
         }
 
+        /**
+         * Get To
+         * @return
+         */
         public String getTo() {
             return to;
         }
 
+        /**
+         * Get Text
+         * @return
+         */
         public String getText() {
             return text;
         }
 
         /**
          * Create
-         * @param kid
+         * @param conversation
          * @param from
          * @param to
          * @param text
          * @return
          */
-        public static Params create(final String kid, final String from,
+        public static Params create(final String conversation, final String from,
                                     final String to, final String text){
-            return new Params(kid, from, to, text);
+            return new Params(conversation, from, to, text);
         }
     }
 }

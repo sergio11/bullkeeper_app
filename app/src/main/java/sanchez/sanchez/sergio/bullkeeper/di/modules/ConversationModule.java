@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import dagger.Module;
@@ -15,15 +14,14 @@ import sanchez.sanchez.sergio.data.net.services.IConversationsService;
 import sanchez.sanchez.sergio.data.repository.ConversationRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
-import sanchez.sanchez.sergio.domain.interactor.conversation.AddMessageByConversationIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.AddMessageInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationMessagesInteract;
-import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteMessagesByCoversationIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteMessagesByConversationIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationDetailsForMembersInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationMessagesInteract;
-import sanchez.sanchez.sergio.domain.interactor.conversation.GetMessagesByConversationIdInteract;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.repository.IConversationRepository;
@@ -74,22 +72,6 @@ public class ConversationModule {
             final IConversationsService conversationsService) {
         return new ConversationRepositoryImpl(conversationEntityAbstractDataMapper,
                 messageEntityAbstractDataMapper, conversationsService);
-    }
-
-    /**
-     * Provide Add Message By Conversation Id Interact
-     * @param threadExecutor
-     * @param postExecutionThread
-     * @param conversationRepository
-     * @return
-     */
-    @Provides @PerActivity
-    public AddMessageByConversationIdInteract provideAddMessageByConversationIdInteract(
-            final IThreadExecutor threadExecutor,
-            final IPostExecutionThread postExecutionThread,
-            final IConversationRepository conversationRepository
-            ){
-        return new AddMessageByConversationIdInteract(threadExecutor, postExecutionThread, conversationRepository);
     }
 
     /**
@@ -162,12 +144,12 @@ public class ConversationModule {
      * @return
      */
     @Provides @PerActivity
-    public DeleteMessagesByCoversationIdInteract provideDeleteMessagesByCoversationIdInteract(
+    public DeleteMessagesByConversationIdInteract provideDeleteMessagesByCoversationIdInteract(
             final IThreadExecutor threadExecutor,
             final IPostExecutionThread postExecutionThread,
             final IConversationRepository conversationRepository
     ){
-        return new DeleteMessagesByCoversationIdInteract(threadExecutor, postExecutionThread, conversationRepository);
+        return new DeleteMessagesByConversationIdInteract(threadExecutor, postExecutionThread, conversationRepository);
     }
 
     /**
@@ -200,19 +182,22 @@ public class ConversationModule {
         return new GetConversationMessagesInteract(threadExecutor, postExecutionThread, conversationRepository);
     }
 
+
     /**
-     * Get Messages By Conversation Id Interact
+     * Provide Get Conversation Details For Members Interact
      * @param threadExecutor
      * @param postExecutionThread
+     * @param conversationRepository
      * @return
      */
     @Provides @PerActivity
-    public GetMessagesByConversationIdInteract provideGetMessagesByConversationIdInteract(
+    public GetConversationDetailsForMembersInteract provideGetConversationDetailsForMembersInteract(
             final IThreadExecutor threadExecutor,
             final IPostExecutionThread postExecutionThread,
             final IConversationRepository conversationRepository
-    ){
-        return new GetMessagesByConversationIdInteract(threadExecutor, postExecutionThread, conversationRepository);
+    )
+    {
+        return new GetConversationDetailsForMembersInteract(threadExecutor, postExecutionThread, conversationRepository);
     }
 
 }

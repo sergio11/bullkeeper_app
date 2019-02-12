@@ -1,13 +1,18 @@
 package sanchez.sanchez.sergio.data.net.models.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 /**
  * Add Message DTO
  */
 public final class AddMessageDTO implements Serializable {
+
+    /**
+     * Conversation
+     */
+    @JsonProperty("conversation")
+    private String conversation;
 
     /**
      * Text
@@ -31,15 +36,28 @@ public final class AddMessageDTO implements Serializable {
     public AddMessageDTO(){}
 
     /**
-     *
+     * @param conversation
      * @param text
      * @param from
      * @param to
      */
-    public AddMessageDTO(String text, String from, String to) {
+    public AddMessageDTO(
+            final String conversation,
+            final String text,
+            final String from,
+            final String to) {
+        this.conversation = conversation;
         this.text = text;
         this.from = from;
         this.to = to;
+    }
+
+    public String getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(String conversation) {
+        this.conversation = conversation;
     }
 
     public String getText() {
@@ -69,7 +87,8 @@ public final class AddMessageDTO implements Serializable {
     @Override
     public String toString() {
         return "AddMessageDTO{" +
-                "text='" + text + '\'' +
+                "conversation='" + conversation + '\'' +
+                ", text='" + text + '\'' +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 '}';

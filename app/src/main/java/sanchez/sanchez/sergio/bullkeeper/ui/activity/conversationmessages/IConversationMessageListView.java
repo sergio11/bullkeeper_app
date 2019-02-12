@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages;
 import java.util.List;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
+import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 
 /**
@@ -14,6 +15,11 @@ public interface IConversationMessageListView extends ISupportView {
      * On Conversation Messages Deleted
      */
     void onConversationMessagesDeleted();
+
+    /**
+     * On Conversation Messages Selected Deleted
+     */
+    void onConversationMessagesSelectedDeleted(final List<String> messageIds);
 
     /**
      * On Conversation Mesages Loaded
@@ -36,4 +42,10 @@ public interface IConversationMessageListView extends ISupportView {
      * On Message Add Errror
      */
     void onMessageAddError();
+
+    /**
+     * On Conversation Loaded
+     * @param conversationEntity
+     */
+    void onConversationLoaded(final ConversationEntity conversationEntity);
 }

@@ -1,17 +1,18 @@
 package sanchez.sanchez.sergio.domain.interactor.conversation;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.repository.IConversationRepository;
 
-public final class DeleteMessagesByCoversationIdInteract
-        extends UseCase<String, DeleteMessagesByCoversationIdInteract.Params> {
+/**
+ * Delete Messages By Conversation Id Interact
+ */
+public final class DeleteMessagesByConversationIdInteract
+        extends UseCase<String, DeleteMessagesByConversationIdInteract.Params> {
 
     /**
      * Conversation Repository
@@ -24,7 +25,7 @@ public final class DeleteMessagesByCoversationIdInteract
      * @param threadExecutor
      * @param postExecutionThread
      */
-    public DeleteMessagesByCoversationIdInteract(
+    public DeleteMessagesByConversationIdInteract(
             final IThreadExecutor threadExecutor,
             final IPostExecutionThread postExecutionThread,
             final IConversationRepository conversationRepository) {
@@ -44,7 +45,7 @@ public final class DeleteMessagesByCoversationIdInteract
         Preconditions.checkState(!params.getId().isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(params.getMessageIds(), "Message ids can not be null");
 
-        return conversationRepository.deleteMessagesByConversationId(params.getId(), params.getMessageIds());
+        return conversationRepository.deleteConversationMessages(params.getId(), params.getMessageIds());
     }
 
     /**

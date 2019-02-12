@@ -1,10 +1,8 @@
 package sanchez.sanchez.sergio.domain.interactor.conversation;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -44,11 +42,11 @@ public final class DeleteConversationMessagesInteract
     @Override
     protected Observable<String> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
-        Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(params.getConversation(), "Kid can not be null");
+        Preconditions.checkState(!params.getConversation().isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(params.getMessageIds(), "Message Ids can not be null");
 
-        return conversationRepository.deleteConversationMessages(params.getKid(), params.getMessageIds());
+        return conversationRepository.deleteConversationMessages(params.getConversation(), params.getMessageIds());
     }
 
     /**
@@ -57,9 +55,9 @@ public final class DeleteConversationMessagesInteract
     public static class Params {
 
         /**
-         * Kid
+         * Conversation
          */
-        private final String kid;
+        private final String conversation;
 
         /**
          * Message Ids
@@ -68,42 +66,50 @@ public final class DeleteConversationMessagesInteract
 
         /**
          *
-         * @param kid
+         * @param conversation
          * @param messageIds
          */
-        private Params(final String kid, final List<String> messageIds) {
-            this.kid = kid;
+        private Params(final String conversation, final List<String> messageIds) {
+            this.conversation = conversation;
             this.messageIds = messageIds;
         }
         /**
          *
-         * @param kid
+         * @param conversation
          */
-        private Params(final String kid) {
-            this.kid = kid;
+        private Params(final String conversation) {
+            this.conversation = conversation;
         }
 
-        public String getKid() {
-            return kid;
+        /**
+         * Get Conversation
+         * @return
+         */
+        public String getConversation() {
+            return conversation;
         }
 
+        /**
+         * Get Message Ids
+         * @return
+         */
         public List<String> getMessageIds() {
             return messageIds;
         }
 
         /**
-         * @param kid
+         * @param conversation
          * @param messageIds
          */
-        public static Params create(final String kid, final List<String> messageIds) {
-            return new Params(kid, messageIds);
+        public static Params create(final String conversation, final List<String> messageIds) {
+            return new Params(conversation, messageIds);
         }
 
         /**
-         * @param kid
+         * @param conversation
          */
-        public static Params create(final String kid) {
-            return new Params(kid);
+        public static Params create(final String conversation) {
+            return new Params(conversation);
         }
 
     }

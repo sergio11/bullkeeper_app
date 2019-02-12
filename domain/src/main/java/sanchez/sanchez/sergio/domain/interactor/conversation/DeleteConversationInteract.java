@@ -41,10 +41,10 @@ public final class DeleteConversationInteract
     @Override
     protected Observable<String> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
-        Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(params.getConversation(), "Kid can not be null");
+        Preconditions.checkState(!params.getConversation().isEmpty(), "Kid can not be empty");
         // Delete Conversation
-        return conversationRepository.deleteConversation(params.getKid());
+        return conversationRepository.deleteConversationMessages(params.getConversation());
     }
 
     /**
@@ -53,27 +53,27 @@ public final class DeleteConversationInteract
     public static class Params {
 
         /**
-         * Kid
+         * Conversation
          */
-        private final String kid;
+        private final String conversation;
 
         /**
-         * @param kid
+         * @param conversation
          */
-        private Params(String kid) {
-            this.kid = kid;
+        private Params(String conversation) {
+            this.conversation = conversation;
         }
 
-        public String getKid() {
-            return kid;
+        public String getConversation() {
+            return conversation;
         }
 
         /**
          *
-         * @param kid
+         * @param conversation
          */
-        public static Params create(final String kid) {
-            return new Params(kid);
+        public static Params create(final String conversation) {
+            return new Params(conversation);
         }
     }
 }

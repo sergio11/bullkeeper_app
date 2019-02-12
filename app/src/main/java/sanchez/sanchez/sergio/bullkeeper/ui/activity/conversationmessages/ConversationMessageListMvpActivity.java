@@ -15,16 +15,15 @@ import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ConversationComponent;
@@ -32,6 +31,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerConversationCompone
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessage;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessageUser;
+import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
@@ -50,8 +50,8 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     /**
      * Args
      */
-    public static final String CONVERSATION_KID_IDENTITY_ARG = "CONVERSATION_KID_IDENTITY_ARG";
-
+    public static final String CONVERSATION_MEMBER_ONE_IDENTITY_ARG = "CONVERSATION_MEMBER_ONE_IDENTITY_ARG";
+    public static final String CONVERSATION_MEMBER_TWO_IDENTITY_ARG = "CONVERSATION_MEMBER_TWO_IDENTITY_ARG";
 
     private static final String SENDING_MESSAGE_ID = "5645678";
 
@@ -95,10 +95,16 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      */
 
     /**
-     * Kid
+     * Member One
      */
     @State
-    protected String kid;
+    protected String memberOne;
+
+    /**
+     * Member Two
+     */
+    @State
+    protected String memberTwo;
 
     /**
      * Selection Count
@@ -111,6 +117,12 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      */
     @State
     protected Date lastLoadedDate;
+
+    /**
+     * Conversation Id
+     */
+    @State
+    protected String conversationId;
 
     /**
      * Dependencies
@@ -129,6 +141,12 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     @Inject
     protected IPreferenceRepository preferenceRepository;
 
+    /**
+     * Sound Manager
+     */
+    @Inject
+    protected ISoundManager soundManager;
+
 
     /**
      * Message Adapter
@@ -137,33 +155,19 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
 
 
     /**
-     * Get Message String Formatter
-     * @return
-     */
-    private MessagesListAdapter.Formatter<ConversationMessage> getMessageStringFormatter() {
-        return new MessagesListAdapter.Formatter<ConversationMessage>() {
-            @Override
-            public String format(ConversationMessage message) {
-                String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
-                        .format(message.getCreatedAt());
-
-                String text = message.getText();
-                if (text == null) text = "[attachment]";
-
-                return String.format(Locale.getDefault(), "%s: %s (%s)",
-                        message.getUser().getName(), text, createdAt);
-            }
-        };
-    }
-
-    /**
      * Get Calling Intent
      * @param context
+     * @param memberOne
+     * @param memberTwo
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String kid) {
+    public static Intent getCallingIntent(final Context context, final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(context, "Context can not be null");
+        Preconditions.checkNotNull(memberOne, "Member one can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
         final Intent callingIntent =  new Intent(context, ConversationMessageListMvpActivity.class);
-        callingIntent.putExtra(CONVERSATION_KID_IDENTITY_ARG, kid);
+        callingIntent.putExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG, memberOne);
+        callingIntent.putExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG, memberTwo);
         return callingIntent;
     }
 
@@ -174,7 +178,8 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     @Override
     public Bundle getArgs() {
         final Bundle args = new Bundle();
-        args.putString(ConversationMessageListPresenter.CONVERSATION_KID_IDENTITY_ARG, kid);
+        args.putString(ConversationMessageListPresenter.CONVERSATION_MEMBER_ONE_IDENTITY_ARG, memberOne);
+        args.putString(ConversationMessageListMvpActivity.CONVERSATION_MEMBER_TWO_IDENTITY_ARG, memberTwo);
         return args;
     }
 
@@ -210,12 +215,18 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        if(!getIntent().hasExtra(CONVERSATION_KID_IDENTITY_ARG) ||
-                !appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_KID_IDENTITY_ARG)))
-            throw new IllegalArgumentException("You must provide kid identity");
+        if(!getIntent().hasExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG) ||
+                !appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
+            throw new IllegalArgumentException("You must provide member one identity");
 
 
-        kid = getIntent().getStringExtra(CONVERSATION_KID_IDENTITY_ARG);
+        if(!getIntent().hasExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG) ||
+                !appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)))
+            throw new IllegalArgumentException("You must provide member two identity");
+
+
+        memberOne = getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
+        memberTwo = getIntent().getStringExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
 
         messageInput.setInputListener(this);
         initAdapter();
@@ -306,7 +317,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         messageInput.setEnabled(false);
         messageInput.setSaveEnabled(false);
         messagesAdapter.addToStart(getSendingConversationMessage(), true);
-        getPresenter().addMessage(input.toString());
+        getPresenter().addMessage(conversationId, input.toString());
         return true;
     }
 
@@ -368,7 +379,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
                     for(final ConversationMessage conversationMessage: conversationMessages) {
                         messageIds.add(conversationMessage.getId());
                     }
-                    getPresenter().deleteMessages(messageIds);
+                    getPresenter().deleteMessages(conversationId, messageIds);
                 }
 
                 @Override
@@ -380,7 +391,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
             showConfirmationDialog(R.string.clear_messages_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                 @Override
                 public void onAccepted(DialogFragment dialog) {
-                    getPresenter().deleteAllMessages();
+                    getPresenter().deleteAllMessages(conversationId);
                 }
 
                 @Override
@@ -399,6 +410,19 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         clearMessageImageButton.setVisibility(View.GONE);
         messagesAdapter.clear(true);
         showNoticeDialog(R.string.all_messages_deleted);
+    }
+
+    /**
+     * On Conversation Message Selected Deleted
+     * @param messageIds
+     */
+    @Override
+    public void onConversationMessagesSelectedDeleted(final List<String> messageIds) {
+        Preconditions.checkNotNull(messageIds, "Message Ids can not be null");
+        messagesAdapter.deleteSelectedMessages();
+        if(messagesAdapter.isEmpty())
+            clearMessageImageButton.setVisibility(View.GONE);
+        showNoticeDialog(R.string.messages_selected_deleted);
     }
 
     /**
@@ -449,6 +473,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     public void onMessageAdded(MessageEntity messageEntity) {
         Preconditions.checkNotNull(messageEntity, "Message Entity");
 
+        soundManager.playSound(ISoundManager.SEND_MESSAGE_SUCCESS);
         clearMessageImageButton.setVisibility(View.VISIBLE);
         messagesAdapter.deleteById(SENDING_MESSAGE_ID);
         messagesAdapter.addToStart(
@@ -470,10 +495,22 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     }
 
     /**
+     * On Conversation Loaded
+     * @param conversationEntity
+     */
+    @Override
+    public void onConversationLoaded(final ConversationEntity conversationEntity) {
+        Preconditions.checkNotNull(conversationEntity, "Conversation Entity can not be null");
+        conversationId = conversationEntity.getIdentity();
+        // Load Messages
+        getPresenter().loadMessages(conversationId);
+    }
+
+    /**
      * On Refresh
      */
     @Override
     public void onRefresh() {
-        getPresenter().loadMessages();
+        getPresenter().loadMessages(conversationId);
     }
 }

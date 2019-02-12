@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.data.net.services;
 
 import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -15,61 +14,21 @@ import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.MessageDTO;
 
 /**
- * Conversation Service
- * DELETE /api/v1/conversations/self/{kid} DELETE_CONVERSATION
- * GET /api/v1/conversations/self/{kid} GET_CONVERSATION_DETAIL
- * DELETE /api/v1/conversations/self/{kid}/messages DELETE_CONVERSATION_MESSAGES
- * GET /api/v1/conversations/self/{kid}/messages GET_CONVERSATION_MESSAGES
- * POST /api/v1/conversations/self/{kid}/messages ADD_MESSAGE
- * DELETE /api/v1/conversations/{id} DELETE_CONVERSATION_BY_ID
- * GET /api/v1/conversations/{id} GET_CONVERSATION_BY_ID
- * DELETE /api/v1/conversations/{id}/messages DELETE_CONVERSATION_MESSAGES
- * GET /api/v1/conversations/{id}/messages GET_CONVERSATION_MESSAGES
- * POST /api/v1/conversations/{id}/messages ADD_MESSAGE
+ * GET -> /api/v1/conversations/{id}
+ * DELETE -> /api/v1/conversations/{id}
+ * GET -> /api/v1/conversations/{id}/messages
+ * DELETE -> /api/v1/conversations/{id}/messages
+ * POST -> /api/v1/conversations/{id}/messages
+ * GET -> /api/v1/conversations/members/self
+ * GET -> /api/v1/conversations/members/{member}
+ * GET -> /api/v1/conversations/members/{memberOne}/{memberTwo}
+ * POST -> /api/v1/conversations/members/{memberOne}/{memberTwo}
+ * DELETE -> /api/v1/conversations/members/{memberOne}/{memberTwo}
+ * GET -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages
+ * DELETE -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages
+ * POST -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages
  */
 public interface IConversationsService {
-
-    /**
-     * Delete Conversation
-     * @param kid
-     * @return
-     */
-    @DELETE("conversations/self/{kid}")
-    Observable<APIResponse<String>> deleteConversation(@Path("kid") final String kid);
-
-
-    /**
-     * Get Conversation
-     * @param kid
-     * @return
-     */
-    @GET("conversations/self/{kid}")
-    Observable<APIResponse<ConversationDTO>> getConversation(@Path("kid") final String kid);
-
-    /**
-     * Delete Conversation Messages
-     * @param kid
-     * @return
-     */
-    @DELETE("conversations/self/{kid}/messages")
-    Observable<APIResponse<String>> deleteConversationMessages(@Path("kid") final String kid,
-                                                               @Query("ids") final List<String> messageIds);
-
-    /**
-     * Get Conversation Messages
-     * @param kid
-     * @return
-     */
-    @GET("conversations/self/{kid}/messages")
-    Observable<APIResponse<List<MessageDTO>>> getConversationMessages(@Path("kid") final String kid);
-
-    /**
-     * Delete Conversation By Id
-     * @param id
-     * @return
-     */
-    @DELETE("conversations/{id}")
-    Observable<APIResponse<String>> deleteConversationById(@Path("id") final String id);
 
     /**
      * Get Conversation By Id
@@ -77,44 +36,141 @@ public interface IConversationsService {
      * @return
      */
     @GET("conversations/{id}")
-    Observable<APIResponse<ConversationDTO>> getConversationById(@Path("id") final String id);
+    Observable<APIResponse<ConversationDTO>> getConversationById(
+            @Path("id") final String id);
+
 
     /**
-     * Delete Messages by conversation id
+     * Delete Conversation By Id
      * @param id
      * @return
      */
-    @DELETE("conversations/{id}/messages")
-    Observable<APIResponse<String>> deleteMessagesByConversationId(
-            @Path("id") final String id,
-            @Query("ids") final List<String> messageIds);
+    @DELETE("conversations/{id}")
+    Observable<APIResponse<String>> deleteConversationById(
+            @Path("id") final String id);
 
     /**
-     * Get Messages by conversation id
+     * Get Conversation Messages
      * @param id
      * @return
      */
     @GET("conversations/{id}/messages")
-    Observable<APIResponse<List<MessageDTO>>> getMessagesByConversationId(@Path("id") final String id);
+    Observable<APIResponse<List<MessageDTO>>> getConversationMessages(
+            @Path("id") final String id);
+
+
+    /**
+     * Delete Conversation
+     * @param id
+     * @return
+     */
+    @DELETE("conversations/{id}/messages")
+    Observable<APIResponse<String>> deleteConversation(
+            @Path("id") final String id);
+
+    /**
+     * Delete Conversation Messages
+     * @param id
+     * @param messages
+     * @return
+     */
+    @DELETE("conversations/{id}/messages")
+    Observable<APIResponse<String>> deleteConversationMessage(
+            @Path("id") final String id,
+            @Query("messages") final List<String> messages
+    );
+
 
     /**
      * Add Message
-     * @param kid
+     * @param id
      * @param message
      * @return
      */
-    @POST("conversations/self/{kid}/messages")
-    Observable<APIResponse<MessageDTO>> addMessage(@Path("kid") final String kid,
-                                                   @Body final AddMessageDTO message);
+    @POST("conversations/{id}/messages")
+    Observable<APIResponse<MessageDTO>> addMessage(
+            @Path("id") final String id,
+            @Body final AddMessageDTO message);
+
 
     /**
-     * Add Message By Conversation Id
-     * @param kid
-     * @param messageDTO
+     * Get Conversations For Self User
      * @return
      */
-    @POST("conversations/{id}/messages")
-    Observable<APIResponse<MessageDTO>> addMessageByConversationId(@Path("id") final String kid,
-                                                                   @Body final AddMessageDTO messageDTO);
+    @GET("conversations/members/self")
+    Observable<APIResponse<List<ConversationDTO>>> getConversationsForSelfUser();
 
+    /**
+     * Get Conversation For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @GET("conversations/members/{memberOne}/{memberTwo}")
+    Observable<APIResponse<ConversationDTO>> getConversationForMembers(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo
+    );
+
+    /**
+     * Create Conversation
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @POST("conversations/members/{memberOne}/{memberTwo}")
+    Observable<APIResponse<ConversationDTO>> createConversation(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo
+    );
+
+    /**
+     * Delete Conversatioin For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @DELETE("conversations/members/{memberOne}/{memberTwo}")
+    Observable<APIResponse<String>> deleteConversationForMembers(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo
+    );
+
+    /**
+     * Get Conversation Messages For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @GET("conversations/members/{memberOne}/{memberTwo}/messages")
+    Observable<APIResponse<List<MessageDTO>>> getConversationMessagesForMembers(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo
+    );
+
+    /**
+     * Delete Conversation Messages For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @DELETE("conversations/members/{memberOne}/{memberTwo}/messages")
+    Observable<APIResponse<String>> deleteConversationMessagesForMembers(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo
+    );
+
+    /**
+     * Add Message DTO
+     * @param memberOne
+     * @param memberTwo
+     * @param addMessageDTO
+     * @return
+     */
+    @POST("conversations/members/{memberOne}/{memberTwo}/messages")
+    Observable<APIResponse<MessageDTO>> addMessage(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo,
+            final AddMessageDTO addMessageDTO
+    );
 }

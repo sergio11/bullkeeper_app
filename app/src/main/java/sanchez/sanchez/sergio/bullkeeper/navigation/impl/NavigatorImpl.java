@@ -52,7 +52,6 @@ import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
-import sanchez.sanchez.sergio.domain.models.SocialMediaFriendEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaStatusEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
@@ -707,20 +706,22 @@ public class NavigatorImpl implements INavigator {
     public void navigateToConversationList(Activity activity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         //activity.startActivity(ConversationListMvpActivity.getCallingIntent(activity));
-        navigateToConversationMessageList(activity, "132213132132");
     }
 
     /**
-     *
      * @param activity
-     * @param kid
+     * @param memberOne
+     * @param memberTwo
      */
     @Override
-    public void navigateToConversationMessageList(Activity activity, String kid) {
+    public void navigateToConversationMessageList(final Activity activity, final String memberOne, final String memberTwo) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-        activity.startActivity(ConversationMessageListMvpActivity.getCallingIntent(activity, kid));
+        Preconditions.checkNotNull(memberOne, "Member One can not be null");
+        Preconditions.checkState(!memberOne.isEmpty(), "Member One can not be empty");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+        Preconditions.checkState(!memberTwo.isEmpty(), "Member Two can not be empty");
+        activity.startActivity(ConversationMessageListMvpActivity
+                .getCallingIntent(activity, memberOne, memberTwo));
     }
 
     /**

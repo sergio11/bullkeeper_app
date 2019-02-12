@@ -47,84 +47,6 @@ public final class ConversationRepositoryImpl implements IConversationRepository
     }
 
     /**
-     * Delete Conversation
-     * @param kid
-     * @return
-     */
-    @Override
-    public Observable<String> deleteConversation(final String kid) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-        // Delete Conversation By Id
-        return conversationsService.deleteConversation(kid)
-                .map(response -> response != null && response.getData() != null ?
-                        response.getData(): null);
-    }
-
-    /**
-     * Get Conversation
-     * @param kid
-     * @return
-     */
-    @Override
-    public Observable<ConversationEntity> getConversation(final String kid) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-
-        return conversationsService.getConversation(kid)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData(): null)
-                .map(conversationEntityAbstractDataMapper::transform);
-    }
-
-    /**
-     * Delete Conversation Messages
-     * @param kid
-     * @return
-     */
-    @Override
-    public Observable<String> deleteConversationMessages(final String kid, final List<String> messageIds) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-        Preconditions.checkNotNull(messageIds, "Message Ids can not be empty");
-
-        return conversationsService.deleteConversationMessages(kid, messageIds)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData(): null);
-    }
-
-    /**
-     * Get Conversation Message
-     * @param kid
-     * @return
-     */
-    @Override
-    public Observable<List<MessageEntity>> getConversationMessages(final String kid) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
-
-        return conversationsService.getConversationMessages(kid)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData(): null)
-                .map(messageEntityAbstractDataMapper::transform);
-    }
-
-    /**
-     * Delete Conversation By id
-     * @param id
-     * @return
-     */
-    @Override
-    public Observable<String> deleteConversationById(final String id) {
-        Preconditions.checkNotNull(id, "Id can not be null");
-        Preconditions.checkState(!id.isEmpty(), "Id can not be null");
-
-        return conversationsService.deleteConversationById(id)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData(): null);
-    }
-
-    /**
      * Get Conversation By Id
      * @param id
      * @return
@@ -132,7 +54,6 @@ public final class ConversationRepositoryImpl implements IConversationRepository
     @Override
     public Observable<ConversationEntity> getConversationById(final String id) {
         Preconditions.checkNotNull(id, "Id can not be null");
-        Preconditions.checkState(!id.isEmpty(), "Id can not be null");
 
         return conversationsService.getConversationById(id)
                 .map(response -> response != null && response.getData() != null ?
@@ -141,84 +62,225 @@ public final class ConversationRepositoryImpl implements IConversationRepository
     }
 
     /**
-     * Delete Messages By Conversation Id
+     * Delete Conversation By Id
      * @param id
      * @return
      */
     @Override
-    public Observable<String> deleteMessagesByConversationId(final String id, final List<String> messageIds) {
+    public Observable<String> deleteConversationById(final String id) {
         Preconditions.checkNotNull(id, "Id can not be null");
-        Preconditions.checkState(!id.isEmpty(), "Id can not be null");
-        Preconditions.checkNotNull(messageIds, "Message ids can not be null");
 
-        return conversationsService.deleteMessagesByConversationId(id, messageIds)
+        return conversationsService.deleteConversationById(id)
                 .map(response -> response != null && response.getData() != null ?
-                    response.getData(): null);
+                        response.getData(): null);
     }
 
     /**
-     * Get Messages By Conversation Id
+     * Get Conversation Messages
      * @param id
      * @return
      */
     @Override
-    public Observable<List<MessageEntity>> getMessagesByConversationId(String id) {
+    public Observable<List<MessageEntity>> getConversationMessages(final String id) {
         Preconditions.checkNotNull(id, "Id can not be null");
-        Preconditions.checkState(!id.isEmpty(), "Id can not be null");
-        return conversationsService.getMessagesByConversationId(id)
+
+        return conversationsService.getConversationMessages(id)
                 .map(response -> response != null && response.getData() != null ?
-                    response.getData(): null)
+                        response.getData(): null)
                 .map(messageEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Delete Conversation
+     * @param id
+     * @return
+     */
+    @Override
+    public Observable<String> deleteConversationMessages(final String id) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+
+        return conversationsService.deleteConversation(id)
+                .map(response -> response != null
+                        && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
+     * Delete Conversation Messages
+     * @param id
+     * @param messageIds
+     * @return
+     */
+    @Override
+    public Observable<String> deleteConversationMessages(final String id, final List<String> messageIds) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkNotNull(messageIds, "Message Ids can not be null");
+
+        return conversationsService.deleteConversationMessage(id, messageIds)
+                .map(response -> response != null
+                        && response.getData() != null ?
+                        response.getData(): null);
     }
 
     /**
      * Add Message
-     * @param kid
+     * @param conversation
      * @param from
      * @param to
      * @param text
      * @return
      */
     @Override
-    public Observable<MessageEntity> addMessage(String kid, String from, String to, String text) {
-        Preconditions.checkNotNull(kid, "Kid can not be null");
-        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+    public Observable<MessageEntity> addMessage(final String conversation, final String from,
+                                                final String to, final String text) {
+        Preconditions.checkNotNull(conversation, "Conversaton can not be null");
         Preconditions.checkNotNull(from, "From can not be null");
-        Preconditions.checkState(!from.isEmpty(), "From can not be empty");
         Preconditions.checkNotNull(to, "To can not be null");
-        Preconditions.checkState(!to.isEmpty(), "To can not be empty");
         Preconditions.checkNotNull(text, "Text can not be null");
-        Preconditions.checkState(!text.isEmpty(), "Text can not be empty");
 
-        return conversationsService.addMessage(kid, new AddMessageDTO(text, from, to))
-                    .map(response -> response != null && response.getData() != null ?
-                        response.getData(): null)
-                    .map(messageEntityAbstractDataMapper::transform);
-    }
-
-    /**
-     * Add Message By Conversation Id
-     * @param conversationId
-     * @param from
-     * @param to
-     * @param text
-     * @return
-     */
-    @Override
-    public Observable<MessageEntity> addMessageByConversationId(String conversationId, String from, String to, String text) {
-
-        Preconditions.checkNotNull(conversationId, "Conversation Id can not be null");
-        Preconditions.checkState(!conversationId.isEmpty(), "Conversation Id can not be empty");
-        Preconditions.checkNotNull(from, "From can not be null");
-        Preconditions.checkState(!from.isEmpty(), "From can not be empty");
-        Preconditions.checkNotNull(to, "To can not be null");
-        Preconditions.checkState(!to.isEmpty(), "To can not be empty");
-        Preconditions.checkNotNull(text, "Text can not be null");
-        Preconditions.checkState(!text.isEmpty(), "Text can not be empty");
-
-        return conversationsService.addMessageByConversationId(conversationId, new AddMessageDTO(text, from, to))
+        return conversationsService.addMessage(conversation,
+                new AddMessageDTO(conversation, text, from, to))
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null)
                 .map(messageEntityAbstractDataMapper::transform);
+
+    }
+
+    /**
+     * Get Conversations For Self User
+     * @return
+     */
+    @Override
+    public Observable<List<ConversationEntity>> getConversationsForSelfUser() {
+
+        return conversationsService.getConversationsForSelfUser()
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(conversationEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Get Conversation For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @Override
+    public Observable<ConversationEntity> getConversationForMembers(
+            final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(memberOne, "Member One can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+
+        return conversationsService.getConversationForMembers(memberOne, memberTwo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(conversationEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Create Conversation
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @Override
+    public Observable<ConversationEntity> createConversation(
+            final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(memberOne, "Member one can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+
+        return conversationsService.createConversation(memberOne, memberTwo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(conversationEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Delete Conversation Form Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @Override
+    public Observable<String> deleteConversationForMembers(final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(memberOne, "Member One can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+
+        return conversationsService.deleteConversationForMembers(memberOne, memberTwo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+
+
+    }
+
+    /**
+     * Get Conversation Message For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @Override
+    public Observable<List<MessageEntity>> getConversationMessagesForMembers(
+            final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(memberOne, "Member One can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+
+        return conversationsService.getConversationMessagesForMembers(memberOne, memberTwo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(messageEntityAbstractDataMapper::transform);
+
+    }
+
+    /**
+     * Delete Conversation Message For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    @Override
+    public Observable<String> deleteConversationMessagesForMembers(
+            final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(memberOne, "Member one can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+
+        return conversationsService.deleteConversationForMembers(
+                memberOne, memberTwo)
+                .map(response -> response != null && response.getData() != null
+                    ? response.getData(): null);
+    }
+
+    /**
+     * Add Message
+     * @param memberOne
+     * @param memberTwo
+     * @param conversation
+     * @param from
+     * @param to
+     * @param text
+     * @return
+     */
+    @Override
+    public Observable<MessageEntity> addMessage(
+            final String memberOne,
+            final String memberTwo,
+            final String conversation,
+            final String from,
+            final String to,
+            final String text) {
+        Preconditions.checkNotNull(memberOne, "Member One can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+        Preconditions.checkNotNull(conversation, "Conversation can not be null");
+        Preconditions.checkNotNull(from, "From can not be null");
+        Preconditions.checkNotNull(to, "To can not be null");
+        Preconditions.checkNotNull(text, "Text can not be null");
+
+        return conversationsService.addMessage(memberOne, memberTwo,
+                new AddMessageDTO(conversation, text, from, to))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(messageEntityAbstractDataMapper::transform);
+
+
     }
 }

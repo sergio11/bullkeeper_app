@@ -44,9 +44,9 @@ public final class GetConversationMessagesInteract
     @Override
     protected Observable<List<MessageEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
-        Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
-        return conversationRepository.getConversationMessages(params.getKid());
+        Preconditions.checkNotNull(params.getId(), "Id can not be null");
+        Preconditions.checkState(!params.getId().isEmpty(), "Id can not be empty");
+        return conversationRepository.getConversationMessages(params.getId());
     }
 
     /**
@@ -55,27 +55,27 @@ public final class GetConversationMessagesInteract
     public static class Params {
 
         /**
-         * Kid
+         * Id
          */
-        private final String kid;
+        private final String id;
 
         /**
-         * @param kid
+         * @param id
          */
-        private Params(String kid) {
-            this.kid = kid;
+        private Params(String id) {
+            this.id = id;
         }
 
-        public String getKid() {
-            return kid;
+        public String getId() {
+            return id;
         }
 
         /**
-         *
-         * @param kid
+         * Create
+         * @param id
          */
-        public static Params create(final String kid) {
-            return new Params(kid);
+        public static Params create(final String id) {
+            return new Params(id);
         }
     }
 

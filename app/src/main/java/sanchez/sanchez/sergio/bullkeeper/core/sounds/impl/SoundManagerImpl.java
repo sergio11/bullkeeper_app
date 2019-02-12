@@ -56,6 +56,7 @@ public final class SoundManagerImpl implements ISoundManager {
         soundMap.put(DIALOG_CONFIRM_SOUND, soundPool.load(context, DIALOG_CONFIRM_SOUND, 1));
         soundMap.put(DIALOG_ERROR_SOUND, soundPool.load(context, DIALOG_ERROR_SOUND, 1));
         soundMap.put(DIALOG_SUCCESS_SOUND, soundPool.load(context, DIALOG_SUCCESS_SOUND, 1));
+        soundMap.put(SEND_MESSAGE_SUCCESS, soundPool.load(context, SEND_MESSAGE_SUCCESS, 1));
     }
 
     /**

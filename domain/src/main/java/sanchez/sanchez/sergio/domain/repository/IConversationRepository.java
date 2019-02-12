@@ -12,33 +12,12 @@ import sanchez.sanchez.sergio.domain.models.MessageEntity;
 public interface IConversationRepository {
 
     /**
-     * Delete Conversation
-     * @param kid
+     * Get Conversation By Id
+     * @param id
      * @return
      */
-    Observable<String> deleteConversation(final String kid);
+    Observable<ConversationEntity> getConversationById(final String id);
 
-    /**
-     * Get Conversation
-     * @param kid
-     * @return
-     */
-    Observable<ConversationEntity> getConversation(final String kid);
-
-    /**
-     * Delete Conversation Messages
-     * @param kid
-     * @param messageIds
-     * @return
-     */
-    Observable<String> deleteConversationMessages(final String kid, final List<String> messageIds);
-
-    /**
-     * Get Conversation Messages
-     * @param kid
-     * @return
-     */
-    Observable<List<MessageEntity>> getConversationMessages(final String kid);
 
     /**
      * Delete Conversation By Id
@@ -47,46 +26,116 @@ public interface IConversationRepository {
      */
     Observable<String> deleteConversationById(final String id);
 
+
     /**
-     * Get Conversation By Id
+     * Get Conversation Messages
      * @param id
      * @return
      */
-    Observable<ConversationEntity> getConversationById(final String id);
+    Observable<List<MessageEntity>> getConversationMessages(final String id);
+
 
     /**
-     * Delete Messages by conversation id
+     * Delete Conversation Messages
+     * @param id
+     * @return
+     */
+    Observable<String> deleteConversationMessages(final String id);
+
+    /**
+     * Delete Conversation Messages
      * @param id
      * @param messageIds
      * @return
      */
-    Observable<String> deleteMessagesByConversationId(final String id, final List<String> messageIds);
-
-    /**
-     * Get Messages by conversation id
-     * @param id
-     * @return
-     */
-    Observable<List<MessageEntity>> getMessagesByConversationId(final String id);
+    Observable<String> deleteConversationMessages(final String id, final List<String> messageIds);
 
     /**
      * Add Message
-     * @param kid
+     * @param conversation
      * @param from
      * @param to
      * @param text
      * @return
      */
-    Observable<MessageEntity> addMessage(final String kid, final String from, final String to, final String text);
+    Observable<MessageEntity> addMessage(
+            final String conversation, final String from,
+            final String to, final String text);
+
 
     /**
-     * Add Message By Conversation Id
-     * @param kid
+     * Get Conversations For Self User
+     * @return
+     */
+    Observable<List<ConversationEntity>> getConversationsForSelfUser();
+
+    /**
+     * Get Conversation For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    Observable<ConversationEntity> getConversationForMembers(
+            final String memberOne,
+            final String memberTwo
+    );
+
+    /**
+     * Create Conversation
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    Observable<ConversationEntity> createConversation(
+            final String memberOne,
+            final String memberTwo
+    );
+
+    /**
+     * Delete Conversation For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    Observable<String> deleteConversationForMembers(
+            final String memberOne,
+            final String memberTwo
+    );
+
+    /**
+     * Get Conversation Messages For Members
+     * @return
+     */
+    Observable<List<MessageEntity>> getConversationMessagesForMembers(
+            final String memberOne,
+            final String memberTwo
+    );
+
+    /**
+     * Delete Conversation Messages For Members
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    Observable<String> deleteConversationMessagesForMembers(
+            final String memberOne,
+            final String memberTwo
+    );
+
+    /**
+     * Add Message
+     * @param memberOne
+     * @param memberTwo
+     * @param conversation
      * @param from
      * @param to
      * @param text
      * @return
      */
-    Observable<MessageEntity> addMessageByConversationId(final String kid, final String from, final String to, final String text);
+    Observable<MessageEntity> addMessage(
+            final String memberOne, final String memberTwo,
+            final String conversation, final String from,
+            final String to, final String text
+    );
 
 }

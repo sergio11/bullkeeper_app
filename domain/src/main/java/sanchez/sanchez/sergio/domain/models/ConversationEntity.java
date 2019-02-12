@@ -24,9 +24,14 @@ public final class ConversationEntity implements Serializable {
     private Date updateAt;
 
     /**
-     * Kid Guardian
+     * Member One
      */
-    private KidGuardianEntity kidGuardian;
+    private PersonEntity memberOne;
+
+    /**
+     * Member Two
+     */
+    private PersonEntity memberTwo;
 
     /**
      * Message Count
@@ -40,14 +45,18 @@ public final class ConversationEntity implements Serializable {
      * @param identity
      * @param createAt
      * @param updateAt
-     * @param kidGuardian
+     * @param memberOne
+     * @param memberTwo
      * @param messagesCount
      */
-    public ConversationEntity(String identity, Date createAt, Date updateAt, KidGuardianEntity kidGuardian, long messagesCount) {
+    public ConversationEntity(final String identity, final Date createAt,
+                              final Date updateAt, final PersonEntity memberOne,
+                              final PersonEntity memberTwo, long messagesCount) {
         this.identity = identity;
         this.createAt = createAt;
         this.updateAt = updateAt;
-        this.kidGuardian = kidGuardian;
+        this.memberOne = memberOne;
+        this.memberTwo = memberTwo;
         this.messagesCount = messagesCount;
     }
 
@@ -75,12 +84,20 @@ public final class ConversationEntity implements Serializable {
         this.updateAt = updateAt;
     }
 
-    public KidGuardianEntity getKidGuardian() {
-        return kidGuardian;
+    public PersonEntity getMemberOne() {
+        return memberOne;
     }
 
-    public void setKidGuardian(KidGuardianEntity kidGuardian) {
-        this.kidGuardian = kidGuardian;
+    public void setMemberOne(PersonEntity memberOne) {
+        this.memberOne = memberOne;
+    }
+
+    public PersonEntity getMemberTwo() {
+        return memberTwo;
+    }
+
+    public void setMemberTwo(PersonEntity memberTwo) {
+        this.memberTwo = memberTwo;
     }
 
     public long getMessagesCount() {
@@ -97,7 +114,8 @@ public final class ConversationEntity implements Serializable {
                 "identity='" + identity + '\'' +
                 ", createAt=" + createAt +
                 ", updateAt=" + updateAt +
-                ", kidGuardian=" + kidGuardian +
+                ", memberOne=" + memberOne +
+                ", memberTwo=" + memberTwo +
                 ", messagesCount=" + messagesCount +
                 '}';
     }
