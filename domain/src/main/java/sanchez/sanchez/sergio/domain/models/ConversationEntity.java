@@ -38,6 +38,16 @@ public final class ConversationEntity implements Serializable {
      */
     private long messagesCount;
 
+    /**
+     * Unread Messages
+     */
+    private long unreadMessages;
+
+    /**
+     * Last Message
+     */
+    private String lastMessage;
+
     public ConversationEntity(){}
 
     /**
@@ -48,16 +58,21 @@ public final class ConversationEntity implements Serializable {
      * @param memberOne
      * @param memberTwo
      * @param messagesCount
+     * @param unreadMessages
+     * @param lastMessage
      */
     public ConversationEntity(final String identity, final Date createAt,
                               final Date updateAt, final PersonEntity memberOne,
-                              final PersonEntity memberTwo, long messagesCount) {
+                              final PersonEntity memberTwo, long messagesCount,
+                              final long unreadMessages, final String lastMessage) {
         this.identity = identity;
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.memberOne = memberOne;
         this.memberTwo = memberTwo;
         this.messagesCount = messagesCount;
+        this.unreadMessages = unreadMessages;
+        this.lastMessage = lastMessage;
     }
 
     public String getIdentity() {
@@ -108,6 +123,22 @@ public final class ConversationEntity implements Serializable {
         this.messagesCount = messagesCount;
     }
 
+    public long getUnreadMessages() {
+        return unreadMessages;
+    }
+
+    public void setUnreadMessages(long unreadMessages) {
+        this.unreadMessages = unreadMessages;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
     @Override
     public String toString() {
         return "ConversationEntity{" +
@@ -117,6 +148,8 @@ public final class ConversationEntity implements Serializable {
                 ", memberOne=" + memberOne +
                 ", memberTwo=" + memberTwo +
                 ", messagesCount=" + messagesCount +
+                ", unreadMessages=" + unreadMessages +
+                ", lastMessage='" + lastMessage + '\'' +
                 '}';
     }
 }

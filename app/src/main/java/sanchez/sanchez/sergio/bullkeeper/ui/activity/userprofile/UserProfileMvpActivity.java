@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
@@ -616,4 +615,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         });
     }
 
+    /**
+     * Show Conversation
+     */
+    @OnClick(R.id.showConversation)
+    protected void onShowConversationClicked(){
+        navigatorImpl.navigateToConversationList(this);
+    }
 }

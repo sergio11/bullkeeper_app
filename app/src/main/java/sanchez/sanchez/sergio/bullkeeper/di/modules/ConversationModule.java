@@ -15,6 +15,7 @@ import sanchez.sanchez.sergio.data.repository.ConversationRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.conversation.AddMessageInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteAllConversationForSelfUserInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationMessagesInteract;
@@ -22,6 +23,7 @@ import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteMessagesByCon
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationDetailsForMembersInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationMessagesInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationsForSelfUserInteract;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.repository.IConversationRepository;
@@ -198,6 +200,36 @@ public class ConversationModule {
     )
     {
         return new GetConversationDetailsForMembersInteract(threadExecutor, postExecutionThread, conversationRepository);
+    }
+
+    /**
+     * Provide Get Conversation For Self User Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param conversationRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public GetConversationsForSelfUserInteract provideGetConversationsForSelfUserInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IConversationRepository conversationRepository
+    ){
+        return new GetConversationsForSelfUserInteract(threadExecutor, postExecutionThread, conversationRepository);
+    }
+
+
+    /**
+     * Provide Delete All Conversation For Self User
+     * @return
+     */
+    @Provides @PerActivity
+    public DeleteAllConversationForSelfUserInteract provideDeleteAllConversationForSelfUserInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IConversationRepository conversationRepository
+    ) {
+        return new DeleteAllConversationForSelfUserInteract(threadExecutor, postExecutionThread, conversationRepository);
     }
 
 }

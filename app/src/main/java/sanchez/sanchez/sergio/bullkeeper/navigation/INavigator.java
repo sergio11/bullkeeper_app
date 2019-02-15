@@ -426,6 +426,15 @@ public interface INavigator {
     void navigateToConversationMessageList(final Activity activity,
                                            final String memberOne, final String memberTwo);
 
+
+    /**
+     * Navigate To Conversation Message List
+     * @param activity
+     * @param id
+     */
+    void navigateToConversationMessageList(final Activity activity, final String id);
+
+
     /**
      * Navigate to Search Guardian Activity
      * @param activity

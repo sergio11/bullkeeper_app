@@ -11,6 +11,9 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.Conver
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListPresenter;
 
+/**
+ * Conversation Component
+ */
 @PerActivity
 @Component(
         dependencies = ApplicationComponent.class,

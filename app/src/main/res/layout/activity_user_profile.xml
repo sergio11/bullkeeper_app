@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/profileSectionTitle"
         style="@style/CommonSection"
         android:layout_width="match_parent"
@@ -31,19 +31,22 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="start|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/profileForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appToolbarInclude">
 
+        <!-- Profile Section Icon -->
         <ImageView
+            android:id="@+id/profileSectionIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:contentDescription="@string/content_not_be_loaded"
-            android:src="@drawable/user_edit_white" />
+            android:src="@drawable/user_edit_white"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
 
 
         <TextView
@@ -53,9 +56,24 @@
             android:padding="0dp"
             android:text="@string/user_profile_title"
             android:textColor="@color/commonWhite"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/profileSectionIcon"
+            android:layout_centerVertical="true"/>
 
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/showConversation"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/conversation_list_solid_icon_white"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+
+    </RelativeLayout>
 
     <!-- Profile Form -->
     <ScrollView

@@ -893,6 +893,9 @@
     <string name="invitation_data_viewer_title">Data Viewer Role</string>
     <string name="invitation_data_viewer_description">You will be able to see alerts and results derived from the analyzes carried out</string>
     <!-- Conversations -->
+
+    <string name="conversation_list_title_default">Conversations</string>
+    <string name="conversation_list_title">Conversations (%d)</string>
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="conversation_message_title">Messages</string>
     <string name="clear_messages_confirm">Do you want to delete all messages from this conversation?</string>
@@ -901,7 +904,7 @@
     <string name="message_add_error">The message could not be sent, please try again</string>
     <string name="sending_message_wait">sending wait ...</string>
     <string name="delete_selected_messages_confirm">Do you want to delete the selected messages?</string>
-
+    <string name="delete_all_conversations_confirm">Do you want to delete all conversations?</string>
     <!-- Search Guardians -->
     <string name="search_guardians_title">Search Guardians</string>
     <string name="search_guardians_query_hint">Search Users ...</string>

@@ -42,6 +42,8 @@ public final class ConversationEntityDataMapper extends AbstractDataMapper<Conve
                 .transform(originModel.getMemberOne()));
         conversationEntity.setMemberTwo(personEntityAbstractDataMapper
                 .transform(originModel.getMemberTwo()));
+        conversationEntity.setUnreadMessages(originModel.getUnreadMessages());
+        conversationEntity.setLastMessage(originModel.getLastMessage());
         return conversationEntity;
     }
 
@@ -62,6 +64,8 @@ public final class ConversationEntityDataMapper extends AbstractDataMapper<Conve
                 .transformInverse(originModel.getMemberOne()));
         conversationDTO.setMemberTwo(personEntityAbstractDataMapper
                 .transformInverse(originModel.getMemberTwo()));
+        conversationDTO.setUnreadMessages(originModel.getUnreadMessages());
+        conversationDTO.setLastMessage(originModel.getLastMessage());
         return conversationDTO;
     }
 }

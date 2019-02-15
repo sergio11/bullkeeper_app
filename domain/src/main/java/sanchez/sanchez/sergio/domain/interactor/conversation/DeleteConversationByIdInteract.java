@@ -71,10 +71,10 @@ public final class DeleteConversationByIdInteract
 
         /**
          *
-         * @param kid
+         * @param id
          */
-        public static Params create(final String kid) {
-            return new Params(kid);
+        public static Params create(final String id) {
+            return new Params(id);
         }
     }
 }

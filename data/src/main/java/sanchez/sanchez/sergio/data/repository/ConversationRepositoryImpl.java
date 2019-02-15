@@ -160,6 +160,17 @@ public final class ConversationRepositoryImpl implements IConversationRepository
     }
 
     /**
+     * Delete All Conversations For Self User
+     * @return
+     */
+    @Override
+    public Observable<String> deleteAllConversationsForSelfUser() {
+        return conversationsService.deleteConversationsForSelfUser()
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
      * Get Conversation For Members
      * @param memberOne
      * @param memberTwo

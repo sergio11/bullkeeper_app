@@ -101,6 +101,14 @@ public interface IConversationsService {
     Observable<APIResponse<List<ConversationDTO>>> getConversationsForSelfUser();
 
     /**
+     * Delete Conversations For Self User
+     * @return
+     */
+    @DELETE("conversations/members/self")
+    Observable<APIResponse<String>> deleteConversationsForSelfUser();
+
+
+    /**
      * Get Conversation For Members
      * @param memberOne
      * @param memberTwo

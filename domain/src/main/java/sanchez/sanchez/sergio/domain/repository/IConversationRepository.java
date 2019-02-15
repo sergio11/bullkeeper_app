@@ -70,6 +70,12 @@ public interface IConversationRepository {
     Observable<List<ConversationEntity>> getConversationsForSelfUser();
 
     /**
+     * Delete All Conversations For Self user
+     * @return
+     */
+    Observable<String> deleteAllConversationsForSelfUser();
+
+    /**
      * Get Conversation For Members
      * @param memberOne
      * @param memberTwo

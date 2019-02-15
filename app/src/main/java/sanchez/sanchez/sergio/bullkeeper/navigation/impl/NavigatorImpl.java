@@ -725,6 +725,19 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     * Navigate To Conversation Message List
+     * @param activity
+     * @param id
+     */
+    @Override
+    public void navigateToConversationMessageList(final Activity activity, final String id) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(id, "Id can not be null");
+        activity.startActivity(ConversationMessageListMvpActivity
+                .getCallingIntent(activity, id));
+    }
+
+    /**
      * Navigate To Search Guardian Activity
      * @param activity
      * @param requestCode

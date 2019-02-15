@@ -28,10 +28,14 @@ public class SearchGuardiansMvpActivity extends SupportMvpSearchLCEActivity<Sear
         ISearchGuardiansActivityView, GuardianEntity>
         implements HasComponent<SearchGuardianComponent>, ISearchGuardiansActivityView {
 
-    public final static String GUARDIAN_SELECTED_ARG = "GUARDIAN_SELECTED_ARG";
 
     private final String CONTENT_FULL_NAME = "SEARCH_GUARDIANS";
     private final String CONTENT_TYPE_NAME = "GUARDIANS";
+
+    /**
+     * Args
+     */
+    public final static String GUARDIAN_SELECTED_ARG = "GUARDIAN_SELECTED_ARG";
 
     /**
      * Dependencies

@@ -52,6 +52,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      */
     public static final String CONVERSATION_MEMBER_ONE_IDENTITY_ARG = "CONVERSATION_MEMBER_ONE_IDENTITY_ARG";
     public static final String CONVERSATION_MEMBER_TWO_IDENTITY_ARG = "CONVERSATION_MEMBER_TWO_IDENTITY_ARG";
+    public static final String CONVERSATION_IDENTITY_ARG = "CONVERSATION_IDENTITY_ARG";
 
     private static final String SENDING_MESSAGE_ID = "5645678";
 
@@ -172,14 +173,32 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     }
 
     /**
+     * Get Calling Intent
+     * @param context
+     * @param id
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String id) {
+        Preconditions.checkNotNull(context, "Context can not be null");
+        Preconditions.checkNotNull(id, "Id one can not be null");
+        final Intent callingIntent =  new Intent(context, ConversationMessageListMvpActivity.class);
+        callingIntent.putExtra(CONVERSATION_IDENTITY_ARG, id);
+        return callingIntent;
+    }
+
+    /**
      * Get Args
      * @return
      */
     @Override
     public Bundle getArgs() {
         final Bundle args = new Bundle();
-        args.putString(ConversationMessageListPresenter.CONVERSATION_MEMBER_ONE_IDENTITY_ARG, memberOne);
-        args.putString(ConversationMessageListMvpActivity.CONVERSATION_MEMBER_TWO_IDENTITY_ARG, memberTwo);
+        if(appUtils.isValidString(conversationId)) {
+            args.putString(ConversationMessageListPresenter.CONVERSATION_IDENTITY_ARG, conversationId);
+        } else {
+            args.putString(ConversationMessageListPresenter.CONVERSATION_MEMBER_ONE_IDENTITY_ARG, memberOne);
+            args.putString(ConversationMessageListPresenter.CONVERSATION_MEMBER_TWO_IDENTITY_ARG, memberTwo);
+        }
         return args;
     }
 
@@ -215,18 +234,28 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
 
-        if(!getIntent().hasExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG) ||
-                !appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
-            throw new IllegalArgumentException("You must provide member one identity");
+        if(getIntent().hasExtra(CONVERSATION_IDENTITY_ARG)) {
 
+            if(!appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
+                throw new IllegalArgumentException("You must provide conversation identity");
 
-        if(!getIntent().hasExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG) ||
-                !appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)))
-            throw new IllegalArgumentException("You must provide member two identity");
+            conversationId = getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
 
+        } else if(getIntent().hasExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG) &&
+                getIntent().hasExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)) {
 
-        memberOne = getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
-        memberTwo = getIntent().getStringExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
+            if(!appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
+                throw new IllegalArgumentException("You must provide member one identity");
+
+            if(!appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)))
+                throw new IllegalArgumentException("You must provide member two identity");
+
+            memberOne = getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
+            memberTwo = getIntent().getStringExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
+
+        } else {
+            throw new IllegalArgumentException("You must provide args");
+        }
 
         messageInput.setInputListener(this);
         initAdapter();

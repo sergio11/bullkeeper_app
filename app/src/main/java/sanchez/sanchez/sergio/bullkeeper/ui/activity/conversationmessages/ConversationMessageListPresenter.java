@@ -9,6 +9,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.conversation.AddMessageInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationMessagesInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationDetailsForMembersInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationMessagesInteract;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
@@ -24,6 +25,7 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
      */
     public static final String CONVERSATION_MEMBER_ONE_IDENTITY_ARG = "CONVERSATION_MEMBER_ONE_IDENTITY_ARG";
     public static final String CONVERSATION_MEMBER_TWO_IDENTITY_ARG = "CONVERSATION_MEMBER_TWO_IDENTITY_ARG";
+    public static final String CONVERSATION_IDENTITY_ARG = "CONVERSATION_IDENTITY_ARG";
 
     /**
      * Get Conversation Messages Interact
@@ -47,6 +49,12 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
     private final GetConversationDetailsForMembersInteract getConversationDetailsForMembersInteract;
 
     /**
+     * Get Conversation By Id Interact
+     */
+    private final GetConversationByIdInteract getConversationByIdInteract;
+
+
+    /**
      *
      * @param getConversationMessagesInteract
      * @param deleteConversationMessagesInteract
@@ -58,13 +66,15 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
             final GetConversationMessagesInteract getConversationMessagesInteract,
             final DeleteConversationMessagesInteract deleteConversationMessagesInteract,
             final AddMessageInteract addMessageInteract,
-            final GetConversationDetailsForMembersInteract getConversationDetailsForMembersInteract
+            final GetConversationDetailsForMembersInteract getConversationDetailsForMembersInteract,
+            final GetConversationByIdInteract getConversationByIdInteract
     ) {
         super();
         this.getConversationMessagesInteract = getConversationMessagesInteract;
         this.deleteConversationMessagesInteract = deleteConversationMessagesInteract;
         this.addMessageInteract = addMessageInteract;
         this.getConversationDetailsForMembersInteract = getConversationDetailsForMembersInteract;
+        this.getConversationByIdInteract = getConversationByIdInteract;
     }
 
 
@@ -99,26 +109,25 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.generic_loading_text);
 
-        getConversationDetails();
+
+        if(args.containsKey(CONVERSATION_IDENTITY_ARG)) {
+
+            final String conversation = args.getString(CONVERSATION_IDENTITY_ARG);
+
+            getConversationByIdInteract.execute(new GetConversationDetailsObservable(),
+                    GetConversationByIdInteract.Params.create(conversation));
+
+
+        } else {
+
+            final String memberOne = args.getString(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
+            final String memberTwo = args.getString(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
+
+            getConversationDetailsForMembersInteract.execute(new GetConversationDetailsObservable(),
+                    GetConversationDetailsForMembersInteract.Params.create(memberOne, memberTwo));
+        }
     }
 
-
-    /**
-     * Get Conversation Details
-     */
-    public void getConversationDetails() {
-
-        if (isViewAttached() && getView() != null)
-            getView().showProgressDialog(R.string.generic_loading_text);
-
-        final String memberOne = args.getString(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
-        final String memberTwo = args.getString(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
-
-        // Get Conversation
-        getConversationDetailsForMembersInteract.execute(new GetConversationDetailsForMembersObservable(),
-                GetConversationDetailsForMembersInteract.Params.create(memberOne, memberTwo));
-
-    }
 
     /**
      * Load Messages
@@ -240,9 +249,9 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
     }
 
     /**
-     * Get Conversation Details For Members Observable
+     * Get Conversation Details Observable
      */
-    public class GetConversationDetailsForMembersObservable
+    public class GetConversationDetailsObservable
         extends BasicCommandCallBackWrapper<ConversationEntity> {
 
         /**
@@ -259,8 +268,6 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
             }
 
         }
-
-
     }
 
     /**
