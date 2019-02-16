@@ -39,9 +39,24 @@ public final class ConversationEntity implements Serializable {
     private long messagesCount;
 
     /**
-     * Unread Messages
+     * Pending Messages For Member One
      */
-    private long unreadMessages;
+    private long pendingMessagesForMemberOne;
+
+    /**
+     * Pending Messages For Member Two
+     */
+    private long pendingMessagesForMemberTwo;
+
+    /**
+     * Last Message For Member One
+     */
+    private String lastMessageForMemberOne;
+
+    /**
+     * Last Message For Member Two
+     */
+    private String lastMessageForMemberTwo;
 
     /**
      * Last Message
@@ -58,20 +73,27 @@ public final class ConversationEntity implements Serializable {
      * @param memberOne
      * @param memberTwo
      * @param messagesCount
-     * @param unreadMessages
+     * @param pendingMessagesForMemberOne
+     * @param pendingMessagesForMemberTwo
+     * @param lastMessageForMemberOne
+     * @param lastMessageForMemberTwo
      * @param lastMessage
      */
-    public ConversationEntity(final String identity, final Date createAt,
-                              final Date updateAt, final PersonEntity memberOne,
-                              final PersonEntity memberTwo, long messagesCount,
-                              final long unreadMessages, final String lastMessage) {
+    public ConversationEntity(String identity, Date createAt, Date updateAt,
+                              PersonEntity memberOne, PersonEntity memberTwo, long messagesCount,
+                              long pendingMessagesForMemberOne, long pendingMessagesForMemberTwo,
+                              String lastMessageForMemberOne, String lastMessageForMemberTwo,
+                              String lastMessage) {
         this.identity = identity;
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.memberOne = memberOne;
         this.memberTwo = memberTwo;
         this.messagesCount = messagesCount;
-        this.unreadMessages = unreadMessages;
+        this.pendingMessagesForMemberOne = pendingMessagesForMemberOne;
+        this.pendingMessagesForMemberTwo = pendingMessagesForMemberTwo;
+        this.lastMessageForMemberOne = lastMessageForMemberOne;
+        this.lastMessageForMemberTwo = lastMessageForMemberTwo;
         this.lastMessage = lastMessage;
     }
 
@@ -123,12 +145,36 @@ public final class ConversationEntity implements Serializable {
         this.messagesCount = messagesCount;
     }
 
-    public long getUnreadMessages() {
-        return unreadMessages;
+    public long getPendingMessagesForMemberOne() {
+        return pendingMessagesForMemberOne;
     }
 
-    public void setUnreadMessages(long unreadMessages) {
-        this.unreadMessages = unreadMessages;
+    public void setPendingMessagesForMemberOne(long pendingMessagesForMemberOne) {
+        this.pendingMessagesForMemberOne = pendingMessagesForMemberOne;
+    }
+
+    public long getPendingMessagesForMemberTwo() {
+        return pendingMessagesForMemberTwo;
+    }
+
+    public void setPendingMessagesForMemberTwo(long pendingMessagesForMemberTwo) {
+        this.pendingMessagesForMemberTwo = pendingMessagesForMemberTwo;
+    }
+
+    public String getLastMessageForMemberOne() {
+        return lastMessageForMemberOne;
+    }
+
+    public void setLastMessageForMemberOne(String lastMessageForMemberOne) {
+        this.lastMessageForMemberOne = lastMessageForMemberOne;
+    }
+
+    public String getLastMessageForMemberTwo() {
+        return lastMessageForMemberTwo;
+    }
+
+    public void setLastMessageForMemberTwo(String lastMessageForMemberTwo) {
+        this.lastMessageForMemberTwo = lastMessageForMemberTwo;
     }
 
     public String getLastMessage() {
@@ -148,7 +194,10 @@ public final class ConversationEntity implements Serializable {
                 ", memberOne=" + memberOne +
                 ", memberTwo=" + memberTwo +
                 ", messagesCount=" + messagesCount +
-                ", unreadMessages=" + unreadMessages +
+                ", pendingMessagesForMemberOne=" + pendingMessagesForMemberOne +
+                ", pendingMessagesForMemberTwo=" + pendingMessagesForMemberTwo +
+                ", lastMessageForMemberOne='" + lastMessageForMemberOne + '\'' +
+                ", lastMessageForMemberTwo='" + lastMessageForMemberTwo + '\'' +
                 ", lastMessage='" + lastMessage + '\'' +
                 '}';
     }

@@ -1,90 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:layout_height="100dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/common_list_item_state">
+    android:orientation="vertical">
 
-    <!-- Users Image -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/content_not_be_loaded"
-        android:src="@drawable/user_default"
-        android:layout_gravity="center"
-        app:civ_border_color="@color/commonWhite"
-        app:civ_border_width="@dimen/common_image_stroke_width"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/separator"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-    <!-- Separator -->
-    <View
-        android:id="@+id/separator"
-        android:layout_width="4dp"
+    <!-- Background -->
+    <RelativeLayout
+        android:id="@+id/item_background"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/commonWhite"
-        app:layout_constraintStart_toEndOf="@id/userImage"
-        app:layout_constraintEnd_toStartOf="@id/userName"/>
+        android:background="@drawable/common_list_item_background">
+
+        <ImageView
+            android:id="@+id/deleteConversation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/trash_white"
+            android:contentDescription="@string/content_not_be_loaded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/deleteConversation"
+            android:textAllCaps="true"
+            android:text="@string/delete_list_menu_item"
+            android:textColor="@color/commonWhite"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+    <!-- Foreground -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/item_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_list_item_state">
+
+        <!-- Users Image -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/user_default"
+            android:layout_gravity="center"
+            app:civ_border_color="@color/commonWhite"
+            app:civ_border_width="@dimen/common_image_stroke_width"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
-    <!-- User Name -->
-    <TextView
-        android:id="@+id/userName"
-        style="@style/CommonStrongText.Big"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:singleLine="true"
-        android:text="-"
-        android:textColor="@color/darkModerateBlue"
-        app:layout_constraintBottom_toTopOf="@id/lastMessage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/separator"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- Separator -->
+        <View
+            android:id="@+id/separator"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/commonWhite"
+            app:layout_constraintStart_toEndOf="@id/userImage"
+            app:layout_constraintEnd_toStartOf="@id/userName"/>
 
 
-    <!-- Last Message  -->
-    <TextView
-        android:id="@+id/lastMessage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="@color/cyanBrilliant"
-        style="@style/CommonStrongText.Medium"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/unreadMessagesCount"
-        app:layout_constraintStart_toEndOf="@+id/separator"
-        app:layout_constraintTop_toBottomOf="@id/userName"/>
+        <!-- User Name -->
+        <TextView
+            android:id="@+id/userName"
+            style="@style/CommonStrongText.Big"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/darkModerateBlue"
+            app:layout_constraintBottom_toTopOf="@id/lastMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/separator"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/unreadMessagesCount"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        style="@style/CommonStrongText.Small"
-        android:layout_marginStart="@dimen/common_margin"
-        android:layout_marginEnd="@dimen/common_margin"
-        android:padding="0dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textColor="@color/commonWhite"
-        android:visibility="visible"
-        android:text="-"
-        android:background="@drawable/background_alert_count_warning"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lastMessage"
-        app:layout_constraintTop_toBottomOf="@id/userName"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <!-- Last Message  -->
+        <TextView
+            android:id="@+id/lastMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@color/cyanBrilliant"
+            style="@style/CommonStrongText.Medium"
+            android:text="-"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/unreadMessagesCount"
+            app:layout_constraintStart_toEndOf="@+id/separator"
+            app:layout_constraintTop_toBottomOf="@id/userName"/>
 
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/unreadMessagesCount"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            style="@style/CommonStrongText.Small"
+            android:layout_marginStart="@dimen/common_margin"
+            android:layout_marginEnd="@dimen/common_margin"
+            android:padding="0dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/commonWhite"
+            android:visibility="visible"
+            android:text="-"
+            android:background="@drawable/background_alert_count_warning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lastMessage"
+            app:layout_constraintTop_toBottomOf="@id/userName"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

@@ -98,13 +98,6 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
         if(args.isEmpty())
             throw new IllegalStateException("You must provide args");
 
-        if(!args.containsKey(CONVERSATION_MEMBER_ONE_IDENTITY_ARG) ||
-                !appUtils.isValidString(args.getString(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
-            throw new IllegalStateException("You must provide member one identity");
-
-        if(!args.containsKey(CONVERSATION_MEMBER_TWO_IDENTITY_ARG) ||
-                !appUtils.isValidString(args.getString(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)))
-            throw new IllegalArgumentException("You must provide member two identity");
 
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.generic_loading_text);
@@ -119,6 +112,14 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
 
 
         } else {
+
+            if(!args.containsKey(CONVERSATION_MEMBER_ONE_IDENTITY_ARG) ||
+                    !appUtils.isValidString(args.getString(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
+                throw new IllegalStateException("You must provide member one identity");
+
+            if(!args.containsKey(CONVERSATION_MEMBER_TWO_IDENTITY_ARG) ||
+                    !appUtils.isValidString(args.getString(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)))
+                throw new IllegalArgumentException("You must provide member two identity");
 
             final String memberOne = args.getString(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
             final String memberTwo = args.getString(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
@@ -182,15 +183,15 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
      * @param conversation
      * @param text
      */
-    public void addMessage(final String conversation, final String text) {
+    public void addMessage(final String conversation, final String text, final String from, final String to) {
         Preconditions.checkNotNull(conversation, "Conversation can not be null");
         Preconditions.checkState(!conversation.isEmpty(), "Conversation can not be empty");
         Preconditions.checkNotNull(text, "Text can not be null");
         Preconditions.checkState(!text.isEmpty(), "Text can not be empty");
-
-        final String from = args.getString(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
-        final String to = args.getString(CONVERSATION_MEMBER_TWO_IDENTITY_ARG);
-
+        Preconditions.checkNotNull(from, "from can not be null");
+        Preconditions.checkState(!from.isEmpty(), "from can not be empty");
+        Preconditions.checkNotNull(to, "to can not be null");
+        Preconditions.checkState(!to.isEmpty(), "to can not be empty");
         addMessageInteract.execute(new AddMessagesObservable(),
                 AddMessageInteract.Params.create(conversation, from, to, text));
     }

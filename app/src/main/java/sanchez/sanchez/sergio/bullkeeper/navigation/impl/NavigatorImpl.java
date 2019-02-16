@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.calldetail.CallDetailMvpAct
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.CommentsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.dayscheduleddetail.DayScheduledMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofenceMvpActivity;
@@ -705,7 +706,7 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void navigateToConversationList(Activity activity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
-        //activity.startActivity(ConversationListMvpActivity.getCallingIntent(activity));
+        activity.startActivity(ConversationListMvpActivity.getCallingIntent(activity));
     }
 
     /**

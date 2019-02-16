@@ -3,11 +3,13 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -139,6 +141,20 @@ public class ConversationListMvpActivity extends SupportMvpLCEActivity<Conversat
             navigatorImpl.navigateToConversationMessageList(this, selfUserId,
                     guardianEntitySelected.getIdentity());
         }
+    }
+
+    /**
+     * on View Ready
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onViewReady(Bundle savedInstanceState) {
+        super.onViewReady(savedInstanceState);
+
+        // adding item touch helper
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new SupportItemTouchHelper<ConversationsAdapter.ConversationViewHolder>(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     /**

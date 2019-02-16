@@ -28,6 +28,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ConversationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerConversationComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessage;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessageUser;
@@ -236,10 +237,10 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
 
         if(getIntent().hasExtra(CONVERSATION_IDENTITY_ARG)) {
 
-            if(!appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG)))
+            if(!appUtils.isValidString(getIntent().getStringExtra(CONVERSATION_IDENTITY_ARG)))
                 throw new IllegalArgumentException("You must provide conversation identity");
 
-            conversationId = getIntent().getStringExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG);
+            conversationId = getIntent().getStringExtra(CONVERSATION_IDENTITY_ARG);
 
         } else if(getIntent().hasExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG) &&
                 getIntent().hasExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG)) {
@@ -257,9 +258,11 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
             throw new IllegalArgumentException("You must provide args");
         }
 
+
         messageInput.setInputListener(this);
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(this);
+
 
     }
 
@@ -346,7 +349,9 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         messageInput.setEnabled(false);
         messageInput.setSaveEnabled(false);
         messagesAdapter.addToStart(getSendingConversationMessage(), true);
-        getPresenter().addMessage(conversationId, input.toString());
+        final String currentUserId = preferenceRepository.getPrefCurrentUserIdentity();
+        final String target = currentUserId.equals(memberOne) ? memberTwo : memberOne;
+        getPresenter().addMessage(conversationId, input.toString(), currentUserId, target);
         return true;
     }
 
@@ -542,4 +547,6 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     public void onRefresh() {
         getPresenter().loadMessages(conversationId);
     }
+
+
 }

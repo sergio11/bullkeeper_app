@@ -42,7 +42,10 @@ public final class ConversationEntityDataMapper extends AbstractDataMapper<Conve
                 .transform(originModel.getMemberOne()));
         conversationEntity.setMemberTwo(personEntityAbstractDataMapper
                 .transform(originModel.getMemberTwo()));
-        conversationEntity.setUnreadMessages(originModel.getUnreadMessages());
+        conversationEntity.setLastMessageForMemberOne(originModel.getLastMessageForMemberOne());
+        conversationEntity.setLastMessageForMemberTwo(originModel.getLastMessageForMemberTwo());
+        conversationEntity.setPendingMessagesForMemberOne(originModel.getPendingMessagesForMemberOne());
+        conversationEntity.setPendingMessagesForMemberTwo(originModel.getPendingMessagesForMemberTwo());
         conversationEntity.setLastMessage(originModel.getLastMessage());
         return conversationEntity;
     }
@@ -64,7 +67,10 @@ public final class ConversationEntityDataMapper extends AbstractDataMapper<Conve
                 .transformInverse(originModel.getMemberOne()));
         conversationDTO.setMemberTwo(personEntityAbstractDataMapper
                 .transformInverse(originModel.getMemberTwo()));
-        conversationDTO.setUnreadMessages(originModel.getUnreadMessages());
+        conversationDTO.setLastMessageForMemberOne(originModel.getLastMessageForMemberOne());
+        conversationDTO.setLastMessageForMemberTwo(originModel.getLastMessageForMemberTwo());
+        conversationDTO.setPendingMessagesForMemberOne(originModel.getPendingMessagesForMemberOne());
+        conversationDTO.setPendingMessagesForMemberTwo(originModel.getPendingMessagesForMemberTwo());
         conversationDTO.setLastMessage(originModel.getLastMessage());
         return conversationDTO;
     }

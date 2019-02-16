@@ -108,17 +108,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/input"
-                app:dateHeaderFormat="dd MMMM yyyy"
+                app:dateHeaderFormat="@string/conversation_message_list_date_format"
                 app:dateHeaderTextColor="@color/commonWhite"
                 app:incomingDefaultBubbleColor="@color/darkModerateBlue"
                 app:incomingDefaultBubblePressedColor="@color/darkModerateBlue"
                 app:incomingDefaultBubbleSelectedColor="@color/gray"
                 app:incomingTextColor="@color/commonWhite"
+                app:incomingTimeTextColor="@color/commonWhite"
+                app:incomingTimeTextSize="@dimen/common_strong_small_text_size"
+                app:incomingTimeTextStyle="bold"
                 app:incomingTextSize="18sp"
                 app:outcomingDefaultBubbleColor="@color/commonWhite"
                 app:outcomingDefaultBubblePressedColor="@color/commonWhite"
-                app:outcomingTextColor="@color/cyanBrilliant"
+                app:outcomingDefaultBubbleSelectedColor="@color/gray"
+                app:outcomingTextColor="@color/darkModerateBlue"
                 app:outcomingTextSize="18sp"
+                app:outcomingTimeTextColor="@color/darkModerateBlue"
+                app:outcomingTimeTextStyle="bold"
+                app:outcomingTimeTextSize="@dimen/common_strong_small_text_size"
                 app:textAutoLink="all"/>
 
             <View
@@ -136,8 +143,15 @@
                 android:layout_alignParentBottom="true"
                 app:inputCursorDrawable="@drawable/shape_custom_cursor"
                 app:inputHint="@string/hint_enter_a_message"
+                app:inputHintColor="@color/commonWhite"
                 app:inputTextColor="@color/commonWhite"
-                app:showAttachmentButton="false"/>
+                app:showAttachmentButton="false"
+                app:inputButtonDefaultBgPressedColor="@color/darkModerateBlue"
+                app:inputButtonDefaultBgColor="@color/cyanBrilliant"
+                app:inputButtonDefaultBgDisabledColor="@color/cyanBrilliant"
+                app:inputButtonDefaultIconColor="@color/white"
+                app:inputButtonDefaultIconDisabledColor="@color/white"
+                app:inputButtonDefaultIconPressedColor="@color/white"/>
 
         </RelativeLayout>
 

@@ -90,6 +90,7 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
                     .getMemberOne().getIdentity()) ? conversationEntity.getMemberTwo()
                         : conversationEntity.getMemberOne();
 
+
             if(targetUser.getProfileImage() != null &&
                     !targetUser.getProfileImage().isEmpty()) {
 
@@ -102,14 +103,49 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
             }
 
             userNameTextView.setText(targetUser.getFullName());
-            lastMessageTextView.setText(conversationEntity.getLastMessage());
 
-            if(conversationEntity.getUnreadMessages() > 0) {
-                unreadMessagesCountTextView.setVisibility(View.VISIBLE);
-                unreadMessagesCountTextView.setText(String.valueOf(
-                        conversationEntity.getUnreadMessages()));
+            if(selfUserId.equals(conversationEntity
+                    .getMemberOne().getIdentity()) ) {
+
+                if(conversationEntity.getLastMessageForMemberOne() != null &&
+                        !conversationEntity.getLastMessageForMemberOne().isEmpty())
+                    lastMessageTextView.setText(conversationEntity.getLastMessageForMemberOne());
+                else if(conversationEntity.getLastMessage() != null &&
+                    !conversationEntity.getLastMessage().isEmpty())
+                    lastMessageTextView.setText(conversationEntity.getLastMessage());
+                else
+                    lastMessageTextView.setText(context.getString(R.string.no_messages_found_for_conversation));
+
+                if(conversationEntity.getPendingMessagesForMemberOne() > 0) {
+                    unreadMessagesCountTextView.setVisibility(View.VISIBLE);
+                    unreadMessagesCountTextView.setText(String.valueOf(
+                            conversationEntity.getPendingMessagesForMemberOne()));
+                } else {
+                    unreadMessagesCountTextView.setVisibility(View.GONE);
+                    unreadMessagesCountTextView.setText("-");
+                }
+
+            } else {
+
+                if(conversationEntity.getLastMessageForMemberTwo() != null &&
+                        !conversationEntity.getLastMessageForMemberTwo().isEmpty())
+                    lastMessageTextView.setText(conversationEntity.getLastMessageForMemberTwo());
+                else if(conversationEntity.getLastMessage() != null &&
+                    !conversationEntity.getLastMessage().isEmpty())
+                    lastMessageTextView.setText(conversationEntity.getLastMessage());
+                else
+                    lastMessageTextView.setText(context.getString(R.string.no_messages_found_for_conversation));
+
+
+                if(conversationEntity.getPendingMessagesForMemberTwo() > 0) {
+                    unreadMessagesCountTextView.setVisibility(View.VISIBLE);
+                    unreadMessagesCountTextView.setText(String.valueOf(
+                            conversationEntity.getPendingMessagesForMemberTwo()));
+                } else {
+                    unreadMessagesCountTextView.setVisibility(View.GONE);
+                    unreadMessagesCountTextView.setText("-");
+                }
             }
-
         }
 
     }

@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import sanchez.sanchez.sergio.data.net.deserializers.BirthdayDeserializer;
+import sanchez.sanchez.sergio.data.net.deserializers.MultiDateDeserializer;
 import sanchez.sanchez.sergio.data.net.deserializers.JodaLocalTimeDeserializer;
 import sanchez.sanchez.sergio.data.net.interceptors.AuthTokenInterceptor;
 import sanchez.sanchez.sergio.data.net.utils.RxJava2ErrorHandlingCallAdapterFactory;
@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import org.joda.time.LocalTime;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -88,7 +89,10 @@ public class ApiModule {
     public ObjectMapper provideObjectMapper(final Context appContext){
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(Date.class, new BirthdayDeserializer(appContext.getString(R.string.date_format_server_response)));
+        module.addDeserializer(Date.class, new MultiDateDeserializer(Arrays.asList(
+                appContext.getString(R.string.date_time_format),
+                appContext.getString(R.string.date_format),
+                appContext.getString(R.string.date_format_server_response))));
         module.addDeserializer(LocalTime.class, new JodaLocalTimeDeserializer(appContext.getString(R.string.joda_local_time_format_server_response)));
         mapper.registerModule(module);
         return mapper;

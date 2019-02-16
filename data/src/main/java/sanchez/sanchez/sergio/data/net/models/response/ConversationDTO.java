@@ -49,10 +49,28 @@ public class ConversationDTO implements Serializable {
     private long messagesCount;
 
     /**
-     * Unread Messages
+     * Pending Messages For Member One
      */
-    @JsonProperty("unread_messages")
-    private long unreadMessages;
+    @JsonProperty("pending_messages_for_member_one")
+    private long pendingMessagesForMemberOne;
+
+    /**
+     * Pending Messages For Member Two
+     */
+    @JsonProperty("pending_messages_for_member_two")
+    private long pendingMessagesForMemberTwo;
+
+    /**
+     * Last Message For Member One
+     */
+    @JsonProperty("last_message_for_member_one")
+    private String lastMessageForMemberOne;
+
+    /**
+     * Last Message For Member Two
+     */
+    @JsonProperty("last_message_for_member_two")
+    private String lastMessageForMemberTwo;
 
     /**
      * Last Message
@@ -63,30 +81,36 @@ public class ConversationDTO implements Serializable {
     /**
      *
      */
-    public ConversationDTO(){}
+    public ConversationDTO() {
+    }
 
     /**
-     *
      * @param identity
      * @param createAt
      * @param updateAt
      * @param memberOne
      * @param memberTwo
      * @param messagesCount
-     * @param unreadMessages
-     * @param lastMessage
+     * @param pendingMessagesForMemberOne
+     * @param pendingMessagesForMemberTwo
+     * @param lastMessageForMemberOne
+     * @param lastMessageForMemberTwo
      */
-    public ConversationDTO(final String identity, final Date createAt,
-                           final Date updateAt, final PersonDTO memberOne,
-                           final PersonDTO memberTwo, final long messagesCount,
-                           final long unreadMessages, final String lastMessage) {
+    public ConversationDTO(String identity, Date createAt, Date updateAt,
+                           PersonDTO memberOne, PersonDTO memberTwo, long messagesCount,
+                           long pendingMessagesForMemberOne, long pendingMessagesForMemberTwo,
+                           String lastMessageForMemberOne, String lastMessageForMemberTwo,
+                           String lastMessage) {
         this.identity = identity;
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.memberOne = memberOne;
         this.memberTwo = memberTwo;
         this.messagesCount = messagesCount;
-        this.unreadMessages = unreadMessages;
+        this.pendingMessagesForMemberOne = pendingMessagesForMemberOne;
+        this.pendingMessagesForMemberTwo = pendingMessagesForMemberTwo;
+        this.lastMessageForMemberOne = lastMessageForMemberOne;
+        this.lastMessageForMemberTwo = lastMessageForMemberTwo;
         this.lastMessage = lastMessage;
     }
 
@@ -138,12 +162,36 @@ public class ConversationDTO implements Serializable {
         this.messagesCount = messagesCount;
     }
 
-    public long getUnreadMessages() {
-        return unreadMessages;
+    public long getPendingMessagesForMemberOne() {
+        return pendingMessagesForMemberOne;
     }
 
-    public void setUnreadMessages(long unreadMessages) {
-        this.unreadMessages = unreadMessages;
+    public void setPendingMessagesForMemberOne(long pendingMessagesForMemberOne) {
+        this.pendingMessagesForMemberOne = pendingMessagesForMemberOne;
+    }
+
+    public long getPendingMessagesForMemberTwo() {
+        return pendingMessagesForMemberTwo;
+    }
+
+    public void setPendingMessagesForMemberTwo(long pendingMessagesForMemberTwo) {
+        this.pendingMessagesForMemberTwo = pendingMessagesForMemberTwo;
+    }
+
+    public String getLastMessageForMemberOne() {
+        return lastMessageForMemberOne;
+    }
+
+    public void setLastMessageForMemberOne(String lastMessageForMemberOne) {
+        this.lastMessageForMemberOne = lastMessageForMemberOne;
+    }
+
+    public String getLastMessageForMemberTwo() {
+        return lastMessageForMemberTwo;
+    }
+
+    public void setLastMessageForMemberTwo(String lastMessageForMemberTwo) {
+        this.lastMessageForMemberTwo = lastMessageForMemberTwo;
     }
 
     public String getLastMessage() {
@@ -163,7 +211,10 @@ public class ConversationDTO implements Serializable {
                 ", memberOne=" + memberOne +
                 ", memberTwo=" + memberTwo +
                 ", messagesCount=" + messagesCount +
-                ", unreadMessages=" + unreadMessages +
+                ", pendingMessagesForMemberOne=" + pendingMessagesForMemberOne +
+                ", pendingMessagesForMemberTwo=" + pendingMessagesForMemberTwo +
+                ", lastMessageForMemberOne='" + lastMessageForMemberOne + '\'' +
+                ", lastMessageForMemberTwo='" + lastMessageForMemberTwo + '\'' +
                 ", lastMessage='" + lastMessage + '\'' +
                 '}';
     }
