@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.domain.interactor.conversation.DeleteConversationM
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationDetailsForMembersInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationMessagesInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.SetMessagesAsViewedInteract;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 
@@ -53,6 +54,11 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
      */
     private final GetConversationByIdInteract getConversationByIdInteract;
 
+    /**
+     * Set Message As Viewed Interact
+     */
+    private final SetMessagesAsViewedInteract setMessagesAsViewedInteract;
+
 
     /**
      *
@@ -60,6 +66,7 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
      * @param deleteConversationMessagesInteract
      * @param addMessageInteract
      * @param getConversationDetailsForMembersInteract
+     * @param setMessagesAsViewedInteract
      */
     @Inject
     public ConversationMessageListPresenter(
@@ -67,7 +74,8 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
             final DeleteConversationMessagesInteract deleteConversationMessagesInteract,
             final AddMessageInteract addMessageInteract,
             final GetConversationDetailsForMembersInteract getConversationDetailsForMembersInteract,
-            final GetConversationByIdInteract getConversationByIdInteract
+            final GetConversationByIdInteract getConversationByIdInteract,
+            final SetMessagesAsViewedInteract setMessagesAsViewedInteract
     ) {
         super();
         this.getConversationMessagesInteract = getConversationMessagesInteract;
@@ -75,6 +83,7 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
         this.addMessageInteract = addMessageInteract;
         this.getConversationDetailsForMembersInteract = getConversationDetailsForMembersInteract;
         this.getConversationByIdInteract = getConversationByIdInteract;
+        this.setMessagesAsViewedInteract = setMessagesAsViewedInteract;
     }
 
 
@@ -197,6 +206,19 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
     }
 
     /**
+     * Set Messages As Viewed
+     * @param conversation
+     * @param messageList
+     */
+    public void setMessagesAsViewed(final String conversation, final List<String> messageList) {
+        Preconditions.checkNotNull(conversation, "Conversation can not be null");
+        Preconditions.checkState(!conversation.isEmpty(), "Conversation can not be empty");
+        Preconditions.checkNotNull(messageList, "Message List can not be null");
+        setMessagesAsViewedInteract.execute(new SetMessagesAsViewedObservable(),
+                SetMessagesAsViewedInteract.Params.create(conversation, messageList));
+    }
+
+    /**
      * Delete Conversation Messages Observable
      */
     public class DeleteConversationMessagesObservable
@@ -213,6 +235,23 @@ public final class ConversationMessageListPresenter extends SupportPresenter<ICo
                 getView().hideProgressDialog();
                 getView().onConversationMessagesDeleted();
             }
+        }
+    }
+
+    /**
+     * Set Messages As Viewed Observable
+     */
+    public class SetMessagesAsViewedObservable
+        extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         *
+         * @param response
+         */
+        @Override
+        protected void onSuccess(final String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+
         }
     }
 

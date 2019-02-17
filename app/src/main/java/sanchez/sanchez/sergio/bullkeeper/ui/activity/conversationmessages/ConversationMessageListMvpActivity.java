@@ -36,6 +36,7 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.AllMessagesDeletedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedConversationEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedMessagesEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SetMessagesAsViewedEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessage;
@@ -160,6 +161,12 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     protected int deletedMessagesEventRegisterKey;
 
     /**
+     * All Messages Deleted Register Key
+     */
+    @State
+    protected int allMessagesDeletedEventRegisterKey;
+
+    /**
      * Dependencies
      * ==================
      */
@@ -269,8 +276,16 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
 
             if (conversationId.equals(allMessagesDeletedEvent.getConversation())) {
                 messagesAdapter.clear(true);
-                showNoticeDialog(R.string.all_messages_deleted);
             }
+        }
+
+        /**
+         *
+         * @param setMessagesAsViewedEvent
+         */
+        @Override
+        public void visit(SetMessagesAsViewedEvent setMessagesAsViewedEvent) {
+
         }
     };
 
@@ -376,6 +391,8 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
                 DeletedMessagesEvent.class, messageEventVisitor);
         allConversationDeletedEventRegisterKey = localSystemNotification.registerEventListener(
                 AllConversationDeletedEvent.class, messageEventVisitor);
+        allMessagesDeletedEventRegisterKey = localSystemNotification.registerEventListener(
+                AllMessagesDeletedEvent.class, messageEventVisitor);
     }
 
     /**
@@ -389,6 +406,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         localSystemNotification.unregisterEventListener(deletedConversationEventRegisterKey);
         localSystemNotification.unregisterEventListener(deletedMessagesEventRegisterKey);
         localSystemNotification.unregisterEventListener(allConversationDeletedEventRegisterKey);
+        localSystemNotification.unregisterEventListener(allMessagesDeletedEventRegisterKey);
     }
 
     /**
@@ -594,7 +612,14 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         clearMessageImageButton.setVisibility(View.VISIBLE);
 
         final List<ConversationMessage> conversationMessagesList = new ArrayList<>();
+        final List<String> messageViewedIds = new ArrayList<>();
         for(final MessageEntity messageEntity: messageEntities) {
+
+            if(preferenceRepository.getPrefCurrentUserIdentity()
+                .equals(messageEntity.getTo().getIdentity()) && !messageEntity.isViewed()) {
+                messageViewedIds.add(messageEntity.getIdentity());
+                messageEntity.setViewed(true);
+            }
 
             final ConversationMessageUser userMessage = new ConversationMessageUser(
                     messageEntity.getFrom().getIdentity(), messageEntity.getFrom().getFullName(),
@@ -605,6 +630,10 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
 
             conversationMessagesList.add(conversationMessage);
         }
+
+
+        if(!messageViewedIds.isEmpty())
+            getPresenter().setMessagesAsViewed(conversationId, messageViewedIds);
 
         messagesAdapter.clear(true);
         messagesAdapter.addToEnd(conversationMessagesList, false);

@@ -294,4 +294,36 @@ public final class ConversationRepositoryImpl implements IConversationRepository
 
 
     }
+
+    /**
+     *
+     * @param memberOne
+     * @param memberTwo
+     * @param messageIds
+     * @return
+     */
+    @Override
+    public Observable<String> setMessagesAsViewed(final String memberOne, final String memberTwo, final List<String> messageIds) {
+        Preconditions.checkNotNull(memberOne, "Member One can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+        Preconditions.checkNotNull(messageIds, "Message Ids can not be null");
+
+        return conversationsService.setMessagesAsViewed(memberOne, memberTwo, messageIds)
+                .map(response -> response != null ? response.getData(): null);
+    }
+
+    /**
+     *
+     * @param id
+     * @param messageIds
+     * @return
+     */
+    @Override
+    public Observable<String> setMessagesAsViewed(final String id, final List<String> messageIds) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkNotNull(messageIds, "Message Ids can not be null");
+
+        return conversationsService.setMessagesAsViewed(id, messageIds)
+                .map(response -> response != null ? response.getData(): null);
+    }
 }

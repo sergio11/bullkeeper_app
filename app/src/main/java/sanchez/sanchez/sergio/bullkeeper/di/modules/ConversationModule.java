@@ -3,6 +3,9 @@ package sanchez.sanchez.sergio.bullkeeper.di.modules;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
+
+import javax.annotation.PreDestroy;
+
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -24,6 +27,7 @@ import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationById
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationDetailsForMembersInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationMessagesInteract;
 import sanchez.sanchez.sergio.domain.interactor.conversation.GetConversationsForSelfUserInteract;
+import sanchez.sanchez.sergio.domain.interactor.conversation.SetMessagesAsViewedInteract;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.repository.IConversationRepository;
@@ -230,6 +234,22 @@ public class ConversationModule {
             final IConversationRepository conversationRepository
     ) {
         return new DeleteAllConversationForSelfUserInteract(threadExecutor, postExecutionThread, conversationRepository);
+    }
+
+    /**
+     * Provide Set Messages As Viewed Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param conversationRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public SetMessagesAsViewedInteract provideSetMessagesAsViewedInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IConversationRepository conversationRepository
+    ){
+        return new SetMessagesAsViewedInteract(threadExecutor, postExecutionThread, conversationRepository);
     }
 
 }

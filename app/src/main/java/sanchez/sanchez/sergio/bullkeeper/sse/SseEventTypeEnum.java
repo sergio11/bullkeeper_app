@@ -76,6 +76,13 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
         public <E> void accept(ISseEventsVisitor visitor, E data) {
             visitor.visitAllMessagesDeletedEvent(this, (String) data);
         }
+    },
+    // Set Messages As Viewed Event
+    SET_MESSAGES_AS_VIEWED_EVENT() {
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitSetMessagesAsViewedEvent(this, (String) data);
+        }
     };
 
     /**
@@ -144,6 +151,13 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
          * @param message
          */
         void visitAllMessagesDeletedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit Set Messages As Viewed Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitSetMessagesAsViewedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
     }
 
 }

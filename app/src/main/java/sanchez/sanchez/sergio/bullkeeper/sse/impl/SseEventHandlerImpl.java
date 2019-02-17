@@ -22,6 +22,7 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedMessagesEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.KidLocationUpdatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SetMessagesAsViewedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.kidRequestCreatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.sse.SseEventTypeEnum;
@@ -34,6 +35,7 @@ import sanchez.sanchez.sergio.bullkeeper.sse.models.DeletedMessagesDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.KidRequestCreatedDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.MessageSavedDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.NewAppInstalledDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.SetMessagesAsViewedDTO;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequestDetailMvpActivity;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
@@ -422,22 +424,28 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             final MessageSavedDTO messageSavedDTO =
                     objectMapper.readValue(message, MessageSavedDTO.class);
 
-            localSystemNotification.sendNotification(
-                    new MessageSavedEvent(
-                            messageSavedDTO.getIdentity(),
-                            messageSavedDTO.getText(),
-                            messageSavedDTO.getCreateAt(),
-                            messageSavedDTO.getConversation(),
-                            messageSavedDTO.getFrom(),
-                            messageSavedDTO.getTo(),
-                            messageSavedDTO.isViewed()
-                    )
-            );
 
-            notificationHelper.showImportantNotification(
-                    String.format(Locale.getDefault(), context.getString(R.string.conversation_new_message_title),
-                            messageSavedDTO.getFrom().getFirstName()), messageSavedDTO.getText(),
-                    ConversationMessageListMvpActivity.getCallingIntent(context, messageSavedDTO.getConversation()));
+            if(preferenceRepository.getPrefCurrentUserIdentity().equals(messageSavedDTO.getTo().getIdentity())) {
+
+                localSystemNotification.sendNotification(
+                        new MessageSavedEvent(
+                                messageSavedDTO.getIdentity(),
+                                messageSavedDTO.getText(),
+                                messageSavedDTO.getCreateAt(),
+                                messageSavedDTO.getConversation(),
+                                messageSavedDTO.getFrom(),
+                                messageSavedDTO.getTo(),
+                                messageSavedDTO.isViewed()
+                        )
+                );
+
+                notificationHelper.showImportantNotification(
+                        String.format(Locale.getDefault(), context.getString(R.string.conversation_new_message_title),
+                                messageSavedDTO.getFrom().getFirstName()), messageSavedDTO.getText(),
+                        ConversationMessageListMvpActivity.getCallingIntent(context, messageSavedDTO.getConversation()));
+            }
+
+
 
         } catch (final Exception ex) {
             ex.printStackTrace();
@@ -551,5 +559,33 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
         } catch (final Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     *
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitSetMessagesAsViewedEvent(SseEventTypeEnum sseEventTypeEnum, String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final SetMessagesAsViewedDTO setMessagesAsViewedDTO =
+                    objectMapper.readValue(message, SetMessagesAsViewedDTO.class);
+
+            localSystemNotification.sendNotification(
+                    new SetMessagesAsViewedEvent(
+                            setMessagesAsViewedDTO.getConversation(),
+                            setMessagesAsViewedDTO.getMessageIds()
+                    )
+            );
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }

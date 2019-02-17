@@ -27,6 +27,8 @@ import sanchez.sanchez.sergio.data.net.models.response.MessageDTO;
  * GET -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages
  * DELETE -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages
  * POST -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages
+ * POST -> /api/v1/conversations/members/{memberOne}/{memberTwo}/messages/viewed
+ * POST -> /api/v1/conversations/{id}/messages/viewed
  */
 public interface IConversationsService {
 
@@ -180,5 +182,31 @@ public interface IConversationsService {
             @Path("memberOne") final String memberOne,
             @Path("memberTwo") final String memberTwo,
             final AddMessageDTO addMessageDTO
+    );
+
+    /**
+     * Set Messages As Viewed
+     * @param memberOne
+     * @param memberTwo
+     * @param messageIds
+     * @return
+     */
+    @POST("conversations/members/{memberOne}/{memberTwo}/messages/viewed")
+    Observable<APIResponse<String>> setMessagesAsViewed(
+            @Path("memberOne") final String memberOne,
+            @Path("memberTwo") final String memberTwo,
+            final List<String> messageIds
+    );
+
+    /**
+     * Set Messages As Viewed
+     * @param id
+     * @param messageIds
+     * @return
+     */
+    @POST("conversations/{id}/messages/viewed")
+    Observable<APIResponse<String>> setMessagesAsViewed(
+            @Path("id") final String id,
+            final List<String> messageIds
     );
 }

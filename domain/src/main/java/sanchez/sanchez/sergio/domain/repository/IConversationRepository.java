@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.domain.repository;
 
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
@@ -142,6 +141,29 @@ public interface IConversationRepository {
             final String memberOne, final String memberTwo,
             final String conversation, final String from,
             final String to, final String text
+    );
+
+    /**
+     *
+     * @param memberOne
+     * @param memberTwo
+     * @param messageIds
+     * @return
+     */
+    Observable<String> setMessagesAsViewed(
+            final String memberOne,
+            final String memberTwo,
+            final List<String> messageIds
+    );
+
+    /**
+     *
+     * @param id
+     * @param messageIds
+     * @return
+     */
+    Observable<String> setMessagesAsViewed(
+            final String id, final List<String> messageIds
     );
 
 }

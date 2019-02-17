@@ -91,6 +91,7 @@ public class ApiModule {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Date.class, new MultiDateDeserializer(Arrays.asList(
                 appContext.getString(R.string.date_time_format),
+                appContext.getString(R.string.date_time_format_2),
                 appContext.getString(R.string.date_format),
                 appContext.getString(R.string.date_format_server_response))));
         module.addDeserializer(LocalTime.class, new JodaLocalTimeDeserializer(appContext.getString(R.string.joda_local_time_format_server_response)));

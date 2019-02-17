@@ -63,6 +63,7 @@
     <!-- Date Format -->
     <string name="date_format">yyyy-MM-dd</string>
     <string name="date_time_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="date_time_format_2">yyyy/MM/dd HH:mm:ss</string>
     <string name="date_format_server_response">yyyy/MM/dd</string>
 
     <string name="joda_local_time_format_server_response">HH:mm:ss.SSS</string>

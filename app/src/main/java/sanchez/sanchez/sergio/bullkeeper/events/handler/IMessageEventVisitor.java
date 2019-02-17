@@ -5,6 +5,7 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.AllMessagesDeletedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedConversationEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedMessagesEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.SetMessagesAsViewedEvent;
 import sanchez.sanchez.sergio.utils.IVisitor;
 
 /**
@@ -41,4 +42,10 @@ public interface IMessageEventVisitor extends IVisitor {
      * @param allMessagesDeletedEvent
      */
     void visit(final AllMessagesDeletedEvent allMessagesDeletedEvent);
+
+    /**
+     * Visit Set Messages As Viewed Event
+     * @param setMessagesAsViewedEvent
+     */
+    void visit(final SetMessagesAsViewedEvent setMessagesAsViewedEvent);
 }
