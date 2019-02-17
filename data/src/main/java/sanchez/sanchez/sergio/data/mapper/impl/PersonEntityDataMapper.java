@@ -13,7 +13,14 @@ import sanchez.sanchez.sergio.domain.utils.IAppUtils;
  */
 public final class PersonEntityDataMapper extends AbstractDataMapper<PersonDTO, PersonEntity> {
 
+    /**
+     * API Helpers
+     */
     private final ApiEndPointsHelper apiEndPointsHelper;
+
+    /**
+     * App Utils
+     */
     private final IAppUtils appUtils;
 
     /**
@@ -39,7 +46,8 @@ public final class PersonEntityDataMapper extends AbstractDataMapper<PersonDTO, 
         personEntity.setFirstName(originModel.getFirstName());
         personEntity.setLastName(originModel.getLastName());
         if(appUtils.isValidString(originModel.getProfileImage()))
-            personEntity.setProfileImage(originModel.getProfileImage());
+            personEntity.setProfileImage(apiEndPointsHelper
+                    .getProfileUrl(originModel.getProfileImage()));
         return personEntity;
     }
 

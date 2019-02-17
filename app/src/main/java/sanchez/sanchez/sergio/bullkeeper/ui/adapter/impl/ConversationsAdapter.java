@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
@@ -63,7 +67,8 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
             SupportItemSwipedViewHolder<ConversationEntity> {
 
         private ImageView userImageImageView;
-        private TextView userNameTextView, lastMessageTextView, unreadMessagesCountTextView;
+        private TextView userNameTextView, lastMessageTextView, unreadMessagesCountTextView,
+                lastUpdateTextView;
 
 
         /**
@@ -76,6 +81,7 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
             this.lastMessageTextView = itemView.findViewById(R.id.lastMessage);
             this.userNameTextView = itemView.findViewById(R.id.userName);
             this.unreadMessagesCountTextView = itemView.findViewById(R.id.unreadMessagesCount);
+            this.lastUpdateTextView = itemView.findViewById(R.id.lastUpdate);
         }
 
         /**
@@ -95,14 +101,19 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
                     !targetUser.getProfileImage().isEmpty()) {
 
                 picasso.load(targetUser.getProfileImage())
-                        .placeholder(R.drawable.user_default)
-                        .error(R.drawable.user_default)
+                        .placeholder(R.drawable.user_default_inverse)
+                        .error(R.drawable.user_default_inverse)
                         .into(userImageImageView);
             } else {
-                userImageImageView.setImageResource(R.drawable.user_default);
+                userImageImageView.setImageResource(R.drawable.user_default_inverse);
             }
 
             userNameTextView.setText(targetUser.getFullName());
+
+            final SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.date_format),
+                    Locale.getDefault());
+
+            lastUpdateTextView.setText(sdf.format(conversationEntity.getUpdateAt()));
 
             if(selfUserId.equals(conversationEntity
                     .getMemberOne().getIdentity()) ) {

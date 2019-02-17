@@ -907,6 +907,10 @@
     <string name="delete_all_conversations_confirm">Do you want to delete all conversations?</string>
     <string name="conversation_message_list_date_format">dd MMMM yyyy</string>
     <string name="no_messages_found_for_conversation">All messages will be stored securely</string>
+    <string name="conversation_was_deleted_for_remote_member">The conversation was deleted</string>
+
+    <string name="conversation_new_message_title" formatted="false">%s has sent you a new message</string>
+
     <!-- Search Guardians -->
     <string name="search_guardians_title">Search Guardians</string>
     <string name="search_guardians_query_hint">Search Users ...</string>
@@ -914,6 +918,8 @@
     <string name="search_guardians_loading_message">Searching Guardians ...</string>
     <string name="search_guardian_already_selected">The selected supervisor is already in the list</string>
     <string name="search_guardian_age" formatted="false">%s years</string>
+    <string name="search_guardian_not_supervise_any_child">Does not supervise any child</string>
+    <string name="search_guardian_supervise_any_child">It has %d associated children</string>
     <!-- Phone Numbers Blocked -->
     <string name="phone_number_item_removed">The Phone Number was removed</string>
     <string name="phone_numbers_deleted_successfully">All blocked numbers have been successfully deleted</string>

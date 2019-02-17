@@ -18,6 +18,8 @@ import com.stfalcon.chatkit.utils.DateFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,8 +30,14 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ConversationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerConversationComponent;
-import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
+import sanchez.sanchez.sergio.bullkeeper.events.handler.IMessageEventVisitor;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AllConversationDeletedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AllMessagesDeletedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedConversationEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedMessagesEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessage;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessageUser;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
@@ -126,6 +134,31 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     @State
     protected String conversationId;
 
+
+    /**
+     * Message Event Register Key
+     */
+    @State
+    protected int messageSavedEventRegisterKey;
+
+    /**
+     * Deleted Conversation Event Register Key
+     */
+    @State
+    protected int deletedConversationEventRegisterKey;
+
+    /**
+     * All Conversation Deleted Event Register Key
+     */
+    @State
+    protected int allConversationDeletedEventRegisterKey;
+
+    /**
+     * Deleted Messages Event Register Key
+     */
+    @State
+    protected int deletedMessagesEventRegisterKey;
+
     /**
      * Dependencies
      * ==================
@@ -155,6 +188,91 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      */
     private MessagesListAdapter<ConversationMessage> messagesAdapter;
 
+
+    /**
+     * kidRequestVisitor
+     */
+    private IMessageEventVisitor messageEventVisitor = new IMessageEventVisitor(){
+
+        /**
+         *
+         * @param messageSavedEvent
+         */
+        @Override
+        public void visit(final MessageSavedEvent messageSavedEvent) {
+            Preconditions.checkNotNull(messageSavedEvent, "Message Saved Event can not be null");
+
+            addMessageToList(messageSavedEvent.getIdentity(),
+                    messageSavedEvent.getFrom().getIdentity(),
+                    String.format(Locale.getDefault(), "%s %s",
+                            messageSavedEvent.getFrom().getFirstName(),
+                            messageSavedEvent.getFrom().getLastName()),
+                    messageSavedEvent.getFrom().getProfileImage(),
+                    messageSavedEvent.getText());
+        }
+
+        /**
+         *
+         * @param deletedConversationEvent
+         */
+        @Override
+        public void visit(final DeletedConversationEvent deletedConversationEvent) {
+            Preconditions.checkNotNull(deletedConversationEvent, "Deleted Conversation Event can not be null");
+
+            if (conversationId.equals(deletedConversationEvent.getConversation())) {
+                showNoticeDialog(R.string.conversation_was_deleted_for_remote_member, new NoticeDialogFragment.NoticeDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        closeActivity();
+                    }
+                });
+            }
+        }
+
+        /**
+         *
+         * @param allConversationDeletedEvent
+         */
+        @Override
+        public void visit(final AllConversationDeletedEvent allConversationDeletedEvent) {
+            Preconditions.checkNotNull(allConversationDeletedEvent, "All Conversation Deleted Event can not be null");
+
+            showNoticeDialog(R.string.conversation_was_deleted_for_remote_member, new NoticeDialogFragment.NoticeDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    closeActivity();
+                }
+            });
+
+        }
+
+        /**
+         *
+         * @param deletedMessagesEvent
+         */
+        @Override
+        public void visit(final DeletedMessagesEvent deletedMessagesEvent) {
+            Preconditions.checkNotNull(deletedMessagesEvent, "Deleted Messages Event can not be null");
+
+            if(conversationId.equals(deletedMessagesEvent.getConversation()))
+                messagesAdapter.deleteByIds(deletedMessagesEvent.getIds().toArray(new String[]{}));
+
+        }
+
+        /**
+         * Visit All Messages Deleted Event
+         * @param allMessagesDeletedEvent
+         */
+        @Override
+        public void visit(final AllMessagesDeletedEvent allMessagesDeletedEvent) {
+            Preconditions.checkNotNull(allMessagesDeletedEvent, "All Messages Deleted Event");
+
+            if (conversationId.equals(allMessagesDeletedEvent.getConversation())) {
+                messagesAdapter.clear(true);
+                showNoticeDialog(R.string.all_messages_deleted);
+            }
+        }
+    };
 
     /**
      * Get Calling Intent
@@ -204,36 +322,13 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     }
 
     /**
-     * Init Adapter
-     */
-    private void initAdapter() {
-        messagesAdapter = new MessagesListAdapter<>(preferenceRepository.getPrefCurrentUserIdentity(),
-                imageLoader);
-        messagesAdapter.enableSelectionMode(this);
-        messagesAdapter.setLoadMoreListener(this);
-        messagesAdapter.setDateHeadersFormatter(this);
-        messagesList.setAdapter(messagesAdapter);
-    }
-
-    /**
-     * Get Sending Conversation Message
-     * @return
-     */
-    private ConversationMessage getSendingConversationMessage(){
-        return new ConversationMessage(SENDING_MESSAGE_ID,
-                        new ConversationMessageUser(
-                                preferenceRepository.getPrefCurrentUserIdentity(), "Sergio",
-                                "https://avatars3.githubusercontent.com/u/6996211?s=460&v=4", true),
-                        getString(R.string.sending_message_wait), new Date());
-    }
-
-    /**
      * On View Ready
      * @param savedInstanceState
      */
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
         super.onViewReady(savedInstanceState);
+
 
         if(getIntent().hasExtra(CONVERSATION_IDENTITY_ARG)) {
 
@@ -266,6 +361,35 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
 
     }
 
+    /**
+     * On Resume
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        messageSavedEventRegisterKey = localSystemNotification.registerEventListener(
+                MessageSavedEvent.class, messageEventVisitor);
+        deletedConversationEventRegisterKey = localSystemNotification.registerEventListener(
+                DeletedConversationEvent.class, messageEventVisitor);
+        deletedMessagesEventRegisterKey = localSystemNotification.registerEventListener(
+                DeletedMessagesEvent.class, messageEventVisitor);
+        allConversationDeletedEventRegisterKey = localSystemNotification.registerEventListener(
+                AllConversationDeletedEvent.class, messageEventVisitor);
+    }
+
+    /**
+     * On Pause
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        localSystemNotification.unregisterEventListener(messageSavedEventRegisterKey);
+        localSystemNotification.unregisterEventListener(deletedConversationEventRegisterKey);
+        localSystemNotification.unregisterEventListener(deletedMessagesEventRegisterKey);
+        localSystemNotification.unregisterEventListener(allConversationDeletedEventRegisterKey);
+    }
 
     /**
      * initialize Injector
@@ -346,8 +470,6 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      */
     @Override
     public boolean onSubmit(CharSequence input) {
-        messageInput.setEnabled(false);
-        messageInput.setSaveEnabled(false);
         messagesAdapter.addToStart(getSendingConversationMessage(), true);
         final String currentUserId = preferenceRepository.getPrefCurrentUserIdentity();
         final String target = currentUserId.equals(memberOne) ? memberTwo : memberOne;
@@ -506,14 +628,10 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     @Override
     public void onMessageAdded(MessageEntity messageEntity) {
         Preconditions.checkNotNull(messageEntity, "Message Entity");
-
-        soundManager.playSound(ISoundManager.SEND_MESSAGE_SUCCESS);
-        clearMessageImageButton.setVisibility(View.VISIBLE);
         messagesAdapter.deleteById(SENDING_MESSAGE_ID);
-        messagesAdapter.addToStart(
-                new ConversationMessage(messageEntity.getIdentity(), new ConversationMessageUser(
-                        messageEntity.getFrom().getIdentity(), messageEntity.getFrom().getFullName(),
-                        messageEntity.getFrom().getProfileImage(), true), messageEntity.getText()) , true);
+        addMessageToList(messageEntity.getIdentity(), messageEntity.getFrom().getIdentity(),
+                messageEntity.getFrom().getFullName(), messageEntity.getFrom().getProfileImage(),
+                messageEntity.getText());
     }
 
     /**
@@ -538,6 +656,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         conversationId = conversationEntity.getIdentity();
         // Load Messages
         getPresenter().loadMessages(conversationId);
+        messageInput.setEnabled(true);
     }
 
     /**
@@ -548,5 +667,74 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         getPresenter().loadMessages(conversationId);
     }
 
+    /**
+     * On Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        super.onNetworkError();
+        swipeRefreshLayout.setRefreshing(false);
+        clearMessageImageButton.setVisibility(View.GONE);
+        messageInput.setEnabled(false);
+    }
 
+    /**
+     * On Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        super.onOtherException();
+        swipeRefreshLayout.setRefreshing(false);
+        clearMessageImageButton.setVisibility(View.GONE);
+        messageInput.setEnabled(false);
+    }
+
+
+    /**
+     * Private Methods
+     * ==================
+     */
+
+    /**
+     * Init Adapter
+     */
+    private void initAdapter() {
+        messagesAdapter = new MessagesListAdapter<>(preferenceRepository.getPrefCurrentUserIdentity(),
+                imageLoader);
+        messagesAdapter.enableSelectionMode(this);
+        messagesAdapter.setLoadMoreListener(this);
+        messagesAdapter.setDateHeadersFormatter(this);
+        messagesList.setAdapter(messagesAdapter);
+    }
+
+    /**
+     * Get Sending Conversation Message
+     * @return
+     */
+    private ConversationMessage getSendingConversationMessage(){
+        return new ConversationMessage(SENDING_MESSAGE_ID,
+                new ConversationMessageUser(
+                        preferenceRepository.getPrefCurrentUserIdentity(), "Sergio",
+                        "https://avatars3.githubusercontent.com/u/6996211?s=460&v=4", true),
+                getString(R.string.sending_message_wait), new Date());
+    }
+
+    /**
+     *
+     * @param messageId
+     * @param fromId
+     * @param fromFullname
+     * @param fromProfileImage
+     * @param messageText
+     */
+    private void addMessageToList(final String messageId, final String fromId, final String fromFullname,
+                                  final String fromProfileImage, final String messageText) {
+
+        soundManager.playSound(ISoundManager.SEND_MESSAGE_SUCCESS);
+        clearMessageImageButton.setVisibility(View.VISIBLE);
+        messagesAdapter.addToStart(
+                new ConversationMessage(messageId, new ConversationMessageUser(
+                        fromId, fromFullname,
+                        fromProfileImage, true), messageText), true);
+    }
 }

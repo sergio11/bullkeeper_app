@@ -46,14 +46,14 @@
         <!-- Users Image -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/userImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/content_not_be_loaded"
-            android:src="@drawable/user_default"
+            android:src="@drawable/user_default_inverse"
             android:layout_gravity="center"
             app:civ_border_color="@color/commonWhite"
             app:civ_border_width="@dimen/common_image_stroke_width"
@@ -84,9 +84,24 @@
             android:text="-"
             android:textColor="@color/darkModerateBlue"
             app:layout_constraintBottom_toTopOf="@id/lastMessage"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/lastUpdate"
             app:layout_constraintStart_toEndOf="@+id/separator"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <!-- Last Update  -->
+        <TextView
+            android:id="@+id/lastUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textColor="@color/darkModerateBlue"
+            android:layout_marginEnd="@dimen/common_margin"
+            style="@style/CommonStrongText.Medium"
+            android:text="-"
+            app:layout_constraintBottom_toTopOf="@id/lastMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
         <!-- Last Message  -->
@@ -95,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textColor="@color/cyanBrilliant"
-            style="@style/CommonStrongText.Medium"
+            style="@style/CommonStrongText.Big"
             android:text="-"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/unreadMessagesCount"

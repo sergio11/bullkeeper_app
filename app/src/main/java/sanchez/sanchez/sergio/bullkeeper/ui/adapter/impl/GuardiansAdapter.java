@@ -6,12 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Locale;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
@@ -55,7 +52,7 @@ public final class GuardiansAdapter extends SupportRecyclerViewAdapter<GuardianE
             SupportItemSwipedViewHolder<GuardianEntity> {
 
         private Context context;
-        private TextView guardianName, guardianAge;
+        private TextView guardianNameTextView, guardianAgeTextView, childrenCountTextView;
         private ImageView guardianImage;
 
         /**
@@ -66,9 +63,10 @@ public final class GuardiansAdapter extends SupportRecyclerViewAdapter<GuardianE
         public GuardianViewHolder(final Context context, final View itemView) {
             super(itemView);
             this.context = context;
-            this.guardianName = itemView.findViewById(R.id.guardianName);
-            this.guardianAge = itemView.findViewById(R.id.guardianAge);
+            this.guardianNameTextView = itemView.findViewById(R.id.guardianName);
+            this.guardianAgeTextView = itemView.findViewById(R.id.guardianAge);
             this.guardianImage = itemView.findViewById(R.id.guardianImage);
+            this.childrenCountTextView = itemView.findViewById(R.id.childrenCount);
         }
 
         /**
@@ -90,16 +88,23 @@ public final class GuardiansAdapter extends SupportRecyclerViewAdapter<GuardianE
 
 
             if(hasHighlightText())
-                guardianName.setText(getSpannableString(guardianEntity.getFullName()));
+                guardianNameTextView.setText(getSpannableString(guardianEntity.getFullName()));
             else
-                guardianName.setText(guardianEntity.getFullName());
+                guardianNameTextView.setText(guardianEntity.getFullName());
 
 
-            guardianAge.setText(
+            guardianAgeTextView.setText(
                     String.format(Locale.getDefault(),
                             context.getString(R.string.search_guardian_age),
                             String.valueOf(guardianEntity.getAge()))
             );
+
+            if(guardianEntity.getChildren() > 0)
+                childrenCountTextView.setText(String.format(
+                        Locale.getDefault(), context.getString(R.string.search_guardian_supervise_any_child)
+                , guardianEntity.getChildren()));
+            else
+                childrenCountTextView.setText(context.getString(R.string.search_guardian_not_supervise_any_child));
         }
 
     }

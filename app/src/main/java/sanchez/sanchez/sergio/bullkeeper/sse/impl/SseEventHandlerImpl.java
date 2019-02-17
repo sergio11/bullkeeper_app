@@ -8,24 +8,33 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.here.oksse.OkSse;
 import com.here.oksse.ServerSentEvent;
 import java.util.Locale;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
-import sanchez.sanchez.sergio.bullkeeper.core.events.model.impl.NoticeEvent;
 import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AllConversationDeletedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.AllMessagesDeletedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.AppUninstalledEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedConversationEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.DeletedMessagesEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.KidLocationUpdatedEvent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.kidRequestCreatedEvent;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.sse.SseEventTypeEnum;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.AllConversationDeletedDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.AllMessagesDeletedDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.AppUninstalledDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.CurrentLocationUpdateDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.DeletedConversationDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.DeletedMessagesDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.KidRequestCreatedDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.MessageSavedDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.NewAppInstalledDTO;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequestDetailMvpActivity;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.RequestTypeEnum;
@@ -395,6 +404,152 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Visit Message Saved Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitMessageSavedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final MessageSavedDTO messageSavedDTO =
+                    objectMapper.readValue(message, MessageSavedDTO.class);
+
+            localSystemNotification.sendNotification(
+                    new MessageSavedEvent(
+                            messageSavedDTO.getIdentity(),
+                            messageSavedDTO.getText(),
+                            messageSavedDTO.getCreateAt(),
+                            messageSavedDTO.getConversation(),
+                            messageSavedDTO.getFrom(),
+                            messageSavedDTO.getTo(),
+                            messageSavedDTO.isViewed()
+                    )
+            );
+
+            notificationHelper.showImportantNotification(
+                    String.format(Locale.getDefault(), context.getString(R.string.conversation_new_message_title),
+                            messageSavedDTO.getFrom().getFirstName()), messageSavedDTO.getText(),
+                    ConversationMessageListMvpActivity.getCallingIntent(context, messageSavedDTO.getConversation()));
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Visit Deleted Messages Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitDeletedMessagesEvent(final SseEventTypeEnum sseEventTypeEnum, final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final DeletedMessagesDTO deletedMessagesDTO =
+                    objectMapper.readValue(message, DeletedMessagesDTO.class);
+
+            localSystemNotification.sendNotification(
+                    new DeletedMessagesEvent(
+                            deletedMessagesDTO.getConversation(),
+                            deletedMessagesDTO.getIds()
+                    )
+            );
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Visit All Conversation Deleted Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitAllConversationDeletedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final AllConversationDeletedDTO allConversationDeletedDTO =
+                    objectMapper.readValue(message, AllConversationDeletedDTO.class);
+
+            localSystemNotification.sendNotification(
+                    new AllConversationDeletedEvent(
+                            allConversationDeletedDTO.getMemberOne(),
+                            allConversationDeletedDTO.getMemberTwo()
+                    )
+            );
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Visit Deleted Conversation Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitDeletedConversationEvent(final SseEventTypeEnum sseEventTypeEnum, final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final DeletedConversationDTO deletedConversationDTO =
+                    objectMapper.readValue(message, DeletedConversationDTO.class);
+
+            localSystemNotification.sendNotification(
+                    new DeletedConversationEvent(
+                            deletedConversationDTO.getConversation(),
+                            deletedConversationDTO.getMemberOne(),
+                            deletedConversationDTO.getMemberTwo()
+                    )
+            );
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Visit All Messages Deleted Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitAllMessagesDeletedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final AllMessagesDeletedDTO allMessagesDeletedDTO =
+                    objectMapper.readValue(message, AllMessagesDeletedDTO.class);
+
+            localSystemNotification.sendNotification(
+                    new AllMessagesDeletedEvent(
+                            allMessagesDeletedDTO.getConversation()
+                    )
+            );
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

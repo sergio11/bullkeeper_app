@@ -37,8 +37,46 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
         public <E> void accept(ISseEventsVisitor visitor, E data) {
             visitor.visitUninstallAppEvent(this, (String) data);
         }
-    }
-    ;
+    },
+
+    // Message Saved Event
+    MESSAGE_SAVED_EVENT(){
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitMessageSavedEvent(this, (String) data);
+        }
+    },
+
+    // Deleted Messages Event
+    DELETED_MESSAGES_EVENT() {
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitDeletedMessagesEvent(this, (String) data);
+        }
+    },
+
+    // Deleted Conversation Event
+    DELETED_CONVERSATION_EVENT(){
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitDeletedConversationEvent(this, (String) data);
+        }
+    },
+
+    // All Conversation Deleted Event
+    ALL_CONVERSATION_DELETED_EVENT(){
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitAllConversationDeletedEvent(this, (String) data);
+        }
+    },
+    // All Messages Deleted Event
+    ALL_MESSAGES_DELETED_EVENT(){
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitAllMessagesDeletedEvent(this, (String) data);
+        }
+    };
 
     /**
      * Sse Events Visitor
@@ -71,6 +109,41 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
          * @param message
          */
         void visitUninstallAppEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit Message Saved Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitMessageSavedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit Deleted Messages Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitDeletedMessagesEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit All Conversation Deleted Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitAllConversationDeletedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit Deleted Conversation Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitDeletedConversationEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit All Message Deleted Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitAllMessagesDeletedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
     }
 
 }
