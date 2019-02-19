@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
@@ -49,7 +50,9 @@ public class ConversationModule {
         return new ImageLoader() {
             @Override
             public void loadImage(ImageView imageView, String url, Object payload) {
-                picasso.load(url).into(imageView);
+                picasso.load(url)
+                        .placeholder(R.drawable.user_default_inverse)
+                        .error(R.drawable.user_default_inverse).into(imageView);
             }
         };
     }

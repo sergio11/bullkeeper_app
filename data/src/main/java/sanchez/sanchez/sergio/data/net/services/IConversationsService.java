@@ -181,7 +181,7 @@ public interface IConversationsService {
     Observable<APIResponse<MessageDTO>> addMessage(
             @Path("memberOne") final String memberOne,
             @Path("memberTwo") final String memberTwo,
-            final AddMessageDTO addMessageDTO
+            @Body final AddMessageDTO addMessageDTO
     );
 
     /**
@@ -195,7 +195,7 @@ public interface IConversationsService {
     Observable<APIResponse<String>> setMessagesAsViewed(
             @Path("memberOne") final String memberOne,
             @Path("memberTwo") final String memberTwo,
-            final List<String> messageIds
+            @Body final List<String> messageIds
     );
 
     /**
@@ -207,6 +207,6 @@ public interface IConversationsService {
     @POST("conversations/{id}/messages/viewed")
     Observable<APIResponse<String>> setMessagesAsViewed(
             @Path("id") final String id,
-            final List<String> messageIds
+            @Body final List<String> messageIds
     );
 }
