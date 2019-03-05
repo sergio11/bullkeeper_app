@@ -1,4 +1,4 @@
-package com.jaychang.sa.twitter;
+package com.sanchez.sergio.twitter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.jaychang.sa.AuthData;
-import com.jaychang.sa.AuthDataHolder;
-import com.jaychang.sa.DialogFactory;
-import com.jaychang.sa.SimpleAuthActivity;
-import com.jaychang.sa.SocialUser;
+import com.sanchez.sergio.AuthData;
+import com.sanchez.sergio.AuthDataHolder;
+import com.sanchez.sergio.DialogFactory;
+import com.sanchez.sergio.SimpleAuthActivity;
+import com.sanchez.sergio.SocialUser;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterApiClient;

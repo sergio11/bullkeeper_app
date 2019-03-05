@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
-import com.jaychang.sa.AuthCallback;
-import com.jaychang.sa.SocialUser;
+import com.sanchez.sergio.AuthCallback;
+import com.sanchez.sergio.SocialUser;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
@@ -1176,10 +1176,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 Arrays.asList(getResources().getStringArray(R.array.facebook_kid_scopes));
 
         // Clean connection
-        com.jaychang.sa.facebook.SimpleAuth.disconnectFacebook();
+        com.sanchez.sergio.facebook.SimpleAuth.disconnectFacebook();
 
         // Connect to Facebook
-        com.jaychang.sa.facebook.SimpleAuth.connectFacebook(userScopes, new AuthCallback() {
+        com.sanchez.sergio.facebook.SimpleAuth.connectFacebook(userScopes, new AuthCallback() {
             @Override
             public void onSuccess(SocialUser socialUser) {
                 onSocialUserObtained(SocialMediaTypeEnum.FACEBOOK, socialUser);
@@ -1208,10 +1208,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                 Arrays.asList(getResources().getStringArray(R.array.instagram_kid_scopes));
 
         // Clean Connection
-        com.jaychang.sa.instagram.SimpleAuth.disconnectInstagram();
+        com.sanchez.sergio.instagram.SimpleAuth.disconnectInstagram();
 
         // Connect to Instagram
-        com.jaychang.sa.instagram.SimpleAuth.connectInstagram(userScopes, new AuthCallback() {
+        com.sanchez.sergio.instagram.SimpleAuth.connectInstagram(userScopes, new AuthCallback() {
             @Override
             public void onSuccess(SocialUser socialUser) {
                 onSocialUserObtained(SocialMediaTypeEnum.INSTAGRAM, socialUser);
@@ -1242,10 +1242,10 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
 
         // Clean Connection
-        com.jaychang.sa.google.SimpleAuth.disconnectGoogle();
+        com.sanchez.sergio.google.SimpleAuth.disconnectGoogle();
 
         // Connect to Google
-        com.jaychang.sa.google.SimpleAuth.connectGoogle(userScopes, new AuthCallback() {
+        com.sanchez.sergio.google.SimpleAuth.connectGoogle(userScopes, new AuthCallback() {
             @Override
             public void onSuccess(final SocialUser socialUser) {
                 runOnUiThread(new Runnable() {

@@ -9,7 +9,7 @@
     <string name="sign_up_btn">Sign up</string>
 
     <!-- Sign in btn -->
-    <string name="sign_in_btn">Sign in</string>
+    <string name="sign_in_btn">Si gn in</string>
 
     <!-- Sign in facebook -->
     <string name="sign_in_facebook">Log in through Facebook</string>
@@ -179,14 +179,14 @@
     <string name="operation_cancelled">Operation cancelled</string>
     <string name="my_alerts_filter">Filter Alerts</string>
     <string name="apply_changes">Apply Changes</string>
-    <string name="loading_alerts_please_wait">Loading alerts, please wait ...</string>
-    <string name="deleting_alerts_please_wait">Deleting alerts, please wait ...</string>
-    <string name="deleting_alerts_for_this_child">Clear all alerts for this id?</string>
+    <string name="loading_alerts_please_wait">Loading alerts, please wait …</string>
+    <string name="deleting_alerts_please_wait">Deleting alerts, please wait …</string>
+    <string name="deleting_alerts_for_this_child">Clear all alerts for this kid?</string>
     <string name="deleting_alerts_for_this_level">Clear all alerts for this level?</string>
-    <string name="deleting_alerts_for_this_level_and_child">Clear all alerts for this id for this level?</string>
+    <string name="deleting_alerts_for_this_level_and_child">Clear all alerts for this kid for this level?</string>
     <string name="loading_alert_detail">Loading alert detail, wait please</string>
     <string name="alert_not_found">The information of the alert could not be obtained</string>
-    <string name="deleting_alert_in_progress">Deleting alert, wait please ...</string>
+    <string name="deleting_alert_in_progress">Deleting alert, wait please …</string>
 
     <string name="filter_alerts_count_preference_summary">Number of alerts to be displayed.</string>
     <string name="filter_age_of_alerts_preference_summary">Age of alerts to show.</string>
@@ -200,14 +200,14 @@
     <string name="alert_category_information_extraction_desc">Go to the comments list to see them</string>
     <string name="alert_category_information_extraction_action_text">Go to the list of comments</string>
     <!-- Statistics Kid -->
-    <string name="alert_category_statistics_kid_desc">Go to the id\'s statistics section for more information</string>
-    <string name="alert_category_statistics_kid_action_text">Go to the id\'s statistics</string>
+    <string name="alert_category_statistics_kid_desc">Go to the kid\'s statistics section for more information</string>
+    <string name="alert_category_statistics_kid_action_text">Go to the kid\'s statistics</string>
     <!-- General Statistics -->
     <string name="alert_category_general_statistics_desc">Go to the Results section to get more information</string>
     <string name="alert_category_general_statistics_action_text">Go to general statistics</string>
     <!-- Information Kid -->
-    <string name="alert_category_information_kid_desc">Go to the id\'s editing section for more information</string>
-    <string name="alert_category_information_kid_action_text">Go to edit id</string>
+    <string name="alert_category_information_kid_desc">Go to the kid\'s editing section for more information</string>
+    <string name="alert_category_information_kid_action_text">Go to edit kid</string>
     <!-- Default -->
     <string name="alert_category_default">No action required</string>
 
@@ -294,9 +294,9 @@
     <string name="profile_information_updated_successfully">Profile information updated successfully</string>
     <string name="upload_profile_image_error">Error uploading profile image</string>
     <string name="profile_image_is_too_large">The specified image is too large</string>
-    <string name="updating_profile_data_progress">Updating profile data, please wait ...</string>
-    <string name="loading_profile_information">Loading profile information ...</string>
-    <string name="delete_account_in_progress">Deleting account, please wait ...</string>
+    <string name="updating_profile_data_progress">Updating profile data, please wait …</string>
+    <string name="loading_profile_information">Loading profile information …</string>
+    <string name="delete_account_in_progress">Deleting account, please wait …</string>
     <string name="user_profile_delete_account_confirm">Do you want to delete your account? all the information about the children analyzed will be eliminated</string>
     <string name="user_profile_delete_account_check_email">Check your email to complete the account deletion process</string>
     <string name="user_profile_public_profile">Public profile</string>
@@ -354,7 +354,7 @@
     <string name="comment_detail_bullying_level_negative">The comment has no relation to bullying.</string>
 
     <!-- Son Detail -->
-    <string name="loading_kid_information">Loading id information</string>
+    <string name="loading_kid_information">Loading kid information</string>
 
     <!-- Menu Items -->
     <string name="menu_item_result">Results</string>
@@ -370,7 +370,7 @@
 
 
     <!-- Profile -->
-    <string name="update_profile_in_progress">Updating profile wait...</string>
+    <string name="update_profile_in_progress">Updating profile wait …</string>
     <!-- Save Changes -->
     <string name="user_profile_save_changes">Save Changes</string>
     <string name="user_profile_delete_account">Delete account</string>
@@ -379,7 +379,7 @@
     <!-- Home -->
     <string name="last_alerts_title" formatted="false">Last Alerts (%d)</string>
     <string name="last_alerts_title_default">Last Alerts</string>
-    <string name="home_load_profile_information_progress">Loading profile information ...</string>
+    <string name="home_load_profile_information_progress">Loading profile information …</string>
     <string name="home_how_add_child_title">How to add a conversation?</string>
 
     <string name="kid_detail_dimensions_title">Four Dimensions</string>
@@ -410,7 +410,7 @@
 
     <!-- System Alert -->
     <string name="system_alerts_chart_title">All Alerts</string>
-    <string name="system_alerts_chart_description">Set of alerts produced in the system for the id</string>
+    <string name="system_alerts_chart_description">Set of alerts produced in the system for the kid</string>
 
     <!-- System Alert -->
     <string name="likes_chart_title">"Likes" by social media</string>
@@ -482,12 +482,12 @@
     <!-- Terminals Tab -->
     <string name="terminals_tab">Terminals</string>
 
-    <string name="authenticating_wait">Authenticating wait ...</string>
+    <string name="authenticating_wait">Authenticating wait …</string>
     <string name="network_error_ocurred">An error occurred when contacting the server, please try again later</string>
     <string name="unexpected_error_ocurred">An unexpected error occurred</string>
     <string name="bad_credentials_error">Invalid username or password</string>
 
-    <string name="resetting_password_wait">Resetting password, wait ...</string>
+    <string name="resetting_password_wait">Resetting password, wait …</string>
     <string name="email_is_not_valid">The email is not valid</string>
     <string name="password_reset_success">You will receive an email with additional information to finish resetting your password.</string>
 
@@ -772,7 +772,7 @@
     <string name="terminals_list_description">List of monitored terminals</string>
     <string name="terminal_os_sdk" formatted="false">OS: %s, SDK: %s</string>
     <string name="terminal_app_version" formatted="false">App Version Name: %s, Version Code: %s</string>
-    <string name="loading_terminal_detail">Loading Terminal Detail ...</string>
+    <string name="loading_terminal_detail">Loading Terminal Detail …</string>
     <string name="delete_terminal_btn_text">Delete Terminal</string>
     <string name="delete_terminal_confirm">Do you want to delete this terminal ?. All the information about the installed applications and the parental control rules configured, will be deleted.</string>
     <string name="terminal_success_deleted">Terminal successfully deleted</string>

@@ -1,13 +1,13 @@
-<manifest package="com.jaychang.sa.google"
+<manifest package="com.sanchez.sergio.google"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
         <meta-data
-            android:name="@string/com.jaychang.sa.googleWebClientId"
+            android:name="@string/com.sanchez.sergio.googleWebClientId"
             android:value="\ ${googleWebClientId}" />
 
         <activity
-            android:name=".GoogleAuthActivity"
+            android:name="com.sanchez.sergio.google.GoogleAuthActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:excludeFromRecents="true"
             android:launchMode="singleTask" />

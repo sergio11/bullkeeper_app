@@ -1,21 +1,21 @@
-<manifest package="com.jaychang.sa.instagram"
+<manifest package="com.sanchez.sergio.instagram"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
         <meta-data
-            android:name="@string/com.jaychang.sa.instagramClientId"
+            android:name="@string/com.sanchez.sergio.instagramClientId"
             android:value="\ ${instagramClientId}" />
 
         <meta-data
-            android:name="@string/com.jaychang.sa.instagramClientSecret"
+            android:name="@string/com.sanchez.sergio.instagramClientSecret"
             android:value="\ ${instagramClientSecret}" />
 
         <meta-data
-            android:name="@string/com.jaychang.sa.instagramRedirectUrl"
+            android:name="@string/com.sanchez.sergio.instagramRedirectUrl"
             android:value="\ ${instagramRedirectUrl}" />
 
         <activity
-            android:name=".InstagramAuthActivity"
+            android:name="com.sanchez.sergio.instagram.InstagramAuthActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:excludeFromRecents="true"
             android:launchMode="singleTask" />

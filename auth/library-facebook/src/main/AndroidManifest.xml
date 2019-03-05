@@ -1,13 +1,13 @@
-<manifest package="com.jaychang.sa.facebook"
+<manifest package="com.sanchez.sergio.facebook"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
         <meta-data
-            android:name="@string/com.jaychang.sa.facebookId"
+            android:name="@string/com.sanchez.sergio.facebookId"
             android:value="\ ${facebookAppId}" />
 
         <activity
-            android:name=".FacebookAuthActivity"
+            android:name="com.sanchez.sergio.facebook.FacebookAuthActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:launchMode="singleTask"
             android:excludeFromRecents="true" />
@@ -18,7 +18,7 @@
 
         <provider
             android:authorities="${applicationId}.FacebookInitProvider"
-            android:name=".FacebookInitProvider"
+            android:name="com.sanchez.sergio.facebook.FacebookInitProvider"
             android:exported="false" />
     </application>
 

@@ -207,7 +207,7 @@
         <!-- Search School Activity -->
         <activity
             android:name=".ui.activity.school.search.SearchSchoolMvpActivity"
-            android:label="@string/title_activity_search_school"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common" />
 
@@ -220,7 +220,7 @@
 
         <!-- RelationsSettingsMvpActivity -->
         <activity android:name=".ui.activity.kidresultssettings.KidResultsSettingsMvpActivity"
-            android:label="@string/title_activity_add_school"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Preferences"
@@ -230,18 +230,21 @@
         <activity android:name=".ui.activity.commentssettings.CommentsSettingsMvpActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Preferences" />
 
         <!-- Invitations List Mvp Activity -->
         <activity android:name=".ui.activity.invitations.InvitationsListMvpActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Add Scheduled Block -->
         <activity android:name=".ui.activity.savescheduledblock.SaveScheduledBlockMvpActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Preferences" />
 
 
@@ -255,6 +258,7 @@
         <!-- Conversation List Mvp Activity -->
         <activity android:name=".ui.activity.conversationslist.ConversationListMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"/>
 
 
@@ -266,41 +270,48 @@
         <!-- Search Guardian Mvp Activity -->
         <activity android:name=".ui.activity.searchguardian.SearchGuardiansMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common" />
 
         <!-- Invitation Detail Mvp Activity -->
         <activity android:name=".ui.activity.invitationdetail.InvitationDetailMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"
             />
 
         <!-- App Detail Mvp Activity -->
         <activity android:name=".ui.activity.appdetail.AppDetailMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"
             />
 
         <!-- Sms Detail Activity -->
         <activity android:name=".ui.activity.smsdetail.SmsDetailMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"
             />
 
         <!-- Call Detail Activity -->
         <activity android:name=".ui.activity.calldetail.CallDetailMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"
             />
 
         <!-- Contact Detail Activity -->
         <activity android:name=".ui.activity.contactdetail.ContactDetailMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"
             />
 
         <!-- Phone Numbers Blocked List -->
         <activity android:name=".ui.activity.phonenumbersblocked.PhoneNumbersBlockedListMvpActivity"
             android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Common"
             />
 
@@ -308,36 +319,42 @@
         <activity android:name=".ui.activity.kidrequest.KidRequestListMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name"
             />
 
         <!-- Kid Request Detail -->
         <activity android:name=".ui.activity.kidrequestdetail.KidRequestDetailMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name"
             />
 
         <!-- Geofences List Mvp Activity -->
         <activity android:name=".ui.activity.geofences.list.GeofencesListMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name"
             />
 
         <!-- Save Geofence Mvp Activity -->
         <activity android:name=".ui.activity.geofences.save.SaveGeofenceMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name"
             />
 
         <!-- App Search List Mvp Activity -->
         <activity android:name=".ui.activity.appsearch.AppSearchListMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name"
             />
 
         <!-- Day Scheduled Mvp Activity -->
         <activity android:name=".ui.activity.dayscheduleddetail.DayScheduledMvpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name"
             />
 
         <!-- Services -->

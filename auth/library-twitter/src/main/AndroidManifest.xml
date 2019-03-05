@@ -3,11 +3,11 @@
 
     <application>
         <meta-data
-            android:name="@string/com.jaychang.sa.twitterConsumerKey"
+            android:name="@string/com.sanchez.sergio.twitterConsumerKey"
             android:value="\ ${twitterConsumerKey}" />
 
         <meta-data
-            android:name="@string/com.jaychang.sa.twitterConsumerSecret"
+            android:name="@string/com.sanchez.sergio.twitterConsumerSecret"
             android:value="\ ${twitterConsumerSecret}" />
 
         <activity

@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BullKeeper</string>
+    <!-- Intro Text -->
+    <string name="intro_text">Herramienta de control parental centrada en la gestión del estilo de vida digital de niños / adolescentes cuyo objetivo es identificar situaciones potencialmente violentas y crear un ecosistema que facilite la detección temprana de diversos trastornos derivados de un uso inadecuado o poco confiable de las tecnologías de la información.</string>
+    <!-- Sign up btn -->
+    <string name="sign_up_btn">Regístrate</string>
+    <!-- Sign in btn -->
+    <string name="sign_in_btn">Iniciar Sesión</string>
+    <!-- Sign in facebook -->
+    <string name="sign_in_facebook">Inicia sesión a través de Facebook</string>
+    <!-- Forgot password btn -->
+    <string name="forgot_password_btn">¿Olvidaste tu contraseña?</string>
+    <!-- Forget password send email -->
+    <string name="forgot_password_send_email">Enviar</string>
+    <!-- Show Tutorial -->
+    <string name="show_tutorial">Tutorial de presentación</string>
+    <!-- Restart App -->
+    <string name="btn_restart">Reiniciar</string>
+    <!-- Details App -->
+    <string name="btn_details">Detalles</string>
+    <!-- CLose App -->
+    <string name="btn_close">Cerrar</string>
+    <!-- Sign up main title -->
+    <string name="sign_up_main_title">Regístrate ahora</string>
+    <!-- Sign up back to login -->
+    <string name="sign_up_back_to_login">¿Ya eres usuario? Inicia sesión ahora</string>
+    <!-- Create Account -->
+    <string name="create_account_btn">Crear una cuenta</string>
+    <!-- email hint -->
+    <string name="email_address_hint">Email</string>
+    <!-- Repeat Email Hint -->
+    <string name="repeat_email_address_hint">Repite el correo electrónico</string>
+    <!-- password hint -->
+    <string name="password_hint">Contraseña</string>
+    <!-- name hint -->
+    <string name="name_hint">Nombre</string>
+    <!-- surname hint -->
+    <string name="surname_hint">Apellido</string>
+    <!-- birthday hint -->
+    <string name="birthday_hint">Cumpleaños</string>
+    <!-- Confirm Password hint -->
+    <string name="confirm_password_hint">Confirmar contraseña</string>
+    <!-- Tfno -->
+    <string name="tfno_hint">Tfno</string>
+    <string name="tfno_prefix">+34 </string>
+    <!-- School -->
+    <string name="school_hint">Colegio</string>
+    <!-- Date Format -->
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="date_time_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="date_time_format_2">yyyy/MM/dd HH:mm:ss</string>
+    <string name="date_format_server_response">yyyy/MM/dd</string>
+    <string name="joda_local_time_format_server_response">HH:mm:ss.SSS</string>
+    <string name="discard_changes_btn">Descartar</string>
+    <string name="save_changes_btn">Guardar</string>
+    <string name="retry_again_btn">Reintentar de nuevo</string>
+    <string name="no_data_found">Datos no encontrados</string>
+    <string name="loading_data">Cargando datos …</string>
+    <string name="make_a_search_to_see_results">Hacer una búsqueda para ver resultados.</string>
+    <string name="generic_loading_text">Por favor espera …</string>
+    <string name="search_result_generic_hint">Ingrese el texto para ver el resultado</string>
+    <!-- UI Components -->
+    <string name="support_edit_weekly_frequency_label">Frecuencia semanal</string>
+    <!-- fields error messages -->
+    <string name="name_not_empty_error">Debes especificar tu nombre</string>
+    <string name="surname_not_empty_error">Debes especificar tu apellido</string>
+    <string name="birthday_not_empty_error">Debes especificar tu cumpleaños</string>
+    <string name="email_not_empty_error">Debes especificar tu email</string>
+    <string name="email_invalid_error">El correo electrónico no tiene el formato correcto.</string>
+    <string name="forms_is_not_valid">La información proporcionada no es válida.</string>
+    <string name="repeat_email_invalid_error">El correo no coincide</string>
+    <string name="birthday_selected" formatted="false">%s (%d años)</string>
+    <string name="school_not_empty_error">Debes especificar la escuela</string>
+    <!-- Intro -->
+    <string name="close_session_message">Has cerrado sesión.</string>
+    <!-- Signin -->
+    <string name="account_is_not_activated">La cuenta no está activada, por favor revise su correo electrónico para activarla.</string>
+    <string name="account_pending_to_be_deleted">La cuenta está pendiente de ser eliminada, revise su correo electrónico para obtener más información</string>
+    <!-- Sign up -->
+    <string name="signup_in_progress">Registrarse en progreso, por favor espere …</string>
+    <string name="signup_success" formatted="true">%s, su cuenta se creó correctamente, debe revisar su correo electrónico para validar su cuenta</string>
+    <!-- Tutorial Strings -->
+    <string name="tutorial_first_page_title">La protección de las redes sociales</string>
+    <string name="tutorial_first_page_content">Ayude a proteger a los niños y jóvenes del hostigamiento y los ataques recibidos de las redes sociales.</string>
+    <string name="tutorial_second_page_title">Registro de niños</string>
+    <string name="tutorial_second_page_content">Registrar a los niños para ser monitorizados por el sistema.</string>
+    <string name="tutorial_third_page_title">Habilitar redes sociales</string>
+    <string name="tutorial_third_page_content">Habilite el acceso a las redes sociales que desea monitorizar.</string>
+    <string name="tutorial_fourth_page_title">Actividad en redes sociales.</string>
+    <string name="tutorial_fourth_page_content">Obtenemos información sobre su actividad en las redes sociales.</string>
+    <string name="tutorial_fifth_page_title">Cuatro dimensiones</string>
+    <string name="tutorial_fifth_page_content">Determinamos su relación con los diferentes grupos de riesgo.</string>
+    <!-- Login Screen -->
+    <string name="login_screen_main_title">Inicia sesión ahora</string>
+    <string name="login_failed">Error de inicio de sesion</string>
+    <!-- Forgot password Screen -->
+    <string name="forgot_password_screen_main_title">¿Olvidaste tu contraseña?</string>
+    <string name="delete_list_menu_item">Borrar</string>
+    <string name="undo_list_menu_item">Deshacer</string>
+    <string name="alert_item_removed">La alerta fue eliminada</string>
+    <!-- App Menu items -->
+    <string name="app_menu_user_profile">Perfil</string>
+    <string name="app_menu_settings">Ajustes</string>
+    <string name="app_menu_how_its_work">Como funciona</string>
+    <string name="app_menu_close_session">Cerrar la sesión</string>
+    <string name="app_menu_terms_of_service">Términos de servicio</string>
+    <string name="app_menu_privacy_policy">Política de privacidad</string>
+    <!-- Home Show Case -->
+    <string name="user_menu_showcase_description">Aquí tiene las opciones principales de la aplicación, verá los resultados, las alertas generadas y la lista de niños supervisados en el sistema.</string>
+    <string name="my_childs_showcase_description">Aquí tienes a los niños que puedes enseñar, puedes acceder a los detalles de ellos, además de registrar uno nuevo en el sistema.</string>
+    <!-- My Kids -->
+    <string name="my_kids_title">Mis hijos</string>
+    <string name="my_kids_content_description">Mis hijos</string>
+    <string name="loading_information_of_children">Cargando información de niños registrados</string>
+    <string name="content_not_be_loaded">El contenido no se pudo cargar</string>
+    <string name="remove_alert_confirm">¿Eliminar la alerta?</string>
+    <string name="alert_removed_successfully">Alerta eliminada exitosamente</string>
+    <string name="alert_detail_message">Mensaje</string>
+    <string name="alert_detail_required_actions">Acciones Requeridas</string>
+    <string name="kid_guardian_active_user" formatted="false">%s (Tú)</string>
+    <string name="kid_guardian_user_no_confirmed" formatted="false">%s (invitación pendiente)</string>
+    <string name="search_kids_hint">Encuentra niños por nombre</string>
+    <!-- Alert Category Success Text -->
+    <string name="alert_category_success_text">Datos de éxito</string>
+    <string name="alert_category_info_text">Datos informativos</string>
+    <string name="alert_category_warning_text">Anuncio importante</string>
+    <string name="alert_category_danger_text">información importante</string>
+    <!-- My Alerts -->
+    <string name="my_alerts">Mis alertas</string>
+    <string name="my_alerts_count" formatted="true">Mis alertas (%d)</string>
+    <string name="my_alerts_clear_all">¿Borrar todas las alertas?</string>
+    <string name="my_alerts_cleared_successfully">Todas las alertas borradas exitosamente</string>
+    <string name="operation_cancelled">Operación cancelada</string>
+    <string name="my_alerts_filter">Alertas de filtro</string>
+    <string name="apply_changes">Aplicar los cambios</string>
+    <string name="loading_alerts_please_wait">Cargando alertas, por favor espere …</string>
+    <string name="deleting_alerts_please_wait">Eliminando alertas, por favor espere …</string>
+    <string name="deleting_alerts_for_this_child">¿Deseas borrar todas las alertas para este niño?</string>
+    <string name="deleting_alerts_for_this_level">¿Borrar todas las alertas para este nivel?</string>
+    <string name="deleting_alerts_for_this_level_and_child">¿Deseas borrar todas las alertas de este niño para este nivel?</string>
+    <string name="loading_alert_detail">Cargando detalle de alerta, espere por favor</string>
+    <string name="alert_not_found">No se pudo obtener la información de la alerta.</string>
+    <string name="deleting_alert_in_progress">Eliminando alerta, espera por favor …</string>
+    <string name="filter_alerts_count_preference_summary">Número de alertas que se mostrarán.</string>
+    <string name="filter_age_of_alerts_preference_summary">Edad de las alertas para mostrar.</string>
+    <string name="preferences_saved_successfully_message">Preferencias guardadas con éxito.</string>
+    <string name="has_pending_changes">Los cambios serán descartados. ¿Quieres ahorrar antes de cerrar?</string>
+    <!-- Alert Category -->
+    <!-- Information Extraction -->
+    <string name="alert_category_information_extraction_desc">Ir a la lista de comentarios para verlos.</string>
+    <string name="alert_category_information_extraction_action_text">Ir a la lista de comentarios.</string>
+    <!-- Statistics Kid -->
+    <string name="alert_category_statistics_kid_desc">Ve a la sección de estadísticas del niño para más información.</string>
+    <string name="alert_category_statistics_kid_action_text">Ir a las estadísticas del niño</string>
+    <!-- General Statistics -->
+    <string name="alert_category_general_statistics_desc">Vaya a la sección de Resultados para obtener más información.</string>
+    <string name="alert_category_general_statistics_action_text">Ir a estadísticas generales</string>
+    <!-- Information Kid -->
+    <string name="alert_category_information_kid_desc">Ve a la sección de edición del niño para más información.</string>
+    <string name="alert_category_information_kid_action_text">Ir a editar al niño</string>
+    <!-- Default -->
+    <string name="alert_category_default">No se requiere acción</string>
+    <!-- Preferences -->
+    <!-- App Preferences General Configuration Category -->
+    <string name="app_preferences_general_configuration_category">Configuración general</string>
+    <string name="app_preferences_category_of_alerts">Categoría de alertas</string>
+    <!-- Number of alerts -->
+    <string name="number_of_alerts_preference_title">Número de alertas</string>
+    <string name="number_of_alerts_preference_summary">Número de alertas que se mostrarán en la pantalla de inicio</string>
+    <string name="five_alerts_preference_value">5 alertas</string>
+    <string name="ten_alerts_preference_value">10 alertas</string>
+    <string name="fifteen_alerts_preference_value">15 alertas</string>
+    <string name="twenty_alerts_preference_value">20 alertas</string>
+    <string name="twenty_five_alerts_preference_value">25 alertas</string>
+    <string name="thirty_alerts_preference_value">30 alertas</string>
+    <!-- Age of alerts -->
+    <string name="age_of_alerts_preference_title">Edad de las alertas</string>
+    <string name="age_of_alerts_preference_summary">Edad de las alertas para mostrar en la pantalla de inicio</string>
+    <string name="age_of_alerts_no_filter">Sin filtro</string>
+    <string name="age_of_alerts_fifteen_minutes">15 minutos</string>
+    <string name="age_of_alerts_thirty_minutes">30 minutos</string>
+    <string name="age_of_alerts_forty_five_minutes">45 minutos</string>
+    <string name="age_of_alerts_sixty_minutes">60 minutos</string>
+    <!-- Enable Push Notifications -->
+    <string name="enable_push_notifications_preference_title">Habilitar notificaciones push</string>
+    <string name="enable_push_notifications_preference_summary">Habilitar notificaciones remotas para todos los dispositivos en su cuenta.</string>
+    <!-- Remove Alerts Every -->
+    <string name="remove_alerts_every_preference_title">Eliminar alertas cada</string>
+    <string name="remove_alerts_every_preference_summary">Antiguedad de las alertas para mostrar en la pantalla de inicio</string>
+    <string name="remove_alerts_never">Nunca</string>
+    <string name="remove_alerts_last_hour">Ultima hora</string>
+    <string name="remove_alerts_last_day">Último día</string>
+    <string name="remove_alerts_last_month">El mes pasado</string>
+    <!-- Age of Results (Kid Results Preference Screen) -->
+    <string name="age_of_results_preference_title">Edad de los resultados</string>
+    <string name="age_of_results_preference_summary">Antigüedad de los resultados que se muestran.</string>
+    <string name="age_of_results_a_day_ago_preference_value">Hace un día</string>
+    <string name="age_of_results_a_week_ago_preference_value">Hace una semana</string>
+    <string name="age_of_results_a_two_week_ago_preference_value">Hace dos semanas</string>
+    <string name="age_of_results_a_month_ago_preference_value">Hace un mes</string>
+    <string name="age_of_results_a_two_months_ago_preference_value">Hace dos meses</string>
+    <string name="age_of_results_a_three_months_ago_preference_value">Hace tres meses</string>
+    <!-- Alerts -->
+    <string name="all_alert_categories_title">Todas las categorías de alerta</string>
+    <string name="all_alert_categories_summary">Habilitar todas las categorías de alerta</string>
+    <string name="success_alerts_title">Alertas de éxito</string>
+    <string name="success_alerts_summary">Habilitar alertas para informar sobre operaciones exitosas</string>
+    <string name="information_alerts_title">Alertas de informacion</string>
+    <string name="information_alerts_summary">Habilitar alertas para informar sobre operaciones informativas.</string>
+    <string name="warning_alerts_title">Alertas de advertencia</string>
+    <string name="warning_alerts_summary">Habilitar alertas para informar sobre operaciones de advertencia.</string>
+    <string name="danger_alerts_title">Alertas de peligro</string>
+    <string name="danger_alerts_summary">Habilitar alertas para informar sobre operaciones de peligro</string>
+    <string name="preferences_saved_successfully">Preferencias guardadas con éxito</string>
+    <!-- Save Preferences Btn -->
+    <string name="save_preferences_btn">Guardar Preferencias</string>
+    <string name="how_can_bullkeeper_help_you">¿Cómo puede ayudarlo BullKeeper?</string>
+    <!-- User Profile -->
+    <string name="user_profile_title">Perfil</string>
+    <string name="profile_information_updated_successfully">Información de perfil actualizada con éxito</string>
+    <string name="upload_profile_image_error">Error al subir la imagen del perfil</string>
+    <string name="profile_image_is_too_large">La imagen especificada es demasiado grande.</string>
+    <string name="updating_profile_data_progress">Actualizando los datos del perfil, por favor espere …</string>
+    <string name="loading_profile_information">Cargando información del perfil …</string>
+    <string name="delete_account_in_progress">Eliminando cuenta, por favor espere …</string>
+    <string name="user_profile_delete_account_confirm">¿Quieres borrar tu cuenta? Toda la información sobre los niños analizados será eliminada.</string>
+    <string name="user_profile_delete_account_check_email">Revise su correo electrónico para completar el proceso de eliminación de la cuenta</string>
+    <string name="user_profile_public_profile">Perfil público</string>
+
+    <!-- My Kids Profile -->
+    <string name="my_kids_profile_name" formatted="true">Perfil de %s</string>
+    <string name="my_kids_profile_name_default">Perfil de niños</string>
+    <string name="child_information_saved">Información del niño guardada exitosamente</string>
+    <string name="see_all_alerts_in_detail">Ver todas las alertas en detalle</string>
+    <string name="enable_social_media_error">Se produjo un error al habilitar las redes sociales.</string>
+    <string name="enable_social_media_disable_confirm">Dejaremos de monitorizar esta red social.</string>
+    <string name="social_media_configured_title">Redes sociales configuradas</string>
+    <string name="social_media_configured_description">Configure las redes sociales para permitir el acceso al contenido que analizaremos.</string>
+    <string name="kid_guardians_configured_title">Kid Guardian Configurado</string>
+    <string name="kid_guardians_configured_description">Configurar los diferentes roles de los supervisores del niño.</string>
+    <string name="kid_guardians_supervised_eliminated">Supervisor eliminado</string>
+    <string name="kid_guardians_app_allowed_eliminated">Kid Guardian eliminado</string>
+    <string name="kid_guardians_self_user_can_not_be_eliminated">No te puedes eliminar como supervisor</string>
+    <!-- Comments -->
+    <string name="comments_by_child_title" formatted="true">Comentarios (%d)</string>
+    <string name="comments_by_child_title_default">Comentarios</string>
+    <!-- Comment Detail -->
+    <string name="comment_detail_message_title">Mensaje</string>
+    <string name="comment_detail_results_title">Resultados</string>
+    <string name="comment_detail_create_at" formatted="true">Comentario creado el %s</string>
+    <string name="comment_detail_not_found">El detalle del comentario no pudo ser obtenido</string>
+    <!-- Sentiment -->
+    <string name="comment_detail_sentiment_level_unknown">No hay resultados para el análisis del sentimiento.</string>
+    <string name="comment_detail_sentiment_level_neutro">El comentario tiene un sentimiento neutral.</string>
+    <string name="comment_detail_sentiment_level_positive">El comentario tiene un sentimiento positivo.</string>
+    <string name="comment_detail_sentiment_level_negative">El comentario tiene un sentimiento negativo.</string>
+    <!-- Adult -->
+    <string name="comment_detail_adult_level_unknown">No hay resultados para el análisis de contenido para adultos.</string>
+    <string name="comment_detail_adult_level_positive">El comentario está relacionado con el contenido para adultos.</string>
+    <string name="comment_detail_adult_level_negative">El comentario no está relacionado con el contenido para adultos.</string>
+    <!-- Drugs -->
+    <string name="comment_detail_drugs_level_unknown">No hay resultados para el análisis de drogas.</string>
+    <string name="comment_detail_drugs_level_positive">El comentario está relacionado con las drogas.</string>
+    <string name="comment_detail_drugs_level_negative">El comentario no está relacionado con las drogas.</string>
+    <!-- Violence -->
+    <string name="comment_detail_violence_level_unknown">No hay resultados para el análisis de la violencia.</string>
+    <string name="comment_detail_violence_level_positive">El comentario es violento.</string>
+    <string name="comment_detail_violence_level_negative">El comentario no es violento.</string>
+    <!-- Bullying -->
+    <string name="comment_detail_bullying_level_unknown">No hay resultados para el análisis del bullying.</string>
+    <string name="comment_detail_bullying_level_positive">El comentario tiene relación con el bullying.</string>
+    <string name="comment_detail_bullying_level_negative">El comentario no tiene relación con el bullying.</string>
+    <!-- Son Detail -->
+    <string name="loading_kid_information">Cargando información del niño</string>
+    <!-- Menu Items -->
+    <string name="menu_item_result">Resultados</string>
+    <string name="menu_item_alerts">Alertas</string>
+    <string name="menu_item_children">Niños</string>
+    <string name="menu_item_profile">Perfil</string>
+    <string name="menu_item_relations">Relaciones</string>
+    <string name="menu_item_chat">Conversacion</string>
+    <!-- Dialogs Strings -->
+    <string name="default_notice_dialog_title">Aviso de diálogo</string>
+    <!-- Profile -->
+    <string name="update_profile_in_progress">Actualizando perfil espera …</string>
+    <!-- Save Changes -->
+    <string name="user_profile_save_changes">Guardar cambios</string>
+    <string name="user_profile_delete_account">Borrar cuenta</string>
+    <!-- Home -->
+    <string name="last_alerts_title" formatted="false">Ultimas alertas (%d)</string>
+    <string name="last_alerts_title_default">Ultimas alertas</string>
+    <string name="home_load_profile_information_progress">Cargando información del perfil …</string>
+    <string name="home_how_add_child_title">¿Cómo agregar una conversación?</string>
+    <string name="kid_detail_dimensions_title">Cuatro dimensiones</string>
+    <string name="kid_detail_dimensions_description">Datos de las cuatro dimensiones analizadas.</string>
+    <string name="kid_detail_alerts_title">Alertas importantes</string>
+    <string name="kid_detail_alerts_description">Lista de las alertas más destacadas.</string>
+    <string name="kid_detail_relations_title">Relaciones</string>
+    <string name="kid_detail_relations_description">Relación con otros usuarios de las redes sociales.</string>
+    <string name="kid_detail_relations_most_active_friends">Amigos mas activos</string>
+    <!-- Scheduled Blocks -->
+    <string name="scheduled_blocks_title">Hábitos diarios</string>
+    <string name="scheduled_blocks_description">Hábito configurado diariamente</string>
+    <string name="scheduled_blocks_weekly_frequency">SMTWTFS</string>
+    <!-- Activity In Social Media Chart -->
+    <string name="activity_in_social_media_title">Actividad en redes sociales.</string>
+    <string name="activity_in_social_media_description">Indicadores de actividad en diferentes redes sociales.</string>
+    <!-- Sentiment Analysis Chart -->
+    <string name="sentiment_analysis_chart_title">Resultados del sentimiento</string>
+    <string name="sentiment_analysis_chart_description">Resultados del sentimiento obtenido para los comentarios analizados.</string>
+    <string name="sentiment_analysis_positive">Positivo</string>
+    <string name="sentiment_analysis_negative">Negativo</string>
+    <string name="sentiment_analysis_neutro">Neutro</string>
+    <!-- System Alert -->
+    <string name="system_alerts_chart_title">Todas las alertas</string>
+    <string name="system_alerts_chart_description">Conjunto de alertas producidas en el sistema para el niño.</string>
+    <!-- System Alert -->
+    <string name="likes_chart_title">"Me gusta" en las redes sociales</string>
+    <string name="likes_chart_description">Estadísticas de los "Me gusta" recibidos por el conjunto de comentarios analizados.</string>
+    <!-- Comments Extracted -->
+    <string name="comments_extracted_title">Comentarios extraídos</string>
+    <string name="comments_extracted_description">Resumen sobre el conjunto de comentarios extraídos.</string>
+    <!-- Relations -->
+    <string name="relations_title">Relaciones sociales</string>
+    <string name="relations_description">Estadísticas de los amigos más activos para cada red social.</string>
+    <string name="four_dimension_violence">Violencia</string>
+    <string name="four_dimension_violence_content_text"
+        formatted="false">%s de los comentarios analizados están relacionados con la violencia.</string>
+    <string name="four_dimension_drugs">Drogas</string>
+    <string name="four_dimension_drugs_content_text"
+        formatted="false">%s de los comentarios analizados están relacionados con drogas.</string>
+    <string name="four_dimension_adult">Contenido Adulto</string>
+    <string name="four_dimension_adult_content_text"
+        formatted="false">%s de los comentarios analizados están relacionados con contenido adulto.</string>
+    <string name="four_dimension_bullying">Bullying</string>
+    <string name="four_dimension_bullying_content_text"
+        formatted="false">%s de los comentarios analizados están relacionados con bullying</string>
+    <string name="results_since_one_month_ago">Resultados desde hace 1 mes</string>
+    <string name="close_dialog">Entendido</string>
+    <string name="accept">Entendido</string>
+    <string name="pick_image_intent_text">Elige una imagen</string>
+    <string name="change_profile_picture" formatted="true">Cambiar la foto de perfil de %s</string>
+    <string name="change_profile_picture_default">Cambiar foto de perfil</string>
+    <string name="show_detail_btn">Mostrar detalle</string>
+    <string name="change_photo_btn">Cambiar Fotografía</string>
+    <string name="instagram_brand_title">Instagram</string>
+    <string name="facebook_brand_title">Facebook</string>
+    <string name="youtube_brand_title">Youtube</string>
+    <string name="instagram_comments_extracted" formatted="false">%s de los comentarios extraídos pertenecen a la red social Instagram</string>
+    <string name="facebook_comments_extracted" formatted="false">%s de los comentarios extraídos pertenecen a la red social Facebook</string>
+    <string name="youtube_comments_extracted" formatted="false">%s de los comentarios extraídos pertenecen a la red social Youtube</string>
+    <!-- Results Tab -->
+    <!-- Dimensions Tab -->
+    <string name="dimensions_tab">Dimensiones</string>
+    <!-- Alerts Tab -->
+    <string name="alerts_tab">Alertas</string>
+    <!-- App Stats -->
+    <string name="app_stats_tab">Estadísticas de Apps</string>
+    <!-- Kid Request Tab -->
+    <string name="kid_request_tab">Solicitudes</string>
+    <!-- Relations Tab -->
+    <string name="scheduled_blocks_tab">Hábitos diarios</string>
+    <!-- Activity Social Media Tab -->
+    <string name="activity_social_media_tab">Actividad</string>
+    <!-- Sentiment Tab -->
+    <string name="sentiment_analysis_tab">Sentimiento</string>
+    <!-- Likes Social Media Tab -->
+    <string name="likes_social_media_tab">Likes</string>
+    <!-- Comments Extracted -->
+    <string name="comments_extracted_tab">Comentarios</string>
+    <!-- Relations -->
+    <string name="relations_tab">Relaciones</string>
+    <!-- Terminals Tab -->
+    <string name="terminals_tab">Terminales</string>
+    <string name="authenticating_wait">Autentificando espera …</string>
+    <string name="network_error_ocurred">Se produjo un error al contactar con el servidor. Inténtalo de nuevo más tarde.</string>
+    <string name="unexpected_error_ocurred">Ocurrió un error inesperado</string>
+    <string name="bad_credentials_error">Usuario o contraseña invalido</string>
+    <string name="resetting_password_wait">Restableciendo contraseña, espere …</string>
+    <string name="email_is_not_valid">El correo electrónico no es válido</string>
+    <string name="password_reset_success">Recibirá un correo electrónico con información adicional para terminar de restablecer su contraseña.</string>
+    <string name="crash_error_content">Ocurrió un error inesperado durante el funcionamiento de la aplicación, disculpe las molestias</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="content">The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again. The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.The flexible space shrinks until only the toolbar remains. The title shrinks to 20sp in the navigation bar. When scrolling to the top of the page, the flexible space and the title grow into place again.</string>
+    <!-- Social Media Status -->
+    <string name="social_media_is_not_enabled">Las redes sociales no están habilitadas.</string>
+    <string name="social_media_is_not_valid">El token de acceso de las redes sociales no es válido.</string>
+    <string name="social_media_is_enabled">Las redes sociales están habilitadas.</string>
+    <string name="disable_social_media_confirm">¿Quieres deshabilitar esta red social?</string>
+    <!-- Youtube API strings -->
+    <string name="player_error">Error al inicializar el reproductor de YouTube: %s</string>
+    <string name="seek_to">Salta a</string>
+    <string name="seek_to_hint">Segundos</string>
+    <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
+    <string name="youtube_video_cue">gsT5agfijBE</string>
+    <!-- Facebook -->
+    <string name="facebook_app_id">296606527738358</string>
+    <string name="fb_login_protocol_scheme">fb296606527738358</string>
+    <string name="login_facebook_canceled">El inicio de sesión fue cancelado por el usuario.</string>
+    <string name="login_facebook_error">Hubo un error al iniciar sesión a través de Facebook.</string>
+    <!-- Confirm Close Session -->
+    <string name="confirm_close_session">¿Quieres cerrar la sesión?</string>
+    <!-- Terms and Conditions -->
+    <string name="registration_terms_and_conditions" formatted="false">He leído y acepto %s y %s</string>
+    <string name="terms_of_service">Términos de servicio</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="terms_of_service_not_accepted">Debes aceptar los términos de la licencia para continuar.</string>
+    <string name="terms_of_service_url">file:///android_asset/web/terms_of_service_content.html</string>
+    <string name="privacy_policy_url">file:///android_asset/web/privacy_policy_content.html</string>
+    <!-- Password Constraints -->
+    <string name="error_password_invalid_length">Al menos 8 carácteres</string>
+    <string name="error_password_lower_case_letter_required">Al menos una letra minúscula</string>
+    <string name="error_password_upper_case_letter_required">Al menos una letra mayúscula</string>
+    <string name="error_consecutive_repeating_characters_or_number_not_allowed">No más de dos caracteres o números repetidos consecutivos</string>
+    <string name="error_number_or_special_character_required">Al menos un número o carácter especial.</string>
+    <string name="title_activity_search_school">SearchSchoolActivity</string>
+    <!-- School -->
+    <string name="search_school_title">Búsqueda de escuelas</string>
+    <string name="search_school_query_hint">Buscar escuela …</string>
+    <string name="search_school_location_query_hint">Buscar ubicación de la escuela …</string>
+    <string name="search_school_message">Hacer una búsqueda por el nombre de la escuela.</string>
+    <string name="search_school_loading_message">Buscando escuelas …</string>
+    <string name="search_school_location" formatted="false">%s - %s</string>
+    <string name="no_registered_school">Actualmente no hay una escuela registrada, ¿nos ayudas a registrar la información de la escuela?</string>
+    <string name="add_new_school">Añadir nueva escuela</string>
+    <string name="add_school">Añadir escuela</string>
+    <string name="school_saved_successfully">La información de la escuela se guardó con éxito. ¡¡¡Gracias!!!</string>
+    <string name="saving_school_information">Guardando información de la escuela, por favor espere …</string>
+    <string name="school_name_hint">Nombre</string>
+    <string name="school_residence_empty_error">Debes indicar la ubicación de la escuela.</string>
+    <string name="select_school_location">Seleccione la ubicación de la escuela</string>
+    <string name="user_current_location">Su ubicación actual</string>
+    <string name="current_location_selected">Ubicación actual seleccionada</string>
+    <string name="school_residence_hint">ubicación</string>
+    <string name="search_places_title">Buscar lugares</string>
+    <!-- Permission -->
+    <string name="camera_permission_reason">No podemos personalizar la foto de su perfil con una foto de la cámara si no otorga este permiso.</string>
+    <string name="location_permission_reason">Si no podemos acceder a su ubicación GPS, no podemos ubicar su posición en el mapa</string>
+    <!-- Google Maps Key -->
+    <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
+    <!-- Notifications -->
+    <string name="logout_notification_title">Vuelve pronto</string>
+    <string name="logout_notification_description">Inicie sesión para recibir información sobre los análisis realizados.</string>
+    <!-- Kid Results -->
+    <string name="kid_results_no_results_found">No se han encontrado resultados, inténtalo de nuevo más tarde.</string>
+    <string name="kid_results_error_ocurred">Se ha producido un error al cargar los resultados. Inténtalo de nuevo más tarde.</string>
+    <string name="kid_results_loading_results">Cargando resultados, espere por favor …</string>
+    <string name="see_all_comments_extracted">Ver todos los comentarios extraídos</string>
+    <string name="kid_results_see_all_alerts">Ver todas las alertas</string>
+    <string name="see_comments_extracted">Ver comentarios extraídos.</string>
+    <string name="kid_results_see_alerts_by_level">Ver alertas</string>
+    <string name="kid_results_refresh_data">Actualizar datos</string>
+    <string name="kid_results_activity_social_facebook" formatted="false">%s del tiempo ha estado usando Facebook</string>
+    <string name="kid_results_activity_social_youtube" formatted="false">%s del tiempo ha estado usando Youtube</string>
+    <string name="kid_results_activity_social_instagram" formatted="false">%s del tiempo ha estado usando Instagram</string>
+    <string name="kid_results_positive_content">Contenido positivo</string>
+    <string name="kid_results_negative_content">Contenido negativo</string>
+    <string name="kid_results_neutral_content">Contenido neutro</string>
+    <string name="kid_results_sentiment_content_positive" formatted="false">%s de los comentarios analizados tienen un sentimiento positivo.</string>
+    <string name="kid_results_sentiment_content_negative" formatted="false">%s de los comentarios analizados tienen un sentimiento negativo.</string>
+    <string name="kid_results_sentiment_content_neutral" formatted="false">%s de los comentarios analizados tienen un sentimiento neutro.</string>
+    <string name="kid_results_info_alerts" formatted="false">%s de las alertas son informativas.</string>
+    <string name="kid_results_success_alerts" formatted="false">%s de las alertas son positivas.</string>
+    <string name="kid_results_warning_alerts" formatted="false">%s de las alertas son avisos de cosas importantes.</string>
+    <string name="kid_results_danger_alerts" formatted="false">%s de las alertas provienen de eventos muy importantes.</string>
+    <string name="kid_results_facebook_likes_count" formatted="false">%s de los "me gusta" recibidos ha estado en Facebook</string>
+    <string name="kid_results_instagram_likes_count" formatted="false">%s de los "me gusta" recibidos ha estado en Instagram</string>
+    <string name="kid_results_youtube_likes_count" formatted="false">%s de los "me gusta" recibidos ha estado en Youtube</string>
+    <string name="kids_results_no_terminals_linked" formatted="false">%s no tiene ningún dispositivo móvil asociado, es necesario instalar BullKeeper Kids en los dispositivos móviles de niños para hacer uso de esta sección</string>
+    <string name="kids_results_terminals_count" formatted="false">(tiene %d dispositivos enlazados)</string>
+    <string name="kid_request_address_not_available">Dirección no disponible</string>
+    <!-- Comments Settings -->
+    <!-- Age Of Comments -->
+    <string name="age_of_comments_preference_title">Antiguedad de los comentarios</string>
+    <string name="age_of_comments_preference_summary">Antiguedad de los comentarios extraídos.</string>
+    <string name="age_of_comments_a_day_ago_preference_value">Hace un día</string>
+    <string name="age_of_comments_a_week_ago_preference_value">Hace una semana</string>
+    <string name="age_of_comments_a_two_week_ago_preference_value">Hace dos semanas</string>
+    <string name="age_of_comments_a_month_ago_preference_value">Hace un mes</string>
+    <string name="age_of_comments_a_two_months_ago_preference_value">Hace dos meses</string>
+    <string name="age_of_comments_a_three_months_ago_preference_value">Hace tres meses</string>
+    <!-- Comments Social Media -->
+    <string name="app_preferences_social_media_comments">Comentarios redes sociales</string>
+    <!-- All Social Media Categories -->
+    <string name="all_social_media_categories_title">Habilitar todas las redes sociales.</string>
+    <string name="all_social_media_categories_summary">Ver comentarios para todas las redes sociales.</string>
+    <!-- Facebook Social Media -->
+    <string name="facebook_social_media_title">Facebook</string>
+    <string name="facebook_social_media_summary">Ver comentarios extraídos de facebook.</string>
+    <!-- Instagram Social Media -->
+    <string name="instagram_social_media_title">Instagram</string>
+    <string name="instagram_social_media_summary">Ver comentarios extraídos de instagram.</string>
+    <!-- Youtube Social Media -->
+    <string name="youtube_social_media_title">Youtube</string>
+    <string name="youtube_social_media_summary">Ver comentarios extraídos de Youtube.</string>
+    <!-- Dimension of the comments analyzed -->
+    <string name="app_preferences_dimensions_of_comments_analyzed">
+        Aplicar filtro de dimensión
+    </string>
+    <!-- Enable Filter Dimension -->
+    <string name="enable_dimensions_filter_title">Habilitar filtro de dimensiones</string>
+    <string name="enable_dimensions_filter_summary">Filtrar comentarios por dimensiones.</string>
+    <!-- All Comments Dimension -->
+    <string name="all_comments_dimension_title">Habilitar todas las dimensiones</string>
+    <string name="all_comments_dimension_summary">Ver comentarios que dan positivo en las cuatro dimensiones.</string>
+    <string name="violence_comment_dimension_title">Violencia</string>
+    <string name="violence_comment_dimension_summary">Ver comentarios violentos</string>
+    <string name="drugs_comment_dimension_title">Drogas</string>
+    <string name="drugs_comment_dimension_summary">Ver comentarios relacionados con las drogas.</string>
+    <string name="sex_comment_dimension_title">Sexo</string>
+    <string name="sex_comment_dimension_summary">Ver comentarios relacionados con contenido para adultos.</string>
+    <string name="bullying_comment_dimension_title">Bullying</string>
+    <string name="bullying_comment_dimension_summary">Ver comentarios relacionados con Bullying</string>
+    <!-- Dimension of comments  -->
+    <string name="app_preferences_comment_dimension">
+        Dimensión de los comentarios.
+    </string>
+    <!-- Relations -->
+    <string name="kid_relations_title_default">Los amigos más activos</string>
+    <string name="kid_relations_title" formatted="true">Los amigos más activos (%d)</string>
+    <string name="kid_relations_friend_from_facebook">Amigo de facebook</string>
+    <string name="kid_relations_friend_from_instagram">Amigo de Instagram</string>
+    <string name="kid_relations_friend_from_youtube">Amigo de Youtube</string>
+    <string name="kid_relations_results_title">Resultados</string>
+    <string name="kid_relations_results" formatted="false">%s de la información obtenida
+         en esta red social viene de este usuario.</string>
+    <string name="kid_relations_results_default">no hay información disponible</string>
+    <!-- Relations Settings -->
+    <string name="age_of_relations_preference_title">Antiguedad de las relaciones</string>
+    <string name="age_of_relations_preference_summary">Antigüedad de las relaciones que se muestran.</string>
+    <!-- Save Scheduled Block -->
+    <string name="scheduled_block_title">Hábito diario</string>
+    <string name="delete_scheduled_block">Borrar</string>
+    <string name="loading_scheduled_block_information">Cargando información sobre hábitos diarios …</string>
+    <string name="change_scheduled_block_picture" formatted="false">Cambiar imagen de %s</string>
+    <string name="change_scheduled_block_picture_default">Añadir imagen para el hábito diario</string>
+    <string name="scheduled_block_name_field_error_not_blank">Debes especificar un nombre</string>
+    <string name="scheduled_block_name_hint">Nombre</string>
+    <string name="scheduled_block_start_at_hint">Empieza en</string>
+    <string name="scheduled_block_end_at_hint">Termina en</string>
+    <string name="scheduled_block_description_hint">Descripción</string>
+    <string name="scheduled_block_recurring_weekly_label">Recurrente de forma semanal</string>
+    <string name="scheduled_block_is_enable_label">Está habilitado</string>
+    <string name="scheduled_block_allow_calls_label">Permitir llamadas</string>
+    <string name="delete_scheduled_block_confirm">¿Quieres eliminar este hábito diario?</string>
+    <string name="scheduled_block_deleted_success">El hábito diario fue eliminado exitosamente</string>
+    <string name="scheduled_block_saved_successfully">El hábito diario se guardó con éxito</string>
+    <string name="delete_all_scheduled_blocks">¿Quieres eliminar todos los hábitos diarios?</string>
+    <string name="all_scheduled_blocks_deleted_successfully">Todos los hábitos diarios fueron eliminados exitosamente.</string>
+    <string name="scheduled_block_confirm_title">¿Quieres aplicar los cambios a los hábitos diarios?</string>
+    <string name="scheduled_block_status_saved">El estado de los hábitos diarios se ha guardado con éxito.</string>
+    <string name="saving_scheduled_block_info">Guardando información del Hábito Diario …</string>
+    <string name="deleting_scheduled_block">Eliminando el hábito diario, espere …</string>
+    <string name="scheduled_block_start_input_validation_error">La fecha de inicio debe ser anterior a la fecha de finalización.</string>
+    <string name="scheduled_block_end_input_validation_error">La fecha de inicio debe ser anterior a la fecha de finalización.</string>
+    <string name="scheduled_block_not_valid">El bloque de configuración no se puede registrar, verifique la frecuencia semanal y la duración del mismo.</string>
+    <string name="scheduled_block_weekly_frequency_not_valid">Debes seleccionar al menos un día de la semana.</string>
+    <string name="scheduled_block_app_already_selected">La aplicación seleccionada ya está permitida.</string>
+    <string name="scheduled_block_app_allowed_eliminated">Aplicación permitida eliminada</string>
+    <string name="scheduled_block_apps_allowed_configured_title">Aplicaciones permitidas</string>
+    <string name="scheduled_block_apps_allowed_configured_description">Configure una lista de aplicaciones específicas que se permitirán durante este hábito diario</string>
+    <string name="scheduled_block_no_apps_allowed">No se han configurado aplicaciones permitidas, por favor haga clic para configurar</string>
+    <string name="scheduled_block_only_apps_with_valid_rule">La aplicación no tiene una regla válida configurada o está deshabilitada. Solo puede agregar aplicaciones que estén configuradas para adaptarse al hábito diario.</string>
+    <string name="scheduled_block_app_allowed_invalid">Configuración inválida</string>
+    <string name="scheduled_block_no_geofence_configured">No hay geofence configurada</string>
+    <string name="scheduled_block_geofence_configured_selected">Geofence Seleccionado</string>
+    <!-- App Rules -->
+    <string name="app_rules_title">Reglas de aplicación</string>
+    <string name="app_rules_description">Reglas aplicadas al conjunto de aplicaciones instaladas.</string>
+    <string name="applying_the_configured_rules">Aplicando las reglas configuradas.</string>
+    <string name="app_rules_confirm_title">¿Quieres aplicar las nuevas reglas de aplicación configuradas?</string>
+    <string name="applying_configured_app_rules">Aplicando reglas de aplicación configuradas …</string>
+    <string name="app_rule_always_allowed">La aplicación siempre puede ser utilizada.</string>
+    <string name="app_rule_never_allowed">La aplicación no se puede utilizar.</string>
+    <string name="app_rule_per_scheduled">El uso de la aplicación se ajustará al hábito diario configurado.</string>
+    <string name="app_rule_fun_time">La aplicación puede usarse si el modo de tiempo divertido está habilitado y tiene tiempo</string>
+    <string name="app_rules_applied_successfully">Las reglas de aplicación fueron aplicadas exitosamente.</string>
+    <string name="search_app_rules">introduzca el nombre de la aplicación …</string>
+    <string name="new_app_installed_event_dialog" formatted="false">La aplicación %s ha sido instalada</string>
+    <string name="app_uninstalled_event_dialog" formatted="false">La aplicación %s ha sido desinstalada</string>
+    <string name="app_uninstalled_event_default_dialog">La aplicación ha sido desinstalada</string>
+    <!-- SMS List -->
+    <string name="sms_list_title_tab">SMS</string>
+    <string name="sms_list_title">SMS registrado en la terminal</string>
+    <string name="sms_list_description">Lista de SMS registrados en el terminal supervisado.</string>
+    <string name="message_read">Mensaje leído</string>
+    <string name="unread_message">Mensaje no leído</string>
+    <string name="sms_date_time" formatted="false">Fecha: %s</string>
+    <!-- Calls List -->
+    <string name="call_list_title_tab">Llamadas</string>
+    <string name="call_list_title">Llamada registrada en la terminal</string>
+    <string name="call_list_description">Listado de llamadas registradas en el terminal supervisado.</string>
+    <string name="call_phone_number" formatted="false">Tfno: %s</string>
+    <string name="call_date_time" formatted="false">Fecha: %s</string>
+    <string name="call_duration" formatted="false">Duración: %02d minutos %02d segundos</string>
+    <!-- Contact List -->
+    <string name="contact_list_title_tab">Contactos</string>
+    <string name="contact_list_title">Contactos registrados</string>
+    <string name="contact_list_description">Lista de contactos registrados en el terminal supervisado.</string>
+    <string name="contact_phonenumber">Tfno: %s</string>
+    <string name="search_contacts_hint">Encuentra contactos por su nombre</string>
+
+    <!-- Fun Time  -->
+    <string name="fun_time_title">Tiempo de Diversión</string>
+    <string name="fun_time_description">Ajuste el tiempo de diversión para todos los terminales configurados</string>
+    <string name="confirm_enable_fun_time_mode">¿Quieres habilitar el modo Fun Time?</string>
+    <string name="fun_time_mode_enabled">Modo Fun Time habilitado</string>
+    <string name="confirm_disable_fun_time_mode">¿Desea desactivar el modo Fun Time?</string>
+    <string name="fun_time_mode_disabled">Modo Fun Time deshabilitado</string>
+    <string name="fun_time_days_scheduled_confirm_title">¿Desea confirmar los cambios aplicados a los días configurados?</string>
+    <string name="fun_time_saved_successfully">Fun Time guardado con éxito</string>
+    <string name="fun_time_day_scheduled_detail">Detalle de la planificación del día</string>
+    <string name="fun_time_total_hours_configured" formatted="false">Has configurado %d horas de diversión.</string>
+    <string name="fun_time_no_fun_time_enabled_for_this_day">No hay tiempo de diversión habilitado para este día.</string>
+    <string name="fun_time_no_fun_time_enabled">Fun Time no está habilitado</string>
+    <string name="fun_time_day_scheduled_detail_description">Indica el número de horas de diversión permitidas para las aplicaciones configuradas con la regla "Fun Time"</string>
+
+    <!-- Family Locator -->
+    <string name="family_locator_title">Localizador familiar</string>
+    <string name="family_locator_description">Localice rápidamente miembros de la familia y dispositivos</string>
+    <string name="family_locator_show_geofences">Mostrar Geofence</string>
+    <string name="family_locator_add_geofences">Añadir Geofence</string>
+    <string name="family_locator_loading_child_position">Cargando posición del niño …</string>
+    <string name="family_locator_no_last_registered_position">No hay última posición registrada</string>
+    <string name="family_locator_address">Direccion actual</string>
+    <string name="family_locator_content_text">El localizador familiar le permitirá visualizar la posición actual de su hijo. También puede configurar áreas supervisadas (Geofences) para recibir alertas cuando el niño ingresa o sale del área.</string>
+    <string name="search_locations_query_hint">Buscar lugares por nombre de calle</string>
+
+    <!-- Terminals -->
+    <string name="terminals_list_title">Terminales supervisados</string>
+    <string name="terminals_list_description">Lista de terminales supervisados</string>
+    <string name="terminal_os_sdk" formatted="false">OS: %s, SDK: %s</string>
+    <string name="terminal_app_version" formatted="false">App Version Name: %s, Version Code: %s</string>
+    <string name="loading_terminal_detail">Cargando detalle del dispositivo …</string>
+    <string name="delete_terminal_btn_text">Borrar dispositivo</string>
+    <string name="delete_terminal_confirm">¿Quieres borrar este terminal? Se eliminará toda la información sobre las aplicaciones instaladas y las reglas de control parental configuradas.</string>
+    <string name="terminal_success_deleted">Dispositivo eliminado con éxito</string>
+    <string name="deleting_terminal_in_progress">Eliminando dispositivo …</string>
+    <string name="terminal_detail_title">Detalle de terminal</string>
+    <string name="device_name_text" formatted="false">%s - %s</string>
+    <string name="app_version_text" formatted="false">App Version Name: %s, Version Code: %s</string>
+    <string name="os_version_and_sdk" formatted="false">%s - %s</string>
+    <string name="has_registered_applications" formatted="false">Tiene %d aplicaciones registradas</string>
+    <string name="has_not_registered_applications">No ha registrado aplicaciones.</string>
+    <string name="has_registered_calls" formatted="false">Hay %d llamadas de teléfono registradas</string>
+    <string name="has_not_registered_calls">No hay llamada telefónica registrada</string>
+    <string name="has_registered_sms" formatted="false">Hay %d SMS registrados</string>
+    <string name="has_not_registered_sms">No hay SMS registrados</string>
+    <string name="has_registered_contacts" formatted="false">Hay %d contactos registrados</string>
+    <string name="has_not_registered_contacts">No hay contactos registrados</string>
+    <string name="has_terminals_linked" formatted="false">Tiene %d dispositivos vinculados</string>
+    <string name="not_have_any_linked_devices">No tiene ningún dispostivo vinculado</string>
+    <string name="terminal_features_title">Características</string>
+    <string name="terminal_bed_time_enable">El modo de hora de dormir está habilitado</string>
+    <string name="terminal_bed_time_disabled">El modo de hora de dormir está deshabilitado</string>
+    <string name="terminal_lock_screen_enable">La pantalla esta habilitada</string>
+    <string name="terminal_lock_screen_disabled">La pantalla esta deshabilitada</string>
+    <string name="terminal_lock_camera_enable">La cámara esta habilitada</string>
+    <string name="terminal_lock_camera_disabled">La cámara esta deshabilitada</string>
+    <string name="terminal_settings_enable">La configuración está habilitada</string>
+    <string name="terminal_settings_disabled">La configuración está deshabilitada</string>
+    <string name="terminal_permissions_title">Permisos</string>
+
+    <string name="terminal_permission_location_enabled">El permiso de ubicación está habilitado</string>
+    <string name="terminal_permission_location_disabled">El permiso de ubicación está deshabilitado</string>
+    <string name="terminal_permission_call_history_enabled">Permiso de historial de llamadas está habilitado</string>
+    <string name="terminal_permission_call_history_disabled">El permiso del historial de llamadas está deshabilitado</string>
+    <string name="terminal_permission_contacts_list_enabled">El permiso de la lista de contactos está habilitado</string>
+    <string name="terminal_permission_contacts_list_disabled">El permiso de la lista de contactos está deshabilitado</string>
+    <string name="terminal_permission_text_message_enabled">El permiso de mensaje de texto está habilitado</string>
+    <string name="terminal_permission_text_message_disabled">El permiso de mensaje de texto está deshabilitado</string>
+    <string name="terminal_permission_storage_enabled">Permiso de almacenamiento está habilitado</string>
+    <string name="terminal_permission_storage_disabled">Permiso de almacenamiento está deshabilitado</string>
+    <string name="terminal_usage_stats_allowed">Estadísticas de uso está permitido</string>
+    <string name="terminal_usage_stats_not_allowed">Estadísticas de uso no permitidas</string>
+    <string name="terminal_admin_access_allowed">Se permite el acceso de administrador</string>
+    <string name="terminal_admin_access_not_allowed">El acceso de administrador no está permitido</string>
+
+    <!-- Bed Time -->
+    <string name="terminal_enable_bed_time_confirm">¿Desea habilitar el modo de hora de dormir en este terminal?</string>
+    <string name="terminal_disable_bed_time_confirm">¿Desea desactivar el modo de tiempo de cama en este terminal?</string>
+    <string name="terminal_bed_time_changed_successfully">El modo de hora de dormir fue cambiado con éxito</string>
+    <string name="terminal_bed_time_changed_failed">Se produjo un error al cambiar el estado del modo de hora de dormir. Inténtalo de nuevo más tarde.</string>
+
+    <!-- Lock Screen -->
+    <string name="terminal_enable_lock_screen_confirm">¿Quieres bloquear el terminal?</string>
+    <string name="terminal_disable_lock_screen_confirm">¿Quieres desbloquear el terminal?</string>
+    <string name="terminal_lock_screen_changed_successfully">El estado de la pantalla del terminal cambió con éxito</string>
+    <string name="terminal_lock_screen_changed_failed">Se produjo un error al cambiar el estado de la pantalla.</string>
+
+    <!-- Lock Camera -->
+    <string name="terminal_enable_lock_camera_confirm">¿Quieres bloquear la cámara de este terminal?</string>
+    <string name="terminal_disable_lock_camera_confirm">¿Quieres desbloquear la cámara en este terminal?</string>
+    <string name="terminal_lock_camera_changed_successfully">El estado de la cámara terminal cambió exitosamente</string>
+    <string name="terminal_lock_camera_changed_failed">Se produjo un error al cambiar el estado de la cámara.</string>
+
+    <!-- Settings -->
+    <string name="terminal_enable_settings_confirm">¿Desea habilitar la pantalla de configuración de este terminal?</string>
+    <string name="terminal_disable_settings_confirm">¿Desea desactivar la pantalla de configuración en este terminal?</string>
+    <string name="terminal_settings_changed_successfully">El estado de la configuración del terminal cambió exitosamente</string>
+    <string name="terminal_settings_changed_failed">Se produjo un error al cambiar el estado de la configuración.</string>
+
+    <!-- Apps Installed -->
+    <string name="app_installed_detail_title">Detalle de la aplicación instalada</string>
+    <string name="app_first_install_time" formatted="false">Fecha instalación: %s</string>
+    <string name="app_last_update_time" formatted="false">Fecha última actualización: %s</string>
+    <string name="app_version_code" formatted="false">Version Code: %s</string>
+    <string name="app_version_name" formatted="false">Version Name: %s</string>
+    <string name="app_current_rule_title">Regla de aplicación</string>
+    <string name="app_installed_app_rules_updated_successfully">Las reglas de aplicación fueron actualizadas exitosamente.</string>
+    <string name="app_installed_app_rules_updated_fail">Se ha producido un error al actualizar las reglas de la aplicación. Inténtalo de nuevo.</string>
+
+    <string name="app_installed_disable_confirm">¿Quieres deshabilitar la aplicación? Bajo ninguna circunstancia la aplicación puede ser reutilizada y debe ser desinstalada.</string>
+    <string name="app_installed_enable_confirm">¿Quieres habilitar la aplicación? Su uso será regulado nuevamente por las "Reglas de la aplicación" configuradas.</string>
+    <string name="app_installed_status_changed_successfully">El estado de la aplicación se modificó con éxito.</string>
+    <string name="app_installed_status_changed_failed">Se produjo un error al cambiar el estado de la aplicación, inténtalo de nuevo más tarde.</string>
+    <string name="app_installed_more_info_icon">Más información</string>
+
+    <!-- SMS Detail -->
+    <string name="sms_detail_title">Detalle SMS</string>
+    <string name="sms_detail_message_title">Mensaje</string>
+
+    <string name="phone_number_blocked">Número de teléfono bloqueado</string>
+    <string name="phone_number_unlocked">Número de teléfono desbloqueado</string>
+    <string name="block_phone_number_confirm">¿Quieres bloquear este número de teléfono? Dejarás de recibir llamadas y SMS desde este número.</string>
+    <string name="unlock_phone_number_confirm">¿Quieres desbloquear este número de teléfono? Puede recibir llamadas y SMS desde este número.</string>
+    <string name="phone_number_blocked_successfully">El número de teléfono fue bloqueado con éxito</string>
+    <string name="phone_number_unlocked_successfully">El número de teléfono fue desbloqueado con éxito</string>
+    <string name="phone_number_blocked_error">Se ha producido un error al bloquear el número de teléfono. Inténtalo de nuevo.</string>
+    <string name="phone_number_unlocked_error">Se ha producido un error al desbloquear el número de teléfono. Inténtalo de nuevo.</string>
+    <!-- Call Detail -->
+    <string name="call_detail_title">Detalle de llamada</string>
+
+    <!-- Contact Detail -->
+    <string name="contact_detail_title">Detalles del contacto</string>
+
+
+    <!-- Invitations -->
+    <string name="invitation_item_removed">La invitación fue borrada.</string>
+    <string name="invitations_title_default">Invitaciones</string>
+    <string name="invitations_title_count" formatted="true">Invitaciones (%d)</string>
+    <string name="invitations_confirm_delete_all">¿Desea borrar todas las invitaciones de supervisión recibidas?</string>
+    <string name="invitations_cleared_successfully">Todas las invitaciones borradas con éxitoy</string>
+    <string name="invitations_pending_confirmed_show_case" formatted="false">Tienes %d invitaciones de supervisión pendientes de confirmación.</string>
+    <string name="no_pending_invitations_to_accept">No hay invitaciones pendientes para aceptar.</string>
+    <string name="delete_invitation_btn_text">Eliminar Invitación</string>
+    <string name="accept_invitation_btn_text">Aceptar la invitacion</string>
+    <string name="invitation_was_accepted_successfully">La invitación fue aceptada</string>
+    <string name="invitation_admin_role_title">Rol de administrador</string>
+    <string name="invitation_admin_role_description">Puede administrar los datos del perfil del niño, así como configurar las reglas de control parental y visualizar los resultados.</string>
+    <string name="invitation_parental_control_rule_editor_title">Rol del editor de reglas</string>
+    <string name="invitation_parental_control_rule_editor_description">Puede configurar reglas de control parental, así como visualizar los resultados derivados de los análisis realizados y alertas</string>
+    <string name="invitation_data_viewer_title">Rol del visor de datos</string>
+    <string name="invitation_data_viewer_description">Podrá ver alertas y resultados derivados de los análisis realizados.</string>
+    <!-- Conversations -->
+
+    <string name="conversation_list_title_default">Conversaciones</string>
+    <string name="conversation_list_title">Conversaciones (%d)</string>
+    <string name="hint_enter_a_message">Escribe un mensaje …</string>
+    <string name="conversation_message_title">Mensajes</string>
+    <string name="clear_messages_confirm">¿Quieres eliminar todos los mensajes de esta conversación?</string>
+    <string name="all_messages_deleted">Todos los mensajes fueron eliminados</string>
+    <string name="messages_selected_deleted">Los mensajes seleccionados fueron borrados.</string>
+    <string name="message_add_error">El mensaje no pudo ser enviado, por favor intente nuevamente</string>
+    <string name="sending_message_wait">enviando espera …</string>
+    <string name="delete_selected_messages_confirm">¿Quieres borrar los mensajes seleccionados?</string>
+    <string name="delete_all_conversations_confirm">¿Quieres borrar todas las conversaciones?</string>
+    <string name="conversation_message_list_date_format">dd MMMM yyyy</string>
+    <string name="no_messages_found_for_conversation">Todos los mensajes serán almacenados de forma segura.</string>
+    <string name="conversation_was_deleted_for_remote_member">La conversación fue eliminada</string>
+
+    <string name="conversation_new_message_title" formatted="false">%s te ha enviado un nuevo mensaje</string>
+
+    <!-- Search Guardians -->
+    <string name="search_guardians_title">Buscar Supervisores</string>
+    <string name="search_guardians_query_hint">Buscar usuarios …</string>
+    <string name="search_guardians_message">Realice una búsqueda por nombre, apellido o correo electrónico del usuario.</string>
+    <string name="search_guardians_loading_message">Buscando Supervisores …</string>
+    <string name="search_guardian_already_selected">El supervisor seleccionado ya está en la lista.</string>
+    <string name="search_guardian_age" formatted="false">%s años</string>
+    <string name="search_guardian_not_supervise_any_child">No supervisa a ningún niño.</string>
+    <string name="search_guardian_supervise_any_child">Tiene %d hijos asociados.</string>
+    <!-- Phone Numbers Blocked -->
+    <string name="phone_number_item_removed">El número de teléfono fue eliminado</string>
+    <string name="phone_numbers_deleted_successfully">Todos los números bloqueados se han eliminado con éxito</string>
+    <string name="phone_numbers_blocked_title_count" formatted="false">Lista negra (%d)</string>
+    <string name="phone_numbers_blocked_title_default">Lista negra</string>
+    <string name="phone_numbers_blocked_delete_all_confirm">¿Quieres borrar todos los números de teléfono bloqueados?</string>
+    <string name="phone_numbers_blocked_at" formatted="false">Bloqueado el: %s</string>
+    <string name="phone_numbers_specify_number_lock">Especifique el número para bloquear</string>
+
+    <!-- Kid Request -->
+    <string name="kid_request_removed">La solicitud de conversación fue eliminada.</string>
+    <string name="delete_kid_request_btn_text">Borrar solicitud</string>
+    <string name="open_conversation_kid_request_btn_text">Abrir conversación</string>
+    <string name="kid_request_not_found">Solicitud no encontrada</string>
+    <string name="delete_all_kid_request_confirm">¿Desea eliminar todas las solicitudes registradas?</string>
+    <string name="all_kid_request_eliminated_successfully">Todas las solicitudes han sido eliminadas con éxito.</string>
+    <string name="no_registered_request">No hay solicitudes registradas.</string>
+    <string name="kid_request_list_title">Solicitudes registradas</string>
+    <string name="kid_request_description">Todas las solicitudes registradas en el sistema.</string>
+    <string name="kid_request_sos_event_type_name">SOS</string>
+    <string name="kid_request_pickmeup_event_type_name">PickMe Up</string>
+    <string name="kid_request_unknown_type_name">Unknown</string>
+    <string name="kid_request_registered_since" formatted="false">Solicitud recibida %s</string>
+    <string name="kid_request_title"></string>
+    <string name="kid_request_title_default" formatted="false"></string>
+    <string name="new_kid_request_created">Nueva solicitud recibido</string>
+    <string name="kid_request_location_address">Ubicación de la solicitud</string>
+
+    <string name="kid_request_detail_title">Detalle de la solicitud</string>
+    <string name="kid_request_delete_request_confirm">¿Quieres borrar esta solicitud?</string>
+    <string name="kid_request_successfully_deleted">Solicitud eliminada exitosamente</string>
+
+    <string name="kid_request_notification_pickmeup_title" formatted="false">Solicitud PickMeUp, %s ha solicitado que vayas a recogerlo.</string>
+    <string name="kid_request_notification_pickmeup_description" >Ir al detalle de la solicitud para ver más detalles.</string>
+    <string name="kid_request_notification_sos_title" formatted="false">Solicitud SOS, %s tiene problemas y necesita ayuda.</string>
+    <string name="kid_request_notification_sos_description" >Ir al detalle de la solicitud para ver más detalles.</string>
+
+    <!-- Notification -->
+    <string name="notification_background_service_title">Bullkeeper permanecerá funcionando en segundo plano</string>
+    <string name="notification_background_service_description">Bullkeeper permanecerá en segundo plano para notificarle de cualquier incidente.</string>
+    <!-- Fetch Address errors -->
+    <string name="service_not_available">Servicio no disponible</string>
+    <string name="invalid_lat_long_used">Invalid Lat Long Used</string>
+    <string name="no_address_found">No se encontró ninguna dirección</string>
+
+    <!-- App Stats -->
+    <string name="kid_detail_app_stats_title">Aplicaciones más utilizadas</string>
+    <string name="kid_detail_app_stats_description">Las aplicaciones más utilizadas en este terminal.</string>
+    <string name="kid_detail_more_current_information">Más información actual (en minutos)</string>
+    <string name="show_app_detail">Detalle de Aplicación</string>
+    <string name="app_stats_detail_total_time_in_foreground">Tiempo total en primer plano: %s minutos</string>
+    <string name="app_stats_detail_first_time">Primera vez: %s</string>
+    <string name="app_stats_detail_last_time">Ultima vez: %s</string>
+    <string name="app_stats_detail_last_time_used">Usado por última vez: %s</string>
+    <!-- Geofences -->
+    <string name="geofences_title_default">Geofences</string>
+    <string name="geofences_title_count" formatted="true">Geofences (%d)</string>
+    <string name="geofences_confirm_delete_all">¿Quieres borrar todas las geofences?</string>
+    <string name="geofences_cleared_successfully">Todas las geofences eliminadas exitosamente</string>
+    <string name="geofences_add_title">Añadir Geofence</string>
+    <string name="geofences_delete_button">Eliminar Geofence</string>
+    <string name="geofences_origin_address">Origen de la Geofence</string>
+    <string name="geofence_deleted_successfully">Geofence borrada con éxito</string>
+    <string name="geofence_saved_successfully">Geofence guardada con éxito</string>
+    <string name="geofence_confirm_delete">¿Quieres eliminar el Geofence configurado?</string>
+    <string name="current_location">Posición actual</string>
+    <string name="radius_meters_value" formatted="true">%d metros</string>
+    <string name="geofence_item_removed">El geofence fue eliminado</string>
+    <string name="geofence_transition_enter_value">Transición de entrada</string>
+    <string name="geofence_transition_exit_value">Transición de salida</string>
+    <string name="geofence_transition_dwell_value">Transición de habitar</string>
+
+    <string name="geofence_is_enable_label">Está habilitado</string>
+    <string name="geofence_is_enable_description">Habilita o deshabilita Geofence configurado</string>
+    <string name="geofence_transition_type_description">Seleccione el tipo de transición que generará la alerta para el área configurada</string>
+    <string name="geofence_alert_title">Alertas registradas</string>
+    <string name="geofence_alert_description">Todas las alertas registradas para el Geofence.</string>
+    <string name="geofence_alerts_delete_confirm">¿Quieres eliminar todas las alertas registradas?</string>
+    <string name="geofence_alerts_deleted_successfully">Las alertas registradas fueron eliminadas exitosamente</string>
+    <string name="geofence_invalid_name">Debes especificar el nombre del geofence</string>
+
+    <!-- App Search List -->
+    <string name="app_search_title_default">Aplicaciones instaladas</string>
+    <string name="no_app_installed_found">No se ha encontrado ninguna aplicación instalada para este terminal</string>
+    <string name="search_apps_by_name_hint">Ingrese el nombre de la aplicación</string>
+
+
+</resources>
