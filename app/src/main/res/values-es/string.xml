@@ -111,8 +111,8 @@
     <string name="user_menu_showcase_description">Aquí tiene las opciones principales de la aplicación, verá los resultados, las alertas generadas y la lista de niños supervisados en el sistema.</string>
     <string name="my_childs_showcase_description">Aquí tienes a los niños que puedes enseñar, puedes acceder a los detalles de ellos, además de registrar uno nuevo en el sistema.</string>
     <!-- My Kids -->
-    <string name="my_kids_title">Mis hijos</string>
-    <string name="my_kids_content_description">Mis hijos</string>
+    <string name="my_kids_title">Niños</string>
+    <string name="my_kids_content_description">Niños/adolescentes supervisados</string>
     <string name="loading_information_of_children">Cargando información de niños registrados</string>
     <string name="content_not_be_loaded">El contenido no se pudo cargar</string>
     <string name="remove_alert_confirm">¿Eliminar la alerta?</string>
@@ -144,7 +144,7 @@
     <string name="alert_not_found">No se pudo obtener la información de la alerta.</string>
     <string name="deleting_alert_in_progress">Eliminando alerta, espera por favor …</string>
     <string name="filter_alerts_count_preference_summary">Número de alertas que se mostrarán.</string>
-    <string name="filter_age_of_alerts_preference_summary">Edad de las alertas para mostrar.</string>
+    <string name="filter_age_of_alerts_preference_summary">Antigüedad de las alertas para mostrar.</string>
     <string name="preferences_saved_successfully_message">Preferencias guardadas con éxito.</string>
     <string name="has_pending_changes">Los cambios serán descartados. ¿Quieres ahorrar antes de cerrar?</string>
     <!-- Alert Category -->
@@ -176,8 +176,8 @@
     <string name="twenty_five_alerts_preference_value">25 alertas</string>
     <string name="thirty_alerts_preference_value">30 alertas</string>
     <!-- Age of alerts -->
-    <string name="age_of_alerts_preference_title">Edad de las alertas</string>
-    <string name="age_of_alerts_preference_summary">Edad de las alertas para mostrar en la pantalla de inicio</string>
+    <string name="age_of_alerts_preference_title">Antigüedad de las alertas</string>
+    <string name="age_of_alerts_preference_summary">Antigüedad de las alertas para mostrar en la pantalla de inicio</string>
     <string name="age_of_alerts_no_filter">Sin filtro</string>
     <string name="age_of_alerts_fifteen_minutes">15 minutos</string>
     <string name="age_of_alerts_thirty_minutes">30 minutos</string>
@@ -188,7 +188,7 @@
     <string name="enable_push_notifications_preference_summary">Habilitar notificaciones remotas para todos los dispositivos en su cuenta.</string>
     <!-- Remove Alerts Every -->
     <string name="remove_alerts_every_preference_title">Eliminar alertas cada</string>
-    <string name="remove_alerts_every_preference_summary">Antiguedad de las alertas para mostrar en la pantalla de inicio</string>
+    <string name="remove_alerts_every_preference_summary">Antigüedad de las alertas para mostrar en la pantalla de inicio</string>
     <string name="remove_alerts_never">Nunca</string>
     <string name="remove_alerts_last_hour">Ultima hora</string>
     <string name="remove_alerts_last_day">Último día</string>
@@ -302,7 +302,7 @@
     <string name="kid_detail_relations_most_active_friends">Amigos mas activos</string>
     <!-- Scheduled Blocks -->
     <string name="scheduled_blocks_title">Hábitos diarios</string>
-    <string name="scheduled_blocks_description">Hábito configurado diariamente</string>
+    <string name="scheduled_blocks_description">Listado de hábitos diarios configurados</string>
     <string name="scheduled_blocks_weekly_frequency">SMTWTFS</string>
     <!-- Activity In Social Media Chart -->
     <string name="activity_in_social_media_title">Actividad en redes sociales.</string>
@@ -473,8 +473,8 @@
     <string name="kid_request_address_not_available">Dirección no disponible</string>
     <!-- Comments Settings -->
     <!-- Age Of Comments -->
-    <string name="age_of_comments_preference_title">Antiguedad de los comentarios</string>
-    <string name="age_of_comments_preference_summary">Antiguedad de los comentarios extraídos.</string>
+    <string name="age_of_comments_preference_title">Antigüedad de los comentarios</string>
+    <string name="age_of_comments_preference_summary">Antigüedad de los comentarios extraídos.</string>
     <string name="age_of_comments_a_day_ago_preference_value">Hace un día</string>
     <string name="age_of_comments_a_week_ago_preference_value">Hace una semana</string>
     <string name="age_of_comments_a_two_week_ago_preference_value">Hace dos semanas</string>
@@ -528,7 +528,7 @@
          en esta red social viene de este usuario.</string>
     <string name="kid_relations_results_default">no hay información disponible</string>
     <!-- Relations Settings -->
-    <string name="age_of_relations_preference_title">Antiguedad de las relaciones</string>
+    <string name="age_of_relations_preference_title">Antigüedad de las relaciones</string>
     <string name="age_of_relations_preference_summary">Antigüedad de las relaciones que se muestran.</string>
     <!-- Save Scheduled Block -->
     <string name="scheduled_block_title">Hábito diario</string>
@@ -541,8 +541,8 @@
     <string name="scheduled_block_start_at_hint">Empieza en</string>
     <string name="scheduled_block_end_at_hint">Termina en</string>
     <string name="scheduled_block_description_hint">Descripción</string>
-    <string name="scheduled_block_recurring_weekly_label">Recurrente de forma semanal</string>
-    <string name="scheduled_block_is_enable_label">Está habilitado</string>
+    <string name="scheduled_block_recurring_weekly_label">Recurrente semanalmente</string>
+    <string name="scheduled_block_is_enable_label">Habilitado</string>
     <string name="scheduled_block_allow_calls_label">Permitir llamadas</string>
     <string name="delete_scheduled_block_confirm">¿Quieres eliminar este hábito diario?</string>
     <string name="scheduled_block_deleted_success">El hábito diario fue eliminado exitosamente</string>
@@ -561,13 +561,13 @@
     <string name="scheduled_block_app_allowed_eliminated">Aplicación permitida eliminada</string>
     <string name="scheduled_block_apps_allowed_configured_title">Aplicaciones permitidas</string>
     <string name="scheduled_block_apps_allowed_configured_description">Configure una lista de aplicaciones específicas que se permitirán durante este hábito diario</string>
-    <string name="scheduled_block_no_apps_allowed">No se han configurado aplicaciones permitidas, por favor haga clic para configurar</string>
+    <string name="scheduled_block_no_apps_allowed">No se han configurado aplicaciones permitidas, por favor pulse para configurar</string>
     <string name="scheduled_block_only_apps_with_valid_rule">La aplicación no tiene una regla válida configurada o está deshabilitada. Solo puede agregar aplicaciones que estén configuradas para adaptarse al hábito diario.</string>
     <string name="scheduled_block_app_allowed_invalid">Configuración inválida</string>
-    <string name="scheduled_block_no_geofence_configured">No hay geofence configurada</string>
+    <string name="scheduled_block_no_geofence_configured">No hay geofence configurada, por favor pulse para configurar.</string>
     <string name="scheduled_block_geofence_configured_selected">Geofence Seleccionado</string>
     <!-- App Rules -->
-    <string name="app_rules_title">Reglas de aplicación</string>
+    <string name="app_rules_title">Reglas</string>
     <string name="app_rules_description">Reglas aplicadas al conjunto de aplicaciones instaladas.</string>
     <string name="applying_the_configured_rules">Aplicando las reglas configuradas.</string>
     <string name="app_rules_confirm_title">¿Quieres aplicar las nuevas reglas de aplicación configuradas?</string>
@@ -604,7 +604,7 @@
 
     <!-- Fun Time  -->
     <string name="fun_time_title">Tiempo de Diversión</string>
-    <string name="fun_time_description">Ajuste el tiempo de diversión para todos los terminales configurados</string>
+    <string name="fun_time_description">Ajuste el tiempo de diversión para cada dispositivo sincronizado</string>
     <string name="confirm_enable_fun_time_mode">¿Quieres habilitar el modo Fun Time?</string>
     <string name="fun_time_mode_enabled">Modo Fun Time habilitado</string>
     <string name="confirm_disable_fun_time_mode">¿Desea desactivar el modo Fun Time?</string>
@@ -829,7 +829,7 @@
 
     <!-- App Stats -->
     <string name="kid_detail_app_stats_title">Aplicaciones más utilizadas</string>
-    <string name="kid_detail_app_stats_description">Las aplicaciones más utilizadas en este terminal.</string>
+    <string name="kid_detail_app_stats_description">Estadísticas de uso para la aplicaciones instaladas en el dispositivo.</string>
     <string name="kid_detail_more_current_information">Más información actual (en minutos)</string>
     <string name="show_app_detail">Detalle de Aplicación</string>
     <string name="app_stats_detail_total_time_in_foreground">Tiempo total en primer plano: %s minutos</string>
@@ -855,7 +855,7 @@
     <string name="geofence_transition_dwell_value">Transición de habitar</string>
 
     <string name="geofence_is_enable_label">Está habilitado</string>
-    <string name="geofence_is_enable_description">Habilita o deshabilita Geofence configurado</string>
+    <string name="geofence_is_enable_description">Habilita o deshabilita el Geofence configurado</string>
     <string name="geofence_transition_type_description">Seleccione el tipo de transición que generará la alerta para el área configurada</string>
     <string name="geofence_alert_title">Alertas registradas</string>
     <string name="geofence_alert_description">Todas las alertas registradas para el Geofence.</string>
