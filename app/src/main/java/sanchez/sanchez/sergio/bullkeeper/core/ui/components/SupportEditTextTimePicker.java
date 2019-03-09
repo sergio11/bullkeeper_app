@@ -185,7 +185,9 @@ public final class SupportEditTextTimePicker extends AppCompatEditText
 
         currentLocalTime =  new LocalTime()
                 .withHourOfDay(hourOfDay)
-                .withMinuteOfHour(minute);
+                .withMinuteOfHour(minute)
+                .withSecondOfMinute(0)
+                .withMillisOfSecond(0);
         isDirty = true;
         updateText();
     }

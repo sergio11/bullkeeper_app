@@ -178,10 +178,9 @@ public final class SaveScheduledBlockPresenter extends SupportPresenter<ISaveSch
         public void visitValidationError(SaveScheduledBlockInteract.SaveScheduledBlockApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
+                getView().onScheduledBlockNotValid();
                 if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
                     getView().onValidationErrors(errors.get("field_errors"));
-                } else {
-                    getView().showNoticeDialog(R.string.forms_is_not_valid);
                 }
             }
         }

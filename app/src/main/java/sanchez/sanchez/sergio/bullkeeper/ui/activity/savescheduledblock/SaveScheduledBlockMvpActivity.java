@@ -592,10 +592,15 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         final List<AppAllowedByScheduledEntity> appAllowedByScheduledEntities =
                 appAllowedByScheduledMvpFragment.getAppAllowedByScheduledEntities();
 
-        if(startAt.isAfter(endAt)) {
+        if(startAt.equals(endAt) || startAt.isAfter(endAt)) {
             startAtInputLayout.setError(getString(R.string.scheduled_block_start_input_validation_error));
             endAtInputLayout.setError(getString(R.string.scheduled_block_end_input_validation_error));
+            startAtInputLayout.requestFocus();
+            showNoticeDialog(R.string.scheduled_block_not_valid);
             return;
+        } else {
+            startAtInputLayout.setError(null);
+            endAtInputLayout.setError(null);
         }
 
         boolean atLeastOneDayOfWeekConfigured = false;
@@ -607,7 +612,11 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
 
         if(!atLeastOneDayOfWeekConfigured) {
             scheduledBlockWeeklyFrequencyInput.setError(getString(R.string.scheduled_block_weekly_frequency_not_valid));
+            scheduledBlockWeeklyFrequencyInput.requestFocus();
+            showNoticeDialog(R.string.scheduled_block_not_valid);
             return;
+        } else {
+            scheduledBlockWeeklyFrequencyInput.setError(null);
         }
 
         // Geofence Configured
