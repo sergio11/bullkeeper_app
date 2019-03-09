@@ -330,7 +330,9 @@ public class NavigatorImpl implements INavigator {
 
     /**
      * Navigate To My Kids Detail
+     * @param activity
      * @param identity
+     * @param role
      */
     @Override
     public void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum  role) {
@@ -339,6 +341,7 @@ public class NavigatorImpl implements INavigator {
 
     /**
      * Navigate To Kid Results Settings
+     * @param activity
      */
     @Override
     public void navigateToKidResultsSettings(final Activity activity) {
@@ -347,6 +350,7 @@ public class NavigatorImpl implements INavigator {
 
     /**
      * Navigate To Comments Settings
+     * @param activity
      */
     @Override
     public void navigateToCommentsSettings(final Activity activity) {
@@ -355,6 +359,7 @@ public class NavigatorImpl implements INavigator {
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
+     * @param activity
      * @param childId
      * @param identity
      */
@@ -369,6 +374,8 @@ public class NavigatorImpl implements INavigator {
 
     /**
      * Navigate To Save Scheduled Block Mvp Activity
+     * @param activity
+     * @param childId
      */
     @Override
     public void navigateToSaveScheduledBlockMvpActivity(final Activity activity, final String childId) {
@@ -380,6 +387,8 @@ public class NavigatorImpl implements INavigator {
     /**
      * Show Four Dimensions Dialog
      * @param activity
+     * @param dimensionIdx
+     * @param dimensionValue
      */
     @Override
     public void showFourDimensionsDialog(AppCompatActivity activity, int dimensionIdx, final String dimensionValue) {

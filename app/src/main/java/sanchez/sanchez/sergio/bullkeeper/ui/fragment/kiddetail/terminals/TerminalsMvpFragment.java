@@ -7,13 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-
+import java.util.List;
 import javax.inject.Inject;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -183,6 +180,25 @@ public class TerminalsMvpFragment extends SupportMvpLCEFragment<TerminalsFragmen
     @Override
     public TerminalsFragmentPresenter providePresenter() {
         return component.terminalsFragmentPresenter();
+    }
+
+    /**
+     * On Data Loaded
+     * @param dataLoaded
+     */
+    @Override
+    public void onDataLoaded(List<TerminalEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+        activityHandler.configureTerminalList(dataLoaded);
+    }
+
+    /**
+     * On No Data Found
+     */
+    @Override
+    public void onNoDataFound() {
+        super.onNoDataFound();
+        activityHandler.showTerminalNotFoundDialog();
     }
 }
 

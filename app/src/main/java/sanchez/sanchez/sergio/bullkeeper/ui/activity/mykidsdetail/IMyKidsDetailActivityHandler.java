@@ -1,6 +1,9 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
+import java.util.List;
+
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
+import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 
 /**
  * My Kids Detail Activity Handler
@@ -120,5 +123,17 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void navigateToDayScheduledDetail(final String kid, final String terminal,
                                       final String day, final boolean isFunTimeEnabled);
+
+
+    /**
+     * Show Terminal Not Found Dialog
+     */
+    void showTerminalNotFoundDialog();
+
+    /**
+     * Configure Terminal List
+     * @param terminalList
+     */
+    void configureTerminalList(final List<TerminalEntity> terminalList);
 
 }

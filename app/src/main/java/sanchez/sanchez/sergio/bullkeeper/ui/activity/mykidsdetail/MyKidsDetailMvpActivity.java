@@ -20,6 +20,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -88,6 +89,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Kid Name
+      */
+    @State
+    protected String kidName;
 
     /**
      * Role
@@ -560,6 +567,35 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Show Terminal Not Found Dialog
+     */
+    @Override
+    public void showTerminalNotFoundDialog() {
+        showNoticeDialog(String.format(Locale.getDefault(), getString(R.string.kids_results_no_terminals_linked),
+                kidName), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
+
+    /**
+     * Configure Terminal List
+     * @param terminalList
+     */
+    @Override
+    public void configureTerminalList(final List<TerminalEntity> terminalList) {
+        Preconditions.checkNotNull(terminalList, "Terminal List can not be null");
+        terminalItemsList.clear();
+        for(final TerminalEntity terminalEntity: terminalList) {
+            final TerminalItem terminalItem = new TerminalItem(terminalEntity.getIdentity(),
+                    terminalEntity.getDeviceName());
+            terminalItemsList.add(terminalItem);
+        }
+    }
+
+    /**
      * Setup Sections Pager Adapter
      */
     private void setupSectionsPagerAdapter(final int tabSelected, final KidEntity kidEntity){
@@ -606,7 +642,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @Override
     public void onKidLoaded(KidEntity kidEntity) {
 
-
         if(appUtils.isValidString(kidEntity.getProfileImage()))
             // Set Author Image
             picasso.load(kidEntity.getProfileImage())
@@ -617,8 +652,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         else
             profileImage.setImageResource(R.drawable.kid_default_image);
 
+        kidName = kidEntity.getFullName();
         kidNameTextView.setText(kidEntity.getFullName());
-
 
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
 
@@ -627,23 +662,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
 
         kidSchoolTextView.setText(kidEntity.getSchool().getName());
 
-        terminalItemsList.clear();
-
-        for(final TerminalEntity terminalEntity: kidEntity.getTerminalEntities()) {
-            final TerminalItem terminalItem = new TerminalItem(terminalEntity.getIdentity(),
-                    terminalEntity.getDeviceName());
-            terminalItemsList.add(terminalItem);
-        }
+        // Configure Terminal List
+        configureTerminalList(kidEntity.getTerminalEntities());
 
         // Check Terminals linked
         if(terminalItemsList.isEmpty()) {
-            showNoticeDialog(String.format(Locale.getDefault(), getString(R.string.kids_results_no_terminals_linked),
-                    kidEntity.getFirstName()), false, new NoticeDialogFragment.NoticeDialogListener() {
-                @Override
-                public void onAccepted(DialogFragment dialog) {
-                    closeActivity();
-                }
-            });
+            showTerminalNotFoundDialog();
 
         } else {
 
