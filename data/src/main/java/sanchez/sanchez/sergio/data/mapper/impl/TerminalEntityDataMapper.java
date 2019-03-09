@@ -4,6 +4,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
  * Terminal Entity Data Mapper
@@ -34,6 +35,13 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
         terminalEntity.setScreenEnabled(originModel.isScreenEnabled());
         terminalEntity.setSettingsEnabled(originModel.isSettingsEnabled());
+        terminalEntity.setBatteryLevel(originModel.getBatteryLevel());
+        terminalEntity.setBatteryCharging(originModel.isBatteryCharging());
+        try {
+            terminalEntity.setStatus(TerminalStatusEnum.valueOf(originModel.getStatus()));
+        } catch (final Exception ex) {
+            terminalEntity.setStatus(TerminalStatusEnum.STATE_UNKNOWN);
+        }
         return terminalEntity;
     }
 
@@ -61,6 +69,9 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setScreenEnabled(originModel.isScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalDTO.setSettingsEnabled(originModel.isSettingsEnabled());
+        terminalDTO.setBatteryLevel(originModel.getBatteryLevel());
+        terminalDTO.setBatteryCharging(originModel.isBatteryCharging());
+        terminalDTO.setStatus(originModel.getStatus().name());
         return terminalDTO;
     }
 }

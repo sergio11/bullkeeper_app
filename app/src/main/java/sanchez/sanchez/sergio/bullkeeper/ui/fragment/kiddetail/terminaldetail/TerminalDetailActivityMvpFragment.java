@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.ITerminalDet
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 import timber.log.Timber;
 
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
@@ -56,6 +58,30 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @BindView(R.id.appVersionNameTextView)
     protected TextView appVersionNameTextView;
+
+    /**
+     * Battery Status Icon Image View
+     */
+    @BindView(R.id.batteryStatusIcon)
+    protected ImageView batteryStatusIconImageView;
+
+    /**
+     * Battery Status Text
+     */
+    @BindView(R.id.batteryStatusText)
+    protected TextView batteryStatusText;
+
+    /**
+     * Terminal Status Icon Image View
+     */
+    @BindView(R.id.terminalStatusIcon)
+    protected ImageView terminalStatusIconImageView;
+
+    /**
+     * Terminal Status Text View
+     */
+    @BindView(R.id.terminalStatusText)
+    protected TextView terminalStatusTextView;
 
     /**
      * Os And SDK Version Text View
@@ -396,6 +422,33 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         appVersionNameTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.app_version_text), terminalDetailEntity.getAppVersionName(),
                 terminalDetailEntity.getAppVersionCode()));
+
+        if(terminalDetailEntity.isBatteryCharging()) {
+            batteryStatusIconImageView.setImageResource(R.drawable.battery_is_charging);
+
+        } else {
+
+            if(terminalDetailEntity.getBatteryLevel() <= 100 && terminalDetailEntity.getBatteryLevel() >= 80 ) {
+                batteryStatusIconImageView.setImageResource(R.drawable.battery_fully_charged);
+            } else if(terminalDetailEntity.getBatteryLevel() < 80 && terminalDetailEntity.getBatteryLevel() >= 30) {
+                batteryStatusIconImageView.setImageResource(R.drawable.normal_charge_battery);
+            } else {
+                batteryStatusIconImageView.setImageResource(R.drawable.battery_about_to_run_out);
+            }
+
+        }
+
+        batteryStatusText.setText(String.format(Locale.getDefault(),
+                getString(R.string.battery_level_value), terminalDetailEntity.getBatteryLevel()));
+
+
+        if(terminalDetailEntity.getStatus().equals(TerminalStatusEnum.STATE_OFF)) {
+            terminalStatusIconImageView.setImageResource(R.drawable.mobile_turn_off);
+            terminalStatusTextView.setText(getString(R.string.device_id_off));
+        } else {
+            terminalStatusIconImageView.setImageResource(R.drawable.mobile_turn_on);
+            terminalStatusTextView.setText(getString(R.string.device_id_on));
+        }
 
         // Os And Sdk Version
         osAndSdkVersionTextView.setText(String.format(Locale.getDefault(),

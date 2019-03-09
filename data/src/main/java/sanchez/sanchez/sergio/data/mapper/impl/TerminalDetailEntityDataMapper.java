@@ -6,6 +6,7 @@ import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
 import sanchez.sanchez.sergio.domain.models.ScreenStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
  * Terminal Detail Entity Data Mapper
@@ -54,6 +55,13 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setTextMessagePermissionEnabled(originModel.isTextMessagePermissionEnabled());
         terminalEntity.setUsageStatsAllowed(originModel.isUsageStatsAllowed());
         terminalEntity.setAdminAccessAllowed(originModel.isAdminAccessAllowed());
+        terminalEntity.setBatteryCharging(originModel.isBatteryCharging());
+        terminalEntity.setBatteryLevel(originModel.getBatteryLevel());
+        try {
+            terminalEntity.setStatus(TerminalStatusEnum.valueOf(originModel.getStatus()));
+        } catch (final Exception ex) {
+            terminalEntity.setStatus(TerminalStatusEnum.STATE_UNKNOWN);
+        }
         return terminalEntity;
     }
 
@@ -93,6 +101,9 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setTextMessagePermissionEnabled(originModel.isTextMessagePermissionEnabled());
         terminalDTO.setUsageStatsAllowed(originModel.isUsageStatsAllowed());
         terminalDTO.setAdminAccessAllowed(originModel.isAdminAccessAllowed());
+        terminalDTO.setBatteryCharging(originModel.isBatteryCharging());
+        terminalDTO.setBatteryLevel(originModel.getBatteryLevel());
+        terminalDTO.setStatus(originModel.getStatus().name());
         return terminalDTO;
     }
 }

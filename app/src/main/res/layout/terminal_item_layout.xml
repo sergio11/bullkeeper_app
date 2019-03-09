@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_very_high"
     android:layout_marginBottom="5dp"
@@ -51,27 +50,60 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/terminalImageContainer"/>
 
-        <!-- Device Full Name -->
-        <TextView
-            android:id="@+id/deviceFullName"
-            style="@style/CommonStrongText.Big"
+        <LinearLayout
+            android:id="@+id/deviceStatusContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_toEndOf="@id/separator"
-            android:gravity="start|center_vertical"
-            android:padding="0dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:singleLine="true"
-            android:text="-"
-            android:textColor="@color/darkModerateBlue"
-            android:textStyle="italic" />
+            android:layout_toEndOf="@id/separator">
+
+
+            <!-- Device Full Name -->
+            <TextView
+                android:id="@+id/deviceFullName"
+                style="@style/CommonStrongText.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:padding="0dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:singleLine="true"
+                android:text="-"
+                android:textColor="@color/darkModerateBlue"
+                android:textStyle="italic" />
+
+
+            <!-- Battery Status-->
+            <ImageView
+                android:id="@+id/batteryStatus"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/battery_is_charging"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+
+            <!-- Terminal Status-->
+            <ImageView
+                android:id="@+id/terminalStatus"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/mobile_turn_off"
+                android:visibility="invisible"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/deviceManufacturer"
@@ -79,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/deviceFullName"
+            android:layout_below="@id/deviceStatusContainer"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@id/separator"

@@ -91,6 +91,9 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param screenEnabled
      * @param cameraEnabled
      * @param settingsEnabled
+     * @param batteryLevel
+     * @param isBatteryCharging
+     * @param status
      * @param totalApps
      * @param totalSms
      * @param totalCalls
@@ -102,9 +105,13 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param contactsListPermissionEnabled
      * @param textMessagePermissionEnabled
      * @param storagePermissionEnabled
+     * @param usageStatsAllowed
+     * @param adminAccessAllowed
      */
-    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled) {
-        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled);
+    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled,
+                                boolean settingsEnabled, int batteryLevel,
+                                boolean isBatteryCharging, TerminalStatusEnum status, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed) {
+        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
@@ -116,6 +123,8 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.contactsListPermissionEnabled = contactsListPermissionEnabled;
         this.textMessagePermissionEnabled = textMessagePermissionEnabled;
         this.storagePermissionEnabled = storagePermissionEnabled;
+        this.usageStatsAllowed = usageStatsAllowed;
+        this.adminAccessAllowed = adminAccessAllowed;
     }
 
     public long getTotalApps() {

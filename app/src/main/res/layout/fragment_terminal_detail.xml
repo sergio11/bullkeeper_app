@@ -89,6 +89,65 @@
                         android:textColor="@color/cyanBrilliant"
                         android:drawablePadding="@dimen/common_padding" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center">
+
+                        <!-- Battery Status-->
+                        <ImageView
+                            android:id="@+id/batteryStatusIcon"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:src="@drawable/battery_is_charging"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                        <!-- Battery Status Text -->
+                        <TextView
+                            android:id="@+id/batteryStatusText"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/common_margin"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:drawablePadding="@dimen/common_padding" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center">
+
+                        <!-- Terminal Status-->
+                        <ImageView
+                            android:id="@+id/terminalStatusIcon"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:src="@drawable/mobile_turn_off"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                        <!-- Terminal Status Text -->
+                        <TextView
+                            android:id="@+id/terminalStatusText"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/common_margin"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:drawablePadding="@dimen/common_padding" />
+
+                    </LinearLayout>
+
+
                     <!-- Os and Sdk Version -->
                     <TextView
                         android:id="@+id/osAndSdkVersionTextView"
@@ -102,12 +161,9 @@
                         android:drawablePadding="@dimen/common_padding"
                         android:drawableStart="@drawable/android_brands_cyan_solid" />
 
-
                 </LinearLayout>
 
-
             </android.support.v7.widget.CardView>
-
 
             <!-- Apps Data -->
             <android.support.v7.widget.CardView

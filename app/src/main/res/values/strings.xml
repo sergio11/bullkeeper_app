@@ -1008,4 +1008,9 @@
     <string name="search_apps_by_name_hint">Enter the name of the application</string>
 
     <string name="connectivity_not_available">Check your connection, this functionality is not available without an internet connection</string>
+
+    <!-- Battery Level Value -->
+    <string name="battery_level_value" formatted="false">Battery level %d</string>
+    <string name="device_id_on">The device is on</string>
+    <string name="device_id_off">The device is off</string>
 </resources>

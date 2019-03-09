@@ -869,4 +869,10 @@
     <string name="search_apps_by_name_hint">Ingrese el nombre de la aplicación</string>
 
     <string name="connectivity_not_available">Compruebe su conexión, esta funcionalidad no está disponible sin una conexión a Internet</string>
+
+    <!-- Nivel de batería -->
+    <string name="battery_level_value" formatted="false">Nivel de batería %d</string>
+    <string name="device_id_on">El dispositivo está encendido</string>
+    <string name="device_id_off">El dispositivo está apagado</string>
+
 </resources>

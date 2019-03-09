@@ -11,6 +11,7 @@ import java.util.Locale;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
  * Terminals Adapter
@@ -49,7 +50,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
          */
         private TextView deviceFullNameTextView, deviceManufacturerTextView,
                 systemVersionTextView, appVersionTextView;
-        private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView;
+        private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView,
+                batteryStatusImageView, terminalStatusImageView;
 
         /**
          * @param itemView
@@ -62,6 +64,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             appVersionTextView = itemView.findViewById(R.id.appVersion);
             cameraNotAllowedImageView = itemView.findViewById(R.id.cameraNotAllowed);
             mobileScreenNotAllowedImageView = itemView.findViewById(R.id.mobileScreenNotAllowed);
+            batteryStatusImageView = itemView.findViewById(R.id.batteryStatus);
+            terminalStatusImageView = itemView.findViewById(R.id.terminalStatus);
         }
 
         /**
@@ -101,7 +105,23 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             else
                 mobileScreenNotAllowedImageView.setVisibility(View.INVISIBLE);
 
+            if(terminalEntity.isBatteryCharging()) {
+                batteryStatusImageView.setImageResource(R.drawable.battery_is_charging);
+            } else {
 
+                if(terminalEntity.getBatteryLevel() <= 100 && terminalEntity.getBatteryLevel() >= 80 ) {
+                    batteryStatusImageView.setImageResource(R.drawable.battery_fully_charged);
+                } else if(terminalEntity.getBatteryLevel() < 80 && terminalEntity.getBatteryLevel() >= 30) {
+                    batteryStatusImageView.setImageResource(R.drawable.normal_charge_battery);
+                } else {
+                    batteryStatusImageView.setImageResource(R.drawable.battery_about_to_run_out);
+                }
+            }
+
+            if(terminalEntity.getStatus().equals(TerminalStatusEnum.STATE_OFF))
+                terminalStatusImageView.setVisibility(View.VISIBLE);
+            else
+                terminalStatusImageView.setVisibility(View.INVISIBLE);
 
         }
 

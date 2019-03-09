@@ -102,6 +102,24 @@ public class TerminalDTO implements Serializable {
     @JsonProperty("settings_enabled")
     protected boolean settingsEnabled;
 
+    /**
+     * Battery Level
+     */
+    @JsonProperty("battery_level")
+    protected int batteryLevel;
+
+    /**
+     * Is Battery Charging
+     */
+    @JsonProperty("is_battery_charging")
+    protected boolean isBatteryCharging;
+
+    /**
+     * Status
+     */
+    @JsonProperty("status")
+    protected String status;
+
 
     public TerminalDTO(){}
 
@@ -122,13 +140,17 @@ public class TerminalDTO implements Serializable {
      * @param screenEnabled
      * @param cameraEnabled
      * @param settingsEnabled
+     * @param batteryLevel
+     * @param isBatteryCharging
+     * @param status
      */
     public TerminalDTO(String identity, String appVersionName, String appVersionCode,
                        String osVersion, String sdkVersion, String manufacturer,
                        String marketName, String model, String codeName,
                        String deviceName, String deviceId, boolean bedTimeEnabled,
                        boolean screenEnabled, boolean cameraEnabled,
-                       boolean settingsEnabled) {
+                       boolean settingsEnabled, final int batteryLevel,
+                       final boolean isBatteryCharging, final String status) {
         this.identity = identity;
         this.appVersionName = appVersionName;
         this.appVersionCode = appVersionCode;
@@ -144,6 +166,9 @@ public class TerminalDTO implements Serializable {
         this.screenEnabled = screenEnabled;
         this.cameraEnabled = cameraEnabled;
         this.settingsEnabled = settingsEnabled;
+        this.batteryLevel = batteryLevel;
+        this.isBatteryCharging = isBatteryCharging;
+        this.status = status;
     }
 
     public String getIdentity() {
@@ -266,6 +291,30 @@ public class TerminalDTO implements Serializable {
         this.settingsEnabled = settingsEnabled;
     }
 
+    public int getBatteryLevel() {
+        return batteryLevel;
+    }
+
+    public void setBatteryLevel(int batteryLevel) {
+        this.batteryLevel = batteryLevel;
+    }
+
+    public boolean isBatteryCharging() {
+        return isBatteryCharging;
+    }
+
+    public void setBatteryCharging(boolean batteryCharging) {
+        isBatteryCharging = batteryCharging;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "TerminalDTO{" +
@@ -284,6 +333,9 @@ public class TerminalDTO implements Serializable {
                 ", screenEnabled=" + screenEnabled +
                 ", cameraEnabled=" + cameraEnabled +
                 ", settingsEnabled=" + settingsEnabled +
+                ", batteryLevel=" + batteryLevel +
+                ", isBatteryCharging=" + isBatteryCharging +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

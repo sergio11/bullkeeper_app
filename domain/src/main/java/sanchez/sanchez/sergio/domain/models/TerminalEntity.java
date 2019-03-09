@@ -21,6 +21,9 @@ public class TerminalEntity implements Serializable {
     private boolean screenEnabled;
     private boolean cameraEnabled;
     private boolean settingsEnabled;
+    private int batteryLevel;
+    private boolean isBatteryCharging;
+    private TerminalStatusEnum status;
 
     public TerminalEntity(){}
 
@@ -46,7 +49,8 @@ public class TerminalEntity implements Serializable {
                           String marketName, String model, String osVersion,
                           String sdkVersion, boolean bedTimeEnabled,
                           boolean screenEnabled, boolean cameraEnabled,
-                          boolean settingsEnabled) {
+                          boolean settingsEnabled, int batteryLevel,
+                          boolean isBatteryCharging, TerminalStatusEnum status) {
         this.identity = identity;
         this.appVersionCode = appVersionCode;
         this.appVersionName = appVersionName;
@@ -61,6 +65,9 @@ public class TerminalEntity implements Serializable {
         this.screenEnabled = screenEnabled;
         this.cameraEnabled = cameraEnabled;
         this.settingsEnabled = settingsEnabled;
+        this.batteryLevel = batteryLevel;
+        this.isBatteryCharging = isBatteryCharging;
+        this.status = status;
     }
 
     public String getIdentity() {
@@ -175,6 +182,30 @@ public class TerminalEntity implements Serializable {
         this.settingsEnabled = settingsEnabled;
     }
 
+    public int getBatteryLevel() {
+        return batteryLevel;
+    }
+
+    public void setBatteryLevel(int batteryLevel) {
+        this.batteryLevel = batteryLevel;
+    }
+
+    public boolean isBatteryCharging() {
+        return isBatteryCharging;
+    }
+
+    public void setBatteryCharging(boolean batteryCharging) {
+        isBatteryCharging = batteryCharging;
+    }
+
+    public TerminalStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(TerminalStatusEnum status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "TerminalEntity{" +
@@ -192,6 +223,9 @@ public class TerminalEntity implements Serializable {
                 ", screenEnabled=" + screenEnabled +
                 ", cameraEnabled=" + cameraEnabled +
                 ", settingsEnabled=" + settingsEnabled +
+                ", batteryLevel=" + batteryLevel +
+                ", isBatteryCharging=" + isBatteryCharging +
+                ", status=" + status +
                 '}';
     }
 }
