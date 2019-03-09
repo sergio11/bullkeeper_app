@@ -36,6 +36,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolM
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.searchguardian.SearchGuardiansMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.smsdetail.SmsDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AboutDeveloperDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsDialog;
@@ -1052,5 +1053,16 @@ public class NavigatorImpl implements INavigator {
                 packageName, totalTimeInForeground, firstTime, lastTime,
                 lastTimeUsed);
 
+    }
+
+    /**
+     * Show About Developer Dialog
+     * @param activity
+     */
+    @Override
+    public void showAboutDeveloperDialog(final AppCompatActivity activity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+
+        AboutDeveloperDialogFragment.show(activity);
     }
 }

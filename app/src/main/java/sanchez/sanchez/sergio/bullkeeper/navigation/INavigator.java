@@ -575,4 +575,8 @@ public interface INavigator {
                             final String packageName, final Long totalTimeInForeground, final Date firstTime,
                             final Date lastTime, final Date lastTimeUsed);
 
+    /**
+     * Show About Developer Dialog
+     */
+    void showAboutDeveloperDialog(final AppCompatActivity activity);
 }

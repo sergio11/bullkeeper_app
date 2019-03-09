@@ -8,6 +8,7 @@
         <item>@string/app_menu_close_session</item>
         <item>@string/app_menu_terms_of_service</item>
         <item>@string/app_menu_privacy_policy</item>
+        <item>@string/app_menu_about_the_developer</item>
     </string-array>
 
     <!-- Number of Alerts Values -->

@@ -145,6 +145,7 @@
     <string name="app_menu_close_session">Close Session</string>
     <string name="app_menu_terms_of_service">Terms of Service</string>
     <string name="app_menu_privacy_policy">Privacy Policy</string>
+    <string name="app_menu_about_the_developer">About the Developer</string>
 
     <!-- Home Show Case -->
     <string name="user_menu_showcase_description">Here you have the main options of the application, you will see results, generated alerts and the list of supervised children in the system</string>
@@ -1013,4 +1014,9 @@
     <string name="battery_level_value" formatted="false">Battery level %d</string>
     <string name="device_id_on">The device is on</string>
     <string name="device_id_off">The device is off</string>
+
+    <!-- About Developer -->
+    <string name="about_the_developer_title">Sergio Sánchez Sánchez</string>
+    <string name="about_the_developer_content">During my professional experience I have sought to boost my work qualities such as enthusiasm, responsibility and achievement of objectives that arise in any project, taking into account the importance of improvement or personal improvement and the working group where I had the opportunity to participate.</string>
+
 </resources>

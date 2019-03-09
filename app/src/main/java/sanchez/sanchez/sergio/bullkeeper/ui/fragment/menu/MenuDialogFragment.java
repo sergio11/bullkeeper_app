@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.menu;
 
-import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +39,7 @@ public final class MenuDialogFragment extends SupportDialogFragment
     private final static int CLOSE_SESSION_POSITION = 3;
     private final static int TERMS_OF_SERVICE_POSITION = 4;
     private final static int PRIVACY_POLICY_POSITION = 5;
+    private final static int ABOUT_THE_DEVELOPER_POSITION = 6;
 
     public static final String TAG = "MENU_DIALOG_FRAGMENT";
 
@@ -65,6 +65,7 @@ public final class MenuDialogFragment extends SupportDialogFragment
      */
     @Inject
     protected ILocalSystemNotification localSystemNotification;
+
 
     /**
      * Show
@@ -164,6 +165,11 @@ public final class MenuDialogFragment extends SupportDialogFragment
 
             case PRIVACY_POLICY_POSITION:
                 navigator.showLegalContentActivity(getActivity(), LegalContentActivity.LegalTypeEnum.PRIVACY_POLICY);
+                break;
+
+            case ABOUT_THE_DEVELOPER_POSITION:
+
+                navigator.showAboutDeveloperDialog((AppCompatActivity) getActivity());
                 break;
 
         }

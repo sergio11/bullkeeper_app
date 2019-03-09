@@ -107,6 +107,7 @@
     <string name="app_menu_close_session">Cerrar la sesión</string>
     <string name="app_menu_terms_of_service">Términos de servicio</string>
     <string name="app_menu_privacy_policy">Política de privacidad</string>
+    <string name="app_menu_about_the_developer">Acerca del desarrollador</string>
     <!-- Home Show Case -->
     <string name="user_menu_showcase_description">Aquí tiene las opciones principales de la aplicación, verá los resultados, las alertas generadas y la lista de niños supervisados en el sistema.</string>
     <string name="my_childs_showcase_description">Aquí tienes a los niños que puedes enseñar, puedes acceder a los detalles de ellos, además de registrar uno nuevo en el sistema.</string>
@@ -874,5 +875,9 @@
     <string name="battery_level_value" formatted="false">Nivel de batería %d</string>
     <string name="device_id_on">El dispositivo está encendido</string>
     <string name="device_id_off">El dispositivo está apagado</string>
+
+    <!-- About Developer -->
+    <string name="about_the_developer_title">Sergio Sánchez Sánchez</string>
+    <string name="about_the_developer_content">Durante mi experiencia profesional he buscado impulsar en mi trabajo cualidades como ilusión, responsabilidad y consecución de objetivos que se plantean en cualquier proyecto, teniendo en cuenta la importancia de superación o mejora personal y del grupo de trabajo donde he tenido la oportunidad de participar.</string>
 
 </resources>
