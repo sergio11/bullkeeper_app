@@ -868,5 +868,5 @@
     <string name="no_app_installed_found">No se ha encontrado ninguna aplicación instalada para este terminal</string>
     <string name="search_apps_by_name_hint">Ingrese el nombre de la aplicación</string>
 
-
+    <string name="connectivity_not_available">Compruebe su conexión, esta funcionalidad no está disponible sin una conexión a Internet</string>
 </resources>

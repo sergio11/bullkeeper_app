@@ -278,15 +278,21 @@ public class ConversationListMvpActivity extends SupportMvpLCEActivity<Conversat
      */
     @OnClick(R.id.deleteAllConversations)
     protected void onDeleteAllConversations(){
-        showConfirmationDialog(R.string.delete_all_conversations_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAll();
-            }
-            @Override
-            public void onRejected(DialogFragment dialog) {
-            }
-        });
+
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.delete_all_conversations_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAll();
+                }
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                }
+            });
+        }
+
     }
 
     /**
@@ -306,20 +312,25 @@ public class ConversationListMvpActivity extends SupportMvpLCEActivity<Conversat
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(conversationEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        getPresenter().deleteById(conversationEntity.getIdentity());
+            if(!isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(conversationEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(conversationEntity, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            getPresenter().deleteById(conversationEntity.getIdentity());
+                        }
+                    }
+                });
+            }
 
         }
     }

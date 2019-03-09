@@ -483,12 +483,16 @@ public class SignupMvpFragment extends
      */
     @OnClick(R.id.createAccountButton)
     public void onCreateAccount(){
-        //Sanitize Data
-        sanitizeData();
-        // Reset Errors
-        resetErrors();
-        // Validate
-        validator.validate();
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            //Sanitize Data
+            sanitizeData();
+            // Reset Errors
+            resetErrors();
+            // Validate
+            validator.validate();
+        }
     }
 
 

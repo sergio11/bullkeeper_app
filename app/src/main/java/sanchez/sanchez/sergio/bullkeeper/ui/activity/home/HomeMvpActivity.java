@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -25,6 +28,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ProfileMvpFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
@@ -270,6 +274,18 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
         int widthInDp = screenManager.getScreenWidthInDPs();
         final LastAlertsActivityMvpFragment lastAlertsActivityFragment = (LastAlertsActivityMvpFragment)getSupportFragmentManager().findFragmentById(R.id.lastAlertsContainer);
         setDimensions(lastAlertsActivityFragment.getView(), widthInDp, heightInDp);
+    }
+
+    /**
+     * On Retry Again
+     */
+    @Override
+    public void onRetryAgain() {
+
+        final ProfileMvpFragment profileMvpFragment =
+                (ProfileMvpFragment)getSupportFragmentManager().findFragmentById(R.id.profileFragment);
+        if(profileMvpFragment != null)
+            profileMvpFragment.loadProfileInformation();
     }
 
     /**

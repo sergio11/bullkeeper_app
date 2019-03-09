@@ -1007,4 +1007,5 @@
     <string name="no_app_installed_found">No App Installed Found for this terminal</string>
     <string name="search_apps_by_name_hint">Enter the name of the application</string>
 
+    <string name="connectivity_not_available">Check your connection, this functionality is not available without an internet connection</string>
 </resources>

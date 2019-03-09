@@ -277,7 +277,11 @@ public class InvitationDetailMvpActivity extends SupportMvpActivity<InvitationDe
      */
     @OnClick(R.id.acceptInvitation)
     protected void onAcceptInvitationClicked(){
-        getPresenter().acceptInvitation();
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            getPresenter().acceptInvitation();
+        }
     }
 
 
@@ -286,6 +290,10 @@ public class InvitationDetailMvpActivity extends SupportMvpActivity<InvitationDe
      */
     @OnClick(R.id.deleteInvitation)
     protected void onDeleteInvitationClicked(){
-        getPresenter().deleteInvitation();
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            getPresenter().deleteInvitation();
+        }
     }
 }

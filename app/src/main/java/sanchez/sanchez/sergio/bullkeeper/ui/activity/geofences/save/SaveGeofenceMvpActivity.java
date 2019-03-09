@@ -604,7 +604,11 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveGeofence(){
-        validate();
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            validate();
+        }
     }
 
 
@@ -775,16 +779,21 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     @OnClick(R.id.deleteGeofence)
     protected void onDeleteGeofence(){
-        Timber.d("On Delete Geofence");
-        showConfirmationDialog(R.string.geofence_confirm_delete, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteGeofenceById(kid, identity);
-            }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            Timber.d("On Delete Geofence");
+            showConfirmationDialog(R.string.geofence_confirm_delete, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteGeofenceById(kid, identity);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
     }
 
     /**
@@ -839,19 +848,23 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
      */
     @OnClick(R.id.deleteGeofence)
     protected void onDeleteGeofenceClicked(){
-        showConfirmationDialog(R.string.geofence_confirm_delete, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            /**
-             * On Accepted
-             * @param dialog
-             */
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteGeofenceById(kid, identity);
-            }
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.geofence_confirm_delete, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                /**
+                 * On Accepted
+                 * @param dialog
+                 */
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteGeofenceById(kid, identity);
+                }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
     }
 
     /**

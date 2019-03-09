@@ -204,22 +204,27 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.phone_number_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(phoneNumberBlocked, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        // Delete Invitation
-                        getPresenter().deletePhoneNumberBlocked(
-                                phoneNumberBlocked.getPhoneNumber());
+            if(!isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(phoneNumberBlocked, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.phone_number_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(phoneNumberBlocked, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            // Delete Invitation
+                            getPresenter().deletePhoneNumberBlocked(
+                                    phoneNumberBlocked.getPhoneNumber());
+                        }
+                    }
+                });
+            }
 
         }
     }

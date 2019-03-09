@@ -515,16 +515,23 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
      */
     @OnClick(R.id.deleteKidRequest)
     protected void onDeleteKidRequestClicked(){
-        showConfirmationDialog(R.string.kid_request_delete_request_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteKidRequest(childId, id);
-            }
+        if (!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.kid_request_delete_request_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteKidRequest(childId, id);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
+
+
     }
 
     /**

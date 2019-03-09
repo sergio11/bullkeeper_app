@@ -450,4 +450,11 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     public void onComplete() {
         preferenceRepository.setHomeShowcaseCompleted(true);
     }
+
+    /**
+     * Load Profile Information
+     */
+    public void loadProfileInformation(){
+        getPresenter().loadProfileInformation();
+    }
 }

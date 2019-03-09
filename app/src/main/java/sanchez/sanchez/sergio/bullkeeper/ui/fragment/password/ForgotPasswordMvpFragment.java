@@ -148,7 +148,11 @@ implements IForgotPasswordView {
      */
     @OnClick(R.id.sendEmail)
     public void onSendEmail(){
-        validator.validate();
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            validator.validate();
+        }
     }
 
     /**

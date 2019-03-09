@@ -196,24 +196,29 @@ public class KidRequestListMvpActivity extends SupportMvpLCEActivity<KidRequestL
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.kid_request_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(kidRequestEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        // Delete Kid Request
-                        getPresenter().deleteKidRequest(
-                                kidRequestEntity.getKid().getIdentity(),
-                                kidRequestEntity.getIdentity()
-                        );
+            if(!isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(kidRequestEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.kid_request_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(kidRequestEntity, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            // Delete Kid Request
+                            getPresenter().deleteKidRequest(
+                                    kidRequestEntity.getKid().getIdentity(),
+                                    kidRequestEntity.getIdentity()
+                            );
+                        }
+                    }
+                });
+            }
 
         }
     }
@@ -354,16 +359,23 @@ public class KidRequestListMvpActivity extends SupportMvpLCEActivity<KidRequestL
      */
     @OnClick(R.id.deleteAllKidRequest)
     protected void onDeleteAllKidRequestClicked(){
-        showConfirmationDialog(R.string.delete_all_kid_request_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAllKidRequestForKid(kid);
-            }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.delete_all_kid_request_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAllKidRequestForKid(kid);
+                }
 
-            }
-        });
+                @Override
+                public void onRejected(DialogFragment dialog) {
+
+                }
+            });
+        }
+
+
     }
 }

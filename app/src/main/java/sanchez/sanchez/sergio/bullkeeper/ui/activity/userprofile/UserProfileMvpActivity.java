@@ -392,7 +392,10 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
-        validate();
+        if(!isConnectivityAvailable())
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        else
+            validate();
     }
 
     /**

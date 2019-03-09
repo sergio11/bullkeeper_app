@@ -405,21 +405,23 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
      */
     @OnClick(R.id.removeAlert)
     protected void onRemoveAlert(){
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.remove_alert_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
 
-        showConfirmationDialog(R.string.remove_alert_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAlert();
 
-                getPresenter().deleteAlert();
+                }
 
-            }
+                @Override
+                public void onRejected(DialogFragment dialog) {
 
-            @Override
-            public void onRejected(DialogFragment dialog) {
-
-            }
-        });
-
+                }
+            });
+        }
     }
 
 

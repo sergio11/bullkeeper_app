@@ -546,7 +546,11 @@ public class AppRulesMvpFragment extends SupportMvpSearchLCEFragment<AppRulesFra
      */
     @OnClick(R.id.refreshAppData)
     protected void onRefreshAppDataClicked() {
-        loadData();
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            loadData();
+        }
     }
 
     /**

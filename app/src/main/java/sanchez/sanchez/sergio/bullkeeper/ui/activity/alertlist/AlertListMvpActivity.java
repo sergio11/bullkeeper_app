@@ -253,59 +253,66 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
     @OnClick(R.id.clearAlerts)
     public void onClearAllAlerts() {
 
-        @StringRes
-        int confirmationTitle = R.string.my_alerts_clear_all;
+        if (!isConnectivityAvailable()) {
 
-        switch (alertsListMode) {
-            case ALERTS_BY_SON:
-                confirmationTitle = R.string.deleting_alerts_for_this_child;
-                break;
-            case ALERTS_BY_LEVEL:
-                confirmationTitle = R.string.deleting_alerts_for_this_level;
-                break;
-            case ALERTS_BY_SON_AND_LEVEL:
-                confirmationTitle = R.string.deleting_alerts_for_this_level_and_child;
-                break;
-            default:
-        }
+            showNoticeDialog(R.string.connectivity_not_available, false);
+
+        } else {
+
+            @StringRes
+            int confirmationTitle = R.string.my_alerts_clear_all;
+
+            switch (alertsListMode) {
+                case ALERTS_BY_SON:
+                    confirmationTitle = R.string.deleting_alerts_for_this_child;
+                    break;
+                case ALERTS_BY_LEVEL:
+                    confirmationTitle = R.string.deleting_alerts_for_this_level;
+                    break;
+                case ALERTS_BY_SON_AND_LEVEL:
+                    confirmationTitle = R.string.deleting_alerts_for_this_level_and_child;
+                    break;
+                default:
+            }
 
 
-        // Show Confirmation Dialog
-        showConfirmationDialog(confirmationTitle, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            // Show Confirmation Dialog
+            showConfirmationDialog(confirmationTitle, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
-            /**
-             * On Accepted
-             * @param dialog
-             */
-            @Override
-            public void onAccepted(DialogFragment dialog) {
+                /**
+                 * On Accepted
+                 * @param dialog
+                 */
+                @Override
+                public void onAccepted(DialogFragment dialog) {
 
-                switch (alertsListMode) {
-                    case ALERTS_BY_SON:
-                        getPresenter().clearAlertsBySon(sonIndentity);
-                        break;
-                    case ALERTS_BY_LEVEL:
-                        getPresenter().clearAlertsByLevel(alertLevelEnum);
-                        break;
-                    case ALERTS_BY_SON_AND_LEVEL:
-                        getPresenter().clearAlertsOfSonByLevel(sonIndentity, alertLevelEnum);
-                        break;
-                    default:
-                        getPresenter().clearAlerts();
+                    switch (alertsListMode) {
+                        case ALERTS_BY_SON:
+                            getPresenter().clearAlertsBySon(sonIndentity);
+                            break;
+                        case ALERTS_BY_LEVEL:
+                            getPresenter().clearAlertsByLevel(alertLevelEnum);
+                            break;
+                        case ALERTS_BY_SON_AND_LEVEL:
+                            getPresenter().clearAlertsOfSonByLevel(sonIndentity, alertLevelEnum);
+                            break;
+                        default:
+                            getPresenter().clearAlerts();
+                    }
+
                 }
 
-            }
+                /**
+                 * On Rejected
+                 * @param dialog
+                 */
+                @Override
+                public void onRejected(DialogFragment dialog) {
+                    showShortMessage(getString(R.string.operation_cancelled));
+                }
+            });
 
-            /**
-             * On Rejected
-             * @param dialog
-             */
-            @Override
-            public void onRejected(DialogFragment dialog) {
-                showShortMessage(getString(R.string.operation_cancelled));
-            }
-        });
-
+        }
     }
 
     /**
@@ -339,22 +346,27 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        // Delete Alert Of Son
-                        getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
-                                alertEntity.getIdentity());
+            if(!isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            // Delete Alert Of Son
+                            getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
+                                    alertEntity.getIdentity());
+                        }
+                    }
+                });
+            }
 
         }
     }

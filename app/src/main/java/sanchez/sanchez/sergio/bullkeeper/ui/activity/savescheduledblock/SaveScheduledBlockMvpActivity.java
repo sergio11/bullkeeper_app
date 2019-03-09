@@ -655,7 +655,10 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
-        validate();
+        if(!isConnectivityAvailable())
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        else
+            validate();
     }
 
     /**

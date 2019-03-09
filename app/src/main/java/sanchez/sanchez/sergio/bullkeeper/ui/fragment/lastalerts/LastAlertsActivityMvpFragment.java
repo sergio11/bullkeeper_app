@@ -204,23 +204,28 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        Timber.d("Dismiss Event Timeout");
-                        // Delete Alert Of Son
-                        getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
-                                alertEntity.getIdentity());
+            if(!activityHandler.isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.alert_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(alertEntity, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            Timber.d("Dismiss Event Timeout");
+                            // Delete Alert Of Son
+                            getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
+                                    alertEntity.getIdentity());
+                        }
+                    }
+                });
+            }
 
         }
     }
@@ -232,5 +237,14 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
     public void onAlertDeleted() {
         lastAlertsTitle.setText(String.format(Locale.getDefault(),
                 getString(R.string.last_alerts_title), recyclerView.getAdapter().getItemCount()));
+    }
+
+    /**
+     * On Retry Again
+     */
+    @Override
+    protected void onRetryAgain() {
+        super.onRetryAgain();
+
     }
 }

@@ -227,6 +227,10 @@ public class ActivitySocialMediaMvpFragment
      */
     @OnClick(R.id.refreshData)
     protected void onRefreshDataClicked() {
-        refreshChart();
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            refreshChart();
+        }
     }
 }

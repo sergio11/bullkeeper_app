@@ -674,48 +674,56 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     @Override
     public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
-        if (isChecked) {
+        if(!activityHandler.isConnectivityAvailable()) {
 
-            // Enable App
-            showConfirmationDialog(R.string.app_installed_enable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-
-                /**
-                 *
-                 * @param dialog
-                 */
-                @Override
-                public void onAccepted(DialogFragment dialog) {
-                    getPresenter().switchAppStatus(kid, terminal, app, true);
-                }
-
-                @Override
-                public void onRejected(DialogFragment dialog) {
-                    switchAppStatusWidget.setChecked(false, false);
-                }
-            });
-
-
-
+            showNoticeDialog(R.string.connectivity_not_available, false);
+            switchAppStatusWidget.setChecked(!isChecked, false);
         } else {
 
-            // Disable App
-            showConfirmationDialog(R.string.app_installed_disable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            if (isChecked) {
 
-                /**
-                 *
-                 * @param dialog
-                 */
-                @Override
-                public void onAccepted(DialogFragment dialog) {
-                    getPresenter().switchAppStatus(kid, terminal, app, false);
-                }
+                // Enable App
+                showConfirmationDialog(R.string.app_installed_enable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
-                @Override
-                public void onRejected(DialogFragment dialog) {
-                    switchAppStatusWidget.setChecked(true, false);
+                    /**
+                     *
+                     * @param dialog
+                     */
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        getPresenter().switchAppStatus(kid, terminal, app, true);
+                    }
 
-                }
-            });
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+                        switchAppStatusWidget.setChecked(false, false);
+                    }
+                });
+
+
+
+            } else {
+
+                // Disable App
+                showConfirmationDialog(R.string.app_installed_disable_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+
+                    /**
+                     *
+                     * @param dialog
+                     */
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        getPresenter().switchAppStatus(kid, terminal, app, false);
+                    }
+
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+                        switchAppStatusWidget.setChecked(true, false);
+
+                    }
+                });
+
+            }
 
         }
     }

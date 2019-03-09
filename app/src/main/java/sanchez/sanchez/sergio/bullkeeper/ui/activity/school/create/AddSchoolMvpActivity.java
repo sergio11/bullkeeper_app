@@ -289,7 +289,11 @@ public class AddSchoolMvpActivity extends SupportMvpValidationMvpActivity<AddSch
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
-        validate();
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            validate();
+        }
     }
 
 

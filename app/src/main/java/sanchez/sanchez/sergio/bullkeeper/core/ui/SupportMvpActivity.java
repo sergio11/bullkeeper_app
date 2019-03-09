@@ -27,9 +27,15 @@ import android.widget.Toast;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity;
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
+
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +47,9 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
@@ -134,6 +143,12 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     private boolean mBound;
 
+
+    /**
+     * Last Connectivity
+     */
+    private Connectivity lastConnectivity = null;
+
     /**
      * Service Connection
      */
@@ -214,6 +229,21 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         Answers.getInstance().logContentView(contentViewEvent);
 
         createAt = new Date();
+
+        ReactiveNetwork
+                .observeNetworkConnectivity(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Connectivity>() {
+                    @Override
+                    public void accept(Connectivity connectivity) throws Exception {
+                        lastConnectivity = connectivity;
+                        if(lastConnectivity.available())
+                            onConnectivityAvailable();
+                        else
+                            onConnectivityNotAvailable();
+                    }
+                });
 
     }
 
@@ -320,6 +350,24 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
         if(addToBackStack)
             fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Get Visible Fragments
+     * @return
+     */
+    protected List<Fragment> getVisibleFragments() {
+        List<Fragment> allFragments = getSupportFragmentManager().getFragments();
+        if (allFragments.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Fragment> visibleFragments = new ArrayList<>();
+        for (Fragment fragment : allFragments) {
+            if (fragment.isVisible()) {
+                visibleFragments.add(fragment);
+            }
+        }
+        return visibleFragments;
     }
 
     /**
@@ -924,4 +972,26 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @DrawableRes
     protected abstract int getBackgroundResource();
+
+    /**
+     * On Connectivity Available
+     */
+    protected void onConnectivityAvailable(){}
+
+    /**
+     * On Connectivity Not Available
+     */
+    protected void onConnectivityNotAvailable(){
+        showLongMessage(getString(R.string.connectivity_not_available));
+    }
+
+    /**
+     * Is Connectivity Available
+     * @return
+     */
+    @Override
+    public boolean isConnectivityAvailable(){
+        return lastConnectivity != null && lastConnectivity.available();
+    }
+
 }

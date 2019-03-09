@@ -453,33 +453,39 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked) {
-
-                    showConfirmationDialog(R.string.terminal_enable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchBedTimeStatus(childId, terminalId, true);
-                        }
-
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            bedTimeStatusWidget.setChecked(false, false);
-                        }
-                    });
-
+                if(!activityHandler.isConnectivityAvailable()) {
+                    showNoticeDialog(R.string.connectivity_not_available, false);
+                    bedTimeStatusWidget.setChecked(!isChecked, false);
                 } else {
 
-                    showConfirmationDialog(R.string.terminal_disable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchBedTimeStatus(childId, terminalId, false);
-                        }
+                    if(isChecked) {
 
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            bedTimeStatusWidget.setChecked(true, false);
-                        }
-                    });
+                        showConfirmationDialog(R.string.terminal_enable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchBedTimeStatus(childId, terminalId, true);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                bedTimeStatusWidget.setChecked(false, false);
+                            }
+                        });
+
+                    } else {
+
+                        showConfirmationDialog(R.string.terminal_disable_bed_time_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchBedTimeStatus(childId, terminalId, false);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                bedTimeStatusWidget.setChecked(true, false);
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -494,33 +500,39 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         lockScreenStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
 
-                    showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockScreenStatus(childId, terminalId, true);
-                        }
-
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            lockScreenStatusWidget.setChecked(false, false);
-                        }
-                    });
-
+                if(!activityHandler.isConnectivityAvailable()) {
+                    showNoticeDialog(R.string.connectivity_not_available, false);
+                    lockScreenStatusWidget.setChecked(!isChecked, false);
                 } else {
+                    if(isChecked) {
 
-                    showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockScreenStatus(childId, terminalId, false);
-                        }
+                        showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchLockScreenStatus(childId, terminalId, true);
+                            }
 
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            lockScreenStatusWidget.setChecked(true, false);
-                        }
-                    });
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                lockScreenStatusWidget.setChecked(false, false);
+                            }
+                        });
+
+                    } else {
+
+                        showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchLockScreenStatus(childId, terminalId, false);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                lockScreenStatusWidget.setChecked(true, false);
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -534,32 +546,39 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         lockCameraStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
 
-                    showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockCameraStatus(childId, terminalId, true);
-                        }
-
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            lockCameraStatusWidget.setChecked(false, false);
-                        }
-                    });
-
+                if (!activityHandler.isConnectivityAvailable()) {
+                    showNoticeDialog(R.string.connectivity_not_available, false);
+                    lockCameraStatusWidget.setChecked(!isChecked, false);
                 } else {
-                    showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchLockCameraStatus(childId, terminalId, false);
-                        }
 
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            lockCameraStatusWidget.setChecked(true, false);
-                        }
-                    });
+                    if (isChecked) {
+
+                        showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchLockCameraStatus(childId, terminalId, true);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                lockCameraStatusWidget.setChecked(false, false);
+                            }
+                        });
+
+                    } else {
+                        showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchLockCameraStatus(childId, terminalId, false);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                lockCameraStatusWidget.setChecked(true, false);
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -577,31 +596,37 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         settingsStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    showConfirmationDialog(R.string.terminal_enable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchSettingsScreenStatus(childId, terminalId, true);
-                        }
-
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            settingsStatusWidget.setChecked(false, false);
-                        }
-                    });
-
+                if (!activityHandler.isConnectivityAvailable()) {
+                    showNoticeDialog(R.string.connectivity_not_available, false);
+                    settingsStatusWidget.setChecked(!isChecked, false);
                 } else {
-                    showConfirmationDialog(R.string.terminal_disable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                        @Override
-                        public void onAccepted(DialogFragment dialog) {
-                            getPresenter().switchSettingsScreenStatus(childId, terminalId, false);
-                        }
 
-                        @Override
-                        public void onRejected(DialogFragment dialog) {
-                            settingsStatusWidget.setChecked(true, false);
-                        }
-                    });
+                    if(isChecked) {
+                        showConfirmationDialog(R.string.terminal_enable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchSettingsScreenStatus(childId, terminalId, true);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                settingsStatusWidget.setChecked(false, false);
+                            }
+                        });
+
+                    } else {
+                        showConfirmationDialog(R.string.terminal_disable_settings_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchSettingsScreenStatus(childId, terminalId, false);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                settingsStatusWidget.setChecked(true, false);
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -777,15 +802,21 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @OnClick(R.id.deleteTerminal)
     protected void onDeleteTerminal(){
-        activityHandler.showConfirmationDialog(R.string.delete_terminal_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteTerminal(childId, terminalId);
-            }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            activityHandler.showConfirmationDialog(R.string.delete_terminal_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteTerminal(childId, terminalId);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
+
     }
 
 

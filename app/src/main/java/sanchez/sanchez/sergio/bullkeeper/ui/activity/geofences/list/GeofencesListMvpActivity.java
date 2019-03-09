@@ -239,22 +239,26 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.geofence_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(geofenceEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        // Delete Invitation
-                        getPresenter().deleteById(kid, geofenceEntity.getIdentity());
+            if(!isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(geofenceEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.geofence_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(geofenceEntity, deletedIndex);
                     }
-                }
-            });
-
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            // Delete Invitation
+                            getPresenter().deleteById(kid, geofenceEntity.getIdentity());
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -415,15 +419,20 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     @OnClick(R.id.deleteAllGeofences)
     protected void onDeleteAllGeofencesClicked(){
-        showConfirmationDialog(R.string.geofences_confirm_delete_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAllByKid(kid);
-            }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.geofences_confirm_delete_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAllByKid(kid);
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
     }
 
     /**

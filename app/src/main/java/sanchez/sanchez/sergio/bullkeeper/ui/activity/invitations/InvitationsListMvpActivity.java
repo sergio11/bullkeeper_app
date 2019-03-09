@@ -167,21 +167,28 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.invitation_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(supervisedChildrenEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        // Delete Invitation
-                        getPresenter().deleteInvitation(supervisedChildrenEntity.getIdentity());
+            if(!isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(supervisedChildrenEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.invitation_item_removed), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(supervisedChildrenEntity, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            // Delete Invitation
+                            getPresenter().deleteInvitation(supervisedChildrenEntity.getIdentity());
+                        }
+                    }
+                });
+            }
+
+
 
         }
     }
@@ -242,15 +249,20 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @OnClick(R.id.clearInvitations)
     protected void onClearInvitations(){
-        showConfirmationDialog(R.string.invitations_confirm_delete_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().clearInvitations();
-            }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+        if (!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.invitations_confirm_delete_all, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().clearInvitations();
+                }
+
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
 
     }
 

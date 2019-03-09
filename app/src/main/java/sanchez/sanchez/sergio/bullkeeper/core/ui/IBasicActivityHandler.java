@@ -206,4 +206,10 @@ public interface IBasicActivityHandler {
      */
     void onResultCanceled();
 
+    /**
+     * Is Connectivity Available
+     * @return
+     */
+    boolean isConnectivityAvailable();
+
 }

@@ -398,41 +398,48 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if(appUtils.isValidString(phoneNumber)) {
 
-            if(isChecked) {
-
-                showConfirmationDialog(R.string.block_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                    @Override
-                    public void onAccepted(DialogFragment dialog) {
-                        getPresenter().blockNumber(phoneNumber);
-                    }
-
-                    @Override
-                    public void onRejected(DialogFragment dialog) {
-                        switchBlockStatusWidget.setChecked(false, false);
-                    }
-                });
-
-            } else {
-                showConfirmationDialog(R.string.unlock_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-                    @Override
-                    public void onAccepted(DialogFragment dialog) {
-                        getPresenter().unlockNumber(phoneNumber);
-                    }
-
-                    @Override
-                    public void onRejected(DialogFragment dialog) {
-                        switchBlockStatusWidget.setChecked(true, false);
-                    }
-                });
-            }
-
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+            switchBlockStatusWidget.setChecked(!isChecked, false);
         } else {
 
-            switchBlockStatusWidget.setChecked(!isChecked, false);
+            if(appUtils.isValidString(phoneNumber)) {
+
+                if(isChecked) {
+
+                    showConfirmationDialog(R.string.block_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            getPresenter().blockNumber(phoneNumber);
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            switchBlockStatusWidget.setChecked(false, false);
+                        }
+                    });
+
+                } else {
+                    showConfirmationDialog(R.string.unlock_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        @Override
+                        public void onAccepted(DialogFragment dialog) {
+                            getPresenter().unlockNumber(phoneNumber);
+                        }
+
+                        @Override
+                        public void onRejected(DialogFragment dialog) {
+                            switchBlockStatusWidget.setChecked(true, false);
+                        }
+                    });
+                }
+
+            } else {
+
+                switchBlockStatusWidget.setChecked(!isChecked, false);
+
+            }
 
         }
-
     }
 }

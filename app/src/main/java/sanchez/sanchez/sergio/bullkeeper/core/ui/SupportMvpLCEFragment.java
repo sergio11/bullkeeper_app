@@ -103,10 +103,6 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         if(context instanceof SupportLCEListener) {
             lceListener  = (SupportLCEListener) context;
-        } else {
-
-            Timber.d("Support LCE Listener not implemented");
-
         }
     }
 
@@ -311,13 +307,22 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     }
 
     /**
+     * On Retry Again
+     */
+    protected void onRetryAgain(){
+        Timber.d("On Retry Again");
+        if(lceListener != null)
+            lceListener.onRetryAgain();
+        loadData();
+    }
+
+    /**
      * On Click
      * @param view
      */
     @Override
     public void onClick(View view) {
-        Timber.d("On Retry Again");
-        loadData();
+        onRetryAgain();
     }
 
     /**
@@ -351,6 +356,11 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
          * On Error Ocurred
          */
         void onErrorOcurred();
+
+        /**
+         * On Retry Again
+         */
+        void onRetryAgain();
     }
 
     /**

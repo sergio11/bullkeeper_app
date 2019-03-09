@@ -251,15 +251,20 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @OnClick(R.id.deleteAllScheduledBlocks)
     protected void onDeleteAllScheduledBlocks(){
-        showConfirmationDialog(R.string.delete_all_scheduled_blocks, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAllScheduledBlockByChildId(kidIdentity);
-            }
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.delete_all_scheduled_blocks, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAllScheduledBlockByChildId(kidIdentity);
+                }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {}
-        });
+                @Override
+                public void onRejected(DialogFragment dialog) {}
+            });
+        }
+
     }
 
     /**
@@ -279,22 +284,27 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
             // Delete item from adapter
             recyclerViewAdapter.removeItem(deletedIndex);
 
-            showLongSimpleSnackbar(content, getString(R.string.scheduled_block_deleted_success), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    recyclerViewAdapter.restoreItem(scheduledBlockEntity, deletedIndex);
-                }
-            }, new Snackbar.Callback(){
-                @Override
-                public void onDismissed(Snackbar transientBottomBar, int event) {
-                    super.onDismissed(transientBottomBar, event);
-                    if(event == DISMISS_EVENT_TIMEOUT) {
-                        Timber.d("Dismiss Event Timeout");
-                        // Delete Scheduled Block
-                        getPresenter().deleteScheduledBlockById(kidIdentity, scheduledBlockEntity.getIdentity());
+            if (!activityHandler.isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(scheduledBlockEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content, getString(R.string.scheduled_block_deleted_success), getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(scheduledBlockEntity, deletedIndex);
                     }
-                }
-            });
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            Timber.d("Dismiss Event Timeout");
+                            // Delete Scheduled Block
+                            getPresenter().deleteScheduledBlockById(kidIdentity, scheduledBlockEntity.getIdentity());
+                        }
+                    }
+                });
+            }
 
         }
     }
@@ -416,7 +426,12 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
-        getPresenter().saveScheduledBlockStatus(kidIdentity, scheduledBlockStatusEntities);
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            getPresenter().saveScheduledBlockStatus(kidIdentity, scheduledBlockStatusEntities);
+        }
+
     }
 
     /**

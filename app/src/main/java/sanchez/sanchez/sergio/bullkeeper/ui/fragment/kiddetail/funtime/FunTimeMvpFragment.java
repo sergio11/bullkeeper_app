@@ -456,7 +456,11 @@ public class FunTimeMvpFragment extends SupportMvpLCEFragment<FunTimeFragmentPre
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChangesClicked(){
-        saveFunTime();
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            saveFunTime();
+        }
     }
 
     /**

@@ -329,11 +329,18 @@ public class DayScheduledDetailActivityMvpFragment extends SupportMvpFragment<Da
     @OnClick(R.id.saveChanges)
     protected void onSaveChangesClicked(){
 
-        if(funTimeEnabled)
-            // Save Day Scheduled
-            getPresenter().saveDayScheduled(kid, terminal, day,
-                    dayEnabledSwitch.isChecked(),
-                    totalHoursStepperTouch.stepper.getValue());
+        if(!activityHandler.isConnectivityAvailable()) {
+
+            showNoticeDialog(R.string.connectivity_not_available, false);
+
+        } else {
+
+            if(funTimeEnabled)
+                // Save Day Scheduled
+                getPresenter().saveDayScheduled(kid, terminal, day,
+                        dayEnabledSwitch.isChecked(),
+                        totalHoursStepperTouch.stepper.getValue());
+        }
 
     }
 

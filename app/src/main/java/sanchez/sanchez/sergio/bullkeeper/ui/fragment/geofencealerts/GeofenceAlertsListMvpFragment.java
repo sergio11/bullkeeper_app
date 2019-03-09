@@ -240,17 +240,22 @@ public class GeofenceAlertsListMvpFragment extends SupportMvpLCEFragment<Geofenc
      */
     @OnClick(R.id.deleteGeofenceAlerts)
     protected void onDeleteGeofenceAlerts(){
-        showConfirmationDialog(R.string.geofence_alerts_delete_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                getPresenter().deleteAll(kid, geofence);
-            }
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            showConfirmationDialog(R.string.geofence_alerts_delete_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    getPresenter().deleteAll(kid, geofence);
+                }
 
-            @Override
-            public void onRejected(DialogFragment dialog) {
+                @Override
+                public void onRejected(DialogFragment dialog) {
 
-            }
-        });
+                }
+            });
+        }
+
     }
 }
 

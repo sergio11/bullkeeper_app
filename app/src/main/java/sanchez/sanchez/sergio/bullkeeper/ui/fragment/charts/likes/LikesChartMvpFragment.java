@@ -250,6 +250,10 @@ public class LikesChartMvpFragment
      */
     @OnClick(R.id.refreshData)
     protected void onRefreshData(){
-        refreshChart();
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            refreshChart();
+        }
     }
 }

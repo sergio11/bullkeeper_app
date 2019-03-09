@@ -189,6 +189,9 @@ dependencies {
     // Carousel View
     implementation presentationDependencies.carouselview
 
+    // Reactive Network
+    implementation presentationDependencies.reactivenetworkRx2
+
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
     androidTestImplementation presentationTestDependencies.dexmakerMockito

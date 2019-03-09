@@ -313,7 +313,11 @@ public class AppStatsMvpFragment
      */
     @OnClick(R.id.refreshData)
     protected void onRefreshDataClicked(){
-        getPresenter().loadData(kid, terminal);
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            getPresenter().loadData(kid, terminal);
+        }
     }
 
 
