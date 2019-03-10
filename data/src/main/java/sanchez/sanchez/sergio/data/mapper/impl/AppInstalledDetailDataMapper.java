@@ -62,9 +62,10 @@ public final class AppInstalledDetailDataMapper extends AbstractDataMapper<AppIn
             );
         }
 
-        // Set App Model
-        appInstalledDetailEntity.setModel(appModelDataMapper
-                .transform(originModel.getModel()));
+        if(originModel.getModel() != null)
+            // Set App Model
+            appInstalledDetailEntity.setModel(appModelDataMapper
+                    .transform(originModel.getModel()));
 
         return appInstalledDetailEntity;
     }
