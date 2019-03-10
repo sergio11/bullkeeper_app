@@ -11,7 +11,10 @@ import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
  */
 public final class DeleteAccountInteract extends UseCase<String, Void> {
 
-    private final IGuardianRepository parentRepository;
+    /**
+     * Guardian Repository
+     */
+    private final IGuardianRepository guardianRepository;
 
     /**
      * Abstract class for a Use Case
@@ -21,9 +24,9 @@ public final class DeleteAccountInteract extends UseCase<String, Void> {
      */
     public DeleteAccountInteract(IThreadExecutor threadExecutor,
                                  IPostExecutionThread postExecutionThread,
-                                 IGuardianRepository parentRepository) {
+                                 IGuardianRepository guardianRepository) {
         super(threadExecutor, postExecutionThread);
-        this.parentRepository = parentRepository;
+        this.guardianRepository = guardianRepository;
     }
 
     /**
@@ -33,7 +36,7 @@ public final class DeleteAccountInteract extends UseCase<String, Void> {
      */
     @Override
     protected Observable<String> buildUseCaseObservable(Void params) {
-        return parentRepository.deleteSelfAccount();
+        return guardianRepository.deleteSelfAccount();
     }
 
 

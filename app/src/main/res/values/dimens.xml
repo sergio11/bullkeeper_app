@@ -53,6 +53,9 @@
     <!-- Common Action Button Width -->
     <dimen name="common_action_button_width">130dp</dimen>
 
+    <!-- Common Action Button Large Width -->
+    <dimen name="common_action_button_large_width">160dp</dimen>
+
     <!-- Common Action Button Height -->
     <dimen name="common_action_button_height">62dp</dimen>
 

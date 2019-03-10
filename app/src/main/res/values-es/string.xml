@@ -418,7 +418,7 @@
     <string name="error_number_or_special_character_required">Al menos un número o carácter especial.</string>
     <string name="title_activity_search_school">SearchSchoolActivity</string>
     <!-- School -->
-    <string name="search_school_title">Búsqueda de escuelas</string>
+    <string name="search_school_title">Centro Escolar</string>
     <string name="search_school_query_hint">Buscar escuela …</string>
     <string name="search_school_location_query_hint">Buscar ubicación de la escuela …</string>
     <string name="search_school_message">Hacer una búsqueda por el nombre de la escuela.</string>

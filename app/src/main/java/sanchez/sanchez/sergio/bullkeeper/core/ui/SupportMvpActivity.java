@@ -17,7 +17,6 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.TypedValue;
 import android.view.View;
@@ -473,34 +472,11 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
-     * Dismiss all DialogFragments added to given FragmentManager and child fragments
-     */
-    private void dismissAllDialogs(FragmentManager fragmentManager) {
-
-        List<Fragment> fragments = fragmentManager.getFragments();
-
-        if(!fragments.isEmpty()) {
-            for (Fragment fragment : fragments) {
-                if (fragment instanceof DialogFragment) {
-                    DialogFragment dialogFragment = (DialogFragment) fragment;
-                    dialogFragment.dismissAllowingStateLoss();
-                }
-
-                FragmentManager childFragmentManager = fragment.getChildFragmentManager();
-                dismissAllDialogs(childFragmentManager);
-            }
-
-        }
-
-    }
-
-    /**
      * Show Notice Dialog
      * @param title
      */
     @Override
     public void showNoticeDialog(final String title) {
-        dismissAllDialogs(getSupportFragmentManager());
         navigatorImpl.showNoticeDialog(this, title);
     }
 
@@ -521,7 +497,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public void showNoticeDialog(final String title,
                                  final NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
-        dismissAllDialogs(getSupportFragmentManager());
         navigatorImpl.showNoticeDialog(this, title, noticeDialogListener);
     }
 
@@ -533,7 +508,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showNoticeDialog(String title, boolean isSuccess, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
-        dismissAllDialogs(getSupportFragmentManager());
         navigatorImpl.showNoticeDialog(this, title, isSuccess, noticeDialogListener);
     }
 
@@ -544,7 +518,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showNoticeDialog(@StringRes Integer stringResId, boolean isSuccess) {
-        dismissAllDialogs(getSupportFragmentManager());
         navigatorImpl.showNoticeDialog(this, getString(stringResId), isSuccess);
     }
 
@@ -555,7 +528,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showNoticeDialog(String string, boolean isSuccess) {
-        dismissAllDialogs(getSupportFragmentManager());
         navigatorImpl.showNoticeDialog(this, string, isSuccess);
     }
 
@@ -576,7 +548,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showProgressDialog(String title) {
-        dismissAllDialogs(getSupportFragmentManager());
         ProgressDialogFragment.showDialog(this, title);
     }
 
@@ -603,7 +574,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showConfirmationDialog(String title) {
-        dismissAllDialogs(getSupportFragmentManager());
         ConfirmationDialogFragment.showDialog(this, title);
     }
 
@@ -623,7 +593,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void showConfirmationDialog(String title, ConfirmationDialogFragment.ConfirmationDialogListener confirmationDialogListener) {
-        dismissAllDialogs(getSupportFragmentManager());
         ConfirmationDialogFragment.showDialog(this, title, confirmationDialogListener);
     }
 
