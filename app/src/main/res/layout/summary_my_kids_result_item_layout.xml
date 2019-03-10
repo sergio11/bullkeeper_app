@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_list_item_state">
+
+
+    <!-- Kid Image -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/kidImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_not_be_loaded"
+        android:src="@drawable/kid_default_image"
+        app:civ_border_color="@color/cyanBrilliant"
+        app:civ_border_width="@dimen/common_image_stroke_width" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start|center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Child Name -->
+        <TextView
+            android:id="@+id/childName"
+            style="@style/CommonStrongText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/commonWhite" />
+
+        <!-- School Name -->
+        <TextView
+            android:id="@+id/schoolName"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/school_white_solid_small"
+            android:textColor="@color/commonWhite" />
+
+        <!--Devices -->
+        <TextView
+            android:id="@+id/terminalsTextView"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:gravity="start|center_vertical"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/commonWhite" />
+
+        <!-- Current Location -->
+        <TextView
+            android:id="@+id/currentLocation"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:gravity="start|center_vertical"
+            android:singleLine="true"
+            android:text="-"
+            android:textColor="@color/commonWhite" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/common_divider_height"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/commonWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <LinearLayout
+        android:id="@+id/actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Total Comments Analyzed  -->
+            <TextView
+                android:id="@+id/totalCommentsAnalyzed"
+                style="@style/CommonStrongText.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="-"
+                android:drawablePadding="@dimen/common_padding"
+                android:drawableStart="@drawable/comments_solid_white"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/socialMediaStatus"
+                android:textColor="@color/commonWhite" />
+
+
+            <LinearLayout
+                android:id="@+id/socialMediaStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_margin"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Facebook Icon -->
+                <ImageView
+                    android:id="@+id/facebookIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/facebook_warning"
+                    android:contentDescription="@string/content_not_be_loaded"/>
+
+                <!-- Instagram Icon -->
+                <ImageView
+                    android:id="@+id/instagramIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/common_margin_small"
+                    android:layout_marginEnd="@dimen/common_margin_small"
+                    android:src="@drawable/instagram_warning"
+                    android:contentDescription="@string/content_not_be_loaded"/>
+
+                <!-- Youtube Icon -->
+                <ImageView
+                    android:id="@+id/youtubeIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/google_plus_yellow"
+                    android:contentDescription="@string/content_not_be_loaded"/>
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/CommonStrongText.Big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:textAlignment="center"
+            android:text="@string/summary_my_kids_results_dimension_analysis"
+            android:textColor="@color/commonWhite" />
+
+        <View
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/commonWhite" />
+
+
+        <!-- Violent Comments -->
+        <TextView
+            android:id="@+id/violentComments"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/comment_detail_violence"
+            android:textColor="@color/violence_color" />
+
+
+        <!-- Adult Content Comments -->
+        <TextView
+            android:id="@+id/adultContentComments"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/comment_detail_sex"
+            android:textColor="@color/sex_color" />
+
+
+        <!-- Drugs Comments -->
+        <TextView
+            android:id="@+id/drugsComments"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/comment_detail_drugs"
+            android:textColor="@color/drugs_color" />
+
+        <!-- Bullying Comments -->
+        <TextView
+            android:id="@+id/bullyingComments"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/comment_detail_bullying"
+            android:textColor="@color/bullying_color" />
+
+
+        <TextView
+            style="@style/CommonStrongText.Big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:textAlignment="center"
+            android:text="@string/summary_my_kids_results_sentiment_analysis"
+            android:textColor="@color/commonWhite" />
+
+        <View
+            android:layout_width="@dimen/common_divider_small"
+            android:layout_height="@dimen/common_divider_height"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/commonWhite" />
+
+        <!-- Comments Negative Sentiment -->
+        <TextView
+            android:id="@+id/commentsNegativeSentiment"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/negative_sentiment_solid_small"
+            android:textColor="@color/redDanger" />
+
+        <!-- Comments Positive Sentiment -->
+        <TextView
+            android:id="@+id/commentsPositiveSentiment"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/positive_sentiment_solid_small"
+            android:textColor="@color/greenSuccess" />
+
+        <!-- Comments Positive Sentiment -->
+        <TextView
+            android:id="@+id/commentsNeutralSentiment"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="-"
+            android:drawablePadding="@dimen/common_padding"
+            android:drawableStart="@drawable/neutro_sentiment_solid_small"
+            android:textColor="@color/gray" />
+
+    </LinearLayout>
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="94dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="100dp" />
+
+</android.support.constraint.ConstraintLayout>

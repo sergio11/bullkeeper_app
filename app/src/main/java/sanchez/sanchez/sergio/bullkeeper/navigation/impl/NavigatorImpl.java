@@ -35,6 +35,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.detail.SchoolDialogF
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.search.SearchSchoolMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.searchguardian.SearchGuardiansMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.smsdetail.SmsDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.summarymykidsresults.SummaryMyKidsResultsActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AboutDeveloperDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
@@ -1011,6 +1012,17 @@ public class NavigatorImpl implements INavigator {
 
         activity.startActivity(DayScheduledMvpActivity.getCallingIntent(activity,
                 kid, terminal, day, isFunTimeEnabled));
+    }
+
+    /**
+     * Navigate Summary My Kids Results Activity
+     * @param activity
+     */
+    @Override
+    public void navigateToSummaryMyKidsResultsActivity(final Activity activity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+
+        activity.startActivity(SummaryMyKidsResultsActivity.getCallingIntent(activity));
     }
 
     /**

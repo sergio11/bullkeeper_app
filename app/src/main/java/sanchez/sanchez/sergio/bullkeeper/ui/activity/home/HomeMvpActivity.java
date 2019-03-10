@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -186,6 +183,14 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     @Override
     public void goToAlerts() {
         navigatorImpl.navigateToAlertList(activity);
+    }
+
+    /**
+     * Go To Summary My kids Results
+     */
+    @Override
+    public void goToSummaryMyKidsResults() {
+        navigatorImpl.navigateToSummaryMyKidsResultsActivity(this);
     }
 
     /**

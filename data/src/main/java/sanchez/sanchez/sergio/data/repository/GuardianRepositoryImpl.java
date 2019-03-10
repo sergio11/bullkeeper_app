@@ -15,11 +15,13 @@ import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import timber.log.Timber;
 
@@ -54,10 +56,20 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     private final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
             childrenOfSelfGuardianDataMapper;
 
+    /**
+     * Summary My Kid Result Entity Abstract Data Mapper
+     */
+    private final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> summaryMyKidResultEntityAbstractDataMapper;
+
 
     /**
      *
      * @param guardianService
+     * @param kidDataMapper
+     * @param guardianDataMapper
+     * @param imageDataMapper
+     * @param childrenOfSelfGuardianDataMapper
+     * @param summaryMyKidResultEntityAbstractDataMapper
      */
     @Inject
     public GuardianRepositoryImpl(final IGuardiansService guardianService,
@@ -65,12 +77,14 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
                                   final AbstractDataMapper<GuardianDTO, GuardianEntity> guardianDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                   final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
-                                    childrenOfSelfGuardianDataMapper) {
+                                    childrenOfSelfGuardianDataMapper,
+                                  final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> summaryMyKidResultEntityAbstractDataMapper) {
         this.guardianService = guardianService;
         this.kidDataMapper = kidDataMapper;
         this.guardianDataMapper = guardianDataMapper;
         this.imageDataMapper = imageDataMapper;
         this.childrenOfSelfGuardianDataMapper = childrenOfSelfGuardianDataMapper;
+        this.summaryMyKidResultEntityAbstractDataMapper = summaryMyKidResultEntityAbstractDataMapper;
     }
 
     /**
@@ -181,4 +195,16 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     }
 
 
+    /**
+     * Get Statistics Summary
+     * @return
+     */
+    @Override
+    public Observable<List<SummaryMyKidResultEntity>> getStatisticsSummary() {
+        return guardianService.getStatisticsSummary()
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(summaryMyKidResultEntityAbstractDataMapper::transform);
+
+    }
 }

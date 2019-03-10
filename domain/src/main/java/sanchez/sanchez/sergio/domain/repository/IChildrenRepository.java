@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 
 /**
  * Children Repository

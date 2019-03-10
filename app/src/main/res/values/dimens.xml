@@ -49,6 +49,8 @@
     <dimen name="common_padding">10dp</dimen>
     <!-- Common Margin -->
     <dimen name="common_margin">10dp</dimen>
+    <!-- Common Margin Small -->
+    <dimen name="common_margin_small">5dp</dimen>
 
     <!-- Common Action Button Width -->
     <dimen name="common_action_button_width">130dp</dimen>

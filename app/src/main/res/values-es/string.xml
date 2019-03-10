@@ -880,4 +880,24 @@
     <string name="about_the_developer_title">Sergio Sánchez Sánchez</string>
     <string name="about_the_developer_content">Durante mi experiencia profesional he buscado impulsar en mi trabajo cualidades como ilusión, responsabilidad y consecución de objetivos que se plantean en cualquier proyecto, teniendo en cuenta la importancia de superación o mejora personal y del grupo de trabajo donde he tenido la oportunidad de participar.</string>
 
+    <!-- Results -->
+    <string name="summary_my_kids_results_title">Resumen de Resultados</string>
+    <string name="summary_my_kids_results_total_comments" formatted="false">Se ha analizado %d comentarios</string>
+    <string name="summary_my_kids_results_dimension_analysis">Análsis de Dimensiones</string>
+    <string name="summary_my_kids_results_no_comments_analyzed">No se ha analizado ningún comentario</string>
+    <string name="summary_my_kids_results_violence_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con violencia</string>
+    <string name="summary_my_kids_results_no_violence_comments">Ninguno de los comentarios analizados tienen relación con violencia</string>
+    <string name="summary_my_kids_results_adult_content_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con contenido adulto</string>
+    <string name="summary_my_kids_results_no_adult_content_comments">Ninguno de los comentarios analizados tienen relación con contenido adulto</string>
+    <string name="summary_my_kids_results_drugs_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con drogas</string>
+    <string name="summary_my_kids_results_no_drugs_comments">Ninguno de los comentarios analizados tienen relación con drogas</string>
+    <string name="summary_my_kids_results_bullying_comments_percentage">%s de los comentarios analizados tienen relación con bullying</string>
+    <string name="summary_my_kids_results_no_bullying_comments">Ninguno de los comentarios analizados tienen relación con bullying</string>
+    <string name="summary_my_kids_results_sentiment_analysis">Análisis de Sentimiento</string>
+    <string name="summary_my_kids_results_negative_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento negativo</string>
+    <string name="summary_my_kids_results_no_negative_comments">Ninguno de los comentarios analizados tienen un sentimiento negativo</string>
+    <string name="summary_my_kids_results_positive_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento positivo</string>
+    <string name="summary_my_kids_results_no_positive_comments">Ninguno de los comentarios analizados tienen un sentimiento positivo</string>
+    <string name="summary_my_kids_results_neutral_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento neutro</string>
+    <string name="summary_my_kids_results_no_neutral_comments">Ninguno de los comentarios analizados tienen un sentimiento neutro</string>
 </resources>

@@ -357,6 +357,12 @@
             android:label="@string/app_name"
             />
 
+        <!-- Summary My Kids Results Activity -->
+        <activity android:name=".ui.activity.summarymykidsresults.SummaryMyKidsResultsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name" />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

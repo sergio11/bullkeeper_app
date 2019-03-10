@@ -1019,4 +1019,26 @@
     <string name="about_the_developer_title">Sergio Sánchez Sánchez</string>
     <string name="about_the_developer_content">During my professional experience I have sought to boost my work qualities such as enthusiasm, responsibility and achievement of objectives that arise in any project, taking into account the importance of improvement or personal improvement and the working group where I had the opportunity to participate.</string>
 
+    <!-- Results -->
+    <string name="summary_my_kids_results_title">Summary Results</string>
+    <string name="summary_my_kids_results_total_comments" formatted="false">%d comments have been analyzed</string>
+    <string name="summary_my_kids_results_no_comments_analyzed">No comments have been analyzed</string>
+
+    <string name="summary_my_kids_results_dimension_analysis">Dimension Analysis</string>
+    <string name="summary_my_kids_results_violence_comments_percentage" formatted="false">%s of the comments analyzed are related to violence</string>
+    <string name="summary_my_kids_results_no_violence_comments">None of the comments analyzed is related to violence</string>
+    <string name="summary_my_kids_results_adult_content_comments_percentage" formatted="false">%s of the comments analyzed are related to sex</string>
+    <string name="summary_my_kids_results_no_adult_content_comments">None of the comments analyzed is related to adult content</string>
+    <string name="summary_my_kids_results_drugs_comments_percentage" formatted="false">%s of the comments analyzed are related to drugs</string>
+    <string name="summary_my_kids_results_no_drugs_comments">None of the comments analyzed is related to drugs</string>
+    <string name="summary_my_kids_results_bullying_comments_percentage">%s of the comments analyzed are related to sex</string>
+    <string name="summary_my_kids_results_no_bullying_comments">None of the comments analyzed is related to Bullying</string>
+    <string name="summary_my_kids_results_sentiment_analysis">Sentiment Analysis</string>
+    <string name="summary_my_kids_results_negative_comments_percentage" formatted="false">%s of the comments analyzed have a negative sentiment</string>
+    <string name="summary_my_kids_results_no_negative_comments">None of the comments analyzed have negative sentiment</string>
+    <string name="summary_my_kids_results_positive_comments_percentage" formatted="false">%s of the comments analyzed have a positive sentiment</string>
+    <string name="summary_my_kids_results_no_positive_comments">None of the comments analyzed have positive sentiment</string>
+    <string name="summary_my_kids_results_neutral_comments_percentage" formatted="false">%s of the comments analyzed have a neutral sentiment</string>
+    <string name="summary_my_kids_results_no_neutral_comments">None of the comments analyzed have neutral sentiment</string>
+
 </resources>

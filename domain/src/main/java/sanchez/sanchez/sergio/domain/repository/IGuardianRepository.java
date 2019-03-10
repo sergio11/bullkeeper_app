@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 
 /**
  * Guardian Repository
@@ -64,5 +65,11 @@ public interface IGuardianRepository {
      * @return
      */
     Observable<List<GuardianEntity>> search(final String text);
+
+    /**
+     * Get Statistics Summary
+     * @return
+     */
+    Observable<List<SummaryMyKidResultEntity>> getStatisticsSummary();
 
 }

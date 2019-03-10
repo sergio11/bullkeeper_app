@@ -291,6 +291,14 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     }
 
     /**
+     * On Results Action
+     */
+    @OnClick(R.id.resultsAction)
+    protected void onResultsAction(){
+        activityHandler.goToSummaryMyKidsResults();
+    }
+
+    /**
      * On User Profile Loaded
      * @param guardianEntity
      */

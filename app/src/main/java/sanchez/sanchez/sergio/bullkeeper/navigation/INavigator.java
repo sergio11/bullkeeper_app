@@ -558,6 +558,12 @@ public interface INavigator {
 
 
     /**
+     * Navigate Summary My Kids Results Activity
+     * @param activity
+     */
+    void navigateToSummaryMyKidsResultsActivity(final Activity activity);
+
+    /**
      *
      * @param activity
      * @param kid
@@ -579,4 +585,5 @@ public interface INavigator {
      * Show About Developer Dialog
      */
     void showAboutDeveloperDialog(final AppCompatActivity activity);
+
 }

@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.RegisterGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
@@ -17,6 +18,7 @@ import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 
 /**
  * Guardians Service Interface
@@ -57,6 +59,14 @@ public interface IGuardiansService {
 
 
     /**
+     * Get Statistics Summary
+     * @return
+     */
+    @GET("guardians/self/children/statistics/summary")
+    Observable<APIResponse<List<SummaryMyKidResultDTO>>> getStatisticsSummary ();
+
+
+    /**
      * Get Guardian Self Information
      */
     @GET("guardians/self")
@@ -91,5 +101,6 @@ public interface IGuardiansService {
     @GET("guardians/search")
     Observable<APIResponse<List<GuardianDTO>>> searchGuardian(
             final @Query("text") String text);
+
 
 }

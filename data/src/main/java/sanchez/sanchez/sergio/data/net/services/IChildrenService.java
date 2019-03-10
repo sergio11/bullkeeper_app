@@ -28,6 +28,7 @@ import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
@@ -82,17 +83,6 @@ public interface IChildrenService {
      */
     @GET("children/{id}/statistics/sentiment-analysis")
     Observable<APIResponse<SentimentAnalysisStatisticsDTO>> getSentimentAnalysisStatistics(
-            @Path("id") final String id, @Query("days_ago") final Integer daysAgo);
-
-
-    /**
-     * Get Communities Statistics
-     * @param id
-     * @param daysAgo
-     * @return
-     */
-    @GET("children/{id}/statistics/communities")
-    Observable<APIResponse<CommunitiesStatisticsDTO>> getCommunitiesStatistics(
             @Path("id") final String id, @Query("days_ago") final Integer daysAgo);
 
 

@@ -51,6 +51,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SocialMediaLikesStatisticsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.KidEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SonImageEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.SummaryMyKidsResultsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SupervisedChildrenEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalDetailEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalEntityDataMapper;
@@ -98,6 +99,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatis
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SupervisedChildrenDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
@@ -143,6 +145,7 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
@@ -645,6 +648,23 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<AppModelCategoryDTO, AppModelCategoryEntity> provideAppModelCategoryDataMapper(){
         return new AppModelCategoryDataMapper();
+    }
+
+    /**
+     * Provide Summary My Kids Results Data Mapper
+     * @param kidEntityAbstractDataMapper
+     * @param locationEntityAbstractDataMapper
+     * @param socialMediaEntityAbstractDataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> provideSummaryMyKidsResultsDataMapper(
+            final AbstractDataMapper<KidDTO, KidEntity> kidEntityAbstractDataMapper,
+            final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper,
+            final AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> socialMediaEntityAbstractDataMapper
+    ){
+        return new SummaryMyKidsResultsDataMapper(kidEntityAbstractDataMapper, locationEntityAbstractDataMapper,
+                socialMediaEntityAbstractDataMapper);
     }
 
 }

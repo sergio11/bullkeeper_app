@@ -173,4 +173,5 @@ public class ChildrenModule {
         return new GetKidLocationInteract(threadExecutor, postExecutionThread, childrenRepository);
     }
 
+
 }

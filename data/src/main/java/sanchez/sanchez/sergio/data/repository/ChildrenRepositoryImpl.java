@@ -47,13 +47,17 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     private final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper;
     private final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper;
 
+
     /**
+     *
      * @param childrenService
      * @param sonDataMapper
      * @param imageDataMapper
      * @param dimensionDataMapper
      * @param socialMediaStatisticsDataMapper
      * @param sentimentAnalysisStatisticsDataMapper
+     * @param alertsStatisticsDataMapper
+     * @param kidGuardianEntityAbstractDataMapper
      * @param locationEntityAbstractDataMapper
      */
     public ChildrenRepositoryImpl(final IChildrenService childrenService,
@@ -301,4 +305,5 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
                 .map(locationEntityAbstractDataMapper::transform);
 
     }
+
 }
