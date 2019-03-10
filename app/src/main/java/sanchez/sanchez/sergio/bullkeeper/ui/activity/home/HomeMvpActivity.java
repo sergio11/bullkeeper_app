@@ -280,8 +280,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      * On Retry Again
      */
     @Override
-    public void onRetryAgain() {
-
+    public void onRefresh() {
         final ProfileMvpFragment profileMvpFragment =
                 (ProfileMvpFragment)getSupportFragmentManager().findFragmentById(R.id.profileFragment);
         if(profileMvpFragment != null)

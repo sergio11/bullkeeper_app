@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.bullkeeper.core.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -142,6 +141,8 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         noDataFoundView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(lceListener != null)
+                    lceListener.onRefresh();
                 loadData();
             }
         });
@@ -258,6 +259,8 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      */
     @Override
     public void onRefresh() {
+        if(lceListener != null)
+            lceListener.onRefresh();
         loadData();
     }
 
@@ -312,7 +315,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     protected void onRetryAgain(){
         Timber.d("On Retry Again");
         if(lceListener != null)
-            lceListener.onRetryAgain();
+            lceListener.onRefresh();
         loadData();
     }
 
@@ -358,9 +361,9 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         void onErrorOcurred();
 
         /**
-         * On Retry Again
+         * On Refresh
          */
-        void onRetryAgain();
+        void onRefresh();
     }
 
     /**
