@@ -560,10 +560,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 } else {
                     if(isChecked) {
 
-                        showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                             @Override
                             public void onAccepted(DialogFragment dialog) {
-                                getPresenter().switchLockScreenStatus(childId, terminalId, true);
+                                getPresenter().switchLockScreenStatus(childId, terminalId, false);
                             }
 
                             @Override
@@ -574,10 +574,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
 
                     } else {
 
-                        showConfirmationDialog(R.string.terminal_disable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        showConfirmationDialog(R.string.terminal_enable_lock_screen_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                             @Override
                             public void onAccepted(DialogFragment dialog) {
-                                getPresenter().switchLockScreenStatus(childId, terminalId, false);
+                                getPresenter().switchLockScreenStatus(childId, terminalId, true);
                             }
 
                             @Override
@@ -595,7 +595,7 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 getString(R.string.terminal_lock_camera_disabled));
 
         lockCameraStatusWidget.setEnabled(true);
-        lockCameraStatusWidget.setChecked(terminalDetailEntity.isScreenEnabled(), false);
+        lockCameraStatusWidget.setChecked(terminalDetailEntity.isCameraEnabled(), false);
         lockCameraStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -607,10 +607,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
 
                     if (isChecked) {
 
-                        showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                             @Override
                             public void onAccepted(DialogFragment dialog) {
-                                getPresenter().switchLockCameraStatus(childId, terminalId, true);
+                                getPresenter().switchLockCameraStatus(childId, terminalId, false);
                             }
 
                             @Override
@@ -620,10 +620,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                         });
 
                     } else {
-                        showConfirmationDialog(R.string.terminal_disable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                        showConfirmationDialog(R.string.terminal_enable_lock_camera_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                             @Override
                             public void onAccepted(DialogFragment dialog) {
-                                getPresenter().switchLockCameraStatus(childId, terminalId, false);
+                                getPresenter().switchLockCameraStatus(childId, terminalId, true);
                             }
 
                             @Override
@@ -819,6 +819,12 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @Override
     public void onLockCameraStatusChangedSuccessfully() {
+
+        if(!lockCameraStatusWidget.isChecked())
+            lockCameraTextView.setText(getString(R.string.terminal_lock_camera_disabled));
+        else
+            lockCameraTextView.setText(getString(R.string.terminal_lock_camera_enable));
+
         showNoticeDialog(R.string.terminal_lock_camera_changed_successfully);
     }
 
@@ -837,6 +843,13 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @Override
     public void onSettingsScreenStatusChangedSuccessfully() {
+
+        if(!settingsStatusWidget.isChecked())
+            settingsTextView.setText(getString(R.string.terminal_settings_disabled));
+        else
+            settingsTextView.setText(getString(R.string.terminal_settings_enable));
+
+
         showNoticeDialog(R.string.terminal_settings_changed_successfully);
     }
 
