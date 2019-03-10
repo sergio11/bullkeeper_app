@@ -161,8 +161,8 @@
             <!-- Camera not allowed -->
             <ImageView
                 android:id="@+id/cameraNotAllowed"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="@dimen/common_margin"
                 android:layout_marginStart="@dimen/common_margin"
                 android:src="@drawable/camera_not_allowed"
@@ -172,8 +172,8 @@
             <!-- Mobile Screen Not Allowed -->
             <ImageView
                 android:id="@+id/mobileScreenNotAllowed"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/mobile_screen_not_allowed"
                 android:visibility="invisible"
                 android:contentDescription="@string/content_not_be_loaded"/>
