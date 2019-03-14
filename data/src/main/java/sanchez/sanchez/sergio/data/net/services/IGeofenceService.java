@@ -58,7 +58,7 @@ public interface IGeofenceService {
      * @param geofence
      * @return
      */
-    @DELETE("children/{kid}/geofences/{geofence}/alerts/delete")
+    @DELETE("children/{kid}/geofences/{geofence}/alerts")
     Observable<APIResponse<String>> deleteGeofenceAlerts(
             @Path("kid") final String kid,
             @Path("geofence") final String geofence

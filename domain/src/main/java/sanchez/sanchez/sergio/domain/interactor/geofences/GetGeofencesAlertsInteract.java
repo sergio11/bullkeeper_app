@@ -110,7 +110,7 @@ public final class GetGeofencesAlertsInteract
         /**
          * No Geofences Alerts Found Exception
          */
-        NO_GEOFENCES_ALERTS_FOUND_EXCEPTION(){
+        NO_GEOFENCE_ALERTS_FOUND(){
             @Override
             public <E> void accept(final IGetGeofencesAlertsApiErrorsVisitor visitor, E data) {
                 visitor.visitNoGeofencesAlertsFound(visitor);

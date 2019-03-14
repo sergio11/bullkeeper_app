@@ -95,7 +95,10 @@ import timber.log.Timber;
  */
 public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<SaveGeofencePresenter, ISaveGeofenceView>
         implements HasComponent<GeofenceComponent>, ISaveGeofenceView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
-        GoogleApiClient.ConnectionCallbacks, AdapterView.OnItemSelectedListener, SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SuggestedPlaceEntity>, SearchView.OnQueryTextListener, OnSuccessListener<AutocompletePredictionBufferResponse>, OnFailureListener {
+        GoogleApiClient.ConnectionCallbacks, AdapterView.OnItemSelectedListener,
+        SupportRecyclerViewAdapter.OnSupportRecyclerViewListener<SuggestedPlaceEntity>,
+        SearchView.OnQueryTextListener, OnSuccessListener<AutocompletePredictionBufferResponse>,
+        OnFailureListener, ISaveGeofenceActivityHandler {
 
     /**
      * Geofence Added Arg

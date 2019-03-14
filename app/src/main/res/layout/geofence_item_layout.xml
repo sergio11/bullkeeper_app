@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/deleteAlert"
+            android:layout_toStartOf="@id/deleteGeofence"
             android:textAllCaps="true"
             android:text="@string/delete_list_menu_item"
             android:textColor="@color/commonWhite"

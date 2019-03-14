@@ -33,7 +33,7 @@ public final class GeofenceAlertDTO implements Serializable {
     /**
      * Message
      */
-    @JsonProperty("message")
+    @JsonProperty("description")
     private String message;
 
     public GeofenceAlertDTO(){}
