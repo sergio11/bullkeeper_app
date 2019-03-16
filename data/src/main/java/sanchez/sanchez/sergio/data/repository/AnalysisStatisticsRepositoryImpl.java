@@ -1,0 +1,207 @@
+package sanchez.sanchez.sergio.data.repository;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+import java.util.Collections;
+import java.util.List;
+import io.reactivex.Observable;
+import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
+import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.services.IAnalysisStatisticsService;
+import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
+
+/**
+ * Analysis Statistics Repository
+ */
+public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisticsRepository {
+
+    private final IAnalysisStatisticsService analysisStatisticsService;
+    private final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper;
+    private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
+    private final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper;
+    private final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper;
+    private final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper;
+
+    /**
+     *
+     * @param analysisStatisticsService
+     * @param dimensionDataMapper
+     * @param socialMediaStatisticsDataMapper
+     * @param sentimentAnalysisStatisticsDataMapper
+     * @param commentsStatisticsDataMapper
+     * @param socialMediaLikesStatisticsDataMapper
+     */
+    public AnalysisStatisticsRepositoryImpl(
+            final IAnalysisStatisticsService analysisStatisticsService,
+            final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
+            final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
+            final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper,
+            final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper,
+            final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper) {
+        this.analysisStatisticsService = analysisStatisticsService;
+        this.dimensionDataMapper = dimensionDataMapper;
+        this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
+        this.sentimentAnalysisStatisticsDataMapper = sentimentAnalysisStatisticsDataMapper;
+        this.commentsStatisticsDataMapper = commentsStatisticsDataMapper;
+        this.socialMediaLikesStatisticsDataMapper = socialMediaLikesStatisticsDataMapper;
+    }
+
+    /**
+     * Get Dimensions Statistics
+     * @param identities
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<List<DimensionEntity>> getDimensionsStatistics(final List<String> identities, int daysAgo) {
+        Preconditions.checkNotNull(identities, "Identities can not be null");
+        Preconditions.checkState(!identities.isEmpty(), "Identities can not be empty");
+
+        return analysisStatisticsService.getDimensionsStatistics(identities, daysAgo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData() : null)
+                .map(dimensionsStatisticsDTO ->
+                        dimensionDataMapper.transform(dimensionsStatisticsDTO.getDimensions()));
+    }
+
+    /**
+     * Get Dimensions Statistics
+     * @param id
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<List<DimensionEntity>> getDimensionsStatistics(final String id, int daysAgo) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+        return getDimensionsStatistics(Collections.singletonList(id), daysAgo);
+    }
+
+    /**
+     * Get Social Media Activity Statistics
+     * @param identities
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SocialMediaActivityStatisticsEntity> getSocialMediaActivityStatistics(
+            final List<String> identities, int daysAgo) {
+        Preconditions.checkNotNull(identities, "Identities can not be null");
+        return analysisStatisticsService.getSocialMediaActivityStatistics(identities, daysAgo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData() : null)
+                .map(socialMediaStatisticsDataMapper::transform);
+    }
+
+    /**
+     * Get Social Media Activity Statistics
+     * @param id
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SocialMediaActivityStatisticsEntity> getSocialMediaActivityStatistics(
+            final String id, int daysAgo) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+        return getSocialMediaActivityStatistics(Collections.singletonList(id), daysAgo);
+    }
+
+    /**
+     * Get Sentiment Analysis Statistics
+     * @param identities
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SentimentAnalysisStatisticsEntity> getSentimentAnalysisStatistics(final List<String> identities, int daysAgo) {
+        Preconditions.checkNotNull(identities,
+                "Identities can not be null");
+        return analysisStatisticsService.getSentimentAnalysisStatistics(identities, daysAgo)
+                .map(response -> response != null &&
+                        response.getData() != null ? response.getData(): null)
+                .map(sentimentAnalysisStatisticsDataMapper::transform);
+    }
+
+    /**
+     * Get Sentiment Analysis Statistics
+     * @param id
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SentimentAnalysisStatisticsEntity> getSentimentAnalysisStatistics(
+            final String id, int daysAgo) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+        return getSentimentAnalysisStatistics(Collections.singletonList(id), daysAgo);
+    }
+
+    /**
+     * Get Comments Statistics By Social Media
+     * @param identities
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<CommentsStatisticsBySocialMediaEntity> getCommentsStatisticsBySocialMedia(List<String> identities, int daysAgo) {
+        Preconditions.checkNotNull(identities, "Identities can not be null");
+        Preconditions.checkState(!identities.isEmpty(), "Identities can not be empty");
+
+        return analysisStatisticsService.getCommentsStatisticsBySocialMedia(identities, daysAgo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData() : null)
+                .map(commentsStatisticsDataMapper::transform);
+    }
+
+    /**
+     * Get Comments Statistics By Social Media
+     * @param id
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<CommentsStatisticsBySocialMediaEntity> getCommentsStatisticsBySocialMedia(String id, int daysAgo) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+        return getCommentsStatisticsBySocialMedia(Collections.singletonList(id), daysAgo);
+    }
+
+    /**
+     * Get Social Media Likes Statistics
+     * @param identities
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SocialMediaLikesStatisticsEntity> getSocialMediaLikesStatistics(List<String> identities, int daysAgo) {
+        Preconditions.checkNotNull(identities, "Identities can not be null");
+        Preconditions.checkState(!identities.isEmpty(), "Identities can not be empty");
+
+        return analysisStatisticsService.getSocialMediaLikesStatistics(identities, daysAgo)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData() : null)
+                .map(socialMediaLikesStatisticsDataMapper::transform);
+    }
+
+    /**
+     * Get Social Media Likes Statistics
+     * @param id
+     * @param daysAgo
+     * @return
+     */
+    @Override
+    public Observable<SocialMediaLikesStatisticsEntity> getSocialMediaLikesStatistics(String id, int daysAgo) {
+        Preconditions.checkNotNull(id, "Id can not be null");
+        Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
+        return getSocialMediaLikesStatistics(Collections.singletonList(id), daysAgo);
+    }
+}

@@ -1,15 +1,14 @@
-package sanchez.sanchez.sergio.domain.interactor.children;
+package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
-import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -20,19 +19,21 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
         GetFourDimensionsStatisticsByChildInteract.Params> {
 
     /**
-     * Children Repository
+     * Analysis Statistics Repository
      */
-    private final IChildrenRepository childrenRepository;
+    private final IAnalysisStatisticsRepository analysisStatisticsRepository;
 
     /**
+     *
      * @param threadExecutor
      * @param postExecutionThread
+     * @param analysisStatisticsRepository
      */
     public GetFourDimensionsStatisticsByChildInteract(final IThreadExecutor threadExecutor,
                                                       final IPostExecutionThread postExecutionThread,
-                                                      final IChildrenRepository childrenRepository) {
+                                                      final IAnalysisStatisticsRepository analysisStatisticsRepository) {
         super(threadExecutor, postExecutionThread);
-        this.childrenRepository = childrenRepository;
+        this.analysisStatisticsRepository = analysisStatisticsRepository;
     }
 
     /**
@@ -47,7 +48,7 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
         Preconditions.checkNotNull(!params.getKid().isEmpty(), "Kid Id can not be empty");
         Preconditions.checkState(params.daysAgo > 0, "Days Ago must be greater than 0");
 
-        return childrenRepository.getDimensionsStatisticsByChild(params.getKid(), params.getDaysAgo());
+        return analysisStatisticsRepository.getDimensionsStatistics(params.getKid(), params.getDaysAgo());
     }
 
     /**

@@ -6,17 +6,11 @@ import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
-import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocialMediaDTO;
-import sanchez.sanchez.sergio.data.net.models.response.MostActiveFriendsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.services.ICommentsService;
 import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
 import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
-import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
-import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
-import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
 
@@ -30,23 +24,6 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
      */
     private final ICommentsService commentsService;
 
-    /**
-     * Comments Statistics Data Mapper
-     */
-    private final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO,
-            CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper;
-
-    /**
-     * Social Media Likes Statistics Data Mapper
-     */
-    private final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity>
-            socialMediaLikesStatisticsDataMapper;
-
-    /**
-     * Most Active Friends Data Mapper
-     */
-    private final AbstractDataMapper<MostActiveFriendsDTO, MostActiveFriendsEntity>
-        mostActiveFriendsEntityDataMapper;
 
     /**
      * Comments Data Mapper
@@ -56,58 +33,14 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
     /**
      * Comments Repository Impl
      * @param commentsService
-     * @param commentsStatisticsDataMapper
-     * @param socialMediaLikesStatisticsDataMapper
      * @param commentsDataMapper
      */
-    public CommentsRepositoryImpl(final ICommentsService commentsService, final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO,
-            CommentsStatisticsBySocialMediaEntity> commentsStatisticsDataMapper,
-                                  final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity>
-                                          socialMediaLikesStatisticsDataMapper,
-                                  final AbstractDataMapper<CommentDTO, CommentEntity> commentsDataMapper,
-                                  final AbstractDataMapper<MostActiveFriendsDTO, MostActiveFriendsEntity>
-                                          mostActiveFriendsEntityDataMapper) {
+    public CommentsRepositoryImpl(
+            final ICommentsService commentsService,
+            final AbstractDataMapper<CommentDTO, CommentEntity> commentsDataMapper
+    ) {
         this.commentsService = commentsService;
-        this.commentsStatisticsDataMapper = commentsStatisticsDataMapper;
-        this.socialMediaLikesStatisticsDataMapper = socialMediaLikesStatisticsDataMapper;
         this.commentsDataMapper = commentsDataMapper;
-        this.mostActiveFriendsEntityDataMapper = mostActiveFriendsEntityDataMapper;
-    }
-
-    /**
-     * Get Comments Statistics By Social Media
-     * @param sonId
-     * @return
-     */
-    @Override
-    public Observable<CommentsStatisticsBySocialMediaEntity> getCommentsStatisticsBySocialMedia(final String sonId, final int daysAgo) {
-        Preconditions.checkNotNull(sonId, "Son Id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be empty");
-        Preconditions.checkState(daysAgo > 0, "Days Ago must be greater  than 0");
-
-        return commentsService.getCommentsStatisticsBySocialMedia(new String[]{ sonId }, daysAgo)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData() : null)
-                .map(commentsStatisticsDataMapper::transform);
-    }
-
-    /**
-     * Get Social Media Likes
-     * @param kidIdentity
-     * @param daysAgo
-     * @return
-     */
-    @Override
-    public Observable<SocialMediaLikesStatisticsEntity> getSocialMediaLikesStatistics(final String kidIdentity, int daysAgo) {
-        Preconditions.checkNotNull(kidIdentity, "Kid identity can not be null");
-        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid identity can not be empty");
-        Preconditions.checkState(daysAgo > 0, "Days ago must be greater than 0");
-
-        return commentsService.getSocialMediaLikesStatistics(new String[] { kidIdentity }, daysAgo)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData() : null)
-                .map(socialMediaLikesStatisticsDataMapper::transform);
-
     }
 
     /**
@@ -232,24 +165,6 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
                 .map(response -> response != null && response.getData() != null ?
                     response.getData(): null)
                 .map(commentsDataMapper::transform);
-    }
-
-    /**
-     * Get Most Active Friends
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    @Override
-    public Observable<MostActiveFriendsEntity> getMostActiveFriends(String[] ids, Integer daysAgo) {
-        Preconditions.checkNotNull(ids, "Ids can not be null");
-        Preconditions.checkState(ids.length > 0, "Ids can not be empty");
-        Preconditions.checkState(daysAgo > 0, "Days Ago must be greater than 0");
-
-        return commentsService.getMostActiveFriends(ids, daysAgo)
-                .map(response -> response != null &&
-                    response.getData() != null ? response.getData(): null)
-                .map(mostActiveFriendsEntityDataMapper::transform);
     }
 
 }

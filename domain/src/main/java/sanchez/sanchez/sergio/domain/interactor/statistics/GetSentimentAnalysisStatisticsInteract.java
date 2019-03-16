@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.domain.interactor.children;
+package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
-import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -18,20 +18,22 @@ public final class GetSentimentAnalysisStatisticsInteract extends UseCase<Sentim
         GetSentimentAnalysisStatisticsInteract.Params> {
 
     /**
-     * Children Repository
+     * Analysis Statistics Repository
      */
-    private final IChildrenRepository childrenRepository;
+    private final IAnalysisStatisticsRepository analysisStatisticsRepository;
 
 
     /**
      * @param threadExecutor
      * @param postExecutionThread
-     * @param childrenRepository
+     * @param analysisStatisticsRepository
      */
-    public GetSentimentAnalysisStatisticsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                  final IChildrenRepository childrenRepository) {
+    public GetSentimentAnalysisStatisticsInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAnalysisStatisticsRepository analysisStatisticsRepository) {
         super(threadExecutor, postExecutionThread);
-        this.childrenRepository = childrenRepository;
+        this.analysisStatisticsRepository = analysisStatisticsRepository;
     }
 
     /**
@@ -47,7 +49,7 @@ public final class GetSentimentAnalysisStatisticsInteract extends UseCase<Sentim
         Preconditions.checkState(params.getDaysAgo() > 0, "Days ago must be greater than 0");
 
 
-        return childrenRepository.getSentimentAnalysisStatistics(params.getKidIdentity(),
+        return analysisStatisticsRepository.getSentimentAnalysisStatistics(params.getKidIdentity(),
                 params.getDaysAgo());
     }
 

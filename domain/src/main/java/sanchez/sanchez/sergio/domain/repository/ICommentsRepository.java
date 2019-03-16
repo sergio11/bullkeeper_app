@@ -5,34 +5,13 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
 import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
-import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
-import sanchez.sanchez.sergio.domain.models.MostActiveFriendsEntity;
-import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 
 /**
  * Comments Repository
  */
 public interface ICommentsRepository {
-
-    /**
-     * Get Comments Statustics By Social Media
-     * @param sonId
-     * @return
-     */
-    Observable<CommentsStatisticsBySocialMediaEntity>
-        getCommentsStatisticsBySocialMedia(final String sonId, final int daysAgo);
-
-
-    /**
-     * Get Social Media Likes Statistics
-     * @param kidIdentity
-     * @param daysAgo
-     * @return
-     */
-    Observable<SocialMediaLikesStatisticsEntity> getSocialMediaLikesStatistics(final String kidIdentity,
-                                                                               final int daysAgo);
 
 
     /**
@@ -106,13 +85,5 @@ public interface ICommentsRepository {
      * @return
      */
     Observable<CommentEntity> getCommentById(final String id);
-
-    /**
-     * Get Most Active Friends
-     * @param ids
-     * @param daysAgo
-     * @return
-     */
-    Observable<MostActiveFriendsEntity> getMostActiveFriends(final String[] ids, final Integer daysAgo);
 
 }

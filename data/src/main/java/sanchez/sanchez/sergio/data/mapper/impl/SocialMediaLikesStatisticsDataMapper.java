@@ -25,6 +25,7 @@ public final class SocialMediaLikesStatisticsDataMapper
         final SocialMediaLikesStatisticsEntity socialMediaLikesStatisticsEntity = new SocialMediaLikesStatisticsEntity();
         socialMediaLikesStatisticsEntity.setTitle(originModel.getTitle());
         socialMediaLikesStatisticsEntity.setSubtitle(originModel.getSubtitle());
+        socialMediaLikesStatisticsEntity.setTotalLikes(originModel.getTotalLikes());
         final List<SocialMediaLikesStatisticsEntity.SocialMediaLikesEntity> socialMediaLikesEntities = new ArrayList<>();
         for(final SocialMediaLikesStatisticsDTO.SocialMediaLikesDTO socialMediaLikesDTO: originModel.getData()) {
             final SocialMediaLikesStatisticsEntity.SocialMediaLikesEntity socialMediaLikesEntity = new SocialMediaLikesStatisticsEntity.SocialMediaLikesEntity();

@@ -53,6 +53,12 @@ public class LikesChartMvpFragment
     protected String kidIdentity;
 
     /**
+     * Total Likes
+     */
+    @State
+    protected int totalLikes;
+
+    /**
      * Activity
      */
     @Inject
@@ -163,7 +169,7 @@ public class LikesChartMvpFragment
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex,
                                             ViewPortHandler viewPortHandler) {
-                return String.format(Locale.getDefault(), "%d/%d", (int)value, 17);
+                return String.format(Locale.getDefault(), "%d/%d", (int)value, totalLikes);
             }
         };
     }
@@ -214,6 +220,7 @@ public class LikesChartMvpFragment
         super.onDataAvaliable(socialMediaLikesStatisticsEntity);
         Preconditions.checkNotNull(socialMediaLikesStatisticsEntity, "Chart Data can not be null");
 
+        totalLikes = socialMediaLikesStatisticsEntity.getTotalLikes();
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < SocialMediaTypeEnum.values().length; i++ ) {
             final SocialMediaTypeEnum socialMediaTypeEnum = SocialMediaTypeEnum.values()[i];
@@ -234,7 +241,7 @@ public class LikesChartMvpFragment
         }
 
         // Set Chart Data
-        setChartData(entries);
+        setChartData(entries, totalLikes);
     }
 
     /**

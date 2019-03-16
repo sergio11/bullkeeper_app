@@ -4,7 +4,7 @@ import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
-import sanchez.sanchez.sergio.domain.interactor.children.GetSocialMediaActivityStatisticsInteract;
+import sanchez.sanchez.sergio.domain.interactor.statistics.GetSocialMediaActivityStatisticsInteract;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 

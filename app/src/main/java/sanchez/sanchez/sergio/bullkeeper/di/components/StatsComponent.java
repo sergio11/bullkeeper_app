@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.AnalysisStatisticsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
@@ -26,8 +27,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentA
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
-        modules = { ActivityModule.class, ChildrenModule.class, DataMapperModule.class,
-                CommentsModule.class })
+        modules = { ActivityModule.class, DataMapperModule.class, ChildrenModule.class,
+                CommentsModule.class, AnalysisStatisticsModule.class})
 public interface StatsComponent extends ActivityComponent {
 
     /**

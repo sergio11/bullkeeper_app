@@ -263,11 +263,15 @@ public class AppStatsMvpFragment
         super.onDataAvaliable(chartData);
         Preconditions.checkNotNull(chartData, "Chart Data can not be null");
 
+        long maxValue = 0;
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < TOTAL_APPS_TO_SHOW; i++) {
             if(chartData.size() > i) {
                 final AppStatsEntity appStatsEntity = chartData.get(i);
-                final BarEntry entry = new BarEntry(i, appStatsEntity.getTotalTimeInForeground()/1000/60);
+                final long value = appStatsEntity.getTotalTimeInForeground()/1000/60;
+                final BarEntry entry = new BarEntry(i,value);
+                if(value > maxValue)
+                    maxValue = value;
                 if(appUtils.isValidString(appStatsEntity.getIconEncodedString())) {
                     byte[] decodedString = Base64.decode(appStatsEntity.getIconEncodedString(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -285,7 +289,7 @@ public class AppStatsMvpFragment
         }
 
         // Set Chart Data
-        setChartData(entries);
+        setChartData(entries, maxValue);
     }
 
     /**

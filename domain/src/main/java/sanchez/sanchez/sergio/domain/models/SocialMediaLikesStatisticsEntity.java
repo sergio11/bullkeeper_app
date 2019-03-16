@@ -8,10 +8,24 @@ import java.util.List;
  */
 public final class SocialMediaLikesStatisticsEntity implements Serializable {
 
+    /**
+     * Title
+     */
     private String title;
 
+    /**
+     * Subtitle
+     */
     private String subtitle;
 
+    /**
+     * Total Likes
+     */
+    private int totalLikes;
+
+    /**
+     * Social Media Likes Entities
+     */
     private List<SocialMediaLikesEntity> socialMediaLikesEntities;
 
     public SocialMediaLikesStatisticsEntity(){}
@@ -20,11 +34,14 @@ public final class SocialMediaLikesStatisticsEntity implements Serializable {
      *
      * @param title
      * @param subtitle
+     * @param totalLikes
      * @param socialMediaLikesEntities
      */
-    public SocialMediaLikesStatisticsEntity(String title, String subtitle, List<SocialMediaLikesEntity> socialMediaLikesEntities) {
+    public SocialMediaLikesStatisticsEntity(String title, String subtitle, final int totalLikes,
+                                            List<SocialMediaLikesEntity> socialMediaLikesEntities) {
         this.title = title;
         this.subtitle = subtitle;
+        this.totalLikes = totalLikes;
         this.socialMediaLikesEntities = socialMediaLikesEntities;
     }
 
@@ -44,6 +61,14 @@ public final class SocialMediaLikesStatisticsEntity implements Serializable {
         this.subtitle = subtitle;
     }
 
+    public int getTotalLikes() {
+        return totalLikes;
+    }
+
+    public void setTotalLikes(int totalLikes) {
+        this.totalLikes = totalLikes;
+    }
+
     public List<SocialMediaLikesEntity> getSocialMediaLikesEntities() {
         return socialMediaLikesEntities;
     }
@@ -57,8 +82,19 @@ public final class SocialMediaLikesStatisticsEntity implements Serializable {
      */
     public static class SocialMediaLikesEntity {
 
+        /**
+         * Type
+         */
         private SocialMediaEnum type;
+
+        /**
+         * Likes
+         */
         private int likes;
+
+        /**
+         * Label
+         */
         private String label;
 
         public SocialMediaLikesEntity(){}

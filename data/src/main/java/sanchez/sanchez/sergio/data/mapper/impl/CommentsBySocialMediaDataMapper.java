@@ -21,6 +21,7 @@ public final class CommentsBySocialMediaDataMapper extends AbstractDataMapper<Co
     public CommentsStatisticsBySocialMediaEntity transform(final CommentsStatisticsBySocialMediaDTO originModel) {
         final CommentsStatisticsBySocialMediaEntity commentsStatisticsBySocialMediaEntity = new CommentsStatisticsBySocialMediaEntity();
         commentsStatisticsBySocialMediaEntity.setTitle(originModel.getTitle());
+        commentsStatisticsBySocialMediaEntity.setTotalComments(originModel.getTotalComments());
         final List<CommentsStatisticsBySocialMediaEntity.CommentsBySocialMediaEntity> commentsBySocialMediaEntities = new ArrayList<>();
         for(final CommentsStatisticsBySocialMediaDTO.CommentsBySocialMediaDTO commentsBySocialMediaDTO: originModel.getData()) {
             final CommentsStatisticsBySocialMediaEntity.CommentsBySocialMediaEntity commentsBySocialMediaEntity = new CommentsStatisticsBySocialMediaEntity.CommentsBySocialMediaEntity();
@@ -40,6 +41,6 @@ public final class CommentsBySocialMediaDataMapper extends AbstractDataMapper<Co
      */
     @Override
     public CommentsStatisticsBySocialMediaDTO transformInverse(final CommentsStatisticsBySocialMediaEntity originModel) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }

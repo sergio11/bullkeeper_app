@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.domain.interactor.comments;
+package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
-import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -19,19 +19,19 @@ public final class GetCommentsStatisticsBySocialMediaInteract extends UseCase<Co
     /**
      * Comments Repository
      */
-    private final ICommentsRepository commentsRepository;
+    private final IAnalysisStatisticsRepository analysisStatisticsRepository;
 
     /**
      *
      * @param threadExecutor
      * @param postExecutionThread
-     * @param commentsRepository
+     * @param analysisStatisticsRepository
      */
     public GetCommentsStatisticsBySocialMediaInteract(final IThreadExecutor threadExecutor,
                                                       final IPostExecutionThread postExecutionThread,
-                                                      final ICommentsRepository commentsRepository) {
+                                                      final IAnalysisStatisticsRepository analysisStatisticsRepository) {
         super(threadExecutor, postExecutionThread);
-        this.commentsRepository = commentsRepository;
+        this.analysisStatisticsRepository = analysisStatisticsRepository;
     }
 
     /**
@@ -42,9 +42,9 @@ public final class GetCommentsStatisticsBySocialMediaInteract extends UseCase<Co
     @Override
     protected Observable<CommentsStatisticsBySocialMediaEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
-        Preconditions.checkState(!params.getSonId().isEmpty(), "Son Id can not be empty");
+        Preconditions.checkState(!params.getKid().isEmpty(), "Son Id can not be empty");
 
-        return commentsRepository.getCommentsStatisticsBySocialMedia(params.getSonId(), params.getDaysAgo());
+        return analysisStatisticsRepository.getCommentsStatisticsBySocialMedia(params.getKid(), params.getDaysAgo());
     }
 
     /**
@@ -52,21 +52,21 @@ public final class GetCommentsStatisticsBySocialMediaInteract extends UseCase<Co
      */
     public static class Params {
 
-        private final String sonId;
+        private final String kid;
         private final int daysAgo;
 
         /**
          *
-         * @param sonId
+         * @param kid
          * @param daysAgo
          */
-        private Params(final String sonId, final int daysAgo) {
-            this.sonId = sonId;
+        private Params(final String kid, final int daysAgo) {
+            this.kid = kid;
             this.daysAgo = daysAgo;
         }
 
-        public String getSonId() {
-            return sonId;
+        public String getKid() {
+            return kid;
         }
 
         public int getDaysAgo() {
@@ -75,12 +75,12 @@ public final class GetCommentsStatisticsBySocialMediaInteract extends UseCase<Co
 
         /**
          * Create
-         * @param sonId
+         * @param kid
          * @param daysAgo
          * @return
          */
-        public static Params create(final String sonId, final int daysAgo) {
-            return new Params(sonId, daysAgo);
+        public static Params create(final String kid, final int daysAgo) {
+            return new Params(kid, daysAgo);
         }
     }
 

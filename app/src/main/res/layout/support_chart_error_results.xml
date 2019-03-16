@@ -20,4 +20,5 @@
         android:text="@string/kid_results_error_ocurred"
         style="@style/CommonStrongText.Big"
         android:textAlignment="center"/>
+
 </LinearLayout>

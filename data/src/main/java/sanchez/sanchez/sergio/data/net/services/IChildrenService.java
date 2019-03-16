@@ -1,8 +1,6 @@
 package sanchez.sanchez.sergio.data.net.services;
 
-
 import java.util.List;
-import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
@@ -18,8 +16,6 @@ import sanchez.sanchez.sergio.data.net.models.request.SaveKidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.CommentDTO;
-import sanchez.sanchez.sergio.data.net.models.response.CommunitiesStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
@@ -28,9 +24,6 @@ import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
-import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
-import sanchez.sanchez.sergio.domain.models.SocialMediaTypeEnum;
 
 /**
  * Children Service Interface
@@ -105,20 +98,6 @@ public interface IChildrenService {
     @GET("alerts/statistics/alerts")
     Observable<APIResponse<AlertsStatisticsDTO>> getAlertsStatistics(@Query("identities") final String[] ids,
                                                                      @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get Comments By Kid
-     * @param sonId
-     * @param authorId
-     * @param daysAgo
-     * @param SocialMedia
-     * @param dimensions
-     * @return
-     */
-    @GET("children/{id}/comments")
-    Observable<APIResponse<List<CommentDTO>>> getCommentsByKid(@Path("id") final String sonId, @Query("author") final String authorId,
-                                                               @Query("days_ago") final Integer daysAgo, @Query("social_media") final List<SocialMediaTypeEnum> SocialMedia,
-                                                               final Map<DimensionCategoryEnum, String> dimensions);
 
     /**
      * Add Kid To Self Guardian

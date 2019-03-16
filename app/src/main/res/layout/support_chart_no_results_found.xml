@@ -17,7 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/cyanBrilliant"
-        android:singleLine="true"
         android:text="@string/kid_results_no_results_found"
         style="@style/CommonStrongText.Big"
         android:textAlignment="center"/>

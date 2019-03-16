@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.domain.interactor.children;
+package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
-import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -18,19 +18,23 @@ public final class GetSocialMediaActivityStatisticsInteract
         extends UseCase<SocialMediaActivityStatisticsEntity,
                 GetSocialMediaActivityStatisticsInteract.Params> {
 
-    private final IChildrenRepository childrenRepository;
+    /**
+     * Analysis Statistics Repository
+     */
+    private final IAnalysisStatisticsRepository analysisStatisticsRepository;
 
 
     /**
      * @param threadExecutor
      * @param postExecutionThread
-     * @param childrenRepository
+     * @param analysisStatisticsRepository
      */
-    public GetSocialMediaActivityStatisticsInteract(final IThreadExecutor threadExecutor,
-                                                    final IPostExecutionThread postExecutionThread,
-                                                    final IChildrenRepository childrenRepository) {
+    public GetSocialMediaActivityStatisticsInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAnalysisStatisticsRepository analysisStatisticsRepository) {
         super(threadExecutor, postExecutionThread);
-        this.childrenRepository = childrenRepository;
+        this.analysisStatisticsRepository = analysisStatisticsRepository;
     }
 
     /**
@@ -42,7 +46,7 @@ public final class GetSocialMediaActivityStatisticsInteract
     protected Observable<SocialMediaActivityStatisticsEntity> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
 
-        return childrenRepository.getSocialMediaActivityStatistics(params.getKidIdentity(),
+        return analysisStatisticsRepository.getSocialMediaActivityStatistics(params.getKidIdentity(),
                 params.getDaysAgo());
     }
 

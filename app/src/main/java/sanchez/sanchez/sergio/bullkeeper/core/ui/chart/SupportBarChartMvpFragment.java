@@ -78,7 +78,6 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
         YAxis yLeftAxis = barChart.getAxisLeft();
         yLeftAxis.setTextSize(12f);
         yLeftAxis.setAxisMinimum(0f); // start at zero
-        yLeftAxis.setAxisMaximum(17f); // the axis maximum is 100
         yLeftAxis.setTextColor(ContextCompat.getColor(appContext,
                 R.color.darkModerateBlue));
         yLeftAxis.setGranularity(1f); // interval 1
@@ -138,9 +137,18 @@ public abstract class SupportBarChartMvpFragment<P extends TiPresenter<V>, V ext
      * Set Chart Data
      * @param entries
      */
-    protected final void setChartData(final List<BarEntry> entries) {
-        final BarData fourDimensionsBarData = createBarData(entries);
-        barChart.setData(fourDimensionsBarData);
+    protected final void setChartData(final List<BarEntry> entries, final float maxValue) {
+        final BarData barData = createBarData(entries);
+        barChart.setData(barData);
+        barChart.getAxisLeft().setAxisMaximum(maxValue);
         barChart.animateY(9000, Easing.EasingOption.EaseOutBack);
+    }
+
+    /**
+     * Set Char Data
+     * @param entries
+     */
+    protected final void setChartData(final List<BarEntry> entries) {
+        setChartData(entries, 100f);
     }
 }

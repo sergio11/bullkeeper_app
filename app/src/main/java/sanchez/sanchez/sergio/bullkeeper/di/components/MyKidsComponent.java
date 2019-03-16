@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.di.components;
 import dagger.Component;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AlertsModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.AnalysisStatisticsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.AppRulesModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CallModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
@@ -60,7 +61,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.Termina
         modules = { ActivityModule.class, DataMapperModule.class,
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
-                AppRulesModule.class, FunTimeModule.class, TerminalsModule.class,
+                AppRulesModule.class, FunTimeModule.class, TerminalsModule.class, AnalysisStatisticsModule.class,
                 SmsModule.class, CallModule.class, ContactsModule.class, KidRequestModule.class})
 public interface MyKidsComponent extends StatsComponent {
 

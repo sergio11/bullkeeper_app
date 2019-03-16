@@ -56,6 +56,12 @@ public class CommentsExtractedBySocialMediaFragment
     protected String kidIdentity;
 
     /**
+     * Total Comments
+     */
+    @State
+    protected int totalComments;
+
+    /**
      * Show All Comments Extracted View
      */
     @BindView(R.id.showAllCommentsExtracted)
@@ -151,7 +157,7 @@ public class CommentsExtractedBySocialMediaFragment
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex,
                                             ViewPortHandler viewPortHandler) {
-                return String.format(Locale.getDefault(), "%d/%d", (int)value, 17);
+                return String.format(Locale.getDefault(), "%d/%d", (int)value, totalComments);
             }
         };
     }
@@ -219,6 +225,8 @@ public class CommentsExtractedBySocialMediaFragment
         super.onDataAvaliable(chartData);
         Preconditions.checkNotNull(chartData, "Chart Data can not be null");
 
+        totalComments = chartData.getTotalComments();
+
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < SocialMediaEnum.values().length; i++ ) {
             final SocialMediaEnum socialMediaEnum = SocialMediaEnum.values()[i];
@@ -239,7 +247,7 @@ public class CommentsExtractedBySocialMediaFragment
         }
 
         // Set Chart Data
-        setChartData(entries);
+        setChartData(entries, totalComments);
     }
 
 

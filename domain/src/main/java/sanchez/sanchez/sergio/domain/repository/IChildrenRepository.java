@@ -4,14 +4,10 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
-import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 
 /**
  * Children Repository
@@ -56,32 +52,6 @@ public interface IChildrenRepository {
      * @return
      */
     Observable<ImageEntity> uploadProfileImage(final String sonId, final String profileImageUri);
-
-    /**
-     * Get Dimensions Statistics By Child
-     * @param sonId
-     * @return
-     */
-    Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId, final int daysAgo);
-
-    /**
-     * Get Social Media Activity Statistics
-     * @param kidIdentity
-     * @param daysAgo
-     * @return
-     */
-    Observable<SocialMediaActivityStatisticsEntity> getSocialMediaActivityStatistics(final String kidIdentity,
-                                                                                     final int daysAgo);
-
-
-    /**
-     * Get Sentiment Analysis Statistics
-     * @param kidIdentity
-     * @param daysAgo
-     * @return
-     */
-    Observable<SentimentAnalysisStatisticsEntity> getSentimentAnalysisStatistics(final String kidIdentity,
-                                                                                 final int daysAgo);
 
     /**
      * Get Alerts Statistics

@@ -13,22 +13,16 @@ import sanchez.sanchez.sergio.data.net.models.request.RegisterKidDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveKidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.services.IChildrenService;
 import sanchez.sanchez.sergio.domain.models.AlertsStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
-import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
-import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
 import timber.log.Timber;
 
@@ -40,9 +34,6 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     private final IChildrenService childrenService;
     private final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper;
     private final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper;
-    private final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper;
-    private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
-    private final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper;
     private final AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> alertsStatisticsDataMapper;
     private final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper;
     private final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper;
@@ -53,9 +44,6 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
      * @param childrenService
      * @param sonDataMapper
      * @param imageDataMapper
-     * @param dimensionDataMapper
-     * @param socialMediaStatisticsDataMapper
-     * @param sentimentAnalysisStatisticsDataMapper
      * @param alertsStatisticsDataMapper
      * @param kidGuardianEntityAbstractDataMapper
      * @param locationEntityAbstractDataMapper
@@ -63,18 +51,12 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
     public ChildrenRepositoryImpl(final IChildrenService childrenService,
                                   final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
-                                  final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
-                                  final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
-                                  final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper,
                                   final AbstractDataMapper<AlertsStatisticsDTO, AlertsStatisticsEntity> alertsStatisticsDataMapper,
                                   final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper,
                                   final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper) {
         this.childrenService = childrenService;
         this.sonDataMapper = sonDataMapper;
         this.imageDataMapper = imageDataMapper;
-        this.dimensionDataMapper = dimensionDataMapper;
-        this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
-        this.sentimentAnalysisStatisticsDataMapper = sentimentAnalysisStatisticsDataMapper;
         this.alertsStatisticsDataMapper = alertsStatisticsDataMapper;
         this.kidGuardianEntityAbstractDataMapper = kidGuardianEntityAbstractDataMapper;
         this.locationEntityAbstractDataMapper = locationEntityAbstractDataMapper;
@@ -163,61 +145,6 @@ public final class ChildrenRepositoryImpl implements IChildrenRepository {
                 .map(imageDataMapper::transform).doOnError(throwable -> Timber.e(throwable));
     }
 
-    /**
-     * Get Dimensions Statistics By Child
-     * @param sonId
-     * @param  daysAgo
-     * @return
-     */
-    @Override
-    public Observable<List<DimensionEntity>> getDimensionsStatisticsByChild(final String sonId, final int daysAgo) {
-        Preconditions.checkNotNull(sonId, "Son Id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not be null");
-        Preconditions.checkState(daysAgo > 0, "Days ago must be grater than 0");
-
-        return childrenService.getDimensionsStatistics(sonId, daysAgo)
-                .map(response -> response != null && response.getData() != null ?
-                    response.getData() : null)
-                .map(dimensionsStatisticsDTO ->
-                        dimensionDataMapper.transform(dimensionsStatisticsDTO.getDimensions()));
-    }
-
-    /**
-     * Get Social Media Activity Statistics
-     * @param kidIdentity
-     * @param daysAgo
-     * @return
-     */
-    @Override
-    public Observable<SocialMediaActivityStatisticsEntity> getSocialMediaActivityStatistics(
-            final String kidIdentity, final int daysAgo) {
-        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
-        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
-        Preconditions.checkState(daysAgo > 0, "Days ago must be greater than 0");
-
-        return childrenService.getSocialMediaActivityStatistics(kidIdentity, daysAgo)
-                .map(response -> response != null && response.getData() != null ?
-                        response.getData() : null)
-                .map(socialMediaStatisticsDataMapper::transform);
-    }
-
-    /**
-     * Get Sentiment Analysis Statistics
-     * @param kidIdentity
-     * @param daysAgo
-     * @return
-     */
-    @Override
-    public Observable<SentimentAnalysisStatisticsEntity> getSentimentAnalysisStatistics(final String kidIdentity, final int daysAgo) {
-        Preconditions.checkNotNull(kidIdentity, "Kid Identity can not be null");
-        Preconditions.checkState(!kidIdentity.isEmpty(), "Kid Identity can not be empty");
-        Preconditions.checkState(daysAgo > 0, "Days ago must be greater than 0");
-
-        return childrenService.getSentimentAnalysisStatistics(kidIdentity, daysAgo)
-                .map(response -> response != null &&
-                    response.getData() != null ? response.getData(): null)
-                .map(sentimentAnalysisStatisticsDataMapper::transform);
-    }
 
     /**
      * Get Alerts Statistics

@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.domain.interactor.comments;
+package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
@@ -7,7 +7,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
-import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -17,19 +17,19 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 public final class GetSocialMediaLikesStatisticsInteract extends UseCase<SocialMediaLikesStatisticsEntity, GetSocialMediaLikesStatisticsInteract.Params> {
 
     /**
-     * Comments Repository
+     * Analysis Statistics Repository
      */
-    private final ICommentsRepository commentsRepository;
+    private final IAnalysisStatisticsRepository analysisStatisticsRepository;
 
     /**
      * @param threadExecutor
      * @param postExecutionThread
-     * @param commentsRepository
+     * @param analysisStatisticsRepository
      */
     public GetSocialMediaLikesStatisticsInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                 final ICommentsRepository commentsRepository) {
+                                                 final IAnalysisStatisticsRepository analysisStatisticsRepository) {
         super(threadExecutor, postExecutionThread);
-        this.commentsRepository = commentsRepository;
+        this.analysisStatisticsRepository = analysisStatisticsRepository;
     }
 
     /**
@@ -43,7 +43,7 @@ public final class GetSocialMediaLikesStatisticsInteract extends UseCase<SocialM
         Preconditions.checkState(!params.getKidIdentity().isEmpty(), "Kid Identity can not be empty");
         Preconditions.checkState(params.getDaysAgo() > 0, "Days ago must be greater than 0");
 
-        return commentsRepository.getSocialMediaLikesStatistics(params.getKidIdentity(),
+        return analysisStatisticsRepository.getSocialMediaLikesStatistics(params.getKidIdentity(),
                 params.getDaysAgo());
 
     }

@@ -11,12 +11,27 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class SocialMediaLikesStatisticsDTO implements Serializable {
 
+    /**
+     * Title
+     */
     @JsonProperty("title")
     private String title;
 
+    /**
+     * Subtitle
+     */
     @JsonProperty("subtitle")
     private String subtitle;
 
+    /**
+     * Total Likes
+     */
+    @JsonProperty("total_likes")
+    private int totalLikes;
+
+    /**
+     * Likes
+     */
     @JsonProperty("likes")
     private List<SocialMediaLikesDTO> data;
 
@@ -29,9 +44,10 @@ public final class SocialMediaLikesStatisticsDTO implements Serializable {
      * @param data
      */
     public SocialMediaLikesStatisticsDTO(final String title, final String subtitle,
-                                         final List<SocialMediaLikesDTO> data) {
+                                         final int totalLikes, final List<SocialMediaLikesDTO> data) {
         this.title = title;
         this.subtitle = subtitle;
+        this.totalLikes = totalLikes;
         this.data = data;
     }
 
@@ -49,6 +65,14 @@ public final class SocialMediaLikesStatisticsDTO implements Serializable {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public int getTotalLikes() {
+        return totalLikes;
+    }
+
+    public void setTotalLikes(int totalLikes) {
+        this.totalLikes = totalLikes;
     }
 
     public List<SocialMediaLikesDTO> getData() {
