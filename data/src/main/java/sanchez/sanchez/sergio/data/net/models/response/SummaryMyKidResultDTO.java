@@ -2,7 +2,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,10 +12,46 @@ import java.util.List;
 public final class SummaryMyKidResultDTO implements Serializable {
 
     /**
-     * Kid
+     * Identity
      */
-    @JsonProperty("kid")
-    private KidDTO kid;
+    @JsonProperty("identity")
+    private String identity;
+
+    /**
+     * Fist Name
+     */
+    @JsonProperty("first_name")
+    private String firstName;
+
+    /**
+     * Last Name
+     */
+    @JsonProperty("last_name")
+    private String lastName;
+
+    /**
+     * Birthdate
+     */
+    @JsonProperty("birthdate")
+    private String birthdate;
+
+    /**
+     * Age
+     */
+    @JsonProperty("age")
+    private Integer age;
+
+    /**
+     * School
+     */
+    @JsonProperty("school")
+    private SchoolDTO school;
+
+    /**
+     * Profile Image
+     */
+    @JsonProperty("profile_image")
+    private String profileImage;
 
     /**
      * Total Devices
@@ -87,8 +122,13 @@ public final class SummaryMyKidResultDTO implements Serializable {
     public SummaryMyKidResultDTO(){}
 
     /**
-     *
-     * @param kid
+     * @param identity
+     * @param firstName
+     * @param lastName
+     * @param birthdate
+     * @param age
+     * @param school
+     * @param profileImage
      * @param totalDevices
      * @param location
      * @param socialMedias
@@ -101,11 +141,13 @@ public final class SummaryMyKidResultDTO implements Serializable {
      * @param totalCommentsPositiveSentiment
      * @param totalCommentsNeutralSentiment
      */
-    public SummaryMyKidResultDTO(KidDTO kid, int totalDevices, LocationDTO location, List<SocialMediaDTO> socialMedias,
-                                 int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent,
-                                 int totalCommentsDrugs, int totalCommentsBullying, int totalCommentsNegativeSentiment,
-                                 int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
-        this.kid = kid;
+    public SummaryMyKidResultDTO(String identity, String firstName, String lastName, String birthdate, Integer age, SchoolDTO school, String profileImage, int totalDevices, LocationDTO location, List<SocialMediaDTO> socialMedias, int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent, int totalCommentsDrugs, int totalCommentsBullying, int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.age = age;
+        this.school = school;
+        this.profileImage = profileImage;
         this.totalDevices = totalDevices;
         this.location = location;
         this.socialMedias = socialMedias;
@@ -119,12 +161,60 @@ public final class SummaryMyKidResultDTO implements Serializable {
         this.totalCommentsNeutralSentiment = totalCommentsNeutralSentiment;
     }
 
-    public KidDTO getKid() {
-        return kid;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setKid(KidDTO kid) {
-        this.kid = kid;
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public SchoolDTO getSchool() {
+        return school;
+    }
+
+    public void setSchool(SchoolDTO school) {
+        this.school = school;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public int getTotalDevices() {
@@ -218,7 +308,13 @@ public final class SummaryMyKidResultDTO implements Serializable {
     @Override
     public String toString() {
         return "SummaryMyKidResultDTO{" +
-                "kid=" + kid +
+                "identity='" + identity + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", age=" + age +
+                ", school=" + school +
+                ", profileImage='" + profileImage + '\'' +
                 ", totalDevices=" + totalDevices +
                 ", location=" + location +
                 ", socialMedias=" + socialMedias +

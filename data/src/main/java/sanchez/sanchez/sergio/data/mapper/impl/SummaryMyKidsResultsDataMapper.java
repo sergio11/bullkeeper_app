@@ -1,14 +1,13 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
-import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SchoolDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
-import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.models.LocationEntity;
+import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 
@@ -17,11 +16,6 @@ import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
  */
 public final class SummaryMyKidsResultsDataMapper
         extends AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> {
-
-    /**
-     * Kid Entity Data Mapper
-     */
-    private final AbstractDataMapper<KidDTO, KidEntity> kidEntityAbstractDataMapper;
 
     /**
      * Location Entity Data Mapper
@@ -34,18 +28,23 @@ public final class SummaryMyKidsResultsDataMapper
     private final AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> socialMediaEntityAbstractDataMapper;
 
     /**
-     *
-     * @param kidEntityAbstractDataMapper
+     * School Entity Data Mapper
+     */
+    private final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolEntityAbstractDataMapper;
+
+
+    /**
      * @param locationEntityAbstractDataMapper
      * @param socialMediaEntityAbstractDataMapper
+     * @param schoolEntityAbstractDataMapper
      */
     public SummaryMyKidsResultsDataMapper(
-            final AbstractDataMapper<KidDTO, KidEntity> kidEntityAbstractDataMapper,
             final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper,
-            final AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> socialMediaEntityAbstractDataMapper) {
-        this.kidEntityAbstractDataMapper = kidEntityAbstractDataMapper;
+            final AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> socialMediaEntityAbstractDataMapper,
+            final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolEntityAbstractDataMapper) {
         this.locationEntityAbstractDataMapper = locationEntityAbstractDataMapper;
         this.socialMediaEntityAbstractDataMapper = socialMediaEntityAbstractDataMapper;
+        this.schoolEntityAbstractDataMapper = schoolEntityAbstractDataMapper;
     }
 
     /**
@@ -58,9 +57,18 @@ public final class SummaryMyKidsResultsDataMapper
         Preconditions.checkNotNull(originModel, "Origin Model can not be null");
 
         final SummaryMyKidResultEntity summaryMyKidResultEntity = new SummaryMyKidResultEntity();
-        summaryMyKidResultEntity.setKidEntity(kidEntityAbstractDataMapper.transform(originModel.getKid()));
-        summaryMyKidResultEntity.setLocation(locationEntityAbstractDataMapper.transform(originModel.getLocation()));
-        summaryMyKidResultEntity.setSocialMediaEntityList(socialMediaEntityAbstractDataMapper.transform(originModel.getSocialMedias()));
+        summaryMyKidResultEntity.setIdentity(originModel.getIdentity());
+        summaryMyKidResultEntity.setFirstName(originModel.getFirstName());
+        summaryMyKidResultEntity.setLastName(originModel.getLastName());
+        summaryMyKidResultEntity.setAge(originModel.getAge());
+        summaryMyKidResultEntity.setBirthdate(originModel.getBirthdate());
+        summaryMyKidResultEntity.setProfileImage(originModel.getProfileImage());
+        if(originModel.getSchool() != null)
+            summaryMyKidResultEntity.setSchool(schoolEntityAbstractDataMapper.transform(originModel.getSchool()));
+        if(originModel.getLocation() != null)
+            summaryMyKidResultEntity.setLocation(locationEntityAbstractDataMapper.transform(originModel.getLocation()));
+        if(originModel.getSocialMedias() != null)
+            summaryMyKidResultEntity.setSocialMediaEntityList(socialMediaEntityAbstractDataMapper.transform(originModel.getSocialMedias()));
         summaryMyKidResultEntity.setTotalCommentsAdultContent(originModel.getTotalCommentsAdultContent());
         summaryMyKidResultEntity.setTotalCommentsAnalyzed(originModel.getTotalCommentsAnalyzed());
         summaryMyKidResultEntity.setTotalCommentsBullying(originModel.getTotalCommentsBullying());
@@ -85,8 +93,17 @@ public final class SummaryMyKidsResultsDataMapper
         Preconditions.checkNotNull(originModel, "Origin Model can not be null");
 
         final SummaryMyKidResultDTO summaryMyKidResultDTO = new SummaryMyKidResultDTO();
-        summaryMyKidResultDTO.setKid(kidEntityAbstractDataMapper.transformInverse(originModel.getKidEntity()));
-        summaryMyKidResultDTO.setLocation(locationEntityAbstractDataMapper.transformInverse(originModel.getLocation()));
+
+        summaryMyKidResultDTO.setIdentity(originModel.getIdentity());
+        summaryMyKidResultDTO.setFirstName(originModel.getFirstName());
+        summaryMyKidResultDTO.setLastName(originModel.getLastName());
+        summaryMyKidResultDTO.setAge(originModel.getAge());
+        summaryMyKidResultDTO.setBirthdate(originModel.getBirthdate());
+        summaryMyKidResultDTO.setProfileImage(originModel.getProfileImage());
+        if(originModel.getSchool() != null)
+            summaryMyKidResultDTO.setSchool(schoolEntityAbstractDataMapper.transformInverse(originModel.getSchool()));
+        if(originModel.getLocation() != null)
+            summaryMyKidResultDTO.setLocation(locationEntityAbstractDataMapper.transformInverse(originModel.getLocation()));
         summaryMyKidResultDTO.setTotalCommentsAdultContent(originModel.getTotalCommentsAdultContent());
         summaryMyKidResultDTO.setTotalCommentsAnalyzed(originModel.getTotalCommentsAnalyzed());
         summaryMyKidResultDTO.setTotalCommentsBullying(originModel.getTotalCommentsBullying());
@@ -96,7 +113,8 @@ public final class SummaryMyKidsResultsDataMapper
         summaryMyKidResultDTO.setTotalCommentsPositiveSentiment(originModel.getTotalCommentsPositiveSentiment());
         summaryMyKidResultDTO.setTotalDevices(originModel.getTotalDevices());
         summaryMyKidResultDTO.setTotalViolentComments(originModel.getTotalViolentComments());
-        summaryMyKidResultDTO.setSocialMedias(socialMediaEntityAbstractDataMapper.transformInverse(originModel.getSocialMediaEntityList()));
+        if(originModel.getSocialMediaEntityList() != null)
+            summaryMyKidResultDTO.setSocialMedias(socialMediaEntityAbstractDataMapper.transformInverse(originModel.getSocialMediaEntityList()));
 
         return summaryMyKidResultDTO;
 

@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 
 /**
  * Analysis Statistics Repository
@@ -109,5 +110,13 @@ public interface IAnalysisStatisticsRepository {
     Observable<SocialMediaLikesStatisticsEntity> getSocialMediaLikesStatistics(
             final String id,
             final int daysAgo);
+
+
+
+    /**
+     * Get Statistics Summary
+     * @return
+     */
+    Observable<List<SummaryMyKidResultEntity>> getStatisticsSummary();
 
 }

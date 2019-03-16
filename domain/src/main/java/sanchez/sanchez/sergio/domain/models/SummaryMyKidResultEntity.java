@@ -9,9 +9,39 @@ import java.util.List;
 public final class SummaryMyKidResultEntity implements Serializable {
 
     /**
-     * Kid Entity
+     * Identity
      */
-    private KidEntity kidEntity;
+    private String identity;
+
+    /**
+     * First Name
+     */
+    private String firstName;
+
+    /**
+     * Last Name
+     */
+    private String lastName;
+
+    /**
+     * Birthdate
+     */
+    private String birthdate;
+
+    /**
+     * Age
+     */
+    private Integer age;
+
+    /**
+     * School
+     */
+    private SchoolEntity school;
+
+    /**
+     * Profile Image
+     */
+    private String profileImage;
 
     /**
      * Total Devices
@@ -73,7 +103,13 @@ public final class SummaryMyKidResultEntity implements Serializable {
 
     /**
      *
-     * @param kidEntity
+     * @param identity
+     * @param firstName
+     * @param lastName
+     * @param birthdate
+     * @param age
+     * @param school
+     * @param profileImage
      * @param totalDevices
      * @param location
      * @param socialMediaEntityList
@@ -86,9 +122,14 @@ public final class SummaryMyKidResultEntity implements Serializable {
      * @param totalCommentsPositiveSentiment
      * @param totalCommentsNeutralSentiment
      */
-    public SummaryMyKidResultEntity(KidEntity kidEntity, int totalDevices, LocationEntity location, List<SocialMediaEntity> socialMediaEntityList,
-                                    int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent, int totalCommentsDrugs, int totalCommentsBullying, int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
-        this.kidEntity = kidEntity;
+    public SummaryMyKidResultEntity(String identity, String firstName, String lastName, String birthdate, Integer age, SchoolEntity school, String profileImage, int totalDevices, LocationEntity location, List<SocialMediaEntity> socialMediaEntityList, int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent, int totalCommentsDrugs, int totalCommentsBullying, int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
+        this.identity = identity;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.age = age;
+        this.school = school;
+        this.profileImage = profileImage;
         this.totalDevices = totalDevices;
         this.location = location;
         this.socialMediaEntityList = socialMediaEntityList;
@@ -102,12 +143,60 @@ public final class SummaryMyKidResultEntity implements Serializable {
         this.totalCommentsNeutralSentiment = totalCommentsNeutralSentiment;
     }
 
-    public KidEntity getKidEntity() {
-        return kidEntity;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setKidEntity(KidEntity kidEntity) {
-        this.kidEntity = kidEntity;
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public SchoolEntity getSchool() {
+        return school;
+    }
+
+    public void setSchool(SchoolEntity school) {
+        this.school = school;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public int getTotalDevices() {
@@ -196,5 +285,29 @@ public final class SummaryMyKidResultEntity implements Serializable {
 
     public void setTotalCommentsNeutralSentiment(int totalCommentsNeutralSentiment) {
         this.totalCommentsNeutralSentiment = totalCommentsNeutralSentiment;
+    }
+
+    @Override
+    public String toString() {
+        return "SummaryMyKidResultEntity{" +
+                "identity='" + identity + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", age=" + age +
+                ", school=" + school +
+                ", profileImage='" + profileImage + '\'' +
+                ", totalDevices=" + totalDevices +
+                ", location=" + location +
+                ", socialMediaEntityList=" + socialMediaEntityList +
+                ", totalCommentsAnalyzed=" + totalCommentsAnalyzed +
+                ", totalViolentComments=" + totalViolentComments +
+                ", totalCommentsAdultContent=" + totalCommentsAdultContent +
+                ", totalCommentsDrugs=" + totalCommentsDrugs +
+                ", totalCommentsBullying=" + totalCommentsBullying +
+                ", totalCommentsNegativeSentiment=" + totalCommentsNegativeSentiment +
+                ", totalCommentsPositiveSentiment=" + totalCommentsPositiveSentiment +
+                ", totalCommentsNeutralSentiment=" + totalCommentsNeutralSentiment +
+                '}';
     }
 }

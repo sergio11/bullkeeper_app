@@ -10,12 +10,14 @@ import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.services.IAnalysisStatisticsService;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 
 /**
@@ -29,6 +31,7 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
     private final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper;
     private final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper;
     private final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper;
+    private final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> summaryMyKidResultEntityAbstractDataMapper;
 
     /**
      *
@@ -38,6 +41,7 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
      * @param sentimentAnalysisStatisticsDataMapper
      * @param commentsStatisticsDataMapper
      * @param socialMediaLikesStatisticsDataMapper
+     * @param summaryMyKidResultEntityAbstractDataMapper
      */
     public AnalysisStatisticsRepositoryImpl(
             final IAnalysisStatisticsService analysisStatisticsService,
@@ -45,13 +49,15 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
             final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
             final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper,
             final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper,
-            final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper) {
+            final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper,
+            final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> summaryMyKidResultEntityAbstractDataMapper) {
         this.analysisStatisticsService = analysisStatisticsService;
         this.dimensionDataMapper = dimensionDataMapper;
         this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
         this.sentimentAnalysisStatisticsDataMapper = sentimentAnalysisStatisticsDataMapper;
         this.commentsStatisticsDataMapper = commentsStatisticsDataMapper;
         this.socialMediaLikesStatisticsDataMapper = socialMediaLikesStatisticsDataMapper;
+        this.summaryMyKidResultEntityAbstractDataMapper = summaryMyKidResultEntityAbstractDataMapper;
     }
 
     /**
@@ -203,5 +209,17 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
         Preconditions.checkNotNull(id, "Id can not be null");
         Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
         return getSocialMediaLikesStatistics(Collections.singletonList(id), daysAgo);
+    }
+
+    /**
+     * Get Statistics Summary
+     * @return
+     */
+    @Override
+    public Observable<List<SummaryMyKidResultEntity>> getStatisticsSummary() {
+        return analysisStatisticsService.getStatisticsSummary()
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(summaryMyKidResultEntityAbstractDataMapper::transform);
     }
 }

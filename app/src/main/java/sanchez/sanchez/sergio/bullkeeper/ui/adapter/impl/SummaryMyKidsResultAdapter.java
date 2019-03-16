@@ -100,32 +100,31 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             super.bind(summaryMyKidResultEntity);
 
 
-            final KidEntity kidEntity = summaryMyKidResultEntity.getKidEntity();
+            // Kid Name
+            childNameTextView.setText(summaryMyKidResultEntity.getFirstName()
+                +  " " + summaryMyKidResultEntity.getLastName());
 
-            if(kidEntity != null) {
+            // Set School Name
+            schoolNameTextView.setText(summaryMyKidResultEntity.getSchool().getName());
 
-                // Set School Name
-                schoolNameTextView.setText(kidEntity.getSchool().getName());
-
-                // Check Terminals linked
-                if(!kidEntity.getTerminalEntities().isEmpty()) {
-                    terminalsTextView.setText(String.format(Locale.getDefault(),
-                            context.getString(R.string.has_terminals_linked),
-                            kidEntity.getTerminalEntities().size()));
-                } else {
-                    terminalsTextView.setText(R.string.not_have_any_linked_devices);
-                }
-
-                if(kidEntity.getProfileImage() != null &&
-                        !kidEntity.getProfileImage().isEmpty())
-                    // Set Child Image
-                    picasso.load(kidEntity.getProfileImage())
-                            .placeholder(R.drawable.kid_default_image)
-                            .error(R.drawable.kid_default_image)
-                            .into(kidImageImageView);
-                else
-                    kidImageImageView.setImageResource(R.drawable.kid_default_image);
+            // Check Terminals linked
+            if(summaryMyKidResultEntity.getTotalDevices() > 0) {
+                terminalsTextView.setText(String.format(Locale.getDefault(),
+                        context.getString(R.string.has_terminals_linked),
+                        summaryMyKidResultEntity.getTotalDevices()));
+            } else {
+                terminalsTextView.setText(R.string.not_have_any_linked_devices);
             }
+
+            if(summaryMyKidResultEntity.getProfileImage() != null &&
+                    !summaryMyKidResultEntity.getProfileImage().isEmpty())
+                // Set Child Image
+                picasso.load(summaryMyKidResultEntity.getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .into(kidImageImageView);
+            else
+                kidImageImageView.setImageResource(R.drawable.kid_default_image);
 
 
             @DrawableRes int facebookIconRes = R.drawable.facebook_warning;
@@ -177,7 +176,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             if(summaryMyKidResultEntity.getTotalViolentComments() > 0) {
 
                 final String violentPercentage = Math.round((float)summaryMyKidResultEntity.getTotalViolentComments()
-                                / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
 
                 violentCommentsTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_violence_comments_percentage),
@@ -262,6 +261,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             } else {
                 commentsNeutralSentimentTextView.setText(R.string.summary_my_kids_results_no_neutral_comments);
             }
+
         }
 
     }

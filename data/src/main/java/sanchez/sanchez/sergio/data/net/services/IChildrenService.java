@@ -4,7 +4,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -16,14 +15,10 @@ import sanchez.sanchez.sergio.data.net.models.request.SaveKidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateKidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.AlertsStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.LocationDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SocialMediaDTO;
 
 /**
  * Children Service Interface
@@ -37,57 +32,6 @@ public interface IChildrenService {
      */
     @GET("children/{id}")
     Observable<APIResponse<KidDTO>> getKidById(@Path("id") final String id);
-
-
-    /**
-     * Get Invalid Social Media By Son Id
-     * @param id
-     * @return
-     */
-    @GET("children/{id}/social/invalid")
-    Observable<APIResponse<List<SocialMediaDTO>>> getInvalidSocialMediaByKidId(
-            @Path("id") final String id);
-
-
-    /**
-     * Delete Son By Id
-     * @param id
-     * @return
-     */
-    @DELETE("children/{id}")
-    Observable<APIResponse<String>> deleteKidById(@Path("id") final String id);
-
-    /**
-     *
-     * Get Social Media Activity Statistics
-     * @param id
-     * @param daysAgo
-     * @return
-     */
-    @GET("children/{id}/statistics/social-activity")
-    Observable<APIResponse<SocialMediaActivityStatisticsDTO>> getSocialMediaActivityStatistics(
-            @Path("id") final String id, @Query("days_ago") final Integer daysAgo);
-
-    /**
-     * Get Sentiment Analysis Statistics
-     * @param id
-     * @param daysAgo
-     * @return
-     */
-    @GET("children/{id}/statistics/sentiment-analysis")
-    Observable<APIResponse<SentimentAnalysisStatisticsDTO>> getSentimentAnalysisStatistics(
-            @Path("id") final String id, @Query("days_ago") final Integer daysAgo);
-
-
-    /**
-     * Get Dimensions Statistics
-     * @param id
-     * @param daysAgo
-     * @return
-     */
-    @GET("children/{id}/statistics/dimensions")
-    Observable<APIResponse<DimensionsStatisticsDTO>> getDimensionsStatistics(@Path("id") final String id,
-                                                                             @Query("days_ago") final Integer daysAgo);
 
     /**
      * Get Alerts Statistics

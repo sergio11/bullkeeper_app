@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 
 /**
  * Analysis Statistics Service
@@ -20,6 +21,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatistic
  * GET /api/v1/analysis-statistics/sentiment-analysis SENTIMENT_ANALYSIS_STATISTICS
  * GET /api/v1/analysis-statistics/social-activity SOCIAL_MEDIA_ACTIVITY_STATISTICS
  * GET /api/v1/analysis-statistics/social-media-Likes SOCIAL_MEDIA_LIKES
+ * GET /api/v1/analysis-statistics/summary GET_SUMMARY
  */
 public interface IAnalysisStatisticsService {
 
@@ -80,4 +82,12 @@ public interface IAnalysisStatisticsService {
             @Query("identities") final List<String> identities,
             @Query("days_ago") final Integer daysAgo
     );
+
+
+    /**
+     * Get Statistics Summary
+     * @return
+     */
+    @GET("analysis-statistics/summary")
+    Observable<APIResponse<List<SummaryMyKidResultDTO>>> getStatisticsSummary();
 }

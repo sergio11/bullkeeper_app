@@ -1,4 +1,4 @@
-package sanchez.sanchez.sergio.domain.interactor.children;
+package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import java.util.List;
 import io.reactivex.Observable;
@@ -6,7 +6,7 @@ import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
 import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
-import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
+import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 
@@ -18,23 +18,23 @@ public final class GetStatisticsSummaryInteract
         Void> {
 
     /**
-     * Guardian Repository
+     * Analysis Statistics Repository
      */
-    private final IGuardianRepository guardianRepository;
+    private final IAnalysisStatisticsRepository analysisStatisticsRepository;
 
     /**
      * Abstract class for a Use Case
      *
      * @param threadExecutor
      * @param postExecutionThread
-     * @param guardianRepository
+     * @param analysisStatisticsRepository
      */
     public GetStatisticsSummaryInteract(
             final IThreadExecutor threadExecutor,
             final IPostExecutionThread postExecutionThread,
-            final IGuardianRepository guardianRepository) {
+            final IAnalysisStatisticsRepository analysisStatisticsRepository) {
         super(threadExecutor, postExecutionThread);
-        this.guardianRepository = guardianRepository;
+        this.analysisStatisticsRepository = analysisStatisticsRepository;
     }
 
     /**
@@ -44,7 +44,7 @@ public final class GetStatisticsSummaryInteract
      */
     @Override
     protected Observable<List<SummaryMyKidResultEntity>> buildUseCaseObservable(final Void params) {
-        return guardianRepository.getStatisticsSummary();
+        return analysisStatisticsRepository.getStatisticsSummary();
 
     }
 
@@ -58,7 +58,7 @@ public final class GetStatisticsSummaryInteract
         /**
          * No Statistics Found
          */
-        NO_STATISTICS_FOUND(){
+        NO_ANALYSIS_STATISTICS_SUMMARY_FOUND(){
             @Override
             public <E> void accept(IGetStatisticsSummaryApiErrorsVisitor visitor, E data) {
                 visitor.visitNoStatisticsFound(this);

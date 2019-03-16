@@ -195,7 +195,7 @@
     <string name="remove_alerts_last_day">Último día</string>
     <string name="remove_alerts_last_month">El mes pasado</string>
     <!-- Age of Results (Kid Results Preference Screen) -->
-    <string name="age_of_results_preference_title">Edad de los resultados</string>
+    <string name="age_of_results_preference_title">Antigüedad de los resultados</string>
     <string name="age_of_results_preference_summary">Antigüedad de los resultados que se muestran.</string>
     <string name="age_of_results_a_day_ago_preference_value">Hace un día</string>
     <string name="age_of_results_a_week_ago_preference_value">Hace una semana</string>

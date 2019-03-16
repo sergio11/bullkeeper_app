@@ -177,8 +177,8 @@ public class SummaryMyKidsResultsActivity extends SupportMvpLCEActivity<SummaryM
     @Override
     public void onItemClick(final SummaryMyKidResultEntity summaryMyKidResultEntity) {
         Preconditions.checkNotNull(summaryMyKidResultEntity, "Summary My Kid Result can not be null");
-        Preconditions.checkNotNull(summaryMyKidResultEntity.getKidEntity(), "Kid entity can not be null");
-        navigatorImpl.navigateToKidsResultsActivity(this, summaryMyKidResultEntity.getKidEntity().getIdentity());
+        Preconditions.checkNotNull(summaryMyKidResultEntity.getIdentity(), "Kid entity can not be null");
+        navigatorImpl.navigateToKidsResultsActivity(this, summaryMyKidResultEntity.getIdentity());
     }
 
     @Override

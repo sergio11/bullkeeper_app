@@ -13,12 +13,10 @@ import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
-import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.data.repository.GuardianRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
-import sanchez.sanchez.sergio.domain.interactor.children.GetStatisticsSummaryInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
@@ -28,7 +26,6 @@ import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
-import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -59,6 +56,11 @@ public class GuardianModule {
 
     /**
      * Provide Parent Repository
+     * @param parentsService
+     * @param sonDataMapper
+     * @param parentDataMapper
+     * @param imageDataMapper
+     * @param childrenOfSelfGuardianDataMapper
      * @return
      */
     @Provides @PerActivity
@@ -67,11 +69,9 @@ public class GuardianModule {
                                                          final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper,
                                                          final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                                          final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
-                                                            childrenOfSelfGuardianDataMapper,
-                                                         final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity>
-                                                            summaryMyKidResultEntityAbstractDataMapper){
+                                                            childrenOfSelfGuardianDataMapper){
         return new GuardianRepositoryImpl(parentsService, sonDataMapper, parentDataMapper,
-                imageDataMapper, childrenOfSelfGuardianDataMapper, summaryMyKidResultEntityAbstractDataMapper);
+                imageDataMapper, childrenOfSelfGuardianDataMapper);
     }
 
     /**
@@ -150,19 +150,6 @@ public class GuardianModule {
         Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
 
         return new SearchGuardiansInteract(threadExecutor, postExecutionThread, parentRepository);
-    }
-
-    /**
-     * Provide Get Statistics Summary Interact
-     * @return
-     */
-    @Provides @PerActivity
-    GetStatisticsSummaryInteract provideGetStatisticsSummaryInteract(
-            final IThreadExecutor threadExecutor,
-            final IPostExecutionThread postExecutionThread,
-            final IGuardianRepository guardianRepository
-    ){
-        return new GetStatisticsSummaryInteract(threadExecutor, postExecutionThread, guardianRepository);
     }
 
 }

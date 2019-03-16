@@ -5,7 +5,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
-import sanchez.sanchez.sergio.domain.interactor.children.GetStatisticsSummaryInteract;
+import sanchez.sanchez.sergio.domain.interactor.statistics.GetStatisticsSummaryInteract;
 import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 
 /**

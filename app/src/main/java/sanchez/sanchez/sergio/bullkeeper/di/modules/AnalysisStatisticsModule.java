@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SentimentAnalysisStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaActivityStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatisticsDTO;
+import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.services.IAnalysisStatisticsService;
 import sanchez.sanchez.sergio.data.repository.AnalysisStatisticsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -19,12 +20,16 @@ import sanchez.sanchez.sergio.domain.interactor.statistics.GetSocialMediaLikesSt
 import sanchez.sanchez.sergio.domain.interactor.statistics.GetFourDimensionsStatisticsByChildInteract;
 import sanchez.sanchez.sergio.domain.interactor.statistics.GetSentimentAnalysisStatisticsInteract;
 import sanchez.sanchez.sergio.domain.interactor.statistics.GetSocialMediaActivityStatisticsInteract;
+import sanchez.sanchez.sergio.domain.interactor.statistics.GetStatisticsSummaryInteract;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
+import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
+import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
+
 /**
  * Analysis Statistics Module
  */
@@ -60,11 +65,12 @@ public class AnalysisStatisticsModule {
             final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity>
                     sentimentAnalysisDataMapper,
             final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper,
-            final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper
+            final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper,
+            final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> summaryMyKidResultEntityAbstractDataMapper
     ){
         return new AnalysisStatisticsRepositoryImpl(analysisStatisticsService, dimensionDataMapper,
                 socialMediaDataMapper, sentimentAnalysisDataMapper, commentsStatisticsDataMapper,
-                socialMediaLikesStatisticsDataMapper);
+                socialMediaLikesStatisticsDataMapper, summaryMyKidResultEntityAbstractDataMapper);
     }
 
     /**
@@ -143,4 +149,21 @@ public class AnalysisStatisticsModule {
     ){
         return new GetSocialMediaLikesStatisticsInteract(threadExecutor, postExecutionThread, analysisStatisticsRepository);
     }
+
+    /**
+     * Provide Get Statistics Summary Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param analysisStatisticsRepository
+     * @return
+     */
+    @Provides @PerActivity
+    GetStatisticsSummaryInteract provideGetStatisticsSummaryInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IAnalysisStatisticsRepository analysisStatisticsRepository
+    ){
+        return new GetStatisticsSummaryInteract(threadExecutor, postExecutionThread, analysisStatisticsRepository);
+    }
+
 }
