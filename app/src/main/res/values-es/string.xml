@@ -678,7 +678,9 @@
     <string name="terminal_usage_stats_not_allowed">Estadísticas de uso no permitidas</string>
     <string name="terminal_admin_access_allowed">Se permite el acceso de administrador</string>
     <string name="terminal_admin_access_not_allowed">El acceso de administrador no está permitido</string>
-
+    <string name="delete_all_kid_terminals">Deseas desvincular todos los dispositivos sincronizados?</string>
+    <string name="lock_screen_of_all_linked_devices_confirm">¿Bloquear la pantalla de todos los dispositivos vinculados?</string>
+    <string name="unlock_screen_of_all_linked_devices_confirm">¿Deseas desbloquear la pantalla de todos los dispositivos vinculados?</string>
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">¿Desea habilitar el modo de hora de dormir en este terminal?</string>
     <string name="terminal_disable_bed_time_confirm">¿Desea desactivar el modo de tiempo de cama en este terminal?</string>

@@ -13,6 +13,9 @@ import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
 
 /**
  * Terminal Service
+ * DELETE /api/v1/children/{kid}/terminal DELETE_ALL_TERMINAL_FOR_KID
+ * POST /api/v1/children/{kid}/terminal/screen/lock LOCK_SCREEN_FOR_ALL_KID_TERMINAL
+ * POST /api/v1/children/{kid}/terminal/screen/unlock UNLOCK_SCREEN_FOR_ALL_KID_TERMINAL
  */
 public interface ITerminalService {
 
@@ -45,6 +48,15 @@ public interface ITerminalService {
     @DELETE("children/{kid}/terminal/{terminal}")
     Observable<APIResponse<String>> deleteTerminal(final @Path("kid") String kid,
                                                    final @Path("terminal") String terminal);
+
+    /**
+     * Delete All Terminal for kid
+     * @param kid
+     * @return
+     */
+    @DELETE("children/{kid}/terminal")
+    Observable<APIResponse<String>> deleteAllTerminalForKid(
+            final @Path("kid") String kid);
 
 
     /**
@@ -105,6 +117,15 @@ public interface ITerminalService {
             final @Path("kid") String kid,
             final @Path("terminal") String terminal);
 
+    /**
+     * Lock Screen For All Kid Terminal
+     * @param kid
+     * @return
+     */
+    @POST("children/{kid}/terminal/screen/lock")
+    Observable<APIResponse<String>> lockScreenForAllKidTerminal(
+            final @Path("kid") String kid);
+
 
     /**
      * Lock Screen In The Terminal
@@ -116,6 +137,15 @@ public interface ITerminalService {
     Observable<APIResponse<String>> unLockScreenInTheTerminal(
             final @Path("kid") String kid,
             final @Path("terminal") String terminal);
+
+    /**
+     * Lock Screen For All Kid Terminal
+     * @param kid
+     * @return
+     */
+    @POST("children/{kid}/terminal/screen/unlock")
+    Observable<APIResponse<String>> unLockScreenForAllKidTerminal(
+            final @Path("kid") String kid);
 
 
     /**

@@ -8,4 +8,14 @@ import sanchez.sanchez.sergio.domain.models.TerminalEntity;
  */
 interface ITerminalsFragmentView extends ISupportLCEView<TerminalEntity> {
 
+    /**
+     * On Lock Screen Status Changed Successfully
+     */
+    void onLockScreenStatusChangedSuccessfully();
+
+    /**
+     * On Lock Screen Status Changed Failed
+     */
+    void onLockScreenStatusChangedFailed();
+
 }

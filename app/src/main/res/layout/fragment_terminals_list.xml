@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:weightSum="1"
                 android:gravity="center_vertical|start"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -60,6 +61,41 @@
                         android:layout_height="@dimen/common_divider_height"
                         android:layout_margin="10dp"
                         android:background="@color/cyanBrilliant"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <!-- Switch Compat -->
+                    <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                        android:id="@+id/lockScreenSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:scaleX="1.7"
+                        android:scaleY="1.7"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/common_margin"
+                        android:textOff=""
+                        android:textOn=""
+                        app:theme="@style/BlockStatusSwitch" />
+
+
+                    <ImageView
+                        android:id="@+id/deleteAll"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/common_margin"
+                        android:visibility="gone"
+                        android:src="@drawable/trash_solid_cyan"
+                        android:contentDescription="@string/content_not_be_loaded" />
+
 
                 </LinearLayout>
 

@@ -817,7 +817,9 @@
     <string name="terminal_usage_stats_not_allowed">Usage Stats not allowed</string>
     <string name="terminal_admin_access_allowed">Admin access is allowed</string>
     <string name="terminal_admin_access_not_allowed">Admin access is not allowed</string>
-
+    <string name="delete_all_kid_terminals">Do you want to unlink all synchronized devices?</string>
+    <string name="lock_screen_of_all_linked_devices_confirm">lock the screen of all linked devices?</string>
+    <string name="unlock_screen_of_all_linked_devices_confirm">unlock the screen of all linked devices?</string>
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">Do you want to enable Bed Time mode in this terminal?</string>
     <string name="terminal_disable_bed_time_confirm">Do you want to disable the Bed Time mode in this terminal?</string>

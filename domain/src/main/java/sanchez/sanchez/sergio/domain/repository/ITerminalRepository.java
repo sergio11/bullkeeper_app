@@ -37,6 +37,13 @@ public interface ITerminalRepository {
 
 
     /**
+     * Delete All Terminal for kid
+     * @param kid
+     * @return
+     */
+    Observable<String> delete(final String kid);
+
+    /**
      * Switch Bed Time Status
      * @param kid
      * @param terminal
@@ -53,6 +60,14 @@ public interface ITerminalRepository {
      * @return
      */
     Observable<String> switchLockScreenStatus(final String kid, final String terminal, final Boolean status);
+
+    /**
+     * Switch Lock Screen Status For All Kid Terminal
+     * @param kid
+     * @param status
+     * @return
+     */
+    Observable<String> switchLockScreenStatus(final String kid, final Boolean status);
 
 
     /**

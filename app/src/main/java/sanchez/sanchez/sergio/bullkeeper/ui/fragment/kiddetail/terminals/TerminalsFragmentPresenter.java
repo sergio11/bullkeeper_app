@@ -4,9 +4,13 @@ import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteAllTerminalsForKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetMonitoredTerminalsInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusForAllTerminalsOfKidInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 
 /**
@@ -22,6 +26,16 @@ public final class TerminalsFragmentPresenter extends SupportLCEPresenter<ITermi
     private final GetMonitoredTerminalsInteract getMonitoredTerminalsInteract;
 
     /**
+     * Delete All Terminals For Kid Interact
+     */
+    private final DeleteAllTerminalsForKidInteract deleteAllTerminalsForKidInteract;
+
+    /**
+     * Switch Lock Screen Status For All Terminals Of Kid Interact
+     */
+    private final SwitchLockScreenStatusForAllTerminalsOfKidInteract switchLockScreenStatusForAllTerminalsOfKidInteract;
+
+    /**
      * Is Loading Data
      */
     private boolean isLoadingData = false;
@@ -30,10 +44,17 @@ public final class TerminalsFragmentPresenter extends SupportLCEPresenter<ITermi
     /**
      *
      * @param getMonitoredTerminalsInteract
+     * @param deleteAllTerminalsForKidInteract
+     * @param switchLockScreenStatusForAllTerminalsOfKidInteract
      */
     @Inject
-    public TerminalsFragmentPresenter(GetMonitoredTerminalsInteract getMonitoredTerminalsInteract){
+    public TerminalsFragmentPresenter(
+            final GetMonitoredTerminalsInteract getMonitoredTerminalsInteract,
+            final DeleteAllTerminalsForKidInteract deleteAllTerminalsForKidInteract,
+            final SwitchLockScreenStatusForAllTerminalsOfKidInteract switchLockScreenStatusForAllTerminalsOfKidInteract){
         this.getMonitoredTerminalsInteract = getMonitoredTerminalsInteract;
+        this.deleteAllTerminalsForKidInteract = deleteAllTerminalsForKidInteract;
+        this.switchLockScreenStatusForAllTerminalsOfKidInteract = switchLockScreenStatusForAllTerminalsOfKidInteract;
     }
 
     /**
@@ -61,6 +82,37 @@ public final class TerminalsFragmentPresenter extends SupportLCEPresenter<ITermi
 
         getMonitoredTerminalsInteract.execute(new GetMonitoredTerminalsObservable(GetMonitoredTerminalsInteract.GetMonitoredTerminalsApiErrors.class),
                 GetMonitoredTerminalsInteract.Params.create(args.getString(SON_IDENTITY_ARG)));
+    }
+
+    /**
+     * Delete All
+     * @param kid
+     */
+    public void deleteAll(final String kid){
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        deleteAllTerminalsForKidInteract.execute(new DeleteAllKidTerminalsObservable(),
+                DeleteAllTerminalsForKidInteract.Params.create(kid));
+    }
+
+    /**
+     * Switch Lock Screen Status
+     * @param kid
+     * @param status
+     */
+    public void switchLockScreenStatus(final String kid, final boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        switchLockScreenStatusForAllTerminalsOfKidInteract.execute(new SwitchLockScreenStatusForAllTerminalsObservable(),
+                SwitchLockScreenStatusForAllTerminalsOfKidInteract.Params.create(kid, status));
     }
 
 
@@ -139,6 +191,80 @@ public final class TerminalsFragmentPresenter extends SupportLCEPresenter<ITermi
             }
 
             isLoadingData = false;
+        }
+    }
+
+    /**
+     * Delete All Kid Terminals Observable
+     */
+    public class DeleteAllKidTerminalsObservable extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * on Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onNoDataFound();
+            }
+        }
+    }
+
+    /**
+     * Switch Lock Screen Status For All Terminals Observable
+     */
+    public class SwitchLockScreenStatusForAllTerminalsObservable extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         *
+         */
+        @Override
+        protected void onNetworkError() {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onLockScreenStatusChangedFailed();
+            }
+        }
+
+        /**
+         *
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onLockScreenStatusChangedFailed();
+            }
+        }
+
+        /**
+         *
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onLockScreenStatusChangedFailed();
+            }
+        }
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+            Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
+
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onLockScreenStatusChangedSuccessfully();
+            }
         }
     }
 }

@@ -38,6 +38,17 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
         return new TerminalViewHolder(view);
     }
 
+    /**
+     * Change Screen Status
+     * @param status
+     */
+    public void changeScreenStatus(boolean status) {
+        for(final TerminalEntity terminalEntity: data) {
+            terminalEntity.setScreenEnabled(status);
+        }
+        notifyDataSetChanged();
+    }
+
 
     /**
      * Terminal View Holder

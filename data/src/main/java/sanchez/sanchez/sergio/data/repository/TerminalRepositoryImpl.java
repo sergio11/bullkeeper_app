@@ -102,6 +102,20 @@ public final class TerminalRepositoryImpl implements ITerminalRepository {
     }
 
     /**
+     * Delete
+     * @param kid
+     * @return
+     */
+    @Override
+    public Observable<String> delete(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid id can not be empty");
+        return terminalService.deleteAllTerminalForKid(kid)
+                .map(response -> response != null && response.getData() != null ?
+                response.getData(): null);
+    }
+
+    /**
      * Switch Bed Time Status
      * @param kid
      * @param terminal
@@ -141,6 +155,25 @@ public final class TerminalRepositoryImpl implements ITerminalRepository {
         return (status ?
                 terminalService.lockScreenInTheTerminal(kid, terminal) :
                 terminalService.unLockScreenInTheTerminal(kid, terminal))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
+     * Switch Lock Screen Status
+     * @param kid
+     * @param status
+     * @return
+     */
+    @Override
+    public Observable<String> switchLockScreenStatus(final String kid, final Boolean status) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(status, "Status can not be null");
+
+        return (status ?
+                terminalService.lockScreenForAllKidTerminal(kid) :
+                terminalService.unLockScreenForAllKidTerminal(kid))
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null);
     }

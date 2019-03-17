@@ -11,11 +11,13 @@ import sanchez.sanchez.sergio.data.net.services.ITerminalService;
 import sanchez.sanchez.sergio.data.repository.TerminalRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteAllTerminalsForKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteTerminalInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetMonitoredTerminalsInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusForAllTerminalsOfKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchSettingsScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
@@ -98,6 +100,19 @@ public class TerminalsModule {
     }
 
     /**
+     * Provide Delete All Terminals For Kid Interact
+     * @return
+     */
+    @Provides
+    @PerActivity
+    protected DeleteAllTerminalsForKidInteract provideDeleteAllTerminalsForKidInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final ITerminalRepository terminalRepository
+    ){
+        return new DeleteAllTerminalsForKidInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
      * Provide Switch Bed Time Status Interact
      * @param threadExecutor
      * @param postExecutionThread
@@ -156,6 +171,23 @@ public class TerminalsModule {
             final ITerminalRepository terminalRepository
     ){
         return new SwitchSettingsScreenStatusInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Switch Lock Screen Status For All Terminals Of Kid Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SwitchLockScreenStatusForAllTerminalsOfKidInteract provideSwitchLockScreenStatusForAllTerminalsOfKidInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ITerminalRepository terminalRepository
+    ){
+        return new SwitchLockScreenStatusForAllTerminalsOfKidInteract(threadExecutor, postExecutionThread, terminalRepository);
     }
 
 }
