@@ -126,7 +126,7 @@ public abstract class SupportPieChartMvpFragment<P extends TiPresenter<V>, V ext
 
         final PieDataSet pieDataSet = new PieDataSet(entries, null);
         pieDataSet.setColors(getLegendLabelColor(), appContext);
-        pieDataSet.setSliceSpace(2f);
+        pieDataSet.setSliceSpace(4f);
         pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(10f);
         pieDataSet.setValueFormatter(getValueFormatter());

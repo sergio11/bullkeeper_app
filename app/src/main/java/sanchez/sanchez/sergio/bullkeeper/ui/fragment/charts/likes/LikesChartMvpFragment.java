@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -19,6 +21,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -219,6 +222,12 @@ public class LikesChartMvpFragment
     public void onDataAvaliable(final SocialMediaLikesStatisticsEntity socialMediaLikesStatisticsEntity) {
         super.onDataAvaliable(socialMediaLikesStatisticsEntity);
         Preconditions.checkNotNull(socialMediaLikesStatisticsEntity, "Chart Data can not be null");
+
+        if(chartTitleTextView != null)
+            chartTitleTextView.setText(socialMediaLikesStatisticsEntity.getTitle());
+
+        if(chartSubTitleTextView != null)
+            chartSubTitleTextView.setText(socialMediaLikesStatisticsEntity.getSubtitle());
 
         totalLikes = socialMediaLikesStatisticsEntity.getTotalLikes();
         List<BarEntry> entries = new ArrayList<>();

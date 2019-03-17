@@ -9,11 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
+import java.util.Map;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,6 +36,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentA
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.utils.ResourceUtils;
 
 /**
  * Kids Results Activity
@@ -74,6 +80,12 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
     @BindView(R.id.kidName)
     protected TextView kidNameText;
 
+    /**
+     * Age Of Result Text View
+     */
+    @BindView(R.id.ageOfResult)
+    protected TextView ageOfResultTextView;
+
 
     /**
      * Tabs
@@ -100,7 +112,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             R.drawable.dimensions_tab_cyan,
             R.drawable.comment_tab,
             R.drawable.activity_social_media_solid,
-            R.drawable.activity_social_media_solid,
+            R.drawable.sentiment_solid_cyan,
             R.drawable.alerts_kids_solid,
             R.drawable.social_likes_results
     };
@@ -112,7 +124,7 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
             R.drawable.dimensions_tab_dark_cyan,
             R.drawable.comment_tab_dark,
             R.drawable.activity_social_media_solid_dark,
-            R.drawable.activity_social_media_solid_dark,
+            R.drawable.sentiment_solid_dark_cyan,
             R.drawable.alerts_kids_solid_dark,
             R.drawable.social_likes_results_dark
     };
@@ -291,7 +303,17 @@ public class KidsResultsActivity extends SupportMvpActivity<KidsResultsActivityP
 
         kidNameText.setText(kidEntity.getFullName());
 
+        final Map<String, String> ageResultsMap = ResourceUtils.toMap(getApplicationContext(), R.array.age_of_results_values,
+                R.array.age_of_results);
 
+        if(ageResultsMap.containsKey(preferencesRepositoryImpl.getAgeOfResults())) {
+            String ageResultText = ageResultsMap.get(preferencesRepositoryImpl.getAgeOfResults());
+            ageOfResultTextView.setText(String.format(Locale.getDefault(),
+                    getString(R.string.kid_results_age_of_result), ageResultText));
+            ageOfResultTextView.setVisibility(View.VISIBLE);
+        } else {
+            ageOfResultTextView.setVisibility(View.GONE);
+        }
     }
 
     /**

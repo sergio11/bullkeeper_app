@@ -472,6 +472,7 @@
     <string name="kids_results_no_terminals_linked" formatted="false">%s no tiene ningún dispositivo móvil asociado, es necesario instalar BullKeeper Kids en los dispositivos móviles de niños para hacer uso de esta sección</string>
     <string name="kids_results_terminals_count" formatted="false">(tiene %d dispositivos enlazados)</string>
     <string name="kid_request_address_not_available">Dirección no disponible</string>
+    <string name="kid_results_age_of_result" formatted="false">Resultados desde %s</string>
     <!-- Comments Settings -->
     <!-- Age Of Comments -->
     <string name="age_of_comments_preference_title">Antigüedad de los comentarios</string>

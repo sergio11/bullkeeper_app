@@ -13,7 +13,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -47,6 +46,13 @@ public class ActivitySocialMediaMvpFragment
      */
     @State
     protected String kidIdentity;
+
+
+    /**
+     * View
+     * =========
+     */
+
 
 
     public ActivitySocialMediaMvpFragment() {
@@ -200,6 +206,12 @@ public class ActivitySocialMediaMvpFragment
         super.onDataAvaliable(chartData);
 
         Preconditions.checkNotNull(chartData, "Chart Data can not be null");
+
+        if(chartTitleTextView != null)
+            chartTitleTextView.setText(chartData.getTitle());
+
+        if(chartSubTitleTextView != null)
+            chartSubTitleTextView.setText(chartData.getSubtitle());
 
         List<PieEntry> entries = new ArrayList<>();
         for(int i = 0; i < SocialMediaTypesEnum.values().length; i++ ) {

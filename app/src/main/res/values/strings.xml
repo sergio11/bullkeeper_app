@@ -596,6 +596,7 @@
     <string name="kids_results_no_terminals_linked" formatted="false">%s does not have any associated mobile terminal, it is necessary to install BullKeeper Kids in the mobile terminals of children to make use of this section</string>
     <string name="kids_results_terminals_count" formatted="false">(has %d linked terminals)</string>
     <string name="kid_request_address_not_available">Address not available</string>
+    <string name="kid_results_age_of_result" formatted="false">Results for %s</string>
     <!-- Comments Settings -->
 
     <!-- Age Of Comments -->

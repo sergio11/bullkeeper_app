@@ -207,6 +207,12 @@ public class SentimentAnalysisMvpFragment
         Preconditions.checkNotNull(chartData, "Chart Data can not be null");
         super.onDataAvaliable(chartData);
 
+        if(chartTitleTextView != null)
+            chartTitleTextView.setText(chartData.getTitle());
+
+        if (chartSubTitleTextView != null)
+            chartSubTitleTextView.setText(chartData.getSubtitle());
+
         // Entries list
         List<PieEntry> entries = new ArrayList<>();
 

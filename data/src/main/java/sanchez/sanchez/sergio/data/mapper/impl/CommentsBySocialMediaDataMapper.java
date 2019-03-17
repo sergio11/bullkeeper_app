@@ -21,6 +21,7 @@ public final class CommentsBySocialMediaDataMapper extends AbstractDataMapper<Co
     public CommentsStatisticsBySocialMediaEntity transform(final CommentsStatisticsBySocialMediaDTO originModel) {
         final CommentsStatisticsBySocialMediaEntity commentsStatisticsBySocialMediaEntity = new CommentsStatisticsBySocialMediaEntity();
         commentsStatisticsBySocialMediaEntity.setTitle(originModel.getTitle());
+        commentsStatisticsBySocialMediaEntity.setSubtitle(originModel.getSubtitle());
         commentsStatisticsBySocialMediaEntity.setTotalComments(originModel.getTotalComments());
         final List<CommentsStatisticsBySocialMediaEntity.CommentsBySocialMediaEntity> commentsBySocialMediaEntities = new ArrayList<>();
         for(final CommentsStatisticsBySocialMediaDTO.CommentsBySocialMediaDTO commentsBySocialMediaDTO: originModel.getData()) {

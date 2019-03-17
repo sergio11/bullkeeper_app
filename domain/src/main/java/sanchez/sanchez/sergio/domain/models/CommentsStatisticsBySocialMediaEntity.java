@@ -14,6 +14,11 @@ public final class CommentsStatisticsBySocialMediaEntity implements Serializable
     private String title;
 
     /**
+     * Subtitle
+     */
+    private String subtitle;
+
+    /**
      * Total Comments
      */
     private int totalComments;
@@ -29,10 +34,12 @@ public final class CommentsStatisticsBySocialMediaEntity implements Serializable
     /**
      *
      * @param title
+     * @param subtitle
      * @param commentsBySocialMediaEntities
      */
-    public CommentsStatisticsBySocialMediaEntity(String title, int totalComments, List<CommentsBySocialMediaEntity> commentsBySocialMediaEntities) {
+    public CommentsStatisticsBySocialMediaEntity(String title, String subtitle, int totalComments, List<CommentsBySocialMediaEntity> commentsBySocialMediaEntities) {
         this.title = title;
+        this.subtitle = subtitle;
         this.totalComments = totalComments;
         this.commentsBySocialMediaEntities = commentsBySocialMediaEntities;
     }
@@ -43,6 +50,14 @@ public final class CommentsStatisticsBySocialMediaEntity implements Serializable
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public int getTotalComments() {

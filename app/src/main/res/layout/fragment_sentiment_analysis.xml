@@ -37,6 +37,8 @@
                     android:textStyle="bold"
                     android:text="@string/sentiment_analysis_chart_title"/>
 
+
+
                 <!-- Description -->
                 <TextView
                     android:layout_width="match_parent"
@@ -106,7 +108,18 @@
                     style="@style/CommonStrongText.Medium"
                     android:textColor="@color/cyanBrilliant"
                     android:textStyle="bold"
+                    android:layout_toStartOf="@id/refreshData"
                     android:text="@string/results_since_one_month_ago" />
+
+                <!-- Chart Sub Title -->
+                <TextView
+                    android:id="@+id/chartSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText.Small"
+                    android:textColor="@color/cyanBrilliant"
+                    android:layout_below="@id/chartTitle"
+                    android:text="-" />
 
 
                 <!-- Refresh Chart Data -->
@@ -114,7 +127,6 @@
                     android:id="@+id/refreshData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/chartTitle"
                     android:paddingEnd="@dimen/common_padding"
                     android:layout_alignParentEnd="true"
                     android:orientation="horizontal"
@@ -142,7 +154,7 @@
                     android:layout_margin="@dimen/common_margin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/chartTitle"/>
+                    android:layout_below="@id/chartSubTitle"/>
 
             </RelativeLayout>
             <!-- No Results Found -->

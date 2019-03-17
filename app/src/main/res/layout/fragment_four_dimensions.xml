@@ -81,13 +81,23 @@
                     android:textStyle="bold"
                     android:text="@string/results_since_one_month_ago" />
 
+                <!-- Chart Sub Title -->
+                <TextView
+                    android:id="@+id/chartSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText.Small"
+                    android:textColor="@color/cyanBrilliant"
+                    android:layout_below="@id/chartTitle"
+                    android:text="-" />
+
                 <!-- Four Dimensions Chart -->
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChart"
                     android:layout_margin="@dimen/common_margin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/chartTitle"/>
+                    android:layout_below="@id/chartSubTitle"/>
 
             </RelativeLayout>
 

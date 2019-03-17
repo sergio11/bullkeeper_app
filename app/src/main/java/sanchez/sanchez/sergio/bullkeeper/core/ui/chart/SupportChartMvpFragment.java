@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -81,6 +82,19 @@ public abstract class SupportChartMvpFragment<P extends TiPresenter<V>, V extend
     @BindView(R.id.errorResultsView)
     protected ViewGroup errorResultsView;
 
+    /**
+     * Chart Title
+     */
+    @Nullable
+    @BindView(R.id.chartTitle)
+    protected TextView chartTitleTextView;
+
+    /**
+     * Chart Sub Title
+     */
+    @Nullable
+    @BindView(R.id.chartSubTitle)
+    protected TextView chartSubTitleTextView;
 
     /**
      * Chart Data

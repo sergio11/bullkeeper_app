@@ -227,6 +227,13 @@ public class CommentsExtractedBySocialMediaFragment
 
         totalComments = chartData.getTotalComments();
 
+        if(chartTitleTextView != null)
+            chartTitleTextView.setText(chartData.getTitle());
+
+        if(chartSubTitleTextView != null)
+            chartSubTitleTextView.setText(chartData.getSubtitle());
+
+
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < SocialMediaEnum.values().length; i++ ) {
             final SocialMediaEnum socialMediaEnum = SocialMediaEnum.values()[i];

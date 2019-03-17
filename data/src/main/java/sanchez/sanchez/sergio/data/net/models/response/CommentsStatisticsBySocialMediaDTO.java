@@ -19,6 +19,12 @@ public final class CommentsStatisticsBySocialMediaDTO implements Serializable {
     private String title;
 
     /**
+     * Subtitle
+     */
+    @JsonProperty("subtitle")
+    private String subtitle;
+
+    /**
      * Total Commentss
      */
     @JsonProperty("total_comments")
@@ -34,14 +40,17 @@ public final class CommentsStatisticsBySocialMediaDTO implements Serializable {
 
     /**
      * @param title
+     * @param subtitle
      * @param totalComments
      * @param data
      */
     public CommentsStatisticsBySocialMediaDTO(
             final String title,
+            final String subtitle,
             final int totalComments,
             final List<CommentsBySocialMediaDTO> data) {
         this.title = title;
+        this.subtitle = subtitle;
         this.totalComments = totalComments;
         this.data = data;
     }
@@ -52,6 +61,14 @@ public final class CommentsStatisticsBySocialMediaDTO implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public int getTotalComments() {
@@ -124,6 +141,7 @@ public final class CommentsStatisticsBySocialMediaDTO implements Serializable {
     public String toString() {
         return "CommentsStatisticsBySocialMediaDTO{" +
                 "title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
                 ", totalComments=" + totalComments +
                 ", data=" + data +
                 '}';

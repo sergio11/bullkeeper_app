@@ -73,6 +73,17 @@
                     android:background="@color/commonWhite"/>
 
 
+                <!-- Age Of Result -->
+                <TextView
+                    android:id="@+id/ageOfResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CommonStrongText.Big"
+                    android:visibility="gone"
+                    android:textColor="@color/commonWhite"
+                    android:text="-"/>
+
+
             </LinearLayout>
 
 
