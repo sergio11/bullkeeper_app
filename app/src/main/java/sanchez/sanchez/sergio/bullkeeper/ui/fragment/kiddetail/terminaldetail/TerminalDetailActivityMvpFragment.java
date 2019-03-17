@@ -256,6 +256,30 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     protected TextView adminAccessTextView;
 
     /**
+     * High Accuraccy Location Status Widget
+     */
+    @BindView(R.id.highAccuraccyLocationStatusWidget)
+    protected SupportSwitchCompat highAccuraccyLocationStatusWidget;
+
+    /**
+     * High Accuraccy Location Text View
+     */
+    @BindView(R.id.highAccuraccyLocationTextView)
+    protected TextView highAccuraccyLocationTextView;
+
+    /**
+     * Apps Overlay Status Widget
+     */
+    @BindView(R.id.appsOverlayStatusWidget)
+    protected SupportSwitchCompat appsOverlayStatusWidget;
+
+    /**
+     * Apps Overlay Text View
+     */
+    @BindView(R.id.appsOverlayTextView)
+    protected TextView appsOverlayTextView;
+
+    /**
      * Dependencies
      * ===============
      */
@@ -745,6 +769,27 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 terminalDetailEntity.isAdminAccessAllowed() ?
                         getString(R.string.terminal_admin_access_allowed) :
                         getString(R.string.terminal_admin_access_not_allowed)
+        );
+
+
+        // Hight Accuraccy Location Widget
+        highAccuraccyLocationStatusWidget.setChecked(
+                terminalDetailEntity.isHighAccuraccyLocationEnabled(), false);
+
+        highAccuraccyLocationTextView.setText(
+                terminalDetailEntity.isHighAccuraccyLocationEnabled() ?
+                        getString(R.string.terminal_high_accuraccy_location_allowed) :
+                        getString(R.string.terminal_high_accuraccy_location_not_allowed)
+        );
+
+        // Apps Overlay Enabled
+        appsOverlayStatusWidget.setChecked(
+                terminalDetailEntity.isAppsOverlayEnabled(), false);
+
+        appsOverlayTextView.setText(
+                terminalDetailEntity.isAppsOverlayEnabled() ?
+                        getString(R.string.terminal_apps_overlay_allowed) :
+                        getString(R.string.terminal_apps_overlay_not_allowed)
         );
 
     }

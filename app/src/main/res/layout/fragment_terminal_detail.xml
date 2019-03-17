@@ -941,6 +941,118 @@
 
                     </RelativeLayout>
 
+                    <!--High Accuraccy Location -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/highAccuraccyLocationIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/high_precision_geolocation"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/highAccuraccyLocationTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/highAccuraccyLocationContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/highAccuraccyLocationIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/highAccuraccyLocationStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/highAccuraccyLocationTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/highAccuraccyLocationContainer"/>
+
+
+                    </RelativeLayout>
+
+                    <!--Apps Overlay -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin">
+
+                        <ImageView
+                            android:id="@+id/appsOverlayIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/apps_overlay_icon"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_above="@id/appsOverlayTextView"/>
+
+                        <FrameLayout
+                            android:id="@+id/appsOverlayContainer"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@id/appsOverlayIcon">
+
+                            <!-- Switch Compat -->
+                            <sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat
+                                android:id="@+id/appsOverlayStatusWidget"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:scaleX="2"
+                                android:scaleY="2"
+                                android:textOff=""
+                                android:textOn=""
+                                android:enabled="false"
+                                app:theme="@style/BlockStatusSwitch" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/appsOverlayTextView"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/appsOverlayContainer"/>
+
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

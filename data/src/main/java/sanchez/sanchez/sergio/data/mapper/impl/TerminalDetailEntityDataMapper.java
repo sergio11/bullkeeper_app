@@ -62,6 +62,8 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         } catch (final Exception ex) {
             terminalEntity.setStatus(TerminalStatusEnum.STATE_UNKNOWN);
         }
+        terminalEntity.setAppsOverlayEnabled(originModel.isAppsOverlayEnabled());
+        terminalEntity.setHighAccuraccyLocationEnabled(originModel.isHighAccuraccyLocationEnabled());
         return terminalEntity;
     }
 
@@ -104,6 +106,8 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setBatteryCharging(originModel.isBatteryCharging());
         terminalDTO.setBatteryLevel(originModel.getBatteryLevel());
         terminalDTO.setStatus(originModel.getStatus().name());
+        terminalDTO.setAppsOverlayEnabled(originModel.isAppsOverlayEnabled());
+        terminalDTO.setHighAccuraccyLocationEnabled(originModel.isHighAccuraccyLocationEnabled());
         return terminalDTO;
     }
 }

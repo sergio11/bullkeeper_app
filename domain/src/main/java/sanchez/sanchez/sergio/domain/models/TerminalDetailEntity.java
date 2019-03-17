@@ -71,6 +71,16 @@ public final class TerminalDetailEntity extends TerminalEntity {
     private boolean adminAccessAllowed;
 
     /**
+     * Apps Overlay Enabled
+     */
+    private boolean appsOverlayEnabled;
+
+    /**
+     * High Accuraccy Location Enabled
+     */
+    private boolean highAccuraccyLocationEnabled;
+
+    /**
      *
      */
     public TerminalDetailEntity(){}
@@ -107,10 +117,16 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param storagePermissionEnabled
      * @param usageStatsAllowed
      * @param adminAccessAllowed
+     * @param appsOverlayEnabled
+     * @param highAccuraccyLocationEnabled
      */
     public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled,
                                 boolean settingsEnabled, int batteryLevel,
-                                boolean isBatteryCharging, TerminalStatusEnum status, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed) {
+                                boolean isBatteryCharging, TerminalStatusEnum status, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled,
+                                boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
+                                boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
+                                boolean usageStatsAllowed, boolean adminAccessAllowed,
+                                boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
         super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
@@ -125,6 +141,8 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.storagePermissionEnabled = storagePermissionEnabled;
         this.usageStatsAllowed = usageStatsAllowed;
         this.adminAccessAllowed = adminAccessAllowed;
+        this.appsOverlayEnabled = appsOverlayEnabled;
+        this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
     }
 
     public long getTotalApps() {
@@ -231,6 +249,22 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.adminAccessAllowed = adminAccessAllowed;
     }
 
+    public boolean isAppsOverlayEnabled() {
+        return appsOverlayEnabled;
+    }
+
+    public void setAppsOverlayEnabled(boolean appsOverlayEnabled) {
+        this.appsOverlayEnabled = appsOverlayEnabled;
+    }
+
+    public boolean isHighAccuraccyLocationEnabled() {
+        return highAccuraccyLocationEnabled;
+    }
+
+    public void setHighAccuraccyLocationEnabled(boolean highAccuraccyLocationEnabled) {
+        this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailEntity{" +
@@ -245,6 +279,10 @@ public final class TerminalDetailEntity extends TerminalEntity {
                 ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +
                 ", textMessagePermissionEnabled=" + textMessagePermissionEnabled +
                 ", storagePermissionEnabled=" + storagePermissionEnabled +
+                ", usageStatsAllowed=" + usageStatsAllowed +
+                ", adminAccessAllowed=" + adminAccessAllowed +
+                ", appsOverlayEnabled=" + appsOverlayEnabled +
+                ", highAccuraccyLocationEnabled=" + highAccuraccyLocationEnabled +
                 '}';
     }
 }

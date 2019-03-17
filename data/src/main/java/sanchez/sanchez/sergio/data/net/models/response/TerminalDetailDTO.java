@@ -88,6 +88,18 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("admin_access_allowed")
     private boolean adminAccessAllowed;
 
+    /**
+     * Apps Overlay Enabled
+     */
+    @JsonProperty("apps_overlay_enabled")
+    private boolean appsOverlayEnabled;
+
+    /**
+     * High Accuraccy Location Enabled
+     */
+    @JsonProperty("high_accuraccy_location_enabled")
+    private boolean highAccuraccyLocationEnabled;
+
 
     public TerminalDetailDTO(){
         super();
@@ -126,8 +138,20 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param storagePermissionEnabled
      * @param usageStatsAllowed
      * @param adminAccessAllowed
+     * @param appsOverlayEnabled
+     * @param highAccuraccyLocationEnabled
      */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel, boolean isBatteryCharging, String status, long totalApps, long totalSms, long totalCalls, long totalContacts, String lastTimeUsed, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed) {
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion,
+                             String manufacturer, String marketName, String model,
+                             String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled,
+                             boolean cameraEnabled, boolean settingsEnabled, int batteryLevel,
+                             boolean isBatteryCharging, String status, long totalApps, long totalSms,
+                             long totalCalls, long totalContacts, String lastTimeUsed,
+                             String screenStatus, boolean locationPermissionEnabled,
+                             boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
+                             boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
+                             boolean usageStatsAllowed, boolean adminAccessAllowed,
+                             boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
         super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
@@ -142,6 +166,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.storagePermissionEnabled = storagePermissionEnabled;
         this.usageStatsAllowed = usageStatsAllowed;
         this.adminAccessAllowed = adminAccessAllowed;
+        this.appsOverlayEnabled = appsOverlayEnabled;
+        this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
     }
 
     public long getTotalApps() {
@@ -248,6 +274,22 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.adminAccessAllowed = adminAccessAllowed;
     }
 
+    public boolean isAppsOverlayEnabled() {
+        return appsOverlayEnabled;
+    }
+
+    public void setAppsOverlayEnabled(boolean appsOverlayEnabled) {
+        this.appsOverlayEnabled = appsOverlayEnabled;
+    }
+
+    public boolean isHighAccuraccyLocationEnabled() {
+        return highAccuraccyLocationEnabled;
+    }
+
+    public void setHighAccuraccyLocationEnabled(boolean highAccuraccyLocationEnabled) {
+        this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
+    }
+
     @Override
     public String toString() {
         return "TerminalDetailDTO{" +
@@ -264,6 +306,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", storagePermissionEnabled=" + storagePermissionEnabled +
                 ", usageStatsAllowed=" + usageStatsAllowed +
                 ", adminAccessAllowed=" + adminAccessAllowed +
+                ", appsOverlayEnabled=" + appsOverlayEnabled +
+                ", highAccuraccyLocationEnabled=" + highAccuraccyLocationEnabled +
                 '}';
     }
 }

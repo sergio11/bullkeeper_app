@@ -817,6 +817,10 @@
     <string name="terminal_usage_stats_not_allowed">Usage Stats not allowed</string>
     <string name="terminal_admin_access_allowed">Admin access is allowed</string>
     <string name="terminal_admin_access_not_allowed">Admin access is not allowed</string>
+    <string name="terminal_high_accuraccy_location_allowed">High Accuraccy Location is allowed</string>
+    <string name="terminal_high_accuraccy_location_not_allowed">High Accuraccy Location is not allowed</string>
+    <string name="terminal_apps_overlay_allowed">Apps Overlay is allowed</string>
+    <string name="terminal_apps_overlay_not_allowed">Apps Overlay is not allowed</string>
     <string name="delete_all_kid_terminals">Do you want to unlink all synchronized devices?</string>
     <string name="lock_screen_of_all_linked_devices_confirm">lock the screen of all linked devices?</string>
     <string name="unlock_screen_of_all_linked_devices_confirm">unlock the screen of all linked devices?</string>
