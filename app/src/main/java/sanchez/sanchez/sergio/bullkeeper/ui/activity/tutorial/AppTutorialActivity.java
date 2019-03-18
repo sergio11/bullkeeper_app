@@ -1,6 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.tutorial;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,11 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.cleveroad.slidingtutorial.TutorialOptions;
 import com.cleveroad.slidingtutorial.TutorialPageProvider;
 import com.cleveroad.slidingtutorial.TutorialSupportFragment;
 
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.tutorial.FifthPageFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.tutorial.FirstPageFragment;
@@ -43,6 +44,16 @@ public class AppTutorialActivity extends AppCompatActivity {
         final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(containerViewId, fragment);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * Attach Base Context
+     * @param newBase
+     */
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        final ContextWrapper contextWrapper = ViewPumpContextWrapper.wrap(newBase);
+        super.attachBaseContext(contextWrapper);
     }
 
     @Override

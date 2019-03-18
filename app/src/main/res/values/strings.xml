@@ -109,8 +109,8 @@
 
     <!-- Tutorial Strings -->
 
-    <string name="tutorial_first_page_title">The Social Media Protec</string>
-    <string name="tutorial_first_page_content">Help protect children and youth from harassment and attacks received from social networks.</string>
+    <string name="tutorial_first_page_title">The ultimate parental control tool.</string>
+    <string name="tutorial_first_page_content">Help in the digital education of children / adolescents, allowing to define daily habits of use and knowledge about their behavior in social media.</string>
 
     <string name="tutorial_second_page_title">Registration of Children</string>
     <string name="tutorial_second_page_content">Register the children to be monitored by the system</string>

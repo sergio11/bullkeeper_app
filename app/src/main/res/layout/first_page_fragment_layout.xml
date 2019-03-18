@@ -5,23 +5,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/tutorial_img_1">
 
+
+    <!-- Control Parental Icon -->
+    <ImageView
+        android:id="@+id/controlParentalIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:padding="@dimen/common_padding"
+        android:layout_margin="@dimen/common_margin"
+        android:contentDescription="@string/content_not_be_loaded"
+        app:layout_constraintBottom_toTopOf="@+id/titleText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/parental_control_icon_tutorial"/>
+
+
     <!-- Title -->
     <TextView
         android:id="@+id/titleText"
         style="@style/CommonStrongText.AllCaps"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_margin"
         android:gravity="center"
         android:text="@string/tutorial_first_page_title"
         android:textColor="@color/commonWhite"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/contentText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/controlParentalIcon" />
+
 
     <!-- Content -->
     <TextView
@@ -39,21 +53,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="394dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="217dp" />
 
 
 </android.support.constraint.ConstraintLayout>

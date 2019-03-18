@@ -82,8 +82,8 @@
     <string name="signup_in_progress">Registrarse en progreso, por favor espere …</string>
     <string name="signup_success" formatted="true">%s, su cuenta se creó correctamente, debe revisar su correo electrónico para validar su cuenta</string>
     <!-- Tutorial Strings -->
-    <string name="tutorial_first_page_title">La protección de las redes sociales</string>
-    <string name="tutorial_first_page_content">Ayude a proteger a los niños y jóvenes del hostigamiento y los ataques recibidos de las redes sociales.</string>
+    <string name="tutorial_first_page_title">La herramienta de control parental definitiva.</string>
+    <string name="tutorial_first_page_content">Ayuda en la educación digital de niños/adolescentes, permitiendo definir hábitos de uso diarios y conocimiento acerca de su comportamiento en medios sociales.</string>
     <string name="tutorial_second_page_title">Registro de niños</string>
     <string name="tutorial_second_page_content">Registrar a los niños para ser monitorizados por el sistema.</string>
     <string name="tutorial_third_page_title">Habilitar redes sociales</string>
