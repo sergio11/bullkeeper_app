@@ -23,6 +23,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.chart.SupportBarChartMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 
 /**
  * Four Dimensions Fragment
@@ -30,7 +31,7 @@ import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 public class FourDimensionsMvpFragment
         extends SupportBarChartMvpFragment<FourDimensionsFragmentPresenter,
                         IFourDimensionsFragmentView, IBasicActivityHandler,
-        StatsComponent, List<DimensionEntity>>
+        StatsComponent, DimensionsStatisticsEntity>
         implements IFourDimensionsFragmentView {
 
     private static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
@@ -223,22 +224,28 @@ public class FourDimensionsMvpFragment
      * @param chartData
      */
     @Override
-    public void onDataAvaliable(List<DimensionEntity> chartData) {
+    public void onDataAvaliable(DimensionsStatisticsEntity chartData) {
         Preconditions.checkNotNull(chartData, "Dimensions Entities can not be null");
+
+        if(chartTitleTextView != null)
+            chartTitleTextView.setText(chartData.getTitle());
+
+        if(chartSubTitleTextView != null)
+            chartSubTitleTextView.setText(chartData.getSubtitle());
 
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < DimensionCategoryEnum.values().length; i++ ) {
             final DimensionCategoryEnum dimensionCategoryEnum = DimensionCategoryEnum.values()[i];
             int j = 0;
-            for(; j < chartData.size(); j++) {
-                final DimensionEntity dimensionEntity  = chartData.get(j);
+            for(; j < chartData.getDimensions().size(); j++) {
+                final DimensionEntity dimensionEntity  = chartData.getDimensions().get(j);
                 if(dimensionEntity.getDimensionCategoryEnum().name().equals(dimensionCategoryEnum.name())) {
                     entries.add(new BarEntry(i, dimensionEntity.getValue()));
                     dimensionsLabel[i] = dimensionEntity.getLabel();
                     break;
                 }
             }
-            if(j == chartData.size()){
+            if(j == chartData.getDimensions().size()){
                 entries.add(new BarEntry(i, 0));
                 dimensionsLabel[i] = "0";
             }

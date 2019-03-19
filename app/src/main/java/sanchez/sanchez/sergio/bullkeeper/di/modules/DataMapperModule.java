@@ -25,7 +25,8 @@ import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ContactEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ConversationEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DayScheduledEntityDataMapper;
-import sanchez.sanchez.sergio.data.mapper.impl.DimensionEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.DimensionsEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.DimensionsStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.FunTimeEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GeofenceAlertDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.GeofenceEntityDataMapper;
@@ -124,6 +125,7 @@ import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceAlertEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
@@ -250,12 +252,24 @@ public class DataMapperModule {
     }
 
     /**
+     * Provide Dimensions Statistics Data Mapper
+     * @param dimensionEntityAbstractDataMapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<DimensionsStatisticsDTO, DimensionsStatisticsEntity> provideDimensionsStatisticsDataMapper(
+            final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionEntityAbstractDataMapper
+    ){
+        return new DimensionsStatisticsEntityDataMapper(dimensionEntityAbstractDataMapper);
+    }
+
+    /**
      * Provide Dimension Entity Data Mapper
      * @return
      */
     @Provides @PerActivity
     public AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> provideDimensionEntityDataMapper(){
-        return new DimensionEntityDataMapper();
+        return new DimensionsEntityDataMapper();
     }
 
     /**

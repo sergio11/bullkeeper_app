@@ -8,7 +8,7 @@ import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 /**
  * Dimension Entity Data Mapper
  */
-public final class DimensionEntityDataMapper extends AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> {
+public final class DimensionsEntityDataMapper extends AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> {
 
     /**
      * Transform

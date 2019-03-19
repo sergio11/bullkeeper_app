@@ -1,13 +1,11 @@
 package sanchez.sanchez.sergio.domain.interactor.statistics;
 
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
@@ -15,7 +13,7 @@ import sanchez.sanchez.sergio.domain.utils.ISupportVisitor;
 /**
  * Get Four Dimensions Statistics By Child
  */
-public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<List<DimensionEntity>,
+public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<DimensionsStatisticsEntity,
         GetFourDimensionsStatisticsByChildInteract.Params> {
 
     /**
@@ -42,7 +40,7 @@ public final class GetFourDimensionsStatisticsByChildInteract extends UseCase<Li
      * @return
      */
     @Override
-    protected Observable<List<DimensionEntity>> buildUseCaseObservable(Params params) {
+    protected Observable<DimensionsStatisticsEntity> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid Id can not be null");
         Preconditions.checkNotNull(!params.getKid().isEmpty(), "Kid Id can not be empty");

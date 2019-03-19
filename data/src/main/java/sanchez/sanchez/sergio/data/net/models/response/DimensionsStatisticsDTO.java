@@ -11,16 +11,37 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class DimensionsStatisticsDTO implements Serializable {
 
+    /**
+     * Title
+     */
     @JsonProperty("title")
     private String title;
 
+    /**
+     * Subtitle
+     */
+    @JsonProperty("subtitle")
+    private String subtitle;
+
+    /**
+     * Dimensions
+     */
     @JsonProperty("dimensions")
     private List<DimensionDTO> dimensions;
 
     public DimensionsStatisticsDTO(){}
 
-    public DimensionsStatisticsDTO(String title, List<DimensionDTO> dimensions) {
+    /**
+     *
+     * @param title
+     * @param subtitle
+     * @param dimensions
+     */
+    public DimensionsStatisticsDTO(final String title,
+                                   final String subtitle,
+                                   final List<DimensionDTO> dimensions) {
         this.title = title;
+        this.subtitle = subtitle;
         this.dimensions = dimensions;
     }
 
@@ -30,6 +51,14 @@ public final class DimensionsStatisticsDTO implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public List<DimensionDTO> getDimensions() {
@@ -98,6 +127,7 @@ public final class DimensionsStatisticsDTO implements Serializable {
     public String toString() {
         return "DimensionsStatisticsDTO{" +
                 "title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
                 ", dimensions=" + dimensions +
                 '}';
     }

@@ -2,11 +2,10 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions;
 
 import android.os.Bundle;
 import com.fernandocejas.arrow.checks.Preconditions;
-import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.statistics.GetFourDimensionsStatisticsByChildInteract;
-import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
@@ -68,7 +67,7 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
     /**
      * Get Four Dimensions Statistics By Child Observable
      */
-    public class GetFourDimensionsStatisticsByChildObservable extends CommandCallBackWrapper<List<DimensionEntity>,
+    public class GetFourDimensionsStatisticsByChildObservable extends CommandCallBackWrapper<DimensionsStatisticsEntity,
         GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.IGetFourDimensionsStatisticsApiErrorsVisitor,
         GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors>
             implements GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.IGetFourDimensionsStatisticsApiErrorsVisitor {
@@ -83,7 +82,7 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
          * @param dimensionEntities
          */
         @Override
-        protected void onSuccess(List<DimensionEntity> dimensionEntities) {
+        protected void onSuccess(DimensionsStatisticsEntity dimensionEntities) {
             Preconditions.checkNotNull(dimensionEntities, "Dimensions can nto be null");
             if(isViewAttached() && getView() != null)
                 getView().onDataAvaliable(dimensionEntities);

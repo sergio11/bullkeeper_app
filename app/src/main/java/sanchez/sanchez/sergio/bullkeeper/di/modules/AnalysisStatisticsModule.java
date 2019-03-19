@@ -23,6 +23,7 @@ import sanchez.sanchez.sergio.domain.interactor.statistics.GetSocialMediaActivit
 import sanchez.sanchez.sergio.domain.interactor.statistics.GetStatisticsSummaryInteract;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
@@ -59,7 +60,7 @@ public class AnalysisStatisticsModule {
     @Provides @PerActivity
     IAnalysisStatisticsRepository provideAnalysisStatisticsRepository(
             final IAnalysisStatisticsService analysisStatisticsService,
-            final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
+            final AbstractDataMapper<DimensionsStatisticsDTO, DimensionsStatisticsEntity> dimensionDataMapper,
             final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity>
                     socialMediaDataMapper,
             final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity>

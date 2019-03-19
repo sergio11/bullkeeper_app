@@ -3,7 +3,7 @@ package sanchez.sanchez.sergio.domain.repository;
 import java.util.List;
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
-import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
@@ -20,7 +20,7 @@ public interface IAnalysisStatisticsRepository {
      * @param daysAgo
      * @return
      */
-    Observable<List<DimensionEntity>> getDimensionsStatistics(final List<String> identities, final int daysAgo);
+    Observable<DimensionsStatisticsEntity> getDimensionsStatistics(final List<String> identities, final int daysAgo);
 
     /**
      * Get Dimensions Statistics
@@ -28,7 +28,7 @@ public interface IAnalysisStatisticsRepository {
      * @param daysAgo
      * @return
      */
-    Observable<List<DimensionEntity>> getDimensionsStatistics(final String id, final int daysAgo);
+    Observable<DimensionsStatisticsEntity> getDimensionsStatistics(final String id, final int daysAgo);
 
     /**
      * Get Social Media Activity Statistics

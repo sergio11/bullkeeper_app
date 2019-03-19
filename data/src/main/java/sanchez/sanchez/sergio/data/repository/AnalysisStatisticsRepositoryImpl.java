@@ -13,7 +13,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SocialMediaLikesStatistic
 import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.services.IAnalysisStatisticsService;
 import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntity;
-import sanchez.sanchez.sergio.domain.models.DimensionEntity;
+import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentAnalysisStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaActivityStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaLikesStatisticsEntity;
@@ -26,7 +26,7 @@ import sanchez.sanchez.sergio.domain.repository.IAnalysisStatisticsRepository;
 public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisticsRepository {
 
     private final IAnalysisStatisticsService analysisStatisticsService;
-    private final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper;
+    private final AbstractDataMapper<DimensionsStatisticsDTO, DimensionsStatisticsEntity> dimensionsStatisticsEntityAbstractDataMapper;
     private final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper;
     private final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper;
     private final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper;
@@ -36,7 +36,7 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
     /**
      *
      * @param analysisStatisticsService
-     * @param dimensionDataMapper
+     * @param dimensionsStatisticsEntityAbstractDataMapper
      * @param socialMediaStatisticsDataMapper
      * @param sentimentAnalysisStatisticsDataMapper
      * @param commentsStatisticsDataMapper
@@ -45,14 +45,14 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
      */
     public AnalysisStatisticsRepositoryImpl(
             final IAnalysisStatisticsService analysisStatisticsService,
-            final AbstractDataMapper<DimensionsStatisticsDTO.DimensionDTO, DimensionEntity> dimensionDataMapper,
+            final AbstractDataMapper<DimensionsStatisticsDTO, DimensionsStatisticsEntity> dimensionsStatisticsEntityAbstractDataMapper,
             final AbstractDataMapper<SocialMediaActivityStatisticsDTO, SocialMediaActivityStatisticsEntity> socialMediaStatisticsDataMapper,
             final AbstractDataMapper<SentimentAnalysisStatisticsDTO, SentimentAnalysisStatisticsEntity> sentimentAnalysisStatisticsDataMapper,
             final AbstractDataMapper<CommentsStatisticsBySocialMediaDTO, CommentsStatisticsBySocialMediaEntity>  commentsStatisticsDataMapper,
             final AbstractDataMapper<SocialMediaLikesStatisticsDTO, SocialMediaLikesStatisticsEntity> socialMediaLikesStatisticsDataMapper,
             final AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> summaryMyKidResultEntityAbstractDataMapper) {
         this.analysisStatisticsService = analysisStatisticsService;
-        this.dimensionDataMapper = dimensionDataMapper;
+        this.dimensionsStatisticsEntityAbstractDataMapper = dimensionsStatisticsEntityAbstractDataMapper;
         this.socialMediaStatisticsDataMapper = socialMediaStatisticsDataMapper;
         this.sentimentAnalysisStatisticsDataMapper = sentimentAnalysisStatisticsDataMapper;
         this.commentsStatisticsDataMapper = commentsStatisticsDataMapper;
@@ -67,15 +67,14 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
      * @return
      */
     @Override
-    public Observable<List<DimensionEntity>> getDimensionsStatistics(final List<String> identities, int daysAgo) {
+    public Observable<DimensionsStatisticsEntity> getDimensionsStatistics(final List<String> identities, int daysAgo) {
         Preconditions.checkNotNull(identities, "Identities can not be null");
         Preconditions.checkState(!identities.isEmpty(), "Identities can not be empty");
 
         return analysisStatisticsService.getDimensionsStatistics(identities, daysAgo)
                 .map(response -> response != null && response.getData() != null ?
                         response.getData() : null)
-                .map(dimensionsStatisticsDTO ->
-                        dimensionDataMapper.transform(dimensionsStatisticsDTO.getDimensions()));
+                .map(dimensionsStatisticsEntityAbstractDataMapper::transform);
     }
 
     /**
@@ -85,7 +84,7 @@ public final class AnalysisStatisticsRepositoryImpl implements IAnalysisStatisti
      * @return
      */
     @Override
-    public Observable<List<DimensionEntity>> getDimensionsStatistics(final String id, int daysAgo) {
+    public Observable<DimensionsStatisticsEntity> getDimensionsStatistics(final String id, int daysAgo) {
         Preconditions.checkNotNull(id, "Id can not be null");
         Preconditions.checkState(!id.isEmpty(), "Id can not be empty");
         return getDimensionsStatistics(Collections.singletonList(id), daysAgo);
