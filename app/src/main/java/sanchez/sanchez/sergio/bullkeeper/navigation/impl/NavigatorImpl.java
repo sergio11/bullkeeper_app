@@ -342,6 +342,40 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     *
+     * @param activity
+     * @param identity
+     * @param role
+     */
+    @Override
+    public void navigateToAppRules(final Activity activity, final String identity, final GuardianRolesEnum role) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(role, "Role can not be null");
+
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role,
+                MyKidsDetailMvpActivity.APP_RULES_TAB));
+    }
+
+    /**
+     *
+     * @param activity
+     * @param identity
+     * @param role
+     */
+    @Override
+    public void navigateToTerminalsList(final Activity activity, final String identity, final GuardianRolesEnum role) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(role, "Role can not be null");
+
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role,
+                MyKidsDetailMvpActivity.TERMINALS_TAB));
+    }
+
+    /**
      * Navigate To Kid Results Settings
      * @param activity
      */

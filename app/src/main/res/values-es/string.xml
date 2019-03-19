@@ -163,6 +163,15 @@
     <string name="alert_category_information_kid_action_text">Ir a editar al niño</string>
     <!-- Default -->
     <string name="alert_category_default">No se requiere acción</string>
+    <!-- Geofences -->
+    <string name="alert_category_geofences_desc">Ve a la sección Geofences para verlas.</string>
+    <string name="alert_category_geofences_action_text">Ir a la lista de geofences.</string>
+    <!-- Apps Installed -->
+    <string name="alert_category_apps_desc">Ve a las aplicaciones instaladas para verlas.</string>
+    <string name="alert_category_apps_action_text">Ir a las aplicaciones instaladas</string>
+    <!-- Terminals -->
+    <string name="alert_category_terminals_desc">Ve a la lista de terminales para verlos.</string>
+    <string name="alert_category_terminals_action_text">Ir a las terminales</string>
     <!-- Preferences -->
     <!-- App Preferences General Configuration Category -->
     <string name="app_preferences_general_configuration_category">Configuración general</string>

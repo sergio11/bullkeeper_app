@@ -86,7 +86,7 @@ android {
         debug {
             signingConfig signingConfigs.debug
             multiDexEnabled true
-            buildConfigField "String", "BASE_URL", '"http://192.168.1.39:8080/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"http://192.168.0.18:8080/api/v1/"'
         }
 
         release {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.fernandocejas.arrow.checks.Preconditions;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -119,4 +120,62 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
         return R.drawable.background_cyan_5;
     }
 
+    /**
+     * Go To Kid Statistics
+     */
+    @Override
+    public void goToKidStatistics(final String kid) {
+        navigatorImpl.navigateToKidsResultsActivity(this, kid);
+    }
+
+    /**
+     * Go To Edit Kid
+     * @param kid
+     */
+    @Override
+    public void goToEditKid(final String kid) {
+        navigatorImpl.navigateToMyKidsProfile(this, kid);
+    }
+
+    /**
+     * Go To General Statistics
+     */
+    @Override
+    public void goToGeneralStatistics() {
+        navigatorImpl.navigateToSummaryMyKidsResultsActivity(this);
+    }
+
+    /**
+     * Go To Information Extraction
+     */
+    @Override
+    public void goToInformationExtraction(final String kid) {
+        navigatorImpl.navigateToComments(this, kid);
+    }
+
+    /**
+     * Go To Geofences
+     */
+    @Override
+    public void goToGeofences(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        navigatorImpl.navigateToGeofencesList(this, kid);
+    }
+
+    /**
+     * Go To Apps Installed
+     */
+    @Override
+    public void goToAppsInstalled(final String kid) {
+        //navigatorImpl.navigateToMyKidsDetail(this, kid);
+    }
+
+    /**
+     * Go To Terminals
+     */
+    @Override
+    public void goToTerminals(final String kid) {
+        //navigatorImpl.navigateToMyKidsDetail(this, kid);
+    }
 }

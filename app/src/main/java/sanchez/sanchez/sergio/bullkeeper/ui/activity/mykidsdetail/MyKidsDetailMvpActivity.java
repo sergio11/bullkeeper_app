@@ -62,6 +62,23 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
     public static final String ROLE_ARG = "ROLE_ARG";
+    public static final String TAB_SELECTED_ARG = "TAB_SELECTED_ARG";
+
+    /**
+     * Tabs
+     */
+    public final static int ALERTS_TAB = 0;
+    public final static int KID_REQUEST_TAB = 1;
+    public final static int TERMINALS_TAB = 2;
+    public final static int SCHEDULED_BLOCKS_TAB = 3;
+    public final static int APP_RULES_TAB = 4;
+    public final static int APP_STATS_TAB = 5;
+    public final static int SMS_LIST_TAB = 6;
+    public final static int CALLS_LIST_TAB = 7;
+    public final static int CONTACTS_LIST_TAB = 8;
+    public final static int TIME_ALLOWANCE_TAB = 9;
+    public final static int FAMILY_LOCATOR_TAB = 10;
+    public final static int SECTION_COUNT = 11;
 
     private final String CONTENT_FULL_NAME = "MY_KIDS_DETAIL";
     private final String CONTENT_TYPE_NAME = "KIDS";
@@ -217,6 +234,23 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * Get Calling Intent
+     * @param context
+     * @param identity
+     * @param role
+     * @param tabSelected
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String identity,
+                                          final GuardianRolesEnum role, final int tabSelected) {
+        final Intent callingIntent = new Intent(context, MyKidsDetailMvpActivity.class);
+        callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(ROLE_ARG, role);
+        callingIntent.putExtra(TAB_SELECTED_ARG, tabSelected);
+        return callingIntent;
+    }
+
+    /**
      * Toggle All Components
      * @param isEnable
      */
@@ -276,6 +310,9 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         // Enable Profile Button for Admin Users
         if(role.equals(GuardianRolesEnum.ADMIN))
             editProfileBtn.setVisibility(View.VISIBLE);
+
+        if(getIntent().hasExtra(TAB_SELECTED_ARG))
+            sectionTabSelected = getIntent().getIntExtra(TAB_SELECTED_ARG, 0);
 
         // Get Kid Identity
         kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
@@ -688,18 +725,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final static int ALERTS_TAB = 0;
-        private final static int KID_REQUEST_TAB = 1;
-        private final static int TERMINALS_TAB = 2;
-        private final static int SCHEDULED_BLOCKS_TAB = 3;
-        private final static int APP_RULES_TAB = 4;
-        private final static int APP_STATS_TAB = 5;
-        private final static int SMS_LIST_TAB = 6;
-        private final static int CALLS_LIST_TAB = 7;
-        private final static int CONTACTS_LIST_TAB = 8;
-        private final static int TIME_ALLOWANCE_TAB = 9;
-        private final static int FAMILY_LOCATOR_TAB = 10;
-        private final static int SECTION_COUNT = 11;
 
         private final KidEntity kidEntity;
 

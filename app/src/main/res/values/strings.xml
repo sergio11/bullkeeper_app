@@ -211,7 +211,15 @@
     <string name="alert_category_information_kid_action_text">Go to edit kid</string>
     <!-- Default -->
     <string name="alert_category_default">No action required</string>
-
+    <!-- Geofences -->
+    <string name="alert_category_geofences_desc">Go to the Geofences to see them</string>
+    <string name="alert_category_geofences_action_text">Go to the Geofences List</string>
+    <!-- Apps Installed -->
+    <string name="alert_category_apps_desc">Go to the Apps Installed to see them</string>
+    <string name="alert_category_apps_action_text">Go to the Apps Installed</string>
+    <!-- Terminals -->
+    <string name="alert_category_terminals_desc">Go to the terminals list to see them</string>
+    <string name="alert_category_terminals_action_text">Go to the terminals</string>
 
     <!-- Preferences -->
 

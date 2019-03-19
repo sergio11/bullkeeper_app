@@ -168,6 +168,24 @@ public interface INavigator {
     void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum role);
 
     /**
+     * Navigate To App Rules
+     * @param activity
+     * @param identity
+     * @param role
+     */
+    void navigateToAppRules(final Activity activity, final String identity, final GuardianRolesEnum role);
+
+
+    /**
+     * Navigate To Terminals
+     * @param activity
+     * @param identity
+     * @param role
+     */
+    void navigateToTerminalsList(final Activity activity, final String identity, final GuardianRolesEnum role);
+
+
+    /**
      * Navigate To Kid Results Settings
      */
     void navigateToKidResultsSettings(final Activity activity);

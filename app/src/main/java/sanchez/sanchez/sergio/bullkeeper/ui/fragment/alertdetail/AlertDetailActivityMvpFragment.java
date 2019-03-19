@@ -153,7 +153,7 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
      * @param alertEntity
      */
     @Override
-    public void onAlertInfoLoaded(AlertEntity alertEntity) {
+    public void onAlertInfoLoaded(final AlertEntity alertEntity) {
 
         if(appUtils.isValidString(alertEntity.getSon().getProfileImage()))
             picasso.load(alertEntity.getSon().getProfileImage())
@@ -319,24 +319,93 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 // Statistics Son Category
                 alertDetailActions.setText(getString(R.string.alert_category_statistics_kid_desc));
                 actionButton.setText(getString(R.string.alert_category_statistics_kid_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToKidStatistics(alertEntity.getSon().getIdentity());
+                    }
+                });
+
                 break;
 
             case INFORMATION_KID:
                 // Information Son Category
                 alertDetailActions.setText(getString(R.string.alert_category_information_kid_desc));
                 actionButton.setText(getString(R.string.alert_category_information_kid_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToEditKid(alertEntity.getSon().getIdentity());
+                    }
+                });
+
                 break;
 
             case GENERAL_STATISTICS:
                 // General Statistics
                 alertDetailActions.setText(getString(R.string.alert_category_general_statistics_desc));
                 actionButton.setText(getString(R.string.alert_category_general_statistics_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToGeneralStatistics();
+                    }
+                });
                 break;
 
             case INFORMATION_EXTRACTION:
                 // Information Extraction
                 alertDetailActions.setText(getString(R.string.alert_category_information_extraction_desc));
                 actionButton.setText(getString(R.string.alert_category_information_extraction_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToInformationExtraction(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
+            case GEOFENCES:
+                // Geofences
+                alertDetailActions.setText(getString(R.string.alert_category_geofences_desc));
+                actionButton.setText(getString(R.string.alert_category_geofences_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToGeofences(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
+            case APPS_INSTALLED:
+                // Apps Installed
+                alertDetailActions.setText(getString(R.string.alert_category_apps_desc));
+                actionButton.setText(getString(R.string.alert_category_apps_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //activityHandler.goToInformationExtraction(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
+            case TERMINALS:
+                // Terminals
+                alertDetailActions.setText(getString(R.string.alert_category_terminals_desc));
+                actionButton.setText(getString(R.string.alert_category_terminals_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       // activityHandler.goToTerminals(alertEntity.getSon().getIdentity());
+                    }
+                });
                 break;
 
 
