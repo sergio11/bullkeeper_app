@@ -3,7 +3,6 @@ package sanchez.sanchez.sergio.data.net.models.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 /**
  * Terminal Detail DTO
  */
@@ -34,11 +33,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("total_contacts")
     private long totalContacts;
 
-    /**
-     * Last Time Used
-     */
-    @JsonProperty("last_time_used")
-    private String lastTimeUsed;
 
     /**
      * Screen Status
@@ -116,6 +110,7 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param marketName
      * @param model
      * @param codeName
+     * @param installed
      * @param deviceName
      * @param deviceId
      * @param bedTimeEnabled
@@ -125,11 +120,11 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param batteryLevel
      * @param isBatteryCharging
      * @param status
+     * @param heartbeat
      * @param totalApps
      * @param totalSms
      * @param totalCalls
      * @param totalContacts
-     * @param lastTimeUsed
      * @param screenStatus
      * @param locationPermissionEnabled
      * @param callsHistoryPermissionEnabled
@@ -141,23 +136,12 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param appsOverlayEnabled
      * @param highAccuraccyLocationEnabled
      */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion,
-                             String manufacturer, String marketName, String model,
-                             String codeName, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled,
-                             boolean cameraEnabled, boolean settingsEnabled, int batteryLevel,
-                             boolean isBatteryCharging, String status, long totalApps, long totalSms,
-                             long totalCalls, long totalContacts, String lastTimeUsed,
-                             String screenStatus, boolean locationPermissionEnabled,
-                             boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
-                             boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
-                             boolean usageStatsAllowed, boolean adminAccessAllowed,
-                             boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
-        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status);
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, boolean installed, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel, boolean isBatteryCharging, String status, TerminalHeartbeatDTO heartbeat, long totalApps, long totalSms, long totalCalls, long totalContacts, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
+        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, installed, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, heartbeat);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
         this.totalContacts = totalContacts;
-        this.lastTimeUsed = lastTimeUsed;
         this.screenStatus = screenStatus;
         this.locationPermissionEnabled = locationPermissionEnabled;
         this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
@@ -200,14 +184,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
 
     public void setTotalContacts(long totalContacts) {
         this.totalContacts = totalContacts;
-    }
-
-    public String getLastTimeUsed() {
-        return lastTimeUsed;
-    }
-
-    public void setLastTimeUsed(String lastTimeUsed) {
-        this.lastTimeUsed = lastTimeUsed;
     }
 
     public String getScreenStatus() {
@@ -297,7 +273,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", totalSms=" + totalSms +
                 ", totalCalls=" + totalCalls +
                 ", totalContacts=" + totalContacts +
-                ", lastTimeUsed='" + lastTimeUsed + '\'' +
                 ", screenStatus='" + screenStatus + '\'' +
                 ", locationPermissionEnabled=" + locationPermissionEnabled +
                 ", callsHistoryPermissionEnabled=" + callsHistoryPermissionEnabled +

@@ -62,7 +62,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
         private TextView deviceFullNameTextView, deviceManufacturerTextView,
                 systemVersionTextView, appVersionTextView;
         private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView,
-                batteryStatusImageView, terminalStatusImageView;
+                batteryStatusImageView, terminalStatusImageView,
+                terminalExceededThresholdImageView, terminalAppNotInstalledImageView;
 
         /**
          * @param itemView
@@ -77,6 +78,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             mobileScreenNotAllowedImageView = itemView.findViewById(R.id.mobileScreenNotAllowed);
             batteryStatusImageView = itemView.findViewById(R.id.batteryStatus);
             terminalStatusImageView = itemView.findViewById(R.id.terminalStatus);
+            terminalExceededThresholdImageView = itemView.findViewById(R.id.terminalExceededThreshold);
+            terminalAppNotInstalledImageView = itemView.findViewById(R.id.terminalAppNotInstalled);
         }
 
         /**
@@ -116,23 +119,42 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             else
                 mobileScreenNotAllowedImageView.setVisibility(View.INVISIBLE);
 
-            if(terminalEntity.isBatteryCharging()) {
-                batteryStatusImageView.setImageResource(R.drawable.battery_is_charging);
+            if(!terminalEntity.isInstalled()) {
+                terminalAppNotInstalledImageView.setVisibility(View.VISIBLE);
+                terminalExceededThresholdImageView.setVisibility(View.GONE);
+                batteryStatusImageView.setVisibility(View.GONE);
+                terminalStatusImageView.setVisibility(View.GONE);
             } else {
 
-                if(terminalEntity.getBatteryLevel() <= 100 && terminalEntity.getBatteryLevel() >= 80 ) {
-                    batteryStatusImageView.setImageResource(R.drawable.battery_fully_charged);
-                } else if(terminalEntity.getBatteryLevel() < 80 && terminalEntity.getBatteryLevel() >= 30) {
-                    batteryStatusImageView.setImageResource(R.drawable.normal_charge_battery);
+                terminalAppNotInstalledImageView.setVisibility(View.GONE);
+
+                if(terminalEntity.getTerminalHeartbeatEntity().hasExceededThreshold()) {
+                    terminalExceededThresholdImageView.setVisibility(View.VISIBLE);
+                    batteryStatusImageView.setVisibility(View.GONE);
+                    terminalStatusImageView.setVisibility(View.GONE);
                 } else {
-                    batteryStatusImageView.setImageResource(R.drawable.battery_about_to_run_out);
+
+                    terminalExceededThresholdImageView.setVisibility(View.GONE);
+
+                    if(terminalEntity.isBatteryCharging()) {
+                        batteryStatusImageView.setImageResource(R.drawable.battery_is_charging);
+                    } else {
+
+                        if(terminalEntity.getBatteryLevel() <= 100 && terminalEntity.getBatteryLevel() >= 80 ) {
+                            batteryStatusImageView.setImageResource(R.drawable.battery_fully_charged);
+                        } else if(terminalEntity.getBatteryLevel() < 80 && terminalEntity.getBatteryLevel() >= 30) {
+                            batteryStatusImageView.setImageResource(R.drawable.normal_charge_battery);
+                        } else {
+                            batteryStatusImageView.setImageResource(R.drawable.battery_about_to_run_out);
+                        }
+                    }
+
+                    if(terminalEntity.getStatus().equals(TerminalStatusEnum.STATE_OFF))
+                        terminalStatusImageView.setVisibility(View.VISIBLE);
+                    else
+                        terminalStatusImageView.setVisibility(View.INVISIBLE);
                 }
             }
-
-            if(terminalEntity.getStatus().equals(TerminalStatusEnum.STATE_OFF))
-                terminalStatusImageView.setVisibility(View.VISIBLE);
-            else
-                terminalStatusImageView.setVisibility(View.INVISIBLE);
 
         }
 

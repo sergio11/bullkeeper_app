@@ -4,14 +4,29 @@ import com.fernandocejas.arrow.checks.Preconditions;
 
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
 import sanchez.sanchez.sergio.domain.models.ScreenStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
  * Terminal Detail Entity Data Mapper
  */
 public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> {
+
+    /**
+     * Terminal HeartBeat Data Mapper
+     */
+    private final AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityAbstractDataMapper;
+
+    /**
+     *
+     * @param terminalHeartbeatEntityAbstractDataMapper
+     */
+    public TerminalDetailEntityDataMapper(AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityAbstractDataMapper) {
+        this.terminalHeartbeatEntityAbstractDataMapper = terminalHeartbeatEntityAbstractDataMapper;
+    }
 
     /**
      * Transform
@@ -43,7 +58,6 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         } catch(final Exception ex) {
             terminalEntity.setScreenStatusEnum(ScreenStatusEnum.STATE_UNKNOWN);
         }
-        terminalEntity.setLastTimeUsed(originModel.getLastTimeUsed());
         terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
         terminalEntity.setScreenEnabled(originModel.isScreenEnabled());
@@ -64,6 +78,9 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         }
         terminalEntity.setAppsOverlayEnabled(originModel.isAppsOverlayEnabled());
         terminalEntity.setHighAccuraccyLocationEnabled(originModel.isHighAccuraccyLocationEnabled());
+        terminalEntity.setTerminalHeartbeatEntity(
+                terminalHeartbeatEntityAbstractDataMapper.transform(originModel.getHeartbeat())
+        );
         return terminalEntity;
     }
 
@@ -91,7 +108,6 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setTotalCalls(originModel.getTotalCalls());
         terminalDTO.setTotalContacts(originModel.getTotalContacts());
         terminalDTO.setScreenStatus(originModel.getScreenStatusEnum().name());
-        terminalDTO.setLastTimeUsed(originModel.getLastTimeUsed());
         terminalDTO.setCameraEnabled(originModel.isCameraEnabled());
         terminalDTO.setScreenEnabled(originModel.isScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
@@ -108,6 +124,9 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setStatus(originModel.getStatus().name());
         terminalDTO.setAppsOverlayEnabled(originModel.isAppsOverlayEnabled());
         terminalDTO.setHighAccuraccyLocationEnabled(originModel.isHighAccuraccyLocationEnabled());
+        terminalDTO.setHeartbeat(
+                terminalHeartbeatEntityAbstractDataMapper.transformInverse(originModel.getTerminalHeartbeatEntity())
+        );
         return terminalDTO;
     }
 }

@@ -31,11 +31,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
     private ScreenStatusEnum screenStatusEnum;
 
     /**
-     * Last Time Used
-     */
-    private String lastTimeUsed;
-
-    /**
      * Location Permission Enabled
      */
     private boolean locationPermissionEnabled;
@@ -93,6 +88,7 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param codeName
      * @param deviceName
      * @param manufacturer
+     * @param installed
      * @param marketName
      * @param model
      * @param osVersion
@@ -104,12 +100,12 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param batteryLevel
      * @param isBatteryCharging
      * @param status
+     * @param terminalHeartbeatEntity
      * @param totalApps
      * @param totalSms
      * @param totalCalls
      * @param totalContacts
      * @param screenStatusEnum
-     * @param lastTimeUsed
      * @param locationPermissionEnabled
      * @param callsHistoryPermissionEnabled
      * @param contactsListPermissionEnabled
@@ -120,20 +116,13 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param appsOverlayEnabled
      * @param highAccuraccyLocationEnabled
      */
-    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled,
-                                boolean settingsEnabled, int batteryLevel,
-                                boolean isBatteryCharging, TerminalStatusEnum status, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, String lastTimeUsed, boolean locationPermissionEnabled,
-                                boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
-                                boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
-                                boolean usageStatsAllowed, boolean adminAccessAllowed,
-                                boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
-        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status);
+    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, boolean installed, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel, boolean isBatteryCharging, TerminalStatusEnum status, TerminalHeartbeatEntity terminalHeartbeatEntity, long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
+        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, installed, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, terminalHeartbeatEntity);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
         this.totalContacts = totalContacts;
         this.screenStatusEnum = screenStatusEnum;
-        this.lastTimeUsed = lastTimeUsed;
         this.locationPermissionEnabled = locationPermissionEnabled;
         this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
         this.contactsListPermissionEnabled = contactsListPermissionEnabled;
@@ -183,14 +172,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
 
     public void setScreenStatusEnum(ScreenStatusEnum screenStatusEnum) {
         this.screenStatusEnum = screenStatusEnum;
-    }
-
-    public String getLastTimeUsed() {
-        return lastTimeUsed;
-    }
-
-    public void setLastTimeUsed(String lastTimeUsed) {
-        this.lastTimeUsed = lastTimeUsed;
     }
 
     public boolean isLocationPermissionEnabled() {
@@ -273,7 +254,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
                 ", totalCalls=" + totalCalls +
                 ", totalContacts=" + totalContacts +
                 ", screenStatusEnum=" + screenStatusEnum +
-                ", lastTimeUsed='" + lastTimeUsed + '\'' +
                 ", locationPermissionEnabled=" + locationPermissionEnabled +
                 ", callsHistoryPermissionEnabled=" + callsHistoryPermissionEnabled +
                 ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +

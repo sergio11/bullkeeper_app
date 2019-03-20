@@ -232,18 +232,44 @@
                         android:drawablePadding="@dimen/common_padding"
                         android:drawableStart="@drawable/contacts_icon_cyan_small" />
 
-                    <!-- Last Time Used -->
-                    <TextView
-                        android:id="@+id/lastTimeUsed"
-                        style="@style/CommonStrongText.Big"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/common_margin"
                         android:gravity="start|center_vertical"
-                        android:text="-"
-                        android:textColor="@color/cyanBrilliant"
-                        android:drawablePadding="@dimen/common_padding"
-                        android:drawableStart="@drawable/clock_cyan_solid" />
+                        android:orientation="horizontal">
+
+                        <!-- Last Time Used -->
+                        <TextView
+                            android:id="@+id/lastTimeUsed"
+                            style="@style/CommonStrongText.Big"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:drawablePadding="@dimen/common_padding"
+                            android:drawableStart="@drawable/clock_cyan_solid" />
+
+                        <!-- terminal Heartbeat Exceeded Threshold-->
+                        <ImageView
+                            android:id="@+id/terminalHeartbeatExceededThreshold"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:visibility="gone"
+                            android:src="@drawable/terminal_heartbeat_exceeded_threshold"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                        <!-- Configure Terminal Heartbeat Threshold -->
+                        <ImageView
+                            android:id="@+id/configureTerminalHeartbeatThreshold"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="@dimen/common_margin"
+                            android:src="@drawable/configure_terminal_heartbeat_threshold"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

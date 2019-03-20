@@ -47,6 +47,8 @@
 
     <!-- Common Padding -->
     <dimen name="common_padding">10dp</dimen>
+    <!-- Common Padding Big -->
+    <dimen name="common_padding_big">20dp</dimen>
     <!-- Common Margin -->
     <dimen name="common_margin">10dp</dimen>
     <!-- Common Margin Small -->

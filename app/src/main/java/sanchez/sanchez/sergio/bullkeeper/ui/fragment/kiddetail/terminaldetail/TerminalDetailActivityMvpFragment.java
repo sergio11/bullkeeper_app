@@ -1,10 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.di.components.TerminalComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.ITerminalDetailActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfigureTerminalHeartbeatThresholdDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
@@ -119,6 +122,12 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @BindView(R.id.lastTimeUsed)
     protected TextView lastTimeUsedTextView;
+
+    /**
+     * Terminal Heartbeat Exceeded Threshold Image View
+     */
+    @BindView(R.id.terminalHeartbeatExceededThreshold)
+    protected ImageView terminalHeartbeatExceededThresholdImageView;
 
     /**
      * Bed Time Text View
@@ -296,6 +305,12 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected AppCompatActivity activity;
 
 
     /**
@@ -517,7 +532,13 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
 
         totalContactsTextView.setText(totalContactsText);
         // Last Time Used
-        lastTimeUsedTextView.setText(terminalDetailEntity.getLastTimeUsed());
+        lastTimeUsedTextView.setText(terminalDetailEntity
+                .getTerminalHeartbeatEntity().getLastTimeNotifiedSince());
+
+        if(terminalDetailEntity.getTerminalHeartbeatEntity().hasExceededThreshold())
+            terminalHeartbeatExceededThresholdImageView.setVisibility(View.VISIBLE);
+        else
+            terminalHeartbeatExceededThresholdImageView.setVisibility(View.GONE);
 
         // Bed Time
         bedTimeTextView.setText(terminalDetailEntity.isBedTimeEnabled() ?
@@ -708,7 +729,6 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             }
         });
 
-
         // Location Permission
         locationPermissionStatusWidget.setChecked(terminalDetailEntity.isLocationPermissionEnabled() , false);
 
@@ -791,6 +811,8 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                         getString(R.string.terminal_apps_overlay_allowed) :
                         getString(R.string.terminal_apps_overlay_not_allowed)
         );
+
+
 
     }
 
@@ -930,5 +952,22 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
 
     }
 
+    /**
+     * On Configure Terminal Heartbeat Threshold
+     */
+    @OnClick(R.id.configureTerminalHeartbeatThreshold)
+    protected void onConfigureTerminalHeartbeatThreshold(){
+        ConfigureTerminalHeartbeatThresholdDialogFragment.showDialog(activity, "Configure Terminal HeartBeat", new ConfigureTerminalHeartbeatThresholdDialogFragment.OnConfigureTerminalHeartbeatThresholdDialogListener() {
+            @Override
+            public void onSave(DialogFragment dialog) {
+
+            }
+
+            @Override
+            public void onCancel(DialogFragment dialog) {
+
+            }
+        });
+    }
 
 }

@@ -49,7 +49,7 @@
             android:id="@+id/alertIconContainer"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:padding="@dimen/common_padding"
+            android:padding="@dimen/common_padding_big"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/separator"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,10 +121,9 @@
             android:singleLine="true"
             android:text="-"
             android:textColor="@color/cyanBrilliant"
-            app:layout_constraintBottom_toTopOf="@id/alertMessage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/alertSonName"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/alertSonName"/>
 
 
         <!-- Alert Message -->
@@ -132,15 +131,14 @@
             android:id="@+id/alertMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:textColor="@color/cyanBrilliant"
             style="@style/CommonStrongText.Medium"
+            android:singleLine="true"
             android:text="-"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/childImage" />
+            app:layout_constraintStart_toEndOf="@+id/childImage"
+            app:layout_constraintTop_toBottomOf="@id/alertSonName"/>
 
     </android.support.constraint.ConstraintLayout>
 

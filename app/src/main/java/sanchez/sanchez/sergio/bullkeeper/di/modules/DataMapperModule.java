@@ -56,6 +56,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SummaryMyKidsResultsDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.SupervisedChildrenEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalDetailEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.TerminalHeartbeatEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveDayScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveFunTimeScheduledDTO;
@@ -104,6 +105,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SummaryMyKidResultDTO;
 import sanchez.sanchez.sergio.data.net.models.response.SupervisedChildrenDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
@@ -151,6 +153,7 @@ import sanchez.sanchez.sergio.domain.models.SummaryMyKidResultEntity;
 import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
@@ -383,17 +386,22 @@ public class DataMapperModule {
      * @return
      */
     @Provides @PerActivity
-    public AbstractDataMapper<TerminalDTO, TerminalEntity> provideTerminalDataMapper(){
-        return new TerminalEntityDataMapper();
+    public AbstractDataMapper<TerminalDTO, TerminalEntity> provideTerminalDataMapper(
+            final AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityDataMapper
+    ){
+        return new TerminalEntityDataMapper(terminalHeartbeatEntityDataMapper);
     }
 
     /**
      * Provide Terminal Detail DataMapper
+     * @param terminalHeartbeatEntityAbstractDataMapper
      * @return
      */
     @Provides @PerActivity
-    public AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> provideTerminalDetailDataMapper(){
-        return new TerminalDetailEntityDataMapper();
+    public AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> provideTerminalDetailDataMapper(
+            final AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityAbstractDataMapper
+    ){
+        return new TerminalDetailEntityDataMapper(terminalHeartbeatEntityAbstractDataMapper);
     }
 
     /**
@@ -678,6 +686,15 @@ public class DataMapperModule {
     ){
         return new SummaryMyKidsResultsDataMapper(locationEntityAbstractDataMapper,
                 socialMediaEntityAbstractDataMapper, schoolEntityAbstractDataMapper);
+    }
+
+    /**
+     * Provide Terminal Heartbeat Entity Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> provideTerminalHeartbeatDataMapper(){
+        return new TerminalHeartbeatEntityDataMapper();
     }
 
 }

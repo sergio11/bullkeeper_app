@@ -13,6 +13,7 @@ public class TerminalEntity implements Serializable {
     private String codeName;
     private String deviceName;
     private String manufacturer;
+    private boolean installed;
     private String marketName;
     private String model;
     private String osVersion;
@@ -24,6 +25,7 @@ public class TerminalEntity implements Serializable {
     private int batteryLevel;
     private boolean isBatteryCharging;
     private TerminalStatusEnum status;
+    private TerminalHeartbeatEntity terminalHeartbeatEntity;
 
     public TerminalEntity(){}
 
@@ -35,6 +37,7 @@ public class TerminalEntity implements Serializable {
      * @param codeName
      * @param deviceName
      * @param manufacturer
+     * @param installed
      * @param marketName
      * @param model
      * @param osVersion
@@ -43,20 +46,23 @@ public class TerminalEntity implements Serializable {
      * @param screenEnabled
      * @param cameraEnabled
      * @param settingsEnabled
+     * @param terminalHeartbeatEntity
      */
     public TerminalEntity(String identity, String appVersionCode, String appVersionName,
                           String codeName, String deviceName, String manufacturer,
-                          String marketName, String model, String osVersion,
+                          boolean installed, String marketName, String model, String osVersion,
                           String sdkVersion, boolean bedTimeEnabled,
                           boolean screenEnabled, boolean cameraEnabled,
                           boolean settingsEnabled, int batteryLevel,
-                          boolean isBatteryCharging, TerminalStatusEnum status) {
+                          boolean isBatteryCharging, TerminalStatusEnum status,
+                          TerminalHeartbeatEntity terminalHeartbeatEntity) {
         this.identity = identity;
         this.appVersionCode = appVersionCode;
         this.appVersionName = appVersionName;
         this.codeName = codeName;
         this.deviceName = deviceName;
         this.manufacturer = manufacturer;
+        this.installed = installed;
         this.marketName = marketName;
         this.model = model;
         this.osVersion = osVersion;
@@ -68,6 +74,7 @@ public class TerminalEntity implements Serializable {
         this.batteryLevel = batteryLevel;
         this.isBatteryCharging = isBatteryCharging;
         this.status = status;
+        this.terminalHeartbeatEntity = terminalHeartbeatEntity;
     }
 
     public String getIdentity() {
@@ -116,6 +123,14 @@ public class TerminalEntity implements Serializable {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public boolean isInstalled() {
+        return installed;
+    }
+
+    public void setInstalled(boolean installed) {
+        this.installed = installed;
     }
 
     public String getMarketName() {
@@ -206,6 +221,14 @@ public class TerminalEntity implements Serializable {
         this.status = status;
     }
 
+    public TerminalHeartbeatEntity getTerminalHeartbeatEntity() {
+        return terminalHeartbeatEntity;
+    }
+
+    public void setTerminalHeartbeatEntity(TerminalHeartbeatEntity terminalHeartbeatEntity) {
+        this.terminalHeartbeatEntity = terminalHeartbeatEntity;
+    }
+
     @Override
     public String toString() {
         return "TerminalEntity{" +
@@ -215,6 +238,7 @@ public class TerminalEntity implements Serializable {
                 ", codeName='" + codeName + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
+                ", installed=" + installed +
                 ", marketName='" + marketName + '\'' +
                 ", model='" + model + '\'' +
                 ", osVersion='" + osVersion + '\'' +
@@ -226,6 +250,7 @@ public class TerminalEntity implements Serializable {
                 ", batteryLevel=" + batteryLevel +
                 ", isBatteryCharging=" + isBatteryCharging +
                 ", status=" + status +
+                ", terminalHeartbeatEntity=" + terminalHeartbeatEntity +
                 '}';
     }
 }
