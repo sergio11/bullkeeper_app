@@ -6,11 +6,14 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.request.SaveTerminalHeartBeatConfigurationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
 import sanchez.sanchez.sergio.data.net.services.ITerminalService;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 import sanchez.sanchez.sergio.domain.repository.ITerminalRepository;
 
 /**
@@ -34,17 +37,25 @@ public final class TerminalRepositoryImpl implements ITerminalRepository {
     private final AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> terminalDetailDataMapper;
 
     /**
+     * Terminal HeartBeat Data Mapper
+     */
+    private final AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityAbstractDataMapper;
+
+    /**
      *
      * @param terminalService
      * @param terminalDataMapper
      * @param terminalDetailDataMapper
+     * @param terminalHeartbeatEntityAbstractDataMapper
      */
     public TerminalRepositoryImpl(final ITerminalService terminalService,
                                   final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalDataMapper,
-                                  final AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> terminalDetailDataMapper) {
+                                  final AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> terminalDetailDataMapper,
+                                  final AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityAbstractDataMapper) {
         this.terminalService = terminalService;
         this.terminalDataMapper = terminalDataMapper;
         this.terminalDetailDataMapper = terminalDetailDataMapper;
+        this.terminalHeartbeatEntityAbstractDataMapper = terminalHeartbeatEntityAbstractDataMapper;
     }
 
     /**
@@ -220,5 +231,28 @@ public final class TerminalRepositoryImpl implements ITerminalRepository {
                 terminalService.disableSettingsScreenInTheTerminal(kid, terminal))
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null);
+    }
+
+    /**
+     * Save Heart Beat Configuration
+     * @param kid
+     * @param terminal
+     * @param alertThresholdInMinutes
+     * @param isAlertModeEnabled
+     * @return
+     */
+    @Override
+    public Observable<TerminalHeartbeatEntity> saveHeartbeatConfiguration(final String kid, final String terminal, int alertThresholdInMinutes, boolean isAlertModeEnabled) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+
+        return terminalService.saveTerminalHeartbeatConfiguration(kid, terminal,
+                new SaveTerminalHeartBeatConfigurationDTO(kid, terminal, alertThresholdInMinutes, isAlertModeEnabled))
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null)
+                .map(terminalHeartbeatEntityAbstractDataMapper::transform);
+
     }
 }

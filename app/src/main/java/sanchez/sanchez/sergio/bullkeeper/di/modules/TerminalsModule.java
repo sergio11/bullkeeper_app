@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.scopes.PerActivity;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
 import sanchez.sanchez.sergio.data.net.services.ITerminalService;
 import sanchez.sanchez.sergio.data.repository.TerminalRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -15,6 +16,7 @@ import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteAllTerminalsForKi
 import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteTerminalInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetMonitoredTerminalsInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SaveHeartbeatConfigurationInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusForAllTerminalsOfKidInteract;
@@ -22,6 +24,7 @@ import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusI
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchSettingsScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 import sanchez.sanchez.sergio.domain.repository.ITerminalRepository;
 
 /**
@@ -46,14 +49,17 @@ public class TerminalsModule {
      * Provide Terminal Repository
      * @param terminalService
      * @param terminalEntityAbstractDataMapper
+     * @param terminalHeartbeatEntityAbstractDataMapper
      * @return
      */
     @Provides
     @PerActivity
     protected ITerminalRepository provideTerminalRepository(final ITerminalService terminalService,
                                                             final AbstractDataMapper<TerminalDTO, TerminalEntity> terminalEntityAbstractDataMapper,
-                                                            final AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> terminalDetailEntityAbstractDataMapper) {
-        return new TerminalRepositoryImpl(terminalService, terminalEntityAbstractDataMapper, terminalDetailEntityAbstractDataMapper);
+                                                            final AbstractDataMapper<TerminalDetailDTO, TerminalDetailEntity> terminalDetailEntityAbstractDataMapper,
+                                                            final AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> terminalHeartbeatEntityAbstractDataMapper) {
+        return new TerminalRepositoryImpl(terminalService, terminalEntityAbstractDataMapper, terminalDetailEntityAbstractDataMapper,
+                terminalHeartbeatEntityAbstractDataMapper);
     }
 
     /**
@@ -188,6 +194,23 @@ public class TerminalsModule {
             final ITerminalRepository terminalRepository
     ){
         return new SwitchLockScreenStatusForAllTerminalsOfKidInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Save Heart Configuration Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SaveHeartbeatConfigurationInteract provideSaveHeartbeatConfigurationInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ITerminalRepository terminalRepository
+    ){
+        return new SaveHeartbeatConfigurationInteract(threadExecutor, postExecutionThread, terminalRepository);
     }
 
 }

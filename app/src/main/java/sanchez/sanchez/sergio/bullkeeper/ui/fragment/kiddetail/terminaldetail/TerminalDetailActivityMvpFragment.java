@@ -1,6 +1,5 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfigureTerminalHeartbeatThr
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 import timber.log.Timber;
 
@@ -331,6 +331,19 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     @State
     protected String terminalId;
 
+    /**
+     * Alert Threshold In Minutes
+     */
+    @State
+    protected int alertThresholdInMinutes;
+
+    /**
+     * Is Alert Mode Enabled
+     */
+    @State
+    protected boolean isAlertModeEnabled;
+
+
     public TerminalDetailActivityMvpFragment() { }
 
     /**
@@ -529,6 +542,12 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 String.format(Locale.getDefault(),
                         getString(R.string.has_registered_contacts),
                         terminalDetailEntity.getTotalContacts()) : getString(R.string.has_not_registered_contacts);
+
+        alertThresholdInMinutes = terminalDetailEntity
+                            .getTerminalHeartbeatEntity().getAlertThresholdInMinutes();
+
+        isAlertModeEnabled = terminalDetailEntity
+                .getTerminalHeartbeatEntity().isAlertModeEnabled();
 
         totalContactsTextView.setText(totalContactsText);
         // Last Time Used
@@ -931,6 +950,32 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     }
 
     /**
+     * On Heart Beat Saved Successfully
+     */
+    @Override
+    public void onHeartBeatSavedSuccessfully(final TerminalHeartbeatEntity terminalHeartbeatEntity) {
+        isAlertModeEnabled = terminalHeartbeatEntity.isAlertModeEnabled();
+        alertThresholdInMinutes = terminalHeartbeatEntity.getAlertThresholdInMinutes();
+        // Last Time Used
+        lastTimeUsedTextView.setText(terminalHeartbeatEntity.getLastTimeNotifiedSince());
+
+        if(terminalHeartbeatEntity.hasExceededThreshold())
+            terminalHeartbeatExceededThresholdImageView.setVisibility(View.VISIBLE);
+        else
+            terminalHeartbeatExceededThresholdImageView.setVisibility(View.GONE);
+
+        showNoticeDialog(R.string.terminal_heartbeat_configuration_saved_successfully);
+    }
+
+    /**
+     * On Heart Beat Save Failed
+     */
+    @Override
+    public void onHeartBeatSavedFailed() {
+        showNoticeDialog(R.string.terminal_heartbeat_configuration_saved_failed, false);
+    }
+
+    /**
      * On Delete Terminal
      */
     @OnClick(R.id.deleteTerminal)
@@ -957,17 +1002,27 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
      */
     @OnClick(R.id.configureTerminalHeartbeatThreshold)
     protected void onConfigureTerminalHeartbeatThreshold(){
-        ConfigureTerminalHeartbeatThresholdDialogFragment.showDialog(activity, "Configure Terminal HeartBeat", new ConfigureTerminalHeartbeatThresholdDialogFragment.OnConfigureTerminalHeartbeatThresholdDialogListener() {
-            @Override
-            public void onSave(DialogFragment dialog) {
+        ConfigureTerminalHeartbeatThresholdDialogFragment.showDialog(activity, new ConfigureTerminalHeartbeatThresholdDialogFragment.OnConfigureTerminalHeartbeatThresholdDialogListener() {
 
+            /**
+             * On Save
+             * @param dialog
+             * @param alertThresholdInMinutes
+             * @param isAlertModeEnabled
+             */
+            @Override
+            public void onSave(DialogFragment dialog, int alertThresholdInMinutes, boolean isAlertModeEnabled) {
+                getPresenter().saveHeartBeatConfiguration(childId, terminalId,
+                        alertThresholdInMinutes, isAlertModeEnabled);
             }
 
             @Override
             public void onCancel(DialogFragment dialog) {
 
             }
-        });
+        }, alertThresholdInMinutes, isAlertModeEnabled);
     }
+
+
 
 }

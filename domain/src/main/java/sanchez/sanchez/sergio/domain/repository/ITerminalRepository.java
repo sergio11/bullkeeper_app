@@ -1,10 +1,10 @@
 package sanchez.sanchez.sergio.domain.repository;
 
 import java.util.List;
-
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 
 /**
  * Terminal Repository
@@ -87,5 +87,16 @@ public interface ITerminalRepository {
      * @return
      */
     Observable<String> switchSettingsScreenStatus(final String kid, final String terminal, final Boolean status);
+
+    /**
+     * Save Heart Beat Configuration
+     * @param kid
+     * @param terminal
+     * @param alertThresholdInMinutes
+     * @param isAlertModeEnabled
+     * @return
+     */
+    Observable<TerminalHeartbeatEntity> saveHeartbeatConfiguration(final String kid, final String terminal,
+                                                                   final int alertThresholdInMinutes, final boolean isAlertModeEnabled);
 
 }

@@ -715,6 +715,12 @@
     <string name="terminal_settings_changed_successfully">El estado de la configuración del terminal cambió exitosamente</string>
     <string name="terminal_settings_changed_failed">Se produjo un error al cambiar el estado de la configuración.</string>
 
+    <!-- HeartBeat -->
+    <string name="terminal_heartbeat_title">Configurar Terminal HeartBeat</string>
+    <string name="terminal_heartbeat_alert_threshold_in_minutes" formatted="false">El umbral de alerta se establece en %d minutos.</string>
+    <string name="terminal_heartbeat_alert_mode_disabled">Modo de alerta desactivado. No se aplicará ningún umbral.</string>
+    <string name="terminal_heartbeat_configuration_saved_successfully">Configuración de HeartBeat guardada correctamente.</string>
+    <string name="terminal_heartbeat_configuration_saved_failed">Error al guardar la configuración de HeartBeat.</string>
     <!-- Apps Installed -->
     <string name="app_installed_detail_title">Detalle de la aplicación instalada</string>
     <string name="app_first_install_time" formatted="false">Fecha instalación: %s</string>

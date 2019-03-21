@@ -9,9 +9,9 @@ import java.util.Date;
 public final class TerminalHeartbeatEntity implements Serializable {
 
     /**
-     * Alert Threshold
+     * Alert Threshold In Minutes
      */
-    private int alertThreshold;
+    private int alertThresholdInMinutes;
 
     /**
      * Alert Mode Enabled
@@ -32,25 +32,25 @@ public final class TerminalHeartbeatEntity implements Serializable {
 
     /**
      *
-     * @param alertThreshold
+     * @param alertThresholdInMinutes
      * @param alertModeEnabled
      * @param lastTimeNotifiedSince
      * @param lastTimeNotified
      */
-    public TerminalHeartbeatEntity(int alertThreshold, boolean alertModeEnabled,
+    public TerminalHeartbeatEntity(int alertThresholdInMinutes, boolean alertModeEnabled,
                                    final String lastTimeNotifiedSince, final Date lastTimeNotified) {
-        this.alertThreshold = alertThreshold;
+        this.alertThresholdInMinutes = alertThresholdInMinutes;
         this.alertModeEnabled = alertModeEnabled;
         this.lastTimeNotifiedSince = lastTimeNotifiedSince;
         this.lastTimeNotified = lastTimeNotified;
     }
 
-    public int getAlertThreshold() {
-        return alertThreshold;
+    public int getAlertThresholdInMinutes() {
+        return alertThresholdInMinutes;
     }
 
-    public void setAlertThreshold(int alertThreshold) {
-        this.alertThreshold = alertThreshold;
+    public void setAlertThresholdInMinutes(int alertThresholdInMinutes) {
+        this.alertThresholdInMinutes = alertThresholdInMinutes;
     }
 
     public boolean isAlertModeEnabled() {
@@ -83,16 +83,16 @@ public final class TerminalHeartbeatEntity implements Serializable {
      */
     public boolean hasExceededThreshold(){
         long diffInMillies = Math.abs(new Date().getTime() - lastTimeNotified.getTime());
-        return diffInMillies > 0 && diffInMillies/1000/60 > alertThreshold;
+        return diffInMillies > 0 && diffInMillies/1000/60 > alertThresholdInMinutes;
     }
 
     @Override
     public String toString() {
         return "TerminalHeartbeatEntity{" +
-                "alertThreshold=" + alertThreshold +
+                "alertThresholdInMinutes=" + alertThresholdInMinutes +
                 ", alertModeEnabled=" + alertModeEnabled +
                 ", lastTimeNotifiedSince='" + lastTimeNotifiedSince + '\'' +
-                ", lastTimeNotified='" + lastTimeNotified + '\'' +
+                ", lastTimeNotified=" + lastTimeNotified +
                 '}';
     }
 }

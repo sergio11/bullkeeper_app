@@ -3,13 +3,17 @@ package sanchez.sanchez.sergio.data.net.services;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import sanchez.sanchez.sergio.data.net.models.request.AddMessageDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveTerminalHeartBeatConfigurationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
+import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
 
 /**
  * Terminal Service
@@ -26,7 +30,8 @@ public interface ITerminalService {
      * @return
      */
     @GET("children/{kid}/terminal")
-    Observable<APIResponse<List<TerminalDTO>>> getMonitoredTerminals(final @Path("kid") String kid);
+    Observable<APIResponse<List<TerminalDTO>>> getMonitoredTerminals(
+            final @Path("kid") String kid);
 
     /**
      * Get Terminal Detail
@@ -170,5 +175,17 @@ public interface ITerminalService {
     Observable<APIResponse<String>> disableSettingsScreenInTheTerminal(
             final @Path("kid") String kid,
             final @Path("terminal") String terminal);
+
+    /**
+     * Save Terminal HeartBeat Configuration
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    @POST("/{kid}/terminal/{terminal}/heartbeat/configuration")
+    Observable<APIResponse<TerminalHeartbeatDTO>> saveTerminalHeartbeatConfiguration(
+            final @Path("kid") String kid,
+            final @Path("terminal") String terminal,
+            @Body final SaveTerminalHeartBeatConfigurationDTO terminalHeartBeatConfiguration);
 
 }

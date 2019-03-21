@@ -8,11 +8,13 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.terminal.DeleteTerminalInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.GetTerminalDetailInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SaveHeartbeatConfigurationInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchBedTimeStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchSettingsScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 
 /**
  * Terminal Detail Presenter
@@ -53,12 +55,18 @@ public final class TerminalDetailFragmentPresenter
     private final SwitchSettingsScreenStatusInteract switchSettingsScreenStatusInteract;
 
     /**
+     * Save Heartbeat Configuration Interact
+     */
+    private final SaveHeartbeatConfigurationInteract saveHeartbeatConfigurationInteract;
+
+    /**
      * @param getTerminalDetailInteract
      * @param deleteTerminalInteract
      * @param switchLockScreenStatusInteract
      * @param switchLockCameraStatusInteract
      * @param switchBedTimeStatusInteract
      * @param switchSettingsScreenStatusInteract
+     * @param saveHeartbeatConfigurationInteract
      */
     @Inject
     public TerminalDetailFragmentPresenter(
@@ -67,13 +75,15 @@ public final class TerminalDetailFragmentPresenter
             final SwitchLockScreenStatusInteract switchLockScreenStatusInteract,
             final SwitchLockCameraStatusInteract switchLockCameraStatusInteract,
             final SwitchBedTimeStatusInteract switchBedTimeStatusInteract,
-            final SwitchSettingsScreenStatusInteract switchSettingsScreenStatusInteract){
+            final SwitchSettingsScreenStatusInteract switchSettingsScreenStatusInteract,
+            final SaveHeartbeatConfigurationInteract saveHeartbeatConfigurationInteract){
         this.getTerminalDetailInteract = getTerminalDetailInteract;
         this.deleteTerminalInteract = deleteTerminalInteract;
         this.switchLockScreenStatusInteract = switchLockScreenStatusInteract;
         this.switchLockCameraStatusInteract = switchLockCameraStatusInteract;
         this.switchBedTimeStatusInteract = switchBedTimeStatusInteract;
         this.switchSettingsScreenStatusInteract = switchSettingsScreenStatusInteract;
+        this.saveHeartbeatConfigurationInteract = saveHeartbeatConfigurationInteract;
     }
 
     /**
@@ -180,6 +190,83 @@ public final class TerminalDetailFragmentPresenter
 
         switchSettingsScreenStatusInteract.execute(new SwitchSettingsStatusObserver(),
                 SwitchSettingsScreenStatusInteract.Params.create(kid, terminal, status));
+    }
+
+    /**
+     *
+     * @param childId
+     * @param terminalId
+     * @param alertThresholdInMinutes
+     * @param isAlertModeEnabled
+     */
+    public void saveHeartBeatConfiguration(final String childId, final String terminalId,
+                                           final int alertThresholdInMinutes, final boolean isAlertModeEnabled){
+
+        Preconditions.checkNotNull(childId, "Child Id can not be null");
+        Preconditions.checkNotNull(terminalId, "Terminal can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+
+        saveHeartbeatConfigurationInteract.execute(new SaveHeartbeatConfigurationObserver(),
+                SaveHeartbeatConfigurationInteract.Params.create(childId, terminalId, alertThresholdInMinutes, isAlertModeEnabled));
+
+    }
+
+    /**
+     * Save Heartbeat Configuration Observer
+     */
+    public class SaveHeartbeatConfigurationObserver extends BasicCommandCallBackWrapper<TerminalHeartbeatEntity> {
+
+        /**
+         *
+         */
+        @Override
+        protected void onNetworkError() {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onHeartBeatSavedFailed();
+            }
+        }
+
+        /**
+         *
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onHeartBeatSavedFailed();
+            }
+        }
+
+        /**
+         *
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onHeartBeatSavedFailed();
+            }
+        }
+
+
+        /**
+         * On Success
+         * @param terminalHeartbeatEntity
+         */
+        @Override
+        protected void onSuccess(TerminalHeartbeatEntity terminalHeartbeatEntity) {
+            Preconditions.checkNotNull(terminalHeartbeatEntity, "Response can not be null");
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onHeartBeatSavedSuccessfully(terminalHeartbeatEntity);
+            }
+        }
     }
 
     /**

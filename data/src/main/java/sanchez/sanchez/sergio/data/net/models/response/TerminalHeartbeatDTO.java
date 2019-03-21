@@ -13,7 +13,7 @@ public final class TerminalHeartbeatDTO implements Serializable {
      * Alert Threshold
      */
     @JsonProperty("alert_threshold")
-    private int alertThreshold;
+    private int alertThresholdInMinutes;
 
     /**
      * Alert Mode Enabled
@@ -37,24 +37,25 @@ public final class TerminalHeartbeatDTO implements Serializable {
 
     /**
      *
-     * @param alertThreshold
+     * @param alertThresholdInMinutes
      * @param alertModeEnabled
      * @param lastTimeNotifiedSince
      * @param lastTimeNotified
      */
-    public TerminalHeartbeatDTO(int alertThreshold, boolean alertModeEnabled,
+    public TerminalHeartbeatDTO(int alertThresholdInMinutes, boolean alertModeEnabled,
                                 String lastTimeNotifiedSince, Date lastTimeNotified) {
-        this.alertThreshold = alertThreshold;
+        this.alertThresholdInMinutes = alertThresholdInMinutes;
         this.alertModeEnabled = alertModeEnabled;
+        this.lastTimeNotifiedSince = lastTimeNotifiedSince;
         this.lastTimeNotified = lastTimeNotified;
     }
 
-    public int getAlertThreshold() {
-        return alertThreshold;
+    public int getAlertThresholdInMinutes() {
+        return alertThresholdInMinutes;
     }
 
-    public void setAlertThreshold(int alertThreshold) {
-        this.alertThreshold = alertThreshold;
+    public void setAlertThresholdInMinutes(int alertThresholdInMinutes) {
+        this.alertThresholdInMinutes = alertThresholdInMinutes;
     }
 
     public boolean isAlertModeEnabled() {
@@ -84,10 +85,10 @@ public final class TerminalHeartbeatDTO implements Serializable {
     @Override
     public String toString() {
         return "TerminalHeartbeatDTO{" +
-                "alertThreshold=" + alertThreshold +
+                "alertThresholdInMinutes=" + alertThresholdInMinutes +
                 ", alertModeEnabled=" + alertModeEnabled +
                 ", lastTimeNotifiedSince='" + lastTimeNotifiedSince + '\'' +
-                ", lastTimeNotified='" + lastTimeNotified + '\'' +
+                ", lastTimeNotified=" + lastTimeNotified +
                 '}';
     }
 }

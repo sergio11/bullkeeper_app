@@ -857,6 +857,12 @@
     <string name="terminal_settings_changed_successfully">Terminal Settings status changed successfully</string>
     <string name="terminal_settings_changed_failed">There was an error changing the status of Settings</string>
 
+    <!-- HeartBeat -->
+    <string name="terminal_heartbeat_title">Configure Terminal HeartBeat</string>
+    <string name="terminal_heartbeat_alert_threshold_in_minutes" formatted="false">The alert threshold is set to %d minutes</string>
+    <string name="terminal_heartbeat_alert_mode_disabled">Alert Mode Disabled. No threshold will be applied</string>
+    <string name="terminal_heartbeat_configuration_saved_successfully">HeartBeat configuration saved successfully</string>
+    <string name="terminal_heartbeat_configuration_saved_failed">Failed to save the HeartBeat configuration</string>
     <!-- Apps Installed -->
     <string name="app_installed_detail_title">App Installed Detail</string>
     <string name="app_first_install_time" formatted="false">First Install Time: %s</string>

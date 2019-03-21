@@ -21,7 +21,7 @@ public final class TerminalHeartbeatEntityDataMapper
     public TerminalHeartbeatEntity transform(final TerminalHeartbeatDTO originModel) {
         Preconditions.checkNotNull(originModel, "Origin Model can not be null");
         final TerminalHeartbeatEntity terminalHeartbeatEntity = new TerminalHeartbeatEntity();
-        terminalHeartbeatEntity.setAlertThreshold(originModel.getAlertThreshold());
+        terminalHeartbeatEntity.setAlertThresholdInMinutes(originModel.getAlertThresholdInMinutes());
         terminalHeartbeatEntity.setAlertModeEnabled(originModel.isAlertModeEnabled());
         terminalHeartbeatEntity.setLastTimeNotifiedSince(originModel.getLastTimeNotifiedSince());
         terminalHeartbeatEntity.setLastTimeNotified(originModel.getLastTimeNotified());
@@ -39,7 +39,7 @@ public final class TerminalHeartbeatEntityDataMapper
 
         final TerminalHeartbeatDTO terminalHeartbeatDTO = new TerminalHeartbeatDTO();
         terminalHeartbeatDTO.setAlertModeEnabled(originModel.isAlertModeEnabled());
-        terminalHeartbeatDTO.setAlertThreshold(originModel.getAlertThreshold());
+        terminalHeartbeatDTO.setAlertThresholdInMinutes(originModel.getAlertThresholdInMinutes());
         terminalHeartbeatDTO.setLastTimeNotified(originModel.getLastTimeNotified());
         terminalHeartbeatDTO.setLastTimeNotifiedSince(originModel.getLastTimeNotifiedSince());
         return terminalHeartbeatDTO;

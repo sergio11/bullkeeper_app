@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
+import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
 
 /**
  * Terminal Detail View
@@ -58,6 +59,16 @@ public interface ITerminalDetailView extends ISupportView {
      * On Settings Screen Status Changed Failed
      */
     void onSettingsScreenStatusChangedFailed();
+
+    /**
+     * On Heart Beat Saved Successfully
+     */
+    void onHeartBeatSavedSuccessfully(final TerminalHeartbeatEntity terminalHeartbeatEntity);
+
+    /**
+     * On Heart Beat Saved Failed
+     */
+    void onHeartBeatSavedFailed();
 
 
 }
