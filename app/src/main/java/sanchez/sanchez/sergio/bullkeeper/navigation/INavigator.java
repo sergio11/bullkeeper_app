@@ -604,4 +604,11 @@ public interface INavigator {
      */
     void showAboutDeveloperDialog(final AppCompatActivity activity);
 
+    /**
+     * Start Phone Call
+     * @param activity
+     * @param phoneNumber
+     */
+    void startPhoneCall(final AppCompatActivity activity, final String phoneNumber);
+
 }

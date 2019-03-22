@@ -14,9 +14,8 @@ public final class SaveTerminalHeartBeatConfigurationDTO implements Serializable
     private String terminal;
     @JsonProperty("alert_threshold_in_minutes")
     private int alertThresholdInMinutes;
-    @JsonProperty("is_alert_mode_enabled")
+    @JsonProperty("alert_mode_enabled")
     private boolean isAlertModeEnabled;
-
 
     /**
      *

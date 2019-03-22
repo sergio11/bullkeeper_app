@@ -448,6 +448,7 @@
     <!-- Permission -->
     <string name="camera_permission_reason">No podemos personalizar la foto de su perfil con una foto de la cámara si no otorga este permiso.</string>
     <string name="location_permission_reason">Si no podemos acceder a su ubicación GPS, no podemos ubicar su posición en el mapa</string>
+    <string name="call_phone_permission_reason">Sino concedes este permiso no podrás hacer llamadas telefónicas.</string>
     <!-- Google Maps Key -->
     <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
     <!-- Notifications -->
@@ -691,6 +692,7 @@
     <string name="delete_all_kid_terminals">Deseas desvincular todos los dispositivos sincronizados?</string>
     <string name="lock_screen_of_all_linked_devices_confirm">¿Bloquear la pantalla de todos los dispositivos vinculados?</string>
     <string name="unlock_screen_of_all_linked_devices_confirm">¿Deseas desbloquear la pantalla de todos los dispositivos vinculados?</string>
+    <string name="terminal_make_a_call">Hacer llamada</string>
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">¿Desea habilitar el modo de hora de dormir en este terminal?</string>
     <string name="terminal_disable_bed_time_confirm">¿Desea desactivar el modo de tiempo de cama en este terminal?</string>

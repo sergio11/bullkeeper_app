@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.core.permission.impl;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -95,16 +96,20 @@ public final class PermissionManagerImpl implements IPermissionManager {
      * Build Permission Listener
      * @param permission
      * @param reasonText
+     * @param args
      * @return
      */
-    private PermissionListener buildPermissionListener(final String permission, final String reasonText) {
+    private PermissionListener buildPermissionListener(final String permission, final String reasonText, final Bundle args) {
 
         return  new BasePermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
                 super.onPermissionGranted(response);
                 if (checkPermissionListener != null)
-                    checkPermissionListener.onSinglePermissionGranted(permission);
+                    if(args != null && !args.isEmpty())
+                        checkPermissionListener.onSinglePermissionGranted(permission, args);
+                    else
+                        checkPermissionListener.onSinglePermissionGranted(permission);
             }
 
             @Override
@@ -116,7 +121,10 @@ public final class PermissionManagerImpl implements IPermissionManager {
                             @Override
                             public void onAccepted(DialogFragment dialog) {
                                 if (checkPermissionListener != null)
-                                    checkPermissionListener.onSinglePermissionRejected(permission);
+                                    if(args != null && !args.isEmpty())
+                                        checkPermissionListener.onSinglePermissionRejected(permission, args);
+                                    else
+                                        checkPermissionListener.onSinglePermissionRejected(permission);
                             }
                         });
 
@@ -135,9 +143,25 @@ public final class PermissionManagerImpl implements IPermissionManager {
         Preconditions.checkNotNull(!permission.isEmpty(), "Permission can not be empty");
         Preconditions.checkNotNull(reasonText, "Reason can not be null");
 
+        checkSinglePermission(permission, reasonText, null);
+
+    }
+
+    /**
+     *
+     * @param permission
+     * @param reasonText
+     * @param callBackArgs
+     */
+    @Override
+    public void checkSinglePermission(String permission, String reasonText, Bundle callBackArgs) {
+        Preconditions.checkNotNull(permission, "Permission can not be null");
+        Preconditions.checkNotNull(!permission.isEmpty(), "Permission can not be empty");
+        Preconditions.checkNotNull(reasonText, "Reason can not be null");
+
         if(shouldAskPermission(permission)) {
 
-            PermissionListener permissionListener = buildPermissionListener(permission, reasonText);
+            PermissionListener permissionListener = buildPermissionListener(permission, reasonText, callBackArgs);
 
             Dexter.withActivity(activity)
                     .withPermission(permission)
@@ -147,7 +171,6 @@ public final class PermissionManagerImpl implements IPermissionManager {
             if(checkPermissionListener != null)
                 checkPermissionListener.onErrorOccurred(permission);
         }
-
     }
 
     /**

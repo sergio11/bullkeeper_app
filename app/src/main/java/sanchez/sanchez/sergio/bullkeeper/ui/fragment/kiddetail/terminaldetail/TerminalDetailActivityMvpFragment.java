@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -289,6 +290,18 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     protected TextView appsOverlayTextView;
 
     /**
+     * Carrier Name Text View
+     */
+    @BindView(R.id.carrierNameTextView)
+    protected TextView carrierNameTextView;
+
+    /**
+     * Call Phone Number Text View
+     */
+    @BindView(R.id.callPhoneNumber)
+    protected ViewGroup callPhoneNumberTextView;
+
+    /**
      * Dependencies
      * ===============
      */
@@ -343,6 +356,11 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     @State
     protected boolean isAlertModeEnabled;
 
+    /**
+     * Phone Number
+     */
+    @State
+    protected String phoneNumber;
 
     public TerminalDetailActivityMvpFragment() { }
 
@@ -507,6 +525,20 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 getString(R.string.terminal_os_sdk) ,
                 terminalDetailEntity.getOsVersion(), terminalDetailEntity.getSdkVersion()));
 
+
+        if(appUtils.isValidString(terminalDetailEntity.getCarrierName())) {
+            carrierNameTextView.setVisibility(View.VISIBLE);
+            carrierNameTextView.setText(String.format(Locale.getDefault(),
+                    "%s (%s)", terminalDetailEntity.getCarrierName(),
+                    terminalDetailEntity.getPhoneNumber()));
+            callPhoneNumberTextView.setVisibility(View.VISIBLE);
+
+            phoneNumber = terminalDetailEntity.getPhoneNumber();
+
+        } else {
+            carrierNameTextView.setVisibility(View.GONE);
+            callPhoneNumberTextView.setVisibility(View.GONE);
+        }
 
         // Set Total Apps
 
@@ -1023,6 +1055,12 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         }, alertThresholdInMinutes, isAlertModeEnabled);
     }
 
-
+    /**
+     * On Call Phone Number Clicked
+     */
+    @OnClick(R.id.callPhoneNumber)
+    protected void onCallPhoneNumberClicked(){
+        activityHandler.makePhoneCall(phoneNumber);
+    }
 
 }

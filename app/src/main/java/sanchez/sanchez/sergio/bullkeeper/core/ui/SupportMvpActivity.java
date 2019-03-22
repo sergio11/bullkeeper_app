@@ -625,6 +625,26 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     }
 
     /**
+     * On Single Permission Granted
+     * @param permission
+     * @param callbackArgs
+     */
+    @Override
+    public void onSinglePermissionGranted(final String permission, final Bundle callbackArgs) {
+        Timber.d("On Single Permission Granted: %s", permission);
+    }
+
+    /**
+     * On Single Permission Rejected
+     * @param permission
+     * @param callbackArgs
+     */
+    @Override
+    public void onSinglePermissionRejected(final String permission, final Bundle callbackArgs) {
+        Timber.d("On Single Permission Rejected: %s", permission);
+    }
+
+    /**
      * Show Long Simple Snackbar
      * @param viewRoot
      * @param description

@@ -182,7 +182,7 @@ public interface ITerminalService {
      * @param terminal
      * @return
      */
-    @POST("/{kid}/terminal/{terminal}/heartbeat/configuration")
+    @POST("children/{kid}/terminal/{terminal}/heartbeat/configuration")
     Observable<APIResponse<TerminalHeartbeatDTO>> saveTerminalHeartbeatConfiguration(
             final @Path("kid") String kid,
             final @Path("terminal") String terminal,

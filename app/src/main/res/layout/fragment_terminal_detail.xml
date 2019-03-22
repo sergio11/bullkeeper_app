@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:layout_below="@id/appToolbarInclude"
-        android:layout_above="@id/deleteTerminal">
+        android:layout_above="@id/callPhoneNumber">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,6 +160,20 @@
                         android:textColor="@color/cyanBrilliant"
                         android:drawablePadding="@dimen/common_padding"
                         android:drawableStart="@drawable/android_brands_cyan_solid" />
+
+
+                    <!-- Carrier Name -->
+                    <TextView
+                        android:id="@+id/carrierNameTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding"
+                        android:drawableStart="@drawable/sim_card_solid_cyan" />
 
                 </LinearLayout>
 
@@ -1087,6 +1101,44 @@
 
 
     </android.support.v4.widget.NestedScrollView>
+
+
+    <!-- Call Phone Number -->
+    <LinearLayout
+        android:id="@+id/callPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="1"
+        android:layout_above="@id/deleteTerminal"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/make_call_solid" />
+
+        <TextView
+            style="@style/CommonStrongText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".85"
+            android:background="@color/darkModerateBlue"
+            android:padding="@dimen/common_padding"
+            android:text="@string/terminal_make_a_call"
+            android:textAlignment="textStart"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
     <!-- Delete Terminal -->

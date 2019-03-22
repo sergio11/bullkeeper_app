@@ -140,27 +140,14 @@ public final class ConfigureTerminalHeartbeatThresholdDialogFragment extends Sup
             alertThresholdInMinutesStepperTouch.stepper.setValue(alertThresholdInMinutes);
 
             boolean alertModeEnabled = getArguments().getBoolean(ALERT_MODE_ENABLED, false);
-            alertModeEnabledSwitch.setChecked(alertModeEnabled, true);
+            alertModeEnabledSwitch.setChecked(alertModeEnabled, false);
+            switchThresholdStatus(alertModeEnabled);
         }
 
         alertModeEnabledSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        alertThresholdInMinutesStepperTouch.setVisibility(View.VISIBLE);
-                        alertThresholdInMinutesTextView.setVisibility(View.VISIBLE);
-                        alertThresholdInMinutesTextView.setText(String.format(
-                                Locale.getDefault(),
-                                getString(R.string.terminal_heartbeat_alert_threshold_in_minutes),
-                                alertThresholdInMinutesStepperTouch.stepper.getValue()
-                        ));
-                        alertModeDisabledTextView.setVisibility(View.GONE);
-                    } else {
-                        alertModeDisabledTextView.setVisibility(View.VISIBLE);
-                        alertThresholdInMinutesTextView.setVisibility(View.GONE);
-                        alertThresholdInMinutesStepperTouch.setVisibility(View.INVISIBLE);
-                        alertThresholdInMinutesStepperTouch.getStepper().setValue(MIN_HEART_BEAT_VALUE);
-                    }
+                switchThresholdStatus(isChecked);
             }
         });
 
@@ -207,6 +194,28 @@ public final class ConfigureTerminalHeartbeatThresholdDialogFragment extends Sup
         if (configureTerminalHeartbeatThresholdDialogListener != null)
             configureTerminalHeartbeatThresholdDialogListener.onCancel(this);
         dismiss();
+    }
+
+    /**
+     * Switch Threshold Status
+     * @param enabled
+     */
+    private void switchThresholdStatus(final boolean enabled){
+        if(enabled) {
+            alertThresholdInMinutesStepperTouch.setVisibility(View.VISIBLE);
+            alertThresholdInMinutesTextView.setVisibility(View.VISIBLE);
+            alertThresholdInMinutesTextView.setText(String.format(
+                    Locale.getDefault(),
+                    getString(R.string.terminal_heartbeat_alert_threshold_in_minutes),
+                    alertThresholdInMinutesStepperTouch.stepper.getValue()
+            ));
+            alertModeDisabledTextView.setVisibility(View.GONE);
+        } else {
+            alertModeDisabledTextView.setVisibility(View.VISIBLE);
+            alertThresholdInMinutesTextView.setVisibility(View.GONE);
+            alertThresholdInMinutesStepperTouch.setVisibility(View.INVISIBLE);
+            alertThresholdInMinutesStepperTouch.getStepper().setValue(MIN_HEART_BEAT_VALUE);
+        }
     }
 
     /**

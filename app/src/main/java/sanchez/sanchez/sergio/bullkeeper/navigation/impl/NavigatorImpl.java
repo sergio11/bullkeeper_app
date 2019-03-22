@@ -1,15 +1,21 @@
 package sanchez.sanchez.sergio.bullkeeper.navigation.impl;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 
 import java.util.Date;
 
 import javax.inject.Inject;
+
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListMvpActivity;
@@ -337,7 +343,7 @@ public class NavigatorImpl implements INavigator {
      * @param role
      */
     @Override
-    public void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum  role) {
+    public void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum role) {
         activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role));
     }
 
@@ -552,7 +558,7 @@ public class NavigatorImpl implements INavigator {
     @Override
     public void showSocialMediaStatusDialog(final AppCompatActivity activity, final SocialMediaTypeEnum socialMediaTypeEnum,
                                             final SocialMediaStatusEnum socialMediaStatusEnum, final String userSocialFullName, final String userSocialProfilePicture) {
-        SocialMediaStatusDialog.show(activity, socialMediaTypeEnum, socialMediaStatusEnum, userSocialProfilePicture , userSocialFullName);
+        SocialMediaStatusDialog.show(activity, socialMediaTypeEnum, socialMediaStatusEnum, userSocialProfilePicture, userSocialFullName);
     }
 
     /**
@@ -653,7 +659,7 @@ public class NavigatorImpl implements INavigator {
     public void showSchoolDetail(final AppCompatActivity activity, final SchoolEntity schoolEntity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(schoolEntity, "School can not be null");
-        SchoolDialogFragment.show(activity,  schoolEntity);
+        SchoolDialogFragment.show(activity, schoolEntity);
     }
 
     /**
@@ -1110,5 +1116,18 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(activity, "Activity can not be null");
 
         AboutDeveloperDialogFragment.show(activity);
+    }
+
+    /**
+     * Start Phone Call
+     * @param phoneNumber
+     */
+    @Override
+    public void startPhoneCall(final AppCompatActivity activity, String phoneNumber) {
+        Preconditions.checkNotNull(phoneNumber, "Phone number can not be null");
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            activity.startActivity(intent);
+        }
     }
 }

@@ -12,7 +12,7 @@ public final class TerminalHeartbeatDTO implements Serializable {
     /**
      * Alert Threshold
      */
-    @JsonProperty("alert_threshold")
+    @JsonProperty("alert_threshold_in_minutes")
     private int alertThresholdInMinutes;
 
     /**

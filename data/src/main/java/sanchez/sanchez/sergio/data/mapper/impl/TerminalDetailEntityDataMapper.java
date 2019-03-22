@@ -81,6 +81,8 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setTerminalHeartbeatEntity(
                 terminalHeartbeatEntityAbstractDataMapper.transform(originModel.getHeartbeat())
         );
+        terminalEntity.setCarrierName(originModel.getCarrierName());
+        terminalEntity.setPhoneNumber(originModel.getPhoneNumber());
         return terminalEntity;
     }
 
@@ -127,6 +129,8 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setHeartbeat(
                 terminalHeartbeatEntityAbstractDataMapper.transformInverse(originModel.getTerminalHeartbeatEntity())
         );
+        terminalDTO.setCarrierName(originModel.getCarrierName());
+        terminalDTO.setPhoneNumber(originModel.getPhoneNumber());
         return terminalDTO;
     }
 }
