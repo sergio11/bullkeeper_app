@@ -51,6 +51,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
         terminalEntity.setScreenEnabled(originModel.isScreenEnabled());
         terminalEntity.setSettingsEnabled(originModel.isSettingsEnabled());
+        terminalEntity.setPhoneCallsEnabled(originModel.isPhoneCallsEnabled());
         terminalEntity.setBatteryLevel(originModel.getBatteryLevel());
         terminalEntity.setBatteryCharging(originModel.isBatteryCharging());
         try {
@@ -90,6 +91,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setScreenEnabled(originModel.isScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalDTO.setSettingsEnabled(originModel.isSettingsEnabled());
+        terminalDTO.setPhoneCallsEnabled(originModel.isPhoneCallsEnabled());
         terminalDTO.setBatteryLevel(originModel.getBatteryLevel());
         terminalDTO.setBatteryCharging(originModel.isBatteryCharging());
         terminalDTO.setStatus(originModel.getStatus().name());

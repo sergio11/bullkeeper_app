@@ -813,6 +813,8 @@
     <string name="terminal_lock_camera_disabled">Camera is disabled</string>
     <string name="terminal_settings_enable">Settings is enabled</string>
     <string name="terminal_settings_disabled">Settings is disabled</string>
+    <string name="terminal_phone_calls_enable">Phone calls is enabled</string>
+    <string name="terminal_phone_calls_disabled">Phone calls is disabled</string>
     <string name="terminal_permissions_title">Permissions</string>
 
     <string name="terminal_permission_location_enabled">Location Permission is enabled</string>
@@ -860,6 +862,13 @@
     <string name="terminal_disable_settings_confirm">Do you want to disable the settings screen in this terminal?</string>
     <string name="terminal_settings_changed_successfully">Terminal Settings status changed successfully</string>
     <string name="terminal_settings_changed_failed">There was an error changing the status of Settings</string>
+
+    <!-- Phone Calls -->
+    <string name="terminal_enable_phone_calls_confirm">Do you want to allow this device to make and receive phone calls?</string>
+    <string name="terminal_disable_phone_calls_confirm">Do you want to prevent this device from making and receiving phone calls?</string>
+    <string name="terminal_phone_calls_changed_successfully">Call status changed successfully.</string>
+    <string name="terminal_phone_calls_changed_failed">There was an error changing the status of phone calls</string>
+
 
     <!-- HeartBeat -->
     <string name="terminal_heartbeat_title">Configure Terminal HeartBeat</string>

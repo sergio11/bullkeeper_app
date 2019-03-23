@@ -179,6 +179,17 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     @BindView(R.id.settingsStatusWidget)
     protected SupportSwitchCompat settingsStatusWidget;
 
+    /**
+     * Phone Calls Text View
+     */
+    @BindView(R.id.phoneCallsStatusTextView)
+    protected TextView phoneCallsStatusTextView;
+
+    /**
+     * Phone Calls Status Widget
+     */
+    @BindView(R.id.phoneCallsStatusWidget)
+    protected SupportSwitchCompat phoneCallsStatusWidget;
 
     /**
      * Location Permission Status Widget
@@ -531,9 +542,11 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             carrierNameTextView.setText(String.format(Locale.getDefault(),
                     "%s (%s)", terminalDetailEntity.getCarrierName(),
                     terminalDetailEntity.getPhoneNumber()));
-            callPhoneNumberTextView.setVisibility(View.VISIBLE);
 
             phoneNumber = terminalDetailEntity.getPhoneNumber();
+
+            callPhoneNumberTextView.setVisibility(terminalDetailEntity.isPhoneCallsEnabled() ?
+                    View.VISIBLE: View.GONE);
 
         } else {
             carrierNameTextView.setVisibility(View.GONE);
@@ -780,6 +793,52 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
             }
         });
 
+
+        // Settings
+        phoneCallsStatusTextView.setText(terminalDetailEntity.isPhoneCallsEnabled() ?
+                getString(R.string.terminal_phone_calls_enable) :
+                getString(R.string.terminal_phone_calls_disabled));
+
+        phoneCallsStatusWidget.setEnabled(true);
+        phoneCallsStatusWidget.setChecked(terminalDetailEntity.isPhoneCallsEnabled(), false);
+        phoneCallsStatusWidget.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!activityHandler.isConnectivityAvailable()) {
+                    showNoticeDialog(R.string.connectivity_not_available, false);
+                    phoneCallsStatusWidget.setChecked(!isChecked, false);
+                } else {
+
+                    if(isChecked) {
+                        showConfirmationDialog(R.string.terminal_enable_phone_calls_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchPhoneCallsStatus(childId, terminalId, true);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                phoneCallsStatusWidget.setChecked(false, false);
+                            }
+                        });
+
+                    } else {
+                        showConfirmationDialog(R.string.terminal_disable_phone_calls_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                            @Override
+                            public void onAccepted(DialogFragment dialog) {
+                                getPresenter().switchPhoneCallsStatus(childId, terminalId, false);
+                            }
+
+                            @Override
+                            public void onRejected(DialogFragment dialog) {
+                                phoneCallsStatusWidget.setChecked(true, false);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
         // Location Permission
         locationPermissionStatusWidget.setChecked(terminalDetailEntity.isLocationPermissionEnabled() , false);
 
@@ -979,6 +1038,32 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         settingsStatusWidget.setChecked(!settingsStatusWidget.isChecked(),
                 false);
         showNoticeDialog(R.string.terminal_settings_changed_failed, false);
+    }
+
+    /**
+     * on Phone Calls Status Changed Successfully
+     */
+    @Override
+    public void onPhoneCallsStatusChangedSuccessfully() {
+        if(!phoneCallsStatusWidget.isChecked()) {
+            phoneCallsStatusTextView.setText(getString(R.string.terminal_phone_calls_disabled));
+            callPhoneNumberTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            phoneCallsStatusTextView.setText(getString(R.string.terminal_phone_calls_enable));
+            callPhoneNumberTextView.setVisibility(View.VISIBLE);
+        }
+        showNoticeDialog(R.string.terminal_phone_calls_changed_successfully);
+    }
+
+    /**
+     * on Phone Calls Status Changed Failed
+     */
+    @Override
+    public void onPhoneCallsStatusChangedFailed() {
+        phoneCallsStatusWidget.setChecked(!phoneCallsStatusWidget.isChecked(),
+                false);
+        showNoticeDialog(R.string.terminal_phone_calls_changed_failed, false);
     }
 
     /**

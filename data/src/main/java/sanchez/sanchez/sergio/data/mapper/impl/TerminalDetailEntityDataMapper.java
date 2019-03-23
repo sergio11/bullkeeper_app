@@ -83,6 +83,7 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         );
         terminalEntity.setCarrierName(originModel.getCarrierName());
         terminalEntity.setPhoneNumber(originModel.getPhoneNumber());
+        terminalEntity.setPhoneCallsEnabled(originModel.isPhoneCallsEnabled());
         return terminalEntity;
     }
 
@@ -131,6 +132,7 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         );
         terminalDTO.setCarrierName(originModel.getCarrierName());
         terminalDTO.setPhoneNumber(originModel.getPhoneNumber());
+        terminalDTO.setPhoneCallsEnabled(originModel.isPhoneCallsEnabled());
         return terminalDTO;
     }
 }

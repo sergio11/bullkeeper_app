@@ -99,48 +99,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
         super();
     }
 
-    /**
-     *
-     * @param identity
-     * @param appVersionName
-     * @param appVersionCode
-     * @param osVersion
-     * @param sdkVersion
-     * @param manufacturer
-     * @param marketName
-     * @param model
-     * @param codeName
-     * @param detached
-     * @param deviceName
-     * @param deviceId
-     * @param bedTimeEnabled
-     * @param screenEnabled
-     * @param cameraEnabled
-     * @param settingsEnabled
-     * @param batteryLevel
-     * @param isBatteryCharging
-     * @param status
-     * @param heartbeat
-     * @param carrierName
-     * @param phoneNumber
-     * @param totalApps
-     * @param totalSms
-     * @param totalCalls
-     * @param totalContacts
-     * @param screenStatus
-     * @param locationPermissionEnabled
-     * @param callsHistoryPermissionEnabled
-     * @param contactsListPermissionEnabled
-     * @param textMessagePermissionEnabled
-     * @param storagePermissionEnabled
-     * @param usageStatsAllowed
-     * @param adminAccessAllowed
-     * @param appsOverlayEnabled
-     * @param highAccuraccyLocationEnabled
-     */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, boolean detached, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel, boolean isBatteryCharging, String status, TerminalHeartbeatDTO heartbeat, String carrierName, String phoneNumber, long totalApps, long totalSms,
-                             long totalCalls, long totalContacts, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
-        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, detached, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, heartbeat, carrierName, phoneNumber);
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, boolean detached, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel, boolean isBatteryCharging, String status, TerminalHeartbeatDTO heartbeat, String carrierName, String phoneNumber, long totalApps, long totalSms, long totalCalls, long totalContacts, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
+        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, detached, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, phoneCallsEnabled, batteryLevel, isBatteryCharging, status, heartbeat, carrierName, phoneNumber);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;

@@ -201,6 +201,15 @@
                 android:visibility="invisible"
                 android:contentDescription="@string/content_not_be_loaded"/>
 
+            <!-- Phone Calls Not Allowed -->
+            <ImageView
+                android:id="@+id/phoneCallsNotAllowed"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/no_phone_calls_allowed"
+                android:visibility="invisible"
+                android:contentDescription="@string/content_not_be_loaded"/>
+
         </LinearLayout>
 
         <!-- System Version -->

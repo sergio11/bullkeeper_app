@@ -88,6 +88,16 @@ public interface ITerminalRepository {
      */
     Observable<String> switchSettingsScreenStatus(final String kid, final String terminal, final Boolean status);
 
+
+    /**
+     * Switch Terminal Phone Calls Status
+     * @param kid
+     * @param terminal
+     * @param status
+     * @return
+     */
+    Observable<String> switchTerminalPhoneCallsStatus(final String kid, final String terminal, final Boolean status);
+
     /**
      * Save Heart Beat Configuration
      * @param kid

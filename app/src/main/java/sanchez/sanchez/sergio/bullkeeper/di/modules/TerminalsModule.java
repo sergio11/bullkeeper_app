@@ -22,6 +22,7 @@ import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusI
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusForAllTerminalsOfKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockScreenStatusInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchSettingsScreenStatusInteract;
+import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchTerminalPhoneCallsStatusInteract;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
@@ -211,6 +212,24 @@ public class TerminalsModule {
             final ITerminalRepository terminalRepository
     ){
         return new SaveHeartbeatConfigurationInteract(threadExecutor, postExecutionThread, terminalRepository);
+    }
+
+    /**
+     * Provide Switch Terminal Phone Calls Status Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param terminalRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public SwitchTerminalPhoneCallsStatusInteract provideSwitchTerminalPhoneCallsStatusInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final ITerminalRepository terminalRepository
+    ){
+        return new SwitchTerminalPhoneCallsStatusInteract(
+                threadExecutor, postExecutionThread, terminalRepository);
     }
 
 }

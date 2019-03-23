@@ -61,6 +61,16 @@ public interface ITerminalDetailView extends ISupportView {
     void onSettingsScreenStatusChangedFailed();
 
     /**
+     * On Phone Calls Status Changed Successfully
+     */
+    void onPhoneCallsStatusChangedSuccessfully();
+
+    /**
+     * On Phone Calls Status Changed Failed
+     */
+    void onPhoneCallsStatusChangedFailed();
+
+    /**
      * On Heart Beat Saved Successfully
      */
     void onHeartBeatSavedSuccessfully(final TerminalHeartbeatEntity terminalHeartbeatEntity);

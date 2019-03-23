@@ -3,7 +3,7 @@
 
     <string name="app_name">BullKeeper</string>
     <!-- Intro Text -->
-    <string name="intro_text">Herramienta de control parental centrada en la gestión del estilo de vida digital de niños / adolescentes cuyo objetivo es identificar situaciones potencialmente violentas y crear un ecosistema que facilite la detección temprana de diversos trastornos derivados de un uso inadecuado o poco confiable de las tecnologías de la información.</string>
+    <string name="intro_text">Herramienta de control parental centrada en la gestión del estilo de vida digital de niños/adolescentes cuyo objetivo es identificar situaciones potencialmente violentas y crear un ecosistema que facilite la detección temprana de diversos trastornos derivados de un uso inadecuado o poco confiable de las tecnologías de la información.</string>
     <!-- Sign up btn -->
     <string name="sign_up_btn">Regístrate</string>
     <!-- Sign in btn -->
@@ -674,6 +674,8 @@
     <string name="terminal_lock_camera_disabled">La cámara esta deshabilitada</string>
     <string name="terminal_settings_enable">La configuración está habilitada</string>
     <string name="terminal_settings_disabled">La configuración está deshabilitada</string>
+    <string name="terminal_phone_calls_enable">El dispostivo podrá realizar y recibir llamadas telefónicas</string>
+    <string name="terminal_phone_calls_disabled">El dispostivo no podrá realizar y recibir llamadas telefónicas</string>
     <string name="terminal_permissions_title">Permisos</string>
 
     <string name="terminal_permission_location_enabled">El permiso de ubicación está habilitado</string>
@@ -717,6 +719,12 @@
     <string name="terminal_disable_settings_confirm">¿Desea desactivar la pantalla de configuración en este terminal?</string>
     <string name="terminal_settings_changed_successfully">El estado de la configuración del terminal cambió exitosamente</string>
     <string name="terminal_settings_changed_failed">Se produjo un error al cambiar el estado de la configuración.</string>
+
+    <!-- Phone Calls -->
+    <string name="terminal_enable_phone_calls_confirm">¿Desea permitir que este dispositivo haga y reciba llamadas telefónicas?</string>
+    <string name="terminal_disable_phone_calls_confirm">¿Desea evitar que este dispositivo realice y reciba llamadas telefónicas?</string>
+    <string name="terminal_phone_calls_changed_successfully">Configuración de llamadas telefónicas cambiada con éxito.</string>
+    <string name="terminal_phone_calls_changed_failed">Ocurrió un error al cambiar la configuración de llamadas telefónicas.</string>
 
     <!-- HeartBeat -->
     <string name="terminal_heartbeat_title">Configurar Terminal HeartBeat</string>

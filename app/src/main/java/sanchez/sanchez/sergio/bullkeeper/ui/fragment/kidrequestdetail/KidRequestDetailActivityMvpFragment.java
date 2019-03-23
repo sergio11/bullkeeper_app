@@ -355,7 +355,8 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
 
         makePhoneCallImageView.setVisibility(
                 kidRequestEntity.getTerminal() != null &&
-                        appUtils.isValidString(kidRequestEntity.getTerminal().getPhoneNumber()) ? View.VISIBLE: View.GONE
+                        appUtils.isValidString(kidRequestEntity.getTerminal().getPhoneNumber())
+                        && kidRequestEntity.getTerminal().isPhoneCallsEnabled() ? View.VISIBLE: View.GONE
         );
 
         if(kidRequestEntity.getLocation() != null) {

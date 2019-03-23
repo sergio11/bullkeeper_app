@@ -109,6 +109,12 @@ public class TerminalDTO implements Serializable {
     protected boolean settingsEnabled;
 
     /**
+     * Phone Calls Enabled
+     */
+    @JsonProperty("phone_calls_enabled")
+    protected boolean phoneCallsEnabled;
+
+    /**
      * Battery Level
      */
     @JsonProperty("battery_level")
@@ -165,6 +171,7 @@ public class TerminalDTO implements Serializable {
      * @param screenEnabled
      * @param cameraEnabled
      * @param settingsEnabled
+     * @param phoneCallsEnabled
      * @param batteryLevel
      * @param isBatteryCharging
      * @param status
@@ -177,7 +184,7 @@ public class TerminalDTO implements Serializable {
                        String marketName, String model, String codeName,
                        boolean detached, String deviceName, String deviceId, boolean bedTimeEnabled,
                        boolean screenEnabled, boolean cameraEnabled,
-                       boolean settingsEnabled, final int batteryLevel,
+                       boolean settingsEnabled, boolean phoneCallsEnabled, final int batteryLevel,
                        final boolean isBatteryCharging, final String status,
                        final TerminalHeartbeatDTO heartbeat, final String carrierName,
                        final String phoneNumber) {
@@ -197,6 +204,7 @@ public class TerminalDTO implements Serializable {
         this.screenEnabled = screenEnabled;
         this.cameraEnabled = cameraEnabled;
         this.settingsEnabled = settingsEnabled;
+        this.phoneCallsEnabled = phoneCallsEnabled;
         this.batteryLevel = batteryLevel;
         this.isBatteryCharging = isBatteryCharging;
         this.status = status;
@@ -325,6 +333,14 @@ public class TerminalDTO implements Serializable {
         this.settingsEnabled = settingsEnabled;
     }
 
+    public boolean isPhoneCallsEnabled() {
+        return phoneCallsEnabled;
+    }
+
+    public void setPhoneCallsEnabled(boolean phoneCallsEnabled) {
+        this.phoneCallsEnabled = phoneCallsEnabled;
+    }
+
     public int getBatteryLevel() {
         return batteryLevel;
     }
@@ -400,6 +416,7 @@ public class TerminalDTO implements Serializable {
                 ", screenEnabled=" + screenEnabled +
                 ", cameraEnabled=" + cameraEnabled +
                 ", settingsEnabled=" + settingsEnabled +
+                ", phoneCallsEnabled=" + phoneCallsEnabled +
                 ", batteryLevel=" + batteryLevel +
                 ", isBatteryCharging=" + isBatteryCharging +
                 ", status='" + status + '\'' +

@@ -22,6 +22,7 @@ public class TerminalEntity implements Serializable {
     private boolean screenEnabled;
     private boolean cameraEnabled;
     private boolean settingsEnabled;
+    private boolean phoneCallsEnabled;
     private int batteryLevel;
     private boolean isBatteryCharging;
     private TerminalStatusEnum status;
@@ -48,6 +49,7 @@ public class TerminalEntity implements Serializable {
      * @param screenEnabled
      * @param cameraEnabled
      * @param settingsEnabled
+     * @param phoneCallsEnabled
      * @param terminalHeartbeatEntity
      * @param carrierName
      * @param phoneNumber
@@ -57,7 +59,7 @@ public class TerminalEntity implements Serializable {
                           boolean detached, String marketName, String model, String osVersion,
                           String sdkVersion, boolean bedTimeEnabled,
                           boolean screenEnabled, boolean cameraEnabled,
-                          boolean settingsEnabled, int batteryLevel,
+                          boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel,
                           boolean isBatteryCharging, TerminalStatusEnum status,
                           TerminalHeartbeatEntity terminalHeartbeatEntity,
                           final String carrierName, final String phoneNumber) {
@@ -76,6 +78,7 @@ public class TerminalEntity implements Serializable {
         this.screenEnabled = screenEnabled;
         this.cameraEnabled = cameraEnabled;
         this.settingsEnabled = settingsEnabled;
+        this.phoneCallsEnabled = phoneCallsEnabled;
         this.batteryLevel = batteryLevel;
         this.isBatteryCharging = isBatteryCharging;
         this.status = status;
@@ -204,6 +207,14 @@ public class TerminalEntity implements Serializable {
         this.settingsEnabled = settingsEnabled;
     }
 
+    public boolean isPhoneCallsEnabled() {
+        return phoneCallsEnabled;
+    }
+
+    public void setPhoneCallsEnabled(boolean phoneCallsEnabled) {
+        this.phoneCallsEnabled = phoneCallsEnabled;
+    }
+
     public int getBatteryLevel() {
         return batteryLevel;
     }
@@ -270,6 +281,7 @@ public class TerminalEntity implements Serializable {
                 ", screenEnabled=" + screenEnabled +
                 ", cameraEnabled=" + cameraEnabled +
                 ", settingsEnabled=" + settingsEnabled +
+                ", phoneCallsEnabled=" + phoneCallsEnabled +
                 ", batteryLevel=" + batteryLevel +
                 ", isBatteryCharging=" + isBatteryCharging +
                 ", status=" + status +

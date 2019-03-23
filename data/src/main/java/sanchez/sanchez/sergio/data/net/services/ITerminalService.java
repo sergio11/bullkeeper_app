@@ -176,6 +176,30 @@ public interface ITerminalService {
             final @Path("kid") String kid,
             final @Path("terminal") String terminal);
 
+
+    /**
+     * Enable Phone Calls In The Terminal
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/calls/enable")
+    Observable<APIResponse<String>> enablePhoneCallsInTheTerminal(
+            final @Path("kid") String kid,
+            final @Path("terminal") String terminal);
+
+
+    /**
+     * Disable Phone calls In The Terminal
+     * @param kid
+     * @param terminal
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/calls/disable")
+    Observable<APIResponse<String>> disablePhoneCallsInTheTerminal(
+            final @Path("kid") String kid,
+            final @Path("terminal") String terminal);
+
     /**
      * Save Terminal HeartBeat Configuration
      * @param kid

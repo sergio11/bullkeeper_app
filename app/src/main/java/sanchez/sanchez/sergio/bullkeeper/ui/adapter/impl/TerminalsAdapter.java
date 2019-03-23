@@ -63,7 +63,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
                 systemVersionTextView, appVersionTextView;
         private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView,
                 batteryStatusImageView, terminalStatusImageView,
-                terminalExceededThresholdImageView, terminalAppNotInstalledImageView;
+                terminalExceededThresholdImageView, terminalAppNotInstalledImageView,
+                phoneCallsNotAllowedImageView;
 
         /**
          * @param itemView
@@ -80,6 +81,7 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             terminalStatusImageView = itemView.findViewById(R.id.terminalStatus);
             terminalExceededThresholdImageView = itemView.findViewById(R.id.terminalExceededThreshold);
             terminalAppNotInstalledImageView = itemView.findViewById(R.id.terminalAppNotInstalled);
+            phoneCallsNotAllowedImageView = itemView.findViewById(R.id.phoneCallsNotAllowed);
         }
 
         /**
@@ -118,6 +120,11 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
                 mobileScreenNotAllowedImageView.setVisibility(View.VISIBLE);
             else
                 mobileScreenNotAllowedImageView.setVisibility(View.INVISIBLE);
+
+            if(!terminalEntity.isPhoneCallsEnabled())
+                phoneCallsNotAllowedImageView.setVisibility(View.VISIBLE);
+            else
+                phoneCallsNotAllowedImageView.setVisibility(View.INVISIBLE);
 
             if(!terminalEntity.isDetached()) {
                 terminalAppNotInstalledImageView.setVisibility(View.VISIBLE);
