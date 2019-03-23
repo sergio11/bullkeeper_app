@@ -119,7 +119,7 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             else
                 mobileScreenNotAllowedImageView.setVisibility(View.INVISIBLE);
 
-            if(!terminalEntity.isInstalled()) {
+            if(!terminalEntity.isDetached()) {
                 terminalAppNotInstalledImageView.setVisibility(View.VISIBLE);
                 terminalExceededThresholdImageView.setVisibility(View.GONE);
                 batteryStatusImageView.setVisibility(View.GONE);

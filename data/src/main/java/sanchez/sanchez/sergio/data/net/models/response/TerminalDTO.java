@@ -66,10 +66,10 @@ public class TerminalDTO implements Serializable {
     protected String codeName;
 
     /**
-     * Installed
+     * Detached
      */
-    @JsonProperty("installed")
-    protected boolean installed;
+    @JsonProperty("detached")
+    protected boolean detached;
 
 
     /**
@@ -132,6 +132,18 @@ public class TerminalDTO implements Serializable {
     @JsonProperty("heartbeat")
     protected TerminalHeartbeatDTO heartbeat;
 
+    /**
+     * Carrier Name
+     */
+    @JsonProperty("carrier_name")
+    private String carrierName;
+
+    /**
+     * Phone Number
+     */
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+
 
     public TerminalDTO(){}
 
@@ -146,7 +158,7 @@ public class TerminalDTO implements Serializable {
      * @param marketName
      * @param model
      * @param codeName
-     * @param installed
+     * @param detached
      * @param deviceName
      * @param deviceId
      * @param bedTimeEnabled
@@ -157,15 +169,18 @@ public class TerminalDTO implements Serializable {
      * @param isBatteryCharging
      * @param status
      * @param heartbeat
+     * @param carrierName
+     * @param phoneNumber
      */
     public TerminalDTO(String identity, String appVersionName, String appVersionCode,
                        String osVersion, String sdkVersion, String manufacturer,
                        String marketName, String model, String codeName,
-                       boolean installed, String deviceName, String deviceId, boolean bedTimeEnabled,
+                       boolean detached, String deviceName, String deviceId, boolean bedTimeEnabled,
                        boolean screenEnabled, boolean cameraEnabled,
                        boolean settingsEnabled, final int batteryLevel,
                        final boolean isBatteryCharging, final String status,
-                       final TerminalHeartbeatDTO heartbeat) {
+                       final TerminalHeartbeatDTO heartbeat, final String carrierName,
+                       final String phoneNumber) {
         this.identity = identity;
         this.appVersionName = appVersionName;
         this.appVersionCode = appVersionCode;
@@ -175,7 +190,7 @@ public class TerminalDTO implements Serializable {
         this.marketName = marketName;
         this.model = model;
         this.codeName = codeName;
-        this.installed = installed;
+        this.detached = detached;
         this.deviceName = deviceName;
         this.deviceId = deviceId;
         this.bedTimeEnabled = bedTimeEnabled;
@@ -186,6 +201,8 @@ public class TerminalDTO implements Serializable {
         this.isBatteryCharging = isBatteryCharging;
         this.status = status;
         this.heartbeat = heartbeat;
+        this.carrierName = carrierName;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getIdentity() {
@@ -340,12 +357,28 @@ public class TerminalDTO implements Serializable {
         this.heartbeat = heartbeat;
     }
 
-    public boolean isInstalled() {
-        return installed;
+    public boolean isDetached() {
+        return detached;
     }
 
-    public void setInstalled(boolean installed) {
-        this.installed = installed;
+    public void setDetached(boolean detached) {
+        this.detached = detached;
+    }
+
+    public String getCarrierName() {
+        return carrierName;
+    }
+
+    public void setCarrierName(String carrierName) {
+        this.carrierName = carrierName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -360,6 +393,7 @@ public class TerminalDTO implements Serializable {
                 ", marketName='" + marketName + '\'' +
                 ", model='" + model + '\'' +
                 ", codeName='" + codeName + '\'' +
+                ", detached=" + detached +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceId='" + deviceId + '\'' +
                 ", bedTimeEnabled=" + bedTimeEnabled +
@@ -370,6 +404,8 @@ public class TerminalDTO implements Serializable {
                 ", isBatteryCharging=" + isBatteryCharging +
                 ", status='" + status + '\'' +
                 ", heartbeat=" + heartbeat +
+                ", carrierName='" + carrierName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

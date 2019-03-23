@@ -720,7 +720,7 @@
     <string name="scheduled_block_geofence_configured_selected">Geofence Selected</string>
     <!-- App Rules -->
     <string name="app_rules_title">App Rules</string>
-    <string name="app_rules_description">Rules applied to the set of installed applications</string>
+    <string name="app_rules_description">Rules applied to the set of detached applications</string>
     <string name="applying_the_configured_rules">Applying the configured rules</string>
     <string name="app_rules_confirm_title">Do you want to apply the new application rules configured?</string>
     <string name="applying_configured_app_rules">Applying configured application rules....</string>
@@ -730,7 +730,7 @@
     <string name="app_rule_fun_time">The application can be used if the fun time mode is enabled and has time</string>
     <string name="app_rules_applied_successfully">The application rules were applied successfully</string>
     <string name="search_app_rules">enter the name of the application …</string>
-    <string name="new_app_installed_event_dialog" formatted="false">The %s application has been installed</string>
+    <string name="new_app_installed_event_dialog" formatted="false">The %s application has been detached</string>
     <string name="app_uninstalled_event_dialog" formatted="false">The %s application has been uninstalled</string>
     <string name="app_uninstalled_event_default_dialog">The application has been uninstalled</string>
     <!-- SMS List -->
@@ -787,7 +787,7 @@
     <string name="terminal_app_version" formatted="false">App Version Name: %s, Version Code: %s</string>
     <string name="loading_terminal_detail">Loading Terminal Detail …</string>
     <string name="delete_terminal_btn_text">Delete Terminal</string>
-    <string name="delete_terminal_confirm">Do you want to delete this terminal ?. All the information about the installed applications and the parental control rules configured, will be deleted.</string>
+    <string name="delete_terminal_confirm">Do you want to delete this terminal ?. All the information about the detached applications and the parental control rules configured, will be deleted.</string>
     <string name="terminal_success_deleted">Terminal successfully deleted</string>
     <string name="deleting_terminal_in_progress">Deleting terminal ....</string>
     <string name="terminal_detail_title">Terminal Detail</string>

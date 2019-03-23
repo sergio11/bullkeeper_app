@@ -94,18 +94,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("high_accuraccy_location_enabled")
     private boolean highAccuraccyLocationEnabled;
 
-    /**
-     * Carrier Name
-     */
-    @JsonProperty("carrier_name")
-    private String carrierName;
-
-    /**
-     * Phone Number
-     */
-    @JsonProperty("phone_number")
-    private String phoneNumber;
-
 
     public TerminalDetailDTO(){
         super();
@@ -122,7 +110,7 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param marketName
      * @param model
      * @param codeName
-     * @param installed
+     * @param detached
      * @param deviceName
      * @param deviceId
      * @param bedTimeEnabled
@@ -133,6 +121,8 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param isBatteryCharging
      * @param status
      * @param heartbeat
+     * @param carrierName
+     * @param phoneNumber
      * @param totalApps
      * @param totalSms
      * @param totalCalls
@@ -147,23 +137,10 @@ public final class TerminalDetailDTO extends TerminalDTO {
      * @param adminAccessAllowed
      * @param appsOverlayEnabled
      * @param highAccuraccyLocationEnabled
-     * @param carrierName
-     * @param phoneNumber
      */
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode,
-                             String osVersion, String sdkVersion, String manufacturer,
-                             String marketName, String model, String codeName,
-                             boolean installed, String deviceName, String deviceId,
-                             boolean bedTimeEnabled, boolean screenEnabled,
-                             boolean cameraEnabled, boolean settingsEnabled,
-                             int batteryLevel, boolean isBatteryCharging, String status,
-                             TerminalHeartbeatDTO heartbeat, long totalApps, long totalSms,
-                             long totalCalls, long totalContacts, String screenStatus,
-                             boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
-                             boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
-                             boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled,
-                             boolean highAccuraccyLocationEnabled, String carrierName, String phoneNumber) {
-        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, installed, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, heartbeat);
+    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, boolean detached, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel, boolean isBatteryCharging, String status, TerminalHeartbeatDTO heartbeat, String carrierName, String phoneNumber, long totalApps, long totalSms,
+                             long totalCalls, long totalContacts, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
+        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, detached, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, heartbeat, carrierName, phoneNumber);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
@@ -178,8 +155,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.adminAccessAllowed = adminAccessAllowed;
         this.appsOverlayEnabled = appsOverlayEnabled;
         this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
-        this.carrierName = carrierName;
-        this.phoneNumber = phoneNumber;
     }
 
     public long getTotalApps() {
@@ -294,22 +269,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
         this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
     }
 
-    public String getCarrierName() {
-        return carrierName;
-    }
-
-    public void setCarrierName(String carrierName) {
-        this.carrierName = carrierName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     @Override
     public String toString() {
         return "TerminalDetailDTO{" +
@@ -327,8 +286,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", adminAccessAllowed=" + adminAccessAllowed +
                 ", appsOverlayEnabled=" + appsOverlayEnabled +
                 ", highAccuraccyLocationEnabled=" + highAccuraccyLocationEnabled +
-                ", carrierName='" + carrierName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

@@ -76,16 +76,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
     private boolean highAccuraccyLocationEnabled;
 
     /**
-     * Carrier Name
-     */
-    private String carrierName;
-
-    /**
-     * Phone Number
-     */
-    private String phoneNumber;
-
-    /**
      *
      */
     public TerminalDetailEntity(){}
@@ -98,7 +88,7 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param codeName
      * @param deviceName
      * @param manufacturer
-     * @param installed
+     * @param detached
      * @param marketName
      * @param model
      * @param osVersion
@@ -111,6 +101,8 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param isBatteryCharging
      * @param status
      * @param terminalHeartbeatEntity
+     * @param carrierName
+     * @param phoneNumber
      * @param totalApps
      * @param totalSms
      * @param totalCalls
@@ -125,19 +117,11 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param adminAccessAllowed
      * @param appsOverlayEnabled
      * @param highAccuraccyLocationEnabled
-     * @param carrierName
-     * @param phoneNumber
      */
-    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName,
-                                String manufacturer, boolean installed, String marketName, String model, String osVersion, String sdkVersion,
-                                boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel,
-                                boolean isBatteryCharging, TerminalStatusEnum status, TerminalHeartbeatEntity terminalHeartbeatEntity,
-                                long totalApps, long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum,
-                                boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
-                                boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed,
-                                boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled,
-                                String carrierName, String phoneNumber) {
-        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, installed, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, terminalHeartbeatEntity);
+    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, boolean detached, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, int batteryLevel, boolean isBatteryCharging, TerminalStatusEnum status, TerminalHeartbeatEntity terminalHeartbeatEntity,
+                                String carrierName, String phoneNumber, long totalApps,
+                                long totalSms, long totalCalls, long totalContacts, ScreenStatusEnum screenStatusEnum, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
+        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, detached, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, batteryLevel, isBatteryCharging, status, terminalHeartbeatEntity, carrierName, phoneNumber);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
@@ -152,8 +136,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.adminAccessAllowed = adminAccessAllowed;
         this.appsOverlayEnabled = appsOverlayEnabled;
         this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
-        this.carrierName = carrierName;
-        this.phoneNumber = phoneNumber;
     }
 
     public long getTotalApps() {
@@ -268,22 +250,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
         this.highAccuraccyLocationEnabled = highAccuraccyLocationEnabled;
     }
 
-    public String getCarrierName() {
-        return carrierName;
-    }
-
-    public void setCarrierName(String carrierName) {
-        this.carrierName = carrierName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     @Override
     public String toString() {
         return "TerminalDetailEntity{" +
@@ -301,8 +267,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
                 ", adminAccessAllowed=" + adminAccessAllowed +
                 ", appsOverlayEnabled=" + appsOverlayEnabled +
                 ", highAccuraccyLocationEnabled=" + highAccuraccyLocationEnabled +
-                ", carrierName='" + carrierName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

@@ -13,4 +13,10 @@ public interface IKidRequestDetailActivityHandler extends IBasicActivityHandler 
      */
     void navigateToConversationMessagesList(final String kid);
 
+    /**
+     * Make Phone Call
+     * @param phoneNumber
+     */
+    void makePhoneCall(final String phoneNumber);
+
 }

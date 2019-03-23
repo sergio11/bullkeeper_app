@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ public class KidRequestDetailMvpActivity extends SupportMvpActivity<KidRequestDe
      */
     public static String KID_ID_ARG = "KID_ID_ARG";
     public static String ID_ARG = "ID_ARG";
+    public static String PHONE_NUMBER_ARG = "PHONE_NUMBER_ARG";
 
     /**
      * Kid Request Component
@@ -163,5 +165,40 @@ public class KidRequestDetailMvpActivity extends SupportMvpActivity<KidRequestDe
         final String currentUserId =
                 preferencesRepositoryImpl.getPrefCurrentUserIdentity();
         navigatorImpl.navigateToConversationMessageList(this, currentUserId, kid);
+    }
+
+    /**
+     * Make Phone Call
+     * @param phoneNumber
+     */
+    @Override
+    public void makePhoneCall(final String phoneNumber) {
+        Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
+        Preconditions.checkState(!phoneNumber.isEmpty(), "Phone Number can not be empty");
+
+        if(permissionManager.shouldAskPermission(Manifest.permission.CALL_PHONE)) {
+            final Bundle callbackArgs = new Bundle();
+            callbackArgs.putString(PHONE_NUMBER_ARG, phoneNumber);
+            permissionManager.checkSinglePermission(Manifest.permission.CALL_PHONE,
+                    getString(R.string.call_phone_permission_reason), callbackArgs);
+        }else
+            navigatorImpl.startPhoneCall(this, phoneNumber);
+
+    }
+
+    /**
+     *
+     * @param permission
+     * @param callbackArgs
+     */
+    @Override
+    public void onSinglePermissionGranted(String permission, Bundle callbackArgs) {
+        super.onSinglePermissionGranted(permission, callbackArgs);
+
+        if(permission.equalsIgnoreCase(Manifest.permission.CALL_PHONE) &&
+                callbackArgs.containsKey(PHONE_NUMBER_ARG)) {
+            final String phoneNumber = callbackArgs.getString(PHONE_NUMBER_ARG);
+            navigatorImpl.startPhoneCall(this, phoneNumber);
+        }
     }
 }

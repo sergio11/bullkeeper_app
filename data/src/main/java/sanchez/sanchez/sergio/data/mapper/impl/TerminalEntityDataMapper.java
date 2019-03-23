@@ -45,7 +45,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setMarketName(originModel.getMarketName());
         terminalEntity.setModel(originModel.getModel());
         terminalEntity.setOsVersion(originModel.getOsVersion());
-        terminalEntity.setInstalled(originModel.isInstalled());
+        terminalEntity.setDetached(originModel.isDetached());
         terminalEntity.setSdkVersion(originModel.getSdkVersion());
         terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
@@ -60,6 +60,8 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         }
         terminalEntity.setTerminalHeartbeatEntity(terminalHeartbeatEntityDataMapper
                 .transform(originModel.getHeartbeat()));
+        terminalEntity.setCarrierName(originModel.getCarrierName());
+        terminalEntity.setPhoneNumber(originModel.getPhoneNumber());
         return terminalEntity;
     }
 
@@ -79,7 +81,7 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setCodeName(originModel.getCodeName());
         terminalDTO.setDeviceName(originModel.getDeviceName());
         terminalDTO.setManufacturer(originModel.getManufacturer());
-        terminalDTO.setInstalled(originModel.isInstalled());
+        terminalDTO.setDetached(originModel.isDetached());
         terminalDTO.setMarketName(originModel.getMarketName());
         terminalDTO.setModel(originModel.getOsVersion());
         terminalDTO.setOsVersion(originModel.getOsVersion());
@@ -94,6 +96,8 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setHeartbeat(
                 terminalHeartbeatEntityDataMapper.transformInverse(originModel.getTerminalHeartbeatEntity())
         );
+        terminalDTO.setCarrierName(originModel.getCarrierName());
+        terminalDTO.setPhoneNumber(originModel.getPhoneNumber());
         return terminalDTO;
     }
 }

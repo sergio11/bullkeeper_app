@@ -102,18 +102,37 @@
                         android:drawableStart="@drawable/clock_cyan_solid" />
 
 
-                    <!-- Device Name -->
-                    <TextView
-                        android:id="@+id/kidRequestDeviceName"
-                        style="@style/CommonStrongText"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/common_margin"
-                        android:gravity="start|center_vertical"
-                        android:text="-"
-                        android:textColor="@color/cyanBrilliant"
-                        android:drawablePadding="@dimen/common_padding"
-                        android:drawableStart="@drawable/mobile_cyan_solid" />
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <!-- Device Name -->
+                        <TextView
+                            android:id="@+id/kidRequestDeviceName"
+                            style="@style/CommonStrongText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/common_margin"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:drawablePadding="@dimen/common_padding"
+                            android:drawableStart="@drawable/mobile_cyan_solid" />
+
+                        <!-- Make Phone Call -->
+                        <ImageView
+                            android:id="@+id/makePhoneCall"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/make_call_solid"
+                            android:visibility="gone"
+                            android:layout_marginStart="@dimen/common_margin"
+                            android:contentDescription="@string/content_not_be_loaded"/>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

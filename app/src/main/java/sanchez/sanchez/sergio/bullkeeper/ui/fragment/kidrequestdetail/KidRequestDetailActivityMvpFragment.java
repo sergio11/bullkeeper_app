@@ -118,6 +118,12 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
     protected View locationNotAvailableView;
 
     /**
+     * Make Phone Call
+     */
+    @BindView(R.id.makePhoneCall)
+    protected ImageView makePhoneCallImageView;
+
+    /**
      * Dependencies
      * ===============
      */
@@ -347,6 +353,10 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
                         "%s - %s", kidRequestEntity.getTerminal().getDeviceName(),
                         kidRequestEntity.getTerminal().getModel()));
 
+        makePhoneCallImageView.setVisibility(
+                kidRequestEntity.getTerminal() != null &&
+                        appUtils.isValidString(kidRequestEntity.getTerminal().getPhoneNumber()) ? View.VISIBLE: View.GONE
+        );
 
         if(kidRequestEntity.getLocation() != null) {
 
@@ -574,6 +584,19 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
     @OnClick(R.id.openConversation)
     protected void onOpenConversation(){
         activityHandler.navigateToConversationMessagesList(childId);
+    }
+
+    /**
+     * On Make Phone Call
+     */
+    @OnClick(R.id.makePhoneCall)
+    protected void onMakePhoneCall(){
+        Preconditions.checkNotNull(kidRequestEntity, "Kid Request entity can not be null");
+        Preconditions.checkNotNull(kidRequestEntity.getTerminal(), "Terminal can not be null");
+        Preconditions.checkState(!kidRequestEntity.getTerminal().getPhoneNumber().isEmpty(),
+                "Terminal Phone number can not be empty");
+
+        activityHandler.makePhoneCall(kidRequestEntity.getTerminal().getPhoneNumber());
     }
 
     /**

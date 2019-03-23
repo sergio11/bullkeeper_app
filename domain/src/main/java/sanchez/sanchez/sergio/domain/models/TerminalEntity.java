@@ -13,7 +13,7 @@ public class TerminalEntity implements Serializable {
     private String codeName;
     private String deviceName;
     private String manufacturer;
-    private boolean installed;
+    private boolean detached;
     private String marketName;
     private String model;
     private String osVersion;
@@ -26,6 +26,8 @@ public class TerminalEntity implements Serializable {
     private boolean isBatteryCharging;
     private TerminalStatusEnum status;
     private TerminalHeartbeatEntity terminalHeartbeatEntity;
+    private String carrierName;
+    private String phoneNumber;
 
     public TerminalEntity(){}
 
@@ -37,7 +39,7 @@ public class TerminalEntity implements Serializable {
      * @param codeName
      * @param deviceName
      * @param manufacturer
-     * @param installed
+     * @param detached
      * @param marketName
      * @param model
      * @param osVersion
@@ -47,22 +49,25 @@ public class TerminalEntity implements Serializable {
      * @param cameraEnabled
      * @param settingsEnabled
      * @param terminalHeartbeatEntity
+     * @param carrierName
+     * @param phoneNumber
      */
     public TerminalEntity(String identity, String appVersionCode, String appVersionName,
                           String codeName, String deviceName, String manufacturer,
-                          boolean installed, String marketName, String model, String osVersion,
+                          boolean detached, String marketName, String model, String osVersion,
                           String sdkVersion, boolean bedTimeEnabled,
                           boolean screenEnabled, boolean cameraEnabled,
                           boolean settingsEnabled, int batteryLevel,
                           boolean isBatteryCharging, TerminalStatusEnum status,
-                          TerminalHeartbeatEntity terminalHeartbeatEntity) {
+                          TerminalHeartbeatEntity terminalHeartbeatEntity,
+                          final String carrierName, final String phoneNumber) {
         this.identity = identity;
         this.appVersionCode = appVersionCode;
         this.appVersionName = appVersionName;
         this.codeName = codeName;
         this.deviceName = deviceName;
         this.manufacturer = manufacturer;
-        this.installed = installed;
+        this.detached = detached;
         this.marketName = marketName;
         this.model = model;
         this.osVersion = osVersion;
@@ -75,6 +80,8 @@ public class TerminalEntity implements Serializable {
         this.isBatteryCharging = isBatteryCharging;
         this.status = status;
         this.terminalHeartbeatEntity = terminalHeartbeatEntity;
+        this.carrierName = carrierName;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getIdentity() {
@@ -125,12 +132,12 @@ public class TerminalEntity implements Serializable {
         this.manufacturer = manufacturer;
     }
 
-    public boolean isInstalled() {
-        return installed;
+    public boolean isDetached() {
+        return detached;
     }
 
-    public void setInstalled(boolean installed) {
-        this.installed = installed;
+    public void setDetached(boolean detached) {
+        this.detached = detached;
     }
 
     public String getMarketName() {
@@ -229,6 +236,22 @@ public class TerminalEntity implements Serializable {
         this.terminalHeartbeatEntity = terminalHeartbeatEntity;
     }
 
+    public String getCarrierName() {
+        return carrierName;
+    }
+
+    public void setCarrierName(String carrierName) {
+        this.carrierName = carrierName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "TerminalEntity{" +
@@ -238,7 +261,7 @@ public class TerminalEntity implements Serializable {
                 ", codeName='" + codeName + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
-                ", installed=" + installed +
+                ", detached=" + detached +
                 ", marketName='" + marketName + '\'' +
                 ", model='" + model + '\'' +
                 ", osVersion='" + osVersion + '\'' +
@@ -251,6 +274,8 @@ public class TerminalEntity implements Serializable {
                 ", isBatteryCharging=" + isBatteryCharging +
                 ", status=" + status +
                 ", terminalHeartbeatEntity=" + terminalHeartbeatEntity +
+                ", carrierName='" + carrierName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
