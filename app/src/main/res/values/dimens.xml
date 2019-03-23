@@ -93,7 +93,8 @@
     <dimen name="common_dialog_corners">10dp</dimen>
     <!-- Common Dialog Height -->
     <dimen name="common_dialog_height">250dp</dimen>
-    <!-- Schedule Block Item Height -->
+    <!--List Item very high -->
     <dimen name="list_item_very_high">125dp</dimen>
+    <dimen name="common_list_item_high">100dp</dimen>
 
 </resources>

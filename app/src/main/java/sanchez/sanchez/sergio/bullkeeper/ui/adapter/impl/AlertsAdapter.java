@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -66,9 +68,9 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
                     SupportItemSwipedViewHolder<AlertEntity> {
 
         private Context context;
-
-        private ImageView alertIcon, childImage;
-        private TextView alertMessage, alertSince, alertSonName;
+        private CircleImageView childImage;
+        private ImageView alertIcon;
+        private TextView alertMessage, alertSince, alertKidName;
 
         /**
          * Alerts View Holder
@@ -82,7 +84,7 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
             this.childImage = itemView.findViewById(R.id.childImage);
             this.alertMessage = itemView.findViewById(R.id.alertMessage);
             this.alertSince = itemView.findViewById(R.id.alertSince);
-            this.alertSonName = itemView.findViewById(R.id.alertSonName);
+            this.alertKidName = itemView.findViewById(R.id.alertKidName);
         }
 
         /**
@@ -128,8 +130,8 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
             alertSince.setText(alertEntity.getSince());
             // Set Alert Payload
             alertMessage.setText(alertEntity.getPayload());
-            // Set Son Full name
-            alertSonName.setText(alertEntity.getSon().getFullName());
+            // Set Kid Full name
+            alertKidName.setText(alertEntity.getSon().getFullName());
 
             if(alertEntity.getSon() != null) {
 
@@ -144,6 +146,8 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
                     childImage.setImageResource(R.drawable.kid_default_image);
             }
 
+            childImage.setBorderColor(alertColor);
+
         }
 
         public ImageView getAlertIcon() {
@@ -154,11 +158,12 @@ public final class AlertsAdapter extends SupportRecyclerViewAdapter<AlertEntity>
             this.alertIcon = alertIcon;
         }
 
-        public ImageView getChildImage() {
+
+        public CircleImageView getChildImage() {
             return childImage;
         }
 
-        public void setChildImage(ImageView childImage) {
+        public void setChildImage(CircleImageView childImage) {
             this.childImage = childImage;
         }
 
