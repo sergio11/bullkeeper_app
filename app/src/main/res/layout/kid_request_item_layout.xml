@@ -128,7 +128,6 @@
             android:layout_marginStart="8dp"
             android:gravity="start|center_vertical"
             android:padding="0dp"
-            android:singleLine="true"
             android:textColor="@color/darkModerateBlue"
             android:textStyle="italic" />
 

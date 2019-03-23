@@ -97,7 +97,7 @@ public final class KidRequestAdapter
                             context.getString(R.string.kid_request_registered_since),
                                 kidRequestEntity.getSince()));
 
-            if(kidRequestEntity.getLocation().getAddress() != null &&
+            if(kidRequestEntity.getLocation() != null && kidRequestEntity.getLocation().getAddress() != null &&
                     !kidRequestEntity.getLocation().getAddress().isEmpty())
                 kidRequestAddressTextView
                         .setText(kidRequestEntity.getLocation().getAddress());

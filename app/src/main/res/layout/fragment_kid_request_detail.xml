@@ -127,50 +127,100 @@
                 app:cardElevation="4dp"
                 android:layout_marginTop="10dp">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <!-- Title -->
-                    <TextView
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/locationNotAvailable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:background="@color/cyanBrilliant">
+
+                        <ImageView
+                            android:id="@+id/noLocationAvailableIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:contentDescription="@string/content_not_be_loaded"
+                            android:src="@drawable/no_location_available"
+                            app:layout_constraintBottom_toTopOf="@id/noLocationAvailableMessage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/noLocationAvailableMessage"
+                            style="@style/CommonStrongText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/kid_request_location_not_avaliable"
+                            android:textAlignment="center"
+                            android:textColor="@color/commonWhite"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/noLocationAvailableIcon"
+                            app:layout_constraintVertical_bias="0.17000002" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <LinearLayout
+                        android:id="@+id/locationAvailable"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/CommonStrongText"
-                        android:textColor="@color/cyanBrilliant"
-                        android:textStyle="bold"
-                        android:text="@string/kid_request_location_address"/>
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="@dimen/common_divider_small"
-                        android:layout_height="@dimen/common_divider_height"
-                        android:layout_margin="10dp"
-                        android:background="@color/cyanBrilliant"/>
+                        <!-- Title -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/CommonStrongText"
+                            android:textColor="@color/cyanBrilliant"
+                            android:textStyle="bold"
+                            android:text="@string/kid_request_location_address"/>
+
+                        <View
+                            android:layout_width="@dimen/common_divider_small"
+                            android:layout_height="@dimen/common_divider_height"
+                            android:layout_margin="10dp"
+                            android:background="@color/cyanBrilliant"/>
 
 
-                    <!-- Location Address -->
-                    <TextView
-                        android:id="@+id/kidRequestLocationAddress"
-                        style="@style/CommonStrongText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/common_margin"
-                        android:gravity="start|center_vertical"
-                        android:text="-"
-                        android:textColor="@color/cyanBrilliant"
-                        android:drawablePadding="@dimen/common_padding"
-                        android:drawableStart="@drawable/kid_request_location_marker" />
+                        <!-- Location Address -->
+                        <TextView
+                            android:id="@+id/kidRequestLocationAddress"
+                            style="@style/CommonStrongText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/common_margin"
+                            android:gravity="start|center_vertical"
+                            android:text="-"
+                            android:textColor="@color/cyanBrilliant"
+                            android:drawablePadding="@dimen/common_padding"
+                            android:drawableStart="@drawable/kid_request_location_marker" />
 
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_margin="8dp"/>
+                        <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_margin="8dp"/>
 
-                </LinearLayout>
+                    </LinearLayout>
+
+
+                </FrameLayout>
 
             </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
@@ -193,8 +243,8 @@
         android:layout_alignParentStart="true">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:contentDescription="@string/content_not_be_loaded"
             android:src="@drawable/open_chat_icon_dark" />
@@ -229,8 +279,8 @@
         android:layout_alignParentStart="true">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:contentDescription="@string/content_not_be_loaded"
             android:src="@drawable/close_circle_solid" />

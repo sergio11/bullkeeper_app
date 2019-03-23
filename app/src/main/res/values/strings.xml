@@ -605,6 +605,9 @@
     <string name="kids_results_terminals_count" formatted="false">(has %d linked terminals)</string>
     <string name="kid_request_address_not_available">Address not available</string>
     <string name="kid_results_age_of_result" formatted="false">Results for %s</string>
+
+    <string name="kid_request_location_not_avaliable">Location not available</string>
+
     <!-- Comments Settings -->
 
     <!-- Age Of Comments -->

@@ -69,8 +69,9 @@ public final class KidRequestEntityMapper extends AbstractDataMapper<KidRequestD
                 .transform(originModel.getKid()));
         kidRequestEntity.setTerminal(terminalEntityAbstractDataMapper
                 .transform(originModel.getTerminal()));
-        kidRequestEntity.setLocation(locationEntityAbstractDataMapper
-                .transform(originModel.getLocation()));
+        if(originModel.getLocation() != null)
+            kidRequestEntity.setLocation(locationEntityAbstractDataMapper
+                    .transform(originModel.getLocation()));
         kidRequestEntity.setSince(originModel.getSince());
         return kidRequestEntity;
     }
@@ -93,8 +94,9 @@ public final class KidRequestEntityMapper extends AbstractDataMapper<KidRequestD
                 .transformInverse(originModel.getKid()));
         kidRequestDTO.setTerminal(terminalEntityAbstractDataMapper
                 .transformInverse(originModel.getTerminal()));
-        kidRequestDTO.setLocation(locationEntityAbstractDataMapper
-                .transformInverse(originModel.getLocation()));
+        if(originModel.getLocation() != null)
+            kidRequestDTO.setLocation(locationEntityAbstractDataMapper
+                    .transformInverse(originModel.getLocation()));
         kidRequestDTO.setSince(originModel.getSince());
         return kidRequestDTO;
 

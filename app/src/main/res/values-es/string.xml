@@ -483,6 +483,7 @@
     <string name="kids_results_terminals_count" formatted="false">(tiene %d dispositivos enlazados)</string>
     <string name="kid_request_address_not_available">Dirección no disponible</string>
     <string name="kid_results_age_of_result" formatted="false">Resultados desde %s</string>
+    <string name="kid_request_location_not_avaliable">Localización no disponible</string>
     <!-- Comments Settings -->
     <!-- Age Of Comments -->
     <string name="age_of_comments_preference_title">Antigüedad de los comentarios</string>

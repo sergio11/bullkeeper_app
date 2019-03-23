@@ -106,6 +106,18 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
     protected TextView kidRequestLocationAddressTextView;
 
     /**
+     * Location Available View
+     */
+    @BindView(R.id.locationAvailable)
+    protected View locationAvailableView;
+
+    /**
+     * Location Not Available
+     */
+    @BindView(R.id.locationNotAvailable)
+    protected View locationNotAvailableView;
+
+    /**
      * Dependencies
      * ===============
      */
@@ -335,25 +347,47 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
                         "%s - %s", kidRequestEntity.getTerminal().getDeviceName(),
                         kidRequestEntity.getTerminal().getModel()));
 
-        if(appUtils.isValidString(kidRequestEntity.getLocation().getAddress())) {
-            kidRequestLocationAddressTextView.setText(
-                    kidRequestEntity.getLocation().getAddress()
-            );
-        } else {
-            final Location location = new Location("");
-            location.setLatitude(kidRequestEntity.getLocation().getLat());
-            location.setLongitude(kidRequestEntity.getLocation().getLog());
-            fetchAddressForLocation(location);
 
-        }
+        if(kidRequestEntity.getLocation() != null) {
 
-        if(getFragmentManager() != null) {
-            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-            if(mapFragment != null) {
-                mapFragment.getMapAsync(this);
+            // The latitude must be a number between -90 and 90 and the longitude between -180 and 180.
+
+            if(kidRequestEntity.getLocation().getLat() >= -90 &&
+                    kidRequestEntity.getLocation().getLat() <= 90 &&
+                    kidRequestEntity.getLocation().getLog() >= -180 &&
+                    kidRequestEntity.getLocation().getLog() <= 180) {
+
+                locationAvailableView.setVisibility(View.VISIBLE);
+                locationNotAvailableView.setVisibility(View.GONE);
+
+
+                if(appUtils.isValidString(kidRequestEntity.getLocation().getAddress())) {
+                    kidRequestLocationAddressTextView.setText(
+                            kidRequestEntity.getLocation().getAddress()
+                    );
+                } else {
+                    final Location location = new Location("");
+                    location.setLatitude(kidRequestEntity.getLocation().getLat());
+                    location.setLongitude(kidRequestEntity.getLocation().getLog());
+                    fetchAddressForLocation(location);
+                }
+
+                if(getFragmentManager() != null) {
+                    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+                    if(mapFragment != null) {
+                        mapFragment.getMapAsync(this);
+                    }
+                }
+
+            } else {
+                locationAvailableView.setVisibility(View.GONE);
+                locationNotAvailableView.setVisibility(View.VISIBLE);
             }
-        }
 
+        }  else {
+            locationAvailableView.setVisibility(View.GONE);
+            locationNotAvailableView.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -572,6 +606,8 @@ public class KidRequestDetailActivityMvpFragment extends SupportMvpFragment<KidR
             // Show a toast message if an address was found.
             if (resultCode == FetchAddressIntentService.SUCCESS_RESULT) {
                 kidRequestLocationAddressTextView.setText(mAddressOutput);
+            } else {
+                kidRequestLocationAddressTextView.setText(getString(R.string.no_address_found));
             }
 
         }
