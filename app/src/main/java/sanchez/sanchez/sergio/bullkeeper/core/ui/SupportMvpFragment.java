@@ -304,6 +304,17 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
 
     /**
      * Show Notice Dialog
+     * @param title
+     * @param isSuccess
+     * @param noticeDialogListener
+     */
+    @Override
+    public void showNoticeDialog(String title, boolean isSuccess, NoticeDialogFragment.NoticeDialogListener noticeDialogListener) {
+        activityHandler.showNoticeDialog(title, isSuccess, noticeDialogListener);
+    }
+
+    /**
+     * Show Notice Dialog
      * @param stringResId
      * @param noticeDialogListener
      */

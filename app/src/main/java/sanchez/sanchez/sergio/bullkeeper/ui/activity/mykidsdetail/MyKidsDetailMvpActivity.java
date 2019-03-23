@@ -334,6 +334,32 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     * on Network Error
+     */
+    @Override
+    public void onNetworkError() {
+        showNoticeDialog(getString(R.string.network_error_ocurred), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
+
+    /**
+     * on Other Exception
+     */
+    @Override
+    public void onOtherException() {
+        showNoticeDialog(getString(R.string.unexpected_error_ocurred), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
+
+    /**
      * On Create Content View Event
      * @return
      */

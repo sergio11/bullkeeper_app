@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
+import timber.log.Timber;
 
 /**
  * Notice Dialog Fragment
@@ -81,6 +82,24 @@ public final class NoticeDialogFragment extends SupportDialogFragment {
             soundManager.playSound(ISoundManager.DIALOG_SUCCESS_SOUND);
         else
             soundManager.playSound(ISoundManager.DIALOG_ERROR_SOUND);
+    }
+
+
+
+    /**
+     * on Pause
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        Timber.d("MAA-176: Dialog Fragment on Pause");
+        dismissAllowingStateLoss();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Timber.d("MAA-176: Dialog Fragment on Stop");
     }
 
 

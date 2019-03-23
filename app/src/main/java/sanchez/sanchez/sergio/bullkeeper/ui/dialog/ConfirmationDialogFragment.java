@@ -99,6 +99,7 @@ public final class ConfirmationDialogFragment extends SupportDialogFragment {
         soundManager.playSound(ISoundManager.DIALOG_CONFIRM_SOUND);
     }
 
+
     /**
      * Get Layout Resource
      * @return
@@ -116,6 +117,7 @@ public final class ConfirmationDialogFragment extends SupportDialogFragment {
         AndroidApplication.getInstance().getApplicationComponent()
                 .inject(this);
     }
+
 
     /**
      * On Accept

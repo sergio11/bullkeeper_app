@@ -73,7 +73,7 @@ public interface IBasicActivityHandler {
      */
     void showNoticeDialog(final String title, final boolean isSuccess, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
-    /**
+/**
      * Show Notice Dialog
      * @param stringResId
      * @param isSuccess

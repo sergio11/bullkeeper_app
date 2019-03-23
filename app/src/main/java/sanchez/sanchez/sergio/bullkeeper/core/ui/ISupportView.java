@@ -79,6 +79,14 @@ public interface ISupportView extends TiView {
     @CallOnMainThread
     void showNoticeDialog(final Integer stringResId, final boolean isSuccess);
 
+    /**
+     * Show Notice Dialog
+     * @param title
+     * @param isSuccess
+     * @param noticeDialogListener
+     */
+    @CallOnMainThread
+    void showNoticeDialog(final String title, final boolean isSuccess, final NoticeDialogFragment.NoticeDialogListener noticeDialogListener);
 
     /**
      * Show Notice Dialog
