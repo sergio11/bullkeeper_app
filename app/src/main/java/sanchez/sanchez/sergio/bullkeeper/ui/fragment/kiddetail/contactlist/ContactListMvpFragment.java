@@ -344,6 +344,15 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
     }
 
     /**
+     * on Contact Disabled Successfully
+     */
+    @Override
+    public void onContactDisabledSuccessfully() {
+        if(getAdapter().getData().isEmpty())
+            onNoDataFound();
+    }
+
+    /**
      * On Error Disabling Contact
      */
     @Override

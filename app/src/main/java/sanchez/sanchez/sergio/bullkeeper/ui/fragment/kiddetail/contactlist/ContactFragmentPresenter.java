@@ -144,7 +144,9 @@ public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IC
          */
         @Override
         protected void onSuccess(String response) {
-            Timber.d("Contact Disabled Successfully");
+
+            if(isViewAttached() && getView() != null)
+                getView().onContactDisabledSuccessfully();
         }
     }
 

@@ -88,10 +88,7 @@ public abstract class SupportMvpSearchLCEFragment<P extends SupportSearchLCEPres
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchHeaderImage.setVisibility(View.GONE);
-                searchHeaderTitle.setVisibility(View.GONE);
-                searchView.setBackgroundResource(R.drawable.searchbar_background);
-                searchView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                enableSearchMode();
             }
         });
 
@@ -99,10 +96,7 @@ public abstract class SupportMvpSearchLCEFragment<P extends SupportSearchLCEPres
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                searchHeaderImage.setVisibility(View.VISIBLE);
-                searchHeaderTitle.setVisibility(View.VISIBLE);
-                searchView.setBackgroundResource(android.R.color.transparent);
-                searchView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                disableSearchMode();
                 return false;
             }
         });
@@ -132,6 +126,20 @@ public abstract class SupportMvpSearchLCEFragment<P extends SupportSearchLCEPres
     public void onDataLoaded(List<F> dataLoaded) {
         super.onDataLoaded(dataLoaded);
         recyclerViewAdapter.setHighlightText(currentQueryText);
+    }
+
+    /**
+     * on Stop
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Disable Search Mode
+        if (!searchView.isIconified()) {
+            disableSearchMode();
+            searchView.onActionViewCollapsed();
+        }
     }
 
     /**
@@ -243,6 +251,26 @@ public abstract class SupportMvpSearchLCEFragment<P extends SupportSearchLCEPres
                 super.loadData();
             }
         }
+    }
+
+    /**
+     * Enable Search Mode
+     */
+    private void enableSearchMode(){
+        searchHeaderImage.setVisibility(View.GONE);
+        searchHeaderTitle.setVisibility(View.GONE);
+        searchView.setBackgroundResource(R.drawable.searchbar_background);
+        searchView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+    }
+
+    /**
+     * Disable Search Mode
+     */
+    private void disableSearchMode(){
+        searchHeaderImage.setVisibility(View.VISIBLE);
+        searchHeaderTitle.setVisibility(View.VISIBLE);
+        searchView.setBackgroundResource(android.R.color.transparent);
+        searchView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
     /**
