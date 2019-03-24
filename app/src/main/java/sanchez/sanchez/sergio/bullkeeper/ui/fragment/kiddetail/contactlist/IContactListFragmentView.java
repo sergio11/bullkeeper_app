@@ -6,4 +6,11 @@ import sanchez.sanchez.sergio.domain.models.ContactEntity;
 /**
  * Contact List Fragment View
  */
-interface IContactListFragmentView extends ISupportLCEView<ContactEntity> { }
+interface IContactListFragmentView extends ISupportLCEView<ContactEntity> {
+
+    /**
+     * On Error Disabling Contact
+     */
+    void onErrorDisablingContact();
+
+}

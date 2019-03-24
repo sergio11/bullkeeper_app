@@ -5,8 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,8 +25,10 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpSearchLCEFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.ContactsAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import timber.log.Timber;
@@ -32,7 +38,8 @@ import timber.log.Timber;
  */
 public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactFragmentPresenter,
         IContactListFragmentView, IMyKidsDetailActivityHandler, MyKidsComponent, ContactEntity>
-        implements IContactListFragmentView, AdapterView.OnItemSelectedListener {
+        implements IContactListFragmentView, AdapterView.OnItemSelectedListener ,
+        SupportItemTouchHelper.ItemTouchHelperListener{
 
     /**
      * Kid Identity Arg
@@ -173,6 +180,12 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
 
         // Enable Nested Scrolling on Recycler View
         ViewCompat.setNestedScrollingEnabled(recyclerView, true);
+
+
+        // adding item touch helper
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new SupportItemTouchHelper<ContactsAdapter.ContactDetailViewHolder>(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     /**
@@ -285,5 +298,62 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
+
+    /**
+     *
+     * @param viewHolder
+     * @param direction
+     * @param position
+     */
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof ContactsAdapter.ContactDetailViewHolder) {
+
+            final Integer deletedIndex = viewHolder.getAdapterPosition();
+            final ContactEntity contactEntity = recyclerViewAdapter.getItemByAdapterPosition(deletedIndex);
+
+            // Delete item from adapter
+            recyclerViewAdapter.removeItem(deletedIndex);
+
+            if(!activityHandler.isConnectivityAvailable()) {
+                showNoticeDialog(R.string.connectivity_not_available, false);
+                recyclerViewAdapter.restoreItem(contactEntity, deletedIndex);
+            } else {
+                showLongSimpleSnackbar(content,
+                        getString(R.string.contact_item_disabled),
+                        getString(R.string.undo_list_menu_item), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        recyclerViewAdapter.restoreItem(contactEntity, deletedIndex);
+                    }
+                }, new Snackbar.Callback(){
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        if(event == DISMISS_EVENT_TIMEOUT) {
+                            getPresenter().disableContact(
+                                    contactEntity.getKid(),
+                                    contactEntity.getTerminal(),
+                                    contactEntity.getIdentity());
+                        }
+                    }
+                });
+            }
+
+        }
+    }
+
+    /**
+     * On Error Disabling Contact
+     */
+    @Override
+    public void onErrorDisablingContact() {
+        showNoticeDialog(getString(R.string.error_disabling_contact), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                loadData();
+            }
+        });
+    }
 }
 

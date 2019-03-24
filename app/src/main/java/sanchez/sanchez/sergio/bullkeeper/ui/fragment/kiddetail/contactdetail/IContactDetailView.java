@@ -36,4 +36,14 @@ public interface IContactDetailView extends ISupportView {
      */
     void onPhoneNumberUnlockedError();
 
+    /**
+     * On Contact Successfully Disabled
+     */
+    void onContactSuccessfullyDisabled();
+
+    /**
+     * On Error Disabling Contact
+     */
+    void onErrorDisablingContact();
+
 }

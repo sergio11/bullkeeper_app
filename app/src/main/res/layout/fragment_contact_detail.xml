@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:layout_below="@id/appToolbarInclude"
-        android:layout_above="@id/deleteTerminal">
+        android:layout_above="@id/disableContact">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -170,6 +170,42 @@
 
 
     </android.support.v4.widget.NestedScrollView>
+
+    <!-- Disable Contact -->
+    <LinearLayout
+        android:id="@+id/disableContact"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/close_circle_solid" />
+
+        <TextView
+            style="@style/CommonStrongText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".85"
+            android:background="@color/redDanger"
+            android:padding="@dimen/common_padding"
+            android:text="@string/disable_contact_btn_text"
+            android:textAlignment="textStart"
+            android:textColor="@color/commonWhite"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

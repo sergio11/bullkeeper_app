@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.domain.interactor.contacts.DisableContactInteract;
 import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.AddPhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.DeletePhoneNumbersBlockedInteract;
@@ -37,16 +38,27 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
     private final DeletePhoneNumbersBlockedInteract deletePhoneNumbersBlockedInteract;
 
     /**
+     * Disable Contact Interact
+     */
+    private final DisableContactInteract disableContactInteract;
+
+    /**
      * Contact Detail Presenter
+     * @param getContactDetailInteract
+     * @param addPhoneNumbersBlockedInteract
+     * @param deletePhoneNumbersBlockedInteract
+     * @param disableContactInteract
      */
     @Inject
     public ContactDetailFragmentPresenter(
             final GetContactDetailInteract getContactDetailInteract,
             final AddPhoneNumbersBlockedInteract addPhoneNumbersBlockedInteract,
-            final DeletePhoneNumbersBlockedInteract deletePhoneNumbersBlockedInteract){
+            final DeletePhoneNumbersBlockedInteract deletePhoneNumbersBlockedInteract,
+            final DisableContactInteract disableContactInteract){
         this.getContactDetailInteract = getContactDetailInteract;
         this.addPhoneNumbersBlockedInteract = addPhoneNumbersBlockedInteract;
         this.deletePhoneNumbersBlockedInteract = deletePhoneNumbersBlockedInteract;
+        this.disableContactInteract = disableContactInteract;
     }
 
     /**
@@ -117,6 +129,25 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
         deletePhoneNumbersBlockedInteract.execute(new DeletePhoneNumberObserver(),
                 DeletePhoneNumbersBlockedInteract.Params.create(childId, terminalId,
                         phoneNumber));
+
+    }
+
+    /**
+     * Disable Contact
+     * @param contact
+     */
+    public void disableContact(final String contact) {
+        Preconditions.checkNotNull(contact, "Contact can not be null");
+        Preconditions.checkState(!contact.isEmpty(), "Contact can not be empty");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        final String kidId = args.getString(ContactDetailActivityMvpFragment.CHILD_ID_ARG);
+        final String terminalId = args.getString(ContactDetailActivityMvpFragment.TERMINAL_ID_ARG);
+
+        disableContactInteract.execute(new DisableContactObserver(),
+                DisableContactInteract.Params.create(kidId, terminalId, contact));
 
     }
 
@@ -249,6 +280,64 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onPhoneNumberUnlockedSuccessfully();
+            }
+
+        }
+    }
+
+
+    /**
+     * Disable Contact Observer
+     */
+    public class DisableContactObserver extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Network Error
+         */
+        @Override
+        protected void onNetworkError() {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onErrorDisablingContact();
+            }
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onErrorDisablingContact();
+            }
+        }
+
+        /**
+         * On Api Exception
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onErrorDisablingContact();
+            }
+        }
+
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(final String response) {
+            Preconditions.checkNotNull(response, "Response can not be null");
+
+            if(isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onContactSuccessfullyDisabled();
             }
 
         }

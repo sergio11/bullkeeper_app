@@ -95,4 +95,25 @@ public final class ContactsRepositoryImpl implements IContactsRepository {
                         response.getData(): null)
                 .map(contactEntityDataMapper::transform);
     }
+
+    /**
+     * Disable Contact
+     * @param kid
+     * @param terminal
+     * @param contact
+     * @return
+     */
+    @Override
+    public Observable<String> disableContact(final String kid, final String terminal, final String contact) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(contact, "Contact can not be null");
+        Preconditions.checkState(!contact.isEmpty(), "Contact can not be empty");
+
+        return contactsService.disableSingleContactsFromTerminal(kid, terminal, contact)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
 }

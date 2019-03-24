@@ -134,6 +134,7 @@
 
 
     <string name="delete_list_menu_item">Delete</string>
+    <string name="disabled_list_menu_item">Disabled</string>
     <string name="undo_list_menu_item">Undo</string>
 
     <string name="alert_item_removed">The alert was removed</string>
@@ -753,7 +754,7 @@
     <string name="contact_list_description">List of contacts registered in the supervised terminal</string>
     <string name="contact_phonenumber">Tfno: %s</string>
     <string name="search_contacts_hint">Find contacts from your name</string>
-
+    <string name="contact_item_disabled">The contact was disabled</string>
     <!-- Fun Time  -->
     <string name="fun_time_title">Fun Time</string>
     <string name="fun_time_description">Set the fun time for all configured terminals</string>
@@ -909,7 +910,10 @@
 
     <!-- Contact Detail -->
     <string name="contact_detail_title">Contact Detail</string>
-
+    <string name="disable_contact_btn_text">Disable Contact</string>
+    <string name="disable_contact_confirm">Do you want to disable this contact? It will be removed from the mobile device.</string>
+    <string name="contact_disabled_successfully">Contact successfully disabled</string>
+    <string name="error_disabling_contact">Error disabling contact</string>
 
     <!-- Invitations -->
     <string name="invitation_item_removed">The invitation was deleted</string>

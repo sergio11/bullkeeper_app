@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.data.net.services.IContactsService;
 import sanchez.sanchez.sergio.data.repository.ContactsRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.contacts.DisableContactInteract;
 import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactListInteract;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
@@ -75,6 +76,22 @@ public class ContactsModule {
             final IContactsRepository contactsRepository
     ){
         return new GetContactDetailInteract(threadExecutor, postExecutionThread, contactsRepository);
+    }
+
+    /**
+     * Provide Disable Contact Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param contactsRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public DisableContactInteract provideDisableContactInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IContactsRepository contactsRepository
+    ){
+        return new DisableContactInteract(threadExecutor, postExecutionThread, contactsRepository);
     }
 
 }

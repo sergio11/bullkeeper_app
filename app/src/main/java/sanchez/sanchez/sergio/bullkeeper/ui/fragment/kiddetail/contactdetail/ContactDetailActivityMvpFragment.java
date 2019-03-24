@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -347,6 +348,27 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
     }
 
     /**
+     * On Contact Successfully Disabled
+     */
+    @Override
+    public void onContactSuccessfullyDisabled() {
+        showNoticeDialog(getString(R.string.contact_disabled_successfully), true, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
+    }
+
+    /**
+     * on Error Disabling Contact
+     */
+    @Override
+    public void onErrorDisablingContact() {
+        showNoticeDialog(R.string.error_disabling_contact, false);
+    }
+
+    /**
      * On Checked Changed
      * @param buttonView
      * @param isChecked
@@ -398,5 +420,23 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
             }
         }
 
+    }
+
+    /**
+     * Disable Contact
+     */
+    @OnClick(R.id.disableContact)
+    protected void onDisableContact(){
+        showConfirmationDialog(R.string.disable_contact_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                Preconditions.checkNotNull(contactId, "Contact id can not be null");
+                Preconditions.checkState(!contactId.isEmpty(), "Contact id can not be empty");
+                getPresenter().disableContact(contactId);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
     }
 }

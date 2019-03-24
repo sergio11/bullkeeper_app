@@ -34,4 +34,13 @@ public interface IContactsRepository {
      * @return
      */
     Observable<ContactEntity> getContactDetail(final String kid, final String terminal, final String contact);
+
+    /**
+     * Disable Contact
+     * @param kid
+     * @param terminal
+     * @param contact
+     * @return
+     */
+    Observable<String> disableContact(final String kid, final String terminal, final String contact);
 }

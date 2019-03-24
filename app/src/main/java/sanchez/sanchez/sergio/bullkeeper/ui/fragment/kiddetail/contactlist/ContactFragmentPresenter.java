@@ -7,8 +7,10 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
+import sanchez.sanchez.sergio.domain.interactor.contacts.DisableContactInteract;
 import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactListInteract;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
+import timber.log.Timber;
 
 /**
  * Contact Fragment Presenter
@@ -27,6 +29,11 @@ public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IC
     private final GetContactListInteract getContactListInteract;
 
     /**
+     * Disable Contact Interact
+     */
+    private final DisableContactInteract disableContactInteract;
+
+    /**
      * Is Loading Data
      */
     private boolean isLoadingData = false;
@@ -34,10 +41,13 @@ public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IC
     /**
      *
      * @param getContactListInteract
+     * @param disableContactInteract
      */
     @Inject
-    public ContactFragmentPresenter(final GetContactListInteract getContactListInteract){
+    public ContactFragmentPresenter(final GetContactListInteract getContactListInteract,
+                                    final DisableContactInteract disableContactInteract){
         this.getContactListInteract = getContactListInteract;
+        this.disableContactInteract = disableContactInteract;
     }
 
     /**
@@ -69,6 +79,72 @@ public final class ContactFragmentPresenter extends SupportSearchLCEPresenter<IC
                     GetContactListInteract.Params.create(
                             args.getString(KID_IDENTITY_ARG),
                             terminalItem.getIdentity(), queryText));
+        }
+    }
+
+    /**
+     * Disable Contact
+     * @param kid
+     * @param terminal
+     * @param contactId
+     */
+    public void disableContact(final String kid, final String terminal, final String contactId) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(contactId, "Contact Id can not be null");
+        Preconditions.checkState(!contactId.isEmpty(), "Contact id can not be empty");
+
+        disableContactInteract.execute(new DisableContactObservable(),
+                DisableContactInteract.Params.create(kid, terminal, contactId));
+    }
+
+
+    /**
+     * Disable Contact
+     */
+    public class DisableContactObservable extends BasicCommandCallBackWrapper<String> {
+
+        /**
+         * On Network Error
+         */
+        @Override
+        protected void onNetworkError() {
+            if(isViewAttached() && getView() != null) {
+                getView().onErrorDisablingContact();
+            }
+        }
+
+        /**
+         * On Other Exception
+         * @param ex
+         */
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if(isViewAttached() && getView() != null) {
+                getView().onErrorDisablingContact();
+            }
+        }
+
+        /**
+         * On Api Exception
+         * @param response
+         */
+        @Override
+        protected void onApiException(APIResponse response) {
+            if(isViewAttached() && getView() != null) {
+                getView().onErrorDisablingContact();
+            }
+        }
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            Timber.d("Contact Disabled Successfully");
         }
     }
 

@@ -98,6 +98,7 @@
     <!-- Forgot password Screen -->
     <string name="forgot_password_screen_main_title">¿Olvidaste tu contraseña?</string>
     <string name="delete_list_menu_item">Borrar</string>
+    <string name="disabled_list_menu_item">Deshabilitar</string>
     <string name="undo_list_menu_item">Deshacer</string>
     <string name="alert_item_removed">La alerta fue eliminada</string>
     <!-- App Menu items -->
@@ -614,7 +615,7 @@
     <string name="contact_list_description">Lista de contactos registrados en el terminal supervisado.</string>
     <string name="contact_phonenumber">Tfno: %s</string>
     <string name="search_contacts_hint">Encuentra contactos por su nombre</string>
-
+    <string name="contact_item_disabled">El contacto fue deshabilitado</string>
     <!-- Fun Time  -->
     <string name="fun_time_title">Tiempo de Diversión</string>
     <string name="fun_time_description">Ajuste el tiempo de diversión para cada dispositivo sincronizado</string>
@@ -764,8 +765,11 @@
     <string name="call_detail_title">Detalle de llamada</string>
 
     <!-- Contact Detail -->
-    <string name="contact_detail_title">Detalles del contacto</string>
-
+    <string name="contact_detail_title">Contacto</string>
+    <string name="disable_contact_btn_text">Deshabilitar contacto</string>
+    <string name="disable_contact_confirm">¿Quieres deshabilitar este contacto? Será eliminado del dispositivo móvil.</string>
+    <string name="contact_disabled_successfully">Contacto deshabilitado con éxito.</string>
+    <string name="error_disabling_contact">Error al deshabilitar el contacto.</string>
 
     <!-- Invitations -->
     <string name="invitation_item_removed">La invitación fue borrada.</string>

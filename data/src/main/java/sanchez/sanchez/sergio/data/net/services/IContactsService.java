@@ -2,8 +2,8 @@ package sanchez.sanchez.sergio.data.net.services;
 
 import java.util.List;
 import io.reactivex.Observable;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
@@ -52,26 +52,14 @@ public interface IContactsService {
     );
 
     /**
-     * Delete All Contacts From Terminal
-     * @param kid
-     * @param terminal
-     * @return
-     */
-    @DELETE("children/{kid}/terminal/{terminal}/contacts")
-    Observable<APIResponse<ContactDTO>> deleteAllContactsFromTerminal(
-            final @Path("kid") String kid,
-            final @Path("terminal") String terminal
-    );
-
-    /**
-     * Delete Single Contacts From Terminal
+     * Disable Single Contacts From Terminal
      * @param kid
      * @param terminal
      * @param contact
      * @return
      */
-    @DELETE("children/{kid}/terminal/{terminal}/contacts/{contact}")
-    Observable<APIResponse<ContactDTO>> deleteSingleContactsFromTerminal(
+    @POST("children/{kid}/terminal/{terminal}/contacts/{contact}/disable")
+    Observable<APIResponse<String>> disableSingleContactsFromTerminal(
             final @Path("kid") String kid,
             final @Path("terminal") String terminal,
             final @Path("contact") String contact
