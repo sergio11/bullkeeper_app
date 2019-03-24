@@ -12,7 +12,7 @@
 bin/
 gen/
 out/
-
+app/release/
 # Gradle files
 .gradle/
 build/
@@ -56,4 +56,3 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
->>>>>>> c83fec7708da39c0e6e0ac5dea20703cb357141c

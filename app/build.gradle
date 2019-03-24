@@ -49,7 +49,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -90,7 +91,10 @@ android {
         }
 
         release {
-            buildConfigField "String", "BASE_URL", '"http://192.168.1.50:8080/api/v1/"'
+            multiDexEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"http://192.168.0.18:8080/api/v1/"'
         }
     }
 }
