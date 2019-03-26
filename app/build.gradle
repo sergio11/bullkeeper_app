@@ -94,7 +94,7 @@ android {
             multiDexEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", '"http://192.168.0.18:8080/api/v1/"'
+            buildConfigField "String", "BASE_URL", '"http://192.168.0.55:8080/bullkeeper-integration-platform/api/v1/"'
         }
     }
 }

@@ -26,11 +26,6 @@ public final class UpdateGuardianDTO implements Serializable {
     @JsonProperty("birthdate")
     private String birthdate;
 
-    /**
-     * Email
-     */
-    @JsonProperty("email")
-    private String email;
 
     /**
      * Telephone
@@ -53,20 +48,18 @@ public final class UpdateGuardianDTO implements Serializable {
     public UpdateGuardianDTO(){}
 
     public UpdateGuardianDTO(String firstName, String lastName,
-                             String birthdate, String email, String telephone, boolean visible) {
+                             String birthdate, String telephone, boolean visible) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
-        this.email = email;
         this.telephone = telephone;
         this.visible = visible;
     }
 
-    public UpdateGuardianDTO(String firstName, String lastName, String birthdate, String email, String telephone, String profileImage) {
+    public UpdateGuardianDTO(String firstName, String lastName, String birthdate, String telephone, String profileImage) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
-        this.email = email;
         this.telephone = telephone;
         this.profileImage = profileImage;
     }
@@ -93,14 +86,6 @@ public final class UpdateGuardianDTO implements Serializable {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTelephone() {
@@ -133,7 +118,6 @@ public final class UpdateGuardianDTO implements Serializable {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthdate='" + birthdate + '\'' +
-                ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", profileImage='" + profileImage + '\'' +
                 ", visible=" + visible +

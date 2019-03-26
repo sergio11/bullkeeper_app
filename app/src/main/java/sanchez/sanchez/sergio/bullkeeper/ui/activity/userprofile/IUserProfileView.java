@@ -36,4 +36,9 @@ public interface IUserProfileView extends ISupportView {
      */
     void onAccountDeleted();
 
+    /**
+     * On Email Changed Successfully
+     */
+    void onEmailChangedSuccessfully();
+
 }

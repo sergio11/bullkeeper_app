@@ -105,6 +105,11 @@
         <item name="android:background">@drawable/accept_action_button_state</item>
     </style>
 
+    <!-- Accept Action Button Medium  -->
+    <style name="AcceptActionButton.Medium" parent="@style/AcceptActionButton">
+        <item name="android:textSize">@dimen/common_strong_medium_text_size</item>
+    </style>
+
     <!-- Cancel Action Button -->
     <style name="CancelActionButton" parent="@style/CommonActionButton">
         <item name="android:textColor">@color/common_btn_text_color_inverse</item>

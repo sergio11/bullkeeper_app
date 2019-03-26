@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.data.repository.GuardianRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserEmailInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
@@ -139,17 +140,34 @@ public class GuardianModule {
      * Provide Search Guardians Interact
      * @param threadExecutor
      * @param postExecutionThread
-     * @param parentRepository
+     * @param guardianRepository
      * @return
      */
     @Provides @PerActivity
     public SearchGuardiansInteract provideSearchGuardiansInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
-                                                                  final IGuardianRepository parentRepository){
+                                                                  final IGuardianRepository guardianRepository){
         Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
-        Preconditions.checkNotNull(parentRepository, "Parents Repository can not be null");
+        Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
 
-        return new SearchGuardiansInteract(threadExecutor, postExecutionThread, parentRepository);
+        return new SearchGuardiansInteract(threadExecutor, postExecutionThread, guardianRepository);
+    }
+
+    /**
+     *
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param guardianRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public ChangeUserEmailInteract provideChangeUserEmailInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+                                                                  final IGuardianRepository guardianRepository){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
+
+        return new ChangeUserEmailInteract(threadExecutor, postExecutionThread, guardianRepository);
     }
 
 }

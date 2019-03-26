@@ -11,7 +11,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import com.crashlytics.android.answers.ContentViewEvent;
-import com.mobsandgeeks.saripaar.annotation.Email;
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Past;
@@ -26,9 +26,12 @@ import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerUserProfileComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.UserProfileComponent;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
@@ -37,6 +40,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDatePicker;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
+import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
 /**
@@ -44,7 +48,7 @@ import timber.log.Timber;
  */
 public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
         implements HasComponent<UserProfileComponent>, IUserProfileView,
-        PhotoViewerDialog.IPhotoViewerListener {
+        PhotoViewerDialog.IPhotoViewerListener, ChangeUserEmailDialogFragment.OnChangeUserEmailDialogListener {
 
     private final String CONTENT_FULL_NAME = "USER_PROFILE";
     private final String CONTENT_TYPE_NAME = "USER";
@@ -54,6 +58,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     private final static String BIRTHDATE_FIELD_NAME = "birthdate";
     private final static String EMAIL_FIELD_NAME = "email";
     private final static String TELEPHONE_FIELD_NAME = "telephone";
+    private final static String CURRENT_EMAIL_NAME = "current_email";
+    private final static String NEW_EMAIL_NAME = "new_email";
 
     private static final int MIN_AGE_ALLOWED = 18;
     private static final int MAX_AGE_ALLOWED = 80;
@@ -121,8 +127,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      * EMail Input
      */
     @BindView(R.id.emailInput)
-    @NotEmpty(messageResId = R.string.email_not_empty_error)
-    @Email(messageResId = R.string.email_invalid_error)
     protected AppCompatEditText emailInput;
 
     /**
@@ -167,6 +171,12 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @Inject
     protected SupportImagePicker supportImagePicker;
+
+    /**
+     * Local System Notification
+     */
+    @Inject
+    protected ILocalSystemNotification localSystemNotification;
 
     /**
      * STATE
@@ -255,7 +265,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         nameInput.setEnabled(isEnable);
         surnameInput.setEnabled(isEnable);
         birthdayInput.setEnabled(isEnable);
-        emailInput.setEnabled(isEnable);
         tfnoInput.setEnabled(isEnable);
         saveChangesView.setEnabled(isEnable);
         deleteAccountView.setEnabled(isEnable);
@@ -308,7 +317,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @Override
     protected void onValidationFailed() {
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
     }
 
     /**
@@ -325,8 +334,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
             surnameInputLayout.setError(message);
         } else if(viewId.equals(R.id.birthdayInput)) {
             birthdayInputLayout.setError(message);
-        } else if(viewId.equals(R.id.emailInput)) {
-            emailInputLayout.setError(message);
         } else if(viewId.equals(R.id.tfnoInput)) {
             tfnoInputLayout.setError(message);
         }
@@ -342,7 +349,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         final String name = nameInput.getText().toString();
         final String surname = surnameInput.getText().toString();
         final String birthday = birthdayInput.getDateSelectedAsText();
-        final String email = emailInput.getText().toString();
         final String tfno = getString(R.string.tfno_prefix).concat(tfnoInput.getText().toString());
         final boolean visible = activeProfileSwitch.isChecked();
         // Disable All Components
@@ -352,11 +358,10 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         // Update Profile
         if(currentImagePath != null) {
-            getPresenter().updateProfile(name, surname, birthday, email, tfno, visible, currentImagePath);
+            getPresenter().updateProfile(name, surname, birthday, tfno, visible, currentImagePath);
         } else {
-            getPresenter().updateProfile(name, surname, birthday, email, tfno, visible);
+            getPresenter().updateProfile(name, surname, birthday, tfno, visible);
         }
-
 
     }
 
@@ -370,7 +375,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         nameInput.setText(guardianEntity.getFirstName());
         surnameInput.setText(guardianEntity.getLastName());
         birthdayInput.setDateSelected(guardianEntity.getBirthdate());
-        emailInput.setText(guardianEntity.getEmail());
         tfnoInput.setText(guardianEntity.getPhone());
     }
 
@@ -383,7 +387,6 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
         nameInputLayout.setError("");
         surnameInputLayout.setError("");
         birthdayInputLayout.setError("");
-        emailInputLayout.setError("");
         tfnoInputLayout.setError("");
     }
 
@@ -565,7 +568,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     public void onSelfInformationUpdate(final GuardianEntity guardianEntity) {
         this.guardianEntity = guardianEntity;
         updateProfileForm();
-        showNoticeDialog(R.string.profile_information_updated_successfully);
+        showNoticeDialog(R.string.profile_information_updated_successfully, true);
         toggleAllComponents(true);
     }
 
@@ -581,6 +584,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
             switch (error.get("field")) {
                 case EMAIL_FIELD_NAME:
+                case CURRENT_EMAIL_NAME:
+                case NEW_EMAIL_NAME:
                     emailInputLayout.setError(error.get("message"));
                     break;
                 case FIRST_NAME_FIELD_NAME:
@@ -599,7 +604,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
 
         }
 
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
 
         toggleAllComponents(true);
     }
@@ -619,10 +624,60 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     }
 
     /**
+     * On Email Changed Successfully
+     */
+    @Override
+    public void onEmailChangedSuccessfully() {
+        showNoticeDialog(R.string.user_profile_change_email_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                localSystemNotification.sendNotification(new LogoutEvent(preferencesRepositoryImpl.getPrefCurrentUserIdentity()));
+                preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
+                preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+                navigatorImpl.navigateToIntro(activity, true);
+            }
+        });
+    }
+
+    /**
      * Show Conversation
      */
     @OnClick(R.id.showConversation)
     protected void onShowConversationClicked(){
         navigatorImpl.navigateToConversationList(this);
+    }
+
+
+    /**
+     * on Change Email Clicked
+     */
+    @OnClick(R.id.changeEmail)
+    protected void onChangeEmailClicked() {
+        navigatorImpl.showChangeUserEmailDialogFragment(this, this);
+    }
+
+    /**
+     *
+     * @param dialog
+     * @param newEmail
+     */
+    @Override
+    public void onAccepted(final DialogFragment dialog, final String newEmail) {
+        Preconditions.checkNotNull(newEmail, "New Email can not be null");
+        Preconditions.checkState(!newEmail.isEmpty(), "New email can not be empty");
+
+        final String currentEmail = emailInput.getText().toString();
+
+        getPresenter().changeUserEmail(currentEmail, newEmail);
+
+    }
+
+    /**
+     *
+     * @param dialog
+     */
+    @Override
+    public void onCancel(final DialogFragment dialog) {
+
     }
 }

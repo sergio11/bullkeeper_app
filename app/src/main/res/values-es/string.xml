@@ -239,7 +239,11 @@
     <string name="user_profile_delete_account_confirm">¿Quieres borrar tu cuenta? Toda la información sobre los niños analizados será eliminada.</string>
     <string name="user_profile_delete_account_check_email">Revise su correo electrónico para completar el proceso de eliminación de la cuenta</string>
     <string name="user_profile_public_profile">Perfil público</string>
-
+    <string name="user_profile_change_email_dialog_title">Cambiar correo electrónico</string>
+    <string name="user_profile_change_email_button">Cambiar</string>
+    <string name="user_profile_change_email_new_email_hint">Nuevo correo</string>
+    <string name="user_profile_change_email_repeat_new_email_hint">Repetir nuevo correo</string>
+    <string name="user_profile_change_email_successfully">Debes revisar tú correo para completar el proceso. La sesión actual será cerrada.</string>
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Perfil de %s</string>
     <string name="my_kids_profile_name_default">Perfil de niños</string>

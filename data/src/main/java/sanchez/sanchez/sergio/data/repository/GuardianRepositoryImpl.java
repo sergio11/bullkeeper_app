@@ -10,6 +10,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
+import sanchez.sanchez.sergio.data.net.models.request.ChangeUserEmailDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
@@ -119,15 +120,13 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
      * @param firstName
      * @param lastName
      * @param birthdate
-     * @param email
      * @param telephone
      * @return
      */
     @Override
     public Observable<GuardianEntity> updateSelfInformation(final String firstName, final String lastName, final String birthdate,
-                                                            final String email, final String telephone,
-                                                            final boolean visible) {
-        return guardianService.updateSelfParent(new UpdateGuardianDTO(firstName, lastName, birthdate, email, telephone, visible))
+                                                            final String telephone, final boolean visible) {
+        return guardianService.updateSelfParent(new UpdateGuardianDTO(firstName, lastName, birthdate, telephone, visible))
                 .map(listAPIResponse -> listAPIResponse != null &&
                         listAPIResponse.getData() != null ? listAPIResponse.getData() : null)
                 .map(guardianDataMapper::transform);
@@ -181,6 +180,25 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
                 .map(response -> response != null && response.getData() != null
                         ? response.getData(): null)
                 .map(guardianDataMapper::transform);
+    }
+
+    /**
+     *
+     * @param currentEmail
+     * @param newEmail
+     * @return
+     */
+    @Override
+    public Observable<String> changeUserEmail(final String currentEmail, final String newEmail) {
+        Preconditions.checkNotNull(currentEmail, "Current Email can not be null");
+        Preconditions.checkNotNull(newEmail, "New Email can not be null");
+        Preconditions.checkState(!currentEmail.isEmpty(), "Current email can not be empty");
+        Preconditions.checkState(!newEmail.isEmpty(), "New Email can not be empty");
+
+        return guardianService.changeUserEmail(new ChangeUserEmailDTO(
+                currentEmail, newEmail
+        )).map(response -> response != null && response.getData() != null
+                ? response.getData(): null);
     }
 
 }

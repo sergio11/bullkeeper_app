@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/common_padding">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="@dimen/common_margin"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/change_user_email_solid_white"/>
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            style="@style/CommonStrongText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:text="-"
+            android:textAlignment="center"
+            android:textColor="@color/commonWhite" />
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="@dimen/common_divider_small"
+        android:layout_height="@dimen/common_divider_height"
+        android:background="@color/commonWhite"/>
+
+    <TextView
+        android:id="@+id/validationErrorTextView"
+        style="@style/CommonStrongText.Big"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="-"
+        android:textAlignment="center"
+        android:background="@color/redDanger"
+        android:textColor="@color/commonWhite"
+        android:visibility="gone" />
+
+    <!-- new email input -->
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/newEmailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_margin"
+        android:textColorHint="@color/commonWhite"
+        android:theme="@style/CommonTextInputLayout"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/newEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:hint="@string/user_profile_change_email_new_email_hint"
+            android:inputType="textEmailAddress"
+            android:lines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- repeat new email input -->
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/repeatNewEmailInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_margin"
+        android:textColorHint="@color/commonWhite"
+        android:theme="@style/CommonTextInputLayout"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/TextStyles.TextFloatLabelAppearance">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/repeatNewEmailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/user_profile_change_email_repeat_new_email_hint"
+            android:inputType="textEmailAddress"
+            android:lines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/common_margin"
+        android:gravity="center">
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/cancel"
+            style="@style/CancelActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:text="@android:string/cancel"/>
+
+        <!-- Accept Button -->
+        <Button
+            android:id="@+id/accept"
+            style="@style/AcceptActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:text="@android:string/ok" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

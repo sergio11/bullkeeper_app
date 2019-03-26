@@ -10,6 +10,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import sanchez.sanchez.sergio.data.net.models.request.ChangeUserEmailDTO;
 import sanchez.sanchez.sergio.data.net.models.request.RegisterGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ResetPasswordRequestDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateGuardianDTO;
@@ -92,5 +93,14 @@ public interface IGuardiansService {
     Observable<APIResponse<List<GuardianDTO>>> searchGuardian(
             final @Query("text") String text);
 
+
+    /**
+     *
+     * @param changeUserEmailDTO
+     * @return
+     */
+    @POST("guardians/self/change-email")
+    Observable<APIResponse<String>> changeUserEmail(
+            @Body final ChangeUserEmailDTO changeUserEmailDTO);
 
 }

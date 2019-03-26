@@ -54,7 +54,7 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
                 Observable.combineLatest(
                         parentRepository.uploadProfileImage(params.getProfileImage()),
                         parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
-                                params.getBirthdate(), params.getEmail(), params.getTelephone(), params.isVisible()),
+                                params.getBirthdate(), params.getTelephone(), params.isVisible()),
                         new BiFunction<ImageEntity, GuardianEntity, GuardianEntity>() {
                             @Override
                             public GuardianEntity apply(ImageEntity imageEntity, GuardianEntity guardianEntity) throws Exception {
@@ -64,7 +64,7 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
         )
              :
                 parentRepository.updateSelfInformation(params.getFirstName(), params.getLastName(),
-                        params.getBirthdate(), params.getEmail(), params.getTelephone(), params.isVisible());
+                        params.getBirthdate(), params.getTelephone(), params.isVisible());
 
     }
 
@@ -76,7 +76,6 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
         private final String firstName;
         private final String lastName;
         private final String birthdate;
-        private final String email;
         private final String telephone;
         private final boolean visible;
         private final String profileImage;
@@ -86,16 +85,14 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
          * @param firstName
          * @param lastName
          * @param birthdate
-         * @param email
          * @param telephone
          * @param visible
          */
-        public Params(String firstName, String lastName, String birthdate, String email, String telephone,
+        private Params(String firstName, String lastName, String birthdate, String telephone,
                       final boolean visible) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.birthdate = birthdate;
-            this.email = email;
             this.telephone = telephone;
             this.visible = visible;
             this.profileImage = null;
@@ -106,17 +103,15 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
          * @param firstName
          * @param lastName
          * @param birthdate
-         * @param email
          * @param telephone
          * @param visible
          * @param profileImage
          */
-        public Params(String firstName, String lastName, String birthdate, String email, String telephone,
+        private Params(String firstName, String lastName, String birthdate, String telephone,
                       final boolean visible, final String profileImage) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.birthdate = birthdate;
-            this.email = email;
             this.telephone = telephone;
             this.visible = visible;
             this.profileImage = profileImage;
@@ -132,10 +127,6 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
 
         public String getBirthdate() {
             return birthdate;
-        }
-
-        public String getEmail() {
-            return email;
         }
 
         public String getTelephone() {
@@ -155,13 +146,12 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
          * @param firstName
          * @param lastName
          * @param birthdate
-         * @param email
          * @param telephone
          * @return
          */
-        public static Params create(final String firstName, final String lastName, final String birthdate, final String email,
+        public static Params create(final String firstName, final String lastName, final String birthdate,
                                     final String telephone, final boolean visible) {
-            return new Params(firstName, lastName, birthdate, email, telephone, visible);
+            return new Params(firstName, lastName, birthdate, telephone, visible);
         }
 
         /**
@@ -169,15 +159,14 @@ public final class UpdateSelfInformationInteract extends UseCase<GuardianEntity,
          * @param firstName
          * @param lastName
          * @param birthdate
-         * @param email
          * @param telephone
          * @param visible
          * @param profileImage
          * @return
          */
-        public static Params create(final String firstName, final String lastName, final String birthdate, final String email,
+        public static Params create(final String firstName, final String lastName, final String birthdate,
                                     final String telephone, final boolean visible, final String profileImage) {
-            return new Params(firstName, lastName, birthdate, email, telephone, visible, profileImage);
+            return new Params(firstName, lastName, birthdate, telephone, visible, profileImage);
         }
     }
 

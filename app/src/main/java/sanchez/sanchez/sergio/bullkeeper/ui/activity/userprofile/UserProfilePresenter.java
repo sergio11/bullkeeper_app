@@ -1,11 +1,14 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.userprofile;
 
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
+import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserEmailInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
@@ -33,16 +36,26 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     private final DeleteAccountInteract deleteAccountInteract;
 
     /**
+     * Change User Email Interact
+     */
+    private final ChangeUserEmailInteract changeUserEmailInteract;
+
+    /**
      * User Profile Presenter
      * @param getGuardianInformationInteract
+     * @param updateSelfInformationInteract
+     * @param deleteAccountInteract
+     * @param changeUserEmailInteract
      */
     @Inject
     public UserProfilePresenter(final GetGuardianInformationInteract getGuardianInformationInteract,
                                 final UpdateSelfInformationInteract updateSelfInformationInteract,
-                                final DeleteAccountInteract deleteAccountInteract) {
+                                final DeleteAccountInteract deleteAccountInteract,
+                                final ChangeUserEmailInteract changeUserEmailInteract) {
         this.getGuardianInformationInteract = getGuardianInformationInteract;
         this.updateSelfInformationInteract = updateSelfInformationInteract;
         this.deleteAccountInteract = deleteAccountInteract;
+        this.changeUserEmailInteract = changeUserEmailInteract;
     }
 
     @Override
@@ -66,19 +79,18 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
      * @param name
      * @param surname
      * @param birthday
-     * @param email
      * @param tfno
      * @param visible
      */
     public void updateProfile(final String name, String surname, String birthday,
-                              final String email, final String tfno, final boolean visible) {
+                              final String tfno, final boolean visible) {
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.updating_profile_data_progress);
 
 
         updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.class),
-                UpdateSelfInformationInteract.Params.create(name, surname, birthday, email,
+                UpdateSelfInformationInteract.Params.create(name, surname, birthday,
                         tfno, visible));
 
     }
@@ -88,21 +100,38 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
      * @param name
      * @param surname
      * @param birthday
-     * @param email
      * @param tfno
      * @param visible
      * @param profileImage
      */
     public void updateProfile(final String name, String surname, String birthday,
-                              final String email, final String tfno, final boolean visible, final String profileImage) {
+                               final String tfno, final boolean visible, final String profileImage) {
 
         if(isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.updating_profile_data_progress);
 
 
         updateSelfInformationInteract.execute(new UpdateSelfInformationObserver(UpdateSelfInformationInteract.UpdateSelfInformationApiErrors.class),
-                UpdateSelfInformationInteract.Params.create(name, surname, birthday, email,
+                UpdateSelfInformationInteract.Params.create(name, surname, birthday,
                         tfno, visible, profileImage));
+
+    }
+
+    /**
+     * Change User Email
+     * @param currentEmail
+     * @param newEmail
+     */
+    public void changeUserEmail(final String currentEmail, final String newEmail){
+        Preconditions.checkNotNull(currentEmail, "Current Email can not be null");
+        Preconditions.checkNotNull(newEmail, "New Email can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        changeUserEmailInteract.execute(new ChangeUserEmailObserver(ChangeUserEmailInteract.ChangeUserEmailApiErrors.class),
+                ChangeUserEmailInteract.Params.create(currentEmail, newEmail));
+
 
     }
 
@@ -223,6 +252,48 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         }
     }
 
+
+    /**
+     * Change User Email Observer
+     */
+    private final class ChangeUserEmailObserver extends CommandCallBackWrapper<String, ChangeUserEmailInteract.ChangeUserEmailApiErrors.IChangeUserEmailApiErrorVisitor,
+            ChangeUserEmailInteract.ChangeUserEmailApiErrors> implements ChangeUserEmailInteract.ChangeUserEmailApiErrors.IChangeUserEmailApiErrorVisitor {
+
+
+        public ChangeUserEmailObserver(Class<ChangeUserEmailInteract.ChangeUserEmailApiErrors> apiErrors) {
+            super(apiErrors);
+        }
+
+        /**
+         *
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onEmailChangedSuccessfully();
+            }
+        }
+
+
+        /**
+         *
+         * @param apiErrors
+         * @param errors
+         */
+        @Override
+        public void visitValidationError(ChangeUserEmailInteract.ChangeUserEmailApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
+                    getView().onValidationErrors(errors.get("field_errors"));
+                } else {
+                    getView().showNoticeDialog(R.string.forms_is_not_valid);
+                }
+            }
+        }
+    }
 
 
 }

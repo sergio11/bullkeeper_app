@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Date;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
@@ -610,5 +611,13 @@ public interface INavigator {
      * @param phoneNumber
      */
     void startPhoneCall(final AppCompatActivity activity, final String phoneNumber);
+
+    /**
+     *
+     * @param activity
+     * @param listener
+     */
+    void showChangeUserEmailDialogFragment(final AppCompatActivity activity, final
+                                           ChangeUserEmailDialogFragment.OnChangeUserEmailDialogListener listener);
 
 }

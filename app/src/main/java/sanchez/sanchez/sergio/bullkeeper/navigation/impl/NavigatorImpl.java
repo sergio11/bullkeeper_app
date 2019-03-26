@@ -45,6 +45,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.summarymykidsresults.Summar
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AboutDeveloperDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesInfoDialog;
@@ -1129,5 +1130,20 @@ public class NavigatorImpl implements INavigator {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             activity.startActivity(intent);
         }
+    }
+
+    /**
+     *
+     * @param activity
+     * @param listener
+     */
+    @Override
+    public void showChangeUserEmailDialogFragment(final AppCompatActivity activity,
+                                                  final ChangeUserEmailDialogFragment.OnChangeUserEmailDialogListener listener) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(listener, "Listener can not be null");
+
+        ChangeUserEmailDialogFragment.showDialog(activity, listener);
+
     }
 }
