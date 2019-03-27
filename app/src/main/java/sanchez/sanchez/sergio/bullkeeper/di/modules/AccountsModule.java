@@ -17,6 +17,7 @@ import sanchez.sanchez.sergio.domain.interactor.accounts.RegisterGuardianInterac
 import sanchez.sanchez.sergio.domain.interactor.accounts.ResetPasswordInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninFacebookInteract;
 import sanchez.sanchez.sergio.domain.interactor.accounts.SigninInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserPasswordInteract;
 import sanchez.sanchez.sergio.domain.models.AuthenticationResponseEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IAccountsRepository;
@@ -113,6 +114,13 @@ public class AccountsModule {
         return new RegisterGuardianInteract(threadExecutor, postExecutionThread, accountsRepository, appUtils);
     }
 
+    /**
+     *
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param accountsRepository
+     * @return
+     */
     @Provides @PerActivity
     public SigninFacebookInteract provideSigninFacebookInteract(final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
                                                                 final IAccountsRepository accountsRepository) {
@@ -121,5 +129,7 @@ public class AccountsModule {
         Preconditions.checkNotNull(accountsRepository, "Accounts Repository can not be null");
         return new SigninFacebookInteract(threadExecutor, postExecutionThread, accountsRepository);
     }
+
+
 
 }

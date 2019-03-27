@@ -41,4 +41,9 @@ public interface IUserProfileView extends ISupportView {
      */
     void onEmailChangedSuccessfully();
 
+    /**
+     * On Password Changed Successfully
+     */
+    void onPasswordChangedSuccessfully();
+
 }

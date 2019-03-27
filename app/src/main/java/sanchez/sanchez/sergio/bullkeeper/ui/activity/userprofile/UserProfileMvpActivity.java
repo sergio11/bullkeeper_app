@@ -32,6 +32,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerUserProfileComponen
 import sanchez.sanchez.sergio.bullkeeper.di.components.UserProfileComponent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserPasswordDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.PhotoViewerDialog;
@@ -48,7 +49,7 @@ import timber.log.Timber;
  */
 public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<UserProfilePresenter, IUserProfileView>
         implements HasComponent<UserProfileComponent>, IUserProfileView,
-        PhotoViewerDialog.IPhotoViewerListener, ChangeUserEmailDialogFragment.OnChangeUserEmailDialogListener {
+        PhotoViewerDialog.IPhotoViewerListener {
 
     private final String CONTENT_FULL_NAME = "USER_PROFILE";
     private final String CONTENT_TYPE_NAME = "USER";
@@ -640,6 +641,22 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     }
 
     /**
+     * on Password Changed Successfully
+     */
+    @Override
+    public void onPasswordChangedSuccessfully() {
+        showNoticeDialog(R.string.user_profile_password_changed_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                localSystemNotification.sendNotification(new LogoutEvent(preferencesRepositoryImpl.getPrefCurrentUserIdentity()));
+                preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
+                preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
+                navigatorImpl.navigateToIntro(activity, true);
+            }
+        });
+    }
+
+    /**
      * Show Conversation
      */
     @OnClick(R.id.showConversation)
@@ -653,31 +670,53 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @OnClick(R.id.changeEmail)
     protected void onChangeEmailClicked() {
-        navigatorImpl.showChangeUserEmailDialogFragment(this, this);
+        navigatorImpl.showChangeUserEmailDialogFragment(this, new ChangeUserEmailDialogFragment.OnChangeUserEmailDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog, String newEmail) {
+                Preconditions.checkNotNull(newEmail, "New Email can not be null");
+                Preconditions.checkState(!newEmail.isEmpty(), "New email can not be empty");
+
+                final String currentEmail = emailInput.getText().toString();
+
+                getPresenter().changeUserEmail(currentEmail, newEmail);
+            }
+
+            @Override
+            public void onCancel(DialogFragment dialog) {
+
+            }
+        });
     }
 
     /**
-     *
-     * @param dialog
-     * @param newEmail
+     * On Change User Password Clicked
      */
-    @Override
-    public void onAccepted(final DialogFragment dialog, final String newEmail) {
-        Preconditions.checkNotNull(newEmail, "New Email can not be null");
-        Preconditions.checkState(!newEmail.isEmpty(), "New email can not be empty");
+    @OnClick(R.id.changeUserPassword)
+    protected void onChangeUserPasswordClicked(){
+        navigatorImpl.showChangeUserPasswordDialogFragment(this, new ChangeUserPasswordDialogFragment.OnChangeUserPasswordDialogListener() {
 
-        final String currentEmail = emailInput.getText().toString();
+            /**
+             *
+             * @param dialog
+             * @param newPassword
+             * @param repeatNewPassword
+             */
+            @Override
+            public void onAccepted(final DialogFragment dialog,
+                                   final String newPassword,
+                                   final String repeatNewPassword) {
+                Preconditions.checkNotNull(newPassword, "New Password can not be null");
+                Preconditions.checkState(!newPassword.isEmpty(), "New Password can not be empty");
+                Preconditions.checkNotNull(repeatNewPassword, "Repeat New Password can not be null");
+                Preconditions.checkState(!repeatNewPassword.isEmpty(), "Repeat New Password can not be empty");
 
-        getPresenter().changeUserEmail(currentEmail, newEmail);
+                getPresenter().changeUserPassword(newPassword, repeatNewPassword);
+            }
 
+            @Override
+            public void onCancel(DialogFragment dialog) {}
+        });
     }
 
-    /**
-     *
-     * @param dialog
-     */
-    @Override
-    public void onCancel(final DialogFragment dialog) {
 
-    }
 }

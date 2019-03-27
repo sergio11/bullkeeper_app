@@ -72,5 +72,13 @@ public interface IGuardianRepository {
      */
     Observable<String> changeUserEmail(final String currentEmail, final String newEmail);
 
+    /**
+     * Change User Password
+     * @param newPassword
+     * @param confirmNewPassword
+     * @return
+     */
+    Observable<String> changeUserPassword(final String newPassword, final String confirmNewPassword);
+
 
 }

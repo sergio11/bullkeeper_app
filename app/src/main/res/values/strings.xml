@@ -314,7 +314,9 @@
     <string name="user_profile_change_email_button">Change</string>
     <string name="user_profile_change_email_new_email_hint">New Email</string>
     <string name="user_profile_change_email_repeat_new_email_hint">Repeat New Email</string>
-    <string name="user_profile_change_email_successfully">You must check your email to complete the process. The current session will be closed.</string>
+    <string name="user_profile_change_email_successfully">Your email account has been successfully changed. The current session will be closed.</string>
+    <string name="user_profile_change_password_dialog_title">Change Password</string>
+    <string name="user_profile_password_changed_successfully">Your password has been changed successfully. The current session will be closed.</string>
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
     <string name="my_kids_profile_name_default">My Kids Profile</string>

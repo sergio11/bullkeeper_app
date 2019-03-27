@@ -243,7 +243,9 @@
     <string name="user_profile_change_email_button">Cambiar</string>
     <string name="user_profile_change_email_new_email_hint">Nuevo correo</string>
     <string name="user_profile_change_email_repeat_new_email_hint">Repetir nuevo correo</string>
-    <string name="user_profile_change_email_successfully">Debes revisar tú correo para completar el proceso. La sesión actual será cerrada.</string>
+    <string name="user_profile_change_email_successfully">Tú cuenta de correo ha sido cambiada con éxito. La sesión actual será cerrada.</string>
+    <string name="user_profile_change_password_dialog_title">Cambiar Contraseña</string>
+    <string name="user_profile_password_changed_successfully">Tu contraseña ha sido cambiada exitosamente. La sesión actual se cerrará.</string>
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Perfil de %s</string>
     <string name="my_kids_profile_name_default">Perfil de niños</string>

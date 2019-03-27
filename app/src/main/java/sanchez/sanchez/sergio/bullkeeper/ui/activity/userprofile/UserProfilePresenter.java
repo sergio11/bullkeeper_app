@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserEmailInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserPasswordInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
@@ -41,6 +42,11 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     private final ChangeUserEmailInteract changeUserEmailInteract;
 
     /**
+     * Change User Password Interact
+     */
+    private final ChangeUserPasswordInteract changeUserPasswordInteract;
+
+    /**
      * User Profile Presenter
      * @param getGuardianInformationInteract
      * @param updateSelfInformationInteract
@@ -51,11 +57,13 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
     public UserProfilePresenter(final GetGuardianInformationInteract getGuardianInformationInteract,
                                 final UpdateSelfInformationInteract updateSelfInformationInteract,
                                 final DeleteAccountInteract deleteAccountInteract,
-                                final ChangeUserEmailInteract changeUserEmailInteract) {
+                                final ChangeUserEmailInteract changeUserEmailInteract,
+                                final ChangeUserPasswordInteract changeUserPasswordInteract) {
         this.getGuardianInformationInteract = getGuardianInformationInteract;
         this.updateSelfInformationInteract = updateSelfInformationInteract;
         this.deleteAccountInteract = deleteAccountInteract;
         this.changeUserEmailInteract = changeUserEmailInteract;
+        this.changeUserPasswordInteract = changeUserPasswordInteract;
     }
 
     @Override
@@ -133,6 +141,23 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
                 ChangeUserEmailInteract.Params.create(currentEmail, newEmail));
 
 
+    }
+
+    /**
+     * Change User Password
+     * @param newPassword
+     * @param repeatNewPassword
+     */
+    public void changeUserPassword(final String newPassword, final String repeatNewPassword){
+        Preconditions.checkNotNull(newPassword, "New Password can not be null");
+        Preconditions.checkNotNull(repeatNewPassword, "Repeat New Password can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        changeUserPasswordInteract.execute(new ChangeUserPasswordObserver(
+                ChangeUserPasswordInteract.ChangeUserPasswordApiErrors.class
+        ), ChangeUserPasswordInteract.Params.create(newPassword, repeatNewPassword));
     }
 
     /**
@@ -295,5 +320,42 @@ public final class UserProfilePresenter extends SupportPresenter<IUserProfileVie
         }
     }
 
+
+    /**
+     * Change User Password Observer
+     */
+    private final class ChangeUserPasswordObserver extends CommandCallBackWrapper<String, ChangeUserPasswordInteract.ChangeUserPasswordApiErrors.IChangeUserPasswordApiErrorVisitor,
+            ChangeUserPasswordInteract.ChangeUserPasswordApiErrors> implements ChangeUserPasswordInteract.ChangeUserPasswordApiErrors.IChangeUserPasswordApiErrorVisitor {
+
+
+        public ChangeUserPasswordObserver(Class<ChangeUserPasswordInteract.ChangeUserPasswordApiErrors> apiErrors) {
+            super(apiErrors);
+        }
+
+        /**
+         *
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onPasswordChangedSuccessfully();
+            }
+        }
+
+
+        @Override
+        public void visitValidationError(ChangeUserPasswordInteract.ChangeUserPasswordApiErrors apiErrors, LinkedHashMap<String, List<LinkedHashMap<String, String>>> errors) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                if(errors != null && !errors.isEmpty() && errors.containsKey("field_errors")) {
+                    getView().onValidationErrors(errors.get("field_errors"));
+                } else {
+                    getView().showNoticeDialog(R.string.forms_is_not_valid);
+                }
+            }
+        }
+    }
 
 }

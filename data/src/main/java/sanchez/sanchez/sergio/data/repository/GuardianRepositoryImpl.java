@@ -3,7 +3,6 @@ package sanchez.sanchez.sergio.data.repository;
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.io.File;
 import java.util.List;
-
 import javax.inject.Inject;
 import io.reactivex.Observable;
 import okhttp3.MediaType;
@@ -11,16 +10,15 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.ChangeUserEmailDTO;
+import sanchez.sanchez.sergio.data.net.models.request.ChangeUserPasswordDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
-import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
-import sanchez.sanchez.sergio.domain.models.KidEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import timber.log.Timber;
 
@@ -33,11 +31,6 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
      * Guardian Service
      */
     private final IGuardiansService guardianService;
-
-    /**
-     * Kid Data Mapper
-     */
-    private final AbstractDataMapper<KidDTO, KidEntity> kidDataMapper;
 
     /**
      * Guardian Data Mapper
@@ -58,20 +51,17 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     /**
      *
      * @param guardianService
-     * @param kidDataMapper
      * @param guardianDataMapper
      * @param imageDataMapper
      * @param childrenOfSelfGuardianDataMapper
      */
     @Inject
     public GuardianRepositoryImpl(final IGuardiansService guardianService,
-                                  final AbstractDataMapper<KidDTO, KidEntity> kidDataMapper,
                                   final AbstractDataMapper<GuardianDTO, GuardianEntity> guardianDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                   final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
                                     childrenOfSelfGuardianDataMapper) {
         this.guardianService = guardianService;
-        this.kidDataMapper = kidDataMapper;
         this.guardianDataMapper = guardianDataMapper;
         this.imageDataMapper = imageDataMapper;
         this.childrenOfSelfGuardianDataMapper = childrenOfSelfGuardianDataMapper;
@@ -197,6 +187,25 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
 
         return guardianService.changeUserEmail(new ChangeUserEmailDTO(
                 currentEmail, newEmail
+        )).map(response -> response != null && response.getData() != null
+                ? response.getData(): null);
+    }
+
+    /**
+     * Change User Password
+     * @param newPassword
+     * @param confirmNewPassword
+     * @return
+     */
+    @Override
+    public Observable<String> changeUserPassword(String newPassword, String confirmNewPassword) {
+        Preconditions.checkNotNull(newPassword, "New Password can not be null");
+        Preconditions.checkNotNull(confirmNewPassword, "New Password can not be null");
+        Preconditions.checkState(!newPassword.isEmpty(), "New Password can not be empty");
+        Preconditions.checkState(!confirmNewPassword.isEmpty(), "Confirm new password can not be empty");
+
+        return guardianService.changePassword(new ChangeUserPasswordDTO(
+                newPassword, confirmNewPassword
         )).map(response -> response != null && response.getData() != null
                 ? response.getData(): null);
     }

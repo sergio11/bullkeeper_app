@@ -18,6 +18,7 @@ import sanchez.sanchez.sergio.data.repository.GuardianRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserEmailInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserPasswordInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
@@ -58,7 +59,6 @@ public class GuardianModule {
     /**
      * Provide Parent Repository
      * @param parentsService
-     * @param sonDataMapper
      * @param parentDataMapper
      * @param imageDataMapper
      * @param childrenOfSelfGuardianDataMapper
@@ -66,12 +66,11 @@ public class GuardianModule {
      */
     @Provides @PerActivity
     public IGuardianRepository provideGuardianRepository(final IGuardiansService parentsService,
-                                                         final AbstractDataMapper<KidDTO, KidEntity> sonDataMapper,
                                                          final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper,
                                                          final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                                          final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
                                                             childrenOfSelfGuardianDataMapper){
-        return new GuardianRepositoryImpl(parentsService, sonDataMapper, parentDataMapper,
+        return new GuardianRepositoryImpl(parentsService, parentDataMapper,
                 imageDataMapper, childrenOfSelfGuardianDataMapper);
     }
 
@@ -170,4 +169,22 @@ public class GuardianModule {
         return new ChangeUserEmailInteract(threadExecutor, postExecutionThread, guardianRepository);
     }
 
+    /**
+     * Provide Change User Password Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param guardianRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public ChangeUserPasswordInteract provideChangeUserPasswordInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final IGuardianRepository guardianRepository
+    ){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
+
+        return new ChangeUserPasswordInteract(threadExecutor, postExecutionThread, guardianRepository);
+    }
 }

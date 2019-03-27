@@ -62,6 +62,17 @@
 
 
         <ImageView
+            android:id="@+id/changeUserPassword"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/common_margin"
+            android:layout_marginStart="@dimen/common_margin"
+            android:contentDescription="@string/content_not_be_loaded"
+            android:src="@drawable/change_user_password_solid_white"
+            android:layout_toStartOf="@id/showConversation"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
             android:id="@+id/showConversation"
             android:layout_width="40dp"
             android:layout_height="40dp"

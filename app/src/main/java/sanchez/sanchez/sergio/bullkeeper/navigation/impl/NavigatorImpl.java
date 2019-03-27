@@ -46,6 +46,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDeta
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AboutDeveloperDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AppHelpDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserPasswordDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesInfoDialog;
@@ -1145,5 +1146,18 @@ public class NavigatorImpl implements INavigator {
 
         ChangeUserEmailDialogFragment.showDialog(activity, listener);
 
+    }
+
+    /**
+     * Show Change User Password Dialog Fragment
+     * @param activity
+     * @param listener
+     */
+    @Override
+    public void showChangeUserPasswordDialogFragment(AppCompatActivity activity, ChangeUserPasswordDialogFragment.OnChangeUserPasswordDialogListener listener) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(listener, "Listener can not be null");
+
+        ChangeUserPasswordDialogFragment.showDialog(activity, listener);
     }
 }

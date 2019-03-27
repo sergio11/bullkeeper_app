@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AddPhoneNumberBlockedDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserPasswordDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfigureTerminalHeartbeatThresholdDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
@@ -134,6 +135,12 @@ public interface ApplicationComponent {
      * @param dialogFragment
      */
     void inject(final ChangeUserEmailDialogFragment dialogFragment);
+
+    /**
+     * Inject into Change User Password Dialog Fragment
+     * @param dialogFragment
+     */
+    void inject(final ChangeUserPasswordDialogFragment dialogFragment);
 
 
     //Exposed to sub-graphs.

@@ -8,6 +8,7 @@ import java.util.Date;
 
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserPasswordDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
@@ -619,5 +620,14 @@ public interface INavigator {
      */
     void showChangeUserEmailDialogFragment(final AppCompatActivity activity, final
                                            ChangeUserEmailDialogFragment.OnChangeUserEmailDialogListener listener);
+
+
+    /**
+     *
+     * @param activity
+     * @param listener
+     */
+    void showChangeUserPasswordDialogFragment(final AppCompatActivity activity, final
+        ChangeUserPasswordDialogFragment.OnChangeUserPasswordDialogListener listener);
 
 }
