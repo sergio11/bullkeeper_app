@@ -189,11 +189,12 @@ public class ApplicationModule {
             final IPreferenceRepository preferenceRepository,
             final ObjectMapper objectMapper,
             final INotificationHelper notificationHelper,
-            final ILocalSystemNotification localSystemNotification
+            final ILocalSystemNotification localSystemNotification,
+            final IAppUtils appUtils
     ) {
         return new SseEventHandlerImpl(appContext,apiEndPointsHelper,
                 okHttpClient, preferenceRepository, objectMapper, notificationHelper,
-                localSystemNotification);
+                localSystemNotification, appUtils);
     }
 
 }

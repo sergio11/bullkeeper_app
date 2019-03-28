@@ -38,9 +38,11 @@ import sanchez.sanchez.sergio.bullkeeper.sse.models.NewAppInstalledDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.SetMessagesAsViewedDTO;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequestDetailMvpActivity;
+import sanchez.sanchez.sergio.data.net.models.response.PersonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.RequestTypeEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
+import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import timber.log.Timber;
 
 /**
@@ -83,6 +85,11 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     private ILocalSystemNotification localSystemNotification;
 
     /**
+     * App Utils
+     */
+    private final IAppUtils appUtils;
+
+    /**
      * Ok Sse
      */
     private final OkSse okSse;
@@ -108,7 +115,8 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             final IPreferenceRepository preferenceRepository,
             final ObjectMapper objectMapper,
             final INotificationHelper notificationHelper,
-            final ILocalSystemNotification localSystemNotification) {
+            final ILocalSystemNotification localSystemNotification,
+            final IAppUtils appUtils) {
         this.context = context;
         this.apiEndPointsHelper = apiEndPointsHelper;
         this.preferenceRepository = preferenceRepository;
@@ -116,6 +124,7 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
         this.notificationHelper = notificationHelper;
         this.localSystemNotification = localSystemNotification;
         this.okSse = new OkSse(okHttpClient);
+        this.appUtils = appUtils;
     }
 
     /**
@@ -424,6 +433,17 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             final MessageSavedDTO messageSavedDTO =
                     objectMapper.readValue(message, MessageSavedDTO.class);
 
+
+            final PersonDTO from = messageSavedDTO.getFrom();
+            final PersonDTO to = messageSavedDTO.getTo();
+
+            if(appUtils.isValidString(from.getProfileImage()))
+                messageSavedDTO.getFrom().setProfileImage(apiEndPointsHelper
+                        .getProfileUrl(from.getProfileImage()));
+
+            if(appUtils.isValidString(to.getProfileImage()))
+                messageSavedDTO.getFrom().setProfileImage(apiEndPointsHelper
+                        .getProfileUrl(to.getProfileImage()));
 
             if(preferenceRepository.getPrefCurrentUserIdentity().equals(messageSavedDTO.getTo().getIdentity())) {
 

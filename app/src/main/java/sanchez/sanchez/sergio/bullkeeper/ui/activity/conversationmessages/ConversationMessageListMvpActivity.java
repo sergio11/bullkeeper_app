@@ -16,6 +16,7 @@ import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -216,6 +217,10 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
                             messageSavedEvent.getFrom().getLastName()),
                     messageSavedEvent.getFrom().getProfileImage(),
                     messageSavedEvent.getText());
+
+            getPresenter().setMessagesAsViewed(messageSavedEvent.getConversation(),
+                    Arrays.asList(messageSavedEvent.getIdentity()));
+
         }
 
         /**
