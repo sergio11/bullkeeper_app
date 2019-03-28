@@ -39,7 +39,7 @@ public final class DimensionsStatisticsEntityDataMapper extends AbstractDataMapp
         dimensionsStatisticsEntity.setSubtitle(originModel.getSubtitle());
         dimensionsStatisticsEntity.setDimensions(dimensionEntityAbstractDataMapper
                 .transform(originModel.getDimensions()));
-
+        dimensionsStatisticsEntity.setTotalComments(originModel.getTotalComments());
         return dimensionsStatisticsEntity;
 
     }
@@ -60,7 +60,7 @@ public final class DimensionsStatisticsEntityDataMapper extends AbstractDataMapp
         dimensionsStatisticsDTO.setDimensions(
                 dimensionEntityAbstractDataMapper.transformInverse(originModel.getDimensions())
         );
-
+        dimensionsStatisticsDTO.setTotalComments(originModel.getTotalComments());
         return dimensionsStatisticsDTO;
     }
 }

@@ -124,7 +124,7 @@
                     android:layout_marginBottom="@dimen/common_margin"
                     android:layout_marginTop="@dimen/common_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/common_chart_height"
                     android:layout_below="@id/chartSubTitle"/>
 
             </RelativeLayout>

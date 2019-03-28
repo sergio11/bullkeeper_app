@@ -23,6 +23,11 @@ public final class DimensionsStatisticsEntity implements Serializable {
      */
     private List<DimensionEntity> dimensions;
 
+    /**
+     * Total Comments
+     */
+    private long totalComments;
+
 
     public DimensionsStatisticsEntity(){}
 
@@ -31,13 +36,16 @@ public final class DimensionsStatisticsEntity implements Serializable {
      * @param title
      * @param subtitle
      * @param dimensions
+     * @param totalComments
      */
     public DimensionsStatisticsEntity(final String title,
                                       final String subtitle,
-                                      final List<DimensionEntity> dimensions) {
+                                      final List<DimensionEntity> dimensions,
+                                      final long totalComments) {
         this.title = title;
         this.subtitle = subtitle;
         this.dimensions = dimensions;
+        this.totalComments = totalComments;
     }
 
     public String getTitle() {
@@ -64,12 +72,21 @@ public final class DimensionsStatisticsEntity implements Serializable {
         this.dimensions = dimensions;
     }
 
+    public long getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(long totalComments) {
+        this.totalComments = totalComments;
+    }
+
     @Override
     public String toString() {
         return "DimensionsStatisticsEntity{" +
                 "title='" + title + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", dimensions=" + dimensions +
+                ", totalComments=" + totalComments +
                 '}';
     }
 }

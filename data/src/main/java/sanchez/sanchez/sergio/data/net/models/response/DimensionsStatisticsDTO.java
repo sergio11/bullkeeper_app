@@ -29,6 +29,12 @@ public final class DimensionsStatisticsDTO implements Serializable {
     @JsonProperty("dimensions")
     private List<DimensionDTO> dimensions;
 
+    /**
+     * Total Comments
+     */
+    @JsonProperty("total_comments")
+    private long totalComments;
+
     public DimensionsStatisticsDTO(){}
 
     /**
@@ -36,13 +42,16 @@ public final class DimensionsStatisticsDTO implements Serializable {
      * @param title
      * @param subtitle
      * @param dimensions
+     * @param totalComments
      */
     public DimensionsStatisticsDTO(final String title,
                                    final String subtitle,
-                                   final List<DimensionDTO> dimensions) {
+                                   final List<DimensionDTO> dimensions,
+                                   final long totalComments) {
         this.title = title;
         this.subtitle = subtitle;
         this.dimensions = dimensions;
+        this.totalComments = totalComments;
     }
 
     public String getTitle() {
@@ -67,6 +76,14 @@ public final class DimensionsStatisticsDTO implements Serializable {
 
     public void setDimensions(List<DimensionDTO> dimensions) {
         this.dimensions = dimensions;
+    }
+
+    public long getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(long totalComments) {
+        this.totalComments = totalComments;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -129,6 +146,7 @@ public final class DimensionsStatisticsDTO implements Serializable {
                 "title='" + title + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", dimensions=" + dimensions +
+                ", totalComments=" + totalComments +
                 '}';
     }
 }

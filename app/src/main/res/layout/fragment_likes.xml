@@ -153,7 +153,7 @@
                     android:id="@+id/barChart"
                     android:layout_margin="@dimen/common_margin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/common_chart_height"
                     android:layout_below="@id/chartSubTitle"/>
 
             </RelativeLayout>

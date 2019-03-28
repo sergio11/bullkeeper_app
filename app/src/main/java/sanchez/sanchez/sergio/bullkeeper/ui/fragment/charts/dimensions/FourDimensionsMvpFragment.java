@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,10 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.StatsComponent;
@@ -49,6 +54,18 @@ public class FourDimensionsMvpFragment
      */
     @State
     protected String kidIdentity;
+
+    /**
+     * Dependencies
+     */
+    @Inject
+    protected Activity activity;
+
+    /**
+     * Total Comments
+     */
+    @State
+    protected long totalComments;
 
     /**
      * Dimensions Labels
@@ -226,12 +243,15 @@ public class FourDimensionsMvpFragment
     @Override
     public void onDataAvaliable(DimensionsStatisticsEntity chartData) {
         Preconditions.checkNotNull(chartData, "Dimensions Entities can not be null");
+        super.onDataAvaliable(chartData);
 
         if(chartTitleTextView != null)
             chartTitleTextView.setText(chartData.getTitle());
 
         if(chartSubTitleTextView != null)
             chartSubTitleTextView.setText(chartData.getSubtitle());
+
+        totalComments = chartData.getTotalComments();
 
         List<BarEntry> entries = new ArrayList<>();
         for(int i = 0; i < DimensionCategoryEnum.values().length; i++ ) {
@@ -247,12 +267,12 @@ public class FourDimensionsMvpFragment
             }
             if(j == chartData.getDimensions().size()){
                 entries.add(new BarEntry(i, 0));
-                dimensionsLabel[i] = "0";
+                dimensionsLabel[i] = "0/" + totalComments;
             }
         }
 
         // Set Chart Data
-        setChartData(entries);
+        setChartData(entries, totalComments);
     }
 
     /**
@@ -260,6 +280,27 @@ public class FourDimensionsMvpFragment
      */
     @Override
     public void onNothingSelected() {}
+
+    /**
+     * On Show All Comments Extracted Clicked
+     */
+    @OnClick(R.id.showAllCommentsExtracted)
+    protected void onShowAllCommentsExtractedClicked(){
+        navigator.navigateToComments(activity, kidIdentity);
+    }
+
+
+    /**
+     * On Refresh Data
+     */
+    @OnClick(R.id.refreshData)
+    protected void onRefreshData(){
+        if(!activityHandler.isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+            refreshChart();
+        }
+    }
 
     /**
      * On Four Dimensions Listener
