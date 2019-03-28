@@ -339,12 +339,12 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
             case NEGATIVE:
                 violenceResultText.setText(R.string.comment_detail_violence_level_negative);
                 violenceResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.redDanger));
+                        R.color.greenSuccess));
                 break;
             case POSITIVE:
                 violenceResultText.setText(R.string.comment_detail_violence_level_positive);
                 violenceResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.greenSuccess));
+                        R.color.redDanger));
                 break;
             case UNKNOWN:
                 violenceResultText.setText(R.string.comment_detail_violence_level_unknown);
@@ -363,12 +363,12 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
             case POSITIVE:
                 bullyingResultText.setText(R.string.comment_detail_bullying_level_positive);
                 bullyingResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.greenSuccess));
+                        R.color.redDanger));
                 break;
             case NEGATIVE:
                 bullyingResultText.setText(R.string.comment_detail_bullying_level_negative);
                 bullyingResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.redDanger));
+                        R.color.greenSuccess));
                 break;
         }
 
@@ -377,12 +377,12 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
             case NEGATIVE:
                 drugsResultText.setText(R.string.comment_detail_drugs_level_negative);
                 drugsResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.redDanger));
+                        R.color.greenSuccess));
                 break;
             case POSITIVE:
                 drugsResultText.setText(R.string.comment_detail_drugs_level_positive);
                 drugsResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.greenSuccess));
+                        R.color.redDanger));
                 break;
             case UNKNOWN:
                 drugsResultText.setText(R.string.comment_detail_drugs_level_unknown);
