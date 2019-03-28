@@ -102,5 +102,7 @@
     <!--List Item very high -->
     <dimen name="list_item_very_high">125dp</dimen>
     <dimen name="common_list_item_high">100dp</dimen>
+    <!-- App Rules Item Height -->
+    <dimen name="app_rules_item_height">140dp</dimen>
 
 </resources>
