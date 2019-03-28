@@ -439,7 +439,7 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                         )
                 );
 
-                notificationHelper.showImportantNotification(
+                notificationHelper.showNoticeNotification(
                         String.format(Locale.getDefault(), context.getString(R.string.conversation_new_message_title),
                                 messageSavedDTO.getFrom().getFirstName()), messageSavedDTO.getText(),
                         ConversationMessageListMvpActivity.getCallingIntent(context, messageSavedDTO.getConversation()));

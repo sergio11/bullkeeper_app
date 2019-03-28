@@ -683,6 +683,8 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
     public void onConversationLoaded(final ConversationEntity conversationEntity) {
         Preconditions.checkNotNull(conversationEntity, "Conversation Entity can not be null");
         conversationId = conversationEntity.getIdentity();
+        memberOne = conversationEntity.getMemberOne().getIdentity();
+        memberTwo = conversationEntity.getMemberTwo().getIdentity();
         // Load Messages
         getPresenter().loadMessages(conversationId);
         messageInput.setEnabled(true);
