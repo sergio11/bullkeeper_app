@@ -104,5 +104,7 @@
     <dimen name="common_list_item_high">100dp</dimen>
     <!-- App Rules Item Height -->
     <dimen name="app_rules_item_height">140dp</dimen>
+    <!-- Common Chart Height -->
+    <dimen name="common_chart_height">320dp</dimen>
 
 </resources>

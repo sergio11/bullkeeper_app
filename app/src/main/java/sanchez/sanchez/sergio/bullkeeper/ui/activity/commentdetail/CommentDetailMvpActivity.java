@@ -292,7 +292,7 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
 
         // Sentiment
         switch (commentEntity.getSentimentLevelEnum()) {
-            case NEUTRAL:
+            case NEUTRO:
                 sentimentResultText.setText(R.string.comment_detail_sentiment_level_neutro);
                 sentimentResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
                         R.color.silver_color));

@@ -71,7 +71,7 @@ public final class SentimentAnalysisStatisticsDTO implements Serializable {
     /**
      * Sentiment DTO
      */
-    public class SentimentDTO {
+    public static class SentimentDTO {
 
         /**
          * Type

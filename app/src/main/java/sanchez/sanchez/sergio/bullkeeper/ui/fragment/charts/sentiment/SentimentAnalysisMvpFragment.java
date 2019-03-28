@@ -43,7 +43,7 @@ public class SentimentAnalysisMvpFragment
     /**
      * Sentiment Types Enum
      */
-    public enum SentimentTypesEnum { POSITIVE, NEGATIVE, NEUTRAL}
+    public enum SentimentTypesEnum { POSITIVE, NEGATIVE, NEUTRO}
 
     /**
      * Activity

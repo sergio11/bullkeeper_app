@@ -183,7 +183,7 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
 
                 break;
 
-            case NEUTRAL:
+            case NEUTRO:
 
                 // Set Sentiment Image Type
                 sentimentTypeImageView.setImageResource(R.drawable.neutro_comments_solid);

@@ -51,17 +51,14 @@ public final class FourDimensionsFragmentPresenter extends SupportPresenter<IFou
 
     /**
      * Load Data
-     * @param sonId
+     * @param kid
      */
-    public void loadData(final String sonId){
-        Preconditions.checkNotNull(sonId, "Son Id can not be null");
-        Preconditions.checkState(!sonId.isEmpty(), "Son Id can not empty");
-
-        Timber.d("Load Data for Son Id %s", sonId);
-
+    public void loadData(final String kid){
+        Preconditions.checkNotNull(kid, "kid Id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "kid Id can not empty");
 
         getFourDimensionsStatisticsByChildInteract.execute(new GetFourDimensionsStatisticsByChildObservable(GetFourDimensionsStatisticsByChildInteract.GetFourDimensionsStatisticsApiErrors.class),
-                GetFourDimensionsStatisticsByChildInteract.Params.create(sonId, preferenceRepository.getAgeOfResultsAsInt()));
+                GetFourDimensionsStatisticsByChildInteract.Params.create(kid, preferenceRepository.getAgeOfResultsAsInt()));
     }
 
     /**

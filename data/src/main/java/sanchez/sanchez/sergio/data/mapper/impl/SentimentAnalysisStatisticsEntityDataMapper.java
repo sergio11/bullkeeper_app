@@ -31,8 +31,8 @@ public class SentimentAnalysisStatisticsEntityDataMapper extends
             try {
                 sentimentEntity.setSentimentLevelEnum(SentimentLevelEnum.valueOf(sentimentDTO.getType()));
             } catch (IllegalArgumentException ex) {
-                Timber.e("Sentiment Level Type unknow");
-                sentimentEntity.setSentimentLevelEnum(null);
+                Timber.e("Sentiment Level Type unknow -> %s" , sentimentDTO.getType());
+                sentimentEntity.setSentimentLevelEnum(SentimentLevelEnum.UNKNOWN);
             }
             sentimentEntity.setLabel(sentimentDTO.getLabel());
             sentimentEntity.setScore(sentimentDTO.getScore());
