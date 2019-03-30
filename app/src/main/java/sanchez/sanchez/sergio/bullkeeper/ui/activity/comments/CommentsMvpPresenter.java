@@ -1,8 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.comments;
 
 import android.os.Bundle;
-import android.support.design.internal.ParcelableSparseArray;
-import android.util.SparseArray;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
@@ -124,25 +122,40 @@ public final class CommentsMvpPresenter extends SupportLCEPresenter<ICommentsVie
 
                 if(preferenceRepository.isDimensionFilterEnabled()) {
 
-                    violenceLevelEnum = ViolenceLevelEnum.POSITIVE;
-                    adultLevelEnum = AdultLevelEnum.POSITIVE;
-                    drugsLevelEnum = DrugsLevelEnum.POSITIVE;
-                    bullyingLevelEnum = BullyingLevelEnum.POSITIVE;
+                    try {
+                        violenceLevelEnum = ViolenceLevelEnum.valueOf(
+                                preferenceRepository.getViolenceDimensionLevel());
+                    } catch (final Exception ex) {
+                        preferenceRepository.setViolenceDimensionLevel(
+                                IPreferenceRepository.VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE);
+                        violenceLevelEnum = ViolenceLevelEnum.UNKNOWN;
+                    }
 
-                    if (!preferenceRepository.isAllCommentsDimensionEnabled()) {
+                    try {
+                        drugsLevelEnum = DrugsLevelEnum.valueOf(
+                                preferenceRepository.getDrugsDimensionLevel());
+                    } catch (final Exception ex) {
+                        preferenceRepository.setDrugsDimensionLevel(
+                                IPreferenceRepository.DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE);
+                        drugsLevelEnum = DrugsLevelEnum.UNKNOWN;
+                    }
 
-                        if (!preferenceRepository.isViolenceDimensionEnabled())
-                            violenceLevelEnum = ViolenceLevelEnum.NEGATIVE;
+                    try {
+                        adultLevelEnum = AdultLevelEnum.valueOf(
+                                preferenceRepository.getSexDimensionLevel());
+                    } catch (final Exception ex) {
+                        preferenceRepository.setSexDimensionLevel(
+                                IPreferenceRepository.SEX_COMMENTS_DIMENSION_DEFAULT_VALUE);
+                        adultLevelEnum = AdultLevelEnum.UNKNOWN;
+                    }
 
-                        if (!preferenceRepository.isDrugsDimensionEnabled())
-                            drugsLevelEnum = DrugsLevelEnum.NEGATIVE;
-
-                        if (!preferenceRepository.isSexDimensionEnabled())
-                            adultLevelEnum = AdultLevelEnum.NEGATIVE;
-
-                        if (!preferenceRepository.isBullyingDimensionEnabled())
-                            bullyingLevelEnum = BullyingLevelEnum.NEGATIVE;
-
+                    try {
+                        bullyingLevelEnum = BullyingLevelEnum.valueOf(
+                                preferenceRepository.getBullyingDimensionLevel());
+                    } catch (final Exception ex) {
+                        preferenceRepository.setBullyingDimensionLevel(
+                                IPreferenceRepository.BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE);
+                        bullyingLevelEnum = BullyingLevelEnum.UNKNOWN;
                     }
 
                 }

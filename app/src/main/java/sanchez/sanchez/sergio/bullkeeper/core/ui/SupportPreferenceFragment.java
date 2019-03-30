@@ -222,5 +222,40 @@ public abstract class SupportPreferenceFragment<H> extends PreferenceFragmentCom
 
     }
 
+    /**
+     * Show List Preference
+     * @param key
+     */
+    protected void showListPreference(final String key) {
+        Preconditions.checkNotNull(key, "Key can not be null");
+        Preconditions.checkState(!key.isEmpty(), "Key can not be empty string");
+        final ListPreference listPreference = (ListPreference) findPreference(key);
+        listPreference.setVisible(true);
+    }
+
+    /**
+     * Hide List Preference
+     * @param key
+     */
+    protected void hideListPreference(final String key) {
+        Preconditions.checkNotNull(key, "Key can not be null");
+        Preconditions.checkState(!key.isEmpty(), "Key can not be empty string");
+        final ListPreference listPreference = (ListPreference) findPreference(key);
+        listPreference.setVisible(false);
+    }
+
+    /**
+     * Set List Preference Value
+     * @param key
+     * @param value
+     */
+    protected void setListPreferenceValue(final String key, final String value) {
+        Preconditions.checkNotNull(key, "Key can not be null");
+        Preconditions.checkState(!key.isEmpty(), "Key can not be empty string");
+        Preconditions.checkNotNull(value, "value can not be null");
+        Preconditions.checkState(!value.isEmpty(), "value can not be empty string");
+        final ListPreference listPreference = (ListPreference) findPreference(key);
+        listPreference.setValue(value);
+    }
 
 }

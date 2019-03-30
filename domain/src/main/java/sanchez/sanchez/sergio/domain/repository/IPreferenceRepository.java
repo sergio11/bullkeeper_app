@@ -1,5 +1,9 @@
 package sanchez.sanchez.sergio.domain.repository;
 
+import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
+import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
+import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
 
 /**
@@ -139,21 +143,21 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_ENABLE_ALL_COMMENTS_DIMENSION = "enable_all_comments_dimension";
     boolean ENABLE_ALL_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
 
-    // Enable Violence comment dimension
-    String PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION = "enable_violence_comment_dimension";
-    boolean ENABLE_VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE = false;
+    // Violence comment dimension level
+    String PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL = "violence_comment_dimension_level";
+    String VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE = ViolenceLevelEnum.UNKNOWN.name();
 
-    // Enable Drugs comments dimension filter
-    String PREF_ENABLE_DRUGS_COMMENTS_DIMENSION = "enable_drugs_comment_dimension";
-    boolean ENABLE_DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
+    // Drugs comments dimension level
+    String PREF_DRUGS_COMMENTS_DIMENSION_LEVEL = "drugs_comment_dimension_level";
+    String DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE = DrugsLevelEnum.UNKNOWN.name();
 
-    // Enable Sex comments dimension filter
-    String PREF_ENABLE_SEX_COMMENTS_DIMENSION = "enable_sex_comment_dimension";
-    boolean ENABLE_SEX_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
+    // Sex comments dimension level
+    String PREF_SEX_COMMENTS_DIMENSION = "sex_comment_dimension_level";
+    String SEX_COMMENTS_DIMENSION_DEFAULT_VALUE = AdultLevelEnum.UNKNOWN.name();
 
-    // Enable Bullying Comment Dimension
-    String PREF_ENABLE_BULLYING_COMMENTS_DIMENSION = "enable_bullying_comment_dimension";
-    boolean ENABLE_BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
+    // Bullying Comment Dimension level
+    String PREF_BULLYING_COMMENTS_DIMENSION = "bullying_comment_dimension_level";
+    String BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE = BullyingLevelEnum.UNKNOWN.name();
 
     // Comments Sentiment Level
     String PREF_COMMENTS_SENTIMENT_LEVEL = "comments_sentiment_level";
@@ -548,53 +552,52 @@ public interface IPreferenceRepository extends IAuthTokenAware {
 
 
     /**
-     * Is Violence Dimension Enabled
+     * Get Violence Dimension Level
      * @return
      */
-    boolean isViolenceDimensionEnabled();
+    String getViolenceDimensionLevel();
 
     /**
-     * Set Violence Dimension Enabled
-     * @param violenceDimensionEnabled
+     * Set Violence Dimension Level
+     * @param violenceDimensionLevel
      */
-    void setViolenceDimensionEnabled(boolean violenceDimensionEnabled);
+    void setViolenceDimensionLevel(String violenceDimensionLevel);
 
     /**
-     * Is Drugs Dimension Enabled
+     * Get Drugs Dimension Level
      * @return
      */
-    boolean isDrugsDimensionEnabled();
+    String getDrugsDimensionLevel();
 
     /**
-     * Set Drugs Dimension Enabled
-     * @param drugsDimensionEnabled
+     * Set Drugs Dimension Level
+     * @param drugsDimensionLevel
      */
-    void setDrugsDimensionEnabled(boolean drugsDimensionEnabled);
+    void setDrugsDimensionLevel(String drugsDimensionLevel);
 
     /**
-     * Is Sex Dimension Enabled
+     * Get Sex Dimension Level
      * @return
      */
-    boolean isSexDimensionEnabled();
+    String getSexDimensionLevel();
 
     /**
-     * Set Sex Dimension Enabled
-     * @param sexDimensionEnabled
+     * Set Sex Dimension Level
+     * @param sexDimensionLevel
      */
-    void setSexDimensionEnabled(boolean sexDimensionEnabled);
+    void setSexDimensionLevel(String sexDimensionLevel);
 
     /**
-     * Is Sex Dimension Enabled
+     * get Bullying Dimension Level
      * @return
      */
-    boolean isBullyingDimensionEnabled();
+    String getBullyingDimensionLevel();
 
     /**
-     * Set Bullying Dimension Enabled
-     * @param bullyingDimensionEnabled
+     * Set Bullying Dimension Level
+     * @param bullyingDimensionLevel
      */
-    void setBullyingDimensionEnabled(boolean bullyingDimensionEnabled);
-
+    void setBullyingDimensionLevel(String bullyingDimensionLevel);
 
     /**
      * Set Pref Age Of Relations

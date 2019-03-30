@@ -689,7 +689,25 @@
     <string name="comments_sentiment_level_negative">Negative sentiment</string>
     <string name="comments_sentiment_level_neutro">Neutral sentiment</string>
 
+    <!-- Violence Level -->
+    <string name="dimension_violence_level_no_filter">Do not apply filter</string>
+    <string name="dimension_violence_level_positive">Positive result</string>
+    <string name="dimension_violence_level_negative">Negative result</string>
 
+    <!-- Drugs Level -->
+    <string name="dimension_drugs_level_no_filter">Do not apply filter</string>
+    <string name="dimension_drugs_level_positive">Positive result</string>
+    <string name="dimension_drugs_level_negative">Negative result</string>
+
+    <!-- Sex Level -->
+    <string name="dimension_sex_level_no_filter">Do not apply filter</string>
+    <string name="dimension_sex_level_positive">Positive result</string>
+    <string name="dimension_sex_level_negative">Negative result</string>
+
+    <!-- Bullying Level -->
+    <string name="dimension_bullying_level_no_filter">Do not apply filter</string>
+    <string name="dimension_bullying_level_positive">Positive result</string>
+    <string name="dimension_bullying_level_negative">Negative result</string>
 
     <!-- Relations -->
     <string name="kid_relations_title_default">Most Active Friends</string>

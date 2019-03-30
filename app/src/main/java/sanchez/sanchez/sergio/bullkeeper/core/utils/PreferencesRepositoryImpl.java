@@ -741,83 +741,83 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
     }
 
     /**
-     * Is Violence Dimension Enabled
+     * Get Violence Dimension Level
      * @return
      */
     @Override
-    public boolean isViolenceDimensionEnabled() {
-        return mPref.getBoolean(PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION,
-                ENABLE_VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE);
+    public String getViolenceDimensionLevel() {
+        return mPref.getString(PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL,
+                VIOLENCE_COMMENT_DIMENSION_DEFAULT_VALUE);
     }
 
     /**
-     * Set Violence Dimension Enabled
-     * @param violenceDimensionEnabled
+     * Set Violence Dimension Level
+     * @param violenceDimensionLevel
      */
     @Override
-    public void setViolenceDimensionEnabled(boolean violenceDimensionEnabled) {
-        mPref.edit().putBoolean(PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION,
-                violenceDimensionEnabled).apply();
+    public void setViolenceDimensionLevel(String violenceDimensionLevel) {
+        mPref.edit().putString(PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL,
+                violenceDimensionLevel).apply();
     }
 
     /**
-     * Is Drugs Dimension Enabled
+     * Get Drugs Dimension Level
      * @return
      */
     @Override
-    public boolean isDrugsDimensionEnabled() {
-        return mPref.getBoolean(PREF_ENABLE_DRUGS_COMMENTS_DIMENSION,
-                ENABLE_DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    public String getDrugsDimensionLevel() {
+        return mPref.getString(PREF_DRUGS_COMMENTS_DIMENSION_LEVEL,
+                DRUGS_COMMENTS_DIMENSION_DEFAULT_VALUE);
     }
 
     /**
-     * Set Drugs Dimension Enabled
-     * @param drugsDimensionEnabled
+     * Set Drugs Dimension Level
+     * @param drugsDimensionLevel
      */
     @Override
-    public void setDrugsDimensionEnabled(boolean drugsDimensionEnabled) {
-        mPref.edit().putBoolean(PREF_ENABLE_DRUGS_COMMENTS_DIMENSION,
-                drugsDimensionEnabled).apply();
+    public void setDrugsDimensionLevel(final String drugsDimensionLevel) {
+        mPref.edit().putString(PREF_DRUGS_COMMENTS_DIMENSION_LEVEL,
+                drugsDimensionLevel).apply();
     }
 
     /**
-     * Is Sex Dimension Enabled
+     * Get Sex Dimension Level
      * @return
      */
     @Override
-    public boolean isSexDimensionEnabled() {
-        return mPref.getBoolean(PREF_ENABLE_SEX_COMMENTS_DIMENSION,
-                ENABLE_SEX_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    public String getSexDimensionLevel() {
+        return mPref.getString(PREF_SEX_COMMENTS_DIMENSION,
+                SEX_COMMENTS_DIMENSION_DEFAULT_VALUE);
     }
 
     /**
-     * Set Sex Dimension Enabled
-     * @param sexDimensionEnabled
+     * Set Sex Dimension Level
+     * @param sexDimensionLevel
      */
     @Override
-    public void setSexDimensionEnabled(boolean sexDimensionEnabled) {
-        mPref.edit().putBoolean(PREF_ENABLE_SEX_COMMENTS_DIMENSION,
-                sexDimensionEnabled).apply();
+    public void setSexDimensionLevel(String sexDimensionLevel) {
+        mPref.edit().putString(PREF_SEX_COMMENTS_DIMENSION,
+                sexDimensionLevel).apply();
     }
 
     /**
-     * Is Bullying Dimension Enabled
+     * Get Bullying Dimension Level
      * @return
      */
     @Override
-    public boolean isBullyingDimensionEnabled() {
-        return mPref.getBoolean(PREF_ENABLE_BULLYING_COMMENTS_DIMENSION,
-                ENABLE_BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE);
+    public String getBullyingDimensionLevel() {
+        return mPref.getString(PREF_BULLYING_COMMENTS_DIMENSION,
+                BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE);
     }
 
     /**
      * Set Bullying Dimension Enabled
-     * @param bullyingDimensionEnabled
+     * @param bullyingDimensionLevel
      */
     @Override
-    public void setBullyingDimensionEnabled(boolean bullyingDimensionEnabled) {
-        mPref.edit().putBoolean(PREF_ENABLE_BULLYING_COMMENTS_DIMENSION,
-                bullyingDimensionEnabled).apply();
+    public void setBullyingDimensionLevel(String bullyingDimensionLevel) {
+        mPref.edit().putString(PREF_BULLYING_COMMENTS_DIMENSION,
+                bullyingDimensionLevel).apply();
     }
 
     /**

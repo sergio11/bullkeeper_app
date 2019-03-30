@@ -73,6 +73,72 @@
     </string-array>
 
 
+    <!-- Dimension Violence Level Values -->
+    <string-array name="dimension_violence_level_values">
+        <item>UNKNOWN</item>
+        <item>POSITIVE</item>
+        <item>NEGATIVE</item>
+    </string-array>
+
+    <string name="dimension_violence_level_default_value">UNKNOWN</string>
+
+    <!-- Dimension Violence Level -->
+    <string-array name="dimension_violence_level">
+        <item>@string/dimension_violence_level_no_filter</item>
+        <item>@string/dimension_violence_level_positive</item>
+        <item>@string/dimension_violence_level_negative</item>
+    </string-array>
+
+    <!-- Dimension Drugs Level Values -->
+    <string-array name="dimension_drugs_level_values">
+        <item>UNKNOWN</item>
+        <item>POSITIVE</item>
+        <item>NEGATIVE</item>
+    </string-array>
+
+    <string name="dimension_drugs_level_default_value">UNKNOWN</string>
+
+    <!-- Dimension Drugs Level -->
+    <string-array name="dimension_drugs_level">
+        <item>@string/dimension_drugs_level_no_filter</item>
+        <item>@string/dimension_drugs_level_positive</item>
+        <item>@string/dimension_drugs_level_negative</item>
+    </string-array>
+
+
+    <!-- Dimension Sex Level Values -->
+    <string-array name="dimension_sex_level_values">
+        <item>UNKNOWN</item>
+        <item>POSITIVE</item>
+        <item>NEGATIVE</item>
+    </string-array>
+
+    <string name="dimension_sex_level_default_value">UNKNOWN</string>
+
+    <!-- Dimension Sex Level -->
+    <string-array name="dimension_sex_level">
+        <item>@string/dimension_sex_level_no_filter</item>
+        <item>@string/dimension_sex_level_positive</item>
+        <item>@string/dimension_sex_level_negative</item>
+    </string-array>
+
+    <!-- Dimension Bullying Level Values -->
+    <string-array name="dimension_bullying_level_values">
+        <item>UNKNOWN</item>
+        <item>POSITIVE</item>
+        <item>NEGATIVE</item>
+    </string-array>
+
+    <string name="dimension_bullying_level_default_value">UNKNOWN</string>
+
+    <!-- Dimension Bullying Level -->
+    <string-array name="dimension_bullying_level">
+        <item>@string/dimension_bullying_level_no_filter</item>
+        <item>@string/dimension_bullying_level_positive</item>
+        <item>@string/dimension_bullying_level_negative</item>
+    </string-array>
+
+
     <!-- Remove Alerts Every values -->
     <string-array name="remove_alerts_every_values">
         <item>0</item>

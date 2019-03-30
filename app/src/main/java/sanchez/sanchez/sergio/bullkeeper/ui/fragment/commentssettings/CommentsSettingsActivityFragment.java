@@ -17,6 +17,10 @@ import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.commentssettings.ICommentsSettingsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
+import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
+import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
+import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
@@ -63,21 +67,21 @@ public class CommentsSettingsActivityFragment extends
     @State
     protected boolean enableAllCommentsDimension;
 
-    // Enable Violence Comment Dimension
+    // Violence Dimension Level
     @State
-    protected boolean enableViolenceCommentDimension;
+    protected String violenceDimensionLevel;
 
-    // Enable Drugs Comment Dimmension
+    // Drugs Dimension Level
     @State
-    protected boolean enableDrugsCommentDimension;
+    protected String drugsDimensionLevel;
 
-    // Enable Sex Comment Dimension
+    // Sex Dimension Level
     @State
-    protected boolean enableSexCommentDimension;
+    protected String sexDimensionLevel;
 
-    // Enable Bullying Comment Dimension
+    // Bullying Dimension Level
     @State
-    protected boolean enableBullyingCommentDimension;
+    protected String bullyingDimensionLevel;
 
     // Sentiment Level
     @State
@@ -145,35 +149,50 @@ public class CommentsSettingsActivityFragment extends
         enableAllCommentsDimension = configSwitchPreferenceCompatValue(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION,
                 true);
 
-        // Enable Violence Comment Dimension
-        enableViolenceCommentDimension = configSwitchPreferenceCompatValue(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION,
-                !enableAllCommentsDimension);
-
-        // Enable Drugs Comment Dimension
-        enableDrugsCommentDimension = configSwitchPreferenceCompatValue(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION,
-                !enableAllCommentsDimension);
-
-       // Enable Adult Comment Dimension
-        enableSexCommentDimension = configSwitchPreferenceCompatValue(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION,
-                !enableAllCommentsDimension);
-
-        // Enable Bullying Comment Dimension
-        enableBullyingCommentDimension = configSwitchPreferenceCompatValue(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION,
-                !enableAllCommentsDimension);
 
         if(enableDimensionsFilter) {
             showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION);
-            showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION);
-            showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION);
-            showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION);
-            showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION);
         } else {
             hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION);
-            hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION);
-            hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION);
-            hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION);
-            hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION);
         }
+
+        // Violence Dimension List Preference
+        final ListPreference violenceCommentDimensionListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL);
+        violenceCommentDimensionListPreference.setOnPreferenceChangeListener(this);
+        violenceCommentDimensionListPreference.setVisible(enableDimensionsFilter);
+
+        if(enableAllCommentsDimension)
+            violenceCommentDimensionListPreference.setValue(ViolenceLevelEnum.POSITIVE.name());
+
+        violenceDimensionLevel = violenceCommentDimensionListPreference.getValue();
+
+        // Drugs Dimension List Preference
+        final ListPreference drugsCommentDimensionListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_DRUGS_COMMENTS_DIMENSION_LEVEL);
+        drugsCommentDimensionListPreference.setOnPreferenceChangeListener(this);
+        drugsCommentDimensionListPreference.setVisible(enableDimensionsFilter);
+        if(enableAllCommentsDimension)
+            drugsCommentDimensionListPreference.setValue(DrugsLevelEnum.POSITIVE.name());
+
+        drugsDimensionLevel = drugsCommentDimensionListPreference.getValue();
+
+        // Sex Dimension List Preference
+        final ListPreference sexCommentDimensionListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_SEX_COMMENTS_DIMENSION);
+        sexCommentDimensionListPreference.setOnPreferenceChangeListener(this);
+        sexCommentDimensionListPreference.setVisible(enableDimensionsFilter);
+        if(enableAllCommentsDimension)
+            sexCommentDimensionListPreference.setValue(AdultLevelEnum.POSITIVE.name());
+
+        sexDimensionLevel = sexCommentDimensionListPreference.getValue();
+
+        // Bullying Dimension List Preference
+        final ListPreference bullyingCommentDimensionListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_BULLYING_COMMENTS_DIMENSION);
+        bullyingCommentDimensionListPreference.setOnPreferenceChangeListener(this);
+        bullyingCommentDimensionListPreference.setVisible(enableDimensionsFilter);
+        if(enableAllCommentsDimension)
+            bullyingCommentDimensionListPreference.setValue(BullyingLevelEnum.POSITIVE.name());
+
+        bullyingDimensionLevel = bullyingCommentDimensionListPreference.getValue();
+
 
         final ListPreference commentsSentimentLevelListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_COMMENTS_SENTIMENT_LEVEL);
         commentsSentimentLevelListPreference.setOnPreferenceChangeListener(this);
@@ -215,30 +234,27 @@ public class CommentsSettingsActivityFragment extends
 
                 if(enableDimensionFilter) {
                     showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION);
-                    showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION);
-                    showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION);
-                    showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION);
-                    showSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION);
+                    showListPreference(IPreferenceRepository.PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL);
+                    showListPreference(IPreferenceRepository.PREF_DRUGS_COMMENTS_DIMENSION_LEVEL);
+                    showListPreference(IPreferenceRepository.PREF_SEX_COMMENTS_DIMENSION);
+                    showListPreference(IPreferenceRepository.PREF_BULLYING_COMMENTS_DIMENSION);
                 } else {
                     hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION);
                     toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION, false);
                     setSwitchPreferenceCompatChecked(IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION, false);
 
-                    hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION);
-                    toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION, false);
-                    setSwitchPreferenceCompatChecked(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION, false);
+                    hideListPreference(IPreferenceRepository.PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL);
+                    setListPreferenceValue(IPreferenceRepository.PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL, ViolenceLevelEnum.UNKNOWN.name());
 
-                    hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION);
-                    toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION, false);
-                    setSwitchPreferenceCompatChecked(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION, false);
+                    hideListPreference(IPreferenceRepository.PREF_DRUGS_COMMENTS_DIMENSION_LEVEL);
+                    setListPreferenceValue(IPreferenceRepository.PREF_DRUGS_COMMENTS_DIMENSION_LEVEL, DrugsLevelEnum.UNKNOWN.name());
 
-                    hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION);
-                    toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION, false);
-                    setSwitchPreferenceCompatChecked(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION, false);
+                    hideListPreference(IPreferenceRepository.PREF_SEX_COMMENTS_DIMENSION);
+                    setListPreferenceValue(IPreferenceRepository.PREF_SEX_COMMENTS_DIMENSION, AdultLevelEnum.UNKNOWN.name());
 
-                    hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION);
-                    toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION, false);
-                    setSwitchPreferenceCompatChecked(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION, false);
+                    hideListPreference(IPreferenceRepository.PREF_BULLYING_COMMENTS_DIMENSION);
+                    setListPreferenceValue(IPreferenceRepository.PREF_BULLYING_COMMENTS_DIMENSION, BullyingLevelEnum.UNKNOWN.name());
+
                 }
 
                 break;
@@ -247,17 +263,14 @@ public class CommentsSettingsActivityFragment extends
 
                 final boolean enableAllDimension = (boolean)newValue;
 
-                toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION,
-                        enableAllDimension);
-
-                toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION,
-                        enableAllDimension);
-
-                toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION,
-                        enableAllDimension);
-
-                toggleSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION,
-                        enableAllDimension);
+                setListPreferenceValue(IPreferenceRepository.PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL,
+                        enableAllDimension ? ViolenceLevelEnum.POSITIVE.name() : ViolenceLevelEnum.UNKNOWN.name());
+                setListPreferenceValue(IPreferenceRepository.PREF_DRUGS_COMMENTS_DIMENSION_LEVEL,
+                        enableAllDimension ? DrugsLevelEnum.POSITIVE.name(): DrugsLevelEnum.UNKNOWN.name());
+                setListPreferenceValue(IPreferenceRepository.PREF_SEX_COMMENTS_DIMENSION,
+                        enableAllDimension ? AdultLevelEnum.POSITIVE.name(): AdultLevelEnum.UNKNOWN.name());
+                setListPreferenceValue(IPreferenceRepository.PREF_BULLYING_COMMENTS_DIMENSION,
+                        enableAllDimension ? BullyingLevelEnum.POSITIVE.name(): BullyingLevelEnum.UNKNOWN.name());
 
                 break;
         }
@@ -317,20 +330,20 @@ public class CommentsSettingsActivityFragment extends
                 IPreferenceRepository.PREF_ENABLE_ALL_COMMENTS_DIMENSION, enableAllCommentsDimension))
             return true;
 
-        if(!switchPreferenceCompatIsItInThisState(
-                IPreferenceRepository.PREF_ENABLE_VIOLENCE_COMMENT_DIMENSION, enableViolenceCommentDimension))
+        if(!hasListPreferenceThisValue(
+                IPreferenceRepository.PREF_VIOLENCE_COMMENT_DIMENSION_LEVEL, violenceDimensionLevel))
             return true;
 
-        if(!switchPreferenceCompatIsItInThisState(
-                IPreferenceRepository.PREF_ENABLE_DRUGS_COMMENTS_DIMENSION, enableDrugsCommentDimension))
+        if(!hasListPreferenceThisValue(
+                IPreferenceRepository.PREF_DRUGS_COMMENTS_DIMENSION_LEVEL, drugsDimensionLevel))
             return true;
 
-        if(!switchPreferenceCompatIsItInThisState(
-                IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION, enableSexCommentDimension))
+        if(!hasListPreferenceThisValue(
+                IPreferenceRepository.PREF_SEX_COMMENTS_DIMENSION, sexDimensionLevel))
             return true;
 
-        if(!switchPreferenceCompatIsItInThisState(
-                IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION, enableBullyingCommentDimension))
+        if(!hasListPreferenceThisValue(
+                IPreferenceRepository.PREF_BULLYING_COMMENTS_DIMENSION, bullyingDimensionLevel))
             return true;
 
         // Check Age of comments
@@ -363,10 +376,10 @@ public class CommentsSettingsActivityFragment extends
         preferencesRepositoryImpl.setYoutubeSocialMediaEnabled(enableYoutubeSocialMedia);
         preferencesRepositoryImpl.setDimensionFilter(enableDimensionsFilter);
         preferencesRepositoryImpl.setAllCommentsDimensionEnabled(enableAllCommentsDimension);
-        preferencesRepositoryImpl.setViolenceDimensionEnabled(enableViolenceCommentDimension);
-        preferencesRepositoryImpl.setDrugsDimensionEnabled(enableDrugsCommentDimension);
-        preferencesRepositoryImpl.setSexDimensionEnabled(enableSexCommentDimension);
-        preferencesRepositoryImpl.setBullyingDimensionEnabled(enableBullyingCommentDimension);
+        preferencesRepositoryImpl.setViolenceDimensionLevel(violenceDimensionLevel);
+        preferencesRepositoryImpl.setDrugsDimensionLevel(drugsDimensionLevel);
+        preferencesRepositoryImpl.setSexDimensionLevel(sexDimensionLevel);
+        preferencesRepositoryImpl.setBullyingDimensionLevel(bullyingDimensionLevel);
         preferencesRepositoryImpl.setCommentsSentimentLevel(sentimentLevel);
 
     }

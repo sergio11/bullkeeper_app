@@ -90,49 +90,45 @@
             android:widgetLayout="@layout/preference_widget_switch_layout" />
 
         <!-- Violence -->
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:enabled="false"
-            android:visible="false"
-            android:key="enable_violence_comment_dimension"
+        <android.support.v7.preference.ListPreference
+            android:key="violence_comment_dimension_level"
             android:title="@string/violence_comment_dimension_title"
             android:summary="@string/violence_comment_dimension_summary"
             android:layout="@layout/preference_violence_comments_layout"
-            android:widgetLayout="@layout/preference_widget_switch_layout" />
+            android:entries="@array/dimension_violence_level"
+            android:entryValues="@array/dimension_violence_level_values"
+            android:defaultValue="@string/dimension_violence_level_default_value"/>
 
         <!-- Drugs -->
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:enabled="false"
-            android:visible="false"
-            android:key="enable_drugs_comment_dimension"
+        <android.support.v7.preference.ListPreference
+            android:key="drugs_comment_dimension_level"
             android:title="@string/drugs_comment_dimension_title"
             android:summary="@string/drugs_comment_dimension_summary"
             android:layout="@layout/preference_drugs_comments_layout"
-            android:widgetLayout="@layout/preference_widget_switch_layout" />
+            android:entries="@array/dimension_drugs_level"
+            android:entryValues="@array/dimension_drugs_level_values"
+            android:defaultValue="@string/dimension_drugs_level_default_value"/>
 
         <!-- Sex -->
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:enabled="false"
-            android:visible="false"
-            android:key="enable_sex_comment_dimension"
+        <android.support.v7.preference.ListPreference
+            android:key="sex_comment_dimension_level"
             android:title="@string/sex_comment_dimension_title"
             android:summary="@string/sex_comment_dimension_summary"
             android:layout="@layout/preference_sex_comments_layout"
-            android:widgetLayout="@layout/preference_widget_switch_layout" />
+            android:entries="@array/dimension_sex_level"
+            android:entryValues="@array/dimension_sex_level_values"
+            android:defaultValue="@string/dimension_sex_level_default_value"/>
 
 
         <!-- Bullying -->
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:enabled="false"
-            android:visible="false"
-            android:key="enable_bullying_comment_dimension"
+        <android.support.v7.preference.ListPreference
+            android:key="bullying_comment_dimension_level"
             android:title="@string/bullying_comment_dimension_title"
             android:summary="@string/bullying_comment_dimension_summary"
             android:layout="@layout/preference_bullying_comments_layout"
-            android:widgetLayout="@layout/preference_widget_switch_layout" />
+            android:entries="@array/dimension_bullying_level"
+            android:entryValues="@array/dimension_bullying_level_values"
+            android:defaultValue="@string/dimension_bullying_level_default_value"/>
 
     </android.support.v7.preference.PreferenceCategory>
 
