@@ -127,7 +127,8 @@ public class NotificationHandlerService extends SupportService {
         public void visit(SigningEvent signingEvent) {
             Preconditions.checkNotNull(signingEvent, "Signing Event can not be null");
             Timber.d("NHS: SignIn Event Handler");
-            sseEventHandler.open();
+            if(!sseEventHandler.isOpened())
+                sseEventHandler.open();
             saveDevice();
         }
     };
@@ -324,7 +325,6 @@ public class NotificationHandlerService extends SupportService {
                         SaveDeviceInteract.Params.create(appUtils.getDeviceId(), registrationToken));
             }
         });
-
     }
 
 
