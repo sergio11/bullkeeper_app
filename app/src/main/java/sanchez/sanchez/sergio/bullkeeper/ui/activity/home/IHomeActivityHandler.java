@@ -3,7 +3,6 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
-import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 
 /**
  * Home Activity Handler
@@ -42,7 +41,7 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
      * Go To Child Detail
      * @param identity
      */
-    void goToChildDetail(final String identity, final GuardianRolesEnum role);
+    void goToChildDetail(final String identity);
 
     /**
      * Go to Kid Alerts

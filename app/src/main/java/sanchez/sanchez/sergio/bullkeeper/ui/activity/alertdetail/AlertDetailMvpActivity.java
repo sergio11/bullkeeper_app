@@ -168,7 +168,7 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
      */
     @Override
     public void goToAppsInstalled(final String kid) {
-        //navigatorImpl.navigateToMyKidsDetail(this, kid);
+        navigatorImpl.navigateToAppRules(this, kid);
     }
 
     /**
@@ -176,6 +176,18 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
      */
     @Override
     public void goToTerminals(final String kid) {
-        //navigatorImpl.navigateToMyKidsDetail(this, kid);
+        navigatorImpl.navigateToTerminalsList(this, kid);
+    }
+
+    /**
+     * Go To Kid Request List
+     * @param kid
+     */
+    @Override
+    public void goToKidRequestList(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+
+        navigatorImpl.navigateToKidRequestList(this, kid);
     }
 }

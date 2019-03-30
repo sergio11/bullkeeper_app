@@ -24,7 +24,7 @@
         app:civ_border_color="@color/cyanBrilliant"
         app:civ_border_width="@dimen/common_image_stroke_width" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -33,7 +33,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="start|center_vertical"
-        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline4"
@@ -43,19 +42,36 @@
         <TextView
             android:id="@+id/childName"
             style="@style/CommonStrongText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:singleLine="true"
             android:text="-"
             android:textColor="@color/commonWhite"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/roleImageView"
             android:textStyle="bold" />
 
+
+        <!-- Role Image View -->
+        <ImageView
+            android:id="@+id/roleImageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:rotation="45"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/content_not_be_loaded" />
+
         <View
+            android:id="@+id/childInformationDivider"
             android:layout_width="@dimen/common_divider_small"
             android:layout_height="@dimen/common_divider_height"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_below="@id/childName"
+            android:layout_alignParentStart="true"
             android:background="@color/commonWhite" />
 
         <!-- School Name -->
@@ -70,6 +86,8 @@
             android:text="-"
             android:drawablePadding="@dimen/common_padding"
             android:drawableStart="@drawable/school_white_solid_small"
+            android:layout_below="@id/childInformationDivider"
+            android:layout_alignParentStart="true"
             android:textColor="@color/commonWhite" />
 
         <!--Devices -->
@@ -82,9 +100,11 @@
             android:gravity="start|center_vertical"
             android:singleLine="true"
             android:text="-"
+            android:layout_below="@id/schoolName"
+            android:layout_alignParentStart="true"
             android:textColor="@color/commonWhite" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:id="@+id/divider"
@@ -155,19 +175,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="100dp" />
-
-
-    <!-- Role Image View -->
-    <ImageView
-        android:id="@+id/roleImageView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="@dimen/common_margin"
-        android:layout_marginEnd="@dimen/common_margin"
-        android:rotation="45"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/content_not_be_loaded" />
 
 
 </android.support.constraint.ConstraintLayout>

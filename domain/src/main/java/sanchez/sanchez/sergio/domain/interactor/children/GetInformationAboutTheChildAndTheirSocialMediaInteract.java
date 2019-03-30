@@ -8,9 +8,9 @@ import io.reactivex.functions.BiFunction;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.UseCase;
-import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
-import sanchez.sanchez.sergio.domain.repository.IChildrenRepository;
+import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.repository.ISocialMediaRepository;
 
 /**
@@ -20,27 +20,28 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         GetInformationAboutTheChildAndTheirSocialMediaInteract.Params> {
 
     /**
-     * Children Repository
+     * Guardian Repository
      */
-    private final IChildrenRepository childrenRepository;
+    private final IGuardianRepository guardianRepository;
 
     /**
      * Social Media Repository
      */
     private final ISocialMediaRepository socialMediaRepository;
 
-
-
     /**
+     *
      * @param threadExecutor
      * @param postExecutionThread
+     * @param guardianRepository
+     * @param socialMediaRepository
      */
     public GetInformationAboutTheChildAndTheirSocialMediaInteract(final IThreadExecutor threadExecutor,
                                                                   final IPostExecutionThread postExecutionThread,
-                                                                  final IChildrenRepository childrenRepository,
+                                                                  final IGuardianRepository guardianRepository,
                                                                   final ISocialMediaRepository socialMediaRepository) {
         super(threadExecutor, postExecutionThread);
-        this.childrenRepository = childrenRepository;
+        this.guardianRepository = guardianRepository;
         this.socialMediaRepository = socialMediaRepository;
     }
 
@@ -53,21 +54,23 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         Preconditions.checkNotNull(params, "Params can not be null");
 
         return Observable.zip(
-                childrenRepository.getKidById(params.getKid()),
+                guardianRepository.getSupervisedChildConfirmedById(params.getKid()),
                 socialMediaRepository.getAllSocialMediaBySonId(params.getKid())
                         .onErrorReturnItem(new ArrayList<SocialMediaEntity>()),
-                new BiFunction<KidEntity, List<SocialMediaEntity>, Result>() {
+                new BiFunction<KidGuardianEntity, List<SocialMediaEntity>, Result>() {
+
                     /**
-                     * Apply
-                     * @param kidEntity
+                     *
+                     * @param kidGuardianEntity
                      * @param socialMediaEntities
                      * @return
                      * @throws Exception
                      */
                     @Override
-                    public Result apply(final KidEntity kidEntity,
-                                        final List<SocialMediaEntity> socialMediaEntities) throws Exception {
-                        return new Result(kidEntity, socialMediaEntities);
+                    public Result apply(
+                            final KidGuardianEntity kidGuardianEntity,
+                            final List<SocialMediaEntity> socialMediaEntities) throws Exception {
+                        return new Result(kidGuardianEntity, socialMediaEntities);
                     }
                 });
 
@@ -104,9 +107,9 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
     public static class Result {
 
         /**
-         * Kid
+         * Kid Guardian Entity
          */
-        private final KidEntity kidEntity;
+        private final KidGuardianEntity KidGuardianEntity;
 
         /**
          * Social Media Entities
@@ -114,17 +117,17 @@ public final class GetInformationAboutTheChildAndTheirSocialMediaInteract extend
         private final List<SocialMediaEntity> socialMediaEntities;
 
         /**
-         * @param kidEntity
+         * @param KidGuardianEntity
          * @param socialMediaEntities
          */
-        public Result(final KidEntity kidEntity,
+        public Result(final KidGuardianEntity KidGuardianEntity,
                       final List<SocialMediaEntity> socialMediaEntities) {
-            this.kidEntity = kidEntity;
+            this.KidGuardianEntity = KidGuardianEntity;
             this.socialMediaEntities = socialMediaEntities;
         }
 
-        public KidEntity getKidEntity() {
-            return kidEntity;
+        public KidGuardianEntity getKidGuardianEntity() {
+            return KidGuardianEntity;
         }
 
         public List<SocialMediaEntity> getSocialMediaEntities() {

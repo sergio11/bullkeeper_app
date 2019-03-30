@@ -3,16 +3,13 @@ package sanchez.sanchez.sergio.bullkeeper.navigation;
 import android.app.Activity;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
-
 import java.util.Date;
-
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserEmailDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ChangeUserPasswordDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
-import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
@@ -165,26 +162,23 @@ public interface INavigator {
     /**
      * Navigate To My Kids Detail
      * @param identity
-     * @param role
      */
-    void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum role);
+    void navigateToMyKidsDetail(final Activity activity, final String identity);
 
     /**
      * Navigate To App Rules
      * @param activity
      * @param identity
-     * @param role
      */
-    void navigateToAppRules(final Activity activity, final String identity, final GuardianRolesEnum role);
+    void navigateToAppRules(final Activity activity, final String identity);
 
 
     /**
      * Navigate To Terminals
      * @param activity
      * @param identity
-     * @param role
      */
-    void navigateToTerminalsList(final Activity activity, final String identity, final GuardianRolesEnum role);
+    void navigateToTerminalsList(final Activity activity, final String identity);
 
 
     /**

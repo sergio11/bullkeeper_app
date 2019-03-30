@@ -390,7 +390,7 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //activityHandler.goToInformationExtraction(alertEntity.getSon().getIdentity());
+                        activityHandler.goToAppsInstalled(alertEntity.getSon().getIdentity());
                     }
                 });
                 break;
@@ -403,7 +403,20 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       // activityHandler.goToTerminals(alertEntity.getSon().getIdentity());
+                        activityHandler.goToTerminals(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
+
+            case KID_REQUEST:
+                alertDetailActions.setText(getString(R.string.alert_category_kid_request_desc));
+                actionButton.setText(getString(R.string.alert_category_kid_request_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToTerminals(alertEntity.getSon().getIdentity());
                     }
                 });
                 break;

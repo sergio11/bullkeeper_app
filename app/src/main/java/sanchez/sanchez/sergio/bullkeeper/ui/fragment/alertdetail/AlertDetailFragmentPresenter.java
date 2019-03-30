@@ -35,6 +35,10 @@ public final class AlertDetailFragmentPresenter extends SupportPresenter<IAlertD
         this.deleteAlertOfKidInteract = deleteAlertOfKidInteract;
     }
 
+    /**
+     *
+     * @param args
+     */
     @Override
     protected void onInit(Bundle args) {
         super.onInit(args);

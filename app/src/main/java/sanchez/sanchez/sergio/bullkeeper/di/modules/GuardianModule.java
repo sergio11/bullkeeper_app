@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.di.modules;
 
 import android.content.Context;
-
 import com.fernandocejas.arrow.checks.Preconditions;
 import dagger.Module;
 import dagger.Provides;
@@ -12,7 +11,7 @@ import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
-import sanchez.sanchez.sergio.data.net.models.response.KidDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.data.repository.GuardianRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -22,12 +21,13 @@ import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserPasswordInte
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetSupervisedChildConfirmedByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.SearchGuardiansInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
-import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -62,6 +62,7 @@ public class GuardianModule {
      * @param parentDataMapper
      * @param imageDataMapper
      * @param childrenOfSelfGuardianDataMapper
+     * @param kidGuardianEntityAbstractDataMapper
      * @return
      */
     @Provides @PerActivity
@@ -69,9 +70,10 @@ public class GuardianModule {
                                                          final AbstractDataMapper<GuardianDTO, GuardianEntity> parentDataMapper,
                                                          final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                                          final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
-                                                            childrenOfSelfGuardianDataMapper){
+                                                            childrenOfSelfGuardianDataMapper,
+                                                         final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper){
         return new GuardianRepositoryImpl(parentsService, parentDataMapper,
-                imageDataMapper, childrenOfSelfGuardianDataMapper);
+                imageDataMapper, childrenOfSelfGuardianDataMapper, kidGuardianEntityAbstractDataMapper);
     }
 
     /**
@@ -186,5 +188,23 @@ public class GuardianModule {
         Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
 
         return new ChangeUserPasswordInteract(threadExecutor, postExecutionThread, guardianRepository);
+    }
+
+    /**
+     *
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param guardianRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public GetSupervisedChildConfirmedByIdInteract provideGetSupervisedChildConfirmedByIdInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final IGuardianRepository guardianRepository
+    ){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
+        return new GetSupervisedChildConfirmedByIdInteract(threadExecutor, postExecutionThread, guardianRepository);
     }
 }

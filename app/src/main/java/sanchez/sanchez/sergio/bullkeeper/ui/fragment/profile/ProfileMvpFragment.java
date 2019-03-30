@@ -380,7 +380,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     public void onDetailActionClicked(final KidEntity kidEntity, final GuardianRolesEnum role) {
         if(role.equals(GuardianRolesEnum.ADMIN) ||
                 role.equals(GuardianRolesEnum.PARENTAL_CONTROL_RULE_EDITOR))
-            activityHandler.goToChildDetail(kidEntity.getIdentity(), role);
+            activityHandler.goToChildDetail(kidEntity.getIdentity());
         else
             activityHandler.gotToKidAlerts(kidEntity.getIdentity());
     }

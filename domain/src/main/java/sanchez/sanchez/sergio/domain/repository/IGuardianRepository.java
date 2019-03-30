@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 
 /**
  * Guardian Repository
@@ -80,5 +81,10 @@ public interface IGuardianRepository {
      */
     Observable<String> changeUserPassword(final String newPassword, final String confirmNewPassword);
 
+    /**
+     * Get Supervised Child Confirmed By Id
+     * @return
+     */
+    Observable<KidGuardianEntity> getSupervisedChildConfirmedById(final String kid);
 
 }

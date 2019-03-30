@@ -1,8 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
-import sanchez.sanchez.sergio.domain.models.KidEntity;
-
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 
 /**
  * My Kids Detail View
@@ -10,9 +9,14 @@ import sanchez.sanchez.sergio.domain.models.KidEntity;
 public interface IMyKidsDetailView extends ISupportView {
 
     /**
-     * On Kid Loaded
-     * @param kidEntity
+     * On Kid Guardian Loaded
+     * @param kidGuardianEntity
      */
-    void onKidLoaded(final KidEntity kidEntity);
+    void onKidGuardianLoaded(final KidGuardianEntity kidGuardianEntity);
+
+    /**
+     * On Supervised Children Confirmed Not Found
+     */
+    void onSupervisedChildrenConfirmedNotFound();
 
 }

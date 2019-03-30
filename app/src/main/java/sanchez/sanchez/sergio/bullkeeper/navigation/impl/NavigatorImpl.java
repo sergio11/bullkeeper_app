@@ -9,13 +9,9 @@ import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.Date;
-
 import javax.inject.Inject;
-
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.alertlist.AlertsSettingsMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appdetail.AppDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.appsearch.AppSearchListMvpActivity;
@@ -59,7 +55,6 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.Fam
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
-import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.SchoolEntity;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
@@ -342,27 +337,24 @@ public class NavigatorImpl implements INavigator {
      * Navigate To My Kids Detail
      * @param activity
      * @param identity
-     * @param role
      */
     @Override
-    public void navigateToMyKidsDetail(final Activity activity, final String identity, final GuardianRolesEnum role) {
-        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role));
+    public void navigateToMyKidsDetail(final Activity activity, final String identity) {
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity));
     }
 
     /**
      *
      * @param activity
      * @param identity
-     * @param role
      */
     @Override
-    public void navigateToAppRules(final Activity activity, final String identity, final GuardianRolesEnum role) {
+    public void navigateToAppRules(final Activity activity, final String identity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        Preconditions.checkNotNull(role, "Role can not be null");
 
-        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role,
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity,
                 MyKidsDetailMvpActivity.APP_RULES_TAB));
     }
 
@@ -370,16 +362,14 @@ public class NavigatorImpl implements INavigator {
      *
      * @param activity
      * @param identity
-     * @param role
      */
     @Override
-    public void navigateToTerminalsList(final Activity activity, final String identity, final GuardianRolesEnum role) {
+    public void navigateToTerminalsList(final Activity activity, final String identity) {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         Preconditions.checkNotNull(identity, "Identity can not be null");
         Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
-        Preconditions.checkNotNull(role, "Role can not be null");
 
-        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity, role,
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity,
                 MyKidsDetailMvpActivity.TERMINALS_TAB));
     }
 

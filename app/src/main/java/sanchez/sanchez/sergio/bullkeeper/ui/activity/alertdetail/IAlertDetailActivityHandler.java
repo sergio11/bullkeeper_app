@@ -48,4 +48,10 @@ public interface IAlertDetailActivityHandler extends IBasicActivityHandler {
      * @param kid
      */
     void goToTerminals(final String kid);
+
+    /**
+     * Go To Kid Request List
+     * @param kid
+     */
+    void goToKidRequestList(final String kid);
 }

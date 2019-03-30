@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
 import sanchez.sanchez.sergio.domain.interactor.children.GetInformationAboutTheChildAndTheirSocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.SaveChildrenInteract;
+import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 
@@ -95,8 +96,12 @@ public final class MyKidsProfilePresenter
         protected void onSuccess(GetInformationAboutTheChildAndTheirSocialMediaInteract.Result response) {
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onKidProfileLoaded(response.getKidEntity());
-                getView().onSocialMediaLoaded(response.getSocialMediaEntities());
+                if(response.getKidGuardianEntity().getRole().equals(GuardianRolesEnum.ADMIN)) {
+                    getView().onKidLoaded(response.getKidGuardianEntity().getKid());
+                    getView().onSocialMediaLoaded(response.getSocialMediaEntities());
+                } else {
+                    getView().onEditionNotAllowed();
+                }
             }
         }
     }
@@ -125,7 +130,7 @@ public final class MyKidsProfilePresenter
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().showNoticeDialog(R.string.child_information_saved);
-                getView().onKidProfileLoaded(result.getKidEntity());
+                getView().onKidLoaded(result.getKidEntity());
                 getView().onSocialMediaLoaded(result.getSocialMediaEntities());
             }
         }

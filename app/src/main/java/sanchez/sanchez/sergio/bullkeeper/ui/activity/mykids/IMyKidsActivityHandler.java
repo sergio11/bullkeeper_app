@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykids;
 
 import sanchez.sanchez.sergio.bullkeeper.core.ui.IBasicActivityHandler;
-import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 
 /**
  * Home Activity Handler
@@ -24,7 +23,7 @@ public interface IMyKidsActivityHandler extends IBasicActivityHandler {
      * Navigate To My Kid Detail
      * @param identity
      */
-    void navigateToMyKidDetail(final String identity, final GuardianRolesEnum guardianRolesEnum);
+    void navigateToMyKidDetail(final String identity);
 
     /**
      * Navigate To Kids Results

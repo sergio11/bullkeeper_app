@@ -48,6 +48,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.AlertLevelEnum;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 
 /**
@@ -61,7 +62,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * Args
      */
     public static final String KID_IDENTITY_ARG = "KID_IDENTITY_ARG";
-    public static final String ROLE_ARG = "ROLE_ARG";
     public static final String TAB_SELECTED_ARG = "TAB_SELECTED_ARG";
 
     /**
@@ -113,11 +113,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     @State
     protected String kidName;
 
-    /**
-     * Role
-     */
-    @State
-    protected GuardianRolesEnum role;
 
     /**
      * Terminal Items List
@@ -226,10 +221,9 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String identity, final GuardianRolesEnum role) {
+    public static Intent getCallingIntent(final Context context, final String identity) {
         final Intent callingIntent = new Intent(context, MyKidsDetailMvpActivity.class);
         callingIntent.putExtra(KID_IDENTITY_ARG, identity);
-        callingIntent.putExtra(ROLE_ARG, role);
         return callingIntent;
     }
 
@@ -237,15 +231,12 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
      * Get Calling Intent
      * @param context
      * @param identity
-     * @param role
      * @param tabSelected
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String identity,
-                                          final GuardianRolesEnum role, final int tabSelected) {
+    public static Intent getCallingIntent(final Context context, final String identity, final int tabSelected) {
         final Intent callingIntent = new Intent(context, MyKidsDetailMvpActivity.class);
         callingIntent.putExtra(KID_IDENTITY_ARG, identity);
-        callingIntent.putExtra(ROLE_ARG, role);
         callingIntent.putExtra(TAB_SELECTED_ARG, tabSelected);
         return callingIntent;
     }
@@ -299,18 +290,6 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         if(!getIntent().hasExtra(KID_IDENTITY_ARG))
             throw new IllegalArgumentException("You must provide a child identifier");
 
-        if(!getIntent().hasExtra(ROLE_ARG))
-            throw new IllegalArgumentException("You must provide a role");
-
-        role = (GuardianRolesEnum)getIntent().getSerializableExtra(ROLE_ARG);
-
-        if (role.equals(GuardianRolesEnum.DATA_VIEWER))
-            throw new IllegalArgumentException("This role is not allowed");
-
-        // Enable Profile Button for Admin Users
-        if(role.equals(GuardianRolesEnum.ADMIN))
-            editProfileBtn.setVisibility(View.VISIBLE);
-
         if(getIntent().hasExtra(TAB_SELECTED_ARG))
             sectionTabSelected = getIntent().getIntExtra(TAB_SELECTED_ARG, 0);
 
@@ -318,7 +297,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
         kidIdentity = getIntent().getStringExtra(KID_IDENTITY_ARG);
 
         showProgressDialog(R.string.generic_loading_text);
-        // Load Son Data
+
         getPresenter().loadKidData(kidIdentity);
     }
 
@@ -699,51 +678,83 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
-     * On Son Loaded
-     * @param kidEntity
+     *
+     * @param kidGuardianEntity
      */
     @Override
-    public void onKidLoaded(KidEntity kidEntity) {
+    public void onKidGuardianLoaded(final KidGuardianEntity kidGuardianEntity) {
 
-        if(appUtils.isValidString(kidEntity.getProfileImage()))
-            // Set Author Image
-            picasso.load(kidEntity.getProfileImage())
-                    .placeholder(R.drawable.kid_default_image)
-                    .error(R.drawable.kid_default_image)
-                    .noFade()
-                    .into(profileImage);
-        else
-            profileImage.setImageResource(R.drawable.kid_default_image);
+        final GuardianRolesEnum role = kidGuardianEntity.getRole();
 
-        kidName = kidEntity.getFullName();
-        kidNameTextView.setText(kidEntity.getFullName());
+        if(!role.equals(GuardianRolesEnum.DATA_VIEWER)) {
 
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+            if(role.equals(GuardianRolesEnum.ADMIN))
+                editProfileBtn.setVisibility(View.VISIBLE);
 
-        // Set Kid Birthday
-        kidBirthdayTextView.setText(simpleDateFormat.format(kidEntity.getBirthdate()));
+            final KidEntity kidEntity = kidGuardianEntity.getKid();
 
-        kidSchoolTextView.setText(kidEntity.getSchool().getName());
+            if(appUtils.isValidString(kidEntity.getProfileImage()))
+                // Set Author Image
+                picasso.load(kidEntity.getProfileImage())
+                        .placeholder(R.drawable.kid_default_image)
+                        .error(R.drawable.kid_default_image)
+                        .noFade()
+                        .into(profileImage);
+            else
+                profileImage.setImageResource(R.drawable.kid_default_image);
 
-        // Configure Terminal List
-        configureTerminalList(kidEntity.getTerminalEntities());
+            kidName = kidEntity.getFullName();
+            kidNameTextView.setText(kidEntity.getFullName());
 
-        // Check Terminals linked
-        if(terminalItemsList.isEmpty()) {
-            showTerminalNotFoundDialog();
+            final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+
+            // Set Kid Birthday
+            kidBirthdayTextView.setText(simpleDateFormat.format(kidEntity.getBirthdate()));
+
+            kidSchoolTextView.setText(kidEntity.getSchool().getName());
+
+            // Configure Terminal List
+            configureTerminalList(kidEntity.getTerminalEntities());
+
+            // Check Terminals linked
+            if(terminalItemsList.isEmpty()) {
+                showTerminalNotFoundDialog();
+
+            } else {
+
+                terminalsTextView.setText(String.format(Locale.getDefault(),
+                        getString(R.string.kids_results_terminals_count), terminalItemsList.size()));
+
+                // Setup Sections Pager Adapter
+                setupSectionsPagerAdapter(sectionTabSelected, kidEntity);
+
+                // Enable All Components
+                toggleAllComponents(true);
+            }
 
         } else {
 
-            terminalsTextView.setText(String.format(Locale.getDefault(),
-                    getString(R.string.kids_results_terminals_count), terminalItemsList.size()));
+            showNoticeDialog(getString(R.string.you_do_not_have_permission_to_access_this_section), false, new NoticeDialogFragment.NoticeDialogListener() {
+                @Override
+                public void onAccepted(DialogFragment dialog) {
+                    closeActivity();
+                }
+            });
 
-            // Setup Sections Pager Adapter
-            setupSectionsPagerAdapter(sectionTabSelected, kidEntity);
-
-            // Enable All Components
-            toggleAllComponents(true);
         }
+    }
 
+    /**
+     * Supervised Children Confirmed Not Found
+     */
+    @Override
+    public void onSupervisedChildrenConfirmedNotFound() {
+        showNoticeDialog(getString(R.string.you_do_not_have_permission_to_access_this_section), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
     }
 
     /**

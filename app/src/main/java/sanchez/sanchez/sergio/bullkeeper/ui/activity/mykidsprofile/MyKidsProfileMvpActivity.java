@@ -43,6 +43,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportEditTextDateP
 import sanchez.sanchez.sergio.bullkeeper.core.utils.SupportImagePicker;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.searchguardian.SearchGuardiansMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kidguardians.KidGuardiansMvpFragment;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
@@ -74,7 +75,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     public final static int SELECT_SCHOOL_REQUEST_CODE = 266;
     public final static int SELECT_GUARDIAN_REQUEST_CODE = 267;
 
-    public enum KidProfileMode { ADD_NEW_SON_MODE, EDIT_CURRENT_SON_MODE }
+    public enum KidProfileMode {ADD_NEW_KID_MODE, EDIT_CURRENT_KID_MODE}
 
     private final static String FIRST_NAME_FIELD_NAME = "first_name";
     private final static String LAST_NAME_FIELD_NAME = "last_name";
@@ -296,7 +297,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      * Profile Mode
      */
     @State
-    protected KidProfileMode profileMode = KidProfileMode.ADD_NEW_SON_MODE;
+    protected KidProfileMode profileMode = KidProfileMode.ADD_NEW_KID_MODE;
 
     /**
      * Social Medias
@@ -662,7 +663,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @OnLongClick(R.id.profileImage)
     protected boolean onLongProfileImageClicked(){
         supportImagePicker.pickImage(this,
-                profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
+                profileMode.equals(KidProfileMode.EDIT_CURRENT_KID_MODE) ?
                         String.format(Locale.getDefault(),
                                 getString(R.string.change_profile_picture), firstName) :
                                 getString(R.string.change_profile_picture_default));
@@ -697,7 +698,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     public void onChangePhoto() {
         supportImagePicker.pickImage(this,
-                profileMode.equals(KidProfileMode.EDIT_CURRENT_SON_MODE) ?
+                profileMode.equals(KidProfileMode.EDIT_CURRENT_KID_MODE) ?
                         String.format(Locale.getDefault(), getString(R.string.change_profile_picture), firstName) :
                                 getString(R.string.change_profile_picture_default));
     }
@@ -761,19 +762,17 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
-     * On Son Profile Loaded
+     * On Kid Loaded
      * @param kidEntity
      */
     @Override
-    public void onKidProfileLoaded(final KidEntity kidEntity) {
+    public void onKidLoaded(final KidEntity kidEntity) {
         Preconditions.checkNotNull(kidEntity, "Son Entity can not be null");
-
-        Timber.d("Son Profile Image Url -> %s", kidEntity.getProfileImage());
 
         // Save Current State
         myKidIdentity = kidEntity.getIdentity();
         currentImagePath = kidEntity.getProfileImage();
-        profileMode = KidProfileMode.EDIT_CURRENT_SON_MODE;
+        profileMode = KidProfileMode.EDIT_CURRENT_KID_MODE;
 
         myKidsProfileTitle.setText(String.format(getString(R.string.my_kids_profile_name), kidEntity.getFullName()));
 
@@ -1022,6 +1021,32 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         showNoticeDialog(R.string.forms_is_not_valid);
         toggleAllComponents(true);
+    }
+
+    /**
+     * Supervised Children Confirmed Not Found
+     */
+    @Override
+    public void onSupervisedChildrenConfirmedNotFound() {
+        showNoticeDialog(getString(R.string.you_do_not_have_permission_to_access_this_section), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
+
+    /**
+     * Edition Not Allowed
+     */
+    @Override
+    public void onEditionNotAllowed() {
+        showNoticeDialog(getString(R.string.you_do_not_have_permission_to_access_this_section), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
     }
 
     /**

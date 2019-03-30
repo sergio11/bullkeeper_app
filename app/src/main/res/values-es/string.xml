@@ -173,6 +173,9 @@
     <!-- Terminals -->
     <string name="alert_category_terminals_desc">Ve a la lista de terminales para verlos.</string>
     <string name="alert_category_terminals_action_text">Ir a las terminales</string>
+    <!-- Kid Request -->
+    <string name="alert_category_kid_request_desc">Ir al detalle de solicitud de niño para más detalle</string>
+    <string name="alert_category_kid_request_action_text">Ir a la solicitud del niño</string>
     <!-- Preferences -->
     <!-- App Preferences General Configuration Category -->
     <string name="app_preferences_general_configuration_category">Configuración general</string>
@@ -260,6 +263,7 @@
     <string name="kid_guardians_supervised_eliminated">Supervisor eliminado</string>
     <string name="kid_guardians_app_allowed_eliminated">Kid Guardian eliminado</string>
     <string name="kid_guardians_self_user_can_not_be_eliminated">No te puedes eliminar como supervisor</string>
+    <string name="you_do_not_have_permission_to_access_this_section">Tú perfil de supervisión no te permite acceder a esta sección.</string>
     <!-- Comments -->
     <string name="comments_by_child_title" formatted="true">Comentarios (%d)</string>
     <string name="comments_by_child_title_default">Comentarios</string>

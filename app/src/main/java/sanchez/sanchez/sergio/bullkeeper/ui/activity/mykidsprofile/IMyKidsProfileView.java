@@ -2,10 +2,8 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsprofile;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 import sanchez.sanchez.sergio.domain.models.KidEntity;
-import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 
 
@@ -15,10 +13,10 @@ import sanchez.sanchez.sergio.domain.models.SocialMediaEntity;
 public interface IMyKidsProfileView extends ISupportView {
 
     /**
-     * Kid Entity
+     * on Kid Guardian Loaded
      * @param kidEntity
      */
-    void onKidProfileLoaded(final KidEntity kidEntity);
+    void onKidLoaded(final KidEntity kidEntity);
 
 
     /**
@@ -32,5 +30,15 @@ public interface IMyKidsProfileView extends ISupportView {
      * @param errors
      */
     void onValidationErrors(final List<LinkedHashMap<String, String>> errors);
+
+    /**
+     * On Supervised Children Confirmed Not Found
+     */
+    void onSupervisedChildrenConfirmedNotFound();
+
+    /**
+     * On Edition Not Allowed
+     */
+    void onEditionNotAllowed();
 
 }

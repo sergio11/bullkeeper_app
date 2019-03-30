@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sanchez.sanchez.sergio.data.net.models.request.ChangeUserEmailDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ChangeUserPasswordDTO;
@@ -19,6 +20,7 @@ import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 
 /**
  * Guardians Service Interface
@@ -112,5 +114,18 @@ public interface IGuardiansService {
     @POST("guardians/self/change-password")
     Observable<APIResponse<String>> changePassword(
             @Body final ChangeUserPasswordDTO changeUserPasswordDTO);
+
+
+    /**
+     * Get Supervised Child Confirmed By Id
+     * @param id
+     * @return
+     */
+    @GET("guardians/self/children/{id}/confirmed")
+    Observable<APIResponse<KidGuardianDTO>> getSupervisedChildConfirmedById(
+            @Path("id") final String id
+    );
+
+
 
 }

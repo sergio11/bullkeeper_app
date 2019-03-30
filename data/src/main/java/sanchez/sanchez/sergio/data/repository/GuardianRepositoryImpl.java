@@ -15,10 +15,12 @@ import sanchez.sanchez.sergio.data.net.models.request.UpdateGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
+import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
+import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import timber.log.Timber;
 
@@ -48,23 +50,32 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     private final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
             childrenOfSelfGuardianDataMapper;
 
+
+    /**
+     * Kid Guardian Data Mapper
+     */
+    private final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper;
+
     /**
      *
      * @param guardianService
      * @param guardianDataMapper
      * @param imageDataMapper
      * @param childrenOfSelfGuardianDataMapper
+     * @param kidGuardianEntityAbstractDataMapper
      */
     @Inject
     public GuardianRepositoryImpl(final IGuardiansService guardianService,
                                   final AbstractDataMapper<GuardianDTO, GuardianEntity> guardianDataMapper,
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                   final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
-                                    childrenOfSelfGuardianDataMapper) {
+                                    childrenOfSelfGuardianDataMapper,
+                                  final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper) {
         this.guardianService = guardianService;
         this.guardianDataMapper = guardianDataMapper;
         this.imageDataMapper = imageDataMapper;
         this.childrenOfSelfGuardianDataMapper = childrenOfSelfGuardianDataMapper;
+        this.kidGuardianEntityAbstractDataMapper = kidGuardianEntityAbstractDataMapper;
     }
 
     /**
@@ -208,6 +219,21 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
                 newPassword, confirmNewPassword
         )).map(response -> response != null && response.getData() != null
                 ? response.getData(): null);
+    }
+
+    /**
+     * Get Supervised Child Confirmed By Id
+     * @param kid
+     * @return
+     */
+    @Override
+    public Observable<KidGuardianEntity> getSupervisedChildConfirmedById(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+
+        return guardianService.getSupervisedChildConfirmedById(kid)
+                .map(response -> response != null && response.getData() != null
+                        ? response.getData(): null)
+                .map(kidGuardianEntityAbstractDataMapper::transform);
     }
 
 }
