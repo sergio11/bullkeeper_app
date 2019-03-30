@@ -34,6 +34,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallLis
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactListMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.devicephotos.DevicePhotosFragmentPresenter;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.devicephotos.DevicePhotosListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.familylocator.FamilyLocatorMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.importantalerts.ImportantAlertsMvpFragment;
@@ -168,6 +170,12 @@ public interface MyKidsComponent extends StatsComponent {
      */
     void inject(final AppAllowedByScheduledMvpFragment appAllowedByScheduledMvpFragment);
 
+    /**
+     * Inject into Device Photos List Mvp Fragment
+     * @param devicePhotosListMvpFragment
+     */
+    void inject(final DevicePhotosListMvpFragment  devicePhotosListMvpFragment);
+
 
     MyKidsActivityPresenter myKidsActivityPresenter();
     MyKidsFragmentPresenter myKidsFragmentPresenter();
@@ -186,4 +194,5 @@ public interface MyKidsComponent extends StatsComponent {
     KidRequestListFragmentPresenter kidRequestListFragmentPresenter();
     AppStatsFragmentPresenter appStatsFragmentPresenter();
     AppAllowedByScheduledFragmentPresenter appAllowedByScheduledFragmentPresenter();
+    DevicePhotosFragmentPresenter devicePhotosFragmentPresenter();
 }

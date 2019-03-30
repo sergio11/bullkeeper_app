@@ -797,6 +797,11 @@
     <string name="contact_phonenumber">Tfno: %s</string>
     <string name="search_contacts_hint">Find contacts from your name</string>
     <string name="contact_item_disabled">The contact was disabled</string>
+    <!-- Device Photos -->
+    <string name="device_photos_title_tab">Photos</string>
+    <string name="device_photos_title">Device Photos</string>
+    <string name="device_photos_description">List of photos stored on the device</string>
+
     <!-- Fun Time  -->
     <string name="fun_time_title">Fun Time</string>
     <string name="fun_time_description">Set the fun time for all configured terminals</string>

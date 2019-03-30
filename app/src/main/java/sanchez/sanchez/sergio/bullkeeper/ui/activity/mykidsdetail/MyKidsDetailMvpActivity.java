@@ -35,6 +35,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsMvp
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.apprules.AppRulesMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.callslist.CallsListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactlist.ContactListMvpFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.devicephotos.DevicePhotosListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.funtime.FunTimeMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.kidrequest.KidRequestListMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.smslist.SmsListMvpFragment;
@@ -76,9 +77,10 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     public final static int SMS_LIST_TAB = 6;
     public final static int CALLS_LIST_TAB = 7;
     public final static int CONTACTS_LIST_TAB = 8;
-    public final static int TIME_ALLOWANCE_TAB = 9;
-    public final static int FAMILY_LOCATOR_TAB = 10;
-    public final static int SECTION_COUNT = 11;
+    public final static int PHOTOS_TAB = 9;
+    public final static int TIME_ALLOWANCE_TAB = 10;
+    public final static int FAMILY_LOCATOR_TAB = 11;
+    public final static int SECTION_COUNT = 12;
 
     private final String CONTENT_FULL_NAME = "MY_KIDS_DETAIL";
     private final String CONTENT_TYPE_NAME = "KIDS";
@@ -139,6 +141,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.sms_tab_cyan,
             R.drawable.calls_tab_cyan,
             R.drawable.contacts_tab_cyan,
+            R.drawable.device_photos_tab_cyan,
             R.drawable.hourglass_tab_cyan,
             R.drawable.family_locator_tab_cyan
     };
@@ -156,6 +159,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
             R.drawable.sms_tab_dark,
             R.drawable.calls_tab_dark_cyan,
             R.drawable.contacts_tab_dark_cyan,
+            R.drawable.device_photos_tab_dark,
             R.drawable.hourglass_tab_dark,
             R.drawable.family_locator_tab_dark
     };
@@ -796,6 +800,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return CallsListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case CONTACTS_LIST_TAB:
                     return ContactListMvpFragment.newInstance(kidIdentity, terminalItemsList);
+                case PHOTOS_TAB:
+                    return DevicePhotosListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case TIME_ALLOWANCE_TAB:
                     return FunTimeMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case FAMILY_LOCATOR_TAB:
@@ -840,6 +846,8 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.call_list_title_tab);
                 case CONTACTS_LIST_TAB:
                     return getString(R.string.contact_list_title_tab);
+                case PHOTOS_TAB:
+                    return getString(R.string.device_photos_title_tab);
                 case TIME_ALLOWANCE_TAB:
                     return getString(R.string.fun_time_title);
                 case FAMILY_LOCATOR_TAB:

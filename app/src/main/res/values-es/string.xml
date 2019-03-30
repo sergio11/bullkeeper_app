@@ -658,6 +658,8 @@
     <string name="contact_phonenumber">Tfno: %s</string>
     <string name="search_contacts_hint">Encuentra contactos por su nombre</string>
     <string name="contact_item_disabled">El contacto fue deshabilitado</string>
+    <!-- Device Photos -->
+    <string name="device_photos_title_tab">Fotos</string>
     <!-- Fun Time  -->
     <string name="fun_time_title">Tiempo de Diversión</string>
     <string name="fun_time_description">Ajuste el tiempo de diversión para cada dispositivo sincronizado</string>
