@@ -201,11 +201,28 @@ public class UserSettingsActivityFragment extends
         enableWarningAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_WARNING_ALERTS);
         enableDangerAlerts = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_DANGER_ALERTS);
 
-        preferencesRepositoryImpl.setEnableAllAlertCategories(enableAllAlertCategories.isChecked());
-        preferencesRepositoryImpl.setSuccessAlertsEnabled(enableSuccessAlerts.isChecked());
-        preferencesRepositoryImpl.setInformationAlertsEnabled(enableInformationAlerts.isChecked());
-        preferencesRepositoryImpl.setWarningAlertsEnabled(enableWarningAlerts.isChecked());
-        preferencesRepositoryImpl.setDangerAlertsEnabled(enableDangerAlerts.isChecked());
+
+        if(!enableAllAlertCategories.isChecked() &&
+                !enableSuccessAlerts.isChecked() &&
+                !enableInformationAlerts.isChecked() &&
+                !enableWarningAlerts.isChecked() &&
+                !enableDangerAlerts.isChecked()) {
+
+            preferencesRepositoryImpl.setEnableAllAlertCategories(true);
+            preferencesRepositoryImpl.setSuccessAlertsEnabled(true);
+            preferencesRepositoryImpl.setInformationAlertsEnabled(true);
+            preferencesRepositoryImpl.setWarningAlertsEnabled(true);
+            preferencesRepositoryImpl.setDangerAlertsEnabled(true);
+
+        } else {
+
+            preferencesRepositoryImpl.setEnableAllAlertCategories(enableAllAlertCategories.isChecked());
+            preferencesRepositoryImpl.setSuccessAlertsEnabled(enableSuccessAlerts.isChecked());
+            preferencesRepositoryImpl.setInformationAlertsEnabled(enableInformationAlerts.isChecked());
+            preferencesRepositoryImpl.setWarningAlertsEnabled(enableWarningAlerts.isChecked());
+            preferencesRepositoryImpl.setDangerAlertsEnabled(enableDangerAlerts.isChecked());
+        }
+
 
         // Save NUmber Of Alerts Preference
         final ListPreference numberOfAlertsListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_NUMBER_OF_ALERTS);
