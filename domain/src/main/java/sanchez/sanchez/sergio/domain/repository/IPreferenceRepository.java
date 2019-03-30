@@ -155,6 +155,9 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_ENABLE_BULLYING_COMMENTS_DIMENSION = "enable_bullying_comment_dimension";
     boolean ENABLE_BULLYING_COMMENTS_DIMENSION_DEFAULT_VALUE = false;
 
+    // Comments Sentiment Level
+    String PREF_COMMENTS_SENTIMENT_LEVEL = "comments_sentiment_level";
+    String PREF_COMMENTS_SENTIMENT_LEVEL_DEFAULT_VALUE = "UNKNOWN";
 
     // Age of Relations (Relations Preference Screen)
     String PREF_AGE_OF_RELATIONS = "age_of_relations";
@@ -610,6 +613,19 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * @return
      */
     int getAgeOfRelationsAsInt();
+
+
+    /**
+     * Get Comments Sentiment Level
+     * @return
+     */
+    String getCommentsSentimentLevel();
+
+    /**
+     * Set Comments Sentiment Level
+     * @param level
+     */
+    void setCommentsSentimentLevel(final String level);
 
 
 }

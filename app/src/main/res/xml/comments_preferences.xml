@@ -136,4 +136,21 @@
 
     </android.support.v7.preference.PreferenceCategory>
 
+    <!-- Sentiment of the comments analyzed  -->
+    <android.support.v7.preference.PreferenceCategory
+        android:title="@string/app_preferences_comment_sentiment"
+        android:layout="@layout/preferences_category_layout">
+
+        <!-- Comments Sentiment Level -->
+        <android.support.v7.preference.ListPreference
+            android:key="comments_sentiment_level"
+            android:title="@string/comments_sentiment_level_preference_title"
+            android:summary="@string/comments_sentiment_level_preference_summary"
+            android:layout="@layout/common_list_item_preference_layout"
+            android:entries="@array/comments_sentiment_level"
+            android:entryValues="@array/comments_sentiment_level_values"
+            android:defaultValue="@string/comments_sentiment_level_default_value"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
 </android.support.v7.preference.PreferenceScreen>

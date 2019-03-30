@@ -25,6 +25,7 @@ public interface ICommentsService {
      * @param drugs
      * @param bullying
      * @param adult
+     * @param sentiment
      * @return
      */
     @GET("comments/search")
@@ -36,7 +37,8 @@ public interface ICommentsService {
             @Query("violence") final String violence,
             @Query("drugs") final String drugs,
             @Query("bullying") final String bullying,
-            @Query("adult") final String adult
+            @Query("adult") final String adult,
+            @Query("sentiment") final String sentiment
     );
 
     /**
@@ -48,6 +50,7 @@ public interface ICommentsService {
      * @param drugs
      * @param bullying
      * @param adult
+     * @param sentiment
      * @return
      */
     @GET("comments/search")
@@ -58,7 +61,8 @@ public interface ICommentsService {
             @Query("violence") final String violence,
             @Query("drugs") final String drugs,
             @Query("bullying") final String bullying,
-            @Query("adult") final String adult
+            @Query("adult") final String adult,
+            @Query("sentiment") final String sentiment
     );
 
     /**
@@ -72,7 +76,8 @@ public interface ICommentsService {
     Observable<APIResponse<List<CommentDTO>>> getComments(
             @Query("children") final String[] ids,
             @Query("social_media") final String[] socialMedias,
-            @Query("days_ago") final int daysAgo
+            @Query("days_ago") final int daysAgo,
+            @Query("sentiment") final String sentiment
     );
 
     /**
@@ -84,7 +89,8 @@ public interface ICommentsService {
     @GET("comments/search")
     Observable<APIResponse<List<CommentDTO>>> getComments(
             @Query("children") final String[] ids,
-            @Query("days_ago") final int daysAgo
+            @Query("days_ago") final int daysAgo,
+            @Query("sentiment") final String sentiment
     );
 
 

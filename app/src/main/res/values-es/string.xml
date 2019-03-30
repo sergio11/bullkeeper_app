@@ -541,6 +541,17 @@
     <string name="app_preferences_comment_dimension">
         Dimensión de los comentarios.
     </string>
+    <!-- Sentiment of comments -->
+    <string name="app_preferences_comment_sentiment">
+        Sentimiento de los comentarios
+    </string>
+
+    <string name="comments_sentiment_level_preference_title">Filtrar por el nivel de sentimiento</string>
+    <string name="comments_sentiment_level_preference_summary">Filtrar por el nivel de sentimiento asociado con el comentario.</string>
+    <string name="comments_sentiment_level_no_filter">No Aplicar Filtro</string>
+    <string name="comments_sentiment_level_positive">Sentimiento Positivo</string>
+    <string name="comments_sentiment_level_negative">Sentimiento Negativo</string>
+    <string name="comments_sentiment_level_neutro">Sentimiento Neutro</string>
     <!-- Relations -->
     <string name="kid_relations_title_default">Los amigos más activos</string>
     <string name="kid_relations_title" formatted="true">Los amigos más activos (%d)</string>

@@ -857,4 +857,24 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
         return ageOfRelations;
     }
 
+    /**
+     * Get Comments Sentiment Level
+     * @return
+     */
+    @Override
+    public String getCommentsSentimentLevel() {
+        return mPref.getString(PREF_COMMENTS_SENTIMENT_LEVEL,
+                PREF_COMMENTS_SENTIMENT_LEVEL_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Comments Sentiment Level
+     * @param level
+     */
+    @Override
+    public void setCommentsSentimentLevel(final String level) {
+        mPref.edit().putString(PREF_COMMENTS_SENTIMENT_LEVEL,
+                level).apply();
+    }
+
 }

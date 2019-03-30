@@ -677,6 +677,19 @@
     <string name="app_preferences_comment_dimension">
         Dimension of comments
     </string>
+    <!-- Sentiment of comments -->
+    <string name="app_preferences_comment_sentiment">
+        Sentiment of comments
+    </string>
+
+    <string name="comments_sentiment_level_preference_title">Filter by level of sentiment</string>
+    <string name="comments_sentiment_level_preference_summary">Filter by the level of sentiment associated with the comment</string>
+    <string name="comments_sentiment_level_no_filter">Do not apply filter</string>
+    <string name="comments_sentiment_level_positive">Positive sentiment</string>
+    <string name="comments_sentiment_level_negative">Negative sentiment</string>
+    <string name="comments_sentiment_level_neutro">Neutral sentiment</string>
+
+
 
     <!-- Relations -->
     <string name="kid_relations_title_default">Most Active Friends</string>

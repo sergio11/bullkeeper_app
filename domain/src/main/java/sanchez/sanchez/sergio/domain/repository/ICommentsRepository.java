@@ -6,6 +6,7 @@ import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
 import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 
 /**
@@ -24,6 +25,7 @@ public interface ICommentsRepository {
      * @param drugsLevelEnum
      * @param bullyingLevelEnum
      * @param adultLevelEnum
+     * @param sentimentLevelEnum
      * @return
      */
     Observable<List<CommentEntity>> getComments(
@@ -34,7 +36,8 @@ public interface ICommentsRepository {
             final ViolenceLevelEnum violenceLevelEnum,
             final DrugsLevelEnum drugsLevelEnum,
             final BullyingLevelEnum bullyingLevelEnum,
-            final AdultLevelEnum adultLevelEnum);
+            final AdultLevelEnum adultLevelEnum,
+            final SentimentLevelEnum sentimentLevelEnum);
 
     /**
      * Get Comments
@@ -45,6 +48,7 @@ public interface ICommentsRepository {
      * @param drugsLevelEnum
      * @param bullyingLevelEnum
      * @param adultLevelEnum
+     * @param sentimentLevelEnum
      * @return
      */
     Observable<List<CommentEntity>> getComments(
@@ -54,7 +58,8 @@ public interface ICommentsRepository {
             final ViolenceLevelEnum violenceLevelEnum,
             final DrugsLevelEnum drugsLevelEnum,
             final BullyingLevelEnum bullyingLevelEnum,
-            final AdultLevelEnum adultLevelEnum);
+            final AdultLevelEnum adultLevelEnum,
+            final SentimentLevelEnum sentimentLevelEnum);
 
 
     /**
@@ -62,12 +67,14 @@ public interface ICommentsRepository {
      * @param identities
      * @param daysAgo
      * @param socialMedia
+     * @param sentimentLevelEnum
      * @return
      */
     Observable<List<CommentEntity>> getComments(
             final String[] identities,
             final int daysAgo,
-            final String[] socialMedia);
+            final String[] socialMedia,
+            final SentimentLevelEnum sentimentLevelEnum);
 
     /**
      * Get Comments
@@ -77,7 +84,8 @@ public interface ICommentsRepository {
      */
     Observable<List<CommentEntity>> getComments(
             final String[] identities,
-            final int daysAgo);
+            final int daysAgo,
+            final SentimentLevelEnum sentimentLevelEnum);
 
     /**
      * Get Comment By Id

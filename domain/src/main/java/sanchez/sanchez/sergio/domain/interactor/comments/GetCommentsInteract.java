@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
 import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
 import sanchez.sanchez.sergio.domain.utils.ISupportVisitable;
@@ -93,13 +94,20 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
         protected final int daysAgo;
 
         /**
+         * Sentiment Level
+         */
+        protected SentimentLevelEnum sentimentLevelEnum;
+
+        /**
          *
          * @param identities
          * @param daysAgo
+         * @param sentimentLevelEnum
          */
-        private KidsFilter(String[] identities, int daysAgo) {
+        private KidsFilter(final String[] identities, int daysAgo, final SentimentLevelEnum sentimentLevelEnum) {
             this.identities = identities;
             this.daysAgo = daysAgo;
+            this.sentimentLevelEnum = sentimentLevelEnum;
         }
 
         public String[] getIdentities() {
@@ -108,6 +116,10 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
 
         public int getDaysAgo() {
             return daysAgo;
+        }
+
+        public SentimentLevelEnum getSentimentLevelEnum() {
+            return sentimentLevelEnum;
         }
 
         @Override
@@ -122,13 +134,15 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * Create
          * @param identities
          * @param daysAgo
+         * @param sentimentLevelEnum
          * @return
          */
-        public static IParameterFilter create(final String[] identities, final int daysAgo) {
+        public static IParameterFilter create(final String[] identities, final int daysAgo, final SentimentLevelEnum sentimentLevelEnum) {
             Preconditions.checkNotNull(identities, "Identities can not be null");
             Preconditions.checkState(identities.length > 0 , "Identities must be greater than 0");
             Preconditions.checkState(daysAgo > 0, "Days Ago must be greater than 0");
-            return new KidsFilter(identities, daysAgo);
+            Preconditions.checkNotNull(sentimentLevelEnum, "Sentiment Level can not be null");
+            return new KidsFilter(identities, daysAgo, sentimentLevelEnum);
         }
 
         /**
@@ -167,11 +181,14 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
 
 
         /**
+         *
          * @param identities
          * @param daysAgo
+         * @param sentimentLevelEnum
+         * @param socialMedias
          */
-        private KidsAndSocialMediaFilter(final String[] identities, final int daysAgo, final String[] socialMedias) {
-            super(identities, daysAgo);
+        private KidsAndSocialMediaFilter(final String[] identities, final int daysAgo, final SentimentLevelEnum sentimentLevelEnum, final String[] socialMedias) {
+            super(identities, daysAgo, sentimentLevelEnum);
             this.socialMedias = socialMedias;
         }
 
@@ -183,11 +200,12 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * Create
          * @param identities
          * @param daysAgo
+         * @param sentimentLevelEnum
          * @param socialMedias
          * @return
          */
-        public static IParameterFilter create(final String[] identities, final int daysAgo, final String[] socialMedias) {
-            return new KidsAndSocialMediaFilter(identities, daysAgo, socialMedias);
+        public static IParameterFilter create(final String[] identities, final int daysAgo, final SentimentLevelEnum sentimentLevelEnum, final String[] socialMedias) {
+            return new KidsAndSocialMediaFilter(identities, daysAgo, sentimentLevelEnum, socialMedias);
         }
 
         /**
@@ -230,16 +248,22 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * @param identities
          * @param daysAgo
          * @param socialMedias
+         * @param sentimentLevelEnum
          * @param violenceLevelEnum
          * @param drugsLevelEnum
          * @param bullyingLevelEnum
          * @param adultLevelEnum
          */
-        private KidsAndSocialMediaAndDimensionLevelFilter(final String[] identities, final int daysAgo,
-                                                         final String[] socialMedias, ViolenceLevelEnum violenceLevelEnum,
-                                                          DrugsLevelEnum drugsLevelEnum, BullyingLevelEnum bullyingLevelEnum,
-                                                          AdultLevelEnum adultLevelEnum) {
-            super(identities, daysAgo, socialMedias);
+        private KidsAndSocialMediaAndDimensionLevelFilter(
+                final String[] identities,
+                final int daysAgo,
+                final String[] socialMedias,
+                final SentimentLevelEnum sentimentLevelEnum,
+                final ViolenceLevelEnum violenceLevelEnum,
+                final DrugsLevelEnum drugsLevelEnum,
+                final BullyingLevelEnum bullyingLevelEnum,
+                final AdultLevelEnum adultLevelEnum) {
+            super(identities, daysAgo, sentimentLevelEnum, socialMedias);
             this.violenceLevelEnum = violenceLevelEnum;
             this.drugsLevelEnum = drugsLevelEnum;
             this.bullyingLevelEnum = bullyingLevelEnum;
@@ -267,6 +291,7 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * @param identities
          * @param daysAgo
          * @param socialMedias
+         * @param sentimentLevelEnum
          * @param violenceLevelEnum
          * @param drugsLevelEnum
          * @param bullyingLevelEnum
@@ -274,12 +299,14 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * @return
          */
         public static IParameterFilter create(final String[] identities, final int daysAgo,
-                                              final String[] socialMedias, final ViolenceLevelEnum violenceLevelEnum,
+                                              final String[] socialMedias,
+                                              final SentimentLevelEnum sentimentLevelEnum,
+                                              final ViolenceLevelEnum violenceLevelEnum,
                                               final DrugsLevelEnum drugsLevelEnum, final BullyingLevelEnum bullyingLevelEnum,
                                               final AdultLevelEnum adultLevelEnum) {
 
             return new KidsAndSocialMediaAndDimensionLevelFilter(identities, daysAgo,
-                    socialMedias, violenceLevelEnum, drugsLevelEnum, bullyingLevelEnum,
+                    socialMedias, sentimentLevelEnum, violenceLevelEnum, drugsLevelEnum, bullyingLevelEnum,
                     adultLevelEnum);
         }
 
@@ -320,8 +347,10 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
 
 
         /**
+         *
          * @param identities
          * @param daysAgo
+         * @param sentimentLevelEnum
          * @param socialMedias
          * @param violenceLevelEnum
          * @param drugsLevelEnum
@@ -330,10 +359,11 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * @param author
          */
         private KidsAndSocialMediaAndDimensionLevelAndAuthorFilter(final String[] identities, final int daysAgo,
+                                                                   final SentimentLevelEnum sentimentLevelEnum,
                                                                    final String[] socialMedias, final ViolenceLevelEnum violenceLevelEnum,
                                                                    final DrugsLevelEnum drugsLevelEnum, final BullyingLevelEnum bullyingLevelEnum,
                                                                    final AdultLevelEnum adultLevelEnum, final String author) {
-            super(identities, daysAgo, socialMedias, violenceLevelEnum, drugsLevelEnum, bullyingLevelEnum, adultLevelEnum);
+            super(identities, daysAgo, socialMedias, sentimentLevelEnum, violenceLevelEnum, drugsLevelEnum, bullyingLevelEnum, adultLevelEnum);
             this.author = author;
         }
 
@@ -345,6 +375,7 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          *
          * @param identities
          * @param daysAgo
+         * @param sentimentLevelEnum
          * @param socialMedias
          * @param violenceLevelEnum
          * @param drugsLevelEnum
@@ -354,10 +385,11 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
          * @return
          */
         public static IParameterFilter create(final String[] identities, final int daysAgo,
+                                              final SentimentLevelEnum sentimentLevelEnum,
                                               final String[] socialMedias, final ViolenceLevelEnum violenceLevelEnum,
                                               final DrugsLevelEnum drugsLevelEnum, final BullyingLevelEnum bullyingLevelEnum,
                                               final AdultLevelEnum adultLevelEnum, final String author){
-            return new KidsAndSocialMediaAndDimensionLevelAndAuthorFilter(identities, daysAgo, socialMedias, violenceLevelEnum, drugsLevelEnum, bullyingLevelEnum, adultLevelEnum, author);
+            return new KidsAndSocialMediaAndDimensionLevelAndAuthorFilter(identities, daysAgo, sentimentLevelEnum, socialMedias, violenceLevelEnum, drugsLevelEnum, bullyingLevelEnum, adultLevelEnum, author);
         }
 
         /**
@@ -435,8 +467,8 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
             Preconditions.checkNotNull(kidsFilter.getIdentities(), "Identities can not be null");
             Preconditions.checkState(kidsFilter.getIdentities().length > 0 , "Identities must be greater than 0");
             Preconditions.checkState(kidsFilter.getDaysAgo() > 0, "Days Ago must be greater than 0");
-
-            return commentsRepository.getComments(kidsFilter.getIdentities(), kidsFilter.getDaysAgo());
+            Preconditions.checkNotNull(kidsFilter.getSentimentLevelEnum(), "Sentiment Level can not be null");
+            return commentsRepository.getComments(kidsFilter.getIdentities(), kidsFilter.getDaysAgo(), kidsFilter.getSentimentLevelEnum());
         }
 
         /**
@@ -451,9 +483,9 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
             Preconditions.checkState(kidsAndSocialMediaFilter.getIdentities().length > 0, "Identities can not be empty");
             Preconditions.checkNotNull(kidsAndSocialMediaFilter.getSocialMedias(), "Social Media can not be null");
             Preconditions.checkState(kidsAndSocialMediaFilter.getSocialMedias().length > 0, "Social Media can not be empty");
-
+            Preconditions.checkNotNull(kidsAndSocialMediaFilter.sentimentLevelEnum, "Sentiment Level can not be null");
             return commentsRepository.getComments(kidsAndSocialMediaFilter.getIdentities(),
-                    kidsAndSocialMediaFilter.getDaysAgo(), kidsAndSocialMediaFilter.getSocialMedias());
+                    kidsAndSocialMediaFilter.getDaysAgo(), kidsAndSocialMediaFilter.getSocialMedias(), kidsAndSocialMediaFilter.getSentimentLevelEnum());
         }
 
         /**
@@ -472,11 +504,13 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
             Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelFilter.getBullyingLevelEnum(), "Bullying level can not be null");
             Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelFilter.getAdultLevelEnum(), "Adult level can not be null");
             Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelFilter.getDrugsLevelEnum(), "Drugs level can not be null");
-
+            Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelFilter.getSentimentLevelEnum(), "Sentiment Level can not be null");
             return commentsRepository.getComments(kidsAndSocialMediaAndDimensionLevelFilter.getIdentities(),
-                    kidsAndSocialMediaAndDimensionLevelFilter.getDaysAgo(), kidsAndSocialMediaAndDimensionLevelFilter.getSocialMedias(),
+                    kidsAndSocialMediaAndDimensionLevelFilter.getDaysAgo(),
+                    kidsAndSocialMediaAndDimensionLevelFilter.getSocialMedias(),
                     kidsAndSocialMediaAndDimensionLevelFilter.getViolenceLevelEnum(), kidsAndSocialMediaAndDimensionLevelFilter.getDrugsLevelEnum(),
-                    kidsAndSocialMediaAndDimensionLevelFilter.getBullyingLevelEnum(), kidsAndSocialMediaAndDimensionLevelFilter.getAdultLevelEnum());
+                    kidsAndSocialMediaAndDimensionLevelFilter.getBullyingLevelEnum(), kidsAndSocialMediaAndDimensionLevelFilter.getAdultLevelEnum(),
+                    kidsAndSocialMediaAndDimensionLevelFilter.getSentimentLevelEnum());
         }
 
         /**
@@ -497,12 +531,13 @@ public final class GetCommentsInteract extends UseCase<List<CommentEntity>, GetC
             Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getDrugsLevelEnum(), "Drugs level can not be null");
             Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getAuthor(), "Author can not be null");
             Preconditions.checkState(!kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getAuthor().isEmpty(), "Author can not be empty");
-
+            Preconditions.checkNotNull(kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getSentimentLevelEnum(), "Sentiment Level can not be null");
             return commentsRepository.getComments(kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getIdentities(),
                     kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getDaysAgo(), kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getSocialMedias(),
                     kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getAuthor(), kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getViolenceLevelEnum(),
                     kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getDrugsLevelEnum(), kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getBullyingLevelEnum(),
-                    kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getAdultLevelEnum());
+                    kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getAdultLevelEnum(),
+                    kidsAndSocialMediaAndDimensionLevelAndAuthorFilter.getSentimentLevelEnum());
         }
     }
 

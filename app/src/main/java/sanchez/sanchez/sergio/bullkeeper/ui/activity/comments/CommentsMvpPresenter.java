@@ -14,6 +14,7 @@ import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
@@ -148,8 +149,17 @@ public final class CommentsMvpPresenter extends SupportLCEPresenter<ICommentsVie
 
             }
 
+            SentimentLevelEnum sentimentLevelEnum = SentimentLevelEnum.UNKNOWN;
+
+            try {
+                sentimentLevelEnum =
+                        SentimentLevelEnum.valueOf(preferenceRepository.getCommentsSentimentLevel());
+            } catch (final Exception ex) {
+                preferenceRepository.setCommentsSentimentLevel(IPreferenceRepository.PREF_COMMENTS_SENTIMENT_LEVEL_DEFAULT_VALUE);
+            }
+
              final GetCommentsInteract.IParameterFilter parameterFilter = GetCommentsInteract.KidsAndSocialMediaAndDimensionLevelFilter.create(
-                     new String[] { kidIdentity }, ageOfComments, socialMedias, violenceLevelEnum, drugsLevelEnum,
+                     new String[] { kidIdentity }, ageOfComments, socialMedias, sentimentLevelEnum, violenceLevelEnum, drugsLevelEnum,
                      bullyingLevelEnum, adultLevelEnum );
 
 

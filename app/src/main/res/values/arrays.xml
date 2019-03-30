@@ -54,6 +54,25 @@
     </string-array>
 
 
+    <!-- Comments Sentiment Level Values -->
+    <string-array name="comments_sentiment_level_values">
+        <item>UNKNOWN</item>
+        <item>POSITIVE</item>
+        <item>NEGATIVE</item>
+        <item>NEUTRO</item>
+    </string-array>
+
+    <string name="comments_sentiment_level_default_value">UNKNOWN</string>
+
+    <!-- Comments Sentiment Level -->
+    <string-array name="comments_sentiment_level">
+        <item>@string/comments_sentiment_level_no_filter</item>
+        <item>@string/comments_sentiment_level_positive</item>
+        <item>@string/comments_sentiment_level_negative</item>
+        <item>@string/comments_sentiment_level_neutro</item>
+    </string-array>
+
+
     <!-- Remove Alerts Every values -->
     <string-array name="remove_alerts_every_values">
         <item>0</item>

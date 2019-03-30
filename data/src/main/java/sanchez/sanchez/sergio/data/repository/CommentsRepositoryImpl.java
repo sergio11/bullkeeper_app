@@ -11,6 +11,7 @@ import sanchez.sanchez.sergio.domain.models.AdultLevelEnum;
 import sanchez.sanchez.sergio.domain.models.BullyingLevelEnum;
 import sanchez.sanchez.sergio.domain.models.CommentEntity;
 import sanchez.sanchez.sergio.domain.models.DrugsLevelEnum;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.ViolenceLevelEnum;
 import sanchez.sanchez.sergio.domain.repository.ICommentsRepository;
 
@@ -53,12 +54,14 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
      * @param drugsLevelEnum
      * @param bullyingLevelEnum
      * @param adultLevelEnum
+     * @param sentimentLevelEnum
      * @return
      */
     @Override
     public Observable<List<CommentEntity>> getComments(final String[] identities, final int daysAgo, final String[] socialMedia, final String author,
                                                        final ViolenceLevelEnum violenceLevelEnum, final DrugsLevelEnum drugsLevelEnum,
-                                                       final BullyingLevelEnum bullyingLevelEnum, final AdultLevelEnum adultLevelEnum) {
+                                                       final BullyingLevelEnum bullyingLevelEnum, final AdultLevelEnum adultLevelEnum,
+                                                       final SentimentLevelEnum sentimentLevelEnum) {
         Preconditions.checkNotNull(identities, "Identities can not be null");
         Preconditions.checkState(identities.length > 0, "Identities can not be empty");
         Preconditions.checkState(daysAgo > 0, "Days Ago must be greater than 0");
@@ -70,10 +73,11 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
         Preconditions.checkNotNull(drugsLevelEnum, "Drugs Level can not be null");
         Preconditions.checkNotNull(bullyingLevelEnum, "Bullying Level can not be null");
         Preconditions.checkNotNull(adultLevelEnum, "Adult Level can not be null");
+        Preconditions.checkNotNull(sentimentLevelEnum, "Sentiment level can not be null");
 
         return commentsService.getComments(identities, author, socialMedia,
                 daysAgo , violenceLevelEnum.name(), drugsLevelEnum.name(),
-                bullyingLevelEnum.name(), adultLevelEnum.name())
+                bullyingLevelEnum.name(), adultLevelEnum.name(), sentimentLevelEnum.name())
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null)
                 .map(commentsDataMapper::transform);
@@ -91,8 +95,15 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
      * @return
      */
     @Override
-    public Observable<List<CommentEntity>> getComments(String[] identities, int daysAgo, String[] socialMedia, ViolenceLevelEnum violenceLevelEnum,
-                                                       DrugsLevelEnum drugsLevelEnum, BullyingLevelEnum bullyingLevelEnum, AdultLevelEnum adultLevelEnum) {
+    public Observable<List<CommentEntity>> getComments(
+            final String[] identities,
+            final int daysAgo,
+            final String[] socialMedia,
+            final ViolenceLevelEnum violenceLevelEnum,
+            final DrugsLevelEnum drugsLevelEnum,
+            final BullyingLevelEnum bullyingLevelEnum,
+            final AdultLevelEnum adultLevelEnum,
+            final SentimentLevelEnum sentimentLevelEnum) {
         Preconditions.checkNotNull(identities, "Identities can not be null");
         Preconditions.checkState(identities.length > 0, "Identities can not be empty");
         Preconditions.checkState(daysAgo > 0, "Days Ago must be greater than 0");
@@ -102,10 +113,11 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
         Preconditions.checkNotNull(drugsLevelEnum, "Drugs Level can not be null");
         Preconditions.checkNotNull(bullyingLevelEnum, "Bullying Level can not be null");
         Preconditions.checkNotNull(adultLevelEnum, "Adult Level can not be null");
+        Preconditions.checkNotNull(sentimentLevelEnum, "Sentiment Level can not be null");
 
         return commentsService.getComments(identities, socialMedia,
                 daysAgo , violenceLevelEnum.name(), drugsLevelEnum.name(),
-                bullyingLevelEnum.name(), adultLevelEnum.name())
+                bullyingLevelEnum.name(), adultLevelEnum.name(), sentimentLevelEnum.name())
                 .map(response -> response != null && response.getData() != null ?
                         response.getData(): null)
                 .map(commentsDataMapper::transform);
@@ -116,17 +128,20 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
      * @param identities
      * @param daysAgo
      * @param socialMedia
+     * @param sentimentLevelEnum
      * @return
      */
     @Override
-    public Observable<List<CommentEntity>> getComments(String[] identities, int daysAgo, String[] socialMedia) {
+    public Observable<List<CommentEntity>> getComments(String[] identities, int daysAgo, String[] socialMedia,
+                                                       final SentimentLevelEnum sentimentLevelEnum) {
         Preconditions.checkNotNull(identities, "Identities can not be null");
         Preconditions.checkState(identities.length > 0, "Identities can not be empty");
         Preconditions.checkState(daysAgo > 0, "Days Ago must be greater than 0");
         Preconditions.checkNotNull(socialMedia, "Social Media can not be null");
         Preconditions.checkState(socialMedia.length > 0, "Social Media can not be empty");
+        Preconditions.checkNotNull(sentimentLevelEnum, "Sentiment Level can not be null");
 
-        return commentsService.getComments(identities, socialMedia, daysAgo)
+        return commentsService.getComments(identities, socialMedia, daysAgo, sentimentLevelEnum.name())
                 .map(response -> response != null && response.getData() != null ?
                         response.getData() : null)
                 .map(commentsDataMapper::transform);
@@ -137,15 +152,17 @@ public final class CommentsRepositoryImpl implements ICommentsRepository {
      * Get Comments
      * @param identities
      * @param daysAgo
+     * @param sentimentLevelEnum
      * @return
      */
     @Override
-    public Observable<List<CommentEntity>> getComments(String[] identities, int daysAgo) {
+    public Observable<List<CommentEntity>> getComments(String[] identities, int daysAgo, final SentimentLevelEnum sentimentLevelEnum) {
         Preconditions.checkNotNull(identities, "Identities can not be null");
         Preconditions.checkState(identities.length > 0, "Identities can not be empty");
         Preconditions.checkState(daysAgo > 0, "Days Ago must be greater than 0");
+        Preconditions.checkNotNull(sentimentLevelEnum, "Sentiment Level can not be null");
 
-        return commentsService.getComments(identities, daysAgo)
+        return commentsService.getComments(identities, daysAgo, sentimentLevelEnum.name())
                 .map(response -> response != null && response.getData() != null ?
                     response.getData() : null)
                 .map(commentsDataMapper::transform);

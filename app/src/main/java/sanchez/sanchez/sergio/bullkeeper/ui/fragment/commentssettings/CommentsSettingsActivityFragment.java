@@ -79,6 +79,10 @@ public class CommentsSettingsActivityFragment extends
     @State
     protected boolean enableBullyingCommentDimension;
 
+    // Sentiment Level
+    @State
+    protected String sentimentLevel;
+
     /**
      * Get Preferences Layout
      * @return
@@ -170,6 +174,11 @@ public class CommentsSettingsActivityFragment extends
             hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_SEX_COMMENTS_DIMENSION);
             hideSwitchPreferenceCompat(IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION);
         }
+
+        final ListPreference commentsSentimentLevelListPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_COMMENTS_SENTIMENT_LEVEL);
+        commentsSentimentLevelListPreference.setOnPreferenceChangeListener(this);
+
+        sentimentLevel = commentsSentimentLevelListPreference.getValue();
     }
 
 
@@ -324,6 +333,10 @@ public class CommentsSettingsActivityFragment extends
                 IPreferenceRepository.PREF_ENABLE_BULLYING_COMMENTS_DIMENSION, enableBullyingCommentDimension))
             return true;
 
+        // Check Age of comments
+        if(!hasListPreferenceThisValue(IPreferenceRepository.PREF_COMMENTS_SENTIMENT_LEVEL, sentimentLevel))
+            return true;
+
         return false;
     }
 
@@ -354,6 +367,7 @@ public class CommentsSettingsActivityFragment extends
         preferencesRepositoryImpl.setDrugsDimensionEnabled(enableDrugsCommentDimension);
         preferencesRepositoryImpl.setSexDimensionEnabled(enableSexCommentDimension);
         preferencesRepositoryImpl.setBullyingDimensionEnabled(enableBullyingCommentDimension);
+        preferencesRepositoryImpl.setCommentsSentimentLevel(sentimentLevel);
 
     }
 }
