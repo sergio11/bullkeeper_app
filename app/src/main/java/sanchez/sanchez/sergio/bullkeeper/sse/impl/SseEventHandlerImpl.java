@@ -32,7 +32,6 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.SetMessagesAsViewedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.kidRequestCreatedEvent;
-import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.sse.SseEventTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.AllConversationDeletedDTO;
@@ -341,7 +340,7 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
 
             soundManager.playSound(requestTypeSound);
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appOverlayService.canDrawOverlays()) {
                 final View requestTypeLayoutView = appOverlayService.create(requestTypeLayout);
 
                 if(requestTypeLayoutView != null) {
@@ -364,8 +363,6 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
 
                     appOverlayService.show(requestTypeLayoutView);
                 }
-
-
             }
 
 
@@ -527,6 +524,40 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                         String.format(Locale.getDefault(), context.getString(R.string.conversation_new_message_title),
                                 messageSavedDTO.getFrom().getFirstName()), messageSavedDTO.getText(),
                         ConversationMessageListMvpActivity.getCallingIntent(context, messageSavedDTO.getConversation()));
+
+
+                if(preferenceRepository.isConversationMessageOverlayNotificationEnabled()) {
+
+                    soundManager.playSound(R.raw.send_message);
+
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appOverlayService.canDrawOverlays()) {
+                        final View newMessageLayoutView = appOverlayService.create(R.layout.new_conversation_message_app_overlay_layout);
+
+                        if(newMessageLayoutView != null) {
+
+                            final TextView newMessageTitleView = newMessageLayoutView.findViewById(R.id.newMessageText);
+                            if(newMessageTitleView != null)
+                                newMessageTitleView.setText(String.format(Locale.getDefault(), context.getString(R.string.conversation_new_message_title),
+                                        messageSavedDTO.getFrom().getFirstName()));
+
+                            final Button showConversationButton = newMessageLayoutView.findViewById(R.id.showConversation);
+                            if(showConversationButton != null)
+                                showConversationButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        appOverlayService.hide(newMessageLayoutView);
+                                        context.startActivity(ConversationMessageListMvpActivity.getCallingIntent(context,
+                                                messageSavedDTO.getConversation()));
+
+                                    }
+                                });
+
+                            appOverlayService.show(newMessageLayoutView);
+                        }
+                    }
+
+                }
+
             }
 
 

@@ -27,6 +27,7 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
 
     private final Context appContext;
     private final Handler uiHandler;
+    private View currentViewShowed;
 
     /**
      *
@@ -83,6 +84,9 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
         try {
             final WindowManager mWindowManager = (WindowManager)appContext.getSystemService(WINDOW_SERVICE);
             if(mWindowManager != null) {
+                if(currentViewShowed != null)
+                    hide(currentViewShowed);
+                currentViewShowed = view;
                 uiHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -104,6 +108,7 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
     public void hide(final View view) {
         Preconditions.checkNotNull(view, "View can not be null");
 
+        currentViewShowed = null;
         try {
             final WindowManager mWindowManager = (WindowManager)appContext.getSystemService(WINDOW_SERVICE);
             if(mWindowManager != null) {
@@ -156,7 +161,7 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
         params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
         params.x = 0;
         params.y = 100;
-        params.windowAnimations = R.anim.shrink_to_middle;
+        params.windowAnimations = R.anim.anim_in;
 
         return params;
 

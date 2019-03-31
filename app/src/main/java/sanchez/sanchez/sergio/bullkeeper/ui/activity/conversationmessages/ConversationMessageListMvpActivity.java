@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -301,7 +302,7 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      * @param memberTwo
      * @return
      */
-    public static Intent getCallingIntent(final Context context, final String memberOne, final String memberTwo) {
+    public static Intent getCallingIntent(final Activity context, final String memberOne, final String memberTwo) {
         Preconditions.checkNotNull(context, "Context can not be null");
         Preconditions.checkNotNull(memberOne, "Member one can not be null");
         Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
@@ -317,11 +318,46 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
      * @param id
      * @return
      */
+    public static Intent getCallingIntent(final Activity context, final String id) {
+        Preconditions.checkNotNull(context, "Context can not be null");
+        Preconditions.checkNotNull(id, "Id one can not be null");
+        final Intent callingIntent =  new Intent(context, ConversationMessageListMvpActivity.class);
+        callingIntent.putExtra(CONVERSATION_IDENTITY_ARG, id);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param memberOne
+     * @param memberTwo
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String memberOne, final String memberTwo) {
+        Preconditions.checkNotNull(context, "Context can not be null");
+        Preconditions.checkNotNull(memberOne, "Member one can not be null");
+        Preconditions.checkNotNull(memberTwo, "Member Two can not be null");
+        final Intent callingIntent =  new Intent(context, ConversationMessageListMvpActivity.class);
+        callingIntent.putExtra(CONVERSATION_MEMBER_ONE_IDENTITY_ARG, memberOne);
+        callingIntent.putExtra(CONVERSATION_MEMBER_TWO_IDENTITY_ARG, memberTwo);
+        callingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        callingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param id
+     * @return
+     */
     public static Intent getCallingIntent(final Context context, final String id) {
         Preconditions.checkNotNull(context, "Context can not be null");
         Preconditions.checkNotNull(id, "Id one can not be null");
         final Intent callingIntent =  new Intent(context, ConversationMessageListMvpActivity.class);
         callingIntent.putExtra(CONVERSATION_IDENTITY_ARG, id);
+        callingIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        callingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return callingIntent;
     }
 
@@ -398,6 +434,8 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
                 AllConversationDeletedEvent.class, messageEventVisitor);
         allMessagesDeletedEventRegisterKey = localSystemNotification.registerEventListener(
                 AllMessagesDeletedEvent.class, messageEventVisitor);
+
+        preferenceRepository.setConversationMessageOverlayNotificationEnabled(false);
     }
 
     /**
@@ -412,6 +450,8 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         localSystemNotification.unregisterEventListener(deletedMessagesEventRegisterKey);
         localSystemNotification.unregisterEventListener(allConversationDeletedEventRegisterKey);
         localSystemNotification.unregisterEventListener(allMessagesDeletedEventRegisterKey);
+
+        preferenceRepository.setConversationMessageOverlayNotificationEnabled(true);
     }
 
     /**

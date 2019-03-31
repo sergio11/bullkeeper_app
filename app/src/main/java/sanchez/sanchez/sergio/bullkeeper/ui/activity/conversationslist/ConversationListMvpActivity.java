@@ -1,7 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -98,7 +97,7 @@ public class ConversationListMvpActivity extends SupportMvpLCEActivity<Conversat
      * @param context
      * @return
      */
-    public static Intent getCallingIntent(final Context context) {
+    public static Intent getCallingIntent(final Activity context) {
         return new Intent(context, ConversationListMvpActivity.class);
     }
 

@@ -167,6 +167,12 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     String PREF_AGE_OF_RELATIONS = "age_of_relations";
     String PREF_AGE_OF_RELATIONS_DEFAULT_VALUE = "30";
 
+    // Enable Conversation Message Overlay Notification
+    String PREF_ENABLE_CONVERSATION_MESSAGE_OVERLAY_NOTIFICATION = "enable_conversation_message_overlay_notification";
+    boolean ENABLE_CONVERSATION_MESSAGE_OVERLAY_NOTIFICATION_DEFAULT_VALUE = true;
+
+
+
 
     /**
      * is Home Showcase completed
@@ -629,6 +635,19 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * @param level
      */
     void setCommentsSentimentLevel(final String level);
+
+    /**
+     * Is Youtube Social Media Enabled
+     * @return
+     */
+    boolean isConversationMessageOverlayNotificationEnabled();
+
+    /**
+     * Set Conversation Message Overlay Notification Enabled
+     * @param overlayNotificationEnabled
+     */
+    void setConversationMessageOverlayNotificationEnabled(boolean overlayNotificationEnabled);
+
 
 
 }

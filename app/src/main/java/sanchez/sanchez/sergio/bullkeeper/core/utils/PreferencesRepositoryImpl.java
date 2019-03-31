@@ -877,4 +877,24 @@ public class PreferencesRepositoryImpl implements IPreferenceRepository {
                 level).apply();
     }
 
+    /**
+     * Is Conversation Message Overlay Notification Enabled
+     * @return
+     */
+    @Override
+    public boolean isConversationMessageOverlayNotificationEnabled() {
+        return mPref.getBoolean(PREF_ENABLE_CONVERSATION_MESSAGE_OVERLAY_NOTIFICATION,
+                ENABLE_CONVERSATION_MESSAGE_OVERLAY_NOTIFICATION_DEFAULT_VALUE);
+    }
+
+    /**
+     * Set Conversation Message Overlay Notification
+     * @param overlayNotificationEnabled
+     */
+    @Override
+    public void setConversationMessageOverlayNotificationEnabled(boolean overlayNotificationEnabled) {
+        mPref.edit().putBoolean(PREF_ENABLE_CONVERSATION_MESSAGE_OVERLAY_NOTIFICATION, overlayNotificationEnabled)
+                .apply();
+    }
+
 }
