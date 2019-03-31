@@ -217,7 +217,7 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             // Delete Invitation
                             getPresenter().deletePhoneNumberBlocked(
                                     phoneNumberBlocked.getPhoneNumber());
@@ -392,19 +392,22 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
      */
     @Override
     public void onPhoneNumberDeleted() {
+        if(recyclerView.getAdapter() != null) {
 
-        final int itemCount = recyclerView.getAdapter().getItemCount();
+            final int itemCount = recyclerView.getAdapter().getItemCount();
 
-        if(itemCount > 0)
-            phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.phone_numbers_blocked_title_count),
-                    recyclerView.getAdapter().getItemCount()));
-        else {
-            deleteAllPhoneNumbersPhoneImageView.setVisibility(View.GONE);
-            deleteAllPhoneNumbersPhoneImageView.setEnabled(false);
-            phoneNumbersBlockedTitleTextView.setText(getString(R.string.phone_numbers_blocked_title_default));
-            onShowNotFoundState();
+            if(itemCount > 0)
+                phoneNumbersBlockedTitleTextView.setText(String.format(Locale.getDefault(),
+                        getString(R.string.phone_numbers_blocked_title_count),
+                        recyclerView.getAdapter().getItemCount()));
+            else {
+                deleteAllPhoneNumbersPhoneImageView.setVisibility(View.GONE);
+                deleteAllPhoneNumbersPhoneImageView.setEnabled(false);
+                phoneNumbersBlockedTitleTextView.setText(getString(R.string.phone_numbers_blocked_title_default));
+                onShowNotFoundState();
+            }
         }
+
     }
 
     /**

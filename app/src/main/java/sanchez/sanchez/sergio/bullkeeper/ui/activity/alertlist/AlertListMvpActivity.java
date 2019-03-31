@@ -359,7 +359,7 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             // Delete Alert Of Son
                             getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
                                     alertEntity.getIdentity());
@@ -497,8 +497,14 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
      */
     @Override
     public void onAlertCleared() {
-        alertsHeaderTitle.setText(String.format(Locale.getDefault(),
-                getString(R.string.my_alerts_count), recyclerView.getAdapter().getItemCount()));
+        if(recyclerView.getAdapter() != null) {
+            if(recyclerView.getAdapter().getItemCount() > 0) {
+                alertsHeaderTitle.setText(String.format(Locale.getDefault(),
+                        getString(R.string.my_alerts_count), recyclerView.getAdapter().getItemCount()));
+            } else {
+                onNoDataFound();
+            }
+        }
     }
 
     /**

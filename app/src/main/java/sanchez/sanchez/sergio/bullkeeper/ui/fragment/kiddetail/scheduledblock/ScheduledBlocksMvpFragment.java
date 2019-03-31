@@ -297,7 +297,7 @@ public class ScheduledBlocksMvpFragment extends SupportMvpLCEFragment<ScheduledB
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             Timber.d("Dismiss Event Timeout");
                             // Delete Scheduled Block
                             getPresenter().deleteScheduledBlockById(kidIdentity, scheduledBlockEntity.getIdentity());

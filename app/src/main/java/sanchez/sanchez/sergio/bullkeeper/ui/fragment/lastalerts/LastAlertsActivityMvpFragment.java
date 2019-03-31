@@ -217,7 +217,7 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             Timber.d("Dismiss Event Timeout");
                             // Delete Alert Of Son
                             getPresenter().deleteAlertOfSon(alertEntity.getSon().getIdentity(),
@@ -235,8 +235,14 @@ public class LastAlertsActivityMvpFragment extends SupportMvpLCEFragment<LastAle
      */
     @Override
     public void onAlertDeleted() {
-        lastAlertsTitle.setText(String.format(Locale.getDefault(),
-                getString(R.string.last_alerts_title), recyclerView.getAdapter().getItemCount()));
+        if(recyclerView.getAdapter() != null) {
+            if(recyclerView.getAdapter().getItemCount() > 0) {
+                lastAlertsTitle.setText(String.format(Locale.getDefault(),
+                        getString(R.string.last_alerts_title), recyclerView.getAdapter().getItemCount()));
+            } else {
+                onNoDataFound();
+            }
+        }
     }
 
     /**

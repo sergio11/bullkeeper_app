@@ -209,7 +209,7 @@ public class KidRequestListMvpActivity extends SupportMvpLCEActivity<KidRequestL
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             // Delete Kid Request
                             getPresenter().deleteKidRequest(
                                     kidRequestEntity.getKid().getIdentity(),

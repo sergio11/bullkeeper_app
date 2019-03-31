@@ -330,7 +330,7 @@ public class ContactListMvpFragment extends SupportMvpSearchLCEFragment<ContactF
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             getPresenter().disableContact(
                                     contactEntity.getKid(),
                                     contactEntity.getTerminal(),

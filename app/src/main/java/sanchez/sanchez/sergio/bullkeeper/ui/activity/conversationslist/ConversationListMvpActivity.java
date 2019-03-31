@@ -324,7 +324,7 @@ public class ConversationListMvpActivity extends SupportMvpLCEActivity<Conversat
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             getPresenter().deleteById(conversationEntity.getIdentity());
                         }
                     }

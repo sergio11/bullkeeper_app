@@ -180,7 +180,7 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             // Delete Invitation
                             getPresenter().deleteInvitation(supervisedChildrenEntity.getIdentity());
                         }
@@ -318,18 +318,20 @@ public class InvitationsListMvpActivity extends SupportMvpLCEActivity<Invitation
      */
     @Override
     public void onInvitationCleared() {
+        if(recyclerView.getAdapter() != null) {
+            final int itemCount = recyclerView.getAdapter().getItemCount();
 
-        final int itemCount = recyclerView.getAdapter().getItemCount();
+            if(itemCount > 0)
+                invitationsHeaderTitleTextView.setText(String.format(Locale.getDefault(),
+                        getString(R.string.invitations_title_count), recyclerView.getAdapter().getItemCount()));
+            else
+                showNoticeDialog(R.string.no_pending_invitations_to_accept, new NoticeDialogFragment.NoticeDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        closeActivity();
+                    }
+                });
+        }
 
-        if(itemCount > 0)
-            invitationsHeaderTitleTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.invitations_title_count), recyclerView.getAdapter().getItemCount()));
-        else
-            showNoticeDialog(R.string.no_pending_invitations_to_accept, new NoticeDialogFragment.NoticeDialogListener() {
-                @Override
-                public void onAccepted(DialogFragment dialog) {
-                    closeActivity();
-                }
-            });
     }
 }

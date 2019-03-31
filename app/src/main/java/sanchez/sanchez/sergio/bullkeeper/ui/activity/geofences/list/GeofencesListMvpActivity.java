@@ -252,7 +252,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event == DISMISS_EVENT_TIMEOUT) {
+                        if(event == DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_CONSECUTIVE) {
                             // Delete Invitation
                             getPresenter().deleteById(kid, geofenceEntity.getIdentity());
                         }
@@ -374,13 +374,16 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     @Override
     public void onGeofenceDeleted() {
-        final int itemCount = recyclerView.getAdapter().getItemCount();
+        if(recyclerView.getAdapter() != null) {
+            final int itemCount = recyclerView.getAdapter().getItemCount();
 
-        if(itemCount > 0)
-            geofenceTitleTextView.setText(String.format(Locale.getDefault(),
-                    getString(R.string.geofences_title_count), recyclerView.getAdapter().getItemCount()));
-        else
-            onNoDataFound();
+            if(itemCount > 0)
+                geofenceTitleTextView.setText(String.format(Locale.getDefault(),
+                        getString(R.string.geofences_title_count), recyclerView.getAdapter().getItemCount()));
+            else
+                onNoDataFound();
+        }
+
     }
 
     /**
