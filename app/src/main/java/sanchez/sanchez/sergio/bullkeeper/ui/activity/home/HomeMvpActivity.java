@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.activity.home;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +12,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
+import sanchez.sanchez.sergio.bullkeeper.core.overlay.IAppOverlayService;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerHomeComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.HomeComponent;
@@ -66,6 +68,12 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
      */
     @Inject
     protected IPreferenceRepository preferenceRepository;
+
+    /**
+     * App Overlay Service
+     */
+    @Inject
+    protected IAppOverlayService appOverlayService;
 
     /**
      * Activity
@@ -363,6 +371,25 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
 
         ChildAlertsDetailDialog.show(this, alertLevelEnum, alertLevelValue, kidIdentityValue);
 
+    }
+
+    /**
+     * on Show Case Completed
+     */
+    @Override
+    public void onShowcaseCompleted() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if(!appOverlayService.canDrawOverlays()) {
+                showConfirmationDialog(R.string.require_app_overlay_permission_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        navigatorImpl.showManageOverlaySettings(HomeMvpActivity.this);
+                    }
+
+                    @Override
+                    public void onRejected(DialogFragment dialog) {}
+                });
+            }
     }
 
 }

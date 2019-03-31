@@ -461,7 +461,7 @@
     <string name="results_since_one_month_ago">Results since 1 month ago</string>
     <string name="close_dialog">I understood</string>
     <string name="accept">I understood</string>
-
+    <string name="show_detail">Show Detail</string>
 
     <string name="pick_image_intent_text">Choose an image</string>
     <string name="change_profile_picture" formatted="true">Change profile picture of %s</string>
@@ -1125,5 +1125,8 @@
     <string name="summary_my_kids_results_no_positive_comments">None of the comments analyzed have positive sentiment</string>
     <string name="summary_my_kids_results_neutral_comments_percentage" formatted="false">%s of the comments analyzed have a neutral sentiment</string>
     <string name="summary_my_kids_results_no_neutral_comments">None of the comments analyzed have neutral sentiment</string>
+
+    <!-- App Overlay -->
+    <string name="require_app_overlay_permission_confirm">Bullkeeper needs your permission to show ads that overlap other applications. This feature will inform you about important notices.</string>
 
 </resources>

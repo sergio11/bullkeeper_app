@@ -1,7 +1,9 @@
 package sanchez.sanchez.sergio.bullkeeper.navigation;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import java.util.Date;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
@@ -623,5 +625,12 @@ public interface INavigator {
      */
     void showChangeUserPasswordDialogFragment(final AppCompatActivity activity, final
         ChangeUserPasswordDialogFragment.OnChangeUserPasswordDialogListener listener);
+
+    /**
+     * Show Manage Overlay Settings
+     * @param activity
+     */
+    @RequiresApi(Build.VERSION_CODES.M)
+    void showManageOverlaySettings(final AppCompatActivity activity);
 
 }

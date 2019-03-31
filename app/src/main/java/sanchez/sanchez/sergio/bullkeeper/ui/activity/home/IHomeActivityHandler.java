@@ -74,4 +74,10 @@ public interface IHomeActivityHandler extends IBasicActivityHandler {
     void showChildAlertsDetailDialog(final AlertLevelEnum alertLevelEnum,
                                      final String alertLevelValue, final String kidIdentityValue);
 
+
+    /**
+     * On Show Case Completed
+     */
+    void onShowcaseCompleted();
+
 }

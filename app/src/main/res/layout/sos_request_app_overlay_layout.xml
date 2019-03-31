@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sos_request_dialog_drawable">
+
+    <ImageView
+        android:id="@+id/kidRequestImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/sos_icon_white"
+        android:contentDescription="@string/content_not_be_loaded"
+        app:layout_constraintBottom_toTopOf="@id/kidRequestTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/kidRequestTitle"
+        style="@style/CommonStrongText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/commonWhite"
+        app:layout_constraintBottom_toTopOf="@id/dismiss"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kidRequestImage" />
+
+    <Button
+        android:id="@+id/showKidRequest"
+        style="@style/CommonActionButton.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/common_padding"
+        android:text="@string/show_detail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialogTitle"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -7,6 +7,7 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Singleton;
 import dagger.Component;
 import retrofit2.Retrofit;
+import sanchez.sanchez.sergio.bullkeeper.core.overlay.IAppOverlayService;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
@@ -161,4 +162,5 @@ public interface ApplicationComponent {
     UiUtils uiUtils();
     ISoundManager soundManager();
     ISseEventHandler sseEventHandler();
+    IAppOverlayService appOverlayService();
 }

@@ -7,6 +7,8 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import sanchez.sanchez.sergio.bullkeeper.BuildConfig;
+import sanchez.sanchez.sergio.bullkeeper.core.overlay.IAppOverlayService;
+import sanchez.sanchez.sergio.bullkeeper.core.overlay.impl.AppOverlayServiceImpl;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.impl.SoundManagerImpl;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
@@ -179,6 +181,16 @@ public class ApplicationModule {
 
     /**
      * Provide SSE Event Handler
+     * @param appContext
+     * @param apiEndPointsHelper
+     * @param okHttpClient
+     * @param preferenceRepository
+     * @param objectMapper
+     * @param notificationHelper
+     * @param localSystemNotification
+     * @param appOverlayService
+     * @param soundManager
+     * @param appUtils
      * @return
      */
     @Provides @Singleton
@@ -190,11 +202,24 @@ public class ApplicationModule {
             final ObjectMapper objectMapper,
             final INotificationHelper notificationHelper,
             final ILocalSystemNotification localSystemNotification,
+            final IAppOverlayService appOverlayService,
+            final ISoundManager soundManager,
             final IAppUtils appUtils
     ) {
         return new SseEventHandlerImpl(appContext,apiEndPointsHelper,
                 okHttpClient, preferenceRepository, objectMapper, notificationHelper,
-                localSystemNotification, appUtils);
+                localSystemNotification, appOverlayService, soundManager, appUtils);
+    }
+
+    /**
+     * Provide App Overlay Service
+     * @return
+     */
+    @Provides @Singleton
+    IAppOverlayService provideAppOverlayService(
+            final Context appContext
+    ){
+        return new AppOverlayServiceImpl(appContext);
     }
 
 }

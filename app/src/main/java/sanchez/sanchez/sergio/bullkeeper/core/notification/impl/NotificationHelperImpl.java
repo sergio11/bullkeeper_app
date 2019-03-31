@@ -194,9 +194,11 @@ public final class NotificationHelperImpl implements INotificationHelper {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setAutoCancel(true)
                 .setSound(alertSound);
+
+        if (Build.VERSION.SDK_INT >= 21) notificationBuilder.setVibrate(new long[0]);
 
         if(intent != null) {
             final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,

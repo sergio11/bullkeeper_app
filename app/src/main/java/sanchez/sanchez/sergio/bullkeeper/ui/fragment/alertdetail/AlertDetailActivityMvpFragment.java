@@ -416,7 +416,7 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        activityHandler.goToTerminals(alertEntity.getSon().getIdentity());
+                        activityHandler.goToKidRequestList(alertEntity.getSon().getIdentity());
                     }
                 });
                 break;

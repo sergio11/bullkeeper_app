@@ -231,6 +231,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         myChildList.setAdapter(myKidsStatusAdapter);
 
+
     }
 
     @Override
@@ -349,6 +350,8 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
 
         if (!preferenceRepository.isHomeShowCaseCompleted())
             launchShowCase();
+        else
+            activityHandler.onShowcaseCompleted();
 
     }
 
@@ -457,6 +460,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
     @Override
     public void onComplete() {
         preferenceRepository.setHomeShowcaseCompleted(true);
+        activityHandler.onShowcaseCompleted();
     }
 
     /**

@@ -1,6 +1,12 @@
 package sanchez.sanchez.sergio.bullkeeper.sse.impl;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.RawRes;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +20,8 @@ import okhttp3.Response;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.notification.INotificationHelper;
+import sanchez.sanchez.sergio.bullkeeper.core.overlay.IAppOverlayService;
+import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.AllConversationDeletedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.AllMessagesDeletedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.AppUninstalledEvent;
@@ -24,6 +32,7 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.MessageSavedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.NewAppInstalledEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.SetMessagesAsViewedEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.kidRequestCreatedEvent;
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.sse.SseEventTypeEnum;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.AllConversationDeletedDTO;
@@ -44,6 +53,8 @@ import sanchez.sanchez.sergio.domain.models.RequestTypeEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import timber.log.Timber;
+
+import static sanchez.sanchez.sergio.domain.models.RequestTypeEnum.SOS;
 
 /**
  * SSE Event Handler Impl
@@ -85,6 +96,16 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     private ILocalSystemNotification localSystemNotification;
 
     /**
+     * App Overlay Service
+     */
+    private IAppOverlayService appOverlayService;
+
+    /**
+     * Sound Manager
+     */
+    private ISoundManager soundManager;
+
+    /**
      * App Utils
      */
     private final IAppUtils appUtils;
@@ -101,12 +122,17 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     private ServerSentEvent serverSentEvent = null;
 
     /**
+     *
      * @param context
      * @param apiEndPointsHelper
      * @param okHttpClient
      * @param preferenceRepository
      * @param objectMapper
      * @param notificationHelper
+     * @param localSystemNotification
+     * @param appOverlayService
+     * @param soundManager
+     * @param appUtils
      */
     public SseEventHandlerImpl(
             final Context context,
@@ -116,6 +142,8 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             final ObjectMapper objectMapper,
             final INotificationHelper notificationHelper,
             final ILocalSystemNotification localSystemNotification,
+            final IAppOverlayService appOverlayService,
+            final ISoundManager soundManager,
             final IAppUtils appUtils) {
         this.context = context;
         this.apiEndPointsHelper = apiEndPointsHelper;
@@ -123,7 +151,9 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
         this.objectMapper = objectMapper;
         this.notificationHelper = notificationHelper;
         this.localSystemNotification = localSystemNotification;
+        this.appOverlayService = appOverlayService;
         this.okSse = new OkSse(okHttpClient);
+        this.soundManager = soundManager;
         this.appUtils = appUtils;
     }
 
@@ -276,20 +306,24 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             final String kidName = kidRequestCreatedDTO.getKid().getFirstName() + " " +
                     kidRequestCreatedDTO.getKid().getLastName();
 
-            String title = null, body = null;
+            String title, body;
+            @RawRes int requestTypeSound;
+            @LayoutRes int requestTypeLayout;
 
-            switch (RequestTypeEnum.valueOf(kidRequestCreatedDTO.getType())) {
-                case PICKMEUP:
+            if(RequestTypeEnum.valueOf(kidRequestCreatedDTO.getType()).equals(SOS)) {
 
-                    title = String.format(Locale.getDefault(), context.getString(R.string.kid_request_notification_pickmeup_title),
-                                    kidName);
-                    body = context.getString(R.string.kid_request_notification_pickmeup_description);
-                    break;
-                case SOS:
-                    title = String.format(Locale.getDefault(), context.getString(R.string.kid_request_notification_sos_title),
-                            kidName);
-                    body = context.getString(R.string.kid_request_notification_sos_description);
-                    break;
+                title = String.format(Locale.getDefault(), context.getString(R.string.kid_request_notification_sos_title),
+                        kidName);
+                body = context.getString(R.string.kid_request_notification_sos_description);
+                requestTypeSound = R.raw.sos_alarm;
+                requestTypeLayout = R.layout.sos_request_app_overlay_layout;
+            } else {
+
+                title = String.format(Locale.getDefault(), context.getString(R.string.kid_request_notification_pickmeup_title),
+                        kidName);
+                body = context.getString(R.string.kid_request_notification_pickmeup_description);
+                requestTypeSound = R.raw.pick_me_up_sound;
+                requestTypeLayout = R.layout.pickmeup_request_app_overlay_layout;
             }
 
             // Send Notification
@@ -304,6 +338,36 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             notificationHelper.showImportantNotification(title, body,
                     KidRequestDetailMvpActivity.getCallingIntent(context,
                             kidRequestCreatedDTO.getKid().getIdentity(), kidRequestCreatedDTO.getIdentity()));
+
+            soundManager.playSound(requestTypeSound);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                final View requestTypeLayoutView = appOverlayService.create(requestTypeLayout);
+
+                if(requestTypeLayoutView != null) {
+
+                    final TextView kidRequestTitleView = requestTypeLayoutView.findViewById(R.id.kidRequestTitle);
+                    if(kidRequestTitleView != null)
+                        kidRequestTitleView.setText(title);
+
+                    final Button showKidRequestButton = requestTypeLayoutView.findViewById(R.id.showKidRequest);
+                    if(showKidRequestButton != null)
+                        showKidRequestButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                appOverlayService.hide(requestTypeLayoutView);
+                                context.startActivity(KidRequestDetailMvpActivity.getCallingIntent(context,
+                                        kidRequestCreatedDTO.getKid().getIdentity(), kidRequestCreatedDTO.getIdentity()));
+
+                            }
+                        });
+
+                    appOverlayService.show(requestTypeLayoutView);
+                }
+
+
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();

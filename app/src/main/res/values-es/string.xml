@@ -361,6 +361,7 @@
     <string name="results_since_one_month_ago">Resultados desde hace 1 mes</string>
     <string name="close_dialog">Entendido</string>
     <string name="accept">Entendido</string>
+    <string name="show_detail">Ver Detalle</string>
     <string name="pick_image_intent_text">Elige una imagen</string>
     <string name="change_profile_picture" formatted="true">Cambiar la foto de perfil de %s</string>
     <string name="change_profile_picture_default">Cambiar foto de perfil</string>

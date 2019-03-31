@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import com.fernandocejas.arrow.checks.Preconditions;
@@ -1149,5 +1152,18 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(listener, "Listener can not be null");
 
         ChangeUserPasswordDialogFragment.showDialog(activity, listener);
+    }
+
+
+    /**
+     * Show Manage Overlay Settings
+     * @param activity
+     */
+    @RequiresApi(Build.VERSION_CODES.M)
+    @Override
+    public void showManageOverlaySettings(final AppCompatActivity activity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        activity.startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + context.getPackageName())));
     }
 }
