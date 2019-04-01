@@ -50,6 +50,31 @@ public interface IAlertDetailActivityHandler extends IBasicActivityHandler {
     void goToTerminals(final String kid);
 
     /**
+     * Go To Contacts
+     * @param kid
+     */
+    void goToContacts(final String kid);
+
+    /**
+     * Go To Phone Numbers
+     * @param kid
+     */
+    void goToPhoneNumbers(final String kid);
+
+    /**
+     * Go To Fun Time
+     * @param kid
+     */
+    void goToFunTime(final String kid);
+
+    /**
+     * Go To Scheduled Block List
+     * @param kid
+     */
+    void goToScheduledBlockList(final String kid);
+
+
+    /**
      * Go To Kid Request List
      * @param kid
      */

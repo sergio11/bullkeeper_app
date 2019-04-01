@@ -377,6 +377,66 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     *
+     * @param activity
+     * @param identity
+     */
+    @Override
+    public void navigateToContactsList(final Activity activity, final String identity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity,
+                MyKidsDetailMvpActivity.CONTACTS_LIST_TAB));
+    }
+
+    /**
+     *
+     * @param activity
+     * @param identity
+     */
+    @Override
+    public void navigateToPhoneNumbersList(final Activity activity, final String identity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity,
+                MyKidsDetailMvpActivity.CALLS_LIST_TAB));
+    }
+
+    /**
+     *
+     * @param activity
+     * @param identity
+     */
+    @Override
+    public void navigateToFunTime(final Activity activity, final String identity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity,
+                MyKidsDetailMvpActivity.FUN_TIME_TAB));
+    }
+
+    /**
+     *
+     * @param activity
+     * @param identity
+     */
+    @Override
+    public void navigateToScheduledBlockList(final Activity activity, final String identity) {
+        Preconditions.checkNotNull(activity, "Activity can not be null");
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+
+        activity.startActivity(MyKidsDetailMvpActivity.getCallingIntent(context, identity,
+                MyKidsDetailMvpActivity.SCHEDULED_BLOCKS_TAB));
+    }
+
+    /**
      * Navigate To Kid Results Settings
      * @param activity
      */

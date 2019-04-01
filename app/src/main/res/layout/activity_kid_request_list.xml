@@ -44,7 +44,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="@dimen/common_margin"
-            android:src="@drawable/phone_number_blocked_icon"
+            android:src="@drawable/info_solid_white"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"/>
 
@@ -57,31 +57,23 @@
             android:layout_centerVertical="true"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/phone_numbers_blocked_title_default"
+            android:text="@string/kid_request_title_default"
             android:textColor="@color/commonWhite" />
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/common_margin"
-            android:gravity="center_vertical"
+        <!-- Delete Kid Request -->
+        <ImageView
+            android:id="@+id/deleteAllKidRequest"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/common_margin"
+            android:visibility="gone"
+            android:src="@drawable/trash_white"
+            android:contentDescription="@string/content_not_be_loaded"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"/>
 
-            <!-- Delete Phone Numbers Blocked -->
-            <ImageView
-                android:id="@+id/deleteAllKidRequest"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="@dimen/common_margin"
-                android:visibility="gone"
-                android:src="@drawable/trash_white"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/content_not_be_loaded" />
-
-        </LinearLayout>
 
     </RelativeLayout>
 

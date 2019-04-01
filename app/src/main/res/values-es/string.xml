@@ -176,6 +176,18 @@
     <!-- Kid Request -->
     <string name="alert_category_kid_request_desc">Ir al detalle de solicitud de niño para más detalle</string>
     <string name="alert_category_kid_request_action_text">Ir a la solicitud del niño</string>
+    <!-- Contacts -->
+    <string name="alert_category_contacts_desc">Ir al listado de contactos para obtener más detalle.</string>
+    <string name="alert_category_contacts_action_text">Ir al listado de contactos.</string>
+    <!-- Fun Time -->
+    <string name="alert_category_fun_time_desc">Ir a la configuración del tiempo de ocio para obtener más detalle.</string>
+    <string name="alert_category_fun_time_action_text">Ir a la configuración de tiempo de ocio.</string>
+    <!-- Phone Numbers -->
+    <string name="alert_category_phone_numbers_desc">Ir al listado de números de teléfonos bloqueados.</string>
+    <string name="alert_category_phone_numbers_action_text">Ir al listado de número de teléfono bloqueados.</string>
+    <!-- Scheduled Block -->
+    <string name="alert_category_scheduled_block_desc">Ir al listado de hábitos diarios para obtener más información.</string>
+    <string name="alert_category_scheduled_block_action_text">Ir al listado de hábitos diarios.</string>
     <!-- Preferences -->
     <!-- App Preferences General Configuration Category -->
     <string name="app_preferences_general_configuration_category">Configuración general</string>
@@ -884,8 +896,8 @@
     <string name="kid_request_pickmeup_event_type_name">PickMe Up</string>
     <string name="kid_request_unknown_type_name">Unknown</string>
     <string name="kid_request_registered_since" formatted="false">Solicitud recibida %s</string>
-    <string name="kid_request_title"></string>
-    <string name="kid_request_title_default" formatted="false"></string>
+    <string name="kid_request_title" formatted="false">Avisos registrados (%d)</string>
+    <string name="kid_request_title_default">Avisos registrados</string>
     <string name="new_kid_request_created">Nueva solicitud recibido</string>
     <string name="kid_request_location_address">Ubicación de la solicitud</string>
 

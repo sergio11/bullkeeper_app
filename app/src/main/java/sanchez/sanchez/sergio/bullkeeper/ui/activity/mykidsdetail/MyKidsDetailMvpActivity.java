@@ -78,7 +78,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     public final static int CALLS_LIST_TAB = 7;
     public final static int CONTACTS_LIST_TAB = 8;
     public final static int PHOTOS_TAB = 9;
-    public final static int TIME_ALLOWANCE_TAB = 10;
+    public final static int FUN_TIME_TAB = 10;
     public final static int FAMILY_LOCATOR_TAB = 11;
     public final static int SECTION_COUNT = 12;
 
@@ -802,7 +802,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return ContactListMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case PHOTOS_TAB:
                     return DevicePhotosListMvpFragment.newInstance(kidIdentity, terminalItemsList);
-                case TIME_ALLOWANCE_TAB:
+                case FUN_TIME_TAB:
                     return FunTimeMvpFragment.newInstance(kidIdentity, terminalItemsList);
                 case FAMILY_LOCATOR_TAB:
                     return FamilyLocatorMvpFragment.newInstance(kidEntity.getIdentity(),
@@ -848,7 +848,7 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
                     return getString(R.string.contact_list_title_tab);
                 case PHOTOS_TAB:
                     return getString(R.string.device_photos_title_tab);
-                case TIME_ALLOWANCE_TAB:
+                case FUN_TIME_TAB:
                     return getString(R.string.fun_time_title);
                 case FAMILY_LOCATOR_TAB:
                     return getString(R.string.family_locator_title);

@@ -224,6 +224,18 @@
     <!-- Kid Request -->
     <string name="alert_category_kid_request_desc">Go to the Kid Request Detail for more detail</string>
     <string name="alert_category_kid_request_action_text">Go to the Kid Request</string>
+    <!-- Contacts -->
+    <string name="alert_category_contacts_desc">Go to the Contacts List for more detail</string>
+    <string name="alert_category_contacts_action_text">Go to the Contacts List</string>
+    <!-- Fun Time -->
+    <string name="alert_category_fun_time_desc">Go to the Fun Time Configuration for more detail</string>
+    <string name="alert_category_fun_time_action_text">Go to the Fun Time Configuration</string>
+    <!-- Phone Numbers -->
+    <string name="alert_category_phone_numbers_desc">Go to the Phone Numbers List for more detail</string>
+    <string name="alert_category_phone_numbers_action_text">Go to the Phone Numbers</string>
+    <!-- Scheduled Block -->
+    <string name="alert_category_scheduled_block_desc">Go to the Scheduled Block List for more detail</string>
+    <string name="alert_category_scheduled_block_action_text">Go to the Scheduled Block List</string>
     <!-- Preferences -->
 
     <!-- App Preferences General Configuration Category -->
@@ -1030,8 +1042,8 @@
     <string name="kid_request_pickmeup_event_type_name">PickMe Up</string>
     <string name="kid_request_unknown_type_name">Unknown</string>
     <string name="kid_request_registered_since" formatted="false">Request received %s</string>
-    <string name="kid_request_title"></string>
-    <string name="kid_request_title_default" formatted="false"></string>
+    <string name="kid_request_title" formatted="false">Kid Request (%d)</string>
+    <string name="kid_request_title_default">Kid Request</string>
     <string name="new_kid_request_created">New Kid Request received</string>
     <string name="kid_request_location_address">Location of the request</string>
 

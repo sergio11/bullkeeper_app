@@ -182,6 +182,34 @@ public interface INavigator {
      */
     void navigateToTerminalsList(final Activity activity, final String identity);
 
+    /**
+     * Navigate To Contacts
+     * @param activity
+     * @param identity
+     */
+    void navigateToContactsList(final Activity activity, final String identity);
+
+    /**
+     * Navigate To Phone Number List
+     * @param activity
+     * @param identity
+     */
+    void navigateToPhoneNumbersList(final Activity activity, final String identity);
+
+    /**
+     * Navigate To Fun Time
+     * @param activity
+     * @param identity
+     */
+    void navigateToFunTime(final Activity activity, final String identity);
+
+    /**
+     * Navigate To Scheduled Block List
+     * @param activity
+     * @param identity
+     */
+    void navigateToScheduledBlockList(final Activity activity, final String identity);
+
 
     /**
      * Navigate To Kid Results Settings

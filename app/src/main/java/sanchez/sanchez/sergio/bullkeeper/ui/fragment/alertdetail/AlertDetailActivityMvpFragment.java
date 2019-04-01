@@ -421,6 +421,58 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 });
                 break;
 
+            case CONTACTS:
+
+                alertDetailActions.setText(getString(R.string.alert_category_contacts_desc));
+                actionButton.setText(getString(R.string.alert_category_contacts_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToContacts(alertEntity.getSon().getIdentity());
+                    }
+                });
+
+                break;
+
+
+            case FUN_TIME:
+                alertDetailActions.setText(getString(R.string.alert_category_fun_time_desc));
+                actionButton.setText(getString(R.string.alert_category_fun_time_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToFunTime(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
+
+            case PHONE_NUMBERS:
+                alertDetailActions.setText(getString(R.string.alert_category_phone_numbers_desc));
+                actionButton.setText(getString(R.string.alert_category_phone_numbers_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToPhoneNumbers(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
+            case SCHEDULED_BLOCK:
+                alertDetailActions.setText(getString(R.string.alert_category_scheduled_block_desc));
+                actionButton.setText(getString(R.string.alert_category_scheduled_block_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToScheduledBlockList(alertEntity.getSon().getIdentity());
+                    }
+                });
+                break;
+
 
         }
 

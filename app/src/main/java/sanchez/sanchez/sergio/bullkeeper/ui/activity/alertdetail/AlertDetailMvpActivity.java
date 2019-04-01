@@ -180,6 +180,46 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
     }
 
     /**
+     * Go To Contacts
+     * @param kid
+     */
+    @Override
+    public void goToContacts(String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        navigatorImpl.navigateToContactsList(this, kid);
+    }
+
+    /**
+     * Go To Phone Numbers
+     * @param kid
+     */
+    @Override
+    public void goToPhoneNumbers(String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        navigatorImpl.navigateToPhoneNumbersList(this, kid);
+    }
+
+    /**
+     * Go To Fun Time
+     * @param kid
+     */
+    @Override
+    public void goToFunTime(String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        navigatorImpl.navigateToFunTime(this, kid);
+    }
+
+    /**
+     * Go To Scheduled Block List
+     * @param kid
+     */
+    @Override
+    public void goToScheduledBlockList(String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        navigatorImpl.navigateToScheduledBlockList(this, kid);
+    }
+
+    /**
      * Go To Kid Request List
      * @param kid
      */
