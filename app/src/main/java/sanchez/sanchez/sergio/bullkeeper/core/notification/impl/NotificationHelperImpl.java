@@ -190,7 +190,7 @@ public final class NotificationHelperImpl implements INotificationHelper {
     public Notification createImportantNotification(String title, String body, Intent intent) {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_stat_bk)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(true)
@@ -234,7 +234,7 @@ public final class NotificationHelperImpl implements INotificationHelper {
     @Override
     public Notification createNoticeNotification(String title, String body, Intent intent) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_stat_bk)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(false)
@@ -274,7 +274,7 @@ public final class NotificationHelperImpl implements INotificationHelper {
     @Override
     public Notification createSilentNotification(String title, String body, Intent intent) {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_stat_bk)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setOngoing(false)
