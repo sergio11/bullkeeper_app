@@ -13,6 +13,12 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -280,11 +286,19 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
         // Set Contact Name
         contactNameTextView.setText(contactEntity.getName());
 
+        final List<String> phoneNumbersList = new ArrayList<>();
+        final Iterator<ContactEntity.PhoneContactEntity> ite = contactEntity.getPhoneList().iterator();
+        while(ite.hasNext()) {
+            final ContactEntity.PhoneContactEntity phoneContactEntity = ite.next();
+            if(phoneContactEntity != null)
+                phoneNumbersList.add(phoneContactEntity.getPhone());
+        }
+
+        phoneNumber = StringUtils.join(phoneNumbersList, ",");
+
         // Set Phone Number
         phoneNumberTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.contact_phonenumber), contactEntity.getPhoneNumber()));
-
-        phoneNumber = contactEntity.getPhoneNumber();
+                getString(R.string.contact_phonenumber), phoneNumber));
 
         // Set Phone Number is blocked
         phoneNumberIsBlockedTextView.setText(contactEntity.isBlocked() ? R.string.phone_number_blocked :

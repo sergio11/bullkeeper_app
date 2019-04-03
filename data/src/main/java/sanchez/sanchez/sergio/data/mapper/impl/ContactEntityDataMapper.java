@@ -1,6 +1,10 @@
 package sanchez.sanchez.sergio.data.mapper.impl;
 
 import com.fernandocejas.arrow.checks.Preconditions;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.ContactDTO;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
@@ -23,10 +27,32 @@ public final class ContactEntityDataMapper extends AbstractDataMapper<ContactDTO
         contactEntity.setKid(originModel.getKid());
         contactEntity.setLocalId(originModel.getLocalId());
         contactEntity.setName(originModel.getName());
-        contactEntity.setPhoneNumber(originModel.getPhoneNumber());
         contactEntity.setPhotoEncodedString(originModel.getPhotoEncodedString());
         contactEntity.setTerminal(originModel.getTerminal());
         contactEntity.setBlocked(originModel.isBlocked());
+
+        final List<ContactEntity.PhoneContactEntity> phoneContactEntityList = new ArrayList<>();
+        for(final ContactDTO.PhoneContactDTO phoneContactDTO: originModel.getPhoneList())
+            phoneContactEntityList.add(new ContactEntity.PhoneContactEntity(phoneContactDTO.getPhone()));
+
+        contactEntity.setPhoneList(phoneContactEntityList);
+
+        final List<ContactEntity.EmailContactEntity> emailContactEntities = new ArrayList<>();
+        for(final ContactDTO.EmailContactDTO emailContactDTO: originModel.getEmailList())
+            emailContactEntities.add(new ContactEntity.EmailContactEntity(emailContactDTO.getEmail()));
+
+        contactEntity.setEmailList(emailContactEntities);
+
+        final List<ContactEntity.PostalAddressEntity> postalAddressEntities = new ArrayList<>();
+        for(final ContactDTO.PostalAddressDTO postalAddressDTO: originModel.getAddressList())
+            postalAddressEntities.add(new ContactEntity.PostalAddressEntity(
+                    postalAddressDTO.getCity(),
+                    postalAddressDTO.getState(),
+                    postalAddressDTO.getCountry()));
+
+
+        contactEntity.setAddressList(postalAddressEntities);
+
         return contactEntity;
     }
 
@@ -43,10 +69,31 @@ public final class ContactEntityDataMapper extends AbstractDataMapper<ContactDTO
         contactDTO.setKid(originModel.getKid());
         contactDTO.setLocalId(originModel.getLocalId());
         contactDTO.setName(originModel.getName());
-        contactDTO.setPhoneNumber(originModel.getPhoneNumber());
         contactDTO.setTerminal(originModel.getTerminal());
         contactDTO.setPhotoEncodedString(originModel.getPhotoEncodedString());
         contactDTO.setBlocked(originModel.isBlocked());
+
+        final List<ContactDTO.PhoneContactDTO> phoneContactEntityList = new ArrayList<>();
+        for(final ContactEntity.PhoneContactEntity phoneContactEntity: originModel.getPhoneList())
+            phoneContactEntityList.add(new ContactDTO.PhoneContactDTO(phoneContactEntity.getPhone()));
+
+        contactDTO.setPhoneList(phoneContactEntityList);
+
+        final List<ContactDTO.EmailContactDTO> emailContactEntities = new ArrayList<>();
+        for(final ContactEntity.EmailContactEntity emailContactEntity: originModel.getEmailList())
+            emailContactEntities.add(new ContactDTO.EmailContactDTO(emailContactEntity.getEmail()));
+
+        contactDTO.setEmailList(emailContactEntities);
+
+        final List<ContactDTO.PostalAddressDTO> postalAddressEntities = new ArrayList<>();
+        for(final ContactEntity.PostalAddressEntity postalAddressDTO: originModel.getAddressList())
+            postalAddressEntities.add(new ContactDTO.PostalAddressDTO(
+                    postalAddressDTO.getCity(),
+                    postalAddressDTO.getState(),
+                    postalAddressDTO.getCountry()));
+
+
+        contactDTO.setAddressList(postalAddressEntities);
         return contactDTO;
     }
 }

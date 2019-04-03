@@ -637,7 +637,7 @@ public interface IPreferenceRepository extends IAuthTokenAware {
     void setCommentsSentimentLevel(final String level);
 
     /**
-     * Is Youtube Social Media Enabled
+     * Is Overlay Notification
      * @return
      */
     boolean isConversationMessageOverlayNotificationEnabled();
@@ -647,7 +647,5 @@ public interface IPreferenceRepository extends IAuthTokenAware {
      * @param overlayNotificationEnabled
      */
     void setConversationMessageOverlayNotificationEnabled(boolean overlayNotificationEnabled);
-
-
 
 }

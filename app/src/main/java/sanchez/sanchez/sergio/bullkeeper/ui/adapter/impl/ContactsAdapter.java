@@ -9,7 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
@@ -89,9 +94,17 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
             else
                 contactNameTextView.setText(contactEntity.getName());
 
+            final List<String> phoneNumbersList = new ArrayList<>();
+            final Iterator<ContactEntity.PhoneContactEntity> ite = contactEntity.getPhoneList().iterator();
+            while(ite.hasNext()) {
+                final ContactEntity.PhoneContactEntity phoneContactEntity = ite.next();
+                if(phoneContactEntity != null)
+                    phoneNumbersList.add(phoneContactEntity.getPhone());
+            }
+
             // Set Phone Number
             contactPhoneNumberTextView.setText(String.format(Locale.getDefault(),
-                    context.getString(R.string.contact_phonenumber), contactEntity.getPhoneNumber()));
+                    context.getString(R.string.contact_phonenumber), StringUtils.join(phoneNumbersList, ",")));
 
             phoneNumberBlockedImageView.setImageResource(
                     !contactEntity.isBlocked() ? R.drawable.success_icon_solid :
