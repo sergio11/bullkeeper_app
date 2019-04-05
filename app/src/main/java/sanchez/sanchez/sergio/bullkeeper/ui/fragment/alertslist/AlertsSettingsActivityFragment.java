@@ -297,6 +297,7 @@ public class AlertsSettingsActivityFragment extends
     public void onSavedPendingChanges() {
         Timber.d("On Saved Pending Changes");
         preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
+        activityHandler.closeActivity();
     }
 
     /**

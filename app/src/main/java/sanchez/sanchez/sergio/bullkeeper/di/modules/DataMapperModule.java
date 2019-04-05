@@ -57,6 +57,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.SupervisedChildrenEntityDataMappe
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalDetailEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.TerminalHeartbeatEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.UserPreferenceEntityDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.AppInstalledRuleDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveDayScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.request.SaveFunTimeScheduledDTO;
@@ -106,6 +107,7 @@ import sanchez.sanchez.sergio.data.net.models.response.SupervisedChildrenDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDetailDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
+import sanchez.sanchez.sergio.data.net.models.response.UserPreferenceDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.AlertEntity;
 import sanchez.sanchez.sergio.domain.models.AlertsPageEntity;
@@ -154,6 +156,7 @@ import sanchez.sanchez.sergio.domain.models.SupervisedChildrenEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
+import sanchez.sanchez.sergio.domain.models.UserPreferenceEntity;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
 /**
@@ -695,6 +698,15 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<TerminalHeartbeatDTO, TerminalHeartbeatEntity> provideTerminalHeartbeatDataMapper(){
         return new TerminalHeartbeatEntityDataMapper();
+    }
+
+    /**
+     * Provide User Preference Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<UserPreferenceDTO, UserPreferenceEntity> provideUserPreferenceDataMapper(){
+        return new UserPreferenceEntityDataMapper();
     }
 
 }

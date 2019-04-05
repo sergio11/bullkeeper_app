@@ -7,6 +7,7 @@ import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.UserPreferenceEntity;
 
 /**
  * Guardian Repository
@@ -86,5 +87,20 @@ public interface IGuardianRepository {
      * @return
      */
     Observable<KidGuardianEntity> getSupervisedChildConfirmedById(final String kid);
+
+    /**
+     * Get User Preference
+     * @return
+     */
+    Observable<UserPreferenceEntity> getUserPreference();
+
+    /**
+     * Save User Preference
+     * @param pushNotificationsEnabled
+     * @param removeAlertsEvery
+     * @return
+     */
+    Observable<UserPreferenceEntity> saveUserPreference(final Boolean pushNotificationsEnabled,
+            final String removeAlertsEvery);
 
 }

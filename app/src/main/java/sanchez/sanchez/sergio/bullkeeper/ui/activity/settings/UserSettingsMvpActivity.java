@@ -4,16 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 
 import com.crashlytics.android.answers.ContentViewEvent;
-
+import com.fernandocejas.arrow.checks.Preconditions;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerSettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.settings.UserSettingsActivityFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
+import sanchez.sanchez.sergio.domain.models.UserPreferenceEntity;
 
 /**
  * User Settings Activity
@@ -146,5 +149,63 @@ public class UserSettingsMvpActivity extends SupportMvpActivity<UserSettingsActi
     @Override
     protected int getBackgroundResource() {
         return R.drawable.background_cyan_6;
+    }
+
+    /**
+     * on User Preferences Loaded
+     * @param userPreferenceEntity
+     */
+    @Override
+    public void onUserPreferencesLoaded(final UserPreferenceEntity userPreferenceEntity) {
+        Preconditions.checkNotNull(userPreferenceEntity, "User Preferences Entity");
+
+        if(userSettingsActivityFragment != null)
+            userSettingsActivityFragment.onUserPreferencesLoaded(userPreferenceEntity.getPushNotificationsEnabled(),
+                    userPreferenceEntity.getRemoveAlertsEvery());
+    }
+
+    /**
+     * on User Preferences Saved
+     * @param userPreferenceEntity
+     */
+    @Override
+    public void onUserPreferencesSaved(final UserPreferenceEntity userPreferenceEntity) {
+        Preconditions.checkNotNull(userPreferenceEntity, "User Preferences Entity can not be null");
+
+        if(userSettingsActivityFragment != null)
+            userSettingsActivityFragment.onUserPreferencesLoaded(userPreferenceEntity.getPushNotificationsEnabled(),
+                    userPreferenceEntity.getRemoveAlertsEvery());
+
+        showNoticeDialog(R.string.preferences_saved_successfully_message, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+
+    }
+
+    /**
+     * on Save Preferences Error
+     */
+    @Override
+    public void onSavePreferencesError() {
+
+        showNoticeDialog(R.string.preferences_saved_error_message);
+
+    }
+
+    /**
+     * Save Preferences
+     * @param pushNotificationsEnabled
+     * @param removeAlertsEvery
+     */
+    @Override
+    public void savePreferences(final Boolean pushNotificationsEnabled, final String removeAlertsEvery) {
+        Preconditions.checkNotNull(pushNotificationsEnabled, "Push Notification Enabled");
+        Preconditions.checkNotNull(removeAlertsEvery, "Remove Alerts Every");
+
+        getPresenter().savePreferences(pushNotificationsEnabled, removeAlertsEvery);
+
     }
 }

@@ -8,6 +8,9 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
+
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import java.util.Date;
 import butterknife.OnClick;
 import icepick.State;
@@ -17,6 +20,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.settings.IUserSettingsActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPreferenceFragment;
+import sanchez.sanchez.sergio.domain.models.RemoveAlertsEveryEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import timber.log.Timber;
 
@@ -40,6 +44,8 @@ public class UserSettingsActivityFragment extends
     protected String ageOfAlerts;
     @State
     protected String removeAlertsEvery;
+    @State
+    protected boolean enablePushNotifications;
     @State
     protected boolean enableAllAlertCategories;
     @State
@@ -101,6 +107,8 @@ public class UserSettingsActivityFragment extends
         // Enable Push Notification
         final SwitchPreferenceCompat enablePushNotification = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_PUSH_NOTIFICATIONS);
         enablePushNotification.setOnPreferenceChangeListener(this);
+
+        enablePushNotifications = enablePushNotification.isChecked();
 
         // Enable All Alerts Categories
         final SwitchPreferenceCompat enableAllAlertCategoriesPreferences = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_ALL_ALERT_CATEGORIES);
@@ -232,20 +240,12 @@ public class UserSettingsActivityFragment extends
         preferencesRepositoryImpl.setAgeOfAlerts(ageOfAlertsPreference.getValue());
         // Save Remove Alerts Every preference
         final ListPreference removeAlertsEvery = (ListPreference) findPreference(IPreferenceRepository.PREF_REMOVE_ALERTS_EVERY);
-        preferencesRepositoryImpl.setRemoveAlertsEvery(removeAlertsEvery.getValue());
-
         // Save Enable Push Notification
         final SwitchPreferenceCompat enablePushNotification = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_PUSH_NOTIFICATIONS);
-        preferencesRepositoryImpl.setEnablePushNotifications(enablePushNotification.isChecked());
 
         preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
 
-        activityHandler.showNoticeDialog(R.string.preferences_saved_successfully, new NoticeDialogFragment.NoticeDialogListener() {
-            @Override
-            public void onAccepted(DialogFragment dialog) {
-                activityHandler.closeActivity();
-            }
-        });
+        activityHandler.savePreferences(enablePushNotification.isChecked(), removeAlertsEvery.getValue());
     }
 
     /**
@@ -266,6 +266,11 @@ public class UserSettingsActivityFragment extends
         // Pref Remove Alerts Every
         final ListPreference removeAlertsEveryPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_REMOVE_ALERTS_EVERY);
         if(!removeAlertsEveryPreference.getValue().equals(removeAlertsEvery)) return true;
+
+        final SwitchPreferenceCompat enablePushNotificationsPreferences =
+                (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_PUSH_NOTIFICATIONS);
+
+        if(enablePushNotifications != enablePushNotificationsPreferences.isChecked()) return true;
 
         final SwitchPreferenceCompat enableAllAlertCategoriesPreferences =
                 (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_ALL_ALERT_CATEGORIES);
@@ -302,6 +307,13 @@ public class UserSettingsActivityFragment extends
     public void onSavedPendingChanges() {
         Timber.d("On Saved Pending Changes");
         preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
+
+        // Save Remove Alerts Every preference
+        final ListPreference removeAlertsEvery = (ListPreference) findPreference(IPreferenceRepository.PREF_REMOVE_ALERTS_EVERY);
+        // Save Enable Push Notification
+        final SwitchPreferenceCompat enablePushNotification = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_PUSH_NOTIFICATIONS);
+
+        activityHandler.savePreferences(enablePushNotification.isChecked(), removeAlertsEvery.getValue());
     }
 
     /**
@@ -319,5 +331,25 @@ public class UserSettingsActivityFragment extends
         preferencesRepositoryImpl.setInformationAlertsEnabled(enableInformationAlerts);
         preferencesRepositoryImpl.setDangerAlertsEnabled(enableDangerAlerts);
         preferencesRepositoryImpl.setWarningAlertsEnabled(enableWarningAlerts);
+    }
+
+    /**
+     * on User Preferences Loaded
+     * @param pushNotificationsEnabled
+     * @param removeAlertsEvery
+     */
+    public void onUserPreferencesLoaded(final Boolean pushNotificationsEnabled, final RemoveAlertsEveryEnum removeAlertsEvery){
+        Preconditions.checkNotNull(pushNotificationsEnabled, "Push Notifications Enabled");
+        Preconditions.checkNotNull(removeAlertsEvery, "Remove alerts every can not be null");
+
+        final SwitchPreferenceCompat enablePushNotification = (SwitchPreferenceCompat) findPreference(IPreferenceRepository.PREF_ENABLE_PUSH_NOTIFICATIONS);
+        enablePushNotification.setChecked(pushNotificationsEnabled);
+        preferencesRepositoryImpl.setEnablePushNotifications(enablePushNotification.isChecked());
+        enablePushNotifications = pushNotificationsEnabled;
+
+        final ListPreference removeAlertsEveryPreference = (ListPreference) findPreference(IPreferenceRepository.PREF_REMOVE_ALERTS_EVERY);
+        removeAlertsEveryPreference.setValue(String.valueOf(removeAlertsEvery.ordinal()));
+        preferencesRepositoryImpl.setRemoveAlertsEvery(removeAlertsEveryPreference.getValue());
+        this.removeAlertsEvery = removeAlertsEveryPreference.getValue();
     }
 }

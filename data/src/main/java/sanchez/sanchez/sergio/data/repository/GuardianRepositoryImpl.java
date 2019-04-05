@@ -11,16 +11,20 @@ import okhttp3.RequestBody;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.request.ChangeUserEmailDTO;
 import sanchez.sanchez.sergio.data.net.models.request.ChangeUserPasswordDTO;
+import sanchez.sanchez.sergio.data.net.models.request.SaveUserPreferenceDTO;
 import sanchez.sanchez.sergio.data.net.models.request.UpdateGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.UserPreferenceDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.RemoveAlertsEveryEnum;
+import sanchez.sanchez.sergio.domain.models.UserPreferenceEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import timber.log.Timber;
 
@@ -57,12 +61,19 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
     private final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper;
 
     /**
+     * User Preference Entity Data Mapper
+     */
+    private final AbstractDataMapper<UserPreferenceDTO, UserPreferenceEntity> userPreferenceEntityAbstractDataMapper;
+
+
+    /**
      *
      * @param guardianService
      * @param guardianDataMapper
      * @param imageDataMapper
      * @param childrenOfSelfGuardianDataMapper
      * @param kidGuardianEntityAbstractDataMapper
+     * @param userPreferenceEntityAbstractDataMapper
      */
     @Inject
     public GuardianRepositoryImpl(final IGuardiansService guardianService,
@@ -70,12 +81,14 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
                                   final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                   final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
                                     childrenOfSelfGuardianDataMapper,
-                                  final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper) {
+                                  final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper,
+                                  final AbstractDataMapper<UserPreferenceDTO, UserPreferenceEntity> userPreferenceEntityAbstractDataMapper) {
         this.guardianService = guardianService;
         this.guardianDataMapper = guardianDataMapper;
         this.imageDataMapper = imageDataMapper;
         this.childrenOfSelfGuardianDataMapper = childrenOfSelfGuardianDataMapper;
         this.kidGuardianEntityAbstractDataMapper = kidGuardianEntityAbstractDataMapper;
+        this.userPreferenceEntityAbstractDataMapper = userPreferenceEntityAbstractDataMapper;
     }
 
     /**
@@ -234,6 +247,35 @@ public final class GuardianRepositoryImpl implements IGuardianRepository {
                 .map(response -> response != null && response.getData() != null
                         ? response.getData(): null)
                 .map(kidGuardianEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Get User Preference
+     * @return
+     */
+    @Override
+    public Observable<UserPreferenceEntity> getUserPreference() {
+        return guardianService.getPreferences()
+                .map(response -> response != null && response.getData() != null
+                        ? response.getData(): null)
+                .map(userPreferenceEntityAbstractDataMapper::transform);
+    }
+
+    /**
+     * Save User Preference
+     * @param pushNotificationsEnabled
+     * @param removeAlertsEvery
+     * @return
+     */
+    @Override
+    public Observable<UserPreferenceEntity> saveUserPreference(final Boolean pushNotificationsEnabled, final String removeAlertsEvery) {
+        Preconditions.checkNotNull(pushNotificationsEnabled, "Push notification can not be null");
+        Preconditions.checkNotNull(removeAlertsEvery, "Remove Alerts can not be null");
+
+        return guardianService.savePreferences(new SaveUserPreferenceDTO(pushNotificationsEnabled, RemoveAlertsEveryEnum.values()[Integer.parseInt(removeAlertsEvery)]))
+                .map(response -> response != null && response.getData() != null
+                        ? response.getData(): null)
+                .map(userPreferenceEntityAbstractDataMapper::transform);
     }
 
 }

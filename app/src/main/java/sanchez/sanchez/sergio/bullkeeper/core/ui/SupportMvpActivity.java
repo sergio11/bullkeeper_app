@@ -756,7 +756,6 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
                 @Override
                 public void onAccepted(DialogFragment dialog) {
                     onSavedPendingChanges();
-                    closeActivity();
                 }
 
                 @Override

@@ -12,6 +12,7 @@ import sanchez.sanchez.sergio.data.net.models.response.ChildrenOfSelfGuardianDTO
 import sanchez.sanchez.sergio.data.net.models.response.ImageDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GuardianDTO;
 import sanchez.sanchez.sergio.data.net.models.response.KidGuardianDTO;
+import sanchez.sanchez.sergio.data.net.models.response.UserPreferenceDTO;
 import sanchez.sanchez.sergio.data.net.services.IGuardiansService;
 import sanchez.sanchez.sergio.data.repository.GuardianRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
@@ -20,14 +21,17 @@ import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserEmailInterac
 import sanchez.sanchez.sergio.domain.interactor.guardians.ChangeUserPasswordInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.DeleteAccountInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetGuardianInformationInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.GetPreferencesForSelfUserInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSelfChildrenInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.GetSupervisedChildConfirmedByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.guardians.SavePreferencesForSelfUserInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.SearchGuardiansInteract;
 import sanchez.sanchez.sergio.domain.interactor.guardians.UpdateSelfInformationInteract;
 import sanchez.sanchez.sergio.domain.models.ChildrenOfSelfGuardianEntity;
 import sanchez.sanchez.sergio.domain.models.ImageEntity;
 import sanchez.sanchez.sergio.domain.models.GuardianEntity;
 import sanchez.sanchez.sergio.domain.models.KidGuardianEntity;
+import sanchez.sanchez.sergio.domain.models.UserPreferenceEntity;
 import sanchez.sanchez.sergio.domain.repository.IGuardianRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 
@@ -63,6 +67,7 @@ public class GuardianModule {
      * @param imageDataMapper
      * @param childrenOfSelfGuardianDataMapper
      * @param kidGuardianEntityAbstractDataMapper
+     * @param userPreferenceEntityAbstractDataMapper
      * @return
      */
     @Provides @PerActivity
@@ -71,9 +76,10 @@ public class GuardianModule {
                                                          final AbstractDataMapper<ImageDTO, ImageEntity> imageDataMapper,
                                                          final AbstractDataMapper<ChildrenOfSelfGuardianDTO, ChildrenOfSelfGuardianEntity>
                                                             childrenOfSelfGuardianDataMapper,
-                                                         final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper){
+                                                         final AbstractDataMapper<KidGuardianDTO, KidGuardianEntity> kidGuardianEntityAbstractDataMapper,
+                                                         final AbstractDataMapper<UserPreferenceDTO, UserPreferenceEntity> userPreferenceEntityAbstractDataMapper){
         return new GuardianRepositoryImpl(parentsService, parentDataMapper,
-                imageDataMapper, childrenOfSelfGuardianDataMapper, kidGuardianEntityAbstractDataMapper);
+                imageDataMapper, childrenOfSelfGuardianDataMapper, kidGuardianEntityAbstractDataMapper, userPreferenceEntityAbstractDataMapper);
     }
 
     /**
@@ -206,5 +212,35 @@ public class GuardianModule {
         Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
         Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
         return new GetSupervisedChildConfirmedByIdInteract(threadExecutor, postExecutionThread, guardianRepository);
+    }
+
+    /**
+     * Provide Get Preferences For Self User Interact
+     * @return
+     */
+    @Provides @PerActivity
+    public GetPreferencesForSelfUserInteract provideGetPreferencesForSelfUserInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final IGuardianRepository guardianRepository
+    ){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
+        return new GetPreferencesForSelfUserInteract(threadExecutor, postExecutionThread, guardianRepository);
+    }
+
+    /**
+     * Provide Save Preferences For Self User Interact
+     * @return
+     */
+    @Provides @PerActivity
+    public SavePreferencesForSelfUserInteract provideSavePreferencesForSelfUserInteract(
+            final IThreadExecutor threadExecutor, final IPostExecutionThread postExecutionThread,
+            final IGuardianRepository guardianRepository
+    ){
+        Preconditions.checkNotNull(threadExecutor, "Thread Executor can not be null");
+        Preconditions.checkNotNull(postExecutionThread, "Post Execution can not be null");
+        Preconditions.checkNotNull(guardianRepository, "Guardian Repository can not be null");
+        return new SavePreferencesForSelfUserInteract(threadExecutor, postExecutionThread, guardianRepository);
     }
 }

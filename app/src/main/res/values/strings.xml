@@ -194,6 +194,7 @@
     <string name="filter_age_of_alerts_preference_summary">Age of alerts to show.</string>
 
     <string name="preferences_saved_successfully_message">Preferences saved successfully.</string>
+    <string name="preferences_saved_error_message">Error saving user preferences.</string>
     <string name="has_pending_changes">The changes will be discarded. Do you want to save before close?</string>
 
     <!-- Alert Category -->
