@@ -2,10 +2,14 @@ package sanchez.sanchez.sergio.bullkeeper.core.utils;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.Calendar;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.ui.anim.CommonBounceInterpolator;
 
 /**
  * Ui Utils
@@ -43,6 +47,18 @@ public final class UiUtils {
         datePickerDialog.getDatePicker().setMaxDate(maxDate);
 
         return datePickerDialog;
+    }
+
+    /**
+     * Start Bounce Animation For View
+     * @param view
+     */
+    public void startBounceAnimationForView(final View view){
+        final Animation bounceAnimation = AnimationUtils.loadAnimation(appContext, R.anim.bounce);
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        CommonBounceInterpolator interpolator = new CommonBounceInterpolator(0.2, 20);
+        bounceAnimation.setInterpolator(interpolator);
+        view.startAnimation(bounceAnimation);
     }
 
 }

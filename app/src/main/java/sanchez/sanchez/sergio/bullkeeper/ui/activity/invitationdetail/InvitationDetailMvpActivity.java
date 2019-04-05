@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -83,6 +84,18 @@ public class InvitationDetailMvpActivity extends SupportMvpActivity<InvitationDe
      */
     @BindView(R.id.roleDescription)
     protected TextView roleDescriptionTextView;
+
+    /**
+     * Accept Invitation View
+     */
+    @BindView(R.id.acceptInvitation)
+    protected View acceptInvitationView;
+
+    /**
+     * Delete Invitation View
+     */
+    @BindView(R.id.deleteInvitation)
+    protected View deleteInvitationView;
 
     /**
      * State
@@ -277,6 +290,7 @@ public class InvitationDetailMvpActivity extends SupportMvpActivity<InvitationDe
      */
     @OnClick(R.id.acceptInvitation)
     protected void onAcceptInvitationClicked(){
+        uiUtils.startBounceAnimationForView(acceptInvitationView);
         if(!isConnectivityAvailable()) {
             showNoticeDialog(R.string.connectivity_not_available, false);
         } else {
@@ -290,6 +304,7 @@ public class InvitationDetailMvpActivity extends SupportMvpActivity<InvitationDe
      */
     @OnClick(R.id.deleteInvitation)
     protected void onDeleteInvitationClicked(){
+        uiUtils.startBounceAnimationForView(deleteInvitationView);
         if(!isConnectivityAvailable()) {
             showNoticeDialog(R.string.connectivity_not_available, false);
         } else {

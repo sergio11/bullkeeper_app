@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import icepick.Icepick;
 import sanchez.sanchez.sergio.bullkeeper.R;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ActivityComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
@@ -72,6 +73,12 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
      */
     @Inject
     protected IAppUtils appUtils;
+
+    /**
+     * UI Utils
+     */
+    @Inject
+    protected UiUtils uiUtils;
 
 
     /**

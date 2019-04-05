@@ -241,6 +241,12 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @BindView(R.id.kidGuardiansContainer)
     protected View kidGuardiansContainerView;
 
+    /**
+     * Save Changes View
+     */
+    @BindView(R.id.saveChanges)
+    protected View saveChangesView;
+
 
     /**
      * Kid Guardian Mvp Fragment
@@ -632,6 +638,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
+        uiUtils.startBounceAnimationForView(saveChangesView);
         if(!isConnectivityAvailable()) {
             showNoticeDialog(R.string.connectivity_not_available, false);
         } else {

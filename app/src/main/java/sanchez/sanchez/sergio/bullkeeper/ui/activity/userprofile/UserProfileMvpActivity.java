@@ -396,6 +396,8 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @OnClick(R.id.saveChanges)
     protected void onSaveChanges(){
+
+        uiUtils.startBounceAnimationForView(saveChangesView);
         if(!isConnectivityAvailable())
             showNoticeDialog(R.string.connectivity_not_available, false);
         else
@@ -408,7 +410,7 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
     @OnClick(R.id.deleteAccount)
     protected void onDeleteAccount(){
 
-
+        uiUtils.startBounceAnimationForView(deleteAccountView);
         showConfirmationDialog(R.string.user_profile_delete_account_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
 
             @Override

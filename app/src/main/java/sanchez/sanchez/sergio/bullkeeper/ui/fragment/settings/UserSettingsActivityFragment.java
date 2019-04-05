@@ -3,22 +3,20 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.settings;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
-
+import android.widget.Button;
 import com.fernandocejas.arrow.checks.Preconditions;
-
 import java.util.Date;
+import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.SettingsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.settings.IUserSettingsActivityHandler;
-import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPreferenceFragment;
 import sanchez.sanchez.sergio.domain.models.RemoveAlertsEveryEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
@@ -56,6 +54,10 @@ public class UserSettingsActivityFragment extends
     protected boolean enableWarningAlerts;
     @State
     protected boolean enableDangerAlerts;
+
+
+    @BindView(R.id.savePreferences)
+    protected Button savePreferencesButton;
 
     /**
      * Get Preferences Layout
@@ -199,6 +201,8 @@ public class UserSettingsActivityFragment extends
 
     @OnClick(R.id.savePreferences)
     protected void onSavePreferences(){
+
+        uiUtils.startBounceAnimationForView(savePreferencesButton);
 
         final SwitchPreferenceCompat enableAllAlertCategories, enableSuccessAlerts, enableInformationAlerts,
                 enableWarningAlerts, enableDangerAlerts;

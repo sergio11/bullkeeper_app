@@ -8,7 +8,11 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
+import android.widget.Button;
+
 import java.util.Date;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -86,6 +90,10 @@ public class CommentsSettingsActivityFragment extends
     // Sentiment Level
     @State
     protected String sentimentLevel;
+
+    @BindView(R.id.savePreferences)
+    protected Button savePreferencesButton;
+
 
     /**
      * Get Preferences Layout
@@ -283,6 +291,8 @@ public class CommentsSettingsActivityFragment extends
      */
     @OnClick(R.id.savePreferences)
     protected void onSavePreferences(){
+
+        uiUtils.startBounceAnimationForView(savePreferencesButton);
 
         preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
 

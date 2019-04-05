@@ -3,6 +3,7 @@ package sanchez.sanchez.sergio.bullkeeper.ui.fragment.alertdetail;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -111,6 +112,9 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
     @BindView(R.id.alertSince)
     protected TextView alertSince;
 
+    @BindView(R.id.removeAlert)
+    protected FloatingActionButton removeAlertButton;
+
     /**
      * App Context
      */
@@ -122,6 +126,8 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
      */
     @Inject
     protected Picasso picasso;
+
+
 
     public AlertDetailActivityMvpFragment() { }
 
@@ -539,6 +545,7 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
      */
     @OnClick(R.id.removeAlert)
     protected void onRemoveAlert(){
+        uiUtils.startBounceAnimationForView(removeAlertButton);
         if(!activityHandler.isConnectivityAvailable()) {
             showNoticeDialog(R.string.connectivity_not_available, false);
         } else {

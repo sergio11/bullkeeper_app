@@ -10,9 +10,11 @@ import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.SwitchPreferenceCompat;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.Date;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -57,6 +59,9 @@ public class AlertsSettingsActivityFragment extends
     protected Boolean enableWarning;
     @State
     protected Boolean enableDanger;
+
+    @BindView(R.id.savePreferences)
+    protected Button savePreferencesButton;
 
     /**
      * New Instance
@@ -233,6 +238,7 @@ public class AlertsSettingsActivityFragment extends
      */
     @OnClick(R.id.savePreferences)
     protected void onSavePreferences(){
+        uiUtils.startBounceAnimationForView(savePreferencesButton);
         preferencesRepositoryImpl.setPreferencesUpdateAt(new Date().getTime());
         activityHandler.showNoticeDialog(R.string.preferences_saved_successfully_message, new NoticeDialogFragment.NoticeDialogListener() {
             @Override

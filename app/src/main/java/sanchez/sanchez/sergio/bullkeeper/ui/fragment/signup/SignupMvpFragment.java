@@ -483,6 +483,9 @@ public class SignupMvpFragment extends
      */
     @OnClick(R.id.createAccountButton)
     public void onCreateAccount(){
+
+        uiUtils.startBounceAnimationForView(createAccountButton);
+
         if(!activityHandler.isConnectivityAvailable()) {
             showNoticeDialog(R.string.connectivity_not_available, false);
         } else {

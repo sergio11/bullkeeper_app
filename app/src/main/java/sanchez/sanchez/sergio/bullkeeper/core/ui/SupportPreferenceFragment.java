@@ -16,6 +16,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 
@@ -40,6 +41,12 @@ public abstract class SupportPreferenceFragment<H> extends PreferenceFragmentCom
      */
     @Inject
     protected IPreferenceRepository preferencesRepositoryImpl;
+
+    /**
+     * Ui Utils
+     */
+    @Inject
+    protected UiUtils uiUtils;
 
     @Override
     public void onAttach(final Context context) {
