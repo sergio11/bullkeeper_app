@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.modules.ChildrenProfileModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.CommentsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ContactsModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.DataMapperModule;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.DevicePhotosModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.FunTimeModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.GuardianModule;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.KidRequestModule;
@@ -64,7 +65,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminals.Termina
                  GuardianModule.class, ChildrenProfileModule.class, AlertsModule.class,
                 SocialMediaModule.class, CommentsModule.class, ScheduledBlockModule.class,
                 AppRulesModule.class, FunTimeModule.class, TerminalsModule.class, AnalysisStatisticsModule.class,
-                SmsModule.class, CallModule.class, ContactsModule.class, KidRequestModule.class})
+                SmsModule.class, CallModule.class, ContactsModule.class, KidRequestModule.class,
+                DevicePhotosModule.class})
 public interface MyKidsComponent extends StatsComponent {
 
     /**

@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -91,6 +93,7 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
      * LCE Listener
      */
     protected SupportLCEListener lceListener;
+    
 
     /**
      * on Attach
@@ -120,11 +123,11 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
         content.setOnRefreshListener(this);
 
         // Config Recycler View
-        recyclerView.setLayoutManager(new LinearLayoutManager(appContext));
+        recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setNestedScrollingEnabled(false);
 
-        ItemOffsetDecoration itemOffsetDecoration = new ItemOffsetDecoration(appContext, R.dimen.item_offset);
-        recyclerView.addItemDecoration(itemOffsetDecoration);
+        recyclerView.addItemDecoration(getItemDecoration());
+
         // Set Animator
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -154,6 +157,22 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
 
         onShowLoadingState();
 
+    }
+
+    /**
+     * Get Layout Manager
+     * @return
+     */
+    protected RecyclerView.LayoutManager getLayoutManager(){
+        return new LinearLayoutManager(appContext);
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected RecyclerView.ItemDecoration getItemDecoration(){
+        return new ItemOffsetDecoration(appContext, R.dimen.item_offset);
     }
 
     /**

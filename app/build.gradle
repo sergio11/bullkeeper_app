@@ -197,6 +197,8 @@ dependencies {
     // Reactive Network
     implementation presentationDependencies.reactivenetworkRx2
 
+    implementation presentationDependencies.photoView
+
     androidTestImplementation presentationTestDependencies.mockito
     androidTestImplementation presentationTestDependencies.dexmaker
     androidTestImplementation presentationTestDependencies.dexmakerMockito

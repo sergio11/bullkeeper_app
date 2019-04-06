@@ -25,6 +25,7 @@ import sanchez.sanchez.sergio.data.mapper.impl.CommentsBySocialMediaDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ContactEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.ConversationEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DayScheduledEntityDataMapper;
+import sanchez.sanchez.sergio.data.mapper.impl.DevicePhotoEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.DimensionsStatisticsEntityDataMapper;
 import sanchez.sanchez.sergio.data.mapper.impl.FunTimeEntityDataMapper;
@@ -80,6 +81,7 @@ import sanchez.sanchez.sergio.data.net.models.response.CommentsStatisticsBySocia
 import sanchez.sanchez.sergio.data.net.models.response.ContactDTO;
 import sanchez.sanchez.sergio.data.net.models.response.ConversationDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DayScheduledDTO;
+import sanchez.sanchez.sergio.data.net.models.response.DevicePhotoDTO;
 import sanchez.sanchez.sergio.data.net.models.response.DimensionsStatisticsDTO;
 import sanchez.sanchez.sergio.data.net.models.response.FunTimeScheduledDTO;
 import sanchez.sanchez.sergio.data.net.models.response.GeofenceAlertDTO;
@@ -128,6 +130,7 @@ import sanchez.sanchez.sergio.domain.models.CommentsStatisticsBySocialMediaEntit
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.DayScheduledEntity;
+import sanchez.sanchez.sergio.domain.models.DevicePhotoEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionEntity;
 import sanchez.sanchez.sergio.domain.models.DimensionsStatisticsEntity;
 import sanchez.sanchez.sergio.domain.models.FunTimeScheduledEntity;
@@ -707,6 +710,18 @@ public class DataMapperModule {
     @Provides @PerActivity
     public AbstractDataMapper<UserPreferenceDTO, UserPreferenceEntity> provideUserPreferenceDataMapper(){
         return new UserPreferenceEntityDataMapper();
+    }
+
+    /**
+     * Provide Device Photo Data Mapper
+     * @return
+     */
+    @Provides @PerActivity
+    public AbstractDataMapper<DevicePhotoDTO, DevicePhotoEntity> provideDevicePhotoDataMapper(
+            final ApiEndPointsHelper apiEndPointsHelper,
+            final IAppUtils appUtils
+    ){
+        return new DevicePhotoEntityDataMapper(apiEndPointsHelper, appUtils);
     }
 
 }

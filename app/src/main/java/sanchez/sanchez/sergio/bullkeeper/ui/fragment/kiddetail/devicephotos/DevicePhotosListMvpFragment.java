@@ -8,11 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 
+import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ import sanchez.sanchez.sergio.bullkeeper.core.ui.components.SupportSwitchCompat;
 import sanchez.sanchez.sergio.bullkeeper.di.components.MyKidsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.mykidsdetail.IMyKidsDetailActivityHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.decoration.SpacesItemDecoration;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.DevicePhotosAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.domain.models.DevicePhotoEntity;
@@ -46,6 +51,7 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
      * Terminals Arg
      */
     private static final String TERMINALS_ARG = "TERMINALS_ARG";
+
 
     /**
      * Dependencies
@@ -222,6 +228,7 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
             }
         });
 
+
     }
 
     /**
@@ -244,13 +251,32 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
     }
 
     /**
+     * Get Layout Manager
+     * @return
+     */
+    @Override
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+    }
+
+    /**
+     * Get Item Decoration
+     * @return
+     */
+    @Override
+    protected RecyclerView.ItemDecoration getItemDecoration() {
+        return new SpacesItemDecoration(16);
+    }
+
+    /**
      * Get Adapter
      * @return
      */
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<DevicePhotoEntity> getAdapter() {
-        return null;
+        return new DevicePhotosAdapter(activity, new ArrayList<DevicePhotoEntity>(),
+                picasso);
     }
 
     /**
@@ -291,11 +317,12 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
 
     /**
      *
-     * @param item
+     * @param devicePhotoEntity
      */
     @Override
-    public void onItemClick(final DevicePhotoEntity item) {
-
+    public void onItemClick(final DevicePhotoEntity devicePhotoEntity) {
+        Preconditions.checkNotNull(devicePhotoEntity, "Device Photo Entity can not be null");
+        Preconditions.checkNotNull(devicePhotoEntity.getIdentity(), "Device Identity can not be null");
     }
 
     /**

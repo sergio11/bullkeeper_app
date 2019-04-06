@@ -1,28 +1,100 @@
-package sanchez.sanchez.sergio.domain.models;
+package sanchez.sanchez.sergio.data.net.models.response;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
 /**
- * Device Photo
+ * Device Photo DTO
  **/
-public final class DevicePhotoEntity implements Serializable {
+public final class DevicePhotoDTO implements Serializable {
 
+    /**
+     * Identity
+     */
+    @JsonProperty("identity")
     private String identity;
-    private String displayName;
-    private String path;
-    private Long dateAdded;
-    private Long dateModified;
-    private Long dateTaken;
-    private Integer height;
-    private Integer width;
-    private Integer orientation;
-    private Integer size;
-    private String localId;
-    private String terminal;
-    private String kid;
-    private String imageUrl;
 
-    public DevicePhotoEntity(){}
+    /**
+     * Display Name
+     */
+    @JsonProperty("display_name")
+    private String displayName;
+
+    /**
+     * Path
+     */
+    @JsonProperty("path")
+    private String path;
+
+    /**
+     * Date Added
+     */
+    @JsonProperty("date_added")
+    private Long dateAdded;
+
+    /**
+     * Date Modified
+     */
+    @JsonProperty("date_modified")
+    private Long dateModified;
+
+    /**
+     * Date Taken
+     */
+    @JsonProperty("date_taken")
+    private Long dateTaken;
+
+    /**
+     * Height
+     */
+    @JsonProperty("height")
+    private Integer height;
+
+    /**
+     * Width
+     */
+    @JsonProperty("width")
+    private Integer width;
+
+    /**
+     * Orientation
+     */
+    @JsonProperty("orientation")
+    private Integer orientation;
+
+    /**
+     * Size
+     */
+    @JsonProperty("size")
+    private Integer size;
+
+    /**
+     * Local Id
+     */
+    @JsonProperty("local_id")
+    private String localId;
+
+
+    /**
+     * Image Id
+     */
+    @JsonProperty("image_id")
+    private String imageId;
+
+    /**
+     * Terminal
+     */
+    @JsonProperty("terminal")
+    private String terminal;
+
+    /**
+     * Kid
+     */
+    @JsonProperty("kid")
+    private String kid;
+
+    public DevicePhotoDTO(){}
 
     /**
      *
@@ -37,14 +109,14 @@ public final class DevicePhotoEntity implements Serializable {
      * @param orientation
      * @param size
      * @param localId
+     * @param imageId
      * @param terminal
      * @param kid
-     * @param imageUrl
      */
-    public DevicePhotoEntity(String identity, String displayName, String path, Long dateAdded,
-                             Long dateModified, Long dateTaken, Integer height, Integer width,
-                             Integer orientation, Integer size, String localId, String terminal,
-                             String kid, String imageUrl) {
+    public DevicePhotoDTO(String identity, String displayName, String path, Long dateAdded,
+                          Long dateModified, Long dateTaken, Integer height, Integer width,
+                          Integer orientation, Integer size, String localId, String imageId,
+                          String terminal, String kid) {
         this.identity = identity;
         this.displayName = displayName;
         this.path = path;
@@ -56,9 +128,9 @@ public final class DevicePhotoEntity implements Serializable {
         this.orientation = orientation;
         this.size = size;
         this.localId = localId;
+        this.imageId = imageId;
         this.terminal = terminal;
         this.kid = kid;
-        this.imageUrl = imageUrl;
     }
 
     public String getIdentity() {
@@ -149,6 +221,14 @@ public final class DevicePhotoEntity implements Serializable {
         this.localId = localId;
     }
 
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
     public String getTerminal() {
         return terminal;
     }
@@ -165,17 +245,9 @@ public final class DevicePhotoEntity implements Serializable {
         this.kid = kid;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     @Override
     public String toString() {
-        return "DevicePhotoEntity{" +
+        return "DevicePhotoDTO{" +
                 "identity='" + identity + '\'' +
                 ", displayName='" + displayName + '\'' +
                 ", path='" + path + '\'' +
@@ -187,9 +259,9 @@ public final class DevicePhotoEntity implements Serializable {
                 ", orientation=" + orientation +
                 ", size=" + size +
                 ", localId='" + localId + '\'' +
+                ", imageId='" + imageId + '\'' +
                 ", terminal='" + terminal + '\'' +
                 ", kid='" + kid + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

@@ -7,12 +7,11 @@ import javax.inject.Inject;
 
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportSearchLCEPresenter;
-import sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.terminaldetail.TerminalDetailFragmentPresenter;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.TerminalItem;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
-import sanchez.sanchez.sergio.domain.interactor.contacts.GetContactListInteract;
+import sanchez.sanchez.sergio.domain.interactor.photos.GetDevicePhotosInteract;
 import sanchez.sanchez.sergio.domain.interactor.terminal.SwitchLockCameraStatusInteract;
-import sanchez.sanchez.sergio.domain.models.ContactEntity;
+import sanchez.sanchez.sergio.domain.models.DevicePhotoEntity;
 
 /**
  * Device Photos Fragment Presenter
@@ -26,9 +25,9 @@ public final class DevicePhotosFragmentPresenter extends SupportSearchLCEPresent
     public static final String CURRENT_TERMINAL_ARG = "CURRENT_TERMINAL_ARG";
 
     /**
-     * Get Contact List Interact
+     * Get Device Photos Interact
      */
-    private final GetContactListInteract getContactListInteract;
+    private final GetDevicePhotosInteract getDevicePhotosInteract;
 
     /**
      * Switch Lock Camera Status Interact
@@ -41,13 +40,13 @@ public final class DevicePhotosFragmentPresenter extends SupportSearchLCEPresent
     private boolean isLoadingData = false;
 
     /**
-     * @param getContactListInteract
+     * @param getDevicePhotosInteract
      * @param switchLockCameraStatusInteract
      */
     @Inject
-    public DevicePhotosFragmentPresenter(final GetContactListInteract getContactListInteract,
+    public DevicePhotosFragmentPresenter(final GetDevicePhotosInteract getDevicePhotosInteract,
                                          final SwitchLockCameraStatusInteract switchLockCameraStatusInteract){
-        this.getContactListInteract = getContactListInteract;
+        this.getDevicePhotosInteract = getDevicePhotosInteract;
         this.switchLockCameraStatusInteract = switchLockCameraStatusInteract;
     }
 
@@ -76,10 +75,10 @@ public final class DevicePhotosFragmentPresenter extends SupportSearchLCEPresent
             if (isViewAttached() && getView() != null)
                 getView().onShowLoading();
 
-            getContactListInteract.execute(new GetContactListObservable(GetContactListInteract.GetContactListApiErrors.class),
-                    GetContactListInteract.Params.create(
+            getDevicePhotosInteract.execute(new GetDevicePhotoListObservable(GetDevicePhotosInteract.GetDevicePhotosApiErrors.class),
+                    GetDevicePhotosInteract.Params.create(
                             args.getString(KID_IDENTITY_ARG),
-                            terminalItem.getIdentity(), queryText));
+                            terminalItem.getIdentity()));
         }
     }
 
@@ -102,18 +101,18 @@ public final class DevicePhotosFragmentPresenter extends SupportSearchLCEPresent
     }
 
     /**
-     * Get Contact List Observable
+     * Get Device Photo List Observable
      */
-    public class GetContactListObservable extends CommandCallBackWrapper<List<ContactEntity>,
-            GetContactListInteract.GetContactListApiErrors.IGetContactListApiErrorsVisitor,
-            GetContactListInteract.GetContactListApiErrors>
-            implements GetContactListInteract.GetContactListApiErrors.IGetContactListApiErrorsVisitor {
+    public class GetDevicePhotoListObservable extends CommandCallBackWrapper<List<DevicePhotoEntity>,
+            GetDevicePhotosInteract.GetDevicePhotosApiErrors.IGetDevicePhotosApiErrorsVisitor,
+            GetDevicePhotosInteract.GetDevicePhotosApiErrors>
+            implements GetDevicePhotosInteract.GetDevicePhotosApiErrors.IGetDevicePhotosApiErrorsVisitor {
 
         /**
          *
          * @param apiErrors
          */
-        public GetContactListObservable(Class<GetContactListInteract.GetContactListApiErrors> apiErrors) {
+        public GetDevicePhotoListObservable(Class<GetDevicePhotosInteract.GetDevicePhotosApiErrors> apiErrors) {
             super(apiErrors);
         }
 
@@ -151,12 +150,13 @@ public final class DevicePhotosFragmentPresenter extends SupportSearchLCEPresent
          * @param response
          */
         @Override
-        protected void onSuccess(List<ContactEntity> response) {
+        protected void onSuccess(List<DevicePhotoEntity> response) {
             Preconditions.checkNotNull(response, "Response can not be null");
             Preconditions.checkState(!response.isEmpty(), "Response can not be empty");
 
             if (isViewAttached() && getView() != null){
                 getView().hideProgressDialog();
+                getView().onDataLoaded(response);
             }
 
             isLoadingData = false;
@@ -164,11 +164,11 @@ public final class DevicePhotosFragmentPresenter extends SupportSearchLCEPresent
         }
 
         /**
-         * Visit No Contacts Found
+         *
          * @param apiErrorsVisitor
          */
         @Override
-        public void visitNoContactsFound(GetContactListInteract.GetContactListApiErrors.IGetContactListApiErrorsVisitor apiErrorsVisitor) {
+        public void visitNoDevicePhotosFound(GetDevicePhotosInteract.GetDevicePhotosApiErrors.IGetDevicePhotosApiErrorsVisitor apiErrorsVisitor) {
             Preconditions.checkNotNull(apiErrorsVisitor, "Api Errors Visitor");
             if(isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();

@@ -74,4 +74,21 @@ public final class ApiEndPointsHelper {
         return baseUrl + String.format("events/subscribe/%s", subscriberId);
     }
 
+    /**
+     * Get Device Photo Url
+     * @param kid
+     * @param terminal
+     * @param photo
+     * @return
+     */
+    public String getDevicePhotoUrl(final String kid, final String terminal, final String photo){
+        Preconditions.checkNotNull(kid, "Kid id can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal id can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(photo, "Photo id can not be null");
+        Preconditions.checkState(!photo.isEmpty(), "Photo can not be empty");
+        return baseUrl + String.format("children/%s/terminal/%s/photos/%s/image",
+                kid, terminal, photo);
+    }
 }

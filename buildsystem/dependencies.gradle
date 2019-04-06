@@ -72,6 +72,7 @@ ext {
     libphonenumberVersion = '8.2.0'
     carouselviewVersion = '0.1.5'
     reactivenetworkRx2 = '3.0.2'
+    photoViewVersion = '2.0.0'
 
     //Testing
     robolectricVersion = '3.1.1'
@@ -140,7 +141,8 @@ ext {
             fluidSlider:        "com.ramotion.fluidslider:fluid-slider:${fluidSliderVersion}",
             libphonenumber:     "com.googlecode.libphonenumber:libphonenumber:${libphonenumberVersion}",
             carouselview:       "com.synnapps:carouselview:${carouselviewVersion}",
-            reactivenetworkRx2: "com.github.pwittchen:reactivenetwork-rx2:${reactivenetworkRx2}"
+            reactivenetworkRx2: "com.github.pwittchen:reactivenetwork-rx2:${reactivenetworkRx2}",
+            photoView:          "com.github.chrisbanes:PhotoView:${photoViewVersion}"
     ]
 
     presentationTestDependencies = [
