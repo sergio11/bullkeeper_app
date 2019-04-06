@@ -1031,7 +1031,7 @@
     <string name="phone_numbers_specify_number_lock">Specify the number to lock</string>
 
     <!-- Kid Request -->
-    <string name="kid_request_removed">The conversation request was removed</string>
+    <string name="kid_request_removed">The Kid request was removed</string>
     <string name="delete_kid_request_btn_text">Delete Request</string>
     <string name="open_conversation_kid_request_btn_text">Open Conversation</string>
     <string name="kid_request_not_found">Request not found</string>

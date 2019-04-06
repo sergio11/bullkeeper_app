@@ -289,7 +289,7 @@ public class KidRequestListMvpFragment extends SupportMvpLCEFragment<KidRequestL
      */
     @Override
     public void onKidRequestDeleted() {
-        if(getAdapter().getData().isEmpty())
+        if(recyclerViewAdapter.getData().isEmpty())
             onNoDataFound();
         showNoticeDialog(R.string.kid_request_removed);
     }

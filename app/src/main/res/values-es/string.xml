@@ -886,7 +886,7 @@
     <string name="phone_numbers_specify_number_lock">Especifique el número para bloquear</string>
 
     <!-- Kid Request -->
-    <string name="kid_request_removed">La solicitud de conversación fue eliminada.</string>
+    <string name="kid_request_removed">La solicitud fue eliminada.</string>
     <string name="delete_kid_request_btn_text">Borrar solicitud</string>
     <string name="open_conversation_kid_request_btn_text">Abrir conversación</string>
     <string name="kid_request_not_found">Solicitud no encontrada</string>
