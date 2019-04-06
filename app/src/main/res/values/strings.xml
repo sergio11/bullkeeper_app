@@ -812,7 +812,8 @@
     <string name="contact_item_disabled">The contact was disabled</string>
     <!-- Device Photos -->
     <string name="device_photos_title_tab">Photos</string>
-    <string name="device_photos_title">Device Photos</string>
+    <string name="device_photos_title_default">Device Photos</string>
+    <string name="device_photos_title" formatted="false">Device Photos (%d)</string>
     <string name="device_photos_description">List of photos stored on the device</string>
 
     <!-- Fun Time  -->

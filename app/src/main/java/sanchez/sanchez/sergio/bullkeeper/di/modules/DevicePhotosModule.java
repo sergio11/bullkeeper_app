@@ -10,6 +10,7 @@ import sanchez.sanchez.sergio.data.net.services.IDevicePhotosService;
 import sanchez.sanchez.sergio.data.repository.DevicePhotosRepositoryImpl;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.photos.GetDevicePhotoDetailInteract;
 import sanchez.sanchez.sergio.domain.interactor.photos.GetDevicePhotosInteract;
 import sanchez.sanchez.sergio.domain.models.DevicePhotoEntity;
 import sanchez.sanchez.sergio.domain.repository.IDevicePhotosRepository;
@@ -58,6 +59,22 @@ public class DevicePhotosModule {
             final IDevicePhotosRepository devicePhotosRepository
     ){
         return new GetDevicePhotosInteract(threadExecutor, postExecutionThread, devicePhotosRepository);
+    }
+
+    /**
+     *
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param devicePhotosRepository
+     * @return
+     */
+    @Provides @PerActivity
+    public GetDevicePhotoDetailInteract provideGetDevicePhotoDetailInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IDevicePhotosRepository devicePhotosRepository
+    ){
+        return new GetDevicePhotoDetailInteract(threadExecutor, postExecutionThread, devicePhotosRepository);
     }
 
 }

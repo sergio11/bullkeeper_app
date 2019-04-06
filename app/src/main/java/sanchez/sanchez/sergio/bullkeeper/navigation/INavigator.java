@@ -661,4 +661,13 @@ public interface INavigator {
     @RequiresApi(Build.VERSION_CODES.M)
     void showManageOverlaySettings(final AppCompatActivity activity);
 
+
+    /**
+     * @param activity
+     * @param kid
+     * @param terminal
+     * @param photo
+     */
+    void navigateToDevicePhotoDetail(final AppCompatActivity activity, final String kid, final String terminal, final String photo);
+
 }

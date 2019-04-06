@@ -42,7 +42,7 @@
                         android:id="@+id/headerImage"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:contentDescription="@string/my_kids_content_description"
+                        android:contentDescription="@string/content_not_be_loaded"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="@dimen/common_margin"
                         android:layout_marginTop="@dimen/common_margin"
@@ -65,7 +65,7 @@
                         android:layout_marginStart="@dimen/common_margin"
                         android:layout_marginTop="@dimen/common_margin"
                         android:textStyle="bold"
-                        android:text="@string/device_photos_title"/>
+                        android:text="@string/device_photos_title_default"/>
 
 
                     <!-- Description -->

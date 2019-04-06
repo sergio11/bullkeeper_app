@@ -136,4 +136,12 @@ public interface IMyKidsDetailActivityHandler extends IBasicActivityHandler {
      */
     void configureTerminalList(final List<TerminalEntity> terminalList);
 
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param photo
+     */
+    void navigateToDevicePhotoDetail(final String kid, final String terminal, final String photo);
+
 }

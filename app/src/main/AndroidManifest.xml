@@ -365,6 +365,12 @@
             android:theme="@style/AppTheme.Common"
             android:label="@string/app_name" />
 
+        <!-- Device Photo Detail Activity -->
+        <activity android:name=".ui.activity.devicephotodetail.DevicePhotoDetailMvpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Common"
+            android:label="@string/app_name" />
+
         <!-- Services -->
         <service
             android:name=".ui.services.RemoteNotificationService"

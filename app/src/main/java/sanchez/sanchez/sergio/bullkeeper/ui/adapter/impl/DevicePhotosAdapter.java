@@ -74,8 +74,6 @@ public final class DevicePhotosAdapter extends SupportRecyclerViewAdapter<Device
             imageView.setLayoutParams(params);
 
             picasso.load(devicePhotoEntity.getImageUrl())
-                    .fit()
-                    .centerCrop()
                     .rotate(devicePhotoEntity.getOrientation())
                     .into(imageView);
 

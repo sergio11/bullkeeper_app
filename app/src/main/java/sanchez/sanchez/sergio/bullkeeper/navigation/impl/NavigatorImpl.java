@@ -24,6 +24,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.contactdetail.ContactDetail
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationslist.ConversationListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.dayscheduleddetail.DayScheduledMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.devicephotodetail.DevicePhotoDetailMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.list.GeofencesListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.geofences.save.SaveGeofenceMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.invitationdetail.InvitationDetailMvpActivity;
@@ -1225,5 +1226,21 @@ public class NavigatorImpl implements INavigator {
         Preconditions.checkNotNull(activity, "Activity can not be null");
         activity.startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:" + context.getPackageName())));
+    }
+
+    /**
+     *
+     * @param kid
+     * @param terminal
+     * @param photo
+     */
+    @Override
+    public void navigateToDevicePhotoDetail(final AppCompatActivity activity, final String kid, final String terminal, final String photo) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkNotNull(photo, "Photo can not be null");
+
+        activity.startActivity(DevicePhotoDetailMvpActivity.getCallingIntent(activity,
+                kid, terminal, photo));
     }
 }

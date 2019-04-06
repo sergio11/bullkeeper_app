@@ -642,6 +642,24 @@ public class MyKidsDetailMvpActivity extends SupportMvpActivity<MyKidsDetailPres
     }
 
     /**
+     *
+     * @param kid
+     * @param terminal
+     * @param photo
+     */
+    @Override
+    public void navigateToDevicePhotoDetail(final String kid, final String terminal, final String photo) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(photo, "Photo can not be null");
+        Preconditions.checkState(!photo.isEmpty(), "Photo can not be empty");
+
+        navigatorImpl.navigateToDevicePhotoDetail(this, kid, terminal, photo);
+    }
+
+    /**
      * Setup Sections Pager Adapter
      */
     private void setupSectionsPagerAdapter(final int tabSelected, final KidEntity kidEntity){

@@ -14,11 +14,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import icepick.State;
@@ -92,6 +96,12 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
      */
     @BindView(R.id.disableCameraSwitch)
     protected SupportSwitchCompat disableCameraSwitch;
+
+    /**
+     * Header Title Text View
+     */
+    @BindView(R.id.headerTitle)
+    protected TextView headerTitleTextView;
 
     /**
      * State
@@ -275,8 +285,10 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<DevicePhotoEntity> getAdapter() {
-        return new DevicePhotosAdapter(activity, new ArrayList<DevicePhotoEntity>(),
+        final DevicePhotosAdapter devicePhotosAdapter = new DevicePhotosAdapter(activity, new ArrayList<DevicePhotoEntity>(),
                 picasso);
+        devicePhotosAdapter.setOnSupportRecyclerViewListener(this);
+        return devicePhotosAdapter;
     }
 
     /**
@@ -289,6 +301,28 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
         args.putString(DevicePhotosFragmentPresenter.KID_IDENTITY_ARG, kidIdentity);
         args.putSerializable(DevicePhotosFragmentPresenter.CURRENT_TERMINAL_ARG, currentTerminalItem);
         return args;
+    }
+
+    /**
+     *
+     * @param dataLoaded
+     */
+    @Override
+    public void onDataLoaded(List<DevicePhotoEntity> dataLoaded) {
+        super.onDataLoaded(dataLoaded);
+        headerTitleTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.device_photos_title),
+                dataLoaded.size()));
+
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void onNoDataFound() {
+        super.onNoDataFound();
+        headerTitleTextView.setText(getString(R.string.device_photos_title_default));
     }
 
     /**
@@ -323,6 +357,9 @@ public class DevicePhotosListMvpFragment extends SupportMvpLCEFragment<DevicePho
     public void onItemClick(final DevicePhotoEntity devicePhotoEntity) {
         Preconditions.checkNotNull(devicePhotoEntity, "Device Photo Entity can not be null");
         Preconditions.checkNotNull(devicePhotoEntity.getIdentity(), "Device Identity can not be null");
+
+        activityHandler.navigateToDevicePhotoDetail(devicePhotoEntity.getKid(),
+                devicePhotoEntity.getTerminal(), devicePhotoEntity.getIdentity());
     }
 
     /**
