@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "495194543245",
+    "firebase_url": "https://bullkeeper-1537557412412.firebaseio.com",
+    "project_id": "bullkeeper-1537557412412",
+    "storage_bucket": "bullkeeper-1537557412412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495194543245:android:4c51f722861627e4",
+        "android_client_info": {
+          "package_name": "sanchez.sanchez.sergio.bullkeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495194543245-tslau1rm3gvl6v0r7lrocbd38epkanbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sanchez.sanchez.sergio.bullkeeper",
+            "certificate_hash": "7d5d6015614dc1fb69287bfc15a7f33f86b68e29"
+          }
+        },
+        {
+          "client_id": "495194543245-m2najq0101ccq2dvsvu31l2n196e2dig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ5V8lTgu7lOa-Te3ZDxeIj90ZgDGCtjQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495194543245-eq8sgsnkn2dtmtjqqntvtv7ioledou11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
