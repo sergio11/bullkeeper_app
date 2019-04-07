@@ -28,15 +28,6 @@ public interface IAppOverlayService {
     /**
      *
      * @param view
-     * @param width
-     * @param height
-     */
-    @RequiresApi(Build.VERSION_CODES.M)
-    void show(View view, final int width, final int height);
-
-    /**
-     *
-     * @param view
      */
     void hide(final View view);
 

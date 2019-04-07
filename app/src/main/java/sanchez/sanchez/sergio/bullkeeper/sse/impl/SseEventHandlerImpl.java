@@ -361,6 +361,15 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                             }
                         });
 
+                    final Button discardRequestButton = requestTypeLayoutView.findViewById(R.id.discardRequest);
+                    if(discardRequestButton != null)
+                        discardRequestButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                appOverlayService.hide(requestTypeLayoutView);
+                            }
+                        });
+
                     appOverlayService.show(requestTypeLayoutView);
                 }
             }
@@ -549,6 +558,15 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                                         context.startActivity(ConversationMessageListMvpActivity.getCallingIntent(context,
                                                 messageSavedDTO.getConversation()));
 
+                                    }
+                                });
+
+                            final Button discardMessageButton = newMessageLayoutView.findViewById(R.id.discardMessage);
+                            if(discardMessageButton != null)
+                                discardMessageButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        appOverlayService.hide(newMessageLayoutView);
                                     }
                                 });
 

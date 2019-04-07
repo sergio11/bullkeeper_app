@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import com.fernandocejas.arrow.checks.Preconditions;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -21,9 +22,6 @@ import static android.content.Context.WINDOW_SERVICE;
  * App Overlay Service
  **/
 public final class AppOverlayServiceImpl implements IAppOverlayService {
-
-    private final static int DEFAULT_OVERLAY_DIALOG_WIDTH = 900;
-    private final static int DEFAULT_OVERLAY_DIALOG_HEIGHT = 800;
 
     private final Context appContext;
     private final Handler uiHandler;
@@ -59,26 +57,12 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
     }
 
     /**
+     *
      * @param view
-     * @return
      */
     @RequiresApi(Build.VERSION_CODES.M)
     @Override
     public void show(final View view) {
-        Preconditions.checkState(canDrawOverlays(), "Can not draw overlays");
-        Preconditions.checkNotNull(view, "View can not be null");
-        show(view, DEFAULT_OVERLAY_DIALOG_WIDTH, DEFAULT_OVERLAY_DIALOG_HEIGHT);
-
-    }
-
-    /**
-     *
-     * @param view
-     * @param width
-     * @param height
-     */
-    @Override
-    public void show(final View view, final int width, final int height) {
         Preconditions.checkState(canDrawOverlays(), "Can not draw overlays");
         Preconditions.checkNotNull(view, "View can not be null");
         try {
@@ -91,7 +75,7 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
                     @Override
                     public void run() {
                         Timber.d("Thread Name -> %s", Thread.currentThread().getName());
-                        mWindowManager.addView(view, createCommonLayoutParams(width, height));
+                        mWindowManager.addView(view, createCommonLayoutParams());
                     }
                 });
             }
@@ -137,20 +121,20 @@ public final class AppOverlayServiceImpl implements IAppOverlayService {
      * Create Common Layout Params
      * @return
      */
-    private WindowManager.LayoutParams createCommonLayoutParams(final int width, final int height){
+    private WindowManager.LayoutParams createCommonLayoutParams(){
 
         final WindowManager.LayoutParams params = Build.VERSION.SDK_INT < Build.VERSION_CODES.O ?
                 new WindowManager.LayoutParams(
-                        width,
-                        height,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.TYPE_PHONE,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
                     | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     PixelFormat.TRANSLUCENT) :  new WindowManager.LayoutParams(
-                        width,
-                        height,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
                             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                             | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL

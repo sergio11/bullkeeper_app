@@ -475,7 +475,7 @@
     <string name="close_dialog">I understood</string>
     <string name="accept">I understood</string>
     <string name="show_detail">Show Detail</string>
-
+    <string name="discard">Discard</string>
     <string name="pick_image_intent_text">Choose an image</string>
     <string name="change_profile_picture" formatted="true">Change profile picture of %s</string>
     <string name="change_profile_picture_default">Change profile picture</string>

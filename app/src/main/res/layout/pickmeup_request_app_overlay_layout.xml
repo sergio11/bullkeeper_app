@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/pickmeup_request_dialog_drawable">
 
 
@@ -36,9 +36,25 @@
         app:layout_constraintTop_toBottomOf="@id/kidRequestImage" />
 
     <Button
+        android:id="@+id/discardRequest"
+        style="@style/CancelActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/common_padding"
+        android:text="@string/discard"
+        app:layout_constraintBottom_toTopOf="@id/showKidRequest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kidRequestTitle"/>
+
+
+    <Button
         android:id="@+id/showKidRequest"
-        style="@style/CommonActionButton.Inverse"
-        android:layout_width="wrap_content"
+        style="@style/AcceptActionButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
@@ -48,6 +64,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialogTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/discardRequest"/>
 
 </android.support.constraint.ConstraintLayout>
