@@ -44,6 +44,17 @@ android {
         ]
     }
 
+    signingConfigs {
+
+        release {
+            storeFile file("./keystore/bullkeeper.jks")
+            storePassword "prueba"
+            keyAlias "bullkeeper"
+            keyPassword "prueba"
+        }
+
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -96,6 +107,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", '"http://192.168.0.55:8080/bullkeeper-integration-platform/api/v1/"'
+            signingConfig signingConfigs.release
+            ext.betaDistributionGroupAliasesFilePath = "beta/distribution_beta.txt"
+            ext.betaDistributionReleaseNotesFilePath = "beta/release-note.txt"
+            ext.betaDistributionNotifications=true
         }
     }
 }
