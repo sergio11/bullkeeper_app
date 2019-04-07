@@ -676,6 +676,13 @@
     <string name="device_photos_title_default">Fotos del dispositivo</string>
     <string name="device_photos_title" formatted="false">Fotos del dispositivo (%d)</string>
     <string name="device_photos_description">Listado de fotos almacenados en el dispositivo</string>
+    <string name="device_photo_detail_title">Detalle de la foto</string>
+    <string name="delete_device_photo_btn">Eliminar foto</string>
+    <string name="delete_device_photo_confirm">Deseas eliminar esta foto del dispostivo del niño?</string>
+    <string name="device_photo_unknown_data">Dato desconocido</string>
+    <string name="device_photo_disabled_successfully">Foto deshabilitada con éxito</string>
+    <string name="device_photo_taken_at" formatted="false">Foto tomada el día: %s</string>
+    <string name="device_photo_dimension_and_size" formatted="false">Dimensión: %dX%d Tamaño: %dKB</string>
     <!-- Fun Time  -->
     <string name="fun_time_title">Tiempo de Diversión</string>
     <string name="fun_time_description">Ajuste el tiempo de diversión para cada dispositivo sincronizado</string>

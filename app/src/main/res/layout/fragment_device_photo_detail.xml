@@ -23,11 +23,12 @@
 
     <!-- Content -->
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:layout_below="@id/appToolbarInclude"
-        android:layout_above="@id/saveChanges">
+        android:layout_above="@id/deleteDevicePhoto">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +55,7 @@
                         style="@style/CommonStrongText"
                         android:textColor="@color/cyanBrilliant"
                         android:textStyle="bold"
-                        android:text="@string/fun_time_day_scheduled_detail"/>
+                        android:text="@string/device_photo_detail_title"/>
 
                     <View
                         android:layout_width="@dimen/common_divider_small"
@@ -89,23 +90,58 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="4dp"
                 android:layout_marginTop="10dp">
 
-                <TextView
-                    style="@style/CommonStrongText.Big"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/common_margin"
-                    android:layout_marginEnd="@dimen/common_margin"
-                    android:gravity="center"
-                    android:padding="@dimen/common_padding"
-                    android:text="@string/fun_time_day_scheduled_detail_description"
-                    android:layout_gravity="center"
-                    android:textColor="@color/darkModerateBlue"/>
+                    android:orientation="vertical">
 
+                    <!-- Display Name Text View -->
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/displayNameTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+                    <!-- Date Taken -->
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/dateTakenTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+                    <!-- Dimension And Size Text View -->
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/dimensionAndSizeTextView"
+                        style="@style/CommonStrongText.Big"
+                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/common_margin"
+                        android:gravity="start|center_vertical"
+                        android:text="-"
+                        android:textColor="@color/cyanBrilliant"
+                        android:drawablePadding="@dimen/common_padding" />
+
+
+
+                </LinearLayout>
             </android.support.v7.widget.CardView>
 
 
@@ -115,9 +151,9 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-    <!-- Disable Device Photo -->
+    <!-- Delete Device Photo -->
     <LinearLayout
-        android:id="@+id/disableDevicePhoto"
+        android:id="@+id/deleteDevicePhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -144,7 +180,7 @@
             android:layout_weight=".85"
             android:background="@color/redDanger"
             android:padding="@dimen/common_padding"
-            android:text="@string/user_profile_save_changes"
+            android:text="@string/delete_device_photo_btn"
             android:textAlignment="textStart"
             android:textColor="@color/commonWhite"
             android:textStyle="bold" />

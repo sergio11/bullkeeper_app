@@ -6,23 +6,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import javax.inject.Inject;
-
 import butterknife.BindView;
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DevicePhotoComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.devicephotodetail.IDevicePhotoActivityHandler;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.DevicePhotoEntity;
-
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.RETURN_TOOLBAR;
 
 /**
@@ -46,6 +48,30 @@ public class DevicePhotoDetailActivityMvpFragment extends SupportMvpFragment<Dev
 
     @BindView(R.id.image)
     protected AppCompatImageView imageView;
+
+    /**
+     * Delete Device Photo View
+     */
+    @BindView(R.id.deleteDevicePhoto)
+    protected View deleteDevicePhotoView;
+
+    /**
+     * Display Name Text View
+     */
+    @BindView(R.id.displayNameTextView)
+    protected AppCompatTextView displayNameTextView;
+
+    /**
+     * Date Taken
+     */
+    @BindView(R.id.dateTakenTextView)
+    protected AppCompatTextView dateTakenTextView;
+
+    /**
+     * Dimension And Size
+     */
+    @BindView(R.id.dimensionAndSizeTextView)
+    protected AppCompatTextView dimensionAndSizeTextView;
 
 
     /**
@@ -234,5 +260,54 @@ public class DevicePhotoDetailActivityMvpFragment extends SupportMvpFragment<Dev
                 .rotate(devicePhotoEntity.getOrientation())
                 .into(imageView);
 
+        displayNameTextView.setText(devicePhotoEntity.getDisplayName());
+
+        final SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.date_time_format_2),
+                Locale.getDefault());
+
+        try {
+            dateTakenTextView.setText(String.format(Locale.getDefault(),
+                    getString(R.string.device_photo_taken_at), sdf.format(new Date(devicePhotoEntity.getDateTaken()))));
+
+        }  catch (final Exception ex) {
+            dateTakenTextView.setText(getString(R.string.device_photo_unknown_data));
+        }
+
+        dimensionAndSizeTextView.setText(String.format(Locale.getDefault(),
+                getString(R.string.device_photo_dimension_and_size),
+                devicePhotoEntity.getWidth(), devicePhotoEntity.getHeight(),
+                devicePhotoEntity.getSize()/1024));
+
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void onDevicePhotoDisabledSuccessfully() {
+        showNoticeDialog(R.string.device_photo_disabled_successfully, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeActivity();
+            }
+        });
+    }
+
+
+    /**
+     * on Delete Device Photo Clicked
+     */
+    @OnClick(R.id.deleteDevicePhoto)
+    protected void onDeleteDevicePhotoClicked(){
+        uiUtils.startBounceAnimationForView(deleteDevicePhotoView);
+        activityHandler.showConfirmationDialog(R.string.delete_device_photo_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                getPresenter().deleteDevicePhoto(kid, terminal, photo);
+            }
+
+            @Override
+            public void onRejected(DialogFragment dialog) {}
+        });
     }
 }

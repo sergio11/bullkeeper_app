@@ -815,7 +815,13 @@
     <string name="device_photos_title_default">Device Photos</string>
     <string name="device_photos_title" formatted="false">Device Photos (%d)</string>
     <string name="device_photos_description">List of photos stored on the device</string>
-
+    <string name="device_photo_detail_title">Photo Detail</string>
+    <string name="delete_device_photo_btn">Delete Device Photo</string>
+    <string name="delete_device_photo_confirm">Do you want to delete this photo from the child\'s device?</string>
+    <string name="device_photo_unknown_data">Unknown data</string>
+    <string name="device_photo_disabled_successfully">Photo Disabled successfully</string>
+    <string name="device_photo_taken_at" formatted="false">Photo taken on the day: %s</string>
+    <string name="device_photo_dimension_and_size" formatted="false">Dimension: %dX%d Size: %dKB</string>
     <!-- Fun Time  -->
     <string name="fun_time_title">Fun Time</string>
     <string name="fun_time_description">Set the fun time for all configured terminals</string>

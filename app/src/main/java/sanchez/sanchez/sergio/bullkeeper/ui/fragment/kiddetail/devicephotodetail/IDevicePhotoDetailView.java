@@ -15,5 +15,10 @@ public interface IDevicePhotoDetailView extends ISupportView {
      */
     void onDevicePhotoLoaded(final DevicePhotoEntity devicePhotoEntity);
 
+    /**
+     * On Device Photo Disabled Successfully
+     */
+    void onDevicePhotoDisabledSuccessfully();
+
 
 }
