@@ -92,9 +92,9 @@
                 android:contentDescription="@string/content_not_be_loaded"/>
 
 
-            <!-- Terminal Status-->
+            <!-- Terminal Device Status-->
             <ImageView
-                android:id="@+id/terminalStatus"
+                android:id="@+id/terminalDeviceStatus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="4dp"
@@ -104,25 +104,13 @@
                 android:contentDescription="@string/content_not_be_loaded"/>
 
 
-            <!-- Terminal Exceeded Threshold-->
+            <!-- Terminal Status-->
             <ImageView
-                android:id="@+id/terminalExceededThreshold"
+                android:id="@+id/terminalStatus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/terminal_heartbeat_exceeded_threshold"
-                android:visibility="invisible"
-                android:contentDescription="@string/content_not_be_loaded"/>
-
-            <!-- Terminal App Not Installed -->
-            <ImageView
-                android:id="@+id/terminalAppNotInstalled"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/terminal_app_no_installed"
                 android:visibility="invisible"
                 android:contentDescription="@string/content_not_be_loaded"/>
 

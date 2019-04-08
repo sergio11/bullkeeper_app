@@ -8,6 +8,7 @@ import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
 import sanchez.sanchez.sergio.domain.models.ScreenStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
+import sanchez.sanchez.sergio.domain.models.DeviceStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
@@ -52,12 +53,6 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setTotalCalls(originModel.getTotalCalls());
         terminalEntity.setTotalSms(originModel.getTotalSms());
         terminalEntity.setTotalContacts(originModel.getTotalContacts());
-        try {
-            terminalEntity.setScreenStatusEnum(
-                    ScreenStatusEnum.valueOf(originModel.getScreenStatus()));
-        } catch(final Exception ex) {
-            terminalEntity.setScreenStatusEnum(ScreenStatusEnum.STATE_UNKNOWN);
-        }
         terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
         terminalEntity.setScreenEnabled(originModel.isScreenEnabled());
@@ -72,9 +67,21 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalEntity.setBatteryCharging(originModel.isBatteryCharging());
         terminalEntity.setBatteryLevel(originModel.getBatteryLevel());
         try {
-            terminalEntity.setStatus(TerminalStatusEnum.valueOf(originModel.getStatus()));
+            terminalEntity.setDeviceStatus(DeviceStatusEnum.valueOf(originModel.getDeviceStatus()));
         } catch (final Exception ex) {
-            terminalEntity.setStatus(TerminalStatusEnum.STATE_UNKNOWN);
+            terminalEntity.setDeviceStatus(DeviceStatusEnum.STATE_UNKNOWN);
+        }
+        try {
+            terminalEntity.setScreenStatus(
+                    ScreenStatusEnum.valueOf(originModel.getScreenStatus()));
+        } catch(final Exception ex) {
+            terminalEntity.setScreenStatus(ScreenStatusEnum.STATE_UNKNOWN);
+        }
+        try {
+            terminalEntity.setStatus(
+                    TerminalStatusEnum.valueOf(originModel.getStatus()));
+        } catch(final Exception ex) {
+            terminalEntity.setStatus(TerminalStatusEnum.UNKNOWN);
         }
         terminalEntity.setAppsOverlayEnabled(originModel.isAppsOverlayEnabled());
         terminalEntity.setHighAccuraccyLocationEnabled(originModel.isHighAccuraccyLocationEnabled());
@@ -110,7 +117,6 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setTotalApps(originModel.getTotalApps());
         terminalDTO.setTotalCalls(originModel.getTotalCalls());
         terminalDTO.setTotalContacts(originModel.getTotalContacts());
-        terminalDTO.setScreenStatus(originModel.getScreenStatusEnum().name());
         terminalDTO.setCameraEnabled(originModel.isCameraEnabled());
         terminalDTO.setScreenEnabled(originModel.isScreenEnabled());
         terminalDTO.setBedTimeEnabled(originModel.isBedTimeEnabled());
@@ -124,12 +130,15 @@ public final class TerminalDetailEntityDataMapper extends AbstractDataMapper<Ter
         terminalDTO.setAdminAccessAllowed(originModel.isAdminAccessAllowed());
         terminalDTO.setBatteryCharging(originModel.isBatteryCharging());
         terminalDTO.setBatteryLevel(originModel.getBatteryLevel());
-        terminalDTO.setStatus(originModel.getStatus().name());
         terminalDTO.setAppsOverlayEnabled(originModel.isAppsOverlayEnabled());
         terminalDTO.setHighAccuraccyLocationEnabled(originModel.isHighAccuraccyLocationEnabled());
         terminalDTO.setHeartbeat(
                 terminalHeartbeatEntityAbstractDataMapper.transformInverse(originModel.getTerminalHeartbeatEntity())
         );
+
+        terminalDTO.setStatus(originModel.getStatus().name());
+        terminalDTO.setDeviceStatus(originModel.getDeviceStatus().name());
+        terminalDTO.setScreenStatus(originModel.getScreenStatus().name());
         terminalDTO.setCarrierName(originModel.getCarrierName());
         terminalDTO.setPhoneNumber(originModel.getPhoneNumber());
         terminalDTO.setPhoneCallsEnabled(originModel.isPhoneCallsEnabled());

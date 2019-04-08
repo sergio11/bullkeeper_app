@@ -11,6 +11,7 @@ import java.util.Locale;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
+import sanchez.sanchez.sergio.domain.models.DeviceStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
@@ -62,9 +63,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
         private TextView deviceFullNameTextView, deviceManufacturerTextView,
                 systemVersionTextView, appVersionTextView;
         private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView,
-                batteryStatusImageView, terminalStatusImageView,
-                terminalExceededThresholdImageView, terminalAppNotInstalledImageView,
-                phoneCallsNotAllowedImageView;
+                batteryStatusImageView, terminalDeviceStatusImageView,
+                phoneCallsNotAllowedImageView, terminalStatusImageView;
 
         /**
          * @param itemView
@@ -78,10 +78,9 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             cameraNotAllowedImageView = itemView.findViewById(R.id.cameraNotAllowed);
             mobileScreenNotAllowedImageView = itemView.findViewById(R.id.mobileScreenNotAllowed);
             batteryStatusImageView = itemView.findViewById(R.id.batteryStatus);
-            terminalStatusImageView = itemView.findViewById(R.id.terminalStatus);
-            terminalExceededThresholdImageView = itemView.findViewById(R.id.terminalExceededThreshold);
-            terminalAppNotInstalledImageView = itemView.findViewById(R.id.terminalAppNotInstalled);
+            terminalDeviceStatusImageView = itemView.findViewById(R.id.terminalDeviceStatus);
             phoneCallsNotAllowedImageView = itemView.findViewById(R.id.phoneCallsNotAllowed);
+            terminalStatusImageView = itemView.findViewById(R.id.terminalStatus);
         }
 
         /**
@@ -126,42 +125,44 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
             else
                 phoneCallsNotAllowedImageView.setVisibility(View.INVISIBLE);
 
-            if(!terminalEntity.isDetached()) {
-                terminalAppNotInstalledImageView.setVisibility(View.VISIBLE);
-                terminalExceededThresholdImageView.setVisibility(View.GONE);
+            // Terminal Status
+            if(!terminalEntity.getStatus().equals(TerminalStatusEnum.ACTIVE)) {
+
+                terminalStatusImageView.setVisibility(View.VISIBLE);
+
                 batteryStatusImageView.setVisibility(View.GONE);
-                terminalStatusImageView.setVisibility(View.GONE);
+                terminalDeviceStatusImageView.setVisibility(View.GONE);
+
+                terminalStatusImageView.setImageResource(terminalEntity.getStatus().equals(TerminalStatusEnum.DETACHED) ?
+                        R.drawable.terminal_status_detached : R.drawable.terminal_status_invalid);
+
             } else {
 
-                terminalAppNotInstalledImageView.setVisibility(View.GONE);
+                terminalStatusImageView.setVisibility(View.GONE);
 
-                if(terminalEntity.getTerminalHeartbeatEntity().hasExceededThreshold()) {
-                    terminalExceededThresholdImageView.setVisibility(View.VISIBLE);
-                    batteryStatusImageView.setVisibility(View.GONE);
-                    terminalStatusImageView.setVisibility(View.GONE);
+                batteryStatusImageView.setVisibility(View.VISIBLE);
+
+                if(terminalEntity.isBatteryCharging()) {
+                    batteryStatusImageView.setImageResource(R.drawable.battery_is_charging);
                 } else {
 
-                    terminalExceededThresholdImageView.setVisibility(View.GONE);
-
-                    if(terminalEntity.isBatteryCharging()) {
-                        batteryStatusImageView.setImageResource(R.drawable.battery_is_charging);
+                    if(terminalEntity.getBatteryLevel() <= 100 && terminalEntity.getBatteryLevel() >= 80 ) {
+                        batteryStatusImageView.setImageResource(R.drawable.battery_fully_charged);
+                    } else if(terminalEntity.getBatteryLevel() < 80 && terminalEntity.getBatteryLevel() >= 30) {
+                        batteryStatusImageView.setImageResource(R.drawable.normal_charge_battery);
                     } else {
-
-                        if(terminalEntity.getBatteryLevel() <= 100 && terminalEntity.getBatteryLevel() >= 80 ) {
-                            batteryStatusImageView.setImageResource(R.drawable.battery_fully_charged);
-                        } else if(terminalEntity.getBatteryLevel() < 80 && terminalEntity.getBatteryLevel() >= 30) {
-                            batteryStatusImageView.setImageResource(R.drawable.normal_charge_battery);
-                        } else {
-                            batteryStatusImageView.setImageResource(R.drawable.battery_about_to_run_out);
-                        }
+                        batteryStatusImageView.setImageResource(R.drawable.battery_about_to_run_out);
                     }
-
-                    if(terminalEntity.getStatus().equals(TerminalStatusEnum.STATE_OFF))
-                        terminalStatusImageView.setVisibility(View.VISIBLE);
-                    else
-                        terminalStatusImageView.setVisibility(View.INVISIBLE);
                 }
+
+                if(terminalEntity.getDeviceStatus().equals(DeviceStatusEnum.STATE_OFF))
+                    terminalDeviceStatusImageView.setVisibility(View.VISIBLE);
+                else
+                    terminalDeviceStatusImageView.setVisibility(View.INVISIBLE);
+
             }
+
+
 
         }
 

@@ -25,10 +25,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
      */
     private long totalContacts;
 
-    /**
-     * Screen Status
-     */
-    private ScreenStatusEnum screenStatusEnum;
 
     /**
      * Location Permission Enabled
@@ -88,7 +84,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param codeName
      * @param deviceName
      * @param manufacturer
-     * @param detached
      * @param marketName
      * @param model
      * @param osVersion
@@ -101,6 +96,8 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param batteryLevel
      * @param isBatteryCharging
      * @param status
+     * @param screenStatus
+     * @param deviceStatus
      * @param terminalHeartbeatEntity
      * @param carrierName
      * @param phoneNumber
@@ -108,7 +105,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param totalSms
      * @param totalCalls
      * @param totalContacts
-     * @param screenStatusEnum
      * @param locationPermissionEnabled
      * @param callsHistoryPermissionEnabled
      * @param contactsListPermissionEnabled
@@ -119,22 +115,12 @@ public final class TerminalDetailEntity extends TerminalEntity {
      * @param appsOverlayEnabled
      * @param highAccuraccyLocationEnabled
      */
-    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, boolean detached, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled,
-                                boolean cameraEnabled, boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel,
-                                boolean isBatteryCharging, TerminalStatusEnum status,
-                                TerminalHeartbeatEntity terminalHeartbeatEntity, String carrierName,
-                                String phoneNumber, long totalApps, long totalSms, long totalCalls,
-                                long totalContacts, ScreenStatusEnum screenStatusEnum, boolean locationPermissionEnabled,
-                                boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled,
-                                boolean textMessagePermissionEnabled, boolean storagePermissionEnabled,
-                                boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled,
-                                boolean highAccuraccyLocationEnabled) {
-        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, detached, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, phoneCallsEnabled, batteryLevel, isBatteryCharging, status, terminalHeartbeatEntity, carrierName, phoneNumber);
+    public TerminalDetailEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel, boolean isBatteryCharging, TerminalStatusEnum status, ScreenStatusEnum screenStatus, DeviceStatusEnum deviceStatus, TerminalHeartbeatEntity terminalHeartbeatEntity, String carrierName, String phoneNumber, long totalApps, long totalSms, long totalCalls, long totalContacts, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
+        super(identity, appVersionCode, appVersionName, codeName, deviceName, manufacturer, marketName, model, osVersion, sdkVersion, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, phoneCallsEnabled, batteryLevel, isBatteryCharging, status, screenStatus, deviceStatus, terminalHeartbeatEntity, carrierName, phoneNumber);
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
         this.totalContacts = totalContacts;
-        this.screenStatusEnum = screenStatusEnum;
         this.locationPermissionEnabled = locationPermissionEnabled;
         this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
         this.contactsListPermissionEnabled = contactsListPermissionEnabled;
@@ -176,14 +162,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
 
     public void setTotalContacts(long totalContacts) {
         this.totalContacts = totalContacts;
-    }
-
-    public ScreenStatusEnum getScreenStatusEnum() {
-        return screenStatusEnum;
-    }
-
-    public void setScreenStatusEnum(ScreenStatusEnum screenStatusEnum) {
-        this.screenStatusEnum = screenStatusEnum;
     }
 
     public boolean isLocationPermissionEnabled() {
@@ -265,7 +243,6 @@ public final class TerminalDetailEntity extends TerminalEntity {
                 ", totalSms=" + totalSms +
                 ", totalCalls=" + totalCalls +
                 ", totalContacts=" + totalContacts +
-                ", screenStatusEnum=" + screenStatusEnum +
                 ", locationPermissionEnabled=" + locationPermissionEnabled +
                 ", callsHistoryPermissionEnabled=" + callsHistoryPermissionEnabled +
                 ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +

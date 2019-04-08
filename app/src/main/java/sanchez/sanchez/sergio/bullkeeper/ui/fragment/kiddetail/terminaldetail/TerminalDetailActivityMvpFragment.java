@@ -28,6 +28,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.TerminalDetailEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
+import sanchez.sanchez.sergio.domain.models.DeviceStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 import timber.log.Timber;
 
@@ -76,16 +77,16 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     protected TextView batteryStatusText;
 
     /**
-     * Terminal Status Icon Image View
+     * Device Status Icon Image View
      */
-    @BindView(R.id.terminalStatusIcon)
-    protected ImageView terminalStatusIconImageView;
+    @BindView(R.id.deviceStatusIcon)
+    protected ImageView deviceStatusIconImageView;
 
     /**
-     * Terminal Status Text View
+     * Device Status Text View
      */
     @BindView(R.id.terminalStatusText)
-    protected TextView terminalStatusTextView;
+    protected TextView deviceStatusTextView;
 
     /**
      * Os And SDK Version Text View
@@ -125,10 +126,10 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
     protected TextView lastTimeUsedTextView;
 
     /**
-     * Terminal Heartbeat Exceeded Threshold Image View
+     * Terminal Status Image View
      */
-    @BindView(R.id.terminalHeartbeatExceededThreshold)
-    protected ImageView terminalHeartbeatExceededThresholdImageView;
+    @BindView(R.id.terminalStatus)
+    protected ImageView terminalStatusImageView;
 
     /**
      * Bed Time Text View
@@ -499,6 +500,18 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 terminalDetailEntity.getManufacturer(), terminalDetailEntity.getDeviceName()));
 
 
+        if(!terminalDetailEntity.getStatus().equals(TerminalStatusEnum.ACTIVE)) {
+            terminalStatusImageView.setVisibility(View.VISIBLE);
+            terminalStatusImageView.setImageResource(
+                    terminalDetailEntity.getStatus().equals(TerminalStatusEnum.DETACHED) ?
+                            R.drawable.terminal_status_detached :
+                                R.drawable.terminal_status_invalid
+            );
+
+        } else {
+            terminalStatusImageView.setVisibility(View.GONE);
+        }
+
         // App Version
         appVersionNameTextView.setText(String.format(Locale.getDefault(),
                 getString(R.string.app_version_text), terminalDetailEntity.getAppVersionName(),
@@ -523,12 +536,12 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
                 getString(R.string.battery_level_value), terminalDetailEntity.getBatteryLevel()));
 
 
-        if(terminalDetailEntity.getStatus().equals(TerminalStatusEnum.STATE_OFF)) {
-            terminalStatusIconImageView.setImageResource(R.drawable.mobile_turn_off);
-            terminalStatusTextView.setText(getString(R.string.device_id_off));
+        if(terminalDetailEntity.getDeviceStatus().equals(DeviceStatusEnum.STATE_OFF)) {
+            deviceStatusIconImageView.setImageResource(R.drawable.mobile_turn_off);
+            deviceStatusTextView.setText(getString(R.string.device_id_off));
         } else {
-            terminalStatusIconImageView.setImageResource(R.drawable.mobile_turn_on);
-            terminalStatusTextView.setText(getString(R.string.device_id_on));
+            deviceStatusIconImageView.setImageResource(R.drawable.mobile_turn_on);
+            deviceStatusTextView.setText(getString(R.string.device_id_on));
         }
 
         // Os And Sdk Version
@@ -599,10 +612,6 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         lastTimeUsedTextView.setText(terminalDetailEntity
                 .getTerminalHeartbeatEntity().getLastTimeNotifiedSince());
 
-        if(terminalDetailEntity.getTerminalHeartbeatEntity().hasExceededThreshold())
-            terminalHeartbeatExceededThresholdImageView.setVisibility(View.VISIBLE);
-        else
-            terminalHeartbeatExceededThresholdImageView.setVisibility(View.GONE);
 
         // Bed Time
         bedTimeTextView.setText(terminalDetailEntity.isBedTimeEnabled() ?
@@ -1076,10 +1085,6 @@ public class TerminalDetailActivityMvpFragment extends SupportMvpFragment<Termin
         // Last Time Used
         lastTimeUsedTextView.setText(terminalHeartbeatEntity.getLastTimeNotifiedSince());
 
-        if(terminalHeartbeatEntity.hasExceededThreshold())
-            terminalHeartbeatExceededThresholdImageView.setVisibility(View.VISIBLE);
-        else
-            terminalHeartbeatExceededThresholdImageView.setVisibility(View.GONE);
 
         showNoticeDialog(R.string.terminal_heartbeat_configuration_saved_successfully);
     }

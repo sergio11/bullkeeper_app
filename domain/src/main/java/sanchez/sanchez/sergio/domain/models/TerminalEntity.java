@@ -13,7 +13,6 @@ public class TerminalEntity implements Serializable {
     private String codeName;
     private String deviceName;
     private String manufacturer;
-    private boolean detached;
     private String marketName;
     private String model;
     private String osVersion;
@@ -26,6 +25,8 @@ public class TerminalEntity implements Serializable {
     private int batteryLevel;
     private boolean isBatteryCharging;
     private TerminalStatusEnum status;
+    private ScreenStatusEnum screenStatus;
+    private DeviceStatusEnum deviceStatus;
     private TerminalHeartbeatEntity terminalHeartbeatEntity;
     private String carrierName;
     private String phoneNumber;
@@ -40,7 +41,6 @@ public class TerminalEntity implements Serializable {
      * @param codeName
      * @param deviceName
      * @param manufacturer
-     * @param detached
      * @param marketName
      * @param model
      * @param osVersion
@@ -50,26 +50,22 @@ public class TerminalEntity implements Serializable {
      * @param cameraEnabled
      * @param settingsEnabled
      * @param phoneCallsEnabled
+     * @param batteryLevel
+     * @param isBatteryCharging
+     * @param status
+     * @param screenStatus
+     * @param deviceStatus
      * @param terminalHeartbeatEntity
      * @param carrierName
      * @param phoneNumber
      */
-    public TerminalEntity(String identity, String appVersionCode, String appVersionName,
-                          String codeName, String deviceName, String manufacturer,
-                          boolean detached, String marketName, String model, String osVersion,
-                          String sdkVersion, boolean bedTimeEnabled,
-                          boolean screenEnabled, boolean cameraEnabled,
-                          boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel,
-                          boolean isBatteryCharging, TerminalStatusEnum status,
-                          TerminalHeartbeatEntity terminalHeartbeatEntity,
-                          final String carrierName, final String phoneNumber) {
+    public TerminalEntity(String identity, String appVersionCode, String appVersionName, String codeName, String deviceName, String manufacturer, String marketName, String model, String osVersion, String sdkVersion, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel, boolean isBatteryCharging, TerminalStatusEnum status, ScreenStatusEnum screenStatus, DeviceStatusEnum deviceStatus, TerminalHeartbeatEntity terminalHeartbeatEntity, String carrierName, String phoneNumber) {
         this.identity = identity;
         this.appVersionCode = appVersionCode;
         this.appVersionName = appVersionName;
         this.codeName = codeName;
         this.deviceName = deviceName;
         this.manufacturer = manufacturer;
-        this.detached = detached;
         this.marketName = marketName;
         this.model = model;
         this.osVersion = osVersion;
@@ -82,6 +78,8 @@ public class TerminalEntity implements Serializable {
         this.batteryLevel = batteryLevel;
         this.isBatteryCharging = isBatteryCharging;
         this.status = status;
+        this.screenStatus = screenStatus;
+        this.deviceStatus = deviceStatus;
         this.terminalHeartbeatEntity = terminalHeartbeatEntity;
         this.carrierName = carrierName;
         this.phoneNumber = phoneNumber;
@@ -133,14 +131,6 @@ public class TerminalEntity implements Serializable {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
-    }
-
-    public boolean isDetached() {
-        return detached;
-    }
-
-    public void setDetached(boolean detached) {
-        this.detached = detached;
     }
 
     public String getMarketName() {
@@ -239,6 +229,22 @@ public class TerminalEntity implements Serializable {
         this.status = status;
     }
 
+    public ScreenStatusEnum getScreenStatus() {
+        return screenStatus;
+    }
+
+    public void setScreenStatus(ScreenStatusEnum screenStatus) {
+        this.screenStatus = screenStatus;
+    }
+
+    public DeviceStatusEnum getDeviceStatus() {
+        return deviceStatus;
+    }
+
+    public void setDeviceStatus(DeviceStatusEnum deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
+
     public TerminalHeartbeatEntity getTerminalHeartbeatEntity() {
         return terminalHeartbeatEntity;
     }
@@ -272,7 +278,6 @@ public class TerminalEntity implements Serializable {
                 ", codeName='" + codeName + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
-                ", detached=" + detached +
                 ", marketName='" + marketName + '\'' +
                 ", model='" + model + '\'' +
                 ", osVersion='" + osVersion + '\'' +
@@ -285,6 +290,8 @@ public class TerminalEntity implements Serializable {
                 ", batteryLevel=" + batteryLevel +
                 ", isBatteryCharging=" + isBatteryCharging +
                 ", status=" + status +
+                ", screenStatus=" + screenStatus +
+                ", deviceStatus=" + deviceStatus +
                 ", terminalHeartbeatEntity=" + terminalHeartbeatEntity +
                 ", carrierName='" + carrierName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

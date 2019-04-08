@@ -33,13 +33,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
     @JsonProperty("total_contacts")
     private long totalContacts;
 
-
-    /**
-     * Screen Status
-     */
-    @JsonProperty("screen_status")
-    private String screenStatus;
-
     /**
      * Location Permission Enabled
      */
@@ -99,13 +92,11 @@ public final class TerminalDetailDTO extends TerminalDTO {
         super();
     }
 
-    public TerminalDetailDTO(String identity, String appVersionName, String appVersionCode, String osVersion, String sdkVersion, String manufacturer, String marketName, String model, String codeName, boolean detached, String deviceName, String deviceId, boolean bedTimeEnabled, boolean screenEnabled, boolean cameraEnabled, boolean settingsEnabled, boolean phoneCallsEnabled, int batteryLevel, boolean isBatteryCharging, String status, TerminalHeartbeatDTO heartbeat, String carrierName, String phoneNumber, long totalApps, long totalSms, long totalCalls, long totalContacts, String screenStatus, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
-        super(identity, appVersionName, appVersionCode, osVersion, sdkVersion, manufacturer, marketName, model, codeName, detached, deviceName, deviceId, bedTimeEnabled, screenEnabled, cameraEnabled, settingsEnabled, phoneCallsEnabled, batteryLevel, isBatteryCharging, status, heartbeat, carrierName, phoneNumber);
+    public TerminalDetailDTO(long totalApps, long totalSms, long totalCalls, long totalContacts, boolean locationPermissionEnabled, boolean callsHistoryPermissionEnabled, boolean contactsListPermissionEnabled, boolean textMessagePermissionEnabled, boolean storagePermissionEnabled, boolean usageStatsAllowed, boolean adminAccessAllowed, boolean appsOverlayEnabled, boolean highAccuraccyLocationEnabled) {
         this.totalApps = totalApps;
         this.totalSms = totalSms;
         this.totalCalls = totalCalls;
         this.totalContacts = totalContacts;
-        this.screenStatus = screenStatus;
         this.locationPermissionEnabled = locationPermissionEnabled;
         this.callsHistoryPermissionEnabled = callsHistoryPermissionEnabled;
         this.contactsListPermissionEnabled = contactsListPermissionEnabled;
@@ -147,14 +138,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
 
     public void setTotalContacts(long totalContacts) {
         this.totalContacts = totalContacts;
-    }
-
-    public String getScreenStatus() {
-        return screenStatus;
-    }
-
-    public void setScreenStatus(String screenStatus) {
-        this.screenStatus = screenStatus;
     }
 
     public boolean isLocationPermissionEnabled() {
@@ -236,7 +219,6 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", totalSms=" + totalSms +
                 ", totalCalls=" + totalCalls +
                 ", totalContacts=" + totalContacts +
-                ", screenStatus='" + screenStatus + '\'' +
                 ", locationPermissionEnabled=" + locationPermissionEnabled +
                 ", callsHistoryPermissionEnabled=" + callsHistoryPermissionEnabled +
                 ", contactsListPermissionEnabled=" + contactsListPermissionEnabled +
@@ -246,6 +228,30 @@ public final class TerminalDetailDTO extends TerminalDTO {
                 ", adminAccessAllowed=" + adminAccessAllowed +
                 ", appsOverlayEnabled=" + appsOverlayEnabled +
                 ", highAccuraccyLocationEnabled=" + highAccuraccyLocationEnabled +
+                ", identity='" + identity + '\'' +
+                ", appVersionName='" + appVersionName + '\'' +
+                ", appVersionCode='" + appVersionCode + '\'' +
+                ", osVersion='" + osVersion + '\'' +
+                ", sdkVersion='" + sdkVersion + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", marketName='" + marketName + '\'' +
+                ", model='" + model + '\'' +
+                ", codeName='" + codeName + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", bedTimeEnabled=" + bedTimeEnabled +
+                ", screenEnabled=" + screenEnabled +
+                ", cameraEnabled=" + cameraEnabled +
+                ", settingsEnabled=" + settingsEnabled +
+                ", phoneCallsEnabled=" + phoneCallsEnabled +
+                ", batteryLevel=" + batteryLevel +
+                ", isBatteryCharging=" + isBatteryCharging +
+                ", status='" + status + '\'' +
+                ", screenStatus='" + screenStatus + '\'' +
+                ", deviceStatus='" + deviceStatus + '\'' +
+                ", heartbeat=" + heartbeat +
+                ", carrierName='" + carrierName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

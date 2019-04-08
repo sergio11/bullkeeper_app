@@ -4,8 +4,10 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import sanchez.sanchez.sergio.data.mapper.AbstractDataMapper;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalDTO;
 import sanchez.sanchez.sergio.data.net.models.response.TerminalHeartbeatDTO;
+import sanchez.sanchez.sergio.domain.models.ScreenStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalEntity;
 import sanchez.sanchez.sergio.domain.models.TerminalHeartbeatEntity;
+import sanchez.sanchez.sergio.domain.models.DeviceStatusEnum;
 import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 
 /**
@@ -45,7 +47,6 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setMarketName(originModel.getMarketName());
         terminalEntity.setModel(originModel.getModel());
         terminalEntity.setOsVersion(originModel.getOsVersion());
-        terminalEntity.setDetached(originModel.isDetached());
         terminalEntity.setSdkVersion(originModel.getSdkVersion());
         terminalEntity.setBedTimeEnabled(originModel.isBedTimeEnabled());
         terminalEntity.setCameraEnabled(originModel.isCameraEnabled());
@@ -55,9 +56,19 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalEntity.setBatteryLevel(originModel.getBatteryLevel());
         terminalEntity.setBatteryCharging(originModel.isBatteryCharging());
         try {
+            terminalEntity.setDeviceStatus(DeviceStatusEnum.valueOf(originModel.getDeviceStatus()));
+        } catch (final Exception ex) {
+            terminalEntity.setDeviceStatus(DeviceStatusEnum.STATE_UNKNOWN);
+        }
+        try {
             terminalEntity.setStatus(TerminalStatusEnum.valueOf(originModel.getStatus()));
         } catch (final Exception ex) {
-            terminalEntity.setStatus(TerminalStatusEnum.STATE_UNKNOWN);
+            terminalEntity.setStatus(TerminalStatusEnum.UNKNOWN);
+        }
+        try {
+            terminalEntity.setScreenStatus(ScreenStatusEnum.valueOf(originModel.getScreenStatus()));
+        } catch (final Exception ex) {
+            terminalEntity.setScreenStatus(ScreenStatusEnum.STATE_UNKNOWN);
         }
         terminalEntity.setTerminalHeartbeatEntity(terminalHeartbeatEntityDataMapper
                 .transform(originModel.getHeartbeat()));
@@ -82,7 +93,6 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setCodeName(originModel.getCodeName());
         terminalDTO.setDeviceName(originModel.getDeviceName());
         terminalDTO.setManufacturer(originModel.getManufacturer());
-        terminalDTO.setDetached(originModel.isDetached());
         terminalDTO.setMarketName(originModel.getMarketName());
         terminalDTO.setModel(originModel.getOsVersion());
         terminalDTO.setOsVersion(originModel.getOsVersion());
@@ -95,6 +105,8 @@ public final class TerminalEntityDataMapper extends AbstractDataMapper<TerminalD
         terminalDTO.setBatteryLevel(originModel.getBatteryLevel());
         terminalDTO.setBatteryCharging(originModel.isBatteryCharging());
         terminalDTO.setStatus(originModel.getStatus().name());
+        terminalDTO.setScreenStatus(originModel.getScreenStatus().name());
+        terminalDTO.setDeviceStatus(originModel.getDeviceStatus().name());
         terminalDTO.setHeartbeat(
                 terminalHeartbeatEntityDataMapper.transformInverse(originModel.getTerminalHeartbeatEntity())
         );
