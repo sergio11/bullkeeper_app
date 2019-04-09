@@ -83,6 +83,14 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
         public <E> void accept(ISseEventsVisitor visitor, E data) {
             visitor.visitSetMessagesAsViewedEvent(this, (String) data);
         }
+    },
+
+    // Terminal Status Changed
+    TERMINAL_STATUS_CHANGED() {
+        @Override
+        public <E> void accept(ISseEventsVisitor visitor, E data) {
+            visitor.visitTerminalStatusChangedEvent(this, (String) data);
+        }
     };
 
     /**
@@ -158,6 +166,13 @@ public enum SseEventTypeEnum implements ISupportVisitable<SseEventTypeEnum.ISseE
          * @param message
          */
         void visitSetMessagesAsViewedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
+
+        /**
+         * Visit Terminal Status Changed Event
+         * @param sseEventTypeEnum
+         * @param message
+         */
+        void visitTerminalStatusChangedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message);
     }
 
 }

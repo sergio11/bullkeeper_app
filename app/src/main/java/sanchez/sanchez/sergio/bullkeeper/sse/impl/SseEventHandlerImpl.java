@@ -44,11 +44,14 @@ import sanchez.sanchez.sergio.bullkeeper.sse.models.KidRequestCreatedDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.MessageSavedDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.NewAppInstalledDTO;
 import sanchez.sanchez.sergio.bullkeeper.sse.models.SetMessagesAsViewedDTO;
+import sanchez.sanchez.sergio.bullkeeper.sse.models.TerminalStatusChangedDTO;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.conversationmessages.ConversationMessageListMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.kidrequestdetail.KidRequestDetailMvpActivity;
+import sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail.TerminalDetailMvpActivity;
 import sanchez.sanchez.sergio.data.net.models.response.PersonDTO;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.models.RequestTypeEnum;
+import sanchez.sanchez.sergio.domain.models.TerminalStatusEnum;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import timber.log.Timber;
@@ -720,5 +723,82 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
             ex.printStackTrace();
         }
 
+    }
+
+    /**
+     * Visit Terminal Status Changed Event
+     * @param sseEventTypeEnum
+     * @param message
+     */
+    @Override
+    public void visitTerminalStatusChangedEvent(final SseEventTypeEnum sseEventTypeEnum, final String message) {
+        Preconditions.checkNotNull(sseEventTypeEnum, "SSE Event Type can not be null");
+        Preconditions.checkNotNull(message, "Message can not be null");
+
+        try {
+
+            final TerminalStatusChangedDTO terminalStatusChangedDTO =
+                    objectMapper.readValue(message, TerminalStatusChangedDTO.class);
+
+            TerminalStatusEnum terminalStatusEnum;
+            try {
+                terminalStatusEnum =
+                        TerminalStatusEnum.valueOf(terminalStatusChangedDTO.getStatus());
+            } catch(final Exception ex) {
+                terminalStatusEnum = TerminalStatusEnum.UNKNOWN;
+            }
+
+            notificationHelper.showNoticeNotification(
+                    context.getString(R.string.terminal_status_notification_title),
+                    terminalStatusEnum.equals(TerminalStatusEnum.DETACHED) ?
+                            context.getString(R.string.terminal_status_detached_notification_body) :
+                            context.getString(R.string.terminal_status_invalid_notification_body),
+                    TerminalDetailMvpActivity.getCallingIntent(context,
+                            terminalStatusChangedDTO.getKid(), terminalStatusChangedDTO.getTerminal()));
+
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appOverlayService.canDrawOverlays()) {
+
+                final View terminalStatusLayoutView = appOverlayService.create(R.layout.terminal_status_changed_overlay_layout);
+
+                if(terminalStatusLayoutView != null) {
+
+                    final TextView terminalTitleView = terminalStatusLayoutView.findViewById(R.id.title);
+                    if(terminalTitleView != null)
+                        terminalTitleView.setText(
+                                terminalStatusEnum.equals(TerminalStatusEnum.DETACHED) ?
+                                        context.getString(R.string.terminal_status_detached) :
+                                        context.getString(R.string.terminal_status_invalid)
+                        );
+
+                    final Button showTerminalRequestButton = terminalStatusLayoutView.findViewById(R.id.showTerminal);
+                    if(showTerminalRequestButton != null)
+                        showTerminalRequestButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                appOverlayService.hide(terminalStatusLayoutView);
+                                context.startActivity(TerminalDetailMvpActivity.getCallingIntent(context,
+                                        terminalStatusChangedDTO.getKid(), terminalStatusChangedDTO.getTerminal()));
+
+                            }
+                        });
+
+                    final Button discardRequestButton = terminalStatusLayoutView.findViewById(R.id.discard);
+                    if(discardRequestButton != null)
+                        discardRequestButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                appOverlayService.hide(terminalStatusLayoutView);
+                            }
+                        });
+
+                    appOverlayService.show(terminalStatusLayoutView);
+                }
+            }
+
+
+        } catch (final Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

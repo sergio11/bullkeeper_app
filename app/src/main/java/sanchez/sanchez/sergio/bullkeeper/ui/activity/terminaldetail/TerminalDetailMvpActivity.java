@@ -1,15 +1,13 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.terminaldetail;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
-
-import java.util.Locale;
-
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
@@ -44,8 +42,22 @@ public class TerminalDetailMvpActivity extends SupportMvpActivity<TerminalDetail
      * @param context
      * @return
      */
+    public static Intent getCallingIntent(final Activity context, final String sonId, final String terminalId) {
+        final Intent intent = new Intent(context, TerminalDetailMvpActivity.class);
+        intent.putExtra(SON_ID_ARG, sonId);
+        intent.putExtra(TERMINAL_ID_ARG, terminalId);
+        return intent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @return
+     */
     public static Intent getCallingIntent(final Context context, final String sonId, final String terminalId) {
         final Intent intent = new Intent(context, TerminalDetailMvpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(SON_ID_ARG, sonId);
         intent.putExtra(TERMINAL_ID_ARG, terminalId);
         return intent;

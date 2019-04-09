@@ -765,6 +765,13 @@
     <string name="lock_screen_of_all_linked_devices_confirm">¿Bloquear la pantalla de todos los dispositivos vinculados?</string>
     <string name="unlock_screen_of_all_linked_devices_confirm">¿Deseas desbloquear la pantalla de todos los dispositivos vinculados?</string>
     <string name="terminal_make_a_call">Hacer llamada</string>
+
+    <string name="terminal_status_detached">El dispositivo no responde, han superado el umbral configurado.</string>
+    <string name="terminal_status_invalid">El dispositivo está en un estado no válido, algunos permisos o accesos han sido deshabilitados</string>
+    <string name="terminal_status_notification_title">Hay un problema con uno de los dispositivos vinculados</string>
+    <string name="terminal_status_invalid_notification_body">Hay un dispositivo que requiere su atención, algunos permisos y accesos requeridos han sido deshabilitados</string>
+    <string name="terminal_status_detached_notification_body">El dispositivo no responde, han superado el umbral configurado.</string>
+
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">¿Desea habilitar el modo de hora de dormir en este terminal?</string>
     <string name="terminal_disable_bed_time_confirm">¿Desea desactivar el modo de tiempo de cama en este terminal?</string>

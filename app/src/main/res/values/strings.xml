@@ -907,6 +907,12 @@
     <string name="lock_screen_of_all_linked_devices_confirm">lock the screen of all linked devices?</string>
     <string name="unlock_screen_of_all_linked_devices_confirm">unlock the screen of all linked devices?</string>
     <string name="terminal_make_a_call">Make a call</string>
+
+    <string name="terminal_status_detached">The device does not respond, they have exceeded the configured threshold</string>
+    <string name="terminal_status_invalid">The device is in an invalid state, some permissions or accesses have been disabled</string>
+    <string name="terminal_status_notification_title">There is a problem with one of the linked devices</string>
+    <string name="terminal_status_invalid_notification_body">There is a device that requires your attention, some required permissions and accesses have been disabled</string>
+    <string name="terminal_status_detached_notification_body">The device does not respond, they have exceeded the configured threshold</string>
     <!-- Bed Time -->
     <string name="terminal_enable_bed_time_confirm">Do you want to enable Bed Time mode in this terminal?</string>
     <string name="terminal_disable_bed_time_confirm">Do you want to disable the Bed Time mode in this terminal?</string>
