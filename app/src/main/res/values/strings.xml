@@ -260,10 +260,10 @@
     <string name="age_of_alerts_preference_summary">Age of alerts to show on the home screen</string>
 
     <string name="age_of_alerts_no_filter">No Filter</string>
-    <string name="age_of_alerts_fifteen_minutes">15 minutes</string>
-    <string name="age_of_alerts_thirty_minutes">30 minutes</string>
-    <string name="age_of_alerts_forty_five_minutes">45 minutes</string>
-    <string name="age_of_alerts_sixty_minutes">60 minutes</string>
+    <string name="age_of_alerts_a_day_ago">A Day ago</string>
+    <string name="age_of_alerts_seven_days_ago">A 7 days ago</string>
+    <string name="age_of_alerts_fifteen_days_ago">A 15 days ago</string>
+    <string name="age_of_alerts_thirty_days_ago">A 30 days ago</string>
 
     <!-- Enable Push Notifications -->
     <string name="enable_push_notifications_preference_title">Enable push notifications</string>
