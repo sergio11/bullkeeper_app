@@ -768,8 +768,8 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
 
         } else {
 
-            if(permissionManager.shouldAskPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                permissionManager.checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION,
+            if(permissionManager.shouldAskPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                permissionManager.checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION,
                         getString(R.string.location_permission_reason));
             } else {
                 showCurrentLocation();

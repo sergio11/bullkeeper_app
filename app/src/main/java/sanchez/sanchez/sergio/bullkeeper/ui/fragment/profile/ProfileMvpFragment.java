@@ -365,6 +365,8 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
         toggleKidsAllComponents(true);
         if (!preferenceRepository.isHomeShowCaseCompleted())
             launchShowCase();
+        else
+            activityHandler.onShowcaseCompleted();
     }
 
     /**
