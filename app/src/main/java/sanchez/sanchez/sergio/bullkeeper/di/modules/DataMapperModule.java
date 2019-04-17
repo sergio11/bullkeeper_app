@@ -688,10 +688,13 @@ public class DataMapperModule {
     public AbstractDataMapper<SummaryMyKidResultDTO, SummaryMyKidResultEntity> provideSummaryMyKidsResultsDataMapper(
             final AbstractDataMapper<LocationDTO, LocationEntity> locationEntityAbstractDataMapper,
             final AbstractDataMapper<SocialMediaDTO, SocialMediaEntity> socialMediaEntityAbstractDataMapper,
-            final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolEntityAbstractDataMapper
+            final AbstractDataMapper<SchoolDTO, SchoolEntity> schoolEntityAbstractDataMapper,
+            final ApiEndPointsHelper apiEndPointsHelper,
+            final IAppUtils appUtils
     ){
         return new SummaryMyKidsResultsDataMapper(locationEntityAbstractDataMapper,
-                socialMediaEntityAbstractDataMapper, schoolEntityAbstractDataMapper);
+                socialMediaEntityAbstractDataMapper, schoolEntityAbstractDataMapper,
+                apiEndPointsHelper, appUtils);
     }
 
     /**

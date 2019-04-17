@@ -28,39 +28,43 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/commonWhite"
-        app:layout_constraintBottom_toTopOf="@id/showKidRequest"
+        app:layout_constraintBottom_toTopOf="@id/actionsContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/kidRequestImage" />
 
-    <Button
-        android:id="@+id/discardRequest"
-        style="@style/CancelActionButton"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/actionsContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/common_padding"
-        android:text="@string/discard"
-        app:layout_constraintBottom_toTopOf="@id/showKidRequest"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/kidRequestTitle"/>
-
-    <Button
-        android:id="@+id/showKidRequest"
-        style="@style/AcceptActionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:padding="@dimen/common_padding"
-        android:text="@string/show_detail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/discardRequest"/>
+        app:layout_constraintTop_toBottomOf="@id/kidRequestTitle">
+
+        <Button
+            android:id="@+id/discardRequest"
+            style="@style/CancelActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:text="@string/discard"/>
+
+        <Button
+            android:id="@+id/showKidRequest"
+            style="@style/AcceptActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:text="@string/show_detail"/>
+
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

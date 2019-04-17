@@ -16,25 +16,36 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/commonWhite"
-        app:layout_constraintBottom_toTopOf="@id/dismiss"
+        app:layout_constraintBottom_toTopOf="@id/actionsContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/dismiss"
-        style="@style/CommonActionButton.Inverse"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/actionsContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:padding="@dimen/common_padding"
-        android:text="@string/close_dialog"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialogTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/dialogTitle">
+
+        <Button
+            android:id="@+id/dismiss"
+            style="@style/CommonActionButton.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:padding="@dimen/common_padding"
+            android:text="@string/close_dialog"
+            />
+
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

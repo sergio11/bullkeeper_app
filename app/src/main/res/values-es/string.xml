@@ -1008,4 +1008,7 @@
     <string name="summary_my_kids_results_no_positive_comments">Ninguno de los comentarios analizados tienen un sentimiento positivo</string>
     <string name="summary_my_kids_results_neutral_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento neutro</string>
     <string name="summary_my_kids_results_no_neutral_comments">Ninguno de los comentarios analizados tienen un sentimiento neutro</string>
+
+    <!-- App Overlay -->
+    <string name="require_app_overlay_permission_confirm">Bullkeeper necesita su permiso para mostrar anuncios que se superpongan a otras aplicaciones. Esta característica le informará sobre avisos importantes.</string>
 </resources>

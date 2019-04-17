@@ -16,38 +16,45 @@
         android:text="-"
         android:textAlignment="center"
         android:textColor="@color/commonWhite"
-        app:layout_constraintBottom_toTopOf="@id/accept"
+        app:layout_constraintBottom_toTopOf="@id/actionsContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- Cancel Button -->
-    <Button
-        android:id="@+id/cancel"
-        style="@style/CancelActionButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/actionsContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:padding="@dimen/common_padding"
-        android:text="@android:string/cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/accept"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Accept Button -->
-    <Button
-        android:id="@+id/accept"
-        style="@style/AcceptActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:padding="@dimen/common_padding"
-        android:text="@android:string/ok"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cancel" />
+        app:layout_constraintTop_toBottomOf="@id/dialogTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center">
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/cancel"
+            style="@style/CancelActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:text="@android:string/cancel"
+             />
+
+        <!-- Accept Button -->
+        <Button
+            android:id="@+id/accept"
+            style="@style/AcceptActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:padding="@dimen/common_padding"
+            android:text="@android:string/ok"/>
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
