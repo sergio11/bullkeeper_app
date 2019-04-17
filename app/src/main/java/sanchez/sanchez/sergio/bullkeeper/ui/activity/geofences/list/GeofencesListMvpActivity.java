@@ -30,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.activity.savescheduledblock.SaveSche
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportItemTouchHelper;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.GeofencesAdapter;
+import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.GeofencesAlertsAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
@@ -43,7 +44,7 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
         IGeofencesListView, GeofenceEntity>
         implements HasComponent<GeofenceComponent>, IGeofencesListActivityHandler
         , IGeofencesListView,
-        SupportItemTouchHelper.ItemTouchHelperListener {
+        SupportItemTouchHelper.ItemTouchHelperListener, GeofencesAdapter.IGeofenceStatusListener {
 
     /**
      *
@@ -112,6 +113,12 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
      */
     @BindView(R.id.addGeofences)
     protected ImageView addGeofencesImageView;
+
+
+    /**
+     * Geofences Adapter
+     */
+    private GeofencesAdapter geofencesAdapter;
 
 
     /**
@@ -343,7 +350,10 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
     @NotNull
     @Override
     protected SupportRecyclerViewAdapter<GeofenceEntity> getAdapter() {
-        return new GeofencesAdapter(this, new ArrayList<GeofenceEntity>());
+        geofencesAdapter = new GeofencesAdapter(this, new ArrayList<GeofenceEntity>());
+        geofencesAdapter.setListener(this);
+        return geofencesAdapter;
+
     }
 
     /**
@@ -385,6 +395,31 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
         }
 
     }
+
+    /**
+     *
+     * @param geofence
+     * @param newStatus
+     */
+    @Override
+    public void onGeofenceStatusChangedSuccessfully(final String geofence, boolean newStatus) {
+        showNoticeDialog(R.string.geofence_status_successfully_updated);
+    }
+
+    /**
+     *
+     * @param geofence
+     * @param newStatus
+     */
+    @Override
+    public void onGeofenceStatusChangedFailed(final String geofence, boolean newStatus) {
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+        Preconditions.checkState(!geofence.isEmpty(), "Geofence can not be null");
+        showNoticeDialog(R.string.geofence_status_updated_error, false);
+        geofencesAdapter.updateStatus(geofence, !newStatus);
+    }
+
+
 
     /**
      * On Data Loaded
@@ -501,4 +536,47 @@ public class GeofencesListMvpActivity extends SupportMvpLCEActivity<GeofencesLis
                 .equals(SaveScheduledBlockMvpActivity.class.getName());
     }
 
+    /**
+     * @param identity
+     * @param newStatus
+     */
+    @Override
+    public void onGeofenceStatusChanged(final String identity, final boolean newStatus) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be null");
+
+        if(!isConnectivityAvailable()) {
+            showNoticeDialog(R.string.connectivity_not_available, false);
+        } else {
+
+            if (newStatus) {
+
+                showConfirmationDialog(R.string.geofence_confirm_enable, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        getPresenter().enableGeofence(kid, identity);
+                    }
+
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+                        geofencesAdapter.updateStatus(identity, false);
+                    }
+                });
+
+            } else {
+
+                showConfirmationDialog(R.string.geofence_confirm_disable, new ConfirmationDialogFragment.ConfirmationDialogListener() {
+                    @Override
+                    public void onAccepted(DialogFragment dialog) {
+                        getPresenter().disableGeofence(kid, identity);
+                    }
+
+                    @Override
+                    public void onRejected(DialogFragment dialog) {
+                        geofencesAdapter.updateStatus(identity, true);
+                    }
+                });
+            }
+        }
+    }
 }

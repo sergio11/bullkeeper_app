@@ -6,6 +6,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import sanchez.sanchez.sergio.data.net.models.request.SaveGeofenceDTO;
 import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
@@ -96,6 +97,29 @@ public interface IGeofenceService {
     Observable<APIResponse<GeofenceDTO>> saveGeofence(
             @Path("kid") final String kid,
             @Body final SaveGeofenceDTO saveGeofenceDTO
+    );
+
+    /**
+     * Enable Geofence
+     * @param kid
+     * @return
+     */
+    @POST("children/{kid}/geofences/{id}/enable")
+    Observable<APIResponse<String>> enableGeofence(
+            @Path("kid") final String kid,
+            @Path("id") final String id
+    );
+
+
+    /**
+     * Disable Geofence
+     * @param kid
+     * @return
+     */
+    @POST("children/{kid}/geofences/{id}/disable")
+    Observable<APIResponse<String>> disableGeofence(
+            @Path("kid") final String kid,
+            @Path("id") final String id
     );
 
 }

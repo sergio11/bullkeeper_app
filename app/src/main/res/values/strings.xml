@@ -1113,7 +1113,10 @@
     <string name="geofence_alerts_delete_confirm">Do you want to delete all registered alerts?</string>
     <string name="geofence_alerts_deleted_successfully">Registered alerts were successfully deleted</string>
     <string name="geofence_invalid_name">You should specify the name of the geofence</string>
-
+    <string name="geofence_confirm_enable">Do you want to enable the selected Geofence?</string>
+    <string name="geofence_confirm_disable">Do you want to disable the selected Geofence?</string>
+    <string name="geofence_status_successfully_updated">Status of the GeoFence successfully updated</string>
+    <string name="geofence_status_updated_error">Failed to update the status of the Geofence</string>
     <!-- App Search List -->
     <string name="app_search_title_default">Apps Installed</string>
     <string name="no_app_installed_found">No App Installed Found for this terminal</string>

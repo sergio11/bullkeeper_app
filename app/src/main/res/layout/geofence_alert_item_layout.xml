@@ -54,23 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/separator"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@id/geofenceAlertDate"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="8dp"
-            android:gravity="start|center_vertical"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:textColor="@color/darkModerateBlue"
-            android:textStyle="italic" />
-
-        <!-- Geofence Alert Date -->
-        <TextView
-            android:id="@+id/geofenceAlertDate"
-            style="@style/CommonStrongText.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
             android:gravity="start|center_vertical"
@@ -90,6 +73,22 @@
             android:layout_toEndOf="@id/separator"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
+            android:gravity="start|center_vertical"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/darkModerateBlue"
+            android:textStyle="italic" />
+
+        <!-- Geofence Alert Date -->
+        <TextView
+            android:id="@+id/geofenceAlertDate"
+            style="@style/CommonStrongText.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="start|center_vertical"
             android:padding="8dp"
             android:singleLine="true"

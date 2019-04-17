@@ -185,4 +185,35 @@ public final class GeofenceRepositoryImpl implements IGeofencesRepository {
                     response.getData(): null)
                 .map(geofenceEntityAbstractDataMapper::transform);
     }
+
+    /**
+     * Enable Geofence
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    @Override
+    public Observable<String> enableGeofence(final String kid, final String geofence) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+
+        return geofenceService.enableGeofence(kid, geofence)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
+     * Disable Geofence
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    @Override
+    public Observable<String> disableGeofence(final String kid, final String geofence) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+        return geofenceService.disableGeofence(kid, geofence)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
 }

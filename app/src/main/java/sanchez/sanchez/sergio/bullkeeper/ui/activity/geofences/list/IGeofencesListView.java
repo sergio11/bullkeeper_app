@@ -20,5 +20,19 @@ public interface IGeofencesListView
      */
     void onGeofenceDeleted();
 
+    /**
+     * Geofence Status Changed Successfully
+     * @param geofence
+     * @param newStatus
+     */
+    void onGeofenceStatusChangedSuccessfully(final String geofence, final boolean newStatus);
+
+    /**
+     * Geofence Status Changed Failed
+     * @param geofence
+     * @param newStatus
+     */
+    void onGeofenceStatusChangedFailed(final String geofence, final boolean newStatus);
+
 
 }

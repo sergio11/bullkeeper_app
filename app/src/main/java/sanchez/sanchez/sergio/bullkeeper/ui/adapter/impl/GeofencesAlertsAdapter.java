@@ -53,7 +53,7 @@ public final class GeofencesAlertsAdapter extends SupportRecyclerViewAdapter<Geo
         /**
          * @param itemView
          */
-        GeofenceAlertViewHolder(final View itemView) {
+        public GeofenceAlertViewHolder(final View itemView) {
             super(itemView);
             geofenceAlertTypeImageView = itemView.findViewById(R.id.geofenceAlertType);
             geofenceAlertTitleTextView = itemView.findViewById(R.id.geofenceAlertTitle);

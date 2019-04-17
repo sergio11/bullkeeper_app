@@ -6,9 +6,14 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportLCEPresenter;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteAllGeofencesBykidInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.DisableGeofenceInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.EnableGeofenceInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetAllGeofencesByKidInteract;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 
@@ -39,20 +44,36 @@ public final class GeofencesListPresenter
     private final DeleteAllGeofencesBykidInteract deleteAllGeofencesBykidInteract;
 
     /**
+     * Enable Geofence Interact
+     */
+    private final EnableGeofenceInteract enableGeofenceInteract;
+
+    /**
+     * Disable Geofence Interact
+     */
+    private final DisableGeofenceInteract disableGeofenceInteract;
+
+    /**
      *
      * @param getAllGeofencesByKidInteract
      * @param deleteGeofenceByIdInteract
      * @param deleteAllGeofencesBykidInteract
+     * @param enableGeofenceInteract
+     * @param disableGeofenceInteract
      */
     @Inject
     public GeofencesListPresenter(
             final GetAllGeofencesByKidInteract getAllGeofencesByKidInteract,
             final DeleteGeofenceByIdInteract deleteGeofenceByIdInteract,
-            final DeleteAllGeofencesBykidInteract deleteAllGeofencesBykidInteract
+            final DeleteAllGeofencesBykidInteract deleteAllGeofencesBykidInteract,
+            final EnableGeofenceInteract enableGeofenceInteract,
+            final DisableGeofenceInteract disableGeofenceInteract
     ) {
         this.getAllGeofencesByKidInteract = getAllGeofencesByKidInteract;
         this.deleteAllGeofencesBykidInteract = deleteAllGeofencesBykidInteract;
         this.deleteGeofenceByIdInteract = deleteGeofenceByIdInteract;
+        this.enableGeofenceInteract = enableGeofenceInteract;
+        this.disableGeofenceInteract = disableGeofenceInteract;
     }
 
     /**
@@ -99,6 +120,44 @@ public final class GeofencesListPresenter
 
         deleteAllGeofencesBykidInteract.execute(new DeleteAllGeofenceByKidObservable(),
                 DeleteAllGeofencesBykidInteract.Params.create(kid));
+    }
+
+    /**
+     * Enable Geofence
+     * @param kid
+     * @param geofence
+     */
+    public void enableGeofence(final String kid, final String geofence) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+        Preconditions.checkState(!geofence.isEmpty(), "Geofence can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        enableGeofenceInteract.execute(new ChangeGeofenceStatusObservable(geofence, true),
+                EnableGeofenceInteract.Params.create(kid, geofence));
+
+    }
+
+    /**
+     * Disable Geofence
+     * @param kid
+     * @param geofence
+     */
+    public void disableGeofence(final String kid, final String geofence) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(geofence, "Geofence can not be null");
+        Preconditions.checkState(!geofence.isEmpty(), "Geofence can not be null");
+
+        if (isViewAttached() && getView() != null)
+            getView().showProgressDialog(R.string.generic_loading_text);
+
+        disableGeofenceInteract.execute(new ChangeGeofenceStatusObservable(geofence, false),
+                DisableGeofenceInteract.Params.create(kid, geofence));
+
     }
 
     /**
@@ -175,6 +234,62 @@ public final class GeofencesListPresenter
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
                 getView().onGeofenceDeleted();
+            }
+        }
+    }
+
+
+    /**
+     *  Change Geofence Status
+     */
+    public class ChangeGeofenceStatusObservable extends BasicCommandCallBackWrapper<String> {
+
+        private final String geofence;
+        private final boolean newStatus;
+
+        /**
+         *
+         * @param geofence
+         * @param newStatus
+         */
+        public ChangeGeofenceStatusObservable(String geofence, boolean newStatus) {
+            this.geofence = geofence;
+            this.newStatus = newStatus;
+        }
+
+        @Override
+        protected void onNetworkError() {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onGeofenceStatusChangedFailed(geofence, newStatus);
+            }
+        }
+
+        @Override
+        protected void onOtherException(Throwable ex) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onGeofenceStatusChangedFailed(geofence, newStatus);
+            }
+        }
+
+        @Override
+        protected void onApiException(APIResponse response) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onGeofenceStatusChangedFailed(geofence, newStatus);
+            }
+        }
+
+        /**
+         * On Success
+         * @param response
+         */
+        @Override
+        protected void onSuccess(String response) {
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onGeofenceStatusChangedSuccessfully(geofence, newStatus);
             }
         }
     }

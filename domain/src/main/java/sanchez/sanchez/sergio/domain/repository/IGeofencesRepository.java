@@ -77,4 +77,26 @@ public interface IGeofencesRepository {
             final boolean isEnabled, final String kid
     );
 
+    /**
+     * Enable Geofence
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    Observable<String> enableGeofence(
+            final String kid,
+            final String geofence
+    );
+
+    /**
+     * Disable Geofence
+     * @param kid
+     * @param geofence
+     * @return
+     */
+    Observable<String> disableGeofence(
+            final String kid,
+            final String geofence
+    );
+
 }

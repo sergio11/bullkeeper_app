@@ -14,6 +14,8 @@ import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteAllGeofencesBykidInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceAlertsInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceByIdInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.DisableGeofenceInteract;
+import sanchez.sanchez.sergio.domain.interactor.geofences.EnableGeofenceInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetAllGeofencesByKidInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetGeofenceByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetGeofencesAlertsInteract;
@@ -175,6 +177,40 @@ public class GeofenceModule {
     ) {
 
         return new DeleteGeofenceAlertsInteract(threadExecutor, postExecutionThread, geofencesRepository);
+    }
+
+    /**
+     * Provide Enable Geofence
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param geofencesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public EnableGeofenceInteract provideEnableGeofenceInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IGeofencesRepository geofencesRepository
+    ){
+        return new EnableGeofenceInteract(threadExecutor, postExecutionThread, geofencesRepository);
+    }
+
+    /**
+     * Provide Disable Geofence Interact
+     * @param threadExecutor
+     * @param postExecutionThread
+     * @param geofencesRepository
+     * @return
+     */
+    @Provides
+    @PerActivity
+    public DisableGeofenceInteract provideDisableGeofenceInteract(
+            final IThreadExecutor threadExecutor,
+            final IPostExecutionThread postExecutionThread,
+            final IGeofencesRepository geofencesRepository
+    ){
+        return new DisableGeofenceInteract(threadExecutor, postExecutionThread, geofencesRepository);
     }
 
 }
