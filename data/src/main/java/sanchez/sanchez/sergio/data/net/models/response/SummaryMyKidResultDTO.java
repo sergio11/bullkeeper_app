@@ -72,6 +72,12 @@ public final class SummaryMyKidResultDTO implements Serializable {
     private List<SocialMediaDTO> socialMedias;
 
     /**
+     * Total Comments
+     */
+    @JsonProperty("total_comments")
+    private int totalComments;
+
+    /**
      * Total Comments Analyzed
      */
     @JsonProperty("total_comments_analyzed")
@@ -122,6 +128,7 @@ public final class SummaryMyKidResultDTO implements Serializable {
     public SummaryMyKidResultDTO(){}
 
     /**
+     *
      * @param identity
      * @param firstName
      * @param lastName
@@ -132,6 +139,7 @@ public final class SummaryMyKidResultDTO implements Serializable {
      * @param totalDevices
      * @param location
      * @param socialMedias
+     * @param totalComments
      * @param totalCommentsAnalyzed
      * @param totalViolentComments
      * @param totalCommentsAdultContent
@@ -141,7 +149,12 @@ public final class SummaryMyKidResultDTO implements Serializable {
      * @param totalCommentsPositiveSentiment
      * @param totalCommentsNeutralSentiment
      */
-    public SummaryMyKidResultDTO(String identity, String firstName, String lastName, String birthdate, Integer age, SchoolDTO school, String profileImage, int totalDevices, LocationDTO location, List<SocialMediaDTO> socialMedias, int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent, int totalCommentsDrugs, int totalCommentsBullying, int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
+    public SummaryMyKidResultDTO(String identity, String firstName, String lastName, String birthdate, Integer age, SchoolDTO school,
+                                 String profileImage, int totalDevices, LocationDTO location, List<SocialMediaDTO> socialMedias, int totalComments,
+                                 int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent, int totalCommentsDrugs,
+                                 int totalCommentsBullying, int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment,
+                                 int totalCommentsNeutralSentiment) {
+        this.identity = identity;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -151,6 +164,7 @@ public final class SummaryMyKidResultDTO implements Serializable {
         this.totalDevices = totalDevices;
         this.location = location;
         this.socialMedias = socialMedias;
+        this.totalComments = totalComments;
         this.totalCommentsAnalyzed = totalCommentsAnalyzed;
         this.totalViolentComments = totalViolentComments;
         this.totalCommentsAdultContent = totalCommentsAdultContent;
@@ -241,6 +255,14 @@ public final class SummaryMyKidResultDTO implements Serializable {
         this.socialMedias = socialMedias;
     }
 
+    public int getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(int totalComments) {
+        this.totalComments = totalComments;
+    }
+
     public int getTotalCommentsAnalyzed() {
         return totalCommentsAnalyzed;
     }
@@ -303,29 +325,5 @@ public final class SummaryMyKidResultDTO implements Serializable {
 
     public void setTotalCommentsNeutralSentiment(int totalCommentsNeutralSentiment) {
         this.totalCommentsNeutralSentiment = totalCommentsNeutralSentiment;
-    }
-
-    @Override
-    public String toString() {
-        return "SummaryMyKidResultDTO{" +
-                "identity='" + identity + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthdate='" + birthdate + '\'' +
-                ", age=" + age +
-                ", school=" + school +
-                ", profileImage='" + profileImage + '\'' +
-                ", totalDevices=" + totalDevices +
-                ", location=" + location +
-                ", socialMedias=" + socialMedias +
-                ", totalCommentsAnalyzed=" + totalCommentsAnalyzed +
-                ", totalViolentComments=" + totalViolentComments +
-                ", totalCommentsAdultContent=" + totalCommentsAdultContent +
-                ", totalCommentsDrugs=" + totalCommentsDrugs +
-                ", totalCommentsBullying=" + totalCommentsBullying +
-                ", totalCommentsNegativeSentiment=" + totalCommentsNegativeSentiment +
-                ", totalCommentsPositiveSentiment=" + totalCommentsPositiveSentiment +
-                ", totalCommentsNeutralSentiment=" + totalCommentsNeutralSentiment +
-                '}';
     }
 }

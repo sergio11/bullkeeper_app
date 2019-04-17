@@ -990,7 +990,7 @@
 
     <!-- Results -->
     <string name="summary_my_kids_results_title">Resumen de Resultados</string>
-    <string name="summary_my_kids_results_total_comments" formatted="false">Se ha analizado %d comentarios</string>
+    <string name="summary_my_kids_results_total_comments" formatted="false">%d/%d de los comentarios analizados son problemáticos</string>
     <string name="summary_my_kids_results_dimension_analysis">Análsis de Dimensiones</string>
     <string name="summary_my_kids_results_no_comments_analyzed">No se ha analizado ningún comentario</string>
     <string name="summary_my_kids_results_violence_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con violencia</string>

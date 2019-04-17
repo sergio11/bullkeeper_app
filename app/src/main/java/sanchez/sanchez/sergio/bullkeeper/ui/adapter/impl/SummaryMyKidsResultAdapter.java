@@ -166,7 +166,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             if(summaryMyKidResultEntity.getTotalCommentsAnalyzed() > 0 ){
                 totalCommentsAnalyzedTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_total_comments),
-                        summaryMyKidResultEntity.getTotalCommentsAnalyzed()));
+                        summaryMyKidResultEntity.getTotalCommentsAnalyzed(), summaryMyKidResultEntity.getTotalComments()));
             } else {
                 totalCommentsAnalyzedTextView.setText(R.string.summary_my_kids_results_no_comments_analyzed);
             }
@@ -175,7 +175,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             if(summaryMyKidResultEntity.getTotalViolentComments() > 0) {
 
                 final String violentPercentage = Math.round((float)summaryMyKidResultEntity.getTotalViolentComments()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 violentCommentsTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_violence_comments_percentage),
@@ -188,7 +188,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             if(summaryMyKidResultEntity.getTotalCommentsAdultContent() > 0) {
 
                 final String adultContentPercentage = Math.round((float)summaryMyKidResultEntity.getTotalCommentsAdultContent()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 adultContentCommentsTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_adult_content_comments_percentage),
@@ -201,7 +201,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             if(summaryMyKidResultEntity.getTotalCommentsBullying() > 0) {
 
                 final String bullyingPercentage = Math.round((float)summaryMyKidResultEntity.getTotalCommentsBullying()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 bullyingCommentsTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_bullying_comments_percentage),
@@ -214,7 +214,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             if(summaryMyKidResultEntity.getTotalCommentsDrugs() > 0) {
 
                 final String drugsPercentage = Math.round((float)summaryMyKidResultEntity.getTotalCommentsDrugs()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 drugsCommentsTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_drugs_comments_percentage),
@@ -227,7 +227,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             // Negative Sentiment
             if(summaryMyKidResultEntity.getTotalCommentsNegativeSentiment() > 0) {
                 final String negativePercentage = Math.round((float)summaryMyKidResultEntity.getTotalCommentsNegativeSentiment()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 commentsNegativeSentimentTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_negative_comments_percentage),
@@ -240,7 +240,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             // Positive Sentiment
             if(summaryMyKidResultEntity.getTotalCommentsPositiveSentiment() > 0) {
                 final String positivePercentage = Math.round((float)summaryMyKidResultEntity.getTotalCommentsPositiveSentiment()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 commentsPositiveSentimentTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_positive_comments_percentage),
@@ -252,7 +252,7 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             // Neutral Sentiment
             if(summaryMyKidResultEntity.getTotalCommentsNeutralSentiment() > 0) {
                 final String neutralPercentage = Math.round((float)summaryMyKidResultEntity.getTotalCommentsNeutralSentiment()
-                        / summaryMyKidResultEntity.getTotalCommentsAnalyzed() * 100) + "%";
+                        / summaryMyKidResultEntity.getTotalComments() * 100) + "%";
 
                 commentsNeutralSentimentTextView.setText(String.format(Locale.getDefault(),
                         context.getString(R.string.summary_my_kids_results_neutral_comments_percentage),

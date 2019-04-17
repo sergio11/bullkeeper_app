@@ -507,16 +507,6 @@ public class AlertListMvpActivity extends SupportMvpLCEActivity<AlertListPresent
         }
     }
 
-    /**
-     * On Preferences Updated
-     */
-    @Override
-    protected void onPreferencesUpdated() {
-        super.onPreferencesUpdated();
-        Timber.d("On Preferences Updated ...");
-        // Load Data
-        getPresenter().loadData();
-    }
 
     /**
      * Get Background

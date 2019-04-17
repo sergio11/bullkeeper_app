@@ -1132,7 +1132,7 @@
 
     <!-- Results -->
     <string name="summary_my_kids_results_title">Summary Results</string>
-    <string name="summary_my_kids_results_total_comments" formatted="false">%d comments have been analyzed</string>
+    <string name="summary_my_kids_results_total_comments" formatted="false">%d/%d of the comments analyzed are problematic</string>
     <string name="summary_my_kids_results_no_comments_analyzed">No comments have been analyzed</string>
 
     <string name="summary_my_kids_results_dimension_analysis">Dimension Analysis</string>

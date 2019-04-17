@@ -89,6 +89,7 @@ public final class SummaryMyKidsResultsDataMapper
             summaryMyKidResultEntity.setLocation(locationEntityAbstractDataMapper.transform(originModel.getLocation()));
         if(originModel.getSocialMedias() != null)
             summaryMyKidResultEntity.setSocialMediaEntityList(socialMediaEntityAbstractDataMapper.transform(originModel.getSocialMedias()));
+        summaryMyKidResultEntity.setTotalComments(originModel.getTotalComments());
         summaryMyKidResultEntity.setTotalCommentsAdultContent(originModel.getTotalCommentsAdultContent());
         summaryMyKidResultEntity.setTotalCommentsAnalyzed(originModel.getTotalCommentsAnalyzed());
         summaryMyKidResultEntity.setTotalCommentsBullying(originModel.getTotalCommentsBullying());
@@ -125,6 +126,7 @@ public final class SummaryMyKidsResultsDataMapper
         if(originModel.getLocation() != null)
             summaryMyKidResultDTO.setLocation(locationEntityAbstractDataMapper.transformInverse(originModel.getLocation()));
         summaryMyKidResultDTO.setTotalCommentsAdultContent(originModel.getTotalCommentsAdultContent());
+        summaryMyKidResultDTO.setTotalComments(originModel.getTotalComments());
         summaryMyKidResultDTO.setTotalCommentsAnalyzed(originModel.getTotalCommentsAnalyzed());
         summaryMyKidResultDTO.setTotalCommentsBullying(originModel.getTotalCommentsBullying());
         summaryMyKidResultDTO.setTotalCommentsDrugs(originModel.getTotalCommentsDrugs());

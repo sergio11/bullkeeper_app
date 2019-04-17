@@ -59,6 +59,11 @@ public final class SummaryMyKidResultEntity implements Serializable {
     private List<SocialMediaEntity> socialMediaEntityList;
 
     /**
+     * Total Comments
+     */
+    private int totalComments;
+
+    /**
      * Total Comments Analyzed
      */
     private int totalCommentsAnalyzed;
@@ -113,6 +118,7 @@ public final class SummaryMyKidResultEntity implements Serializable {
      * @param totalDevices
      * @param location
      * @param socialMediaEntityList
+     * @param totalComments
      * @param totalCommentsAnalyzed
      * @param totalViolentComments
      * @param totalCommentsAdultContent
@@ -122,7 +128,12 @@ public final class SummaryMyKidResultEntity implements Serializable {
      * @param totalCommentsPositiveSentiment
      * @param totalCommentsNeutralSentiment
      */
-    public SummaryMyKidResultEntity(String identity, String firstName, String lastName, String birthdate, Integer age, SchoolEntity school, String profileImage, int totalDevices, LocationEntity location, List<SocialMediaEntity> socialMediaEntityList, int totalCommentsAnalyzed, int totalViolentComments, int totalCommentsAdultContent, int totalCommentsDrugs, int totalCommentsBullying, int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
+    public SummaryMyKidResultEntity(String identity, String firstName, String lastName, String birthdate,
+                                    Integer age, SchoolEntity school, String profileImage,
+                                    int totalDevices, LocationEntity location, List<SocialMediaEntity> socialMediaEntityList,
+                                    int totalComments, int totalCommentsAnalyzed, int totalViolentComments,
+                                    int totalCommentsAdultContent, int totalCommentsDrugs, int totalCommentsBullying,
+                                    int totalCommentsNegativeSentiment, int totalCommentsPositiveSentiment, int totalCommentsNeutralSentiment) {
         this.identity = identity;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -133,6 +144,7 @@ public final class SummaryMyKidResultEntity implements Serializable {
         this.totalDevices = totalDevices;
         this.location = location;
         this.socialMediaEntityList = socialMediaEntityList;
+        this.totalComments = totalComments;
         this.totalCommentsAnalyzed = totalCommentsAnalyzed;
         this.totalViolentComments = totalViolentComments;
         this.totalCommentsAdultContent = totalCommentsAdultContent;
@@ -223,6 +235,14 @@ public final class SummaryMyKidResultEntity implements Serializable {
         this.socialMediaEntityList = socialMediaEntityList;
     }
 
+    public int getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(int totalComments) {
+        this.totalComments = totalComments;
+    }
+
     public int getTotalCommentsAnalyzed() {
         return totalCommentsAnalyzed;
     }
@@ -300,6 +320,7 @@ public final class SummaryMyKidResultEntity implements Serializable {
                 ", totalDevices=" + totalDevices +
                 ", location=" + location +
                 ", socialMediaEntityList=" + socialMediaEntityList +
+                ", totalComments=" + totalComments +
                 ", totalCommentsAnalyzed=" + totalCommentsAnalyzed +
                 ", totalViolentComments=" + totalViolentComments +
                 ", totalCommentsAdultContent=" + totalCommentsAdultContent +
