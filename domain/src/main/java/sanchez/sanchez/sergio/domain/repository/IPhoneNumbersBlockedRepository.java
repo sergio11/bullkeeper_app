@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+import sanchez.sanchez.sergio.domain.models.PhoneNumberNotAllowed;
 
 /**
  * Phone Numbers Blocked Repository
@@ -37,13 +38,10 @@ public interface IPhoneNumbersBlockedRepository {
      * Add Phone Number Blocked
      * @param kid
      * @param terminal
-     * @param prefix
-     * @param number
-     * @param phoneNumber
+     * @param phoneNumberNotAllowedList
      * @return
      */
     Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(final String kid, final String terminal,
-                                                               final String prefix, final String number,
-                                                               final String phoneNumber);
+                                                               final List<PhoneNumberNotAllowed> phoneNumberNotAllowedList);
 
 }

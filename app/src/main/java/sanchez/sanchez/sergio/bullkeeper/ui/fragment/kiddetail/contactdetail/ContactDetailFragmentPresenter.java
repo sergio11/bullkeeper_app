@@ -6,6 +6,9 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
@@ -16,6 +19,7 @@ import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.AddPhoneNumb
 import sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked.DeletePhoneNumbersBlockedInteract;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+import sanchez.sanchez.sergio.domain.models.PhoneNumberNotAllowed;
 
 /**
  * Contact Detail Presenter
@@ -84,9 +88,9 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
     /**
      * Block Number
      */
-    public void blockNumber(final String phoneNumber) {
-        Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
-        Preconditions.checkState(!phoneNumber.isEmpty(), "Phone number can not be empty");
+    public void blockNumber(final List<String> phoneNumberList) {
+        Preconditions.checkNotNull(phoneNumberList, "Phone Number List can not be null");
+        Preconditions.checkState(!phoneNumberList.isEmpty(), "Phone number List can not be empty");
 
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.generic_loading_text);
@@ -94,22 +98,33 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
         final String childId = args.getString(ContactDetailActivityMvpFragment.CHILD_ID_ARG);
         final String terminalId = args.getString(ContactDetailActivityMvpFragment.TERMINAL_ID_ARG);
 
-        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-        try {
-            Phonenumber.PhoneNumber phoneNumberProto = phoneUtil.parse(phoneNumber, "ES");
+        final List<PhoneNumberNotAllowed> phoneNumberNotAllowedList = new ArrayList<>();
 
-            final String prefix = "+".concat(String.valueOf(phoneNumberProto.getCountryCode()));
-            final String nationalNumber = String.valueOf(phoneNumberProto.getNationalNumber());
-            final String number = prefix.concat(nationalNumber);
+        for(final String phoneNumber: phoneNumberList) {
 
-            addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberObserver(),
-                    AddPhoneNumbersBlockedInteract.Params.create(childId, terminalId, prefix,
-                            nationalNumber, number));
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+            try {
+                Phonenumber.PhoneNumber phoneNumberProto = phoneUtil.parse(phoneNumber, "ES");
 
-        } catch (NumberParseException e) {
-            addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberObserver(),
-                    AddPhoneNumbersBlockedInteract.Params.create(childId, terminalId, phoneNumber));
+                final String prefix = "+".concat(String.valueOf(phoneNumberProto.getCountryCode()));
+                final String nationalNumber = String.valueOf(phoneNumberProto.getNationalNumber());
+                final String number = prefix.concat(nationalNumber);
+
+
+                phoneNumberNotAllowedList.add(new PhoneNumberNotAllowed(
+                        prefix, nationalNumber, number
+                ));
+
+            } catch (NumberParseException e) {
+                phoneNumberNotAllowedList.add(new PhoneNumberNotAllowed(
+                        phoneNumber
+                ));
+            }
+
         }
+
+        addPhoneNumbersBlockedInteract.execute(new AddPhoneNumberObserver(),
+                AddPhoneNumbersBlockedInteract.Params.create(childId, terminalId, phoneNumberNotAllowedList));
 
     }
 

@@ -98,7 +98,7 @@ public final class ContactsAdapter extends SupportRecyclerViewAdapter<ContactEnt
             final Iterator<ContactEntity.PhoneContactEntity> ite = contactEntity.getPhoneList().iterator();
             while(ite.hasNext()) {
                 final ContactEntity.PhoneContactEntity phoneContactEntity = ite.next();
-                if(phoneContactEntity != null)
+                if(phoneContactEntity != null && !phoneNumbersList.contains(phoneContactEntity.getPhone()))
                     phoneNumbersList.add(phoneContactEntity.getPhone());
             }
 

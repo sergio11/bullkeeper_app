@@ -2,6 +2,7 @@ package sanchez.sanchez.sergio.data.repository;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -10,6 +11,7 @@ import sanchez.sanchez.sergio.data.net.models.request.AddPhoneNumberBlockedDTO;
 import sanchez.sanchez.sergio.data.net.models.response.PhoneNumberBlockedDTO;
 import sanchez.sanchez.sergio.data.net.services.IPhoneNumbersBlockedService;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
+import sanchez.sanchez.sergio.domain.models.PhoneNumberNotAllowed;
 import sanchez.sanchez.sergio.domain.repository.IPhoneNumbersBlockedRepository;
 
 /**
@@ -101,25 +103,29 @@ public final class PhoneNumbersBlockedRepositoryImpl implements IPhoneNumbersBlo
      * Add Phone Number Blocked
      * @param kid
      * @param terminal
-     * @param phoneNumber
+     * @param phoneNumberNotAllowedList
      * @return
      */
     @Override
     public Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(
             final String kid, final String terminal,
-            final String prefix, final String number,
-            final String phoneNumber) {
+            final List<PhoneNumberNotAllowed> phoneNumberNotAllowedList) {
         Preconditions.checkNotNull(kid, "Kid can not be null");
         Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(terminal, "Terminal can not be null");
         Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
-        Preconditions.checkNotNull(number, "number can not be null");
-        Preconditions.checkState(!number.isEmpty(), "number can not be empty");
-        Preconditions.checkNotNull(phoneNumber, "phoneNumber can not be null");
-        Preconditions.checkState(!phoneNumber.isEmpty(), "phoneNumber can not be empty");
+        Preconditions.checkNotNull(phoneNumberNotAllowedList, "phoneNumberNotAllowedList can not be null");
+        Preconditions.checkState(!phoneNumberNotAllowedList.isEmpty(), "phoneNumberNotAllowedList can not be empty");
+
+
+        final List<AddPhoneNumberBlockedDTO> addPhoneNumberBlockedDTOList = new ArrayList<>();
+        for(final PhoneNumberNotAllowed phoneNumberBlockedEntity: phoneNumberNotAllowedList)
+            addPhoneNumberBlockedDTOList.add(new AddPhoneNumberBlockedDTO(phoneNumberBlockedEntity.getPrefix(),
+                    phoneNumberBlockedEntity.getNumber(), phoneNumberBlockedEntity.getPhoneNumber(), terminal, kid));
+
 
         return phoneNumbersBlockedService.addPhoneNumberBlocked(kid, terminal,
-                new AddPhoneNumberBlockedDTO(prefix, number, phoneNumber, terminal, kid))
+                addPhoneNumberBlockedDTOList )
                     .map(response -> response != null && response.getData() != null ?
                         response.getData(): null)
                 .map(phoneNumberBlockedEntityAbstractDataMapper::transform);

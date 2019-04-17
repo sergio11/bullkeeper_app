@@ -125,7 +125,7 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
      * Phone Number
      */
     @State
-    protected String phoneNumber;
+    protected ArrayList<String> phoneNumberList;
 
     /**
      * Phone Number Is Blocked
@@ -286,19 +286,18 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
         // Set Contact Name
         contactNameTextView.setText(contactEntity.getName());
 
-        final List<String> phoneNumbersList = new ArrayList<>();
+        phoneNumberList = new ArrayList<>();
         final Iterator<ContactEntity.PhoneContactEntity> ite = contactEntity.getPhoneList().iterator();
         while(ite.hasNext()) {
             final ContactEntity.PhoneContactEntity phoneContactEntity = ite.next();
-            if(phoneContactEntity != null)
-                phoneNumbersList.add(phoneContactEntity.getPhone());
+            if(phoneContactEntity != null && !phoneNumberList.contains(phoneContactEntity.getPhone()))
+                phoneNumberList.add(phoneContactEntity.getPhone());
         }
 
-        phoneNumber = StringUtils.join(phoneNumbersList, ",");
 
         // Set Phone Number
         phoneNumberTextView.setText(String.format(Locale.getDefault(),
-                getString(R.string.contact_phonenumber), phoneNumber));
+                getString(R.string.contact_phonenumber), StringUtils.join(phoneNumberList, ",")));
 
         // Set Phone Number is blocked
         phoneNumberIsBlockedTextView.setText(contactEntity.isBlocked() ? R.string.phone_number_blocked :
@@ -357,7 +356,7 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
      */
     @Override
     public void onPhoneNumberUnlockedError() {
-        showNoticeDialog(R.string.phone_number_unlocked_error);
+        showNoticeDialog(R.string.phone_number_unlocked_error, false);
         switchBlockStatusWidget.setChecked(true, false);
     }
 
@@ -397,14 +396,14 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
 
         } else {
 
-            if(appUtils.isValidString(phoneNumber)) {
+            if(phoneNumberList != null && !phoneNumberList.isEmpty()) {
 
                 if(isChecked) {
 
                     showConfirmationDialog(R.string.block_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().blockNumber(phoneNumber);
+                            getPresenter().blockNumber(phoneNumberList);
                         }
 
                         @Override
@@ -417,7 +416,7 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
                     showConfirmationDialog(R.string.unlock_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                            getPresenter().unlockNumber(phoneNumber);
+                           // getPresenter().unlockNumber(phoneNumberList);
                         }
 
                         @Override

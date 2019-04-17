@@ -62,13 +62,13 @@ public interface IPhoneNumbersBlockedService {
      * Add Phone Number Blocked
      * @param kid
      * @param terminal
-     * @param addPhoneNumberBlockedDTO
+     * @param addPhoneNumberBlockedDTOList
      * @return
      */
     @POST("children/{kid}/terminal/{terminal}/phonenumbers-blocked")
     Observable<APIResponse<PhoneNumberBlockedDTO>> addPhoneNumberBlocked(
             @Path("kid") final String kid,
             @Path("terminal") final String terminal,
-            @Body final AddPhoneNumberBlockedDTO addPhoneNumberBlockedDTO);
+            @Body final List<AddPhoneNumberBlockedDTO> addPhoneNumberBlockedDTOList);
 
 }
