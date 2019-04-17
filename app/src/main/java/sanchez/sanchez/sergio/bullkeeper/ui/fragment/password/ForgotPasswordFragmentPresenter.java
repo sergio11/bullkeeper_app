@@ -55,6 +55,7 @@ public final class ForgotPasswordFragmentPresenter extends SupportPresenter<IFor
         protected void onSuccess(String response) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
+                getView().onPasswordReset();
             }
         }
 
