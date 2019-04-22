@@ -131,9 +131,9 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
     /**
      * Unlock Number
      */
-    public void unlockNumber(final String phoneNumber){
-        Preconditions.checkNotNull(phoneNumber, "Phone Number can not be null");
-        Preconditions.checkState(!phoneNumber.isEmpty(), "Phone number can not be empty");
+    public void unlockNumber(final List<String> phoneNumberList){
+        Preconditions.checkNotNull(phoneNumberList, "Phone Number list can not be null");
+        Preconditions.checkState(!phoneNumberList.isEmpty(), "Phone number list can not be empty");
 
         if (isViewAttached() && getView() != null)
             getView().showProgressDialog(R.string.generic_loading_text);
@@ -143,7 +143,7 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
 
         deletePhoneNumbersBlockedInteract.execute(new DeletePhoneNumberObserver(),
                 DeletePhoneNumbersBlockedInteract.Params.create(childId, terminalId,
-                        phoneNumber));
+                        phoneNumberList));
 
     }
 
@@ -190,7 +190,7 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
     /**
      * Add Phone Number Block Observer
      */
-    public class AddPhoneNumberObserver extends BasicCommandCallBackWrapper<PhoneNumberBlockedEntity> {
+    public class AddPhoneNumberObserver extends BasicCommandCallBackWrapper<List<PhoneNumberBlockedEntity>> {
 
         /**
          * On Network Error
@@ -232,7 +232,7 @@ public final class ContactDetailFragmentPresenter extends SupportPresenter<ICont
          * @param response
          */
         @Override
-        protected void onSuccess(PhoneNumberBlockedEntity response) {
+        protected void onSuccess(List<PhoneNumberBlockedEntity> response) {
             Preconditions.checkNotNull(response, "Response can not be null");
 
             if(isViewAttached() && getView() != null) {

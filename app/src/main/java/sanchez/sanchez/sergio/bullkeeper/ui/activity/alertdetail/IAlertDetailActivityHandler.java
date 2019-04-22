@@ -73,6 +73,12 @@ public interface IAlertDetailActivityHandler extends IBasicActivityHandler {
      */
     void goToScheduledBlockList(final String kid);
 
+    /**
+     * Go To Kid Supervision Invitation List
+     * @param kid
+     */
+    void goToKidSupervisionInvitationList(final String kid);
+
 
     /**
      * Go To Kid Request List

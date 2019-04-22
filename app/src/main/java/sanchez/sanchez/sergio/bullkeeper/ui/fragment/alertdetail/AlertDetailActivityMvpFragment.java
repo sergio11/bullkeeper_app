@@ -479,6 +479,20 @@ public class AlertDetailActivityMvpFragment extends SupportMvpFragment<AlertDeta
                 });
                 break;
 
+            case KID_SUPERVISION_INVITATION:
+
+                alertDetailActions.setText(getString(R.string.alert_category_kid_supervision_invitation_desc));
+                actionButton.setText(getString(R.string.alert_category_kid_supervision_invitation_action_text));
+
+                actionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activityHandler.goToKidSupervisionInvitationList(
+                                alertEntity.getSon().getIdentity());
+                    }
+                });
+
+                break;
 
         }
 

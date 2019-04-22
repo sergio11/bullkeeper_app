@@ -39,20 +39,8 @@ android {
                 instagramClientId    : "e1a6792687ff44f3821d17a95259745f",
                 instagramClientSecret: "4baba12259c34440acbfaf5b568ffb75",
                 instagramRedirectUrl : "https://github.com/sergio11",
-                // 495194543245-gdiiln6otkoh08ntkucrkrqq1slkj14i.apps.googleusercontent.com
-                googleWebClientId: "495194543245-m2najq0101ccq2dvsvu31l2n196e2dig.apps.googleusercontent.com"
+                googleWebClientId: "293354183735-liai66ai6c76m0p0b96qujoa91ntj0sl.apps.googleusercontent.com"
         ]
-    }
-
-    signingConfigs {
-
-        release {
-            storeFile file("./keystore/bullkeeper.jks")
-            storePassword "prueba"
-            keyAlias "bullkeeper"
-            keyPassword "prueba"
-        }
-
     }
 
     compileOptions {
@@ -90,6 +78,13 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+
+        release {
+            storeFile file("./keystore/bullkeeper.jks")
+            storePassword "prueba"
+            keyAlias "bullkeeper"
+            keyPassword "prueba"
+        }
     }
 
 
@@ -98,8 +93,8 @@ android {
         debug {
             signingConfig signingConfigs.debug
             multiDexEnabled true
+           // buildConfigField "String", "BASE_URL", '"http://192.168.1.55:8080/bullkeeper-integration-platform/api/v1/"'
             buildConfigField "String", "BASE_URL", '"http://192.168.1.39:8080/api/v1/"'
-            //buildConfigField "String", "BASE_URL", '"http://192.168.0.55:8080/bullkeeper-integration-platform/api/v1/"'
         }
 
         release {
@@ -130,6 +125,7 @@ dependencies {
     implementation project(':domain')
     // Compile Data
     implementation project(':data')
+
 
     annotationProcessor presentationDependencies.daggerCompiler
     implementation presentationDependencies.dagger

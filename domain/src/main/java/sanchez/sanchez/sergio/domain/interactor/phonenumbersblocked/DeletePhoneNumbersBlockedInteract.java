@@ -2,6 +2,9 @@ package sanchez.sanchez.sergio.domain.interactor.phonenumbersblocked;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
+import java.util.Collections;
+import java.util.List;
+
 import io.reactivex.Observable;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
@@ -40,17 +43,17 @@ public final class DeletePhoneNumbersBlockedInteract extends
      * @return
      */
     @Override
-    protected Observable<String> buildUseCaseObservable(Params params) {
+    protected Observable<String> buildUseCaseObservable(final Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");
         Preconditions.checkNotNull(params.getTerminal(), "Terminal can not be null");
         Preconditions.checkState(!params.getTerminal().isEmpty(), "Terminal can not be empty");
-        Preconditions.checkNotNull(params.getPhoneNumber(), "Phone Number can not be null");
-        Preconditions.checkState(!params.getPhoneNumber().isEmpty(), "Phone Number can not be empty");
+        Preconditions.checkNotNull(params.getPhoneNumberList(), "Phone Number List can not be null");
+        Preconditions.checkState(!params.getPhoneNumberList().isEmpty(), "Phone Number List can not be empty");
 
         return phoneNumbersBlockedRepository.deletePhoneNumberBlocked(params.getKid(), params.getTerminal(),
-                params.getPhoneNumber());
+                params.getPhoneNumberList());
     }
 
     /**
@@ -69,9 +72,9 @@ public final class DeletePhoneNumbersBlockedInteract extends
         private final String terminal;
 
         /**
-         * Phone Number
+         * Phone Number List
          */
-        private final String phoneNumber;
+        private final List<String> phoneNumberList;
 
         /**
          *
@@ -82,7 +85,19 @@ public final class DeletePhoneNumbersBlockedInteract extends
         private Params(final String kid, final String terminal, final String phoneNumber) {
             this.kid = kid;
             this.terminal = terminal;
-            this.phoneNumber = phoneNumber;
+            this.phoneNumberList = Collections.singletonList(phoneNumber);
+        }
+
+        /**
+         *
+         * @param kid
+         * @param terminal
+         * @param phoneNumberList
+         */
+        private Params(final String kid, final String terminal, List<String> phoneNumberList) {
+            this.kid = kid;
+            this.terminal = terminal;
+            this.phoneNumberList = phoneNumberList;
         }
 
         public String getKid() {
@@ -93,8 +108,8 @@ public final class DeletePhoneNumbersBlockedInteract extends
             return terminal;
         }
 
-        public String getPhoneNumber() {
-            return phoneNumber;
+        public List<String> getPhoneNumberList() {
+            return phoneNumberList;
         }
 
         /**
@@ -110,15 +125,22 @@ public final class DeletePhoneNumbersBlockedInteract extends
         }
 
         /**
-         * To String
+         *
+         * @param kid
+         * @param terminal
+         * @param phoneNumberList
          * @return
          */
+        public static Params create(final String kid, final String terminal, final List<String> phoneNumberList) {
+            return new Params(kid, terminal, phoneNumberList);
+        }
+
         @Override
         public String toString() {
             return "Params{" +
                     "kid='" + kid + '\'' +
                     ", terminal='" + terminal + '\'' +
-                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", phoneNumberList=" + phoneNumberList +
                     '}';
         }
     }

@@ -8,14 +8,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import butterknife.BindView;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
@@ -325,12 +322,12 @@ public class CommentDetailMvpActivity extends SupportMvpActivity<CommentDetailPr
             case POSITIVE:
                 sexResultText.setText(R.string.comment_detail_adult_level_positive);
                 sexResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.greenSuccess));
+                        R.color.redDanger));
                 break;
             case NEGATIVE:
                 sexResultText.setText(R.string.comment_detail_adult_level_negative);
                 sexResultText.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                        R.color.redDanger));
+                        R.color.greenSuccess));
                 break;
         }
 

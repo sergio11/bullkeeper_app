@@ -1,5 +1,7 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.contactdetail;
 
+import java.util.List;
+
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportView;
 import sanchez.sanchez.sergio.domain.models.ContactEntity;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
@@ -22,9 +24,9 @@ public interface IContactDetailView extends ISupportView {
 
     /**
      * On Phone Number Blocked Successfully
-     * @param phoneNumberBlockedEntity
+     * @param phoneNumberBlockedEntityList
      */
-    void onPhoneNumberBlockedSuccessfully(final PhoneNumberBlockedEntity phoneNumberBlockedEntity);
+    void onPhoneNumberBlockedSuccessfully(final List<PhoneNumberBlockedEntity> phoneNumberBlockedEntityList);
 
     /**
      * On Phone Number Unlocked Successfully

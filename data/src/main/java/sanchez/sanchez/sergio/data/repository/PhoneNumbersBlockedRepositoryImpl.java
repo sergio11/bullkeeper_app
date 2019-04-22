@@ -100,6 +100,27 @@ public final class PhoneNumbersBlockedRepositoryImpl implements IPhoneNumbersBlo
     }
 
     /**
+     * Delete Phone Number Blocked
+     * @param kid
+     * @param terminal
+     * @param ids
+     * @return
+     */
+    @Override
+    public Observable<String> deletePhoneNumberBlocked(final String kid, final String terminal, final List<String> ids) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        Preconditions.checkNotNull(terminal, "Terminal can not be null");
+        Preconditions.checkState(!terminal.isEmpty(), "Terminal can not be empty");
+        Preconditions.checkNotNull(ids, "Ids can not be null");
+        Preconditions.checkState(!ids.isEmpty(), "Ids can not be empty");
+
+        return phoneNumbersBlockedService.deletePhoneNumberBlocked(kid, terminal, ids)
+                .map(response -> response != null && response.getData() != null ?
+                        response.getData(): null);
+    }
+
+    /**
      * Add Phone Number Blocked
      * @param kid
      * @param terminal
@@ -107,7 +128,7 @@ public final class PhoneNumbersBlockedRepositoryImpl implements IPhoneNumbersBlo
      * @return
      */
     @Override
-    public Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(
+    public Observable<List<PhoneNumberBlockedEntity>> addPhoneNumberBlocked(
             final String kid, final String terminal,
             final List<PhoneNumberNotAllowed> phoneNumberNotAllowedList) {
         Preconditions.checkNotNull(kid, "Kid can not be null");

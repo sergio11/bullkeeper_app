@@ -237,6 +237,9 @@
     <!-- Scheduled Block -->
     <string name="alert_category_scheduled_block_desc">Go to the Scheduled Block List for more detail</string>
     <string name="alert_category_scheduled_block_action_text">Go to the Scheduled Block List</string>
+    <!-- Kid Supervision Invitation -->
+    <string name="alert_category_kid_supervision_invitation_desc">Go to the Supervision Invitation list for more detail</string>
+    <string name="alert_category_kid_supervision_invitation_action_text">Go to the Supervision Invitation List</string>
     <!-- Preferences -->
 
     <!-- App Preferences General Configuration Category -->
@@ -593,7 +596,7 @@
     <string name="location_permission_reason">If we can not access your GPS location we can not place your position on the map</string>
     <string name="call_phone_permission_reason">If you do not grant this permission, you will not be able to make phone calls</string>
     <!-- Google Maps Key -->
-    <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
+    <string name="google_maps_key">AIzaSyCyDmvKoWJR3a0J_1x8XqqHNXOdC0QYczY</string>
     <string name="title_activity_school_detail">SchoolDetailActivity</string>
     <string name="title_activity_add_school">AddSchoolActivity</string>
 

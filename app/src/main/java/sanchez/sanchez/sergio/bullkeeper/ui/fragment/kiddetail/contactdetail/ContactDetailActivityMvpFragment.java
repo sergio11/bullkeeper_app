@@ -321,11 +321,11 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
 
     /**
      * On Phone Number Blocked
-     * @param phoneNumberBlockedEntity
+     * @param phoneNumberBlockedEntityList
      */
     @Override
-    public void onPhoneNumberBlockedSuccessfully(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
-        Preconditions.checkNotNull(phoneNumberBlockedEntity, "Phone Number Blocked can not be null");
+    public void onPhoneNumberBlockedSuccessfully(List<PhoneNumberBlockedEntity> phoneNumberBlockedEntityList) {
+        Preconditions.checkNotNull(phoneNumberBlockedEntityList, "Phone Number Blocked list can not be null");
 
         phoneNumberIsBlocked = true;
 
@@ -416,7 +416,7 @@ public class ContactDetailActivityMvpFragment extends SupportMvpFragment<Contact
                     showConfirmationDialog(R.string.unlock_phone_number_confirm, new ConfirmationDialogFragment.ConfirmationDialogListener() {
                         @Override
                         public void onAccepted(DialogFragment dialog) {
-                           // getPresenter().unlockNumber(phoneNumberList);
+                            getPresenter().unlockNumber(phoneNumberList);
                         }
 
                         @Override

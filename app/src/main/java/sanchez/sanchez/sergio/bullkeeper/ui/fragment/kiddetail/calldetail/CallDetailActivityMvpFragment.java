@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -351,11 +352,11 @@ public class CallDetailActivityMvpFragment extends SupportMvpFragment<CallDetail
 
     /**
      * On Phone Number Blocked
-     * @param phoneNumberBlockedEntity
+     * @param phoneNumberBlockedEntityList
      */
     @Override
-    public void onPhoneNumberBlockedSuccessfully(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
-        Preconditions.checkNotNull(phoneNumberBlockedEntity, "Phone Number Blocked can not be null");
+    public void onPhoneNumberBlockedSuccessfully(List<PhoneNumberBlockedEntity> phoneNumberBlockedEntityList) {
+        Preconditions.checkNotNull(phoneNumberBlockedEntityList, "Phone Number Blocked can not be null");
 
         phoneNumberIsBlocked = true;
 

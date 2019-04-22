@@ -34,6 +34,16 @@ public interface IPhoneNumbersBlockedRepository {
      */
     Observable<String> deletePhoneNumberBlocked(final String kid, final String terminal, final String idOrPhoneNumber);
 
+
+    /**
+     * Delete Phone Number Blocked
+     * @param kid
+     * @param terminal
+     * @param ids
+     */
+    Observable<String> deletePhoneNumberBlocked(final String kid, final String terminal,
+                                                final List<String> ids);
+
     /**
      * Add Phone Number Blocked
      * @param kid
@@ -41,7 +51,7 @@ public interface IPhoneNumbersBlockedRepository {
      * @param phoneNumberNotAllowedList
      * @return
      */
-    Observable<PhoneNumberBlockedEntity> addPhoneNumberBlocked(final String kid, final String terminal,
+    Observable<List<PhoneNumberBlockedEntity>> addPhoneNumberBlocked(final String kid, final String terminal,
                                                                final List<PhoneNumberNotAllowed> phoneNumberNotAllowedList);
 
 }

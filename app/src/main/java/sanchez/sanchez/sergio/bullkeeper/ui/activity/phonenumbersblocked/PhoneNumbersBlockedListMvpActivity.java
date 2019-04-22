@@ -412,13 +412,13 @@ public class PhoneNumbersBlockedListMvpActivity extends SupportMvpLCEActivity<Ph
 
     /**
      * On Phone Number Added
-     * @param phoneNumberBlockedEntity
+     * @param phoneNumberBlockedEntityList
      */
     @Override
-    public void onPhoneNumberAdded(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
-        Preconditions.checkNotNull(phoneNumberBlockedEntity, "Phone number blocked entity");
+    public void onPhoneNumberAdded(List<PhoneNumberBlockedEntity> phoneNumberBlockedEntityList) {
+        Preconditions.checkNotNull(phoneNumberBlockedEntityList, "Phone number blocked entity");
         onShowDataFoundedState();
-        recyclerViewAdapter.getData().add(phoneNumberBlockedEntity);
+        recyclerViewAdapter.getData().addAll(phoneNumberBlockedEntityList);
         recyclerViewAdapter.notifyDataSetChanged();
         showNoticeDialog(R.string.phone_number_blocked_successfully);
 

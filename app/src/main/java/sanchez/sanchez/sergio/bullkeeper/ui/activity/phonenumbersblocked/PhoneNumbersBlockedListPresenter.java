@@ -228,16 +228,16 @@ public final class PhoneNumbersBlockedListPresenter
      * Delete Phone Number Blocked
      */
     public class AddPhoneNumberBlockedObservable
-            extends BasicCommandCallBackWrapper<PhoneNumberBlockedEntity> {
+            extends BasicCommandCallBackWrapper<List<PhoneNumberBlockedEntity>> {
 
         /**
          * On Success
          */
         @Override
-        protected void onSuccess(PhoneNumberBlockedEntity phoneNumberBlockedEntity) {
+        protected void onSuccess(List<PhoneNumberBlockedEntity> phoneNumberBlockedEntityList) {
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onPhoneNumberAdded(phoneNumberBlockedEntity);
+                getView().onPhoneNumberAdded(phoneNumberBlockedEntityList);
             }
         }
     }

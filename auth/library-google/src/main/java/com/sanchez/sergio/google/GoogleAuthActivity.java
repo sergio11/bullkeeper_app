@@ -59,10 +59,11 @@ public class GoogleAuthActivity extends SimpleAuthActivity
 
     GoogleSignInOptions.Builder gsoBuilder = new GoogleSignInOptions.Builder(
             GoogleSignInOptions.DEFAULT_SIGN_IN)
-      .requestId()
-      .requestProfile()
-      .requestEmail()
-      .requestIdToken(clientId);
+            .requestIdToken(clientId)
+            .requestId()
+            .requestProfile()
+            .requestEmail();
+
 
     setupScopes(gsoBuilder);
 

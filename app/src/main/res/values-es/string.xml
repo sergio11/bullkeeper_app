@@ -188,6 +188,9 @@
     <!-- Scheduled Block -->
     <string name="alert_category_scheduled_block_desc">Ir al listado de hábitos diarios para obtener más información.</string>
     <string name="alert_category_scheduled_block_action_text">Ir al listado de hábitos diarios.</string>
+    <!-- Kid Supervision Invitation -->
+    <string name="alert_category_kid_supervision_invitation_desc">Ir al listado de invitaciones de supervisión para obtener más información.</string>
+    <string name="alert_category_kid_supervision_invitation_action_text">Ir al listado de invitaciones de supervisión.</string>
     <!-- Preferences -->
     <!-- App Preferences General Configuration Category -->
     <string name="app_preferences_general_configuration_category">Configuración general</string>
@@ -474,8 +477,7 @@
     <string name="camera_permission_reason">No podemos personalizar la foto de su perfil con una foto de la cámara si no otorga este permiso.</string>
     <string name="location_permission_reason">Si no podemos acceder a su ubicación GPS, no podemos ubicar su posición en el mapa</string>
     <string name="call_phone_permission_reason">Sino concedes este permiso no podrás hacer llamadas telefónicas.</string>
-    <!-- Google Maps Key -->
-    <string name="google_maps_key">AIzaSyDEFBpaV44PeEp_8hFPJ6kZS6KN0BuwEI4</string>
+
     <!-- Notifications -->
     <string name="logout_notification_title">Vuelve pronto</string>
     <string name="logout_notification_description">Inicie sesión para recibir información sobre los análisis realizados.</string>

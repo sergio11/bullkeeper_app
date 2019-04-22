@@ -19,7 +19,7 @@ import sanchez.sanchez.sergio.domain.repository.IPhoneNumbersBlockedRepository;
  * Add Phone Numbers Blocked Interact
  */
 public final class AddPhoneNumbersBlockedInteract extends
-        UseCase<PhoneNumberBlockedEntity, AddPhoneNumbersBlockedInteract.Params> {
+        UseCase<List<PhoneNumberBlockedEntity>, AddPhoneNumbersBlockedInteract.Params> {
 
     /**
      * Phone Numbers Repository
@@ -46,7 +46,7 @@ public final class AddPhoneNumbersBlockedInteract extends
      * @return
      */
     @Override
-    protected Observable<PhoneNumberBlockedEntity> buildUseCaseObservable(Params params) {
+    protected Observable<List<PhoneNumberBlockedEntity>> buildUseCaseObservable(Params params) {
         Preconditions.checkNotNull(params, "Params can not be null");
         Preconditions.checkNotNull(params.getKid(), "Kid can not be null");
         Preconditions.checkState(!params.getKid().isEmpty(), "Kid can not be empty");

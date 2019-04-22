@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.activity.phonenumbersblocked;
 
+import java.util.List;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.ISupportLCEView;
 import sanchez.sanchez.sergio.domain.models.PhoneNumberBlockedEntity;
 
@@ -21,9 +22,9 @@ public interface IPhoneNumbersBlockedListView
 
     /**
      * On Phone Number Added
-     * @param phoneNumberBlockedEntity
+     * @param phoneNumberBlockedEntityList
      */
-    void onPhoneNumberAdded(final PhoneNumberBlockedEntity phoneNumberBlockedEntity);
+    void onPhoneNumberAdded(final List<PhoneNumberBlockedEntity> phoneNumberBlockedEntityList);
 
 
 }

@@ -220,6 +220,17 @@ public class AlertDetailMvpActivity extends SupportMvpActivity<AlertDetailPresen
     }
 
     /**
+     *
+     * @param kid
+     */
+    @Override
+    public void goToKidSupervisionInvitationList(final String kid) {
+        Preconditions.checkNotNull(kid, "Kid can not be null");
+        Preconditions.checkState(!kid.isEmpty(), "Kid can not be empty");
+        navigatorImpl.navigateToInvitations(this);
+    }
+
+    /**
      * Go To Kid Request List
      * @param kid
      */

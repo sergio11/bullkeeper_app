@@ -6,6 +6,8 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
@@ -143,7 +145,7 @@ public final class CallDetailFragmentPresenter extends SupportPresenter<ICallDet
     /**
      * Add Phone Number Block Observer
      */
-    public class AddPhoneNumberObserver extends BasicCommandCallBackWrapper<PhoneNumberBlockedEntity> {
+    public class AddPhoneNumberObserver extends BasicCommandCallBackWrapper<List<PhoneNumberBlockedEntity>> {
 
         /**
          * On Network Error
@@ -185,7 +187,7 @@ public final class CallDetailFragmentPresenter extends SupportPresenter<ICallDet
          * @param response
          */
         @Override
-        protected void onSuccess(PhoneNumberBlockedEntity response) {
+        protected void onSuccess(List<PhoneNumberBlockedEntity> response) {
             Preconditions.checkNotNull(response, "Response can not be null");
 
             if(isViewAttached() && getView() != null) {

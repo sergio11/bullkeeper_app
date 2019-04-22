@@ -59,6 +59,21 @@ public interface IPhoneNumbersBlockedService {
     );
 
     /**
+     * Delete Phone Numbers Blocked
+     * @param kid
+     * @param terminal
+     * @param ids
+     * @return
+     */
+    @POST("children/{kid}/terminal/{terminal}/phonenumbers-blocked/delete")
+    Observable<APIResponse<String>> deletePhoneNumberBlocked(
+            @Path("kid") final String kid,
+            @Path("terminal") final String terminal,
+            @Body final List<String> ids
+    );
+
+
+    /**
      * Add Phone Number Blocked
      * @param kid
      * @param terminal
@@ -66,7 +81,7 @@ public interface IPhoneNumbersBlockedService {
      * @return
      */
     @POST("children/{kid}/terminal/{terminal}/phonenumbers-blocked")
-    Observable<APIResponse<PhoneNumberBlockedDTO>> addPhoneNumberBlocked(
+    Observable<APIResponse<List<PhoneNumberBlockedDTO>>> addPhoneNumberBlocked(
             @Path("kid") final String kid,
             @Path("terminal") final String terminal,
             @Body final List<AddPhoneNumberBlockedDTO> addPhoneNumberBlockedDTOList);
