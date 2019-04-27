@@ -10,6 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.ImageView;
+
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.mobsandgeeks.saripaar.annotation.Length;
@@ -159,6 +161,12 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @BindView(R.id.activeProfileSwitch)
     protected SwitchCompat activeProfileSwitch;
+
+    /**
+     * Change User Password Image View
+     */
+    @BindView(R.id.changeUserPassword)
+    protected ImageView changeUserPasswordImageView;
 
 
     /**
@@ -515,6 +523,11 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      * Update Profile Form
      */
     private void updateProfileForm() {
+
+        if(appUtils.isValidString(guardianEntity.getFbId()))
+            changeUserPasswordImageView.setVisibility(View.GONE);
+        else
+            changeUserPasswordImageView.setVisibility(View.VISIBLE);
 
         if(guardianEntity.getFirstName() != null &&
                 !guardianEntity.getFirstName().isEmpty())
