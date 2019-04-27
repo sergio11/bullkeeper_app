@@ -84,7 +84,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
     public static final String KIDS_IDENTITY_ARG = "KID_IDENTITY_ARG";
 
-    private static final int MIN_AGE_ALLOWED = 8;
+    private static final int MIN_AGE_ALLOWED = 5;
     private static final int MAX_AGE_ALLOWED = 18;
 
     protected MyKidsComponent myKidsComponent;
@@ -571,7 +571,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     @Override
     protected void onValidationFailed() {
 
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
         toggleAllComponents(true);
     }
 
@@ -1026,7 +1026,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
 
         }
 
-        showNoticeDialog(R.string.forms_is_not_valid);
+        showNoticeDialog(R.string.forms_is_not_valid, false);
         toggleAllComponents(true);
     }
 
