@@ -828,7 +828,7 @@
     <string name="app_installed_status_changed_successfully">El estado de la aplicación se modificó con éxito.</string>
     <string name="app_installed_status_changed_failed">Se produjo un error al cambiar el estado de la aplicación, inténtalo de nuevo más tarde.</string>
     <string name="app_installed_more_info_icon">Más información</string>
-
+    <string name="app_installed_show_app_in_market">Mostrar aplicación en el Market</string>
     <!-- SMS Detail -->
     <string name="sms_detail_title">Detalle SMS</string>
     <string name="sms_detail_message_title">Mensaje</string>

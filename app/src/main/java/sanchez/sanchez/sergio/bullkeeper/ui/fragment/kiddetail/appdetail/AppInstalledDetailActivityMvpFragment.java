@@ -1,5 +1,6 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.fragment.kiddetail.appdetail;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.sanchez.sergio.utils.AppUtils;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
@@ -24,6 +26,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import icepick.State;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
@@ -74,6 +77,12 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
      */
     @Inject
     protected Picasso picasso;
+
+    /**
+     * Activity
+     */
+    @Inject
+    protected Activity activity;
 
 
     /**
@@ -231,6 +240,11 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
     @State
     protected AppRuleEnum requestAppRuleEnum;
 
+    /**
+     * Package Name
+     */
+    @State
+    protected String packageName;
 
     /**
      * App Uninstalled Event Register Key
@@ -484,6 +498,8 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
             appInstalledImageView.setImageBitmap(decodedByte);
         }
 
+        packageName = appInstalledEntity.getPackageName();
+
         // Set App Name
         appInstalledNameTextView.setText(appInstalledEntity.getAppName());
 
@@ -727,4 +743,15 @@ public class AppInstalledDetailActivityMvpFragment extends SupportMvpFragment<Ap
 
         }
     }
+
+    /**
+     * On Show App In Market Clicked
+     */
+    @OnClick(R.id.showAppInMarket)
+    protected void onShowAppInMarketClicked(){
+        Preconditions.checkNotNull(packageName, "Package Name can not be null");
+        Preconditions.checkState(!packageName.isEmpty(), "Package Name can not be empty");
+        AppUtils.goToPlayStore(activity, packageName);
+    }
+
 }

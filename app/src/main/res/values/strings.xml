@@ -971,6 +971,7 @@
     <string name="app_installed_status_changed_successfully">The status of the application was changed successfully</string>
     <string name="app_installed_status_changed_failed">An error occurred when changing the status of the application, please try again later.</string>
     <string name="app_installed_more_info_icon">App More Info</string>
+    <string name="app_installed_show_app_in_market">Show App in Market</string>
 
     <!-- SMS Detail -->
     <string name="sms_detail_title">SMS Detail</string>
