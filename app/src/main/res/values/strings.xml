@@ -335,6 +335,7 @@
     <string name="user_profile_change_email_successfully">Your email account has been successfully changed. The current session will be closed.</string>
     <string name="user_profile_change_password_dialog_title">Change Password</string>
     <string name="user_profile_password_changed_successfully">Your password has been changed successfully. The current session will be closed.</string>
+    <string name="user_profile_require_public_to_show_conversations">You must configure your profile as a public to initiate conversations with other users</string>
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
     <string name="my_kids_profile_name_default">My Kids Profile</string>

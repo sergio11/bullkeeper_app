@@ -676,7 +676,10 @@ public class UserProfileMvpActivity extends SupportMvpValidationMvpActivity<User
      */
     @OnClick(R.id.showConversation)
     protected void onShowConversationClicked(){
-        navigatorImpl.navigateToConversationList(this);
+        if(!guardianEntity.isVisible())
+            showNoticeDialog(R.string.user_profile_require_public_to_show_conversations, false);
+        else
+            navigatorImpl.navigateToConversationList(this);
     }
 
 
