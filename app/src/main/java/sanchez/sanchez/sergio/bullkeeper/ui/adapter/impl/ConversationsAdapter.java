@@ -118,9 +118,9 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
             if(selfUserId.equals(conversationEntity
                     .getMemberOne().getIdentity()) ) {
 
-                if(conversationEntity.getLastMessageForMemberOne() != null &&
-                        !conversationEntity.getLastMessageForMemberOne().isEmpty())
-                    lastMessageTextView.setText(conversationEntity.getLastMessageForMemberOne());
+                if(conversationEntity.getLastMessageForMemberTwo() != null &&
+                        !conversationEntity.getLastMessageForMemberTwo().isEmpty())
+                    lastMessageTextView.setText(conversationEntity.getLastMessageForMemberTwo());
                 else if(conversationEntity.getLastMessage() != null &&
                     !conversationEntity.getLastMessage().isEmpty())
                     lastMessageTextView.setText(conversationEntity.getLastMessage());
@@ -138,9 +138,9 @@ public final class ConversationsAdapter extends SupportRecyclerViewAdapter<Conve
 
             } else {
 
-                if(conversationEntity.getLastMessageForMemberTwo() != null &&
-                        !conversationEntity.getLastMessageForMemberTwo().isEmpty())
-                    lastMessageTextView.setText(conversationEntity.getLastMessageForMemberTwo());
+                if(conversationEntity.getLastMessageForMemberOne() != null &&
+                        !conversationEntity.getLastMessageForMemberOne().isEmpty())
+                    lastMessageTextView.setText(conversationEntity.getLastMessageForMemberOne());
                 else if(conversationEntity.getLastMessage() != null &&
                     !conversationEntity.getLastMessage().isEmpty())
                     lastMessageTextView.setText(conversationEntity.getLastMessage());
