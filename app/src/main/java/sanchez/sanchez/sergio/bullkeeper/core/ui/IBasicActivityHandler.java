@@ -180,6 +180,11 @@ public interface IBasicActivityHandler {
     void navigateToHome();
 
     /**
+     * Navigate To Home
+     */
+    void closeSession();
+
+    /**
      * Set Support Toolbar App
      * @param supportToolbarApp
      */
@@ -190,10 +195,6 @@ public interface IBasicActivityHandler {
      */
     void openMailApp();
 
-    /**
-     * Close Session
-     */
-    void closeSession();
 
     /**
      * On Result Ok

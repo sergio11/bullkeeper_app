@@ -65,6 +65,12 @@ public interface ISupportView extends TiView {
     void onOtherException();
 
     /**
+     * On Other Exception
+     */
+    @CallOnMainThread
+    void onAuthenticationFailedException();
+
+    /**
      * Show Notice Dialog
      * @param stringResId
      */

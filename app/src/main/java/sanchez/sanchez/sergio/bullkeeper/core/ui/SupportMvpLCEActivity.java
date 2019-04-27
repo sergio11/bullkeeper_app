@@ -229,6 +229,15 @@ public abstract class SupportMvpLCEActivity<T extends SupportLCEPresenter<E>, E 
     }
 
     /**
+     * on Authentication Failed Exception
+     */
+    @Override
+    public void onAuthenticationFailedException() {
+        onShowErrorState(getString(R.string.autentication_failed_exception));
+        super.onAuthenticationFailedException();
+    }
+
+    /**
      * On Refresh
      */
     @Override

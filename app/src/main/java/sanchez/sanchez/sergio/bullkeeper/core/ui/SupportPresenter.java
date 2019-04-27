@@ -68,6 +68,16 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
     }
 
     /**
+     * Notify Authentication Failed exception
+     */
+    protected void notifyAuthenticationFailedException(){
+        if (isViewAttached() && getView() != null) {
+            getView().hideProgressDialog();
+            getView().onAuthenticationFailedException();
+        }
+    }
+
+    /**
      * On Init
      */
     protected void onInit(){}
@@ -217,6 +227,15 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         }
 
         /**
+         * Visit Authentication Failed Exception
+         * @param errors
+         */
+        @Override
+        public void visitAuthenticationFailedException(CommonApiErrors errors) {
+            notifyAuthenticationFailedException();
+        }
+
+        /**
          * On Success
          * @param response
          */
@@ -335,6 +354,15 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
         }
 
         /**
+         * Visit Authentication Failed Exception
+         * @param errors
+         */
+        @Override
+        public void visitAuthenticationFailedException(CommonApiErrors errors) {
+            notifyAuthenticationFailedException();
+        }
+
+        /**
          * On Success
          * @param response
          */
@@ -365,6 +393,15 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
             public <E> void accept(ICommonApiErrorVisitor visitor, E data) {
                 visitor.visitMessageNotReadable(this);
             }
+        },
+        /**
+         * Authentication Failed Exception
+         */
+        AUTHENTICATION_FAILED_EXCEPTION() {
+            @Override
+            public <E> void accept(ICommonApiErrorVisitor visitor, E data) {
+                visitor.visitAuthenticationFailedException(this);
+            }
         };
 
         /**
@@ -383,6 +420,12 @@ public abstract class SupportPresenter<T extends ISupportView> extends TiPresent
              * @param errors
              */
             void visitMessageNotReadable(final CommonApiErrors errors);
+
+            /**
+             * Visit Authentication Failed Exception
+             * @param errors
+             */
+            void visitAuthenticationFailedException(final CommonApiErrors errors);
         }
 
     }

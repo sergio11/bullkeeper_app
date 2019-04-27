@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,6 +216,19 @@ public abstract class SupportMvpFragment<P extends TiPresenter<V>, V extends ISu
     @Override
     public void onOtherException() {
         activityHandler.showNoticeDialog(R.string.unexpected_error_ocurred);
+    }
+
+    /**
+     * On Authentication Failed Exception
+     */
+    @Override
+    public void onAuthenticationFailedException() {
+        activityHandler.showNoticeDialog(getString(R.string.autentication_failed_exception), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                activityHandler.closeSession();
+            }
+        });
     }
 
     /**

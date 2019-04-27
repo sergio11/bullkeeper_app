@@ -124,6 +124,11 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     private ServerSentEvent serverSentEvent = null;
 
     /**
+     * Retry Connection Flag
+     */
+    private boolean retryConnection = true;
+
+    /**
      *
      * @param context
      * @param apiEndPointsHelper
@@ -164,9 +169,11 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
      */
     @Override
     public void open() {
-
+        Timber.d("SSE: Open Called");
         if(!preferenceRepository.getPrefCurrentUserIdentity()
                 .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE)) {
+            Timber.d("SSE: Open attempt");
+            retryConnection = true;
             final Request eventSubscriptionRequest = new Request.Builder()
                     .url(apiEndPointsHelper.getEventSubscriptionUrl(preferenceRepository
                             .getPrefCurrentUserIdentity()))
@@ -260,6 +267,8 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     @Override
     public boolean onRetryError(ServerSentEvent sse, Throwable throwable, Response response) {
         Timber.d("SSE: On Retry Error");
+        if(response != null && response.code() == 403)
+            retryConnection = false;
         return false;
     }
 
@@ -270,9 +279,7 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
     @Override
     public void onClosed(ServerSentEvent sse) {
         Timber.d("SSE: On Closed");
-        if(!preferenceRepository.getPrefCurrentUserIdentity()
-                .equals(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE))
-            open();
+        if(retryConnection) open();
     }
 
     /**

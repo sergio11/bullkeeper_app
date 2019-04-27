@@ -274,6 +274,15 @@ public abstract class SupportMvpLCEFragment<P extends SupportLCEPresenter<V>, V 
     }
 
     /**
+     * on Authentication Failed Exception
+     */
+    @Override
+    public void onAuthenticationFailedException() {
+        onShowErrorState(getString(R.string.autentication_failed_exception));
+        super.onAuthenticationFailedException();
+    }
+
+    /**
      * On Refresh
      */
     @Override

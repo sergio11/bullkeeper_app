@@ -416,6 +416,7 @@
     <string name="authenticating_wait">Autentificando espera …</string>
     <string name="network_error_ocurred">Se produjo un error al contactar con el servidor. Inténtalo de nuevo más tarde.</string>
     <string name="unexpected_error_ocurred">Ocurrió un error inesperado</string>
+    <string name="autentication_failed_exception">Su sesión no es válida, por favor autenticate de nuevo</string>
     <string name="bad_credentials_error">Usuario o contraseña invalido</string>
     <string name="resetting_password_wait">Restableciendo contraseña, espere …</string>
     <string name="email_is_not_valid">El correo electrónico no es válido</string>

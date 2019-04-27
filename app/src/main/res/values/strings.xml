@@ -523,6 +523,7 @@
     <string name="authenticating_wait">Authenticating wait …</string>
     <string name="network_error_ocurred">An error occurred when contacting the server, please try again later</string>
     <string name="unexpected_error_ocurred">An unexpected error occurred</string>
+    <string name="autentication_failed_exception">Your session is not valid, please authenticate again</string>
     <string name="bad_credentials_error">Invalid username or password</string>
 
     <string name="resetting_password_wait">Resetting password, wait …</string>

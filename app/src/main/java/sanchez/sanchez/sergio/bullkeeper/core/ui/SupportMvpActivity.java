@@ -54,6 +54,7 @@ import sanchez.sanchez.sergio.bullkeeper.AndroidApplication;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.di.components.ApplicationComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ActivityModule;
+import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
 import sanchez.sanchez.sergio.bullkeeper.navigation.impl.NavigatorImpl;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
 import sanchez.sanchez.sergio.bullkeeper.core.events.visitor.INoticeEventVisitor;
@@ -443,6 +444,19 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public void onOtherException() {
         showNoticeDialog(R.string.unexpected_error_ocurred, false);
+    }
+
+    /**
+     * On Authentication Failed Exception
+     */
+    @Override
+    public void onAuthenticationFailedException() {
+        showNoticeDialog(getString(R.string.autentication_failed_exception), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeSession();
+            }
+        });
     }
 
     /**
@@ -914,6 +928,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
      */
     @Override
     public void closeSession() {
+        localSystemNotification.sendNotification(new LogoutEvent(preferencesRepositoryImpl.getPrefCurrentUserIdentity()));
         preferencesRepositoryImpl.setAuthToken(IPreferenceRepository.AUTH_TOKEN_DEFAULT_VALUE);
         preferencesRepositoryImpl.setPrefCurrentUserIdentity(IPreferenceRepository.CURRENT_USER_IDENTITY_DEFAULT_VALUE);
         navigatorImpl.navigateToIntro(activity, true);
