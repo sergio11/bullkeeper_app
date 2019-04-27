@@ -823,6 +823,19 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
     }
 
     /**
+     * on Kid Load Failed
+     */
+    @Override
+    public void onKidLoadFailed() {
+        showNoticeDialog(getString(R.string.my_kids_profile_load_failed), false, new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                closeActivity();
+            }
+        });
+    }
+
+    /**
      * On Social Media Loaded
      * @param socialMediaEntities
      */

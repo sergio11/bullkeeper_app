@@ -267,6 +267,7 @@
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Perfil de %s</string>
     <string name="my_kids_profile_name_default">Perfil de niños</string>
+    <string name="my_kids_profile_load_failed">El perfil del niño/adolescente no está disponible</string>
     <string name="child_information_saved">Información del niño guardada exitosamente</string>
     <string name="see_all_alerts_in_detail">Ver todas las alertas en detalle</string>
     <string name="enable_social_media_error">Se produjo un error al habilitar las redes sociales.</string>

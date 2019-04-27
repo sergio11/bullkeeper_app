@@ -338,6 +338,7 @@
     <!-- My Kids Profile -->
     <string name="my_kids_profile_name" formatted="true">Profile of %s</string>
     <string name="my_kids_profile_name_default">My Kids Profile</string>
+    <string name="my_kids_profile_load_failed">The profile of the child is not available</string>
     <string name="child_information_saved">Child information saved successfully</string>
     <string name="see_all_alerts_in_detail">See all alerts in detail</string>
     <string name="enable_social_media_error">An error occurred when enabling the social media</string>

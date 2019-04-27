@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.children.GetInformationAboutTheChildAndTheirSocialMediaInteract;
 import sanchez.sanchez.sergio.domain.interactor.children.SaveChildrenInteract;
 import sanchez.sanchez.sergio.domain.models.GuardianRolesEnum;
@@ -87,6 +88,17 @@ public final class MyKidsProfilePresenter
      * Get Information About The Child And Their Social Media Observable
      */
     public class GetInformationAboutTheChildAndTheirSocialMediaObservable extends BasicCommandCallBackWrapper<GetInformationAboutTheChildAndTheirSocialMediaInteract.Result> {
+
+
+        @Override
+        protected void onApiException(APIResponse response) {
+            super.onApiException(response);
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onKidLoadFailed();
+            }
+
+        }
 
         /**
          * On Success

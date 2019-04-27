@@ -18,6 +18,11 @@ public interface IMyKidsProfileView extends ISupportView {
      */
     void onKidLoaded(final KidEntity kidEntity);
 
+    /**
+     * On Kid Load Failed
+     */
+    void onKidLoadFailed();
+
 
     /**
      * On Social Media Loaded
