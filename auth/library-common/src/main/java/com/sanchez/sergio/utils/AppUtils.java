@@ -479,7 +479,7 @@ public final class AppUtils {
   public static void goToPlayStore(Context context, String packageName) {
     Uri uri = Uri.parse("market://details?id=" + packageName);
     Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-    try {
+    try {Uti
       context.startActivity(goToMarket);
     } catch (ActivityNotFoundException e) {
       context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
