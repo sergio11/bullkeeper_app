@@ -45,6 +45,12 @@ public final class ScheduledBlockDTO implements Serializable {
     private boolean repeatable;
 
     /**
+     * Allow Calls
+     */
+    @JsonProperty("allow_calls")
+    private boolean allowCalls;
+
+    /**
      * Start At
      */
     @JsonProperty("start_at")
@@ -96,6 +102,7 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param description
      * @param enable
      * @param repeatable
+     * @param allowCalls
      * @param startAt
      * @param endAt
      * @param weeklyFrequency
@@ -105,7 +112,7 @@ public final class ScheduledBlockDTO implements Serializable {
      * @param geofence
      */
     public ScheduledBlockDTO(String identity, String name, final String description,
-                             boolean enable, boolean repeatable, LocalTime startAt,
+                             boolean enable, boolean repeatable, boolean allowCalls, LocalTime startAt,
                              LocalTime endAt, int[] weeklyFrequency, String image,
                              String kid, List<AppAllowedByScheduledDTO> appsAllowed, final GeofenceDTO geofence) {
         this.identity = identity;
@@ -113,6 +120,7 @@ public final class ScheduledBlockDTO implements Serializable {
         this.description = description;
         this.enable = enable;
         this.repeatable = repeatable;
+        this.allowCalls = allowCalls;
         this.startAt = startAt;
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
@@ -160,6 +168,14 @@ public final class ScheduledBlockDTO implements Serializable {
 
     public void setRepeatable(boolean repeatable) {
         this.repeatable = repeatable;
+    }
+
+    public boolean isAllowCalls() {
+        return allowCalls;
+    }
+
+    public void setAllowCalls(boolean allowCalls) {
+        this.allowCalls = allowCalls;
     }
 
     public LocalTime getStartAt() {
@@ -226,6 +242,7 @@ public final class ScheduledBlockDTO implements Serializable {
                 ", description='" + description + '\'' +
                 ", enable=" + enable +
                 ", repeatable=" + repeatable +
+                ", allowCalls=" + allowCalls +
                 ", startAt=" + startAt +
                 ", endAt=" + endAt +
                 ", weeklyFrequency=" + Arrays.toString(weeklyFrequency) +

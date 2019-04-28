@@ -68,6 +68,7 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockEntity.setDescription(originModel.getDescription());
         scheduledBlockEntity.setRepeatable(originModel.isRepeatable());
         scheduledBlockEntity.setWeeklyFrequency(originModel.getWeeklyFrequency());
+        scheduledBlockEntity.setAllowCalls(originModel.isAllowCalls());
         scheduledBlockEntity.setImage(appUtils.isValidString(originModel.getImage()) ?
                 apiEndPointsHelper.getScheduledBlockImageUrl(originModel.getKid(),
                         originModel.getIdentity(), originModel.getImage()) : null);
@@ -102,6 +103,7 @@ public final class ScheduledBlockEntityDataMapper extends AbstractDataMapper<Sch
         scheduledBlockDTO.setKid(originModel.getChildId());
         scheduledBlockDTO.setAppsAllowed(appAllowedByScheduledMapper
                 .transformInverse(originModel.getAppsAllowed()));
+        scheduledBlockDTO.setAllowCalls(originModel.isAllowCalls());
         if(originModel.getGeofence() != null)
             scheduledBlockDTO.setGeofence(geofenceEntityAbstractDataMapper
                     .transformInverse(originModel.getGeofence()));

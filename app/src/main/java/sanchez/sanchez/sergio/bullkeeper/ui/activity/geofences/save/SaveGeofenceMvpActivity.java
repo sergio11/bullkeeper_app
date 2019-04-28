@@ -448,6 +448,7 @@ public class SaveGeofenceMvpActivity extends SupportMvpValidationMvpActivity<Sav
                 final int total = MAX_RADIUS_VALUE - MIN_RADIUS_VALUE;
                 final int valueSelected = (int)(MIN_RADIUS_VALUE + total * pos);
                 geofenceRadiusSlider.setBubbleText(String.valueOf(valueSelected));
+                radius = valueSelected;
                 if(currentCircleIndicator != null)
                     currentCircleIndicator.setRadius(valueSelected);
                 return null;

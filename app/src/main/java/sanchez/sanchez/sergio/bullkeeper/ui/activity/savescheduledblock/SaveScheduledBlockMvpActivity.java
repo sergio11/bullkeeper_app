@@ -756,6 +756,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         startAtInput.setCurrentLocalTime(startAt, true);
         endAtInput.setCurrentLocalTime(endAt, true);
         scheduledBlockWeeklyFrequencyInput.setDaysOfWeekStatus(scheduledBlocksWeeklyFrequency);
+        allowCallsSwitch.setChecked(allowCalls);
         recurringWeeklySwitch.setChecked(scheduledBlockRecurringWeeklyEnabled);
         enableSwitch.setChecked(isEnabled);
         descriptionInput.setText(description);
@@ -797,6 +798,7 @@ public class SaveScheduledBlockMvpActivity extends SupportMvpValidationMvpActivi
         scheduledBlocksWeeklyFrequency = scheduledBlockEntity.getWeeklyFrequency();
         scheduledBlockRecurringWeeklyEnabled = scheduledBlockEntity.isRepeatable();
         isEnabled = scheduledBlockEntity.isEnable();
+        allowCalls = scheduledBlockEntity.isAllowCalls();
         profileMode = ScheduledBlockMode.EDIT_SCHEDULED_BLOCK_MODE;
         startAt = scheduledBlockEntity.getStartAt();
         endAt = scheduledBlockEntity.getEndAt();

@@ -37,6 +37,11 @@ public final class ScheduledBlockEntity implements Serializable {
     private boolean repeatable;
 
     /**
+     * Allow Calls
+     */
+    private boolean allowCalls;
+
+    /**
      * Start At
      */
     private LocalTime startAt;
@@ -81,6 +86,7 @@ public final class ScheduledBlockEntity implements Serializable {
      * @param description
      * @param enable
      * @param repeatable
+     * @param allowCalls
      * @param startAt
      * @param endAt
      * @param weeklyFrequency
@@ -91,7 +97,7 @@ public final class ScheduledBlockEntity implements Serializable {
      */
     public ScheduledBlockEntity(final String identity, final String name,
                                 final String description, final boolean enable, final boolean repeatable,
-                                final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
+                                final boolean allowCalls, final LocalTime startAt, final LocalTime endAt, final int[] weeklyFrequency,
                                 final String image, final String childId, final List<AppAllowedByScheduledEntity> appsAllowed,
                                 final GeofenceEntity geofence) {
         this.identity = identity;
@@ -99,6 +105,7 @@ public final class ScheduledBlockEntity implements Serializable {
         this.description = description;
         this.enable = enable;
         this.repeatable = repeatable;
+        this.allowCalls = allowCalls;
         this.startAt = startAt;
         this.endAt = endAt;
         this.weeklyFrequency = weeklyFrequency;
@@ -146,6 +153,14 @@ public final class ScheduledBlockEntity implements Serializable {
 
     public void setRepeatable(boolean repeatable) {
         this.repeatable = repeatable;
+    }
+
+    public boolean isAllowCalls() {
+        return allowCalls;
+    }
+
+    public void setAllowCalls(boolean allowCalls) {
+        this.allowCalls = allowCalls;
     }
 
     public LocalTime getStartAt() {
@@ -212,6 +227,7 @@ public final class ScheduledBlockEntity implements Serializable {
                 ", description='" + description + '\'' +
                 ", enable=" + enable +
                 ", repeatable=" + repeatable +
+                ", allowCalls=" + allowCalls +
                 ", startAt=" + startAt +
                 ", endAt=" + endAt +
                 ", weeklyFrequency=" + Arrays.toString(weeklyFrequency) +

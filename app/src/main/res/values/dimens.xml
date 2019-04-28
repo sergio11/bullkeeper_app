@@ -34,7 +34,7 @@
 
     <dimen name="weekly_frequency_text_size">28sp</dimen>
     <!-- Common Strong Text -->
-    <dimen name="common_strong_text_size">22dp</dimen>
+    <dimen name="common_strong_text_size">20dp</dimen>
 
     <!-- Common Strong Big Text -->
     <dimen name="common_strong_big_text_size">18dp</dimen>

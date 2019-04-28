@@ -143,6 +143,9 @@ public final class AppInstalledByTerminalAdapter
 
                         break;
                 }
+
+
+                appDisabledImageView.setVisibility(View.INVISIBLE);
             }
 
         }

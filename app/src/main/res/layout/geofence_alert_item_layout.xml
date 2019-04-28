@@ -49,7 +49,7 @@
         <!-- Geofence Alert Title -->
         <TextView
             android:id="@+id/geofenceAlertTitle"
-            style="@style/CommonStrongText.Big"
+            style="@style/CommonStrongText.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/separator"
