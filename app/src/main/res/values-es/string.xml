@@ -275,7 +275,7 @@
     <string name="enable_social_media_disable_confirm">Dejaremos de monitorizar esta red social.</string>
     <string name="social_media_configured_title">Redes sociales configuradas</string>
     <string name="social_media_configured_description">Configure las redes sociales para permitir el acceso al contenido que analizaremos.</string>
-    <string name="kid_guardians_configured_title">Kid Guardian Configurado</string>
+    <string name="kid_guardians_configured_title">Supervisores configurados</string>
     <string name="kid_guardians_configured_description">Configurar los diferentes roles de los supervisores del niño.</string>
     <string name="kid_guardians_supervised_eliminated">Supervisor eliminado</string>
     <string name="kid_guardians_app_allowed_eliminated">Kid Guardian eliminado</string>

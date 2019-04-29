@@ -1013,12 +1013,14 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     private static void dismissAllDialogs(final FragmentManager manager) {
         List<Fragment> fragments = manager.getFragments();
         for (Fragment fragment : fragments) {
-            if (fragment instanceof DialogFragment) {
-                DialogFragment dialogFragment = (DialogFragment) fragment;
-                dialogFragment.dismissAllowingStateLoss();
+            if(fragment.isAdded()) {
+                if (fragment instanceof DialogFragment) {
+                    DialogFragment dialogFragment = (DialogFragment) fragment;
+                    dialogFragment.dismissAllowingStateLoss();
+                }
+                FragmentManager childFragmentManager = fragment.getChildFragmentManager();
+                dismissAllDialogs(childFragmentManager);
             }
-            FragmentManager childFragmentManager = fragment.getChildFragmentManager();
-            dismissAllDialogs(childFragmentManager);
         }
     }
 
