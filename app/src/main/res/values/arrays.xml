@@ -36,21 +36,21 @@
     <!-- Age of Alerts Values -->
     <string-array name="age_of_alerts_values">
         <item>0</item>
-        <item>1</item>
-        <item>7</item>
+        <item>5</item>
         <item>15</item>
         <item>30</item>
+        <item>60</item>
     </string-array>
 
-    <integer name="age_of_alerts_default_value">7</integer>
+    <integer name="age_of_alerts_default_value">15</integer>
 
     <!-- Age of Alerts -->
     <string-array name="age_of_alerts">
         <item>@string/age_of_alerts_no_filter</item>
-        <item>@string/age_of_alerts_a_day_ago</item>
-        <item>@string/age_of_alerts_seven_days_ago</item>
-        <item>@string/age_of_alerts_fifteen_days_ago</item>
-        <item>@string/age_of_alerts_thirty_days_ago</item>
+        <item>@string/age_of_alerts_a_five_minutes_ago</item>
+        <item>@string/age_of_alerts_a_fifteen_minutes_ago</item>
+        <item>@string/age_of_alerts_a_thirty_minutes_ago</item>
+        <item>@string/age_of_alerts_a_sixty_minutes_ago</item>
     </string-array>
 
 

@@ -111,7 +111,7 @@
     <string name="app_menu_about_the_developer">Acerca del desarrollador</string>
     <!-- Home Show Case -->
     <string name="user_menu_showcase_description">Aquí tiene las opciones principales de la aplicación, verá los resultados, las alertas generadas y la lista de niños supervisados en el sistema.</string>
-    <string name="my_childs_showcase_description">Aquí tienes a los niños que puedes enseñar, puedes acceder a los detalles de ellos, además de registrar uno nuevo en el sistema.</string>
+    <string name="my_childs_showcase_description">Aquí tienes a los niños que puedes supervisar, puedes acceder a los detalles de ellos, además de registrar uno nuevo en el sistema.</string>
     <!-- My Kids -->
     <string name="my_kids_title">Niños</string>
     <string name="my_kids_content_description">Niños/adolescentes supervisados</string>
@@ -148,7 +148,7 @@
     <string name="filter_alerts_count_preference_summary">Número de alertas que se mostrarán.</string>
     <string name="filter_age_of_alerts_preference_summary">Antigüedad de las alertas para mostrar.</string>
     <string name="preferences_saved_successfully_message">Preferencias guardadas con éxito.</string>
-    <string name="has_pending_changes">Los cambios serán descartados. ¿Quieres ahorrar antes de cerrar?</string>
+    <string name="has_pending_changes">Los cambios serán descartados. ¿Quieres guardar los cambios antes de cerrar?</string>
     <!-- Alert Category -->
     <!-- Information Extraction -->
     <string name="alert_category_information_extraction_desc">Ir a la lista de comentarios para verlos.</string>
@@ -208,10 +208,10 @@
     <string name="age_of_alerts_preference_title">Antigüedad de las alertas</string>
     <string name="age_of_alerts_preference_summary">Antigüedad de las alertas para mostrar en la pantalla de inicio</string>
     <string name="age_of_alerts_no_filter">Sin filtro</string>
-    <string name="age_of_alerts_a_day_ago">Último día</string>
-    <string name="age_of_alerts_seven_days_ago">Última semana</string>
-    <string name="age_of_alerts_fifteen_days_ago">Hace quince días</string>
-    <string name="age_of_alerts_thirty_days_ago">Último mes</string>
+    <string name="age_of_alerts_a_five_minutes_ago">Últimos 5 minutos</string>
+    <string name="age_of_alerts_a_fifteen_minutes_ago">Últimos 15 minutos</string>
+    <string name="age_of_alerts_a_thirty_minutes_ago">Últimos 30 minutos</string>
+    <string name="age_of_alerts_a_sixty_minutes_ago">Últimos 60 minutos</string>
     <!-- Enable Push Notifications -->
     <string name="enable_push_notifications_preference_title">Habilitar notificaciones push</string>
     <string name="enable_push_notifications_preference_summary">Habilitar notificaciones remotas para todos los dispositivos en su cuenta.</string>

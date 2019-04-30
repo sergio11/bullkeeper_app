@@ -60,7 +60,7 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
         /**
          *
          */
-        private TextView deviceFullNameTextView, deviceManufacturerTextView,
+        private TextView deviceNameTextView, deviceModelTextView, deviceManufacturerTextView,
                 systemVersionTextView, appVersionTextView;
         private ImageView cameraNotAllowedImageView, mobileScreenNotAllowedImageView,
                 batteryStatusImageView, terminalDeviceStatusImageView,
@@ -71,7 +71,8 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
          */
         TerminalViewHolder(View itemView) {
             super(itemView);
-            deviceFullNameTextView = itemView.findViewById(R.id.deviceFullName);
+            deviceNameTextView = itemView.findViewById(R.id.deviceName);
+            deviceModelTextView = itemView.findViewById(R.id.deviceModel);
             deviceManufacturerTextView = itemView.findViewById(R.id.deviceManufacturer);
             systemVersionTextView = itemView.findViewById(R.id.systemVersion);
             appVersionTextView = itemView.findViewById(R.id.appVersion);
@@ -91,9 +92,10 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
         public void bind(final TerminalEntity terminalEntity) {
             super.bind(terminalEntity);
 
-            // Device Full Name
-            deviceFullNameTextView.setText(String.format(Locale.getDefault(),
-                    "%s - %s", terminalEntity.getDeviceName(), terminalEntity.getModel()));
+            // Device  Name
+            deviceNameTextView.setText(terminalEntity.getDeviceName());
+            // Device Model
+            deviceModelTextView.setText(terminalEntity.getModel());
 
             // Set Manufacturer
             deviceManufacturerTextView.setText(terminalEntity.getManufacturer());
@@ -130,15 +132,15 @@ public final class TerminalsAdapter extends SupportRecyclerViewAdapter<TerminalE
 
                 terminalStatusImageView.setVisibility(View.VISIBLE);
 
-                batteryStatusImageView.setVisibility(View.GONE);
-                terminalDeviceStatusImageView.setVisibility(View.GONE);
+                batteryStatusImageView.setVisibility(View.INVISIBLE);
+                terminalDeviceStatusImageView.setVisibility(View.INVISIBLE);
 
                 terminalStatusImageView.setImageResource(terminalEntity.getStatus().equals(TerminalStatusEnum.DETACHED) ?
                         R.drawable.terminal_status_detached : R.drawable.terminal_status_invalid);
 
             } else {
 
-                terminalStatusImageView.setVisibility(View.GONE);
+                terminalStatusImageView.setVisibility(View.INVISIBLE);
 
                 batteryStatusImageView.setVisibility(View.VISIBLE);
 

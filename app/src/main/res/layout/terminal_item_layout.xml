@@ -50,45 +50,61 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@id/terminalImageContainer"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/deviceStatusContainer"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="start|center"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@id/separator">
 
 
-            <!-- Device Full Name -->
+            <!-- Device Name -->
             <TextView
-                android:id="@+id/deviceFullName"
+                android:id="@+id/deviceName"
                 style="@style/CommonStrongText.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/common_margin"
+                android:layout_toStartOf="@id/batteryStatus"
+                android:gravity="start|center_vertical"
+                android:padding="0dp"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:singleLine="true"
+                android:text="-"
+                android:textColor="@color/darkModerateBlue" />
+
+            <!-- Device Model -->
+            <TextView
+                android:id="@+id/deviceModel"
+                style="@style/CommonStrongText.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start|center_vertical"
                 android:padding="0dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:singleLine="true"
+                android:layout_marginStart="@dimen/common_margin"
                 android:text="-"
+                android:layout_below="@id/deviceName"
+                android:layout_alignParentStart="true"
                 android:textColor="@color/darkModerateBlue"
                 android:textStyle="italic" />
-
 
             <!-- Battery Status-->
             <ImageView
                 android:id="@+id/batteryStatus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:paddingTop="4dp"
+                android:layout_toStartOf="@id/terminalDeviceStatus"
                 android:src="@drawable/battery_is_charging"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/content_not_be_loaded"/>
 
 
@@ -97,10 +113,11 @@
                 android:id="@+id/terminalDeviceStatus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:paddingTop="4dp"
+                android:layout_toStartOf="@id/terminalStatus"
                 android:src="@drawable/mobile_turn_off"
                 android:visibility="invisible"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/content_not_be_loaded"/>
 
 
@@ -109,12 +126,13 @@
                 android:id="@+id/terminalStatus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:paddingTop="4dp"
+                android:layout_alignParentEnd="true"
                 android:visibility="invisible"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/content_not_be_loaded"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/deviceManufacturer"

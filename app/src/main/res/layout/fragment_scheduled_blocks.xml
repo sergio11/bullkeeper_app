@@ -61,7 +61,6 @@
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="4dp"
                         android:layout_marginBottom="4dp"
-                        android:drawableStart="@drawable/trash_white_btn"
                         android:text="@string/discard_changes_btn"
                         android:textColor="@color/commonWhite"
                         android:padding="@dimen/common_padding"/>
@@ -76,7 +75,6 @@
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="4dp"
                         android:layout_marginBottom="4dp"
-                        android:drawableStart="@drawable/check_white_btn"
                         android:text="@string/save_changes_btn"
                         android:textColor="@color/commonWhite"
                         android:padding="@dimen/common_padding"/>
