@@ -1,26 +1,28 @@
 package sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
-import sanchez.sanchez.sergio.domain.models.SuggestedPlaceEntity;
+import sanchez.sanchez.sergio.domain.models.PlaceSuggestionEntity;
 
 /**
  * Place Suggestions Adapter
  */
-public final class PlaceSuggestionsAdapter extends SupportRecyclerViewAdapter<SuggestedPlaceEntity>{
+public final class PlaceSuggestionsAdapter extends SupportRecyclerViewAdapter<PlaceSuggestionEntity>{
 
     /**
      *
      * @param context
      * @param data
      */
-    public PlaceSuggestionsAdapter(Context context, ArrayList<SuggestedPlaceEntity> data) {
+    public PlaceSuggestionsAdapter(Context context, ArrayList<PlaceSuggestionEntity> data) {
         super(context, data);
         hasHeader = false;
         hasFooter = false;
@@ -44,7 +46,7 @@ public final class PlaceSuggestionsAdapter extends SupportRecyclerViewAdapter<Su
      * Place View Holder
      */
     public final class PlaceViewHolder extends
-            SupportItemSwipedViewHolder<SuggestedPlaceEntity> {
+            SupportItemSwipedViewHolder<PlaceSuggestionEntity> {
 
         private TextView primaryText, secondaryText;
 
@@ -63,15 +65,20 @@ public final class PlaceSuggestionsAdapter extends SupportRecyclerViewAdapter<Su
          * @param place
          */
         @Override
-        public void bind(final SuggestedPlaceEntity place) {
+        public void bind(final PlaceSuggestionEntity place) {
             super.bind(place);
 
             if(hasHighlightText())
-                primaryText.setText(getSpannableString(place.getPrimaryText()));
+                primaryText.setText(getSpannableString(place.getTitle()));
             else
-                primaryText.setText(place.getPrimaryText());
+                primaryText.setText(place.getHighlightedTitle());
 
-            secondaryText.setText(place.getSecondaryText());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                secondaryText.setText(Html.fromHtml(place.getVicinity(),
+                        Html.FROM_HTML_MODE_COMPACT));
+            } else {
+                secondaryText.setText(Html.fromHtml(place.getVicinity()));
+            }
         }
 
     }

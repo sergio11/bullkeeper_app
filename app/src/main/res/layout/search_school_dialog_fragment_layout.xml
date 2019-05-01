@@ -9,9 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/common_margin"
         android:gravity="center"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/common_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,6 +26,7 @@
             android:layout_height="wrap_content"
             style="@style/CommonStrongText"
             android:textStyle="bold"
+            android:textAlignment="center"
             android:text="@string/select_school_location"
             android:textColor="@color/commonWhite"
             />

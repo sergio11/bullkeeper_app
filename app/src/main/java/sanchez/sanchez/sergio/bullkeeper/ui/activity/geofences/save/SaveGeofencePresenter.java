@@ -8,11 +8,14 @@ import java.util.List;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportPresenter;
+import sanchez.sanchez.sergio.data.net.models.response.APIResponse;
 import sanchez.sanchez.sergio.domain.interactor.geofences.DeleteGeofenceByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.GetGeofenceByIdInteract;
 import sanchez.sanchez.sergio.domain.interactor.geofences.SaveGeofenceInteract;
+import sanchez.sanchez.sergio.domain.interactor.places.SearchPlacesInteract;
 import sanchez.sanchez.sergio.domain.models.GeofenceEntity;
 import sanchez.sanchez.sergio.domain.models.GeofenceTransitionTypeEnum;
+import sanchez.sanchez.sergio.domain.models.PlaceSuggestionEntity;
 
 /**
  * Save Geofence Presenter
@@ -36,18 +39,26 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
     private final GetGeofenceByIdInteract getGeofenceByIdInteract;
 
     /**
+     * Search Places Interact
+     */
+    private final SearchPlacesInteract searchPlacesInteract;
+
+    /**
      * Save Geofence Presenter
      * @param deleteGeofenceByIdInteract
      * @param saveGeofenceInteract
      * @param getGeofenceByIdInteract
+     * @param searchPlacesInteract
      */
     @Inject
     public SaveGeofencePresenter(final DeleteGeofenceByIdInteract deleteGeofenceByIdInteract,
                                  final SaveGeofenceInteract saveGeofenceInteract,
-                                 final GetGeofenceByIdInteract getGeofenceByIdInteract) {
+                                 final GetGeofenceByIdInteract getGeofenceByIdInteract,
+                                 final SearchPlacesInteract searchPlacesInteract) {
         this.deleteGeofenceByIdInteract = deleteGeofenceByIdInteract;
         this.saveGeofenceInteract = saveGeofenceInteract;
         this.getGeofenceByIdInteract = getGeofenceByIdInteract;
+        this.searchPlacesInteract = searchPlacesInteract;
     }
 
     /**
@@ -121,6 +132,20 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
     }
 
     /**
+     * Search Places
+     * @param query
+     * @param latitude
+     * @param longitude
+     */
+    public void searchPlaces(final String query, final double latitude, final double longitude, final String radius) {
+        Preconditions.checkNotNull(query, "Query can not be null");
+        Preconditions.checkState(!query.isEmpty(), "Query can not be empty");
+
+        searchPlacesInteract.execute(new SearchPlacesObservable(),
+                SearchPlacesInteract.Params.create(latitude, longitude, query, radius));
+    }
+
+    /**
      * Delete Geofence By Id Observable
      */
     public class DeleteGeofenceByIdObservable extends BasicCommandCallBackWrapper<String> {
@@ -137,6 +162,55 @@ public final class SaveGeofencePresenter extends SupportPresenter<ISaveGeofenceV
                 getView().onGeofenceDeleted();
             }
 
+        }
+    }
+
+    /**
+     * Search Places Observable
+     */
+    public class SearchPlacesObservable extends BasicCommandCallBackWrapper<List<PlaceSuggestionEntity>> {
+
+        @Override
+        protected void onNetworkError() {
+            super.onNetworkError();
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onNoSuggestedPlacesFound();
+            }
+        }
+
+        @Override
+        protected void onOtherException(Throwable ex) {
+            super.onOtherException(ex);
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onNoSuggestedPlacesFound();
+            }
+        }
+
+        @Override
+        protected void onApiException(APIResponse response) {
+            super.onApiException(response);
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                getView().onNoSuggestedPlacesFound();
+            }
+        }
+
+        /**
+         *
+         * @param placesList
+         */
+        @Override
+        protected void onSuccess(List<PlaceSuggestionEntity> placesList) {
+            Preconditions.checkNotNull(placesList, "Response can not be null");
+            if (isViewAttached() && getView() != null) {
+                getView().hideProgressDialog();
+                if(!placesList.isEmpty())
+                    getView().onSuggestedPlacesLoaded(placesList);
+                else
+                    getView().onNoSuggestedPlacesFound();
+            }
         }
     }
 

@@ -9,6 +9,7 @@ import dagger.Component;
 import retrofit2.Retrofit;
 import sanchez.sanchez.sergio.bullkeeper.core.overlay.IAppOverlayService;
 import sanchez.sanchez.sergio.bullkeeper.core.sounds.ISoundManager;
+import sanchez.sanchez.sergio.bullkeeper.di.modules.PlacesApiModule;
 import sanchez.sanchez.sergio.bullkeeper.sse.ISseEventHandler;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.school.create.SearchSchoolLocationDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.AddPhoneNumberBlockedDialogFragment;
@@ -29,6 +30,7 @@ import sanchez.sanchez.sergio.bullkeeper.core.utils.UiUtils;
 import sanchez.sanchez.sergio.data.net.utils.ApiEndPointsHelper;
 import sanchez.sanchez.sergio.domain.executor.IPostExecutionThread;
 import sanchez.sanchez.sergio.domain.executor.IThreadExecutor;
+import sanchez.sanchez.sergio.domain.interactor.places.SearchPlacesInteract;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
 import sanchez.sanchez.sergio.domain.utils.IAppUtils;
 import sanchez.sanchez.sergio.bullkeeper.di.modules.ApiModule;
@@ -44,7 +46,7 @@ import sanchez.sanchez.sergio.domain.utils.IAuthTokenAware;
  * A component whose lifetime is the life of the application.
  */
 @Singleton
-@Component(modules = { ApplicationModule.class, ApiModule.class })
+@Component(modules = { ApplicationModule.class, ApiModule.class, PlacesApiModule.class})
 public interface ApplicationComponent {
 
     /**
@@ -163,4 +165,5 @@ public interface ApplicationComponent {
     ISoundManager soundManager();
     ISseEventHandler sseEventHandler();
     IAppOverlayService appOverlayService();
+    SearchPlacesInteract searchPlacesInteract();
 }
