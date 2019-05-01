@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "293354183735-knos71ac9p1qlc0o3rftpqg337f6j7ta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sanchez.sanchez.sergio.bullkeeper",
+            "certificate_hash": "dcda150e48a3ebf02f4d4c338ba09aff9e4daa6f"
+          }
+        },
+        {
           "client_id": "293354183735-liai66ai6c76m0p0b96qujoa91ntj0sl.apps.googleusercontent.com",
           "client_type": 3
         }

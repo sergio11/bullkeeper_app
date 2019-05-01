@@ -112,6 +112,7 @@
                     android:id="@+id/socialMediaImage"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/common_margin"
                     android:layout_centerVertical="true"
                     android:src="@drawable/facebook_brand_solid_cyan"
                     android:contentDescription="@string/content_not_be_loaded" />

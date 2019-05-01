@@ -860,7 +860,8 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
             @Override
             public void visit(NoticeEvent noticeEvent) {
                 Preconditions.checkNotNull(noticeEvent, "Notice Event can not be null");
-                onNoticeEventFired(noticeEvent);
+                if (!isFinishing())
+                    onNoticeEventFired(noticeEvent);
             }
         };
        return localSystemNotification.registerEventListener(NoticeEvent.class, noticeEventVisitor);

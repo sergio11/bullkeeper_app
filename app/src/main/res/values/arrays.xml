@@ -179,9 +179,8 @@
 
     <!-- Google Kid Scopes -->
     <string-array name="google_kid_scopes">
-        <!--<item>https://www.googleapis.com/auth/youtube</item>
-        <item>https://www.googleapis.com/auth/youtube.force-ssl</item>-->
-        <item>https://www.googleapis.com/auth/contacts.readonly</item>
+        <item>https://www.googleapis.com/auth/youtube</item>
+        <item>https://www.googleapis.com/auth/youtube.force-ssl</item>
     </string-array>
 
 
