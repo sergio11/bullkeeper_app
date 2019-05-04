@@ -43,6 +43,7 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessage;
 import sanchez.sanchez.sergio.bullkeeper.ui.models.ConversationMessageUser;
+import sanchez.sanchez.sergio.data.net.models.response.PersonDTO;
 import sanchez.sanchez.sergio.domain.models.ConversationEntity;
 import sanchez.sanchez.sergio.domain.models.MessageEntity;
 import sanchez.sanchez.sergio.domain.repository.IPreferenceRepository;
@@ -211,12 +212,17 @@ public class ConversationMessageListMvpActivity extends SupportMvpActivity<Conve
         public void visit(final MessageSavedEvent messageSavedEvent) {
             Preconditions.checkNotNull(messageSavedEvent, "Message Saved Event can not be null");
 
+            final String currentUserId = preferenceRepository.getPrefCurrentUserIdentity();
+            final PersonDTO member = currentUserId.equals(messageSavedEvent.getFrom().getIdentity())
+                    ? messageSavedEvent.getTo() : messageSavedEvent.getFrom();
+
+
             addMessageToList(messageSavedEvent.getIdentity(),
-                    messageSavedEvent.getFrom().getIdentity(),
+                    member.getIdentity(),
                     String.format(Locale.getDefault(), "%s %s",
-                            messageSavedEvent.getFrom().getFirstName(),
-                            messageSavedEvent.getFrom().getLastName()),
-                    messageSavedEvent.getFrom().getProfileImage(),
+                            member.getFirstName(),
+                            member.getLastName()),
+                    member.getProfileImage(),
                     messageSavedEvent.getText());
 
             getPresenter().setMessagesAsViewed(messageSavedEvent.getConversation(),

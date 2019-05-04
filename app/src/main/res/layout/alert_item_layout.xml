@@ -106,10 +106,10 @@
             android:layout_toEndOf="@id/alertIconContainer"
             android:layout_alignParentBottom="true"/>
 
-        <!-- Since -->
+        <!-- Kid Name -->
         <TextView
             android:id="@+id/alertKidName"
-            style="@style/CommonStrongText.Big"
+            style="@style/CommonStrongText.MediumBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_margin"
@@ -118,20 +118,20 @@
             android:singleLine="true"
             android:textColor="@color/darkModerateBlue"
             android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/alertSince"
             android:layout_toEndOf="@id/separator" />
 
         <!-- Since -->
         <TextView
             android:id="@+id/alertSince"
-            style="@style/CommonStrongText.Medium"
+            style="@style/CommonStrongText.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_margin"
             android:text="-"
             android:textColor="@color/darkModerateBlue"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/alertKidName"/>
+            android:layout_alignParentEnd="true"/>
 
 
         <!-- Alert Message -->

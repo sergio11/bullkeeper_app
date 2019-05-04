@@ -522,7 +522,7 @@ public final class SseEventHandlerImpl implements ISseEventHandler,
                         .getProfileUrl(from.getProfileImage()));
 
             if(appUtils.isValidString(to.getProfileImage()))
-                messageSavedDTO.getFrom().setProfileImage(apiEndPointsHelper
+                messageSavedDTO.getTo().setProfileImage(apiEndPointsHelper
                         .getProfileUrl(to.getProfileImage()));
 
             if(preferenceRepository.getPrefCurrentUserIdentity().equals(messageSavedDTO.getTo().getIdentity())) {

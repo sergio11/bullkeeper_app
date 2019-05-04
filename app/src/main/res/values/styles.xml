@@ -162,6 +162,11 @@
     </style>
 
     <!-- Common Strong Medium Text -->
+    <style name="CommonStrongText.MediumBig">
+        <item name="android:textSize">@dimen/common_strong_medium_big_text_size</item>
+    </style>
+
+    <!-- Common Strong Medium Text -->
     <style name="CommonStrongText.Medium">
         <item name="android:textSize">@dimen/common_strong_medium_text_size</item>
     </style>

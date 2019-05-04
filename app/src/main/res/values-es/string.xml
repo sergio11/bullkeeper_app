@@ -330,7 +330,7 @@
     <string name="last_alerts_title" formatted="false">Ultimas alertas (%d)</string>
     <string name="last_alerts_title_default">Ultimas alertas</string>
     <string name="home_load_profile_information_progress">Cargando información del perfil …</string>
-    <string name="home_how_add_child_title">¿Cómo agregar una conversación?</string>
+    <string name="home_how_add_child_title">¿Cómo registrar un niño/adolescente?</string>
     <string name="kid_detail_dimensions_title">Cuatro dimensiones</string>
     <string name="kid_detail_dimensions_description">Datos de las cuatro dimensiones analizadas.</string>
     <string name="kid_detail_alerts_title">Alertas importantes</string>
@@ -365,16 +365,16 @@
     <string name="relations_description">Estadísticas de los amigos más activos para cada red social.</string>
     <string name="four_dimension_violence">Violencia</string>
     <string name="four_dimension_violence_content_text"
-        formatted="false">%s de los comentarios analizados están relacionados con la violencia.</string>
+        formatted="false">%s de los comentarios analizados problemáticos están relacionados con la violencia.</string>
     <string name="four_dimension_drugs">Drogas</string>
     <string name="four_dimension_drugs_content_text"
-        formatted="false">%s de los comentarios analizados están relacionados con drogas.</string>
+        formatted="false">%s de los comentarios analizados problemáticos están relacionados con drogas.</string>
     <string name="four_dimension_adult">Contenido Adulto</string>
     <string name="four_dimension_adult_content_text"
-        formatted="false">%s de los comentarios analizados están relacionados con contenido adulto.</string>
+        formatted="false">%s de los comentarios analizados problemáticos están relacionados con contenido adulto.</string>
     <string name="four_dimension_bullying">Bullying</string>
     <string name="four_dimension_bullying_content_text"
-        formatted="false">%s de los comentarios analizados están relacionados con bullying</string>
+        formatted="false">%s de los comentarios analizados problemáticos están relacionados con bullying</string>
     <string name="results_since_one_month_ago">Resultados desde hace 1 mes</string>
     <string name="close_dialog">Entendido</string>
     <string name="accept">Entendido</string>
@@ -506,9 +506,9 @@
     <string name="kid_results_success_alerts" formatted="false">%s de las alertas son positivas.</string>
     <string name="kid_results_warning_alerts" formatted="false">%s de las alertas son avisos de cosas importantes.</string>
     <string name="kid_results_danger_alerts" formatted="false">%s de las alertas provienen de eventos muy importantes.</string>
-    <string name="kid_results_facebook_likes_count" formatted="false">%s de los "me gusta" recibidos ha estado en Facebook</string>
-    <string name="kid_results_instagram_likes_count" formatted="false">%s de los "me gusta" recibidos ha estado en Instagram</string>
-    <string name="kid_results_youtube_likes_count" formatted="false">%s de los "me gusta" recibidos ha estado en Youtube</string>
+    <string name="kid_results_facebook_likes_count" formatted="false">%s de los "me gusta" recibidos pertenecen a Facebook</string>
+    <string name="kid_results_instagram_likes_count" formatted="false">%s de los "me gusta" recibidos pertenecen a Instagram</string>
+    <string name="kid_results_youtube_likes_count" formatted="false">%s de los "me gusta" recibidos pertenecen a Youtube</string>
     <string name="kids_results_no_terminals_linked" formatted="false">%s no tiene ningún dispositivo móvil asociado, es necesario instalar BullKeeper Kids en los dispositivos móviles de niños para hacer uso de esta sección</string>
     <string name="kids_results_terminals_count" formatted="false">(tiene %d dispositivos enlazados)</string>
     <string name="kid_request_address_not_available">Dirección no disponible</string>

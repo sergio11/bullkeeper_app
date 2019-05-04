@@ -240,7 +240,7 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     @Override
     public void showHowAddChildHelpDialog() {
         navigatorImpl.showAppHelpDialog(this, getString(R.string.home_how_add_child_title),
-                getString(R.string.youtube_video_cue));
+                getString(R.string.youtube_how_add_child));
     }
 
     /**

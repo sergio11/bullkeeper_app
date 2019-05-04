@@ -50,7 +50,7 @@
     <!-- App Installed Name -->
     <TextView
         android:id="@+id/appInstalledName"
-        style="@style/CommonStrongText.Big"
+        style="@style/CommonStrongText.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
@@ -66,10 +66,11 @@
     <!-- Device Name Text View -->
     <TextView
         android:id="@+id/deviceNameTextView"
-        style="@style/CommonStrongText.Big"
+        style="@style/CommonStrongText.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_margin"
+        android:layout_marginTop="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/common_margin"
         android:gravity="start|center_vertical"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@id/appDisabled"

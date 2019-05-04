@@ -88,6 +88,7 @@
             android:drawableStart="@drawable/school_white_solid_small"
             android:layout_below="@id/childInformationDivider"
             android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/roleImageView"
             android:textColor="@color/commonWhite" />
 
         <!--Devices -->

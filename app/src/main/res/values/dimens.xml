@@ -39,6 +39,9 @@
     <!-- Common Strong Big Text -->
     <dimen name="common_strong_big_text_size">18dp</dimen>
 
+    <!-- Common Strong Medium  Big Text -->
+    <dimen name="common_strong_medium_big_text_size">15dp</dimen>
+
     <!-- Common Strong Medium Text -->
     <dimen name="common_strong_medium_text_size">11dp</dimen>
 
