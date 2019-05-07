@@ -333,4 +333,20 @@ public class ConversationListMvpActivity extends SupportMvpLCEActivity<Conversat
 
         }
     }
+
+    /**
+     *
+     */
+    @Override
+    public void onConversationDeletedSuccessfully() {
+
+        if(recyclerViewAdapter.getData().isEmpty())
+            onNoDataFound();
+        else
+            conversationHeaderTitleTextView.setText(String.format(Locale.getDefault(),
+                    getString(R.string.conversation_list_title),
+                    recyclerViewAdapter.getData().size()));
+
+
+    }
 }

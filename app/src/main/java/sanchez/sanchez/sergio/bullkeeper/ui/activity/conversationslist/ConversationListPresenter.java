@@ -169,7 +169,7 @@ public final class ConversationListPresenter
             Preconditions.checkNotNull(response, "Response can not be null");
             if (isViewAttached() && getView() != null) {
                 getView().hideProgressDialog();
-                getView().onNoDataFound();
+                getView().onConversationDeletedSuccessfully();
             }
         }
     }

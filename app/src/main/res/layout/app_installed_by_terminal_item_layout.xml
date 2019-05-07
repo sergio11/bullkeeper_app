@@ -55,11 +55,12 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/separator"
         android:layout_toStartOf="@id/deviceNameTextView"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="8dp"
         android:gravity="start|center_vertical"
         android:padding="8dp"
         android:singleLine="true"
+        android:paddingTop="@dimen/common_padding"
+        android:paddingStart="@dimen/common_padding"
+        android:text="-"
         android:textColor="@color/darkModerateBlue"
         android:textStyle="italic" />
 
@@ -69,8 +70,6 @@
         style="@style/CommonStrongText.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_margin"
-        android:layout_marginEnd="@dimen/common_margin"
         android:gravity="start|center_vertical"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@id/appDisabled"

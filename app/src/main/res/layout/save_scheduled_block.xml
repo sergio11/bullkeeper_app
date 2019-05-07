@@ -239,7 +239,7 @@
                         <!-- Allow Calls Label -->
                         <TextView
                             android:id="@+id/allowCallsLabel"
-                            style="@style/CommonText"
+                            style="@style/CommonStrongText.MediumBig"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -251,6 +251,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/allowCallsSwitch"
                             android:layout_gravity="start|center_vertical"
                             />
 
@@ -287,7 +288,7 @@
                         <!-- Recurring Weekly Label -->
                         <TextView
                             android:id="@+id/recurringWeeklyLabel"
-                            style="@style/CommonText"
+                            style="@style/CommonStrongText.MediumBig"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -299,6 +300,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/recurringWeeklySwitch"
                             android:layout_gravity="start|center_vertical"
                             />
 
@@ -335,7 +337,7 @@
                         <!-- Recurring Weekly Label -->
                         <TextView
                             android:id="@+id/enableLabel"
-                            style="@style/CommonText"
+                            style="@style/CommonStrongText.MediumBig"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -347,6 +349,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/enableSwitch"
                             android:layout_gravity="start|center_vertical"
                             />
 

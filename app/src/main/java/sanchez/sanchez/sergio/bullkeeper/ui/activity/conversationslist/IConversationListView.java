@@ -7,4 +7,9 @@ import sanchez.sanchez.sergio.domain.models.ConversationEntity;
  * Conversation View
  */
 interface IConversationListView extends ISupportLCEView<ConversationEntity> {
+
+    /**
+     * on Conversation Deleted Successfully
+     */
+    void onConversationDeletedSuccessfully();
 }
