@@ -1301,6 +1301,7 @@ public class MyKidsProfileMvpActivity extends SupportMvpValidationMvpActivity<My
                     @Override
                     public void run() {
                         onSocialUserObtained(SocialMediaTypeEnum.YOUTUBE, socialUser);
+                        googleSwitchWidget.requestFocus();
                     }
                 });
 

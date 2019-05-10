@@ -811,7 +811,7 @@ public abstract class SupportMvpActivity<T extends TiPresenter<E>, E extends TiV
     @Override
     public void showAppHelpDialog() {
         navigatorImpl.showAppHelpDialog(this, getString(R.string.how_can_bullkeeper_help_you),
-                getString(R.string.youtube_video_cue));
+                getString(R.string.youtube_how_can_bullkeeper_help_you));
     }
 
     /**

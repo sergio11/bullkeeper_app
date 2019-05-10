@@ -271,6 +271,7 @@ public class ProfileMvpFragment extends SupportMvpFragment<ProfileFragmentPresen
      */
     @OnClick(R.id.infoChildBtn)
     protected void onInfoChildBtn(){
+        uiUtils.startBounceAnimationForView(infoChildBtn);
         activityHandler.showHowAddChildHelpDialog();
     }
 
