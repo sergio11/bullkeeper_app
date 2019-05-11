@@ -284,6 +284,20 @@ public class NavigatorImpl implements INavigator {
     }
 
     /**
+     *
+     * @param activity
+     * @param identity
+     * @param sentimentLevelEnum
+     */
+    @Override
+    public void navigateToComments(Activity activity, String identity, SentimentLevelEnum sentimentLevelEnum) {
+        Preconditions.checkNotNull(identity, "Identity can not be null");
+        Preconditions.checkState(!identity.isEmpty(), "Identity can not be empty");
+        Preconditions.checkNotNull(sentimentLevelEnum, "Sentiment Level Enum can not be null");
+        activity.startActivity(CommentsMvpActivity.getCallingIntent(context, identity, sentimentLevelEnum));
+    }
+
+    /**
      * Navigate To Comments
      * @param identity
      * @param socialMediaEnum
@@ -487,10 +501,12 @@ public class NavigatorImpl implements INavigator {
      * @param activity
      * @param dimensionIdx
      * @param dimensionValue
+     * @param kidIdentityValue
      */
     @Override
-    public void showFourDimensionsDialog(AppCompatActivity activity, int dimensionIdx, final String dimensionValue) {
-        FourDimensionsDialog.show(activity, dimensionIdx, dimensionValue);
+    public void showFourDimensionsDialog(AppCompatActivity activity, int dimensionIdx, final String dimensionValue,
+                                         final String kidIdentityValue) {
+        FourDimensionsDialog.show(activity, dimensionIdx, dimensionValue, kidIdentityValue);
     }
 
     /**
@@ -521,11 +537,13 @@ public class NavigatorImpl implements INavigator {
      * @param activity
      * @param sentimentLevelEnum
      * @param sentimentValue
+     * @param kidIdentityValue
      */
     @Override
     public void showSentimentAnalysisDialog(final AppCompatActivity activity,
-                                            final SentimentLevelEnum sentimentLevelEnum, final String sentimentValue) {
-        SentimentAnalysisDialog.show(activity, sentimentLevelEnum, sentimentValue);
+                                            final SentimentLevelEnum sentimentLevelEnum, final String sentimentValue,
+                                            final String kidIdentityValue) {
+        SentimentAnalysisDialog.show(activity, sentimentLevelEnum, sentimentValue, kidIdentityValue);
     }
 
     /**

@@ -12,6 +12,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import javax.inject.Inject;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.events.ILocalSystemNotification;
+import sanchez.sanchez.sergio.bullkeeper.core.events.model.impl.NoticeEvent;
 import sanchez.sanchez.sergio.bullkeeper.core.overlay.IAppOverlayService;
 import sanchez.sanchez.sergio.bullkeeper.di.HasComponent;
 import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerHomeComponent;
@@ -20,6 +21,7 @@ import sanchez.sanchez.sergio.bullkeeper.events.impl.LogoutEvent;
 import sanchez.sanchez.sergio.bullkeeper.events.impl.SigningEvent;
 import sanchez.sanchez.sergio.bullkeeper.ui.activity.legal.LegalContentActivity;
 import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ConfirmationDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.ui.dialog.NoticeDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.lastalerts.LastAlertsActivityMvpFragment;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportMvpActivity;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp;
@@ -287,14 +289,25 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
     }
 
     /**
+     *
+     * @param noticeEvent
+     */
+    @Override
+    protected void onNoticeEventFired(NoticeEvent noticeEvent) {
+        showNoticeDialog(noticeEvent.getTitle() + " " + noticeEvent.getContent(), new NoticeDialogFragment.NoticeDialogListener() {
+            @Override
+            public void onAccepted(DialogFragment dialog) {
+                loadLastAlerts();
+            }
+        });
+    }
+
+    /**
      * On Retry Again
      */
     @Override
     public void onRefresh() {
-        final ProfileMvpFragment profileMvpFragment =
-                (ProfileMvpFragment)getSupportFragmentManager().findFragmentById(R.id.profileFragment);
-        if(profileMvpFragment != null)
-            profileMvpFragment.loadProfileInformation();
+        loadProfileInformation();
     }
 
     /**
@@ -390,6 +403,31 @@ public class HomeMvpActivity extends SupportMvpActivity<HomePresenter, IHomeView
                     public void onRejected(DialogFragment dialog) {}
                 });
             }
+    }
+
+
+    /**
+     * Private Methods
+     */
+
+    /**
+     * Load Profile Information
+     */
+    private void loadProfileInformation(){
+        final ProfileMvpFragment profileMvpFragment =
+                (ProfileMvpFragment)getSupportFragmentManager().findFragmentById(R.id.profileFragment);
+        if(profileMvpFragment != null)
+            profileMvpFragment.loadProfileInformation();
+    }
+
+    /**
+     * Load Last Alerts
+     */
+    private void loadLastAlerts(){
+        final LastAlertsActivityMvpFragment lastAlertsMvpFragment =
+                (LastAlertsActivityMvpFragment)getSupportFragmentManager().findFragmentById(R.id.lastAlertsContainer);
+        if(lastAlertsMvpFragment != null)
+            lastAlertsMvpFragment.onRefresh();
     }
 
 }

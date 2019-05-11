@@ -134,6 +134,13 @@ public interface INavigator {
     /**
      * Navigate To Comments
      * @param identity
+     * @param sentimentLevelEnum
+     */
+    void navigateToComments(final Activity activity, final String identity, final SentimentLevelEnum sentimentLevelEnum);
+
+    /**
+     * Navigate To Comments
+     * @param identity
      * @param socialMediaEnum
      */
     void navigateToComments(final Activity activity, final String identity, final SocialMediaEnum socialMediaEnum);
@@ -238,9 +245,10 @@ public interface INavigator {
      * @param activity
      * @param dimensionIdx
      * @param dimensionValue
+     * @param kidIdentityValue
      */
     void showFourDimensionsDialog(final AppCompatActivity activity,
-                                  int dimensionIdx, final String dimensionValue);
+                                  int dimensionIdx, final String dimensionValue, final String kidIdentityValue);
 
     /**
      * Show Comments Extracted Dialog
@@ -268,10 +276,11 @@ public interface INavigator {
      * @param activity
      * @param sentimentLevelEnum
      * @param sentimentValue
+     * @param kidIdentityValue
      */
     void showSentimentAnalysisDialog(final AppCompatActivity activity,
                                      final SentimentLevelEnum sentimentLevelEnum,
-                                     final String sentimentValue);
+                                     final String sentimentValue, final String kidIdentityValue);
 
     /**
      * Show Alert Level Dialog

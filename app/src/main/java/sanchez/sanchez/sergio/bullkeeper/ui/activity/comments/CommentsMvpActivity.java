@@ -26,6 +26,7 @@ import sanchez.sanchez.sergio.bullkeeper.di.components.DaggerCommentsComponent;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.SupportRecyclerViewAdapter;
 import sanchez.sanchez.sergio.bullkeeper.ui.adapter.impl.CommentsAdapter;
 import sanchez.sanchez.sergio.domain.models.DimensionCategoryEnum;
+import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 import sanchez.sanchez.sergio.domain.models.SocialMediaEnum;
 
 import static sanchez.sanchez.sergio.bullkeeper.core.ui.SupportToolbarApp.TOOLBAR_WITH_MENU;
@@ -53,6 +54,11 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
      * Dimension Arg
      */
     public static final String DIMENSION_ARG = "DIMENSION_ARG";
+
+    /**
+     * Sentiment Level Arg
+     */
+    public static final String SENTIMENT_LEVEL_ARG = "SENTIMENT_LEVEL_ARG";
 
     /**
      * Comments Comment
@@ -111,6 +117,9 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
     @State
     protected DimensionCategoryEnum dimensionCategoryEnum;
 
+    @State
+    protected SentimentLevelEnum sentimentLevelEnum;
+
 
     /**
      * Get Calling Intent
@@ -151,6 +160,21 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
         final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
         callingIntent.putExtra(KID_IDENTITY_ARG, identity);
         callingIntent.putExtra(DIMENSION_ARG, dimensionCategoryEnum);
+        return callingIntent;
+    }
+
+    /**
+     * Get Calling Intent
+     * @param context
+     * @param identity
+     * @param sentimentLevelEnum
+     * @return
+     */
+    public static Intent getCallingIntent(final Context context, final String identity,
+                                          final SentimentLevelEnum sentimentLevelEnum) {
+        final Intent callingIntent = new Intent(context, CommentsMvpActivity.class);
+        callingIntent.putExtra(KID_IDENTITY_ARG, identity);
+        callingIntent.putExtra(SENTIMENT_LEVEL_ARG, sentimentLevelEnum);
         return callingIntent;
     }
 
@@ -245,6 +269,12 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
         if(getIntent().hasExtra(DIMENSION_ARG))
             dimensionCategoryEnum = (DimensionCategoryEnum)
                     getIntent().getSerializableExtra(DIMENSION_ARG);
+
+        // Check Sentiment Level Arg
+        if(getIntent().hasExtra(SENTIMENT_LEVEL_ARG))
+            sentimentLevelEnum = (SentimentLevelEnum)
+                    getIntent().getSerializableExtra(SENTIMENT_LEVEL_ARG);
+
     }
 
     /**
@@ -263,6 +293,9 @@ public class CommentsMvpActivity extends SupportMvpLCEActivity<CommentsMvpPresen
         if(dimensionCategoryEnum != null)
             args.putSerializable(CommentsMvpPresenter.DIMENSION_TYPES_ARG,
                     dimensionCategoryEnum);
+        if(sentimentLevelEnum != null)
+            args.putSerializable(CommentsMvpPresenter.SENTIMENT_LEVEL_ARG,
+                    sentimentLevelEnum);
         return args;
     }
 

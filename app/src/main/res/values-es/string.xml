@@ -498,9 +498,9 @@
     <string name="kid_results_positive_content">Contenido positivo</string>
     <string name="kid_results_negative_content">Contenido negativo</string>
     <string name="kid_results_neutral_content">Contenido neutro</string>
-    <string name="kid_results_sentiment_content_positive" formatted="false">%s de los comentarios analizados tienen un sentimiento positivo.</string>
-    <string name="kid_results_sentiment_content_negative" formatted="false">%s de los comentarios analizados tienen un sentimiento negativo.</string>
-    <string name="kid_results_sentiment_content_neutral" formatted="false">%s de los comentarios analizados tienen un sentimiento neutro.</string>
+    <string name="kid_results_sentiment_content_positive" formatted="false">%s de los comentarios analizados problemáticos tienen un sentimiento positivo.</string>
+    <string name="kid_results_sentiment_content_negative" formatted="false">%s de los comentarios analizados problemáticos tienen un sentimiento negativo.</string>
+    <string name="kid_results_sentiment_content_neutral" formatted="false">%s de los comentarios analizados problemáticos tienen un sentimiento neutro.</string>
     <string name="kid_results_info_alerts" formatted="false">%s de las alertas son informativas.</string>
     <string name="kid_results_success_alerts" formatted="false">%s de las alertas son positivas.</string>
     <string name="kid_results_warning_alerts" formatted="false">%s de las alertas son avisos de cosas importantes.</string>
@@ -1000,21 +1000,21 @@
     <string name="summary_my_kids_results_total_comments" formatted="false">%d/%d de los comentarios analizados son problemáticos</string>
     <string name="summary_my_kids_results_dimension_analysis">Análsis de Dimensiones</string>
     <string name="summary_my_kids_results_no_comments_analyzed">No se ha analizado ningún comentario</string>
-    <string name="summary_my_kids_results_violence_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con violencia</string>
-    <string name="summary_my_kids_results_no_violence_comments">Ninguno de los comentarios analizados tienen relación con violencia</string>
-    <string name="summary_my_kids_results_adult_content_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con contenido adulto</string>
-    <string name="summary_my_kids_results_no_adult_content_comments">Ninguno de los comentarios analizados tienen relación con contenido adulto</string>
-    <string name="summary_my_kids_results_drugs_comments_percentage" formatted="false">%s de los comentarios analizados tienen relación con drogas</string>
-    <string name="summary_my_kids_results_no_drugs_comments">Ninguno de los comentarios analizados tienen relación con drogas</string>
-    <string name="summary_my_kids_results_bullying_comments_percentage">%s de los comentarios analizados tienen relación con bullying</string>
-    <string name="summary_my_kids_results_no_bullying_comments">Ninguno de los comentarios analizados tienen relación con bullying</string>
+    <string name="summary_my_kids_results_violence_comments_percentage" formatted="false">%s de los comentarios analizados problemáticos tienen relación con violencia</string>
+    <string name="summary_my_kids_results_no_violence_comments">Ninguno de los comentarios analizados problemáticos tienen relación con violencia</string>
+    <string name="summary_my_kids_results_adult_content_comments_percentage" formatted="false">%s de los comentarios analizados problemáticos tienen relación con contenido adulto</string>
+    <string name="summary_my_kids_results_no_adult_content_comments">Ninguno de los comentarios analizados problemáticos tienen relación con contenido adulto</string>
+    <string name="summary_my_kids_results_drugs_comments_percentage" formatted="false">%s de los comentarios analizados problemáticos tienen relación con drogas</string>
+    <string name="summary_my_kids_results_no_drugs_comments">Ninguno de los comentarios analizados problemáticos tienen relación con drogas</string>
+    <string name="summary_my_kids_results_bullying_comments_percentage">%s de los comentarios analizados problemáticos tienen relación con bullying</string>
+    <string name="summary_my_kids_results_no_bullying_comments">Ninguno de los comentarios analizados problemáticos tienen relación con bullying</string>
     <string name="summary_my_kids_results_sentiment_analysis">Análisis de Sentimiento</string>
-    <string name="summary_my_kids_results_negative_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento negativo</string>
-    <string name="summary_my_kids_results_no_negative_comments">Ninguno de los comentarios analizados tienen un sentimiento negativo</string>
-    <string name="summary_my_kids_results_positive_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento positivo</string>
-    <string name="summary_my_kids_results_no_positive_comments">Ninguno de los comentarios analizados tienen un sentimiento positivo</string>
-    <string name="summary_my_kids_results_neutral_comments_percentage" formatted="false">%s de los comentarios analizados tienen un sentimiento neutro</string>
-    <string name="summary_my_kids_results_no_neutral_comments">Ninguno de los comentarios analizados tienen un sentimiento neutro</string>
+    <string name="summary_my_kids_results_negative_comments_percentage" formatted="false">%s de los comentarios analizados problemáticos tienen un sentimiento negativo</string>
+    <string name="summary_my_kids_results_no_negative_comments">Ninguno de los comentarios analizados problemáticos tienen un sentimiento negativo</string>
+    <string name="summary_my_kids_results_positive_comments_percentage" formatted="false">%s de los comentarios analizados problemáticos tienen un sentimiento positivo</string>
+    <string name="summary_my_kids_results_no_positive_comments">Ninguno de los comentarios analizados problemáticos tienen un sentimiento positivo</string>
+    <string name="summary_my_kids_results_neutral_comments_percentage" formatted="false">%s de los comentarios analizados problemáticos tienen un sentimiento neutro</string>
+    <string name="summary_my_kids_results_no_neutral_comments">Ninguno de los comentarios analizados problemáticos tienen un sentimiento neutro</string>
 
     <!-- App Overlay -->
     <string name="require_app_overlay_permission_confirm">Bullkeeper necesita su permiso para mostrar anuncios que se superpongan a otras aplicaciones. Esta característica le informará sobre avisos importantes.</string>

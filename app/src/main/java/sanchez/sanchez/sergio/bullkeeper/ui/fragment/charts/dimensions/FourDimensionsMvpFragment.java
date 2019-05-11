@@ -233,7 +233,7 @@ public class FourDimensionsMvpFragment
             listener.onDimensionsSelected(dimensionIdx, dimensionsLabel[dimensionIdx]);
 
         navigator.showFourDimensionsDialog((AppCompatActivity)getActivity(),
-                dimensionIdx, dimensionsLabel[dimensionIdx]);
+                dimensionIdx, dimensionsLabel[dimensionIdx], kidIdentity);
     }
 
     /**

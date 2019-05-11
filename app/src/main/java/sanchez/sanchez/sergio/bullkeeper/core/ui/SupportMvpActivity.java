@@ -23,22 +23,18 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity;
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork;
-
 import net.grandcentrix.thirtyinch.TiActivity;
 import net.grandcentrix.thirtyinch.TiPresenter;
 import net.grandcentrix.thirtyinch.TiView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;

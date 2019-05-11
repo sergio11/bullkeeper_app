@@ -103,8 +103,19 @@ public final class SummaryMyKidsResultAdapter extends SupportRecyclerViewAdapter
             childNameTextView.setText(summaryMyKidResultEntity.getFirstName()
                 +  " " + summaryMyKidResultEntity.getLastName());
 
+
+            if(summaryMyKidResultEntity.getLocation() != null &&
+                    summaryMyKidResultEntity.getLocation().getAddress() != null &&
+                    !summaryMyKidResultEntity.getLocation().getAddress().isEmpty())
+                // Set Address
+                currentLocationTextView.setText(summaryMyKidResultEntity.getLocation().getAddress());
+            else
+                currentLocationTextView.setText(context.getString(R.string.no_address_found));
+
             // Set School Name
             schoolNameTextView.setText(summaryMyKidResultEntity.getSchool().getName());
+
+
 
             // Check Terminals linked
             if(summaryMyKidResultEntity.getTotalDevices() > 0) {

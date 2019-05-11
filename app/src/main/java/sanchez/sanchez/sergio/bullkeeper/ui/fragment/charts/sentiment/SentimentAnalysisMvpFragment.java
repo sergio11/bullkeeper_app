@@ -188,7 +188,7 @@ public class SentimentAnalysisMvpFragment
         final PieEntry pieEntry = (PieEntry)e;
         navigator.showSentimentAnalysisDialog((AppCompatActivity) getActivity(),
                 SentimentLevelEnum.valueOf(pieEntry.getLabel()),
-                (int)pieEntry.getValue()+"%");
+                (int)pieEntry.getValue()+"%", kidIdentity);
 
     }
 

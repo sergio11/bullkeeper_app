@@ -28,7 +28,7 @@ public final class CommentsMvpPresenter extends SupportLCEPresenter<ICommentsVie
     public static final String KIDS_INDENTITIES_ARG = "KIDS_INDENTITIES_ARG";
     public static final String SOCIAL_MEDIAS_TYPES_ARG = "SOCIAL_MEDIAS_ARG";
     public static final String DIMENSION_TYPES_ARG = "DIMENSION_ARG";
-
+    public static final String SENTIMENT_LEVEL_ARG = "SENTIMENT_LEVEL_ARG";
 
     /**
      * Get Comments Interact
@@ -164,11 +164,20 @@ public final class CommentsMvpPresenter extends SupportLCEPresenter<ICommentsVie
 
             SentimentLevelEnum sentimentLevelEnum = SentimentLevelEnum.UNKNOWN;
 
-            try {
-                sentimentLevelEnum =
-                        SentimentLevelEnum.valueOf(preferenceRepository.getCommentsSentimentLevel());
-            } catch (final Exception ex) {
-                preferenceRepository.setCommentsSentimentLevel(IPreferenceRepository.PREF_COMMENTS_SENTIMENT_LEVEL_DEFAULT_VALUE);
+            if(args.containsKey(SENTIMENT_LEVEL_ARG)) {
+
+                sentimentLevelEnum = (SentimentLevelEnum)
+                        args.getSerializable(SENTIMENT_LEVEL_ARG);
+
+            } else {
+
+                try {
+                    sentimentLevelEnum =
+                            SentimentLevelEnum.valueOf(preferenceRepository.getCommentsSentimentLevel());
+                } catch (final Exception ex) {
+                    preferenceRepository.setCommentsSentimentLevel(IPreferenceRepository.PREF_COMMENTS_SENTIMENT_LEVEL_DEFAULT_VALUE);
+                }
+
             }
 
              final GetCommentsInteract.IParameterFilter parameterFilter = GetCommentsInteract.KidsAndSocialMediaAndDimensionLevelFilter.create(

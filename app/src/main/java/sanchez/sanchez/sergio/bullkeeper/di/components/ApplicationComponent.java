@@ -23,6 +23,8 @@ import sanchez.sanchez.sergio.bullkeeper.ui.dialog.ProgressDialogFragment;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.alerts.SystemAlertsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.appstats.AppStatsDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.comments.CommentsExtractedBySocialMediaDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.dimensions.FourDimensionsDialog;
+import sanchez.sanchez.sergio.bullkeeper.ui.fragment.charts.sentiment.SentimentAnalysisDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.fragment.profile.ChildAlertsDetailDialog;
 import sanchez.sanchez.sergio.bullkeeper.ui.services.RemoteNotificationService;
 import sanchez.sanchez.sergio.bullkeeper.core.utils.ScreenManager;
@@ -144,6 +146,19 @@ public interface ApplicationComponent {
      * @param dialogFragment
      */
     void inject(final ChangeUserPasswordDialogFragment dialogFragment);
+
+    /**
+     * Inject into Four Dimension Dialog
+     * @param dimensionsDialog
+     */
+    void inject(final FourDimensionsDialog dimensionsDialog);
+
+
+    /**
+     * Inject into Sentiment Analysis Dialog
+     * @param sentimentAnalysisDialog
+     */
+    void inject(final SentimentAnalysisDialog sentimentAnalysisDialog);
 
 
     //Exposed to sub-graphs.

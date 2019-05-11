@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import sanchez.sanchez.sergio.bullkeeper.R;
 import sanchez.sanchez.sergio.bullkeeper.core.ui.SupportDialogFragment;
+import sanchez.sanchez.sergio.bullkeeper.navigation.INavigator;
 import sanchez.sanchez.sergio.domain.models.SentimentLevelEnum;
 
 /**
@@ -25,6 +29,7 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
 
     private static final String SENTIMENT_TYPE_ARG = "SENTIMENT_TYPE_ARG";
     private static final String SENTIMENT_VALUE_ARG = "SENTIMENT_VALUE_ARG";
+    private static final String KID_IDENTITY_VALUE_ARG = "KID_IDENTITY_VALUE_ARG";
 
     /**
      * State
@@ -41,6 +46,11 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
      * Sentiment Level Value
      */
     private String sentimentLevelValue;
+
+    /**
+     * Kid Identity Value
+     */
+    private String kidIdentityValue;
 
 
     /**
@@ -79,15 +89,34 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
     protected TextView contentDetailTextView;
 
     /**
+     * Show Comments Extracted Text View
+     */
+    @BindView(R.id.showCommentsExtractedTextView)
+    protected TextView showCommentsExtractedTextView;
+
+    /**
+     * Show Comments Extracted Image View
+     */
+    @BindView(R.id.showCommentsExtractedImageView)
+    protected ImageView showCommentsExtractedImageView;
+
+    /**
+     * Navigator
+     */
+    @Inject
+    protected INavigator navigator;
+
+    /**
      * Show Dialog
      * @param appCompatActivity
      */
     public static void show(final AppCompatActivity appCompatActivity, final SentimentLevelEnum sentimentLevelEnum,
-                            final String sentimentLevelValue) {
+                            final String sentimentLevelValue, final String kidIdentityValue) {
         final SentimentAnalysisDialog fourDimensionsDialogFragment = new SentimentAnalysisDialog();
         final Bundle args = new Bundle();
         args.putSerializable(SENTIMENT_TYPE_ARG, sentimentLevelEnum);
         args.putString(SENTIMENT_VALUE_ARG, sentimentLevelValue);
+        args.putString(KID_IDENTITY_VALUE_ARG, kidIdentityValue);
         fourDimensionsDialogFragment.setArguments(args);
         fourDimensionsDialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CommonDialogFragmentTheme);
         fourDimensionsDialogFragment.show(appCompatActivity.getSupportFragmentManager(), TAG);
@@ -106,7 +135,7 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
      * Initialize Injector
      */
     @Override
-    protected void initializeInjector() {}
+    protected void initializeInjector() { getApplicationComponent().inject(this); }
 
     /**
      * On Close Dialog
@@ -135,6 +164,8 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
         sentimentLevelEnum = (SentimentLevelEnum) args.getSerializable(SENTIMENT_TYPE_ARG);
         // Sentiment Type Value
         sentimentLevelValue = args.getString(SENTIMENT_VALUE_ARG);
+        // Kid Identity Value
+        kidIdentityValue = args.getString(KID_IDENTITY_VALUE_ARG);
 
         switch (sentimentLevelEnum) {
 
@@ -157,6 +188,10 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
                         sentimentLevelValue));
 
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.positive_results_button_state));
+
+                showCommentsExtractedTextView.setTextColor(ContextCompat.getColor(getContext(),
+                        R.color.greenSuccess));
+                showCommentsExtractedImageView.setImageResource(R.drawable.positive_arrow_circle_right_solid);
 
                 break;
 
@@ -181,6 +216,10 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(),
                         R.drawable.negative_results_button_state));
 
+                showCommentsExtractedTextView.setTextColor(ContextCompat.getColor(getContext(),
+                        R.color.redDanger));
+                showCommentsExtractedImageView.setImageResource(R.drawable.negative_arrow_circle_right_solid);
+
                 break;
 
             case NEUTRO:
@@ -204,7 +243,19 @@ public final class SentimentAnalysisDialog extends SupportDialogFragment {
                 closeDialog.setBackground(ContextCompat.getDrawable(getContext(),
                         R.drawable.neutral_results_button_state));
 
+                showCommentsExtractedTextView.setTextColor(ContextCompat.getColor(getContext(),
+                        R.color.silver_color));
+                showCommentsExtractedImageView.setImageResource(R.drawable.neutro_arrow_circle_right_solid);
+
                 break;
         }
+    }
+
+    /**
+     * On Show Comments Extracted
+     */
+    @OnClick(R.id.showCommentsExtracted)
+    protected void onShowCommentsExtracted(){
+        navigator.navigateToComments(getActivity(), kidIdentityValue, sentimentLevelEnum);
     }
 }
