@@ -35,11 +35,11 @@ android {
         testApplicationId globalConfiguration.getAt("testApplicationId")
 
         manifestPlaceholders = [
-                facebookAppId        : "296606527738358",
-                instagramClientId    : "e1a6792687ff44f3821d17a95259745f",
-                instagramClientSecret: "4baba12259c34440acbfaf5b568ffb75",
-                instagramRedirectUrl : "https://github.com/sergio11",
-                googleWebClientId: "293354183735-liai66ai6c76m0p0b96qujoa91ntj0sl.apps.googleusercontent.com"
+                facebookAppId        : "<<your_api_key_here>>",
+                instagramClientId    : "<<your_api_key_here>>",
+                instagramClientSecret: "<<your_api_key_here>>",
+                instagramRedirectUrl : "<<your_api_key_here>>",
+                googleWebClientId: "<<your_api_key_here>>"
         ]
     }
 
