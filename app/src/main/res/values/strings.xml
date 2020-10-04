@@ -545,13 +545,13 @@
     <string name="player_error">Error initializing YouTube player: %s</string>
     <string name="seek_to">Jump To</string>
     <string name="seek_to_hint">Seconds</string>
-    <string name="youtube_client_key">AIzaSyASi8BD4lAMIasN-XOngz377BkWiGfIblU</string>
+    <string name="youtube_client_key">your_api_key_here</string>
     <string name="youtube_how_can_bullkeeper_help_you">DHl7J7fcF14</string>
     <string name="youtube_how_add_child">7tfaEXIvqWY</string>
 
     <!-- Facebook -->
-    <string name="facebook_app_id">296606527738358</string>
-    <string name="fb_login_protocol_scheme">fb296606527738358</string>
+    <string name="facebook_app_id">your_api_key_here</string>
+    <string name="fb_login_protocol_scheme">your_api_key_here</string>
     <string name="login_facebook_canceled">The login was canceled by the user</string>
     <string name="login_facebook_error">There was an error when logging in through Facebook</string>
 
@@ -600,7 +600,7 @@
     <string name="location_permission_reason">If we can not access your GPS location we can not place your position on the map</string>
     <string name="call_phone_permission_reason">If you do not grant this permission, you will not be able to make phone calls</string>
     <!-- Google Maps Key -->
-    <string name="google_maps_key">AIzaSyCyDmvKoWJR3a0J_1x8XqqHNXOdC0QYczY</string>
+    <string name="google_maps_key">your_api_key_here</string>
     <string name="title_activity_school_detail">SchoolDetailActivity</string>
     <string name="title_activity_add_school">AddSchoolActivity</string>
 
