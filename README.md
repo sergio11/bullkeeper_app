@@ -18,3 +18,6 @@ The family locator will allow to determine the exact location of the adolescent 
 It allows a precise visualization of the results of the analyzes carried out for the comments extracted from each social media..
 
 ![Bullkeeper Android App](screenshots/imagen_7.png "BullKeeper Android App")
+
+
+[![Configuración de reglas de aplicación](https://img.youtube.com/vi/EjaGlF2--o4/maxresdefault.jpg)](https://youtu.be/EjaGlF2--o4)
