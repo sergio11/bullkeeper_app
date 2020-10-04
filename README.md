@@ -23,4 +23,10 @@ It allows a precise visualization of the results of the analyzes carried out for
 
 ## Some Videos
 
-[![Configuración de reglas de aplicación](https://img.youtube.com/vi/EjaGlF2--o4/maxresdefault.jpg)](https://youtu.be/EjaGlF2--o4)
+### Application rule settings
+
+[![Application rule settings](https://img.youtube.com/vi/EjaGlF2--o4/maxresdefault.jpg)](https://youtu.be/EjaGlF2--o4)
+
+### Device configuration and daily habits
+
+[![Device configuration and daily habits](https://img.youtube.com/vi/eEMPil_MM1g/maxresdefault.jpg)](https://youtu.be/eEMPil_MM1g)
