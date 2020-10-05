@@ -23,9 +23,11 @@ It allows a precise visualization of the results of the analyzes carried out for
 
 ## Some Videos
 
+[![Child/adolescent registration](https://img.youtube.com/vi/DHl7J7fcF14/maxresdefault.jpg)](https://youtu.be/DHl7J7fcF14)
+
 ### Child/adolescent registration
 
-[![Child/adolescent registration](https://img.youtube.com/vi/FI1ftLW-X6I/maxresdefault.jpg)](https://youtu.be/FI1ftLW-X6I)
+[![Child/adolescent registration](https://img.youtube.com/vi/7tfaEXIvqWY/maxresdefault.jpg)](https://youtu.be/7tfaEXIvqWY)
 
 ### Application rule settings
 
