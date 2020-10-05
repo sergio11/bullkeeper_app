@@ -2,26 +2,30 @@
 
 Parental control tool focused on the management of the digital lifestyle of children/adolescents whose objective is to identify potentially violent situations and create an ecosystem that facilitates early detection of various disorders derived from an inadequate or unreliable use of technology. information.
 
-<img width="300px" align="left" src="./screenshots/imagen_1.png" />
-<img width="300px"  src="./screenshots/imagen_2.png" />
+<img width="250px" align="left" src="./screenshots/imagen_1.png" />
+<img width="250px"  src="./screenshots/imagen_2.png" />
 
 It will allow to define daily habits, controlling the allowed applications in each moment and leisure time.
 
-<img width="300px" align="left" src="./screenshots/imagen_3.png" />
-<img width="300px" src="./screenshots/imagen_4.png" />
+<img width="250px" align="left" src="./screenshots/imagen_3.png" />
+<img width="250px" src="./screenshots/imagen_4.png" />
 
 The family locator will allow to determine the exact location of the adolescent child at all times.
 
-<img width="300px" align="left" src="./screenshots/imagen_5.png" />
-<img width="300px" src="./screenshots/imagen_6.png" />
+<img width="250px" align="left" src="./screenshots/imagen_5.png" />
+<img width="250px" src="./screenshots/imagen_6.png" />
 
 
 It allows a precise visualization of the results of the analyzes carried out for the comments extracted from each social media..
 
-<img width="300px" src="./screenshots/imagen_7.png" />
+<img width="250px" src="./screenshots/imagen_7.png" />
 
 
 ## Some Videos
+
+### Child/adolescent registration
+
+[![Child/adolescent registration](https://img.youtube.com/vi/FI1ftLW-X6I/maxresdefault.jpg)](https://youtu.be/FI1ftLW-X6I)
 
 ### Application rule settings
 
@@ -30,3 +34,7 @@ It allows a precise visualization of the results of the analyzes carried out for
 ### Device configuration and daily habits
 
 [![Device configuration and daily habits](https://img.youtube.com/vi/eEMPil_MM1g/maxresdefault.jpg)](https://youtu.be/eEMPil_MM1g)
+
+### Familiy Locator
+
+[![Familiy Locator](https://img.youtube.com/vi/gxi35G1ZZts/maxresdefault.jpg)](https://youtu.be/gxi35G1ZZts)
