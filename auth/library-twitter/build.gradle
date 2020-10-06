@@ -43,6 +43,6 @@ dependencies {
 }
 
 android.buildTypes.debug.manifestPlaceholders = [
-    twitterConsumerKey   : "K25JWbAcXzGx8yCAjqydgCGtt",
-    twitterConsumerSecret: "t91O95O0ULFXrSQOHTHpWwqYpvvcFAwgVX4vC1yCdSnRKxV56F",
+    twitterConsumerKey   : "your_api_key_here",
+    twitterConsumerSecret: "your_api_key_here",
 ]
