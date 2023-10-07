@@ -1,4 +1,6 @@
-# BullKeeper Android App
+# 📱 BullKeeper Android App - Your Ultimate Digital Parenting Companion!
+
+Discover the BullKeeper Android App - the ultimate parental control tool dedicated to empowering you in managing your children's and adolescents' digital lifestyles. 🚀
 
 Parental control tool focused on the management of the digital lifestyle of children/adolescents whose objective is to identify potentially violent situations and create an ecosystem that facilitates early detection of various disorders derived from an inadequate or unreliable use of technology. information.
 
