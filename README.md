@@ -12,38 +12,37 @@ Welcome to BullKeeper! 🌟 I present to you a comprehensive parental control to
 
 ## 🚀 Key Features:
 
-Daily Habits Control: With this app, you can effortlessly set and monitor your child's daily habits. Manage permitted applications throughout the day and during leisure time to ensure a healthy balance between screen time and other essential activities.
+- **Daily Habits Control**: 📅📱 Effortlessly set and monitor your child's daily habits. Manage permitted applications throughout the day and during leisure time to ensure a healthy balance between screen time and other essential activities.
 
-Family Locator: Stay worry-free by tracking your child's exact location at all times. The Family Locator feature provides real-time updates, offering peace of mind and the ability to respond promptly in case of need.
+- **Family Locator**: 🗺️ Stay worry-free by tracking your child's exact location at all times. The Family Locator feature provides real-time updates, offering peace of mind and the ability to respond promptly in case of need.
 
-Social Media Comment Analysis: The app offer advanced tools to analyze your child's social media comments and content. Gain insights into their online interactions, helping you spot signs of violence, bullying, or emotional issues. Plus, we provide clear visualizations of the analysis results for informed decision-making.
+- **Social Media Comment Analysis**: 🕵️‍♂️📲 The app offers advanced tools to analyze your child's social media comments and content. Gain insights into their online interactions, helping you spot signs of violence, bullying, or emotional issues. Plus, we provide clear visualizations of the analysis results for informed decision-making.
 
-Instant Alerts and Notifications: Receive instant alerts when inappropriate or risky activity is detected. The app keeps you in the loop, allowing you to take timely action to protect your child.
+- **Instant Alerts and Notifications**: ⚠️ Receive instant alerts when inappropriate or risky activity is detected. The app keeps you in the loop, allowing you to take timely action to protect your child.
 
-Customizable Settings: Tailor the app to your specific needs. Create personalized rules, screen time limits, and content restrictions based on each child's age and individual requirements.
+- **Customizable Settings**: ⚙️ Tailor the app to your specific needs. Create personalized rules, screen time limits, and content restrictions based on each child's age and individual requirements.
 
-Comprehensive History and Reports: Access a complete history of your child's digital activity and generate detailed reports to assess their online behavior over time.
+- **Comprehensive History and Reports**: 📊 Access a complete history of your child's digital activity and generate detailed reports to assess their online behavior over time.
 
-The app empowers you as a parent or guardian, equipping you with the tools you need to guide your children toward responsible and safe technology use. Protect their emotional and physical well-being in today's ever-changing digital landscape with our market-leading parental control app.
+The app empowers you as a parent or guardian, equipping you with the tools you need to guide your children toward responsible and safe technology use.
 
-👨‍👩‍👧‍👦 For Peace of Mind: Your child's safety and well-being are our top priorities. Join us on this journey to ensure a secure and enjoyable digital experience for your entire family.
+👨‍👩‍👧‍👦 **For Peace of Mind**: Your child's safety and well-being are our top priorities. Join us on this journey to ensure a secure and enjoyable digital experience for your entire family.
 
 
 <img width="250px" align="left" src="./screenshots/imagen_1.png" />
 <img width="250px"  src="./screenshots/imagen_2.png" />
 
-It will allow to define daily habits, controlling the allowed applications in each moment and leisure time.
+My app provides you with the ability to establish and manage your child's daily routines with ease. By utilizing its features, you can meticulously curate their digital experiences by controlling permitted applications throughout the day, ensuring a healthy balance between productive activities and leisure time. With precision, you can dictate which applications are accessible during specific periods, empowering you to foster positive habits and responsible screen time management. Through thoughtful customization, you can tailor their digital environment to align with your family's values and priorities, ultimately nurturing a well-rounded and fulfilling lifestyle. 📱✨
 
 <img width="250px" align="left" src="./screenshots/imagen_3.png" />
 <img width="250px" src="./screenshots/imagen_4.png" />
 
-The family locator will allow to determine the exact location of the adolescent child at all times.
+📍 My family locator feature empowers you to pinpoint the precise whereabouts of your adolescent child at any given moment. With real-time tracking capabilities, you can rest assured knowing their location is always within reach, offering peace of mind and facilitating prompt responses to any situation. Whether it's ensuring their safe arrival at school or being aware of their whereabouts during outings, my family locator provides you with the reassurance you need to confidently navigate the challenges of parenthood.
 
 <img width="250px" align="left" src="./screenshots/imagen_5.png" />
 <img width="250px" src="./screenshots/imagen_6.png" />
 
-
-It allows a precise visualization of the results of the analyzes carried out for the comments extracted from each social media..
+🔍 My app allows for a precise visualization of the results obtained from the analyses conducted on the comments extracted from each social media platform. Through intuitive data visualization tools, you can gain deep insights into your child's online interactions, enabling you to identify potential issues such as violence, bullying, or emotional distress. By presenting the analysis results in a clear and comprehensive manner, we empower you to make informed decisions and take proactive steps to ensure your child's safety and well-being in the digital realm.
 
 <img width="250px" src="./screenshots/imagen_7.png" />
 
